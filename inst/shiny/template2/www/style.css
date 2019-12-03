@@ -1,0 +1,46 @@
+html, body, .container {
+  height: 100%;
+}
+
+.navbar-static-top {
+    z-index: 1500;
+}
+
+.container-fluid{
+  height: 100%;
+}
+
+.col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11 {
+  height: 100%
+}
+
+#map {
+  height: calc(100vh - 80px) !important;
+  max-height: 670px
+}
+
+#map1 {
+  height: calc(100vh - 80px) !important;
+  max-height: 670px;
+  margin: 1%;
+}
+
+#map2 {
+  height: calc(100vh - 80px) !important;
+  max-height: 670px;
+  margin: 1%;
+}
+
+#plot_desktop {
+  max-height: 670px;
+  max-width: 950px;
+}
+
+#plot_mobile {
+  max-width: 950px;
+}
+
+.shiny-output-error { visibility: hidden; }
+
+.shiny-output-error:before { visibility: hidden; }
+

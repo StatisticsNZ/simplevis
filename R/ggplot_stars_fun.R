@@ -108,6 +108,7 @@ theme_stars <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(stars)
 #' ggplot_stars(data = example_stars_nz_no3n, coastline = nz)
 ggplot_stars <- function(data,
                          pal = NULL,
@@ -229,6 +230,7 @@ ggplot_stars <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(stars)
 #' ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
 #'    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 ggplot_stars_col <- function(data,
@@ -453,7 +455,7 @@ ggplot_stars_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#'
+#' library(stars)
 #' map_data1 <- example_stars_nz_no3n %>%
 #'   rlang::set_names("nitrate_nitrogen")
 #'
@@ -614,6 +616,7 @@ ggplot_stars_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(stars)
 #' map_data1 <- example_stars_nz_no3n %>%
 #'   rlang::set_names("nitrate_nitrogen")
 #'

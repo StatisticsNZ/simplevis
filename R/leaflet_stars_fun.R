@@ -13,6 +13,7 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' library(stars)
 #' leaflet_stars(example_stars_nz_no3n)
 leaflet_stars <- function(data,
                           pal = NULL,
@@ -108,6 +109,7 @@ leaflet_stars <- function(data,
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' library(stars)
 #' leaflet_stars_col(example_stars_nz_no3n,
 #'    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 leaflet_stars_col <- function(data,
@@ -231,7 +233,7 @@ leaflet_stars_col <- function(data,
       )
     pal <- stringr::str_sub(pal, 1, 7)
     if (is.null(legend_labels))
-      labels <- numeric_legend_labels(bin_cuts, 2)
+      labels <- numeric_legend_labels(bin_cuts, legend_digits)
     else if (!is.null(legend_labels))
       labels <- legend_labels
   }

@@ -16,6 +16,7 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
@@ -229,6 +230,7 @@ leaflet_sf <- function(data,
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' library(sf)
 #' leaflet_sf_col(example_sf_nz_livestock, dairydens,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'

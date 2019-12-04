@@ -108,6 +108,7 @@ theme_sf <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
@@ -223,6 +224,7 @@ ggplot_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(sf)
 #' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
@@ -475,6 +477,7 @@ ggplot_sf_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
@@ -634,6 +637,7 @@ ggplot_sf_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'  dplyr::filter(period == "1998-2017",
 #'  indicator %in% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))

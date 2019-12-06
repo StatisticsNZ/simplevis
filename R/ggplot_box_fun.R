@@ -194,36 +194,44 @@ ggplot_box <- function(data,
   
   if (stat == "boxplot") {
     plot <- ggplot(data,
-                   aes(x = !!x_var,
-                       y = !!y_var))
+                 aes(x = !!x_var,
+                     y = !!y_var)) +
+      coord_cartesian(clip = "off") +
+      theme_box(
+        font_family = font_family,
+        font_size_body = font_size_body,
+        font_size_title = font_size_title
+      ) +
+      geom_boxplot(
+        stat = stat,
+        fill = pal[1],
+        width = 0.5,
+        alpha = 0.9
+      )
   }
   else if (stat == "identity") {
-    plot <- ggplot(
-      data,
-      aes(
-        x = !!x_var,
-        ymin = ymin,
-        lower = lower,
-        middle = middle,
-        upper = upper,
-        ymax = ymax
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme_box(
+        font_family = font_family,
+        font_size_body = font_size_body,
+        font_size_title = font_size_title
+      ) +
+      geom_boxplot(
+        aes(
+          x = !!x_var,
+          ymin = ymin,
+          lower = lower,
+          middle = middle,
+          upper = upper,
+          ymax = ymax
+        ),
+        stat = stat,
+        fill = pal[1],
+        width = 0.5,
+        alpha = 0.9
       )
-    )
   }
-  
-  plot <- plot +
-    coord_cartesian(clip = "off") +
-    theme_box(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
-    geom_boxplot(
-      stat = stat,
-      fill = pal[1],
-      width = 0.5,
-      alpha = 0.9
-    )
   
   if (y_scale_zero == FALSE){
     y_scale_min_breaks_extra <- min(y_var_vector)
@@ -381,23 +389,22 @@ ggplot_box_facet <-
     if (stat == "boxplot") {
       plot <- ggplot(data,
                      aes(x = !!x_var,
-                         y = !!y_var))
+                         y = !!y_var)) +
+          coord_cartesian(clip = "off") +
+          theme_box(
+            font_family = font_family,
+            font_size_body = font_size_body,
+            font_size_title = font_size_title
+          ) +
+          geom_boxplot(
+            stat = stat,
+            fill = pal[1],
+            width = 0.5,
+            alpha = 0.9
+          )
     }
     else if (stat == "identity") {
-      plot <- ggplot(
-        data,
-        aes(
-          x = !!x_var,
-          ymin = ymin,
-          lower = lower,
-          middle = middle,
-          upper = upper,
-          ymax = ymax
-        )
-      )
-    }
-    
-    plot <- plot +
+      plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_box(
         font_family = font_family,
@@ -405,12 +412,21 @@ ggplot_box_facet <-
         font_size_title = font_size_title
       ) +
       geom_boxplot(
+        aes(
+          x = !!x_var,
+          ymin = ymin,
+          lower = lower,
+          middle = middle,
+          upper = upper,
+          ymax = ymax
+        ),
         stat = stat,
         fill = pal[1],
         width = 0.5,
         alpha = 0.9
       )
-    
+    }
+
     if (facet_scales %in% c("fixed", "free_y")) {
       if (y_scale_zero == FALSE){
         y_scale_min_breaks_extra <- min(y_var_vector)

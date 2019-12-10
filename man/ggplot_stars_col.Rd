@@ -70,6 +70,7 @@ A ggplot object.
 Map of an array in ggplot that is coloured, but not facetted.
 }
 \examples{
+library(stars)
 ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
    title = "River modelled median nitrate-nitrogen concentrations in g/m\\u00b3, 2013\\u201317")
 }

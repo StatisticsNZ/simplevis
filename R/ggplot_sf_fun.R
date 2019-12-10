@@ -1,7 +1,7 @@
 # ggplot sf functions
 
 #' @title Theme for ggplot maps of simple features.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot theme.
@@ -11,7 +11,7 @@
 #'   theme_sf("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
 theme_sf <-
-  function(font_family = "Helvetica",
+  function(font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10) {
     list(
@@ -98,7 +98,7 @@ theme_sf <-
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -121,7 +121,7 @@ ggplot_sf <- function(data,
                       title = "[Title]",
                       subtitle = NULL,
                       caption = "",
-                      font_family = "Helvetica",
+                      font_family = "Arial",
                       font_size_title = 11,
                       font_size_body = 10,
                       wrap_title = 75,
@@ -213,7 +213,7 @@ ggplot_sf <- function(data,
 #' @param caption Caption title string. Defaults to NULL.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -262,7 +262,7 @@ ggplot_sf_col <- function(data,
                           col_title = "",
                           caption = "",
                           legend_labels = NULL,
-                          font_family = "Helvetica",
+                          font_family = "Arial",
                           font_size_title = 11,
                           font_size_body = 10,
                           wrap_title = 75,
@@ -467,7 +467,7 @@ ggplot_sf_col <- function(data,
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -495,7 +495,7 @@ ggplot_sf_facet <- function(data,
                             title = "[Title]",
                             subtitle = NULL,
                             caption = "",
-                            font_family = "Helvetica",
+                            font_family = "Arial",
                             font_size_title = 11,
                             font_size_body = 10,
                             wrap_title = 75,
@@ -626,7 +626,7 @@ ggplot_sf_facet <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -669,7 +669,7 @@ ggplot_sf_col_facet <- function(data,
                                 col_title = "",
                                 caption = "",
                                 legend_labels = NULL,
-                                font_family = "Helvetica",
+                                font_family = "Arial",
                                 font_size_title = 11,
                                 font_size_body = 10,
                                 wrap_title = 75,

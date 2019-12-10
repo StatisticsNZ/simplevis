@@ -44,6 +44,7 @@ A leaflet object.
 Map of an array in leaflet that is coloured.
 }
 \examples{
+library(stars)
 leaflet_stars_col(example_stars_nz_no3n,
    title = "River modelled median nitrate-nitrogen concentrations in g/m\\u00b3, 2013\\u201317")
 }

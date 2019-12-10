@@ -1,7 +1,7 @@
 # ggplot hbar functions
 
 #' @title Theme for horizontal bar ggplots.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot theme.
@@ -11,7 +11,7 @@
 #'   theme_hbar("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
 theme_hbar <-
-  function(font_family = "Helvetica",
+  function(font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10) {
     list(
@@ -109,7 +109,7 @@ theme_hbar <-
   }
 
 #' @title Theme mobile adjustment for horizontal bar ggplots.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot theme.
@@ -119,7 +119,7 @@ theme_hbar <-
 #' theme_hbar("Courier", 9, 7) +
 #' theme_hbar_mobile_adj("Courier", 9, 7)
 theme_hbar_mobile_adj <-
-  function(font_family = "Helvetica",
+  function(font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10) {
     list(theme(
@@ -155,7 +155,7 @@ theme_hbar_mobile_adj <-
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -208,7 +208,7 @@ ggplot_hbar <- function(data,
                         x_title = "[X title]",
                         y_title = "[Y title]",
                         caption = "",
-                        font_family = "Helvetica",
+                        font_family = "Arial",
                         font_size_title = 11,
                         font_size_body = 10,
                         wrap_title = 75,
@@ -392,7 +392,7 @@ ggplot_hbar <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -440,7 +440,7 @@ ggplot_hbar_col <-
            col_title = "",
            caption = "",
            legend_labels = NULL,
-           font_family = "Helvetica",
+           font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10,
            wrap_title = 75,
@@ -737,7 +737,7 @@ ggplot_hbar_facet <-
            x_title = "[X title]",
            y_title = "[Y title]",
            caption = "",
-           font_family = "Helvetica",
+           font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10,
            wrap_title = 75,
@@ -956,7 +956,7 @@ ggplot_hbar_facet <-
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -1007,7 +1007,7 @@ ggplot_hbar_col_facet <-
            col_title = "",
            caption = "",
            legend_labels = NULL,
-           font_family = "Helvetica",
+           font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10,
            wrap_title = 75,

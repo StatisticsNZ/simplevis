@@ -75,6 +75,7 @@ A ggplot object.
 Map of an array in ggplot that is coloured and facetted.
 }
 \examples{
+library(stars)
 map_data1 <- example_stars_nz_no3n \%>\%
   rlang::set_names("nitrate_nitrogen")
 

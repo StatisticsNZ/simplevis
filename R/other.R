@@ -140,3 +140,27 @@ a4_width_mm <- 170
 #' @export
 a4_height_mm <- 257
 
+#' @title A4 useable height.
+#' @description The height of useable space within an a4 sheet.
+#' @return A numeric value.
+#' @export
+a4_height_mm <- 257
+
+#' @title Convert column names to sentence case
+#' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.
+#' @param data The number of digits to round the legend labels.
+
+#' @return A numeric value.
+#' @export
+sentence_colnames <- function(data) {
+  data %>% 
+    janitor::clean_names() %>% 
+    rlang::set_names(
+      stringr::str_replace_all(
+        stringr::str_to_sentence(colnames(.)), 
+        "_", " ")
+    )  
+}
+
+
+

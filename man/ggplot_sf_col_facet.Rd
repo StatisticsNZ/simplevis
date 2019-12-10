@@ -88,6 +88,7 @@ A ggplot object.
 Map of simple features in ggplot that is coloured and facetted.
 }
 \examples{
+library(sf)
 map_data <- example_sf_nz_river_wq \%>\%
  dplyr::filter(period == "1998-2017",
  indicator \%in\% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))

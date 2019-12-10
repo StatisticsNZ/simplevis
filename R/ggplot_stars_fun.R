@@ -1,7 +1,7 @@
 # ggplot stars functions
 
 #' @title Theme for ggplot maps of arrays.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot theme.
@@ -11,7 +11,7 @@
 #'   theme_stars("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
 theme_stars <-
-  function(font_family = "Helvetica",
+  function(font_family = "Arial",
            font_size_title = 11,
            font_size_body = 10) {
     list(
@@ -98,7 +98,7 @@ theme_stars <-
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -118,7 +118,7 @@ ggplot_stars <- function(data,
                          title = "[Title]",
                          subtitle = NULL,
                          caption = "",
-                         font_family = "Helvetica",
+                         font_family = "Arial",
                          font_size_title = 11,
                          font_size_body = 10,
                          wrap_title = 75,
@@ -219,7 +219,7 @@ ggplot_stars <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -249,7 +249,7 @@ ggplot_stars_col <- function(data,
                              col_title = "",
                              caption = "",
                              legend_labels = NULL,
-                             font_family = "Helvetica",
+                             font_family = "Arial",
                              font_size_title = 11,
                              font_size_body = 10,
                              wrap_title = 75,
@@ -445,7 +445,7 @@ ggplot_stars_col <- function(data,
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -474,7 +474,7 @@ ggplot_stars_facet <- function(data,
                                title = "[Title]",
                                subtitle = NULL,
                                caption = "",
-                               font_family = "Helvetica",
+                               font_family = "Arial",
                                font_size_title = 11,
                                font_size_body = 10,
                                wrap_title = 75,
@@ -605,7 +605,7 @@ ggplot_stars_facet <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "Arial".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -645,7 +645,7 @@ ggplot_stars_col_facet <- function(data,
                                    col_title = "",
                                    caption = "",
                                    legend_labels = NULL,
-                                   font_family = "Helvetica",
+                                   font_family = "Arial",
                                    font_size_title = 11,
                                    font_size_body = 10,
                                    wrap_title = 75,

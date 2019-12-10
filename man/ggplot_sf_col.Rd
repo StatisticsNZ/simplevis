@@ -81,6 +81,7 @@ A ggplot object.
 Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
+library(sf)
 ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
      title = "Dairy density in count per km\\u00b2, 2017")
 

@@ -4,14 +4,18 @@
 \alias{leaflet_sf}
 \title{Map of simple features in leaflet.}
 \usage{
-leaflet_sf(data, pal = NULL, radius = 1, weight = 2, opacity = 0.1,
-  stroke = T, title = "[Title]", legend_labels = "[Feature]",
-  shiny = F, basemap = "light", map_id = "map")
+leaflet_sf(data, pal = NULL,
+  popup = leafpop::popupTable(sentence_colnames(data)), radius = 1,
+  weight = 2, opacity = 0.1, stroke = T, title = "[Title]",
+  legend_labels = "[Feature]", shiny = F, basemap = "light",
+  map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+
+\item{popup}{HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
 
 \item{radius}{Radius of points. Defaults to 1.}
 
@@ -38,6 +42,7 @@ A leaflet object.
 Map of simple features in leaflet that is not coloured.
 }
 \examples{
+library(sf)
 map_data <- example_sf_nz_river_wq \%>\%
   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 

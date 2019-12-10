@@ -57,6 +57,7 @@ A ggplot object.
 Map of simple features in ggplot that is facetted, but not coloured.
 }
 \examples{
+library(sf)
 map_data <- example_sf_nz_river_wq \%>\%
  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 

@@ -6,10 +6,11 @@
 \usage{
 leaflet_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
   quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), pal = NULL, rev_pal = F,
-  col_scale_drop = F, radius = 1, weight = 2, opacity = 0.9,
-  stroke = T, remove_na = F, legend_digits = 1, title = "[Title]",
-  legend_labels = NULL, basemap = "light", shiny = F,
-  map_id = "map")
+  col_scale_drop = F,
+  popup = leafpop::popupTable(sentence_colnames(data)), radius = 1,
+  weight = 2, opacity = 0.9, stroke = T, remove_na = F,
+  title = "[Title]", legend_digits = 1, legend_labels = NULL,
+  basemap = "light", shiny = F, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -28,6 +29,8 @@ leaflet_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to F.}
 
+\item{popup}{HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
+
 \item{radius}{Radius of points. Defaults to 1.}
 
 \item{weight}{Stroke border size. Defaults to 2.}
@@ -38,9 +41,9 @@ leaflet_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{remove_na}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to F.}
 
-\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
-
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
+
+\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
@@ -57,6 +60,7 @@ A leaflet object.
 Map of simple features in leaflet that is coloured.
 }
 \examples{
+library(sf)
 leaflet_sf_col(example_sf_nz_livestock, dairydens,
      title = "Dairy density in count per km\\u00b2, 2017")
 

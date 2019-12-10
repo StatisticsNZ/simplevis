@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple Visualisation with Ggplot2 and Leaflet Wrappers
-Version: 1.3.0
+Version: 1.4.0
 Authors@R: c(
     person(given = "David",
            family = "Hodge",
@@ -19,7 +19,7 @@ URL: https://StatisticsNZ.github.io/simplevis,
 BugReports: https://github.com/StatisticsNZ/simplevis/issues
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.5.0), ggplot2 (>= 3.0.0), leaflet (>= 2.0.0)
+Depends: R (>= 3.5.0), ggplot2 (>= 3.0.0), leaflet (>= 2.0.0), leafpop, janitor
 Imports: dplyr, DT, forcats, leaflet.extras, lubridate, methods,
         plotly, readr, rgdal, rmarkdown, scales, rlang, shiny,
         shinycssloaders, stats, stringr, tibble, tidyr, viridis, sf,

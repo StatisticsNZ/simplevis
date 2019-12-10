@@ -4,6 +4,7 @@
 #' @description Map of simple features in leaflet that is not coloured.
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
 #' @param radius Radius of points. Defaults to 1.
 #' @param weight Stroke border size. Defaults to 2.
 #' @param opacity The opacity of the fill. Defaults to 0.1. Only applicable to polygons.
@@ -23,6 +24,7 @@
 #' leaflet_sf(map_data)
 leaflet_sf <- function(data,
                        pal = NULL,
+                       popup = leafpop::popupTable(sentence_colnames(data)),
                        radius = 1,
                        weight = 2,
                        opacity = 0.1,
@@ -44,164 +46,142 @@ leaflet_sf <- function(data,
   if (is.null(pal))
     pal <- pal_snz
   
+  legend_id <- paste0(map_id, "_legend")
+  
+  if (shiny == FALSE) {
+    
+    if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
+    else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
+    else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
+    else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
+    else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
+    else basemap_name <- "CartoDB.PositronNoLabels"
+  }
+  
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
+    
     if (shiny == FALSE) {
       
-      if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
-      else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
-      else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
-      else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
-      else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
-      else basemap_name <- "CartoDB.PositronNoLabels"
-      
-      leaflet() %>%
+      map <- leaflet() %>%
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data,
+          popup = popup,
           color = pal[1],
           radius = radius,
           stroke = stroke,
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          colors = pal[1],
-          labels = legend_labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
     else if (shiny == TRUE) {
-      legend_id <- paste0(map_id, "_legend")
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
-      # map_id_zoom <- paste0(map_id, "_zoom")
-      # radius <- ifelse(map_id_zoom < 7, 2, ifelse(input[[map_id_zoom]] < 9, 3, ifelse(input[[map_id_zoom]] < 11, 4, 5)))
       
-      leafletProxy(map_id) %>%
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      
+      map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data,
+          popup = popup,
           color = pal[1],
           radius = radius,
           stroke = stroke,
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          layerId = legend_id,
-          colors = pal[1],
-          labels = legend_labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
+    
+    map %>% 
+      addLegend(
+        layerId = legend_id,
+        colors = pal[1],
+        labels = legend_labels,
+        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = 1,
+        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+      )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+    
     if (shiny == FALSE) {
-      if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
-      else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
-      else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
-      else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
-      else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
-      else basemap_name <- "CartoDB.PositronNoLabels"
       
-      leaflet() %>%
+      map <- leaflet() %>%
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data,
+          popup = popup,
           color = pal[1],
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          colors = pal[1],
-          labels = legend_labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
     else if (shiny == TRUE) {
-      legend_id <- paste0(map_id, "_legend")
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
-      # map_id_zoom <- paste0(map_id, "_zoom")
-      # radius <- ifelse(input[[map_id_zoom]] < 7, 2, ifelse(input[[map_id_zoom]] < 9, 3, ifelse(input[[map_id_zoom]] < 11, 4, 5)))
       
-      leafletProxy(map_id) %>%
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      
+      map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data,
+          popup = popup,
           color = pal[1],
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          layerId = legend_id,
-          colors = pal[1],
-          labels = legend_labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
+    
+    map %>% 
+      addLegend(
+        layerId = legend_id,
+        colors = pal[1],
+        labels = legend_labels,
+        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = 1,
+        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+      )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    
     if (shiny == FALSE) {
-      if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
-      else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
-      else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
-      else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
-      else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
-      else basemap_name <- "CartoDB.PositronNoLabels"
       
-      leaflet() %>%
+      map <- leaflet() %>%
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data,
+          popup = popup,
           color = pal[1],
           fillOpacity = opacity, opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          colors = pal[1],
-          labels = legend_labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = opacity,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
     else if (shiny == TRUE) {
-      legend_id <- paste0(map_id, "_legend")
       leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
-      # map_id_zoom <- paste0(map_id, "_zoom")
-      # radius <- ifelse(input[[map_id_zoom]] < 7, 2, ifelse(input[[map_id_zoom]] < 9, 3, ifelse(input[[map_id_zoom]] < 11, 4, 5)))
       
-      leafletProxy(map_id) %>%
+      map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data,
+          popup = popup,
           color = pal[1],
           fillOpacity = opacity, opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          layerId = legend_id,
-          colors = pal[1],
-          labels = legend_labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = opacity,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
         )
     }
+    
+    map %>% 
+      addLegend(
+        layerId = legend_id,
+        colors = pal[1],
+        labels = legend_labels,
+        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = opacity,
+        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+      )
+    
   }
   
 }
@@ -216,6 +196,7 @@ leaflet_sf <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param rev_pal Reverses the palette. Defaults to F.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to F.
+#' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
 #' @param radius Radius of points. Defaults to 1.
 #' @param weight Stroke border size. Defaults to 2.
 #' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to T.
@@ -255,13 +236,14 @@ leaflet_sf_col <- function(data,
                            pal = NULL,
                            rev_pal = F,
                            col_scale_drop = F,
+                           popup = leafpop::popupTable(sentence_colnames(data)),
                            radius = 1,
                            weight = 2,
                            opacity = 0.9,
                            stroke = T,
                            remove_na = F,
-                           legend_digits = 1,
                            title = "[Title]",
+                           legend_digits = 1,
                            legend_labels = NULL,
                            basemap = "light",
                            shiny = F,
@@ -392,170 +374,142 @@ leaflet_sf_col <- function(data,
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
+  legend_id <- paste0(map_id, "_legend")
+  
+  if (shiny == FALSE) {
+    
+    if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
+    else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
+    else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
+    else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
+    else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
+    else basemap_name <- "CartoDB.PositronNoLabels"
+  }
+  
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (shiny == FALSE) {
       
-      if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
-      else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
-      else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
-      else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
-      else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
-      else basemap_name <- "CartoDB.PositronNoLabels"
-      
-      leaflet() %>%
+      map <- leaflet() %>%
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data,
           color = ~ pal_fun(col_var_vector),
           label = ~ as.character(col_var_vector),
+          popup = popup,
           radius = radius,
           stroke = stroke,
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          colors = pal,
-          labels = labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
         )
     }
     else if (shiny == TRUE) {
-      legend_id <- paste0(map_id, "_legend")
       leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
-      # map_id_zoom <- paste0(map_id, "_zoom")
-      # radius <- ifelse(input[[map_id_zoom]] < 7, 2, ifelse(input[[map_id_zoom]] < 9, 3, ifelse(input[[map_id_zoom]] < 11, 4, 5)))
       
-      leafletProxy(map_id) %>%
+      map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data,
           color = ~ pal_fun(col_var_vector),
           label = ~ as.character(col_var_vector),
+          popup = popup,
           radius = radius,
           stroke = stroke,
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          layerId = legend_id,
-          colors = pal,
-          labels = labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
+    
+    map %>% 
+      addLegend(
+        layerId = legend_id,
+        colors = pal,
+        labels = labels,
+        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = 1,
+        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+      )
+    
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     if (shiny == FALSE) {
       
-      if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
-      else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
-      else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
-      else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
-      else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
-      else basemap_name <- "CartoDB.PositronNoLabels"
-      
-      leaflet() %>%
+      map <- leaflet() %>%
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data,
           color = ~ pal_fun(col_var_vector),
+          popup = popup,
           label = ~ as.character(col_var_vector),
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          colors = pal,
-          labels = labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
     else if (shiny == TRUE) {
-      legend_id <- paste0(map_id, "_legend")
       leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
-      # map_id_zoom <- paste0(map_id, "_zoom")
-      # radius <- ifelse(input[[map_id_zoom]] < 7, 2, ifelse(input[[map_id_zoom]] < 9, 3, ifelse(input[[map_id_zoom]] < 11, 4, 5)))
       
-      leafletProxy(map_id) %>%
+      map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data,
           color = ~ pal_fun(col_var_vector),
+          popup = popup,
           label = ~ as.character(col_var_vector),
           fillOpacity = 1,
           opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          layerId = legend_id,
-          colors = pal,
-          labels = labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = 1,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
+    
+    map %>% 
+      addLegend(
+        layerId = legend_id,
+        colors = pal,
+        labels = labels,
+        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = 1,
+        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+      )
+    
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     if (shiny == FALSE) {
-      if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
-      else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
-      else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
-      else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
-      else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
-      else basemap_name <- "CartoDB.PositronNoLabels"
-      
-      leaflet() %>%
+      map <- leaflet() %>%
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data,
           color = ~ pal_fun(col_var_vector),
+          popup = popup,
           label = ~ as.character(col_var_vector),
           fillOpacity = opacity, opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          colors = pal,
-          labels = labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = opacity,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
     else if (shiny == TRUE) {
-      legend_id <- paste0(map_id, "_legend")
       leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
-      # map_id_zoom <- paste0(map_id, "_zoom")
-      # radius <- ifelse(input[[map_id_zoom]] < 7, 2, ifelse(input[[map_id_zoom]] < 9, 3, ifelse(input[[map_id_zoom]] < 11, 4, 5)))
       
-      leafletProxy(map_id) %>%
+      map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data,
           color = ~ pal_fun(col_var_vector),
+          popup = popup,
           label = ~ as.character(col_var_vector),
           fillOpacity = opacity, opacity = 1,
           weight = weight
-        ) %>%
-        addLegend(
-          layerId = legend_id,
-          colors = pal,
-          labels = labels,
-          title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-          position = "bottomright",
-          opacity = opacity,
-          labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
-        )
+        ) 
     }
+    
+    map %>% 
+      addLegend(
+        layerId = legend_id,
+        colors = pal,
+        labels = labels,
+        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = opacity,
+        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+      )
   }
 }

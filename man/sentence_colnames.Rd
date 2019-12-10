@@ -2,7 +2,7 @@
 % Please edit documentation in R/other.R
 \name{sentence_colnames}
 \alias{sentence_colnames}
-\title{Convert colnames to sentence case}
+\title{Convert column names to sentence case}
 \usage{
 sentence_colnames(data)
 }

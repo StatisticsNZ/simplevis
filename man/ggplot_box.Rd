@@ -7,7 +7,7 @@
 ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
   y_scale_zero = TRUE, y_scale_trans = "identity", pal = NULL,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = "", font_family = "Helvetica",
+  y_title = "[Y title]", caption = "", font_family = "Arial",
   font_size_title = 11, font_size_body = 10, wrap_title = 75,
   wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
   wrap_caption = 80, isMobile = FALSE)
@@ -37,7 +37,7 @@ ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "Arial".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

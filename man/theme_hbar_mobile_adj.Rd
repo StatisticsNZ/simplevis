@@ -4,11 +4,11 @@
 \alias{theme_hbar_mobile_adj}
 \title{Theme mobile adjustment for horizontal bar ggplots.}
 \usage{
-theme_hbar_mobile_adj(font_family = "Helvetica", font_size_title = 11,
+theme_hbar_mobile_adj(font_family = "Arial", font_size_title = 11,
   font_size_body = 10)
 }
 \arguments{
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "Arial".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

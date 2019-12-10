@@ -4,11 +4,11 @@
 \alias{theme_box}
 \title{Theme for vertical box ggplots.}
 \usage{
-theme_box(font_family = "Helvetica", font_size_title = 11,
+theme_box(font_family = "Arial", font_size_title = 11,
   font_size_body = 10)
 }
 \arguments{
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "Arial".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

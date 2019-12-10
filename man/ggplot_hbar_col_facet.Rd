@@ -10,7 +10,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   position = "stack", facet_scales = "fixed", facet_nrow = NULL,
   pal = NULL, legend_ncol = 3, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", col_title = "",
-  caption = "", legend_labels = NULL, font_family = "Helvetica",
+  caption = "", legend_labels = NULL, font_family = "Arial",
   font_size_title = 11, font_size_body = 10, wrap_title = 75,
   wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
   wrap_y_label = 50, wrap_col_title = 25, wrap_caption = 80,
@@ -63,7 +63,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "Arial".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

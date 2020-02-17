@@ -54,7 +54,7 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 A ggplot object.
 }
 \description{
-Map of simple features in ggplot that is facetted, but not coloured.
+Map of simple features in ggplot that is facetted, but not coloured. Note the sf library must be loaded for this to work.
 }
 \examples{
 library(sf)

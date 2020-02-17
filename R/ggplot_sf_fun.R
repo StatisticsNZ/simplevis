@@ -18,14 +18,14 @@ theme_sf <-
       theme(
         plot.title = element_text(
           family = font_family,
-          colour = "#323232",
+          colour = "#000000",
           size = font_size_title,
           face = "bold",
           hjust = 0.5
         ),
         plot.subtitle = element_text(
           family = font_family,
-          colour = "#323232",
+          colour = "#000000",
           size = font_size_body,
           face = "plain",
           hjust = 0.5
@@ -89,7 +89,7 @@ theme_sf <-
   }
 
 #' @title Map of simple features in ggplot.
-#' @description Map of simple features in ggplot that is not coloured and not facetted.
+#' @description Map of simple features in ggplot that is not coloured and not facetted. Note the sf library must be loaded for this to work.
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param size Size of points. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
@@ -147,7 +147,7 @@ ggplot_sf <- function(data,
     plot <- plot +
       geom_sf(
         data = coastline,
-        size = 0.25,
+        size = 0.2,
         colour = "#7f7f7f",
         fill = "transparent"
       )
@@ -191,7 +191,7 @@ ggplot_sf <- function(data,
 }
 
 #' @title Map of simple features in ggplot that is coloured.
-#' @description Map of simple features in ggplot that is coloured, but not facetted.
+#' @description Map of simple features in ggplot that is coloured, but not facetted. Note the sf library must be loaded for this to work.
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or bin if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
@@ -295,7 +295,7 @@ ggplot_sf_col <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -422,7 +422,7 @@ ggplot_sf_col <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -454,7 +454,7 @@ ggplot_sf_col <- function(data,
 }
 
 #' @title Map of simple features in ggplot that is facetted.
-#' @description Map of simple features in ggplot that is facetted, but not coloured.
+#' @description Map of simple features in ggplot that is facetted, but not coloured. Note the sf library must be loaded for this to work.
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param size Size of points. Defaults to 0.5.
@@ -529,7 +529,7 @@ ggplot_sf_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -564,7 +564,7 @@ ggplot_sf_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -601,7 +601,7 @@ ggplot_sf_facet <- function(data,
 }
 
 #' @title Map of simple features in ggplot that is coloured and facetted.
-#' @description Map of simple features in ggplot that is coloured and facetted.
+#' @description Map of simple features in ggplot that is coloured and facetted. Note the sf library must be loaded for this to work.
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -706,7 +706,7 @@ ggplot_sf_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -856,7 +856,7 @@ ggplot_sf_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )

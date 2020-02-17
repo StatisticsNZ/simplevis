@@ -85,7 +85,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 A ggplot object.
 }
 \description{
-Map of simple features in ggplot that is coloured and facetted.
+Map of simple features in ggplot that is coloured and facetted. Note the sf library must be loaded for this to work.
 }
 \examples{
 library(sf)

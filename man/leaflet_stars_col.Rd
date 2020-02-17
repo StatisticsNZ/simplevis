@@ -41,7 +41,7 @@ leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 A leaflet object.
 }
 \description{
-Map of an array in leaflet that is coloured.
+Map of an array in leaflet that is coloured. Note the stars library must be loaded for this to work.
 }
 \examples{
 library(stars)

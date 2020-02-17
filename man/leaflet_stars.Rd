@@ -29,7 +29,7 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
 A leaflet object.
 }
 \description{
-Map of an array in leaflet.
+Map of an array in leaflet. Note the stars library must be loaded for this to work.
 }
 \examples{
 library(stars)

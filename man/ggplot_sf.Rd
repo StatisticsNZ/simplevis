@@ -45,7 +45,7 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 A ggplot object.
 }
 \description{
-Map of simple features in ggplot that is not coloured and not facetted.
+Map of simple features in ggplot that is not coloured and not facetted. Note the sf library must be loaded for this to work.
 }
 \examples{
 library(sf)

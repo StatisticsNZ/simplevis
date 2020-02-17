@@ -78,7 +78,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 A ggplot object.
 }
 \description{
-Map of simple features in ggplot that is coloured, but not facetted.
+Map of simple features in ggplot that is coloured, but not facetted. Note the sf library must be loaded for this to work.
 }
 \examples{
 library(sf)

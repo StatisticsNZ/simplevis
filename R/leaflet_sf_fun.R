@@ -1,7 +1,7 @@
 # leaflet sf functions
 
 #' @title Map of simple features in leaflet.
-#' @description Map of simple features in leaflet that is not coloured.
+#' @description Map of simple features in leaflet that is not coloured. Note the sf library must be loaded for this to work.
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
@@ -187,7 +187,7 @@ leaflet_sf <- function(data,
 }
 
 #' @title Map of simple features in leaflet that is coloured.
-#' @description Map of simple features in leaflet that is coloured.
+#' @description Map of simple features in leaflet that is coloured. Note the sf library must be loaded for this to work.
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param col_var Unquoted variable to colour the features by. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).

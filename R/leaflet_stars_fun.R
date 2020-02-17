@@ -1,7 +1,7 @@
 # leaflet stars functions
 
 #' @title Map of an array in leaflet.
-#' @description Map of an array in leaflet.
+#' @description Map of an array in leaflet. Note the stars library must be loaded for this to work.
 #' @param data A stars object with dimensions x and y with crs in wgs84 (epsg4326). Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.1.
@@ -92,7 +92,7 @@ leaflet_stars <- function(data,
 }
 
 #' @title Map of an array in leaflet that is coloured.
-#' @description Map of an array in leaflet that is coloured.
+#' @description Map of an array in leaflet that is coloured. Note the stars library must be loaded for this to work.
 #' @param data A stars object with dimensions x and y, and 1 attribute layer with crs in wgs84 (epsg4326). Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".

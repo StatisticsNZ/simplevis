@@ -39,7 +39,7 @@ leaflet_sf(data, pal = NULL,
 A leaflet object.
 }
 \description{
-Map of simple features in leaflet that is not coloured.
+Map of simple features in leaflet that is not coloured. Note the sf library must be loaded for this to work.
 }
 \examples{
 library(sf)

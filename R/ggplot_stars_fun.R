@@ -18,14 +18,14 @@ theme_stars <-
       theme(
         plot.title = element_text(
           family = font_family,
-          colour = "#323232",
+          colour = "#000000",
           size = font_size_title,
           face = "bold",
           hjust = 0.5
         ),
         plot.subtitle = element_text(
           family = font_family,
-          colour = "#323232",
+          colour = "#000000",
           size = font_size_body,
           face = "plain",
           hjust = 0.5
@@ -89,7 +89,7 @@ theme_stars <-
   }
 
 #' @title Map of an array in ggplot.
-#' @description Map of an array in ggplot that is not coloured and not facetted.
+#' @description Map of an array in ggplot that is not coloured and not facetted. Note the stars library must be loaded for this to work.
 #' @param data A stars object with 2 dimensions x and y. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
@@ -144,7 +144,7 @@ ggplot_stars <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -174,7 +174,7 @@ ggplot_stars <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -202,7 +202,7 @@ ggplot_stars <- function(data,
 }
 
 #' @title Map of an array in ggplot that is coloured.
-#' @description Map of an array in ggplot that is coloured, but not facetted.
+#' @description Map of an array in ggplot that is coloured, but not facetted. Note the stars library must be loaded for this to work.
 #' @param data A stars object with 2 dimensions x and y, and 1 attribute layer. Required input.
 #' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to 0-0.05, 0.05-0.25, 0.25-0.5, 0.5-0.75, 0.75-0.95, and 0.95-1. Only applicable where col_method equals "quantile".
@@ -279,7 +279,7 @@ ggplot_stars_col <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -405,7 +405,7 @@ ggplot_stars_col <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -435,7 +435,7 @@ ggplot_stars_col <- function(data,
 }
 
 #' @title Map of an array in ggplot that is facetted.
-#' @description Map of an array in ggplot that is facetted, but not coloured.
+#' @description Map of an array in ggplot that is facetted, but not coloured. Note the stars library must be loaded for this to work.
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
@@ -500,7 +500,7 @@ ggplot_stars_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -533,7 +533,7 @@ ggplot_stars_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -586,7 +586,7 @@ ggplot_stars_facet <- function(data,
 }
 
 #' @title Map of an array in ggplot that is coloured and facetted.
-#' @description Map of an array in ggplot that is coloured and facetted.
+#' @description Map of an array in ggplot that is coloured and facetted. Note the stars library must be loaded for this to work.
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to 0-0.05, 0.05-0.25, 0.25-0.5, 0.5-0.75, 0.75-0.95, and 0.95-1. Only applicable where col_method equals "quantile".
@@ -672,7 +672,7 @@ ggplot_stars_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )
@@ -847,7 +847,7 @@ ggplot_stars_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = coastline,
-          size = 0.25,
+          size = 0.2,
           colour = coastline_pal,
           fill = "transparent"
         )

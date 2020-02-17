@@ -7,9 +7,9 @@
 ggplot_stars(data, pal = NULL, coastline = NULL,
   coastline_behind = FALSE, coastline_pal = "black",
   title = "[Title]", subtitle = NULL, caption = "",
-  font_family = "Arial", font_size_title = 11, font_size_body = 10,
-  wrap_title = 75, wrap_subtitle = 80, wrap_caption = 80,
-  isMobile = FALSE)
+  font_family = "Helvetica", font_size_title = 11,
+  font_size_body = 10, wrap_title = 75, wrap_subtitle = 80,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions x and y. Required input.}
@@ -28,7 +28,7 @@ ggplot_stars(data, pal = NULL, coastline = NULL,
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{font_family}{Font family to use. Defaults to "Arial".}
+\item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

@@ -8,7 +8,7 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
   stat = "boxplot", y_scale_zero = TRUE, y_scale_trans = "identity",
   facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = "", font_family = "Arial",
+  y_title = "[Y title]", caption = "", font_family = "Helvetica",
   font_size_title = 11, font_size_body = 10, wrap_title = 75,
   wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
   wrap_caption = 80, isMobile = FALSE)
@@ -44,7 +44,7 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{font_family}{Font family to use. Defaults to "Arial".}
+\item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

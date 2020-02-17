@@ -1,7 +1,7 @@
 # ggplot line functions
 
 #' @title Theme for line ggplots.
-#' @param font_family Font family to use. Defaults to "Arial".
+#' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot theme.
@@ -11,7 +11,7 @@
 #'   theme_line("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
 theme_line <-
-  function(font_family = "Arial",
+  function(font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10) {
     list(
@@ -125,7 +125,7 @@ theme_line <-
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Arial".
+#' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -165,7 +165,7 @@ ggplot_line <- function(data,
                         x_title = "[X title]",
                         y_title = "[Y title]",
                         caption = "",
-                        font_family = "Arial",
+                        font_family = "Helvetica",
                         font_size_title = 11,
                         font_size_body = 10,
                         wrap_title = 75,
@@ -247,12 +247,12 @@ ggplot_line <- function(data,
   }
   
   x_scale_breaks <- pretty(x_var_vector)
-  x_scale_min <- min(x_var_vector)
-  x_scale_max <- max(x_var_vector)
+  x_scale_min <- min(x_var_vector, na.rm = TRUE)
+  x_scale_max <- max(x_var_vector, na.rm = TRUE)
   x_scale_limits <- c(x_scale_min, x_scale_max)
   
   if (y_scale_zero == FALSE) {
-    y_scale_min_breaks_extra <- min(y_var_vector)
+    y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
     if (y_scale_min_breaks_extra > 0)
       y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
     if (y_scale_min_breaks_extra < 0)
@@ -347,7 +347,7 @@ ggplot_line <- function(data,
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param x_scale_date_format Date format for x axis labels.
-#' @param font_family Font family to use. Defaults to "Arial".
+#' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -393,7 +393,7 @@ ggplot_line_col <-
            col_title = "",
            caption = "",
            legend_labels = NULL,
-           font_family = "Arial",
+           font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10,
            wrap_title = 75,
@@ -505,12 +505,12 @@ ggplot_line_col <-
       labels <- waiver()
     
     x_scale_breaks <- pretty(x_var_vector)
-    x_scale_min <- min(x_var_vector)
-    x_scale_max <- max(x_var_vector)
+    x_scale_min <- min(x_var_vector, na.rm = TRUE)
+    x_scale_max <- max(x_var_vector, na.rm = TRUE)
     x_scale_limits <- c(x_scale_min, x_scale_max)
     
     if (y_scale_zero == FALSE) {
-      y_scale_min_breaks_extra <- min(y_var_vector)
+      y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
       if (y_scale_min_breaks_extra > 0)
         y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
       if (y_scale_min_breaks_extra < 0)
@@ -610,7 +610,7 @@ ggplot_line_col <-
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param font_family Font family to use. Defaults to "Arial".
+#' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -652,7 +652,7 @@ ggplot_line_facet <-
            x_title = "[X title]",
            y_title = "[Y title]",
            caption = "",
-           font_family = "Arial",
+           font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10,
            wrap_title = 75,
@@ -751,8 +751,8 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       x_scale_breaks <- pretty(x_var_vector)
-      x_scale_min <- min(x_var_vector)
-      x_scale_max <- max(x_var_vector)
+      x_scale_min <- min(x_var_vector, na.rm = TRUE)
+      x_scale_max <- max(x_var_vector, na.rm = TRUE)
       x_scale_limits <- c(x_scale_min, x_scale_max)
       
       if (lubridate::is.Date(x_var_vector)) {
@@ -774,7 +774,7 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector)
+        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
         if (y_scale_min_breaks_extra > 0)
           y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
         if (y_scale_min_breaks_extra < 0)
@@ -878,7 +878,7 @@ ggplot_line_facet <-
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param font_family Font family to use. Defaults to "Arial".
+#' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.
@@ -928,7 +928,7 @@ ggplot_line_col_facet <-
            col_title = "",
            caption = "",
            legend_labels = NULL,
-           font_family = "Arial",
+           font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10,
            wrap_title = 75,
@@ -1061,8 +1061,8 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       x_scale_breaks <- pretty(x_var_vector)
-      x_scale_min <- min(x_var_vector)
-      x_scale_max <- max(x_var_vector)
+      x_scale_min <- min(x_var_vector, na.rm = TRUE)
+      x_scale_max <- max(x_var_vector, na.rm = TRUE)
       x_scale_limits <- c(x_scale_min, x_scale_max)
       
       if (lubridate::is.Date(x_var_vector)) {

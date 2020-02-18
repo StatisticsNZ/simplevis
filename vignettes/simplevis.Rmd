@@ -247,11 +247,13 @@ ggplot_stars_col_facet(data = map_data,
 
 These work in the same way as the `ggplot` map functions, but with no coastline arguments.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+Outputs are hidden to keep the size of the vignette manageable. Remember to load `sf` or `stars` libraries prior to running `simplevis` `sf` or `stars` functions.
+
+```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf(data = example_sf_nz_livestock)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 map_data <- example_sf_nz_livestock %>%
   mutate(dairydens = round(dairydens, 2))
 
@@ -263,7 +265,7 @@ leaflet_sf_col(data = map_data,
                title = "Dairy density in count per km\u00b2, 2017")
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, hide = TRUE, echo = TRUE, results = 'hide', fig.height = 4, fig.width = 7}
 leaflet_stars_col(data = example_stars_nz_no3n,
    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 ```

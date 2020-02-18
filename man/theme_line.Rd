@@ -21,6 +21,7 @@ A ggplot theme.
 Theme for line ggplots.
 }
 \examples{
+library(ggplot2)
 ggplot() +
   theme_line("Courier", 9, 7) +
   ggtitle("This is a title of a selected font family and size")

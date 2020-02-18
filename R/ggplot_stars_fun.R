@@ -7,6 +7,7 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' ggplot() +
 #'   theme_stars("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")

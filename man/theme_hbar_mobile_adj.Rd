@@ -21,6 +21,7 @@ A ggplot theme.
 Theme mobile adjustment for horizontal bar ggplots.
 }
 \examples{
+library(ggplot2)
 ggplot() +
 theme_hbar("Courier", 9, 7) +
 theme_hbar_mobile_adj("Courier", 9, 7)

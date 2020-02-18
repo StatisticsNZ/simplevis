@@ -66,6 +66,7 @@ A ggplot object.
 Horizontal bar ggplot that is not coloured and not facetted.
 }
 \examples{
+library(ggplot2)
 plot_data <- diamonds \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   dplyr::group_by(cut) \%>\%

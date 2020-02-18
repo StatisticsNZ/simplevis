@@ -21,6 +21,7 @@ A ggplot theme.
 Theme for horizontal bar ggplots.
 }
 \examples{
+library(ggplot2)
 ggplot() +
   theme_hbar("Courier", 9, 7) +
   ggtitle("This is a title of a selected font family and size")

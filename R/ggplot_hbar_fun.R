@@ -7,6 +7,7 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' ggplot() +
 #'   theme_hbar("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
@@ -115,6 +116,7 @@ theme_hbar <-
 #' @return A ggplot theme.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' ggplot() +
 #' theme_hbar("Courier", 9, 7) +
 #' theme_hbar_mobile_adj("Courier", 9, 7)
@@ -168,6 +170,7 @@ theme_hbar_mobile_adj <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' plot_data <- diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut) %>%
@@ -406,6 +409,7 @@ ggplot_hbar <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' plot_data <- diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
@@ -707,6 +711,7 @@ ggplot_hbar_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' plot_data <- diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
@@ -970,6 +975,7 @@ ggplot_hbar_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
 #' plot_data <- diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity, color) %>%

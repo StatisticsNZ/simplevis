@@ -22,6 +22,8 @@ library(dplyr)
 library(stringr)
 library(sf)
 library(stars)
+library(ggplot2)
+library(leaflet)
 ```
 
 ### Introduction

@@ -10,12 +10,14 @@
 
 leaflet_basemap_stack <- function(top_layer = "light"){
   
-  if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
+  if(top_layer == "light") basemap_order <- c("Light", "Dark", "Strdata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==eet", "Satellite", "Ocean")
   else if(top_layer == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")
   else if(top_layer == "satellite") basemap_order <- c("Satellite", "Light", "Dark", "Street", "Ocean")
   else if(top_layer == "street") basemap_order <- c("Street", "Light", "Dark", "Satellite", "Ocean")
   else if(top_layer == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
+  
+  providers <- leaflet::providers
   
   leaflet() %>%
     # leaflet.extras::addFullscreenControl() %>%
@@ -69,6 +71,8 @@ leaflet_basemap_stack_nz <- function(top_layer = "light"){
   else if(top_layer == "street") basemap_order <- c("Street", "Light", "Dark", "Satellite", "Ocean")
   else if(top_layer == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
+  
+  providers <- leaflet::providers
   
   leaflet() %>%
     fitBounds(166.70047,-34.45676, 178.52966,-47.06345) %>%

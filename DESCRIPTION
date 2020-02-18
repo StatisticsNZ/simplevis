@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple Visualisation with Ggplot2 and Leaflet Wrappers
-Version: 1.5.0
+Version: 1.5.1
 Authors@R: c(
     person(given = "David",
            family = "Hodge",

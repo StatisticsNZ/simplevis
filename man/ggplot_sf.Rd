@@ -45,10 +45,9 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 A ggplot object.
 }
 \description{
-Map of simple features in ggplot that is not coloured and not facetted. Note the sf library must be loaded for this to work.
+Map of simple features in ggplot that is not coloured and not facetted.
 }
 \examples{
-library(sf)
 map_data <- example_sf_nz_river_wq \%>\%
   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 

@@ -29,9 +29,8 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
 A leaflet object.
 }
 \description{
-Map of an array in leaflet. Note the stars library must be loaded for this to work.
+Map of an array in leaflet.
 }
 \examples{
-library(stars)
 leaflet_stars(example_stars_nz_no3n)
 }

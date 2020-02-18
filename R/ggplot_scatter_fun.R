@@ -7,10 +7,9 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' ggplot() +
+#' ggplot2::ggplot() +
 #'   theme_scatter("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggplot2::ggtitle("This is a title of a selected font family and size")
 theme_scatter <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -138,8 +137,7 @@ theme_scatter <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- dplyr::sample_frac(diamonds, 0.05)
+#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
 #'
 #' plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price,
 #'    title = "Diamond price by carat",
@@ -372,8 +370,8 @@ ggplot_scatter <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- dplyr::sample_frac(diamonds, 0.05)
+#' 
+#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
 #'
 #' plot <- ggplot_scatter_col(data = plot_data, x_var = carat, y_var = price, col_var = color)
 #'
@@ -647,8 +645,8 @@ ggplot_scatter_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- dplyr::sample_frac(diamonds, 0.05)
+#' 
+#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
 #'
 #' plot <- ggplot_scatter_facet(data = plot_data, x_var = carat, y_var = price, facet_var = color)
 #'
@@ -881,8 +879,8 @@ ggplot_scatter_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- diamonds %>%
+#' 
+#' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::sample_frac(0.05) %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut))
 #'

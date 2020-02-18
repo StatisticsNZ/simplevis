@@ -92,8 +92,8 @@ A ggplot object.
 Horizontal bar ggplot that is coloured and facetted.
 }
 \examples{
-library(ggplot2)
-plot_data <- diamonds \%>\%
+
+plot_data <- ggplot2::diamonds \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   dplyr::group_by(cut, clarity, color) \%>\%
   dplyr::summarise(average_price = mean(price)) \%>\%

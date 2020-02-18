@@ -7,10 +7,10 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' ggplot() +
+#' 
+#' ggplot2::ggplot() +
 #'   theme_box("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggplot2::ggtitle("This is a title of a selected font family and size")
 theme_box <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -332,8 +332,8 @@ ggplot_box <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- diamonds %>%
+#' 
+#' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(price_thousands = (price / 1000)) %>%
 #'   dplyr::sample_frac(0.05)
 #'

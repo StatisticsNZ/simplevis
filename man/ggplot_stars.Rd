@@ -46,9 +46,8 @@ ggplot_stars(data, pal = NULL, coastline = NULL,
 A ggplot object.
 }
 \description{
-Map of an array in ggplot that is not coloured and not facetted. Note the stars library must be loaded for this to work.
+Map of an array in ggplot that is not coloured and not facetted.
 }
 \examples{
-library(stars)
 ggplot_stars(data = example_stars_nz_no3n, coastline = nz)
 }

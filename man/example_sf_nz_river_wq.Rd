@@ -12,7 +12,6 @@ example_sf_nz_river_wq
 Example sf object of New Zealand river water quality trends.
 }
 \examples{
-library(sf)
 example_sf_nz_river_wq
 }
 \keyword{datasets}

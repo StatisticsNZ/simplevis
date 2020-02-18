@@ -72,10 +72,9 @@ ggplot_stars_col_facet(data, col_method = "quantile",
 A ggplot object.
 }
 \description{
-Map of an array in ggplot that is coloured and facetted. Note the stars library must be loaded for this to work.
+Map of an array in ggplot that is coloured and facetted.
 }
 \examples{
-library(stars)
 map_data1 <- example_stars_nz_no3n \%>\%
   rlang::set_names("nitrate_nitrogen")
 

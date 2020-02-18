@@ -19,11 +19,6 @@ knitr::opts_chunk$set(
 ```{r setup, warning = FALSE, message = FALSE}
 library(simplevis)
 library(dplyr)
-library(stringr)
-library(sf)
-library(stars)
-library(ggplot2)
-library(leaflet)
 ```
 
 ### Introduction
@@ -44,8 +39,8 @@ For each graph type 4 functions are available.
 
 1. A `ggplot` not coloured or faceted (e.g. `gglot_hbar`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-plot_data <- diamonds %>%
-  mutate(cut = str_to_sentence(cut)) %>%
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut) %>%
   summarise(average_price = mean(price)) %>%
   ungroup() %>% 
@@ -64,8 +59,8 @@ plot
 
 2. A `ggplot` coloured, but not faceted (e.g. `gglot_hbar_col`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-plot_data <- diamonds %>%
-  mutate(cut = str_to_sentence(cut)) %>%
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price)) %>%
   mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
@@ -82,8 +77,8 @@ plot
 
 3. A `ggplot` facetted, but not coloured (e.g. `gglot_hbar_facet`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-plot_data <- diamonds %>%
-  mutate(cut = str_to_sentence(cut)) %>%
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price)) %>%
   mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
@@ -99,8 +94,8 @@ plot
 
 4. A `ggplot` coloured and facetted (e.g. `gglot_hbar_col_facet`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 7}
-plot_data <- diamonds %>%
-  mutate(cut = str_to_sentence(cut)) %>%
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity, color) %>%
   summarise(average_price = mean(price)) %>%
   mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
@@ -118,7 +113,7 @@ plot
 
 These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly` with the `tooltip = "text"` specification. This results in the tooltip converting the applicable variable name to sentence case and replacing underscores with spaces.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = round(mean(wind), 2)) %>%
@@ -249,7 +244,7 @@ ggplot_stars_col_facet(data = map_data,
 
 These work in the same way as the `ggplot` map functions, but with no coastline arguments.
 
-Outputs are hidden to keep the size of the vignette manageable. Remember to load `sf` or `stars` libraries prior to running `simplevis` `sf` or `stars` functions.
+Outputs are hidden to keep the size of the vignette manageable. 
 
 ```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf(data = example_sf_nz_livestock)
@@ -267,7 +262,7 @@ leaflet_sf_col(data = map_data,
                title = "Dairy density in count per km\u00b2, 2017")
 ```
 
-```{r, hide = TRUE, echo = TRUE, results = 'hide', fig.height = 4, fig.width = 7}
+```{r, echo = TRUE, results = 'hide', fig.height = 4, fig.width = 7}
 leaflet_stars_col(data = example_stars_nz_no3n,
    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 ```
@@ -277,8 +272,8 @@ leaflet_stars_col(data = example_stars_nz_no3n,
 `simplevis` can also work with quoted variable inputs. The user must place each quoted variable within a `simplevis` function within a `!!sym` function, as per the example below. This can be helpful, particularly when working in shiny apps.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-plot_data <- diamonds %>%
-  mutate_at(vars("cut"), ~str_to_sentence(.)) %>%
+plot_data <- ggplot2::diamonds %>%
+  mutate_at(vars("cut"), ~stringr::str_to_sentence(.)) %>%
   group_by_at(vars("cut")) %>%
   summarise_at(vars("price"), ~mean(.)) %>%
   ungroup() %>% 

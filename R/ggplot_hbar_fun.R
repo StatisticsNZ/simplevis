@@ -7,10 +7,9 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' ggplot() +
+#' ggplot2::ggplot() +
 #'   theme_hbar("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggplot2::ggtitle("This is a title of a selected font family and size")
 theme_hbar <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -116,10 +115,9 @@ theme_hbar <-
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' ggplot() +
-#' theme_hbar("Courier", 9, 7) +
-#' theme_hbar_mobile_adj("Courier", 9, 7)
+#' ggplot2::ggplot() +
+#'    theme_hbar("Courier", 9, 7) +
+#'    theme_hbar_mobile_adj("Courier", 9, 7)
 theme_hbar_mobile_adj <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -170,8 +168,8 @@ theme_hbar_mobile_adj <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- diamonds %>%
+#' 
+#' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
@@ -409,8 +407,8 @@ ggplot_hbar <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- diamonds %>%
+#' 
+#' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
@@ -711,8 +709,8 @@ ggplot_hbar_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- diamonds %>%
+#' 
+#' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
@@ -975,8 +973,8 @@ ggplot_hbar_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' plot_data <- diamonds %>%
+#' 
+#' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity, color) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%

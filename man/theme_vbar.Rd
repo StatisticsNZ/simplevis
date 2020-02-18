@@ -21,8 +21,7 @@ A ggplot theme.
 Theme for vertical bar ggplots.
 }
 \examples{
-library(ggplot2)
-ggplot() +
+ggplot2::ggplot() +
   theme_vbar("Courier", 9, 7) +
-  ggtitle("This is a title of a selected font family and size")
+  ggplot2::ggtitle("This is a title of a selected font family and size")
 }

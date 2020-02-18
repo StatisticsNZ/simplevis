@@ -85,10 +85,9 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 A ggplot object.
 }
 \description{
-Map of simple features in ggplot that is coloured and facetted. Note the sf library must be loaded for this to work.
+Map of simple features in ggplot that is coloured and facetted.
 }
 \examples{
-library(sf)
 map_data <- example_sf_nz_river_wq \%>\%
  dplyr::filter(period == "1998-2017",
  indicator \%in\% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))

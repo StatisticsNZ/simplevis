@@ -39,10 +39,9 @@ leaflet_sf(data, pal = NULL,
 A leaflet object.
 }
 \description{
-Map of simple features in leaflet that is not coloured. Note the sf library must be loaded for this to work.
+Map of simple features in leaflet that is not coloured.
 }
 \examples{
-library(sf)
 map_data <- example_sf_nz_river_wq \%>\%
   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 

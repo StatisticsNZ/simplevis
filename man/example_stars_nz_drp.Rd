@@ -12,7 +12,6 @@ example_stars_nz_drp
 Example stars object of New Zealand modelled river water dissolved reactive phosphorus concentrations.
 }
 \examples{
-library(stars)
 example_stars_nz_drp
 }
 \keyword{datasets}

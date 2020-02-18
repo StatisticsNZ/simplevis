@@ -12,7 +12,6 @@ example_sf_nz_livestock
 Example sf object of New Zealand livestock.
 }
 \examples{
-library(sf)
 example_sf_nz_livestock
 }
 \keyword{datasets}

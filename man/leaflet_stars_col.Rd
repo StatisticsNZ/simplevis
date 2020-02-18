@@ -41,10 +41,9 @@ leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 A leaflet object.
 }
 \description{
-Map of an array in leaflet that is coloured. Note the stars library must be loaded for this to work.
+Map of an array in leaflet that is coloured.
 }
 \examples{
-library(stars)
 leaflet_stars_col(example_stars_nz_no3n,
    title = "River modelled median nitrate-nitrogen concentrations in g/m\\u00b3, 2013\\u201317")
 }

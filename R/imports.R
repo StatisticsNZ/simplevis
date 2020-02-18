@@ -1,15 +1,15 @@
 #' Package imports
 #' 
 #' @import ggplot2
-#' @import janitor
 #' @import leaflet
-#' @import leafpop
 #' @import rlang
 #' @import dplyr
+#' @import sf
+#' @import stars
+#' @importFrom janitor clean_names
 #' @importFrom stats quantile
-#'
+#' @importFrom leafpop popupTable
 NULL
-
 
 #' Pipe operator
 #'
@@ -23,5 +23,7 @@ NULL
 #' @usage lhs \%>\% rhs
 NULL
 
-## quiets concerns of R CMD check re: the .'s that appear in pipelines
-# if (getRversion() >= "2.15.1")  utils::globalVariables(c("."))
+#' Nse force
+#'
+#' @importFrom rlang !!
+NULL

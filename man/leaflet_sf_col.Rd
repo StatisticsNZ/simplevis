@@ -57,10 +57,9 @@ leaflet_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 A leaflet object.
 }
 \description{
-Map of simple features in leaflet that is coloured. Note the sf library must be loaded for this to work.
+Map of simple features in leaflet that is coloured.
 }
 \examples{
-library(sf)
 leaflet_sf_col(example_sf_nz_livestock, dairydens,
      title = "Dairy density in count per km\\u00b2, 2017")
 

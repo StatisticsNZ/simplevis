@@ -67,10 +67,9 @@ ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 A ggplot object.
 }
 \description{
-Map of an array in ggplot that is coloured, but not facetted. Note the stars library must be loaded for this to work.
+Map of an array in ggplot that is coloured, but not facetted.
 }
 \examples{
-library(stars)
 ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
    title = "River modelled median nitrate-nitrogen concentrations in g/m\\u00b3, 2013\\u201317")
 }

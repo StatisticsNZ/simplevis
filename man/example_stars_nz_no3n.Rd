@@ -12,7 +12,6 @@ example_stars_nz_no3n
 Example stars object of New Zealand modelled river water nitrate concentrations.
 }
 \examples{
-library(stars)
 example_stars_nz_no3n
 }
 \keyword{datasets}

@@ -15,7 +15,6 @@ nz
 New Zealand coastline, excluding the Chathams, that is simplified for ggplot.
 }
 \examples{
-library(sf)
 nz
 
 ggplot_sf(nz)

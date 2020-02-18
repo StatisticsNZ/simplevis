@@ -7,10 +7,9 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' ggplot() +
+#' ggplot2::ggplot() +
 #'   theme_sf("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggplot2::ggtitle("This is a title of a selected font family and size")
 theme_sf <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -90,7 +89,7 @@ theme_sf <-
   }
 
 #' @title Map of simple features in ggplot.
-#' @description Map of simple features in ggplot that is not coloured and not facetted. Note the sf library must be loaded for this to work.
+#' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param size Size of points. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
@@ -109,7 +108,6 @@ theme_sf <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
@@ -192,7 +190,7 @@ ggplot_sf <- function(data,
 }
 
 #' @title Map of simple features in ggplot that is coloured.
-#' @description Map of simple features in ggplot that is coloured, but not facetted. Note the sf library must be loaded for this to work.
+#' @description Map of simple features in ggplot that is coloured, but not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or bin if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
@@ -225,7 +223,6 @@ ggplot_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(sf)
 #' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
@@ -455,7 +452,7 @@ ggplot_sf_col <- function(data,
 }
 
 #' @title Map of simple features in ggplot that is facetted.
-#' @description Map of simple features in ggplot that is facetted, but not coloured. Note the sf library must be loaded for this to work.
+#' @description Map of simple features in ggplot that is facetted, but not coloured. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param size Size of points. Defaults to 0.5.
@@ -478,7 +475,6 @@ ggplot_sf_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
@@ -602,7 +598,7 @@ ggplot_sf_facet <- function(data,
 }
 
 #' @title Map of simple features in ggplot that is coloured and facetted.
-#' @description Map of simple features in ggplot that is coloured and facetted. Note the sf library must be loaded for this to work.
+#' @description Map of simple features in ggplot that is coloured and facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -638,7 +634,6 @@ ggplot_sf_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(sf)
 #' map_data <- example_sf_nz_river_wq %>%
 #'  dplyr::filter(period == "1998-2017",
 #'  indicator %in% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))

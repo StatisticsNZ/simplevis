@@ -106,8 +106,8 @@ A ggplot object.
 Scatter ggplot that is coloured and facetted.
 }
 \examples{
-library(ggplot2)
-plot_data <- diamonds \%>\%
+
+plot_data <- ggplot2::diamonds \%>\%
   dplyr::sample_frac(0.05) \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut))
 

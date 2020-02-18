@@ -48,10 +48,9 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
 A ggplot object.
 }
 \description{
-Map of an array in ggplot that is facetted, but not coloured. Note the stars library must be loaded for this to work.
+Map of an array in ggplot that is facetted, but not coloured.
 }
 \examples{
-library(stars)
 map_data1 <- example_stars_nz_no3n \%>\%
   rlang::set_names("nitrate_nitrogen")
 

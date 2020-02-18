@@ -24,9 +24,9 @@ BugReports: https://github.com/StatisticsNZ/simplevis/issues
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: dplyr, DT, forcats, leaflet.extras, lubridate, methods, plotly, readr, rgdal, rmarkdown, 
-         rlang, scales, sf, shiny, shinycssloaders, stars, stats, stringr, tibble, tidyr, viridis, ggplot2 (>= 3.0.0), 
-         janitor, leaflet (>= 2.0.0), leafpop, magrittr
+Imports: dplyr, DT, forcats, ggplot2 (>= 3.0.0), leaflet (>= 2.0.0), leafpop, leaflet.extras, 
+         janitor, lubridate, magrittr, methods, plotly, readr, rgdal, rmarkdown, rlang, scales, sf, 
+         shiny, shinycssloaders, stars, stats, stringr, tibble, tidyr, viridis
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr

@@ -65,9 +65,9 @@ shinyUI(
                     fluidRow(
                       column(
                         width = 6,
-                        shinycssloaders::withSpinner(leafletOutput("map1"), type = 7, color = "#A8A8A8")
+                        shinycssloaders::withSpinner(leaflet::leafletOutput("map1"), type = 7, color = "#A8A8A8")
                       ),
-                      column(width = 6, leafletOutput("map2"))
+                      column(width = 6, leaflet::leafletOutput("map2"))
                     ))
         )
       ),

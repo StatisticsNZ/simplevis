@@ -5,7 +5,7 @@ shinyServer(function(input, output, session) {
 
   # map
 
-  output$map1 <- renderLeaflet({
+  output$map1 <- leaflet::renderLeaflet({
     basemap
   })
 
@@ -25,7 +25,11 @@ shinyServer(function(input, output, session) {
                             ifelse(input[[map_id_zoom]] < 11, 4, 3)))    
 
     if(nrow(map_data1()) == 0) {
-      leafletProxy("map1") %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leaflet::leafletProxy("map1") %>% 
+        leaflet::clearMarkers() %>% 
+        leaflet::clearShapes() %>% 
+        leaflet::clearImages() %>% 
+        leaflet::removeControl(legend_id)
     }
     else {
       ### add your leaflet code here ###
@@ -54,7 +58,7 @@ shinyServer(function(input, output, session) {
     })
   })
 
-  output$map2 <- renderLeaflet({
+  output$map2 <- leaflet::renderLeaflet({
     basemap
   })
 
@@ -74,7 +78,11 @@ shinyServer(function(input, output, session) {
                             ifelse(input[[map_id_zoom]] < 12, 3, 4)))       
 
     if(nrow(map_data2()) == 0) {
-      leafletProxy("map2") %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leaflet::leafletProxy("map2") %>% 
+        leaflet::clearMarkers() %>% 
+        leaflet::clearShapes() %>% 
+        leaflet::clearImages() %>% 
+        leaflet::removeControl(legend_id)
     }
     else {
       ### add your leaflet code here ###

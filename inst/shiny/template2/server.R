@@ -4,7 +4,7 @@
 shinyServer(function(input, output, session) {
 
   # map
-  output$map <- renderLeaflet({
+  output$map <- leaflet::renderLeaflet({
     basemap
   })
 
@@ -22,14 +22,18 @@ shinyServer(function(input, output, session) {
                             ifelse(input[[map_id_zoom]] < 12, 3, 4)))    
 
     if(nrow(map_data()) == 0) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leaflet::leafletProxy(map_id) %>% 
+        leaflet::clearMarkers() %>% 
+        leaflet::clearShapes() %>% 
+        leaflet::clearImages() %>% 
+        leaflet::removeControl(legend_id)
     }
     else {
       ### add your leaflet code here ###
       ### remember to add the following argument to simplevis functions: shiny = TRUE
       ### remember to refer to a reactive map_data object as map_data()
       
-      leafletProxy("map")
+      leaflet::leafletProxy("map")
     }
   }
   

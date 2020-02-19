@@ -9,7 +9,7 @@
 ### Installation
 
 Development version from github
-`devtools::install_github("StatisticsNZ/simplevis")`
+`devtools::install_github("StatisticsNZ/simplevis", build_vignettes = TRUE)`
 
 ### Documentation
 

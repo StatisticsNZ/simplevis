@@ -32,5 +32,5 @@ RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-12-02 00:07:00 UTC; dhodge
-Author: David Hodge [cre, aut], Chris Hansen [ctb]
+Author: David Hodge [cre, aut], Fernando Cagua [ctb], Chris Hansen [ctb]
 Maintainer: David Hodge <david.hodge@stats.govt.nz>

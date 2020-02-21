@@ -10,6 +10,7 @@
 #' @param opacity The opacity of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to T.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title"
+#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param legend_labels A vector of legend label values. Defaults to "Feature".
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param shiny TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.
@@ -29,6 +30,7 @@ leaflet_sf <- function(data,
                        opacity = 0.1,
                        stroke = T,
                        title = "[Title]",
+                       legend_digits = 1,
                        legend_labels = "[Feature]",
                        shiny = F,
                        basemap = "light",
@@ -256,7 +258,7 @@ leaflet_sf_col <- function(data,
   col_var <- rlang::enquo(col_var)
   
   if (remove_na == TRUE)
-    data <- dplyr::filter_at(data, vars(!!col_var), dplyr::all_vars(!is.na(.)))
+    data <- dplyr::filter_at(data, vars(!!col_var), dplyr::all_vars(!is.na(.data)))
   
   col_var_vector <- dplyr::pull(data, !!col_var)
   

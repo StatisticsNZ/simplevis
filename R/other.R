@@ -153,14 +153,12 @@ a4_height_mm <- 257
 #' @return A numeric value.
 #' @export
 sentence_colnames <- function(data) {
-  data %>% 
-    janitor::clean_names() %>% 
-    rlang::set_names(
-      stringr::str_replace_all(
-        stringr::str_to_sentence(colnames(.)), 
-        "_", " ")
-    )  
+  
+  tmp <- janitor::clean_names(data) 
+  
+  colnames(tmp) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(tmp)), "_", " ")
+  
+  tmp
 }
-
 
 

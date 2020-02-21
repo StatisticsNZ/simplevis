@@ -161,7 +161,7 @@ ggplot_stars <- function(data,
     pal <- pal_snz[1]
   
   plot <- plot +
-    geom_raster(aes(x = x, y = y),
+    geom_raster(aes(x = .data$x, y = .data$y),
                 fill = pal,
                 alpha = 0.1,
                 data = data) +
@@ -268,7 +268,7 @@ ggplot_stars_col <- function(data,
     )
   
   data <- data %>% dplyr::select(col_var = 1)
-  col_var_vector <- dplyr::pull(data, col_var)
+  col_var_vector <- dplyr::pull(data, .data$col_var)
   
   if (!is.null(coastline)) {
     if (sf::st_is_longlat(data) == FALSE)
@@ -299,7 +299,7 @@ ggplot_stars_col <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-x,-y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- pal_set1[1:(length(bin_cuts) - 1)]
@@ -318,7 +318,7 @@ ggplot_stars_col <- function(data,
       bin_cuts <- pretty(col_var_vector)
       
       data <- data %>%
-        dplyr::mutate_at(vars(-x,-y),
+        dplyr::mutate_at(vars(-.data$x,-.data$y),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -344,7 +344,7 @@ ggplot_stars_col <- function(data,
       
       data <- data %>%
         tibble::as_tibble() %>%
-        dplyr::mutate_at(vars(-x,-y),
+        dplyr::mutate_at(vars(-.data$x,-.data$y),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -373,7 +373,7 @@ ggplot_stars_col <- function(data,
       stop("quantile_cuts do not provide unique breaks")
     
     data <- data %>%
-      dplyr::mutate_at(vars(-x,-y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -387,7 +387,7 @@ ggplot_stars_col <- function(data,
     pal <- rev(pal)
   
   plot <- plot +
-    geom_raster(aes(x = x, y = y, fill = col_var), data = data) +
+    geom_raster(aes(x = .data$x, y = .data$y, fill = .data$col_var), data = data) +
     scale_fill_manual(
       values = pal,
       drop = FALSE,
@@ -512,13 +512,13 @@ ggplot_stars_facet <- function(data,
     tibble::as_tibble() %>%
     tidyr::gather(key = "facet_var",
                   value = "col_var",
-                  c(-x,-y))
+                  c(-.data$x,-.data$y))
   
   if (is.null(pal))
     pal <- pal_snz[1]
   
   plot <- plot +
-    geom_raster(aes(x = x, y = y),
+    geom_raster(aes(x = .data$x, y = .data$y),
                 fill = pal,
                 alpha = 0.1,
                 data = data) +
@@ -684,16 +684,16 @@ ggplot_stars_col_facet <- function(data,
       tibble::as_tibble() %>%
       tidyr::gather(key = "facet_var",
                     value = "col_var",
-                    c(-x,-y))
+                    c(-.data$x,-.data$y))
     
-    bin_cuts <- unique(dplyr::pull(data, col_var))
+    bin_cuts <- unique(dplyr::pull(data, .data$col_var))
     max_bin_cut <- max(bin_cuts, na.rm = TRUE)
     min_bin_cut <- min(bin_cuts, na.rm = TRUE)
     bin_cuts <- seq(min_bin_cut, max_bin_cut + 1, 1)
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-x,-y,-facet_var),
+      dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                        ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
@@ -710,15 +710,15 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-x,-y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         )
       
-      bin_cuts <- pretty(dplyr::pull(data, col_var))
+      bin_cuts <- pretty(dplyr::pull(data, .data$col_var))
       
       data <- data %>%
-        dplyr::mutate_at(vars(-x,-y,-facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -745,11 +745,11 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-x,-y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::mutate_at(vars(-x,-y,-facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -774,13 +774,13 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-x,-y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::group_by(facet_var) %>%
-        dplyr::mutate_at(vars(-x,-y,-facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-x,-y,-facet_var),
+        dplyr::group_by(.data$facet_var) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            quantile_cuts,
@@ -800,12 +800,12 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-x,-y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::mutate_at(vars(-x,-y,-facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-x,-y,-facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            quantile_cuts,
@@ -827,7 +827,7 @@ ggplot_stars_col_facet <- function(data,
     pal <- rev(pal)
   
   plot <- plot +
-    geom_raster(aes(x = x, y = y, fill = col_var), data = data) +
+    geom_raster(aes(x = .data$x, y = .data$y, fill = .data$col_var), data = data) +
     scale_fill_manual(
       values = pal,
       drop = FALSE,

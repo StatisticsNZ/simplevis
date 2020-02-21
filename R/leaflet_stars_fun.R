@@ -6,6 +6,7 @@
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
+#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param legend_labels A vector of legend label values. Defaults to "[Array]".
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param shiny TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.
@@ -18,6 +19,7 @@ leaflet_stars <- function(data,
                           pal = NULL,
                           opacity = 0.5,
                           title = "[Title]",
+                          legend_digits = 1,
                           legend_labels = "[Array]",
                           basemap = "light",
                           shiny = F,

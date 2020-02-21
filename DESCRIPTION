@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple Visualisation with Ggplot2 and Leaflet Wrappers
-Version: 1.5.1
+Version: 1.6.0
 Authors@R: c(
     person(given = "David",
            family = "Hodge",
@@ -17,7 +17,7 @@ Authors@R: c(
 	         role = c("ctb"))
 	         )
 Description: This is a package of ggplot2 and leaflet wrapper functions designed to make high quality graphs and maps with ease for use in analysis, reports or shiny apps.
-License: MIT + file LICENSE
+License: file LICENSE
 URL: https://StatisticsNZ.github.io/simplevis,
         https://github.com/StatisticsNZ/simplevis
 BugReports: https://github.com/StatisticsNZ/simplevis/issues

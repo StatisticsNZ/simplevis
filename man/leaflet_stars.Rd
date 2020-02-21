@@ -5,8 +5,8 @@
 \title{Map of an array in leaflet.}
 \usage{
 leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
-  legend_labels = "[Array]", basemap = "light", shiny = F,
-  map_id = "map")
+  legend_digits = 1, legend_labels = "[Array]", basemap = "light",
+  shiny = F, map_id = "map")
 }
 \arguments{
 \item{data}{A stars object with dimensions x and y with crs in wgs84 (epsg4326). Required input.}
@@ -16,6 +16,8 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.1.}
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
+
+\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{legend_labels}{A vector of legend label values. Defaults to "[Array]".}
 

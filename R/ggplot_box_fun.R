@@ -183,7 +183,7 @@ ggplot_box <- function(data,
   if (stat == "boxplot")
     y_var_vector <- dplyr::pull(data, !!y_var)
   else if (stat == "identity")
-    y_var_vector <- c(dplyr::pull(data, ymin), dplyr::pull(data, ymax))
+    y_var_vector <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
   
   if (is.numeric(x_var_vector))
     stop("Please use a categorical x variable for a vertical boxplot")
@@ -221,11 +221,11 @@ ggplot_box <- function(data,
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = ymin,
-          lower = lower,
-          middle = middle,
-          upper = upper,
-          ymax = ymax
+          ymin = .data$ymin,
+          lower = .data$lower,
+          middle = .data$middle,
+          upper = .data$upper,
+          ymax = .data$ymax
         ),
         stat = stat,
         fill = pal[1],
@@ -375,7 +375,7 @@ ggplot_box_facet <-
     if (stat == "boxplot")
       y_var_vector <- dplyr::pull(data, !!y_var)
     else if (stat == "identity")
-      y_var_vector <- c(dplyr::pull(data, ymin), dplyr::pull(data, ymax))
+      y_var_vector <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
     if (is.numeric(x_var_vector))
@@ -416,11 +416,11 @@ ggplot_box_facet <-
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = ymin,
-          lower = lower,
-          middle = middle,
-          upper = upper,
-          ymax = ymax
+          ymin = .data$ymin,
+          lower = .data$lower,
+          middle = .data$middle,
+          upper = .data$upper,
+          ymax = .data$ymax
         ),
         stat = stat,
         fill = pal[1],

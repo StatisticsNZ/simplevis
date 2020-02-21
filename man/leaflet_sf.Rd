@@ -7,8 +7,8 @@
 leaflet_sf(data, pal = NULL,
   popup = leafpop::popupTable(sentence_colnames(data)), radius = 1,
   weight = 2, opacity = 0.1, stroke = T, title = "[Title]",
-  legend_labels = "[Feature]", shiny = F, basemap = "light",
-  map_id = "map")
+  legend_digits = 1, legend_labels = "[Feature]", shiny = F,
+  basemap = "light", map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -26,6 +26,8 @@ leaflet_sf(data, pal = NULL,
 \item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to T.}
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title"}
+
+\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{legend_labels}{A vector of legend label values. Defaults to "Feature".}
 

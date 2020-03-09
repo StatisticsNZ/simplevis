@@ -30,6 +30,7 @@ theme_sf <-
           face = "plain",
           hjust = 0.5
         ),
+        plot.title.position = "plot",
         plot.caption = element_text(
           family = font_family,
           colour = "#323232",

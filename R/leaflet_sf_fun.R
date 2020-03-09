@@ -28,11 +28,11 @@ leaflet_sf <- function(data,
                        radius = 1,
                        weight = 2,
                        opacity = 0.1,
-                       stroke = T,
+                       stroke = TRUE,
                        title = "[Title]",
                        legend_digits = 1,
                        legend_labels = "[Feature]",
-                       shiny = F,
+                       shiny = FALSE,
                        basemap = "light",
                        map_id = "map") {
   if (class(data)[1] != "sf")
@@ -234,19 +234,19 @@ leaflet_sf_col <- function(data,
                            bin_cuts = NULL,
                            quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                            pal = NULL,
-                           rev_pal = F,
-                           col_scale_drop = F,
+                           rev_pal = FALSE,
+                           col_scale_drop = FALSE,
                            popup = leafpop::popupTable(sentence_colnames(data)),
                            radius = 1,
                            weight = 2,
                            opacity = 0.9,
-                           stroke = T,
-                           remove_na = F,
+                           stroke = TRUE,
+                           remove_na = FALSE,
                            title = "[Title]",
                            legend_digits = 1,
                            legend_labels = NULL,
                            basemap = "light",
-                           shiny = F,
+                           shiny = FALSE,
                            map_id = "map") {
   if (class(data)[1] != "sf")
     stop("Please use an sf object as data input")
@@ -311,7 +311,7 @@ leaflet_sf_col <- function(data,
           palette = pal,
           domain = col_var_vector,
           bins = bin_cuts,
-          right = F,
+          right = FALSE,
           na.color = "#A8A8A8"
         )
       if (is.null(legend_labels))
@@ -332,8 +332,8 @@ leaflet_sf_col <- function(data,
         colorBin(
           palette = pal,
           domain = col_var_vector,
-          pretty = T,
-          right = F,
+          pretty = TRUE,
+          right = FALSE,
           na.color = "#A8A8A8"
         )
       if (is.null(legend_labels))
@@ -363,7 +363,7 @@ leaflet_sf_col <- function(data,
         palette = pal,
         domain = col_var_vector,
         bins = bin_cuts,
-        right = F,
+        right = FALSE,
         na.color = "#A8A8A8"
       )
     if (is.null(legend_labels))

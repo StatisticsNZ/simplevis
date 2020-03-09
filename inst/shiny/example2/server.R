@@ -125,7 +125,7 @@ shinyServer(function(input, output, session) {
   #   rownames = F,
   #   options = list(
   #     pageLength = 5,
-  #     scrollX = T
+  #     scrollX = TRUE
   #   )
   # )
 
@@ -136,7 +136,7 @@ shinyServer(function(input, output, session) {
     filter = "top",
     rownames = F,
     options = list(pageLength = 10,
-                   scrollX = T)
+                   scrollX = TRUE)
   )
 
   ### download ###

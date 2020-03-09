@@ -21,15 +21,16 @@ theme_hbar <-
           colour = "#000000",
           size = font_size_title,
           face = "bold",
-          hjust = 0.425
+          hjust = 0.5
         ),
         plot.subtitle = element_text(
           family = font_family,
           colour = "#000000",
           size = font_size_body,
           face = "plain",
-          hjust = 0.425
+          hjust = 0.5
         ),
+        plot.title.position = "plot",
         plot.caption = element_text(
           family = font_family,
           colour = "#323232",

@@ -108,7 +108,7 @@ leaflet_basemap_stack_nz <- function(top_layer = "light"){
       layers = c("3"),
       options = WMSTileOptions(
         format = "image/png",
-        transparent = T,
+        transparent = TRUE,
         zIndex = 900
       ),
       group = "Regions"
@@ -118,7 +118,7 @@ leaflet_basemap_stack_nz <- function(top_layer = "light"){
       layers = c("2"),
       options = WMSTileOptions(
         format = "image/png",
-        transparent = T,
+        transparent = TRUE,
         zIndex = 900
       ),
       group = "Territorial authorities"
@@ -128,7 +128,7 @@ leaflet_basemap_stack_nz <- function(top_layer = "light"){
       layers = c("0"),
       options = WMSTileOptions(
         format = "image/png",
-        transparent = T,
+        transparent = TRUE,
         zIndex = 900
       ),
       group = "Catchments"

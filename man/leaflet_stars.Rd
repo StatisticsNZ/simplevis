@@ -6,7 +6,7 @@
 \usage{
 leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
   legend_digits = 1, legend_labels = "[Array]", basemap = "light",
-  shiny = F, map_id = "map")
+  shiny = FALSE, map_id = "map")
 }
 \arguments{
 \item{data}{A stars object with dimensions x and y with crs in wgs84 (epsg4326). Required input.}

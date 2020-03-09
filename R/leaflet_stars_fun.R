@@ -22,7 +22,7 @@ leaflet_stars <- function(data,
                           legend_digits = 1,
                           legend_labels = "[Array]",
                           basemap = "light",
-                          shiny = F,
+                          shiny = FALSE,
                           map_id = "map") {
   if (class(data) != "stars")
     stop("Please use an stars object as data input")
@@ -39,7 +39,7 @@ leaflet_stars <- function(data,
       palette = pal,
       domain = c(0, 1),
       bins = c(0, 1),
-      right = F,
+      right = FALSE,
       na.color = pal
     )
   
@@ -58,7 +58,7 @@ leaflet_stars <- function(data,
         x = data,
         colors = pal_fun,
         opacity = opacity,
-        project = F
+        project = FALSE
       ) %>%
       addLegend(
         colors = pal,
@@ -78,7 +78,7 @@ leaflet_stars <- function(data,
         x = data,
         colors = pal_fun,
         opacity = opacity,
-        project = F
+        project = FALSE
       ) %>%
       addLegend(
         layerId = legend_id,
@@ -117,13 +117,13 @@ leaflet_stars_col <- function(data,
                               quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                               bin_cuts = NULL,
                               pal = NULL,
-                              rev_pal = F,
+                              rev_pal = FALSE,
                               opacity = 1,
                               legend_digits = 1,
                               title = "[Title]",
                               legend_labels = NULL,
                               basemap = "light",
-                              shiny = F,
+                              shiny = FALSE,
                               map_id = "map") {
   if (class(data) != "stars")
     stop("Please use an stars object as data input")
@@ -150,7 +150,7 @@ leaflet_stars_col <- function(data,
         palette = pal,
         domain = col_var_vector,
         bins = bin_cuts,
-        right = F,
+        right = FALSE,
         na.color = "transparent"
       )
     pal <- stringr::str_sub(pal, 1, 7)
@@ -178,7 +178,7 @@ leaflet_stars_col <- function(data,
           palette = pal,
           domain = col_var_vector,
           bins = bin_cuts,
-          right = F,
+          right = FALSE,
           na.color = "transparent"
         )
       pal <- stringr::str_sub(pal, 1, 7)
@@ -199,8 +199,8 @@ leaflet_stars_col <- function(data,
         colorBin(
           palette = pal,
           domain = col_var_vector,
-          pretty = T,
-          right = F,
+          pretty = TRUE,
+          right = FALSE,
           na.color = "transparent"
         )
       pal <- stringr::str_sub(pal, 1, 7)
@@ -228,7 +228,7 @@ leaflet_stars_col <- function(data,
         palette = pal,
         domain = col_var_vector,
         bins = bin_cuts,
-        right = F,
+        right = FALSE,
         na.color = "transparent"
       )
     pal <- stringr::str_sub(pal, 1, 7)
@@ -259,7 +259,7 @@ leaflet_stars_col <- function(data,
         x = data,
         colors = pal_fun,
         opacity = opacity,
-        project = F
+        project = FALSE
       ) %>%
       addLegend(
         colors = pal,
@@ -279,7 +279,7 @@ leaflet_stars_col <- function(data,
         x = data,
         colors = pal_fun,
         opacity = opacity,
-        project = F
+        project = FALSE
       ) %>%
       addLegend(
         layerId = legend_id,

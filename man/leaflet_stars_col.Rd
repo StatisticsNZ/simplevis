@@ -6,9 +6,9 @@
 \usage{
 leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
   0.05, 0.25, 0.5, 0.75, 0.95, 1), bin_cuts = NULL, pal = NULL,
-  rev_pal = F, opacity = 1, legend_digits = 1, title = "[Title]",
-  legend_labels = NULL, basemap = "light", shiny = F,
-  map_id = "map")
+  rev_pal = FALSE, opacity = 1, legend_digits = 1,
+  title = "[Title]", legend_labels = NULL, basemap = "light",
+  shiny = FALSE, map_id = "map")
 }
 \arguments{
 \item{data}{A stars object with dimensions x and y, and 1 attribute layer with crs in wgs84 (epsg4326). Required input.}

@@ -18,10 +18,9 @@ Authors@R: c(
    person("Statistics New Zealand",
 	         role = c("cph"))
 	 )
-Description: 'ggplot2' and 'leaflet' wrapper functions designed to simplify the creation of high quality graphs and maps. All functions and argument names are named consistently, and work in a consistent manner. In general, the functions only require dataset, aesthetic variables and title inputs to work. However they contain other arguments to provide more flexibility if required. The overall intent is that high quality graphs and maps can be made with less effort and knowledge of 'ggplot2' and 'leaflet'.
+Description: 'ggplot2' and 'leaflet' wrapper functions designed to simplify the creation of high quality graph and map visualisations. These functions only require inputs of data, variables and titles to work. However they contain other arguments to provide more flexibility if required. The overall intent is that high quality well-designed graphs and maps can be made more consistently and with less effort, code and expertise than would otherwise be required.
 License: MIT + file LICENSE
-URL: https://StatisticsNZ.github.io/simplevis,
-        https://github.com/StatisticsNZ/simplevis
+URL: https://StatisticsNZ.github.io/simplevis
 BugReports: https://github.com/StatisticsNZ/simplevis/issues
 Encoding: UTF-8
 LazyData: true

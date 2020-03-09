@@ -2,37 +2,36 @@ Package: simplevis
 Type: Package
 Title: Simple Visualisation with 'Ggplot2' and 'Leaflet' Wrappers
 Version: 1.0.0
-Authors@R: c(
-    person(given = "David",
-           family = "Hodge",
-	         email = "davidhodge931@gmail.com",
-	         role = c("aut", "cre")),
-	  person(given = "Fernando",
-           family = "Cagua",
-	         email = "fernando.cagua@stats.govt.nz",
-	         role = c("ctb")),
-	  person(given = "Chris",
-           family = "Hansen",
-	         email = "chris.hansen@stats.govt.nz",
-	         role = c("ctb")),
-   person("Statistics New Zealand",
-	         role = c("cph"))
-	 )
-Description: 'ggplot2' and 'leaflet' wrapper functions designed to simplify the creation of high quality graph and map visualisations. These functions only require inputs of data, variables and titles to work. However they contain other arguments to provide more flexibility if required. The overall intent is that high quality well-designed graphs and maps can be made more consistently and with less effort, code and expertise than would otherwise be required.
+Authors@R: 
+    c(person(given = "David", 
+               family = "Hodge", 
+               email = "davidhodge931@gmail.com", 
+               role = c("aut", "cre")),
+	    person(given = "Fernando", 
+	           family = "Cagua", 
+	           email = "fernando.cagua@stats.govt.nz", 
+	           role = c("ctb")),
+	    person(given = "Chris", 
+	           family = "Hansen", 
+	           email = "chris.hansen@stats.govt.nz", 
+	           role = c("ctb")),
+      person("Statistics New Zealand", 
+             role = c("cph")))
+Description: 'simplevis' is a package of 'ggplot2' and 'leaflet' wrapper functions designed to simplify the creation of high quality graph and map visualisations. These functions only require inputs of data, variables and titles to provide beautiful interactive or image visualisations. However they allow for more flexibility if required. The intent is that high quality well-designed graphs and maps can be made more consistently with less effort, code and expertise than would otherwise be required.
 License: MIT + file LICENSE
 URL: https://StatisticsNZ.github.io/simplevis
 BugReports: https://github.com/StatisticsNZ/simplevis/issues
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: dplyr (>= 0.8.0), DT, forcats, ggplot2 (>= 3.3.0), leaflet (>= 2.0.0), leafpop, leaflet.extras, 
-         janitor, lubridate, magrittr, methods, plotly, readr, rgdal, rmarkdown, rlang (>= 0.4.0), 
-         scales, sf (>= 0.8.0), shiny, shinycssloaders, stars (>= 0.4.0), stats, stringr, tibble, 
-         tidyr (>= 1.0.0), viridis
+Imports: dplyr (>= 0.8.0), DT, forcats, ggplot2 (>= 3.3.0), leaflet (>= 2.0.0), leafpop, 
+         leaflet.extras, janitor, lubridate, magrittr, methods, plotly, readr, rgdal, rmarkdown, 
+         rlang (>= 0.4.0), scales, sf (>= 0.8.0), shiny, shinycssloaders, stars (>= 0.4.0), stats, 
+         stringr, tibble, tidyr (>= 1.0.0), viridis
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-12-02 00:07:00 UTC; dhodge
-Author: David Hodge [cre, aut], Fernando Cagua [ctb], Chris Hansen [ctb]
-Maintainer: David Hodge <david.hodge@stats.govt.nz>
+Author: David Hodge [aut, cre], Fernando Cagua [ctb], Chris Hansen [ctb], Statistics New Zealand [cph]
+Maintainer: David Hodge <davidhodge931@gmail.com>

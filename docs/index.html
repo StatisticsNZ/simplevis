@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Simple Visualisation with Ggplot2 and Leaflet Wrappers">
-<meta property="og:description" content="ggplot2 and leaflet wrapper functions designed to simplify the creation of high quality graph and map visualisations. These functions only require inputs of data, variables and titles to work. However they contain other arguments to provide more flexibility if required. The overall intent is that high quality well-designed graphs and maps can be made more consistently and with less effort, code and expertise than would otherwise be required.">
+<meta property="og:description" content="simplevis is a package of ggplot2 and leaflet wrapper functions designed to simplify the creation of high quality graph and map visualisations. These functions only require inputs of data, variables and titles to provide beautiful interactive or image visualisations. However they allow for more flexibility if required. The intent is that high quality well-designed graphs and maps can be made more consistently with less effort, code and expertise than would otherwise be required.">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -80,12 +80,15 @@
 <div id="introduction" class="section level3">
 <h3 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h3>
-<p><code>simplevis</code> is a package of <code>ggplot2</code> and <code>leaflet</code> wrapper functions designed to make high quality graphs and maps with ease for use in analysis, reports or <code>shiny</code> apps.</p>
+<p><code>simplevis</code> is a package of <code>ggplot2</code> and <code>leaflet</code> wrapper functions designed to simplify the creation of high quality graph and map visualisations.</p>
+<p>These functions only require inputs of data, variables and titles to provide beautiful interactive or image visualisations. However they allow for more flexibility if required.</p>
+<p>The intent is that high quality well-designed graphs and maps can be made more consistently with less effort, code and expertise than would otherwise be required.</p>
 </div>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
-<p>Development version from github <code><a href="https://rdrr.io/pkg/devtools/man/reexports.html">devtools::install_github("StatisticsNZ/simplevis", build_vignettes = TRUE)</a></code></p>
+<p>Install stable version from CRAN: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("simplevis")</a></code></p>
+<p>Install development version from github: <code><a href="https://rdrr.io/pkg/devtools/man/reexports.html">devtools::install_github("StatisticsNZ/simplevis")</a></code></p>
 </div>
 <div id="documentation" class="section level3">
 <h3 class="hasAnchor">

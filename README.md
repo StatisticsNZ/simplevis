@@ -4,12 +4,19 @@
 
 ### Introduction
 
-`simplevis` is a package of `ggplot2` and `leaflet` wrapper functions designed to make high quality graphs and maps with ease for use in analysis, reports or `shiny` apps.
+`simplevis` is a package of `ggplot2` and `leaflet` wrapper functions designed to simplify the creation of high quality graph and map visualisations. 
+
+These functions only require inputs of data, variables and titles to provide beautiful interactive or image visualisations. However they allow for more flexibility if required. 
+
+The intent is that high quality well-designed graphs and maps can be made more consistently with less effort, code and expertise than would otherwise be required.
 
 ### Installation
 
-Development version from github
-`devtools::install_github("StatisticsNZ/simplevis", build_vignettes = TRUE)`
+Install stable version from CRAN:
+`install.packages("simplevis")`
+
+Install development version from github:
+`devtools::install_github("StatisticsNZ/simplevis")`
 
 ### Documentation
 

@@ -109,38 +109,6 @@ theme_hbar <-
     )
   }
 
-#' @title Theme mobile adjustment for horizontal bar ggplots.
-#' @param font_family Font family to use. Defaults to "Helvetica".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @return A ggplot theme.
-#' @export
-#' @examples
-#' ggplot2::ggplot() +
-#'    theme_hbar("Courier", 9, 7) +
-#'    theme_hbar_mobile_adj("Courier", 9, 7)
-theme_hbar_mobile_adj <-
-  function(font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10) {
-    list(theme(
-      plot.title = element_text(
-        family = font_family,
-        colour = "#323232",
-        size = font_size_title,
-        face = "bold",
-        hjust = 0.4
-      ),
-      plot.subtitle = element_text(
-        family = font_family,
-        colour = "#323232",
-        size = font_size_body,
-        face = "plain",
-        hjust = 0.4
-      )
-    ))
-  }
-
 #' @title Horizontal bar ggplot.
 #' @description Horizontal bar ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
@@ -361,12 +329,7 @@ ggplot_hbar <- function(data,
       scale_x_discrete(
         labels = function(x)
           stringr::str_wrap(x, 20)
-      ) +
-      theme_hbar_mobile_adj(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      )
+      ) 
   }
   
   return(plot)
@@ -668,12 +631,7 @@ ggplot_hbar_col <-
           byrow = TRUE,
           reverse = TRUE,
           title = stringr::str_wrap(col_title, 15)
-        )) +
-        theme_hbar_mobile_adj(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        )
+        )) 
     }
     
     return(plot)
@@ -923,11 +881,6 @@ ggplot_hbar_facet <-
         scale_x_discrete(
           labels = function(x)
             stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 20)
-        ) +
-        theme_hbar_mobile_adj(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
         ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
     }
@@ -1279,11 +1232,6 @@ ggplot_hbar_col_facet <-
           reverse = TRUE,
           title = stringr::str_wrap(col_title, 15)
         )) +
-        theme_hbar_mobile_adj(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
     }
     

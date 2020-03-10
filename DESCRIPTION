@@ -19,7 +19,7 @@ Depends: R (>= 3.5.0)
 Imports: dplyr (>= 0.8.0), DT, forcats, ggplot2 (>= 3.3.0), leaflet (>= 2.0.0), leafpop, 
          leaflet.extras, janitor, lubridate, magrittr, methods, plotly, readr, rgdal, rmarkdown, 
          rlang (>= 0.4.0), scales, sf (>= 0.8.0), shiny, shinycssloaders, stars (>= 0.4.0), stats, 
-         stringr, tibble, tidyr (>= 1.0.0), viridis
+         stringr (>= 1.4.0), tibble, tidyr (>= 1.0.0), viridis
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr

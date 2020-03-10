@@ -11,7 +11,7 @@ Authors@R:
              role = c("cph")))
 Description: 'ggplot2' and 'leaflet' wrapper functions designed to simplify the creation of high quality graph and map visualisations. These functions only require inputs of data, variables and titles to provide beautiful interactive or image visualisations. However they allow for more flexibility if required. The intent is that high quality well-designed graphs and maps can be made more consistently with less effort, code and expertise than would otherwise be required.
 License: MIT + file LICENSE
-URL: https://StatisticsNZ.github.io/simplevis
+URL: https://StatisticsNZ.github.io/simplevis, https://github.com/StatisticsNZ/simplevis
 BugReports: https://github.com/StatisticsNZ/simplevis/issues
 Encoding: UTF-8
 LazyData: true

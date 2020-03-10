@@ -23,7 +23,3 @@ Imports: dplyr (>= 0.8.0), DT, forcats, ggplot2 (>= 3.3.0), leaflet (>= 2.0.0), 
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-NeedsCompilation: no
-Packaged: 2019-12-02 00:07:00 UTC; dhodge
-Author: David Hodge [aut, cre], Statistics New Zealand [cph]
-Maintainer: David Hodge <davidhodge931@gmail.com>

@@ -1,4 +1,5 @@
 MIT License
+=====================
 
 Copyright (c) 2020 Statistics New Zealand on behalf of the New Zealand Government
 

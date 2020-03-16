@@ -320,8 +320,8 @@ ggplot_hbar <- function(data,
   else if (isMobile == TRUE){
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, 20),
-        subtitle = stringr::str_wrap(subtitle, 20),
+        title = stringr::str_wrap(title, 40),
+        subtitle = stringr::str_wrap(subtitle, 40),
         y = stringr::str_wrap(x_title, 20),
         x = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 20)
@@ -616,8 +616,8 @@ ggplot_hbar_col <-
     else if (isMobile == TRUE){
       plot <- plot +
         labs(
-          title = stringr::str_wrap(title, 20),
-          subtitle = stringr::str_wrap(subtitle, 20),
+          title = stringr::str_wrap(title, 40),
+          subtitle = stringr::str_wrap(subtitle, 40),
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 20)
@@ -872,8 +872,8 @@ ggplot_hbar_facet <-
     else if (isMobile == TRUE){
       plot <- plot +
         labs(
-          title = stringr::str_wrap(title, 20),
-          subtitle = stringr::str_wrap(subtitle, 20),
+          title = stringr::str_wrap(title, 40),
+          subtitle = stringr::str_wrap(subtitle, 40),
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 20)
@@ -1216,8 +1216,8 @@ ggplot_hbar_col_facet <-
     else if (isMobile == TRUE){
       plot <- plot +
         labs(
-          title = stringr::str_wrap(title, 20),
-          subtitle = stringr::str_wrap(subtitle, 20),
+          title = stringr::str_wrap(title, 40),
+          subtitle = stringr::str_wrap(subtitle, 40),
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 20)

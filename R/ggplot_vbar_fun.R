@@ -42,7 +42,7 @@ theme_vbar <-
           t = 5,
           l = 5,
           b = 5,
-          r = 15
+          r = 5
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),

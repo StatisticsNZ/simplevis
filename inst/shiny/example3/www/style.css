@@ -32,12 +32,17 @@ html, body, .container {
 }
 
 #plot_desktop {
-  max-height: 670px;
-  max-width: 950px;
+  min-height: 350px;
+  max-height: 700px;
+  min-width: 350px;
+  max-width: 1000px;
 }
 
 #plot_mobile {
-  max-width: 950px;
+  min-height: 350px;
+  max-height: 700px;
+  min-width: 350px;
+  max-width: 1000px;
 }
 
 .shiny-output-error { visibility: hidden; }

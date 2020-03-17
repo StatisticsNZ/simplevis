@@ -61,7 +61,7 @@ shinyUI(
             conditionalPanel(
               condition = "input.isMobile == false",
               shinycssloaders::withSpinner(
-                plotly::plotlyOutput("plot_desktop", height = "450px"), ### test height on desktop, and adjust ###
+                plotly::plotlyOutput("plot_desktop"), 
                 type = 7,
                 color = "#A8A8A8"
               )
@@ -69,7 +69,7 @@ shinyUI(
             conditionalPanel(
               condition = "input.isMobile == true",
               shinycssloaders::withSpinner(
-                plotOutput("plot_mobile", height = "500px"), ### test height on mobile, and adjust ###
+                plotOutput("plot_mobile"), 
                 type = 7,
                 color = "#A8A8A8"
               )

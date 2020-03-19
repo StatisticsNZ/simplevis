@@ -2,6 +2,7 @@
 
 * Update plot margins in graphs.
 * Update plot label wrapping in graphs.
+* Update caption position and wrapping length
 
 # 1.02
 

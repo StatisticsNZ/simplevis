@@ -256,7 +256,7 @@ ggplot_box <- function(data,
   else if (y_scale_zero == FALSE)
     y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
   if (y_scale_zero == TRUE)
-    y_scale_oob <- scales::censor
+    y_scale_oob <- scales::squish
   else if (y_scale_zero == FALSE)
     y_scale_oob <- scales::rescale_none
   
@@ -452,7 +452,7 @@ ggplot_box_facet <-
       else if (y_scale_zero == FALSE)
         y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
       if (y_scale_zero == TRUE)
-        y_scale_oob <- scales::censor
+        y_scale_oob <- scales::squish
       else if (y_scale_zero == FALSE)
         y_scale_oob <- scales::rescale_none
       

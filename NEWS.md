@@ -1,3 +1,8 @@
+# 1.04
+
+* Fix treatment of NA values in boxplots
+* Fix typo errors in leaflet_basemap_stack function
+
 # 1.03
 
 * Update plot margins in graphs.

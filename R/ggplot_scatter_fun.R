@@ -324,7 +324,7 @@ ggplot_scatter <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         x = stringr::str_wrap(x_title, 20),
         y = stringr::str_wrap(y_title, 20),
-        caption = stringr::str_wrap(caption, 20)
+        caption = stringr::str_wrap(caption, 50)
       )
   }
   
@@ -607,7 +607,7 @@ ggplot_scatter_col <-
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
           y = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         )  +
         guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15)))
     }
@@ -828,7 +828,7 @@ ggplot_scatter_facet <-
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
           y = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         )  +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
     }
@@ -1170,7 +1170,7 @@ ggplot_scatter_col_facet <-
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
           y = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         )  +
         guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)

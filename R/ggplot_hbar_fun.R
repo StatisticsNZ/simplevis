@@ -325,7 +325,7 @@ ggplot_hbar <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         y = stringr::str_wrap(x_title, 20),
         x = stringr::str_wrap(y_title, 20),
-        caption = stringr::str_wrap(caption, 20)
+        caption = stringr::str_wrap(caption, 50)
       ) +
       scale_x_discrete(
         labels = function(x)
@@ -621,7 +621,7 @@ ggplot_hbar_col <-
           subtitle = stringr::str_wrap(subtitle, 40),
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         ) +
         scale_x_discrete(
           labels = function(x)
@@ -877,7 +877,7 @@ ggplot_hbar_facet <-
           subtitle = stringr::str_wrap(subtitle, 40),
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         ) +
         scale_x_discrete(
           labels = function(x)
@@ -1221,7 +1221,7 @@ ggplot_hbar_col_facet <-
           subtitle = stringr::str_wrap(subtitle, 40),
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         ) +
         scale_x_discrete(
           labels = function(x)

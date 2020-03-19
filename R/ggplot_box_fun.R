@@ -290,7 +290,7 @@ ggplot_box <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         x = stringr::str_wrap(x_title, 20),
         y = stringr::str_wrap(y_title, 20),
-        caption = stringr::str_wrap(caption, 20)
+        caption = stringr::str_wrap(caption, 50)
       ) +
       coord_flip() +
       scale_x_discrete(
@@ -506,7 +506,7 @@ ggplot_box_facet <-
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
           y = stringr::str_wrap(y_title, 20),
-          caption = stringr::str_wrap(caption, 20)
+          caption = stringr::str_wrap(caption, 50)
         ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1) +
         coord_flip() +

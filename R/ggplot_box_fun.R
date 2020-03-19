@@ -294,7 +294,7 @@ ggplot_box <- function(data,
       coord_flip() +
       scale_x_discrete(
         labels = function(x)
-          stringr::str_wrap(x, 40)
+          stringr::str_wrap(x, 30)
       ) +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank())
@@ -511,7 +511,7 @@ ggplot_box_facet <-
         coord_flip() +
         scale_x_discrete(
           labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 20)
+            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 30)
         ) +
         theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
         theme(panel.grid.major.y = element_blank())

@@ -880,7 +880,7 @@ ggplot_hbar_facet <-
         ) +
         scale_x_discrete(
           labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 20)
+            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 30)
         ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
     }
@@ -1224,7 +1224,7 @@ ggplot_hbar_col_facet <-
         ) +
         scale_x_discrete(
           labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 20)
+            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 30)
         ) +
         guides(fill = guide_legend(
           ncol = 1,

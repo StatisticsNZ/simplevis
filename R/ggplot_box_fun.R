@@ -294,7 +294,7 @@ ggplot_box <- function(data,
       coord_flip() +
       scale_x_discrete(
         labels = function(x)
-          stringr::str_wrap(x, 30)
+          stringr::str_wrap(x, 40)
       ) +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank())

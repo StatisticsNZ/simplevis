@@ -38,6 +38,7 @@ theme_hbar <-
           face = "plain",
           hjust = 0.99
         ),
+        plot.caption.position = "plot",
         plot.margin = margin(
           t = 5,
           l = 5,

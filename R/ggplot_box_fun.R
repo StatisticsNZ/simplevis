@@ -41,9 +41,9 @@ theme_box <-
         ),
         plot.margin = margin(
           t = 5,
-          l = 15,
+          l = 5,
           b = 5,
-          r = 15
+          r = 20
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),

@@ -40,9 +40,9 @@ theme_line <-
         ),
         plot.margin = margin(
           t = 5,
-          l = 5,
+          l = 15,
           b = 5,
-          r = 5
+          r = 15
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),

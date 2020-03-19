@@ -40,9 +40,9 @@ theme_hbar <-
         ),
         plot.margin = margin(
           t = 5,
-          l = 5,
+          l = 15,
           b = 5,
-          r = 5
+          r = 15
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
@@ -328,7 +328,7 @@ ggplot_hbar <- function(data,
       ) +
       scale_x_discrete(
         labels = function(x)
-          stringr::str_wrap(x, 20)
+          stringr::str_wrap(x, 30)
       ) 
   }
   
@@ -624,7 +624,7 @@ ggplot_hbar_col <-
         ) +
         scale_x_discrete(
           labels = function(x)
-            stringr::str_wrap(x, 20)
+            stringr::str_wrap(x, 30)
         ) +
         guides(fill = guide_legend(
           ncol = 1,

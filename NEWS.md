@@ -1,3 +1,8 @@
+# 1.03
+
+* Update plot margins in graphs.
+* Update plot label wrapping in graphs.
+
 # 1.02
 
 * Make left and right plot margins equal and even.

@@ -41,9 +41,9 @@ theme_box <-
         ),
         plot.margin = margin(
           t = 5,
-          l = 5,
+          l = 15,
           b = 5,
-          r = 5
+          r = 15
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
@@ -294,7 +294,7 @@ ggplot_box <- function(data,
       coord_flip() +
       scale_x_discrete(
         labels = function(x)
-          stringr::str_wrap(x, 20)
+          stringr::str_wrap(x, 30)
       ) +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank())

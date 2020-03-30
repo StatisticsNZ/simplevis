@@ -180,7 +180,7 @@ ggplot_vbar <- function(data,
   
   if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if(min(y_var_vector) < 0) {
+  if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
     y_scale_zero <- FALSE
     message("y_scale_zero must be FALSE as data contains values less than zero")
   }
@@ -196,7 +196,8 @@ ggplot_vbar <- function(data,
     )
   
   if (is.null(rlang::get_expr(hover_var))) {
-    text <- paste(
+    plot <- plot +
+      geom_col(aes(text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
           ": ",
@@ -208,10 +209,13 @@ ggplot_vbar <- function(data,
           !!y_var
         ),
         sep = "<br>"
-      )
+      )),
+      fill = pal[1],
+      width = 0.75)
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
-    text <- paste(
+    plot <- plot +
+      geom_col(aes(text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
           ": ",
@@ -228,11 +232,10 @@ ggplot_vbar <- function(data,
           !!hover_var
         ),
         sep = "<br>"
-    )
+      )),
+      fill = pal[1],
+      width = 0.75)
   }
-  
-  plot <- plot +
-    geom_col(aes(text = text), fill = pal[1], width = 0.75)
   
   if (y_scale_zero == TRUE) {
     y_scale_breaks <- pretty(c(0, y_var_vector))
@@ -373,7 +376,7 @@ ggplot_vbar_col <-
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a vertical bar plot")
   
-    if(min(y_var_vector) < 0) {
+    if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
       y_scale_zero <- FALSE
       message("y_scale_zero must be FALSE as data contains values less than zero")
     }
@@ -383,7 +386,9 @@ ggplot_vbar_col <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+    plot <- ggplot(data,
+                   aes(x = !!x_var,
+                       y = !!y_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,
@@ -392,8 +397,10 @@ ggplot_vbar_col <-
       )
     
     if (is.null(rlang::get_expr(hover_var))) {
-      text <- 
-        paste(
+      plot <- plot +
+        geom_col(aes(
+          fill = !!col_var,
+          text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -411,10 +418,15 @@ ggplot_vbar_col <-
             ),
             sep = "<br>"
           )
+        ),
+        width = 0.75,
+        position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      text <- 
-        paste(
+      plot <- plot +
+        geom_col(aes(
+          fill = !!col_var,
+          text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -437,10 +449,10 @@ ggplot_vbar_col <-
             ),
             sep = "<br>"
           )
+        ),
+        width = 0.75,
+        position = position2)
     }
-    
-    plot <- plot +
-      geom_col(aes(fill = !!col_var, text = text), width = 0.75, position = position2)
     
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
@@ -599,7 +611,6 @@ ggplot_vbar_facet <-
            wrap_y_title = 50,
            wrap_caption = 80,
            isMobile = FALSE) {
-    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -612,7 +623,7 @@ ggplot_vbar_facet <-
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if(min(y_var_vector) < 0) {
+    if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
       y_scale_zero <- FALSE
       message("y_scale_zero must be FALSE as data contains values less than zero")
     }
@@ -628,8 +639,8 @@ ggplot_vbar_facet <-
       )
     
     if (is.null(rlang::get_expr(hover_var))) {
-      text <- 
-        paste(
+      plot <- plot +
+        geom_col(aes(text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
             ": ",
@@ -646,11 +657,13 @@ ggplot_vbar_facet <-
             !!y_var
           ),
           sep = "<br>"
-        )
+        )),
+        fill = pal[1],
+        width = 0.75)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      text <- 
-        paste(
+      plot <- plot +
+        geom_col(aes(text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
             ": ",
@@ -672,12 +685,11 @@ ggplot_vbar_facet <-
             !!hover_var
           ),
           sep = "<br>"
-        )
+        )),
+        fill = pal[1],
+        width = 0.75)
     }
     
-    plot <- plot +
-      geom_col(aes(text), fill = pal[1], width = 0.75)
-
     if (facet_scales %in% c("fixed", "free_y")) {
       if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
@@ -719,8 +731,12 @@ ggplot_vbar_facet <-
     }
     
     if (isMobile == FALSE) {
-      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+      if (is.null(facet_nrow) &
+          length(unique(facet_var_vector)) <= 3)
+        facet_nrow <- 1
+      if (is.null(facet_nrow) &
+          length(unique(facet_var_vector)) > 3)
+        facet_nrow <- 2
       
       plot <- plot +
         labs(
@@ -846,7 +862,7 @@ ggplot_vbar_col_facet <-
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if(min(y_var_vector) < 0) {
+    if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
       y_scale_zero <- FALSE
       message("y_scale_zero must be FALSE as data contains values less than zero")
     }
@@ -865,8 +881,10 @@ ggplot_vbar_col_facet <-
       )
     
     if (is.null(rlang::get_expr(hover_var))) {
-      text <- 
-        paste(
+      plot <- plot +
+        geom_col(aes(
+          fill = !!col_var,
+          text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -889,10 +907,15 @@ ggplot_vbar_col_facet <-
             ),
             sep = "<br>"
           )
+        ),
+        width = 0.75,
+        position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      text <- 
-        paste(
+      plot <- plot +
+        geom_col(aes(
+          fill = !!col_var,
+          text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -920,10 +943,10 @@ ggplot_vbar_col_facet <-
             ),
             sep = "<br>"
           )
+        ),
+        width = 0.75,
+        position = position2)
     }
-    
-    plot <- plot +
-      geom_col(aes(fill = !!col_var, text = text), width = 0.75, position = position2)
     
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()

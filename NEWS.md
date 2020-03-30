@@ -1,3 +1,8 @@
+# simplevis 1.05
+
+* Vertical bars allow for scale_zero equals FALSE & position equals "stack"
+* Vertical bar code is tidied up, particularly the y scale code
+
 # simplevis 1.04
 
 * Fix treatment of NA values in boxplots

@@ -170,6 +170,7 @@ ggplot_vbar <- function(data,
                         wrap_y_title = 50,
                         wrap_caption = 80,
                         isMobile = FALSE) {
+  
   x_var <- rlang::enquo(x_var)
   y_var <- rlang::enquo(y_var) #numeric var
   hover_var <- rlang::enquo(hover_var)
@@ -177,15 +178,16 @@ ggplot_vbar <- function(data,
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
-  if (!is.numeric(y_var_vector))
-    stop("Please use a numeric y variable for a vertical bar plot")
+  if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if (is.null(pal))
-    pal <- pal_snz
+  if(min(y_var_vector) < 0) {
+    y_scale_zero <- FALSE
+    message("y_scale_zero must be FALSE as data contains values less than zero")
+  }
   
-  plot <- ggplot(data,
-                 aes(x = !!x_var,
-                     y = !!y_var)) +
+  if (is.null(pal)) pal <- pal_snz
+  
+  plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
     coord_cartesian() +
     theme_vbar(
       font_family = font_family,
@@ -194,8 +196,7 @@ ggplot_vbar <- function(data,
     )
   
   if (is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_col(aes(text = paste(
+    text <- paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
           ": ",
@@ -207,13 +208,10 @@ ggplot_vbar <- function(data,
           !!y_var
         ),
         sep = "<br>"
-      )),
-      fill = pal[1],
-      width = 0.75)
+      )
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_col(aes(text = paste(
+    text <- paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
           ": ",
@@ -230,35 +228,32 @@ ggplot_vbar <- function(data,
           !!hover_var
         ),
         sep = "<br>"
-      )),
-      fill = pal[1],
-      width = 0.75)
+    )
   }
   
-  if (y_scale_zero == FALSE) {
-    y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-    if (y_scale_min_breaks_extra > 0)
-      y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-    if (y_scale_min_breaks_extra < 0)
-      y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-    y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-  }
+  plot <- plot +
+    geom_col(aes(text = text), fill = pal[1], width = 0.75)
   
-  if (y_scale_zero == TRUE)
+  if (y_scale_zero == TRUE) {
     y_scale_breaks <- pretty(c(0, y_var_vector))
-  else if (y_scale_zero == FALSE)
-    y_scale_breaks <- pretty(y_var_vector)
-  y_scale_max_breaks <- max(y_scale_breaks)
-  y_scale_min_breaks <- min(y_scale_breaks)
-  if (y_scale_zero == TRUE)
+    y_scale_max_breaks <- max(y_scale_breaks)
+    y_scale_min_breaks <- min(y_scale_breaks)
     y_scale_limits <- c(0, max(y_scale_breaks))
-  else if (y_scale_zero == FALSE)
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-  if (y_scale_zero == TRUE)
     y_scale_oob <- scales::censor
-  else if (y_scale_zero == FALSE)
+  }
+  else if (y_scale_zero == FALSE) {
+    y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
+    if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
+    if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
+    y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
+    
+    y_scale_breaks <- pretty(y_var_vector)
+    y_scale_max_breaks <- max(y_scale_breaks)
+    y_scale_min_breaks <- min(y_scale_breaks)
+    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
     y_scale_oob <- scales::rescale_none
-  
+  }
+
   plot <- plot +
     scale_y_continuous(
       expand = c(0, 0),
@@ -365,6 +360,7 @@ ggplot_vbar_col <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE) {
+    
     y_var <- rlang::enquo(y_var) #numeric var
     x_var <- rlang::enquo(x_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -374,28 +370,20 @@ ggplot_vbar_col <-
     x_var_vector <- dplyr::pull(data, !!x_var)
     col_var_vector <- dplyr::pull(data, !!col_var)
     
-    if (!is.numeric(y_var_vector))
-      stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(col_var_vector))
-      stop("Please use a categorical colour variable for a vertical bar plot")
+    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
+    if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a vertical bar plot")
+  
+    if(min(y_var_vector) < 0) {
+      y_scale_zero <- FALSE
+      message("y_scale_zero must be FALSE as data contains values less than zero")
+    }
     
-    if (position == "stack" &
-        y_scale_zero == FALSE)
-      message("simplevis does not support using a y scale not equal to zero for a stacked bar plot")
-    if (position == "stack" & y_scale_zero == FALSE)
-      y_scale_zero <- TRUE
+    if (position == "stack") position2 <- "stack"
+    else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (position == "stack")
-      position2 <- "stack"
-    else if (position == "dodge")
-      position2 <- position_dodge2(preserve = "single")
+    if (is.null(pal)) pal <- pal_snz
     
-    if (is.null(pal))
-      pal <- pal_snz
-    
-    plot <- ggplot(data,
-                   aes(x = !!x_var,
-                       y = !!y_var)) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,
@@ -404,10 +392,8 @@ ggplot_vbar_col <-
       )
     
     if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          fill = !!col_var,
-          text = paste(
+      text <- 
+        paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -425,15 +411,10 @@ ggplot_vbar_col <-
             ),
             sep = "<br>"
           )
-        ),
-        width = 0.75,
-        position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          fill = !!col_var,
-          text = paste(
+      text <- 
+        paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -456,15 +437,13 @@ ggplot_vbar_col <-
             ),
             sep = "<br>"
           )
-        ),
-        width = 0.75,
-        position = position2)
     }
     
-    if (!is.null(legend_labels))
-      labels <- legend_labels
-    if (is.null(legend_labels))
-      labels <- waiver()
+    plot <- plot +
+      geom_col(aes(fill = !!col_var, text = text), width = 0.75, position = position2)
+    
+    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(legend_labels)) labels <- waiver()
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -483,24 +462,26 @@ ggplot_vbar_col <-
       y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
     }
     
-    if (y_scale_zero == TRUE)
+    if (y_scale_zero == TRUE) {
       y_scale_breaks <- pretty(c(0, y_var_vector))
-    else if (position == "dodge" &
-             y_scale_zero == FALSE)
-      y_scale_breaks <- pretty(y_var_vector)
-    y_scale_max_breaks <- max(y_scale_breaks)
-    y_scale_min_breaks <- min(y_scale_breaks)
-    if (y_scale_zero == TRUE)
-      y_scale_limits <- c(0, y_scale_max_breaks)
-    else if (position == "dodge" &
-             y_scale_zero == FALSE)
-      y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
-    if (y_scale_zero == TRUE)
+      y_scale_max_breaks <- max(y_scale_breaks)
+      y_scale_min_breaks <- min(y_scale_breaks)
+      y_scale_limits <- c(0, max(y_scale_breaks))
       y_scale_oob <- scales::censor
-    else if (position == "dodge" &
-             y_scale_zero == FALSE)
+    }
+    else if (y_scale_zero == FALSE) {
+      y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
+      if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
+      if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
+      y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
+      
+      y_scale_breaks <- pretty(y_var_vector)
+      y_scale_max_breaks <- max(y_scale_breaks)
+      y_scale_min_breaks <- min(y_scale_breaks)
+      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       y_scale_oob <- scales::rescale_none
-    
+    }
+
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -618,6 +599,7 @@ ggplot_vbar_facet <-
            wrap_y_title = 50,
            wrap_caption = 80,
            isMobile = FALSE) {
+    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -627,17 +609,17 @@ ggplot_vbar_facet <-
     y_var_vector <- dplyr::pull(data, !!y_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(y_var_vector))
-      stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(facet_var_vector))
-      stop("Please use a categorical facet variable for a vertical bar plot")
+    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
+    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if (is.null(pal))
-      pal <- pal_snz
+    if(min(y_var_vector) < 0) {
+      y_scale_zero <- FALSE
+      message("y_scale_zero must be FALSE as data contains values less than zero")
+    }
     
-    plot <- ggplot(data,
-                   aes(x = !!x_var,
-                       y = !!y_var)) +
+    if (is.null(pal)) pal <- pal_snz
+    
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,
@@ -646,8 +628,8 @@ ggplot_vbar_facet <-
       )
     
     if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(text = paste(
+      text <- 
+        paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
             ": ",
@@ -664,13 +646,11 @@ ggplot_vbar_facet <-
             !!y_var
           ),
           sep = "<br>"
-        )),
-        fill = pal[1],
-        width = 0.75)
+        )
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(text = paste(
+      text <- 
+        paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
             ": ",
@@ -692,35 +672,32 @@ ggplot_vbar_facet <-
             !!hover_var
           ),
           sep = "<br>"
-        )),
-        fill = pal[1],
-        width = 0.75)
+        )
     }
     
+    plot <- plot +
+      geom_col(aes(text), fill = pal[1], width = 0.75)
+
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0)
-          y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0)
-          y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-      }
-      
-      if (y_scale_zero == TRUE)
+      if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
-      else if (y_scale_zero == FALSE)
-        y_scale_breaks <- pretty(y_var_vector)
-      y_scale_max_breaks <- max(y_scale_breaks)
-      y_scale_min_breaks <- min(y_scale_breaks)
-      if (y_scale_zero == TRUE)
-        y_scale_limits <- c(0, y_scale_max_breaks)
-      else if (y_scale_zero == FALSE)
-        y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
-      if (y_scale_zero == TRUE)
+        y_scale_max_breaks <- max(y_scale_breaks)
+        y_scale_min_breaks <- min(y_scale_breaks)
+        y_scale_limits <- c(0, max(y_scale_breaks))
         y_scale_oob <- scales::censor
-      else if (y_scale_zero == FALSE)
+      }
+      else if (y_scale_zero == FALSE) {
+        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
+        if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
+        if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
+        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
+        
+        y_scale_breaks <- pretty(y_var_vector)
+        y_scale_max_breaks <- max(y_scale_breaks)
+        y_scale_min_breaks <- min(y_scale_breaks)
+        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
         y_scale_oob <- scales::rescale_none
+      }
       
       plot <- plot +
         scale_y_continuous(
@@ -732,10 +709,8 @@ ggplot_vbar_facet <-
         )
     }
     else if (facet_scales %in% c("free", "free_x")) {
-      if (y_scale_zero == TRUE)
-        y_scale_oob <- scales::censor
-      else if (y_scale_zero == FALSE)
-        y_scale_oob <- scales::rescale_none
+      if (y_scale_zero == TRUE) y_scale_oob <- scales::censor
+      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
       
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
@@ -744,12 +719,8 @@ ggplot_vbar_facet <-
     }
     
     if (isMobile == FALSE) {
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) <= 3)
-        facet_nrow <- 1
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) > 3)
-        facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
       
       plot <- plot +
         labs(
@@ -860,6 +831,7 @@ ggplot_vbar_col_facet <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE) {
+    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -871,22 +843,20 @@ ggplot_vbar_col_facet <-
     col_var_vector <- dplyr::pull(data, !!col_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(y_var_vector))
-      stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(facet_var_vector))
-      stop("Please use a categorical facet variable for a vertical bar plot")
+    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
+    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if (position == "stack")
-      position2 <- "stack"
-    else if (position == "dodge")
-      position2 <- position_dodge2(preserve = "single")
+    if(min(y_var_vector) < 0) {
+      y_scale_zero <- FALSE
+      message("y_scale_zero must be FALSE as data contains values less than zero")
+    }
     
-    if (is.null(pal))
-      pal <- pal_snz
+    if (position == "stack") position2 <- "stack"
+    else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    plot <- ggplot(data,
-                   aes(x = !!x_var,
-                       y = !!y_var)) +
+    if (is.null(pal)) pal <- pal_snz
+    
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,
@@ -895,10 +865,8 @@ ggplot_vbar_col_facet <-
       )
     
     if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          fill = !!col_var,
-          text = paste(
+      text <- 
+        paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -921,15 +889,10 @@ ggplot_vbar_col_facet <-
             ),
             sep = "<br>"
           )
-        ),
-        width = 0.75,
-        position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          fill = !!col_var,
-          text = paste(
+      text <- 
+        paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
               ": ",
@@ -957,15 +920,13 @@ ggplot_vbar_col_facet <-
             ),
             sep = "<br>"
           )
-        ),
-        width = 0.75,
-        position = position2)
     }
     
-    if (!is.null(legend_labels))
-      labels <- legend_labels
-    if (is.null(legend_labels))
-      labels <- waiver()
+    plot <- plot +
+      geom_col(aes(fill = !!col_var, text = text), width = 0.75, position = position2)
+    
+    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(legend_labels)) labels <- waiver()
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -985,30 +946,26 @@ ggplot_vbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0)
-          y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0)
-          y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-      }
-      
-      if (y_scale_zero == TRUE)
+      if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
-      else if (y_scale_zero == FALSE)
-        y_scale_breaks <- pretty(y_var_vector)
-      y_scale_max_breaks <- max(y_scale_breaks)
-      y_scale_min_breaks <- min(y_scale_breaks)
-      if (y_scale_zero == TRUE)
-        y_scale_limits <- c(0, y_scale_max_breaks)
-      else if (y_scale_zero == FALSE)
-        y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
-      if (y_scale_zero == TRUE)
+        y_scale_max_breaks <- max(y_scale_breaks)
+        y_scale_min_breaks <- min(y_scale_breaks)
+        y_scale_limits <- c(0, max(y_scale_breaks))
         y_scale_oob <- scales::censor
-      else if (y_scale_zero == FALSE)
+      }
+      else if (y_scale_zero == FALSE) {
+        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
+        if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
+        if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
+        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
+        
+        y_scale_breaks <- pretty(y_var_vector)
+        y_scale_max_breaks <- max(y_scale_breaks)
+        y_scale_min_breaks <- min(y_scale_breaks)
+        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
         y_scale_oob <- scales::rescale_none
-      
+      }
+
       plot <- plot +
         scale_fill_manual(
           values = pal,
@@ -1043,12 +1000,8 @@ ggplot_vbar_col_facet <-
     }
     
     if (isMobile == FALSE) {
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) <= 3)
-        facet_nrow <- 1
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) > 3)
-        facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
       
       plot <- plot +
         labs(

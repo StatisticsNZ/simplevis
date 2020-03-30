@@ -28,22 +28,23 @@ shinyServer(function(input, output, session) {
 
   })
 
-  output$plot_desktop <- plotly::renderPlotly({ # render it as a html object for desktop users
+  output$plot_desktop <- plotly::renderPlotly({ ### render it as a html object for desktop users
     plotly::ggplotly(plot(), tooltip = "text") %>%
       plotly::config(displayModeBar = F)
   })
 
-  output$plot_mobile <- renderPlot({ # render it as a image for mobile users
+  output$plot_mobile <- renderPlot({ ### render it as a image for mobile users
     plot()
   })
-
-  ### use renderCachedPlot with relevant inputs listed to improve mobile performance ###
+  
+  ### use this code if you want to speed things up for mobile users
   # output$plot_mobile <- renderCachedPlot({
   #   plot()
   # },
   # cacheKeyExpr = {
-  #   list()
+  #   list() ### list input$dependencies here
   # })
+  
 
   # output$plot_data <- DT::renderDT( ### use this reactive table to debug plot_data() ###
   #   plot_data(),
@@ -73,7 +74,7 @@ shinyServer(function(input, output, session) {
   #     "data.csv"
   #   },
   #   content = function(file) {
-  #     readr::write_csv(df, file) ### adjust data object name, as necessary ###
+  #     readr::write_csv(df, file, na ="") ### adjust data object name, as necessary ###
   #   }
   # )
 

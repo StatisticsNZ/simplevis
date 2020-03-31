@@ -249,7 +249,7 @@ ggplot_line <- function(data,
       )
   }
   
-  if(isMobile == FALSE) x_scale_n <- 7
+  if(isMobile == FALSE) x_scale_n <- 6
   else if(isMobile == TRUE) x_scale_n <- 4
 
   x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -496,7 +496,7 @@ ggplot_line_col <-
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
-    if(isMobile == FALSE) x_scale_n <- 7
+    if(isMobile == FALSE) x_scale_n <- 6
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -741,7 +741,7 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if(isMobile == FALSE) x_scale_n <- 7
+      if(isMobile == FALSE) x_scale_n <- 6
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -1040,7 +1040,7 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if(isMobile == FALSE) x_scale_n <- 7
+      if(isMobile == FALSE) x_scale_n <- 6
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)

@@ -4,7 +4,7 @@
 * Line graphs change x limits 
 * Line graphs add vbar y-scale code to line graphs
 * Line graphs fixed free_y and free_x
-* Line graphs update aim for 8 x-scale labels desktop, but 4 for mobile
+* Line graphs update aim for 7 x-scale labels desktop, but 4 for mobile
 * Line graphs have points always on, but alpha equal zero where points equals FALSE
 * Line graphs move text to geom_point so that hover is on points
 * Vertical bar fixed free_y and free_x

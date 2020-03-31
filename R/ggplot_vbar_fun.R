@@ -142,7 +142,7 @@ theme_vbar <-
 #'   dplyr::ungroup()
 #'
 #' plot <- ggplot_vbar(data = plot_data, x_var = year, y_var = average_wind,
-#'       title = "Average wind speed of Atlantic dplyr::storms, 1975\u20132015",
+#'       title = "Average wind speed of Atlantic storms, 1975\u20132015",
 #'       x_title = "Year",
 #'       y_title = "Average maximum sustained wind speed (knots)")
 #'
@@ -611,6 +611,7 @@ ggplot_vbar_facet <-
            wrap_y_title = 50,
            wrap_caption = 80,
            isMobile = FALSE) {
+    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -690,7 +691,7 @@ ggplot_vbar_facet <-
         width = 0.75)
     }
     
-    if (facet_scales %in% c("fixed", "free_y")) {
+    if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
         y_scale_max_breaks <- max(y_scale_breaks)
@@ -720,7 +721,7 @@ ggplot_vbar_facet <-
           oob = y_scale_oob
         )
     }
-    else if (facet_scales %in% c("free", "free_x")) {
+    else if (facet_scales %in% c("free", "free_y")) {
       if (y_scale_zero == TRUE) y_scale_oob <- scales::censor
       else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
       
@@ -968,7 +969,7 @@ ggplot_vbar_col_facet <-
       y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
     }
     
-    if (facet_scales %in% c("fixed", "free_y")) {
+    if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
         y_scale_max_breaks <- max(y_scale_breaks)
@@ -1004,7 +1005,7 @@ ggplot_vbar_col_facet <-
           oob = y_scale_oob
         )
     }
-    else if (facet_scales %in% c("free", "free_x")) {
+    else if (facet_scales %in% c("free", "free_y")) {
       if (y_scale_zero == TRUE)
         y_scale_oob <- scales::censor
       else if (y_scale_zero == FALSE)

@@ -1,6 +1,17 @@
+# simplevis 1.06
+
+* Line graphs change 0.03 to 0
+* Line graphs change x limits 
+* Line graphs add vbar y-scale code to line graphs
+* Line graphs fixed free_y and free_x
+* Line graphs update aim for 8 x-scale labels desktop, but 4 for mobile
+* Line graphs have points always on, but alpha equal zero where points equals FALSE
+* Line graphs move text to geom_point so that hover is on points
+* Vertical bar fixed free_y and free_x
+
 # simplevis 1.05
 
-* Vertical bars allow for scale_zero equals FALSE & position equals "stack"
+* Vertical bar allow for scale_zero equals FALSE & position equals "stack"
 * Vertical bar code is tidied up, particularly the y scale code
 
 # simplevis 1.04

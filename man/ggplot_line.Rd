@@ -76,7 +76,7 @@ plot_data <- dplyr::storms \%>\%
   dplyr::ungroup()
 
   plot <- ggplot_line(data = plot_data, x_var = year, y_var = wind,
-      title = "Average wind speed of Atlantic dplyr::storms, 1975\\u20132015",
+      title = "Average wind speed of Atlantic storms, 1975\\u20132015",
       x_title = "Year",
       y_title = "Average maximum sustained wind speed (knots)")
 

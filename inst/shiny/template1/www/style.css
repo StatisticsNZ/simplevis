@@ -16,33 +16,25 @@ html, body, .container {
 
 #map {
   height: calc(100vh - 80px) !important;
-  max-height: 670px
 }
 
 #map1 {
   height: calc(100vh - 80px) !important;
-  max-height: 670px;
   margin: 1%;
 }
 
 #map2 {
   height: calc(100vh - 80px) !important;
-  max-height: 670px;
   margin: 1%;
 }
 
 #plot_desktop {
-  min-height: 350px;
-  max-height: 700px;
-  min-width: 350px;
-  max-width: 1000px;
+  max-height: 670px;
+  max-width: 950px;
 }
 
 #plot_mobile {
-  min-height: 350px;
-  max-height: 700px;
-  min-width: 350px;
-  max-width: 1000px;
+  max-width: 950px;
 }
 
 .shiny-output-error { visibility: hidden; }

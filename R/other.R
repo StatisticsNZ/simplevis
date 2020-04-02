@@ -52,48 +52,31 @@ signed_sqrt_trans <- function()
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_snz <- c(
-  "#085c75",
-  # teal 1
-  "#d2ac2f",
-  # yellow 2
-  "#ae4e51",
-  # pinky brown 3
-  "#35345d",
-  # dark blue 4
-  "#76a93f",
-  # light green 5
-  "#6f2e38",
-  # chocolate brown 6
-  "#0d94a3",
-  # light blue 7
-  "#dd6829",
-  # orange 8
-  "#1a6e5b" # dark green 9
-)
+pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
 
 #' @title Colour palette for categorical variables.
 #' @description Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_set1 <-
-  c(
-    "#377EB8", #blue
-    "#A65628", #brown
-    "#F781BF", #pink
-    "#4DAF4A", #green
-    "#FF7F00", #orange
-    "#984EA3", #purple
-    "#FFFF33", #yellow
-    "#E41A1C", #red
-    "#999999" #grey
-  ) #from Set1, 9col
+pal_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
+
+#' @title Colour palette for categorical variables.
+#' @description  Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_trend5 <- c("#35345D", "#0D94A3", "#D3D3D3", "#AE4E51", "#6F2E38")
+
+#' @title Colour palette for categorical variables.
+#' @description  Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_trend3 <- c("#0D94A3", "#C4C4C7", "#AE4E51")
 
 #' @title Colour palette for categorical variables.
 #' @description Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_trend3 <- c("#4575B4", "#D3D3D3", "#D73027")
+pal_trend3 <- c("#4575B4", "#C4C4C7", "#D73027")
 
 #' @title Colour palette for categorical variables.
 #' @description Colour palette for categorical variables.
@@ -106,25 +89,7 @@ pal_trend5 <-
 #' @description Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_ea19 <- c(
-  "#172a45",
-  # dark blue 1
-  "#00b2c3",
-  #light blue 2
-  "#c04124",
-  #red 3
-  "#005c75",
-  #teal 4
-  "#a2c62b",
-  #light green 5
-  "#702e01",
-  #brown 6
-  "#ff590d",
-  #orange 7
-  "#c4c4c7",
-  #grey 8
-  "#007f39" #dark green 9
-)
+pal_ea19 <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
 
 # a4_dim
 

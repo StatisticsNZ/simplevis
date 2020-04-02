@@ -97,16 +97,6 @@ shinyServer(function(input, output, session) {
   #   )
   # )
 
-  # table
-
-  output$table <- DT::renderDT(
-    df, ### adjust if necessary to display an appropriate number of columns of loaded data ###
-    filter = "top",
-    rownames = F,
-    options = list(pageLength = 10,
-                   scrollX = T)
-  )
-
   ### table ###
 
   output$table <- DT::renderDT(

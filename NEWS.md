@@ -1,3 +1,7 @@
+# simplevis 1.07
+
+* Add pal_snz_trend3 and pal_snz_
+
 # simplevis 1.06
 
 * Line graphs change 0.03 to 0

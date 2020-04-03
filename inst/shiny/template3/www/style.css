@@ -16,18 +16,15 @@ html, body, .container {
 
 #map {
   height: calc(100vh - 80px) !important;
-  max-height: 670px
 }
 
 #map1 {
   height: calc(100vh - 80px) !important;
-  max-height: 670px;
   margin: 1%;
 }
 
 #map2 {
   height: calc(100vh - 80px) !important;
-  max-height: 670px;
   margin: 1%;
 }
 

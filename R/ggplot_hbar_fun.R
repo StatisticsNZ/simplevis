@@ -329,7 +329,7 @@ ggplot_hbar <- function(data,
       ) +
       scale_x_discrete(
         labels = function(x)
-          stringr::str_wrap(x, 40)
+          stringr::str_wrap(x, 30)
       ) 
   }
   
@@ -625,7 +625,7 @@ ggplot_hbar_col <-
         ) +
         scale_x_discrete(
           labels = function(x)
-            stringr::str_wrap(x, 40)
+            stringr::str_wrap(x, 30)
         ) +
         guides(fill = guide_legend(
           ncol = 1,

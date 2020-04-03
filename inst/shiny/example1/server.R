@@ -52,7 +52,11 @@ shinyServer(function(input, output, session) {
   })
   
   output$plot_mobile <- renderPlot({ # render it as a image for mobile users
-    plot()
+    plot() +
+      ggplot2::theme(plot.title.position = "plot") +
+      ggplot2::theme(plot.caption.position = "plot") +
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0)) +
+      ggplot2::theme(plot.caption = ggplot2::element_text(hjust = 0))
   })
   
   ### use renderCachedPlot with relevant inputs listed to improve mobile performance ###

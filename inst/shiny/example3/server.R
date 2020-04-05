@@ -146,14 +146,15 @@ shinyServer(function(input, output, session) {
       x_var = percent,
       y_var = indicator,
       col_var = trend_likelihood,
+      pal = rev(pal_snz_trend5),
       title = paste0("Monitored river water quality trends, ", input$graph_period),
       x_title = "Percent",
-      y_title = "Indicator",
+      y_title = NULL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ,
       isMobile = input$isMobile,
       font_size_title = font_size_title,
       font_size_body = font_size_body
     )
-
+    
   })
 
   output$plot_desktop <- plotly::renderPlotly({ # render it as a html object for desktop users
@@ -173,16 +174,6 @@ shinyServer(function(input, output, session) {
   #   list()
   # })
 
-  # output$plot_data <- DT::renderDT( ### use this reactive table to debug plot_data() ###
-  #   plot_data(),
-  #   filter = "top",
-  #   rownames = F,
-  #   options = list(
-  #     pageLength = 5,
-  #     scrollX = TRUE
-  #   )
-  # )
-
   ### table ###
 
   output$table <- DT::renderDT(
@@ -195,18 +186,8 @@ shinyServer(function(input, output, session) {
 
   ### download ###
 
-  # output$download <- downloadHandler(
-  #   ### applicable  if 1 dataset ###
-  #   filename = function() {
-  #     "data.csv"
-  #   },
-  #   content = function(file) {
-  #     readr::write_csv(df, file) ### adjust data object name, as necessary ###
-  #   }
-  # )
-
   output$download <- downloadHandler(
-    ### if many files, add a zip file called download.zip into the data subfolder, and use this code instead ###
+    ### add a zip file called download.zip into the data subfolder ###
     filename <- function() {
       "download.zip"
     },
@@ -215,6 +196,16 @@ shinyServer(function(input, output, session) {
     },
     contentType = "application/zip"
   )
+  
+  # output$download <- downloadHandler(
+  #   ### applicable  if 1 dataset ###
+  #   filename = function() {
+  #     "data.csv"
+  #   },
+  #   content = function(file) {
+  #     readr::write_csv(df, file, na ="") ### adjust data object name, as necessary ###
+  #   }
+  # )
 
   ### download code ###
 

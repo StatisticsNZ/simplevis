@@ -45,17 +45,6 @@ shinyServer(function(input, output, session) {
   #   list() ### list input$dependencies here
   # })
   
-
-  # output$plot_data <- DT::renderDT( ### use this reactive table to debug plot_data() ###
-  #   plot_data(),
-  #   filter = "top",
-  #   rownames = F,
-  #   options = list(
-  #     pageLength = 5,
-  #     scrollX = T
-  #   )
-  # )
-
   ### table ###
 
   output$table <- DT::renderDT(
@@ -68,6 +57,17 @@ shinyServer(function(input, output, session) {
 
   ### download ###
 
+  output$download <- downloadHandler(
+    ### add a zip file called download.zip into the data subfolder ###
+    filename <- function() {
+      "download.zip"
+    },
+    content <- function(file) {
+      file.copy("data/download.zip", file)
+    },
+    contentType = "application/zip"
+  )
+  
   # output$download <- downloadHandler(
   #   ### applicable  if 1 dataset ###
   #   filename = function() {
@@ -77,17 +77,6 @@ shinyServer(function(input, output, session) {
   #     readr::write_csv(df, file, na ="") ### adjust data object name, as necessary ###
   #   }
   # )
-
-  output$download <- downloadHandler(
-    ### if many files, add a zip file called download.zip into the data subfolder, and use this code instead ###
-    filename <- function() {
-      "download.zip"
-    },
-    content <- function(file) {
-      file.copy("data/download.zip", file)
-    },
-    contentType = "application/zip"
-  )
 
   ### download code ###
 

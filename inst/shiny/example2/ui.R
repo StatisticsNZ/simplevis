@@ -20,6 +20,7 @@ shinyUI(
     tags$div(tags$br()),
     downloadButton("download_code", tags$strong("Download code")),
     tags$div(tags$br()),
+    tags$head(includeCSS("www/style.css")),
     tags$head(includeScript("www/js/tag-manager.js")),
     mobileDetect("isMobile"),
     # https://github.com/g3rv4/mobileDetect
@@ -87,7 +88,6 @@ shinyUI(
                 color = "#A8A8A8"
               )
             )
-            # DT::DTOutput("plot_data") ### use this reactive table to debug plot_data() ###
           )
         )
       ),

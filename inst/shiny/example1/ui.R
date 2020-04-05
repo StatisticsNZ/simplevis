@@ -20,13 +20,14 @@ shinyUI(
     tags$div(tags$br()),
     downloadButton("download_code", tags$strong("Download code")),
     tags$div(tags$br()),
+    tags$head(includeCSS("www/style.css")),
     tags$head(includeScript("www/js/tag-manager.js")),
     mobileDetect("isMobile"),
     # https://github.com/g3rv4/mobileDetect
-    tags$head(
-      tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.contentWindow.min.js",
-                  type = "text/javascript")
-    ), # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
+    # tags$head(
+    #   tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.contentWindow.min.js",
+    #               type = "text/javascript")
+    # ), # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
     navbarPage(
       title = HTML("<b>", app_title, "</b>"),
       windowTitle = app_title,
@@ -62,7 +63,6 @@ shinyUI(
                 color = "#A8A8A8"
               )
             )
-            # DT::DTOutput("plot_data") ### use this reactive table to debug plot_data() ###
           )
         )
       ),

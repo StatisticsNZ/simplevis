@@ -112,12 +112,12 @@ theme_vbar <-
 
 #' @title Vertical bar ggplot.
 #' @description Vertical bar ggplot that is not coloured and not facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param data A tibble or dataframe. Required input.
+#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_trans A string specifying a transformation for the y axis scale. Defaults to "identity".
+#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -153,6 +153,7 @@ ggplot_vbar <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
+                        x_scale_date_format = "%Y",
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
                         pal = NULL,
@@ -195,6 +196,9 @@ ggplot_vbar <- function(data,
       font_size_title = font_size_title
     )
   
+  if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
+  else if (is.numeric(x_var_vector)) width <- 0.75
+  
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
       geom_col(aes(text = paste(
@@ -211,7 +215,8 @@ ggplot_vbar <- function(data,
         sep = "<br>"
       )),
       fill = pal[1],
-      width = 0.75)
+      width = width
+      )
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
@@ -234,14 +239,20 @@ ggplot_vbar <- function(data,
         sep = "<br>"
       )),
       fill = pal[1],
-      width = 0.75)
+      width = width
+      )
   }
+  
+  if(isMobile == FALSE) x_scale_n <- 7
+  else if(isMobile == TRUE) x_scale_n <- 4
+  
+  x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+  x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
   
   if (y_scale_zero == TRUE) {
     y_scale_breaks <- pretty(c(0, y_var_vector))
-    y_scale_max_breaks <- max(y_scale_breaks)
-    y_scale_min_breaks <- min(y_scale_breaks)
-    y_scale_limits <- c(0, max(y_scale_breaks))
+    if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
     y_scale_oob <- scales::censor
   }
   else if (y_scale_zero == FALSE) {
@@ -250,11 +261,29 @@ ggplot_vbar <- function(data,
     if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
     y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
     
-    y_scale_breaks <- pretty(y_var_vector)
-    y_scale_max_breaks <- max(y_scale_breaks)
-    y_scale_min_breaks <- min(y_scale_breaks)
+    if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+    if(y_scale_trans == "log10") {
+      y_scale_breaks <- pretty(c(0, y_var_vector)) 
+      y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+    }
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
     y_scale_oob <- scales::rescale_none
+  }
+  
+  if (lubridate::is.Date(x_var_vector)) {
+    plot <- plot +
+      scale_x_date(
+        expand = c(0, 0),
+        breaks = x_scale_breaks,
+        limits = x_scale_limits,
+        labels = scales::date_format(x_scale_date_format)
+      )
+  }
+  else if (is.numeric(x_var_vector)) {
+    plot <- plot +
+      scale_x_continuous(expand = c(0, 0),
+                         breaks = x_scale_breaks,
+                         limits = x_scale_limits)
   }
 
   plot <- plot +
@@ -292,13 +321,13 @@ ggplot_vbar <- function(data,
 
 #' @title Vertical bar ggplot that is coloured.
 #' @description Vertical bar ggplot that is coloured, but not facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param data A tibble or dataframe. Required input.
+#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_trans A string specifying a transformation for the y axis scale. Defaults to "identity".
+#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -340,6 +369,7 @@ ggplot_vbar_col <-
            y_var,
            col_var,
            hover_var = NULL,
+           x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
            col_scale_drop = FALSE,
@@ -396,6 +426,9 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       )
     
+    if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
+    else if (is.numeric(x_var_vector)) width <- 0.75
+    
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
@@ -419,7 +452,7 @@ ggplot_vbar_col <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -450,12 +483,15 @@ ggplot_vbar_col <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
+    
+    if(isMobile == FALSE) x_scale_n <- 7
+    else if(isMobile == TRUE) x_scale_n <- 4
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -467,18 +503,18 @@ ggplot_vbar_col <-
     }
     else if (position == "dodge" & y_scale_zero == FALSE) {
       y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-      if (y_scale_min_breaks_extra > 0)
-        y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-      if (y_scale_min_breaks_extra < 0)
-        y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
+      if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
+      if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
       y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
     }
-    
+
+    x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+
     if (y_scale_zero == TRUE) {
       y_scale_breaks <- pretty(c(0, y_var_vector))
-      y_scale_max_breaks <- max(y_scale_breaks)
-      y_scale_min_breaks <- min(y_scale_breaks)
-      y_scale_limits <- c(0, max(y_scale_breaks))
+      if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       y_scale_oob <- scales::censor
     }
     else if (y_scale_zero == FALSE) {
@@ -487,13 +523,31 @@ ggplot_vbar_col <-
       if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
       y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
       
-      y_scale_breaks <- pretty(y_var_vector)
-      y_scale_max_breaks <- max(y_scale_breaks)
-      y_scale_min_breaks <- min(y_scale_breaks)
+      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+      if(y_scale_trans == "log10") {
+        y_scale_breaks <- pretty(c(0, y_var_vector)) 
+        y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      }
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       y_scale_oob <- scales::rescale_none
     }
-
+    
+    if (lubridate::is.Date(x_var_vector)) {
+      plot <- plot +
+        scale_x_date(
+          expand = c(0, 0),
+          breaks = x_scale_breaks,
+          limits = x_scale_limits,
+          labels = scales::date_format(x_scale_date_format)
+        )
+    }
+    else if (is.numeric(x_var_vector)) {
+      plot <- plot +
+        scale_x_continuous(expand = c(0, 0),
+                           breaks = x_scale_breaks,
+                           limits = x_scale_limits)
+    }
+    
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -547,13 +601,13 @@ ggplot_vbar_col <-
 
 #' @title Vertical bar ggplot that is facetted.
 #' @description Vertical bar ggplot that is facetted, but not coloured.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param data A tibble or dataframe. Required input.
+#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -592,6 +646,7 @@ ggplot_vbar_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
+           x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
            facet_scales = "fixed",
@@ -639,6 +694,9 @@ ggplot_vbar_facet <-
         font_size_title = font_size_title
       )
     
+    if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
+    else if (is.numeric(x_var_vector)) width <- 0.75
+    
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(text = paste(
@@ -660,7 +718,8 @@ ggplot_vbar_facet <-
           sep = "<br>"
         )),
         fill = pal[1],
-        width = 0.75)
+        width = width
+        )
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
@@ -688,15 +747,40 @@ ggplot_vbar_facet <-
           sep = "<br>"
         )),
         fill = pal[1],
-        width = 0.75)
+        width = width
+        )
+    }
+    
+    if (facet_scales %in% c("fixed", "free_y")) {
+      
+      if(isMobile == FALSE) x_scale_n <- 5
+      else if(isMobile == TRUE) x_scale_n <- 4
+      
+      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      
+      if (lubridate::is.Date(x_var_vector)) {
+        plot <- plot +
+          scale_x_date(
+            expand = c(0, 0),
+            breaks = x_scale_breaks,
+            limits = x_scale_limits,
+            labels = scales::date_format(x_scale_date_format)
+          )
+      }
+      else if (is.numeric(x_var_vector)) {
+        plot <- plot +
+          scale_x_continuous(expand = c(0, 0),
+                             breaks = x_scale_breaks,
+                             limits = x_scale_limits)
+      }
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
-        y_scale_max_breaks <- max(y_scale_breaks)
-        y_scale_min_breaks <- min(y_scale_breaks)
-        y_scale_limits <- c(0, max(y_scale_breaks))
+        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
         y_scale_oob <- scales::censor
       }
       else if (y_scale_zero == FALSE) {
@@ -705,9 +789,11 @@ ggplot_vbar_facet <-
         if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
         y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
         
-        y_scale_breaks <- pretty(y_var_vector)
-        y_scale_max_breaks <- max(y_scale_breaks)
-        y_scale_min_breaks <- min(y_scale_breaks)
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans == "log10") {
+          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+        }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
         y_scale_oob <- scales::rescale_none
       }
@@ -766,14 +852,14 @@ ggplot_vbar_facet <-
 
 #' @title Vertical bar ggplot that is coloured and facetted.
 #' @description Vertical bar ggplot that is coloured and facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param data A tibble or dataframe. Required input.
+#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -823,6 +909,7 @@ ggplot_vbar_col_facet <-
            col_var,
            facet_var,
            hover_var = NULL,
+           x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
            col_scale_drop = FALSE,
@@ -881,6 +968,9 @@ ggplot_vbar_col_facet <-
         font_size_title = font_size_title
       )
     
+    if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
+    else if (is.numeric(x_var_vector)) width <- 0.75
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
@@ -909,7 +999,7 @@ ggplot_vbar_col_facet <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -945,7 +1035,7 @@ ggplot_vbar_col_facet <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     
@@ -969,12 +1059,37 @@ ggplot_vbar_col_facet <-
       y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
     }
     
+    if (facet_scales %in% c("fixed", "free_y")) {
+      
+      if(isMobile == FALSE) x_scale_n <- 5
+      else if(isMobile == TRUE) x_scale_n <- 4
+      
+      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      
+      if (lubridate::is.Date(x_var_vector)) {
+        plot <- plot +
+          scale_x_date(
+            expand = c(0, 0),
+            breaks = x_scale_breaks,
+            limits = x_scale_limits,
+            labels = scales::date_format(x_scale_date_format)
+          )
+      }
+      else if (is.numeric(x_var_vector)) {
+        plot <- plot +
+          scale_x_continuous(expand = c(0, 0),
+                             breaks = x_scale_breaks,
+                             limits = x_scale_limits)
+      }
+      
+    }
+    
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
         y_scale_breaks <- pretty(c(0, y_var_vector))
-        y_scale_max_breaks <- max(y_scale_breaks)
-        y_scale_min_breaks <- min(y_scale_breaks)
-        y_scale_limits <- c(0, max(y_scale_breaks))
+        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
         y_scale_oob <- scales::censor
       }
       else if (y_scale_zero == FALSE) {
@@ -983,13 +1098,15 @@ ggplot_vbar_col_facet <-
         if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
         y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
         
-        y_scale_breaks <- pretty(y_var_vector)
-        y_scale_max_breaks <- max(y_scale_breaks)
-        y_scale_min_breaks <- min(y_scale_breaks)
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans == "log10") {
+          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+        }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
         y_scale_oob <- scales::rescale_none
       }
-
+      
       plot <- plot +
         scale_fill_manual(
           values = pal,
@@ -1022,7 +1139,7 @@ ggplot_vbar_col_facet <-
                            trans = y_scale_trans,
                            oob = y_scale_oob)
     }
-    
+
     if (isMobile == FALSE) {
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2

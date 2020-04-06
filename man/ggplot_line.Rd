@@ -27,7 +27,7 @@ ggplot_line(data, x_var, y_var, hover_var = NULL,
 
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+\item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
 

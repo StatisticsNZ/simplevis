@@ -22,7 +22,7 @@ ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
-\item{col_var}{Unquoted categorical variable for points to be coloured by. Required input.}
+\item{col_var}{Unquoted categorical variable for lines and points to be coloured by. Required input.}
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
@@ -30,7 +30,7 @@ ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+\item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 

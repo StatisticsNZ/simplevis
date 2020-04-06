@@ -4,7 +4,8 @@
 \alias{ggplot_vbar}
 \title{Vertical bar ggplot.}
 \usage{
-ggplot_vbar(data, x_var, y_var, hover_var = NULL, y_scale_zero = TRUE,
+ggplot_vbar(data, x_var, y_var, hover_var = NULL,
+  x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", pal = NULL, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = "", font_family = "Helvetica", font_size_title = 11,
@@ -13,9 +14,9 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL, y_scale_zero = TRUE,
   isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted variable to be on the x axis. Required input.}
+\item{x_var}{Unquoted numeric or date variable to be on the x axis. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
@@ -23,7 +24,7 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL, y_scale_zero = TRUE,
 
 \item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y axis scale. Defaults to "identity".}
+\item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 

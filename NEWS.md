@@ -1,3 +1,10 @@
+# simplevis 1.08
+
+* Update line graph code for nicer breaks and limits
+* Update vertical bar functions to support numeric or date variables on the x axis
+* Update vertical bar code for nicer breaks and limits
+* Update example and template apps
+
 # simplevis 1.07
 
 * Add pal_snz_trend3 and pal_snz_

@@ -5,19 +5,20 @@
 \title{Vertical bar ggplot that is coloured.}
 \usage{
 ggplot_vbar_col(data, x_var, y_var, col_var, hover_var = NULL,
-  y_scale_zero = TRUE, y_scale_trans = "identity",
-  col_scale_drop = FALSE, position = "stack", pal = NULL,
-  legend_ncol = 3, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", col_title = "",
-  caption = "", legend_labels = NULL, font_family = "Helvetica",
+  x_scale_date_format = "\%Y", y_scale_zero = TRUE,
+  y_scale_trans = "identity", col_scale_drop = FALSE,
+  position = "stack", pal = NULL, legend_ncol = 3,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", col_title = "", caption = "",
+  legend_labels = NULL, font_family = "Helvetica",
   font_size_title = 11, font_size_body = 10, wrap_title = 75,
   wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
   wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted variable to be on the x axis. Required input.}
+\item{x_var}{Unquoted numeric or date variable to be on the x axis. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
@@ -27,7 +28,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y axis scale. Defaults to "identity".}
+\item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 

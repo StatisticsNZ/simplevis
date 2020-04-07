@@ -8,8 +8,8 @@ ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
   y_scale_zero = TRUE, y_scale_trans = "identity", pal = NULL,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = "", font_family = "Helvetica",
-  font_size_title = 11, font_size_body = 10, wrap_title = 90,
-  wrap_subtitle = 100, wrap_x_title = 50, wrap_y_title = 50,
+  font_size_title = 11, font_size_body = 10, wrap_title = 75,
+  wrap_subtitle = 90, wrap_x_title = 50, wrap_y_title = 50,
   wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
@@ -43,9 +43,9 @@ ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 90. Not applicable where isMobile equals TRUE.}
+\item{wrap_title}{Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where isMobile equals TRUE.}
+\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 90. Not applicable where isMobile equals TRUE.}
 
 \item{wrap_x_title}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
 

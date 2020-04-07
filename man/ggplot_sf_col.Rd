@@ -11,8 +11,8 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
   coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, col_title = "", caption = "",
   legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = 11, font_size_body = 10, wrap_title = 75,
-  wrap_subtitle = 90, wrap_col_title = 25, wrap_caption = 80,
+  font_size_title = 11, font_size_body = 10, wrap_title = 70,
+  wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
   isMobile = FALSE)
 }
 \arguments{
@@ -64,9 +64,9 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.}
+\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 90. Not applicable where isMobile equals TRUE.}
+\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
 

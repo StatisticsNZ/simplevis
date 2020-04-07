@@ -8,7 +8,7 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
   coastline_behind = FALSE, coastline_pal = "black",
   facet_nrow = NULL, title = "[Title]", subtitle = NULL,
   caption = "", font_family = "Helvetica", font_size_title = 11,
-  font_size_body = 10, wrap_title = 75, wrap_subtitle = 90,
+  font_size_body = 10, wrap_title = 70, wrap_subtitle = 80,
   wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
@@ -36,9 +36,9 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 75. Not applicable where isMobile equals TRUE.}
+\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 90. Not applicable where isMobile equals TRUE.}
+\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 

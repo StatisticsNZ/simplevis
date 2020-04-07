@@ -1,3 +1,7 @@
+# simplevis 1.10
+
+* Changed the default wrapping for titles back
+ - m "c "
 # simplevis 1.09
 
 * Increase default wrapping for titles

@@ -1,3 +1,8 @@
+# simplevis 1.09
+
+* Increase default wrapping for titles
+* Add plotly defaults to the apps to enable users to download a picture from graphs 
+
 # simplevis 1.08
 
 * Update line graph code for nicer breaks and limits
@@ -7,7 +12,7 @@
 
 # simplevis 1.07
 
-* Add pal_snz_trend3 and pal_snz_
+* Add pal_snz_trend3 and pal_snz_trend5
 
 # simplevis 1.06
 

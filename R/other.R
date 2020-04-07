@@ -125,5 +125,3 @@ sentence_colnames <- function(data) {
   
   tmp
 }
-
-

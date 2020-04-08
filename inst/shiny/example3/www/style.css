@@ -29,14 +29,14 @@ html, body, .container {
 }
 
 #plot_desktop {
-  min-height: 425px;
+  min-height: 433px;
   max-height: 700px;
   min-width: 600px;
   max-width: 1000px;
 }
 
 #plot_mobile {
-  min-height: 500px;
+  min-height: 350px;
   max-height: 800px;
   min-width: 350px;
   max-width: 1000px;

@@ -9,6 +9,7 @@ shinyServer(function(input, output, session) {
 
     ### add your plot_data code here ###
 
+    # return(plot_data)
   })
 
   plot <- reactive({ # create a reactive ggplot object
@@ -25,7 +26,9 @@ shinyServer(function(input, output, session) {
     ### remember to add the following arguments to simplevis functions:
           ### isMobile = input$isMobile, font_size_title = font_size_title, font_size_body = font_size_body
     ### remember to refer to a reactive plot_data object as plot_data()
+    
 
+    # return(plot)
   })
 
   output$plot_desktop <- plotly::renderPlotly({ ### render it as a html object for desktop users
@@ -58,7 +61,7 @@ shinyServer(function(input, output, session) {
     df, ### adjust data object name, and columns as necessary ###
     filter = "top",
     rownames = F,
-    options = list(pageLength = 5,
+    options = list(pageLength = 10,
                    scrollX = T)
   )
 

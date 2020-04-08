@@ -11,8 +11,10 @@ shinyServer(function(input, output, session) {
 
   map_data1 <- reactive({
     ### add your map_data code here ###
-    df %>%
+    map_data1 <- df %>%
       filter(indicator == input$map1_indicator, period == input$map1_period)
+    
+    return(map_data1)
   })
 
   draw_map1 <- function() {
@@ -64,8 +66,10 @@ shinyServer(function(input, output, session) {
 
   map_data2 <- reactive({
     ### add your map_data code here ###
-    df %>%
+    map_data2 <- df %>%
       filter(indicator == input$map2_indicator, period == input$map2_period)
+    
+    return(map_data2)
   })
 
   draw_map2 <- function() {
@@ -117,14 +121,15 @@ shinyServer(function(input, output, session) {
   plot_data <- reactive({ # create a reactive data object
 
     ### add your plot_data code here ###
-    df %>%
+    plot_data <- df %>%
       filter(period == input$graph_period) %>%
       group_by(period, indicator, trend_likelihood) %>%
       summarise(count = n()) %>%
       group_by(period, indicator) %>%
       mutate(percent = round(count / sum(count) * 100, 1)) %>%
       ungroup()
-
+    
+    return(plot_data)
   })
 
   plot <- reactive({ # create a reactive ggplot object
@@ -141,7 +146,7 @@ shinyServer(function(input, output, session) {
     ### remember to add the following arguments to simplevis functions:
     ### isMobile = input$isMobile, font_size_title = font_size_title, font_size_body = font_size_body
     ### remember to refer to a reactive plot_data object as plot_data()
-    ggplot_hbar_col(
+    plot <- ggplot_hbar_col(
       data = plot_data(),
       x_var = percent,
       y_var = indicator,
@@ -155,6 +160,7 @@ shinyServer(function(input, output, session) {
       font_size_body = font_size_body
     )
     
+    return(plot)
   })
 
   output$plot_desktop <- plotly::renderPlotly({ # render it as a html object for desktop users
@@ -188,7 +194,7 @@ shinyServer(function(input, output, session) {
     df, ### adjust data object name, and columns as necessary ###
     filter = "top",
     rownames = F,
-    options = list(pageLength = 5,
+    options = list(pageLength = 10,
                    scrollX = TRUE)
   )
 

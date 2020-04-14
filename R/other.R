@@ -46,8 +46,6 @@ signed_sqrt_trans <- function()
     }
   )
 
-# pal
-
 #' @title Colour palette for categorical variables.
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
@@ -91,7 +89,51 @@ pal_trend5 <-
 #' @export
 pal_ea19 <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
 
-# a4_dim
+#' @title Colour palette for categorical variables.
+#' @description  Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_ea19_trend5 <- c("#172a45", "#00b2c3", "#c4c4c7", "#c04124", "#702e01")
+
+#' @title Colour palette for categorical variables.
+#' @description  Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_ea19_trend3 <- c("#00b2c3", "#c4c4c7", "#c04124")
+
+#' @title pal_snz_nztcs_category
+#' @description A colour palette used for depicting categories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_nztcs_category <- c("Threatened" = pal_snz[6], "At risk" = pal_snz[3], "Not threatened" = pal_snz[7], "Data deficient" = "#c4c4c7")
+
+#' @title pal_snz_nztcs_subcategory_change
+#' @description A colour palette used for depicting changes in subcategories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_nztcs_subcategory_change <- c("Actual decline" = pal_snz[3], "Actual improvement" = pal_snz[7])
+
+#' @title pal_snz_nztcs_subcategory
+#' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_nztcs_subcategory <- c(
+  "Nationally critical" = "#6f2e38", "Nationally endangered" = "#813641", "Nationally vulnerable" = "#933d4a",
+  "Declining" = "#ae4e51", "Recovering" = "#b75e61", "Relict" = "#bf7073", "Naturally uncommon" = "#c78284",
+  "Not threatened" = "#0d94a3", "Data deficient" = "#c4c4c7"
+)
+
+#' @title pal_snz_nztcs_category
+#' @description A colour palette used for depicting categories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_ea19_nztcs_category <- c("Threatened" = pal_ea19[6], "At risk" = pal_ea19[3], "Not threatened" = pal_ea19[2], "Data deficient" = pal_ea19[8])
+
+#' @title pal_ea19_nztcs_subcategory_change
+#' @description A colour palette used for depicting categories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_ea19_nztcs_subcategory_change <- c("Actual decline" = pal_ea19[3], "Actual improvement" = pal_ea19[2])
 
 #' @title A4 useable width.
 #' @description The width of useable space within an a4 sheet.
@@ -105,16 +147,9 @@ a4_width_mm <- 170
 #' @export
 a4_height_mm <- 257
 
-#' @title A4 useable height.
-#' @description The height of useable space within an a4 sheet.
-#' @return A numeric value.
-#' @export
-a4_height_mm <- 257
-
 #' @title Convert column names to sentence case
 #' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.
 #' @param data The number of digits to round the legend labels.
-
 #' @return A numeric value.
 #' @export
 sentence_colnames <- function(data) {

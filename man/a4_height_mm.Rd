@@ -7,17 +7,11 @@
 \format{An object of class \code{numeric} of length 1.}
 \usage{
 a4_height_mm
-
-a4_height_mm
 }
 \value{
 A numeric value.
-
-A numeric value.
 }
 \description{
-The height of useable space within an a4 sheet.
-
 The height of useable space within an a4 sheet.
 }
 \keyword{datasets}

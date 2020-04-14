@@ -56,7 +56,7 @@ shinyServer(function(input, output, session) {
     ### add your map_data code here ###
     tibble() #placeholder
     
-    # return(map_data1)
+    # return(map_data2)
   })
 
   draw_map2 <- function() {

@@ -1,3 +1,7 @@
+# simplevis 1.12
+
+# Added extra categorical colour palettes
+
 # simplevis 1.11
 
 * Minor changes to app templates

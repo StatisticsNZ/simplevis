@@ -1,6 +1,10 @@
+# simplevis 1.13
+
+* App css changes to support iframing
+
 # simplevis 1.12
 
-# Added extra categorical colour palettes
+* Added extra categorical colour palettes
 
 # simplevis 1.11
 

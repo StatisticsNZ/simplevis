@@ -110,7 +110,7 @@ pal_snz_nztcs_c <- c("Threatened" = "#6f2e38", "At risk" = "#ae4e51", "Data defi
 #' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
 #' @return A vector of hex codes.
 #' @export
-pal_snz_nztcs_sc <- c(
+pal_snz_nztcs_s <- c(
   "Nationally critical" = "#6f2e38", "Nationally endangered" = "#813641", "Nationally vulnerable" = "#933d4a",
   "Declining" = "#ae4e51", "Recovering" = "#b75e61", "Relict" = "#bf7073", "Naturally uncommon" = "#c78284",
   "Data deficient" = "#c4c4c7", "Not threatened" = "#0d94a3"
@@ -175,11 +175,11 @@ a4_height_mm <- 257
 #' @param data The number of digits to round the legend labels.
 #' @return A numeric value.
 #' @export
-sentence_colnames <- function(data) {
+sentence_spaced_colnames <- function(data) {
   
-  tmp <- janitor::clean_names(data) 
+  data <- janitor::clean_names(data) 
   
-  colnames(tmp) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(tmp)), "_", " ")
+  colnames(data) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(data)), "_", " ")
   
-  tmp
+  return(data)
 }

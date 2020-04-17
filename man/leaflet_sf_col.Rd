@@ -7,10 +7,11 @@
 leaflet_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
   quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), pal = NULL,
   rev_pal = FALSE, col_scale_drop = FALSE,
-  popup = leafpop::popupTable(sentence_colnames(data)), radius = 1,
-  weight = 2, opacity = 0.9, stroke = TRUE, remove_na = FALSE,
-  title = "[Title]", legend_digits = 1, legend_labels = NULL,
-  basemap = "light", shiny = FALSE, map_id = "map")
+  popup = leafpop::popupTable(sentence_spaced_colnames(data)),
+  radius = 1, weight = 2, opacity = 0.9, stroke = TRUE,
+  remove_na = FALSE, title = "[Title]", legend_digits = 1,
+  legend_labels = NULL, basemap = "light", shiny = FALSE,
+  map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}

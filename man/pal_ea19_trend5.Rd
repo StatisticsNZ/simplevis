@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_ea19_trend5}
 \alias{pal_ea19_trend5}
-\title{Colour palette for categorical variables.}
+\title{Colour palette for a categorical trend variable with 5 values.}
 \format{An object of class \code{character} of length 5.}
 \usage{
 pal_ea19_trend5

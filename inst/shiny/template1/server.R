@@ -61,7 +61,7 @@ shinyServer(function(input, output, session) {
     df, ### adjust data object name, and columns as necessary ###
     filter = "top",
     rownames = F,
-    options = list(pageLength = 10,
+    options = list(pageLength = 5,
                    scrollX = T)
   )
 

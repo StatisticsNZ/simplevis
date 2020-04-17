@@ -47,41 +47,74 @@ signed_sqrt_trans <- function()
   )
 
 #' @title Colour palette for categorical variables.
-#' @description  Colour palette for categorical variables.
-#' @return A vector of hex codes.
-#' @export
-pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
-
-#' @title Colour palette for categorical variables.
 #' @description Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
 pal_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
 
 #' @title Colour palette for categorical variables.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_trend3 <- c("#4575B4", "#D3D3D3", "#D73027")
+
+#' @title Colour palette for categorical variables.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_trend5 <- c("#4575B4", "#90C3DD", "#D3D3D3", "#F98E52", "#D73027")
+
+#' @title Colour palette for categorical variables.
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_snz_trend5 <- c("#35345D", "#0D94A3", "#D3D3D3", "#AE4E51", "#6F2E38")
+pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
 
-#' @title Colour palette for categorical variables.
+#' @title Colour palette for a categorical trend variable with 2 values.
+#' @description  Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_trend2 <- c("#AE4E51", "#0D94A3")
+
+#' @title Colour palette for a categorical trend variable with 3 values.
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
 pal_snz_trend3 <- c("#0D94A3", "#C4C4C7", "#AE4E51")
 
-#' @title Colour palette for categorical variables.
-#' @description Colour palette for categorical variables.
+#' @title Colour palette for a categorical trend variable with 5 values.
+#' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_trend3 <- c("#4575B4", "#C4C4C7", "#D73027")
+pal_snz_trend5 <- c("#35345D", "#0D94A3", "#C4C4C7", "#AE4E51", "#6F2E38")
 
-#' @title Colour palette for categorical variables.
-#' @description Colour palette for categorical variables.
+#' @title Colour palette for 4 categories from good to bad
+#' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
 #' @return A vector of hex codes.
 #' @export
-pal_trend5 <-
-  c("#4575B4", "#90C3DD", "#D3D3D3", "#F98E52", "#D73027")
+pal_snz_nof4 <- c("#35345d", "#085c75", "#d2ac2f", "#6f2e38")
+
+#' @title Colour palette for 5 categories from good to bad
+#' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_nof5 <- c("#35345d", "#085c75", "#76a93f", "#d2ac2f", "#6f2e38")
+
+#' @title Colour palette for the NZTCS.
+#' @description A colour palette used for depicting categories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_nztcs_c <- c("Threatened" = "#6f2e38", "At risk" = "#ae4e51", "Data deficient" = "#c4c4c7", "Not threatened" = "#0d94a3")
+
+#' @title Colour palette for the NZTCS.
+#' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_snz_nztcs_sc <- c(
+  "Nationally critical" = "#6f2e38", "Nationally endangered" = "#813641", "Nationally vulnerable" = "#933d4a",
+  "Declining" = "#ae4e51", "Recovering" = "#b75e61", "Relict" = "#bf7073", "Naturally uncommon" = "#c78284",
+  "Data deficient" = "#c4c4c7", "Not threatened" = "#0d94a3"
+)
 
 #' @title  Colour palette for categorical variables.
 #' @description Colour palette for categorical variables.
@@ -89,51 +122,41 @@ pal_trend5 <-
 #' @export
 pal_ea19 <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
 
-#' @title Colour palette for categorical variables.
+#' @title Colour palette for a categorical trend variable with 2 values.
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_ea19_trend5 <- c("#172a45", "#00b2c3", "#c4c4c7", "#c04124", "#702e01")
+pal_ea19_trend2 <- c("#00b2c3", "#c04124")
 
-#' @title Colour palette for categorical variables.
+#' @title Colour palette for a categorical trend variable with 3 values.
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
 pal_ea19_trend3 <- c("#00b2c3", "#c4c4c7", "#c04124")
 
-#' @title pal_snz_nztcs_category
-#' @description A colour palette used for depicting categories in the NZ conservation threat status.
+#' @title Colour palette for a categorical trend variable with 5 values.
+#' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
-pal_snz_nztcs_category <- c("Threatened" = pal_snz[6], "At risk" = pal_snz[3], "Not threatened" = pal_snz[7], "Data deficient" = "#c4c4c7")
+pal_ea19_trend5 <- c("#172a45", "#00b2c3", "#c4c4c7", "#c04124", "#702e01")
 
-#' @title pal_snz_nztcs_subcategory_change
-#' @description A colour palette used for depicting changes in subcategories in the NZ conservation threat status.
-#' @return A vector of hex codes.
-#' @export
-pal_snz_nztcs_subcategory_change <- c("Actual decline" = pal_snz[3], "Actual improvement" = pal_snz[7])
-
-#' @title pal_snz_nztcs_subcategory
+#' @title Colour palette for 4 categories from good to bad
 #' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
 #' @return A vector of hex codes.
 #' @export
-pal_snz_nztcs_subcategory <- c(
-  "Nationally critical" = "#6f2e38", "Nationally endangered" = "#813641", "Nationally vulnerable" = "#933d4a",
-  "Declining" = "#ae4e51", "Recovering" = "#b75e61", "Relict" = "#bf7073", "Naturally uncommon" = "#c78284",
-  "Not threatened" = "#0d94a3", "Data deficient" = "#c4c4c7"
-)
+pal_ea19_nof4 <- c("#172a45", "#00b2c3", "#a2c62b", "#702e01")
 
-#' @title pal_snz_nztcs_category
+#' @title Colour palette for 5 categories from good to bad
+#' @description A colour palette used for depicting subcategories in the NZ conservation threat status.
+#' @return A vector of hex codes.
+#' @export
+pal_ea19_nof5 <- c("#172a45", "#00b2c3", "#a2c62b", "#ff590d", "#702e01")
+
+#' @title Colour palette for the NZTCS.
 #' @description A colour palette used for depicting categories in the NZ conservation threat status.
 #' @return A vector of hex codes.
 #' @export
-pal_ea19_nztcs_category <- c("Threatened" = pal_ea19[6], "At risk" = pal_ea19[3], "Not threatened" = pal_ea19[2], "Data deficient" = pal_ea19[8])
-
-#' @title pal_ea19_nztcs_subcategory_change
-#' @description A colour palette used for depicting categories in the NZ conservation threat status.
-#' @return A vector of hex codes.
-#' @export
-pal_ea19_nztcs_subcategory_change <- c("Actual decline" = pal_ea19[3], "Actual improvement" = pal_ea19[2])
+pal_ea19_nztcs_c <- c("Threatened" = "#702e01", "At risk" = "#c04124", "Data deficient" = "#c4c4c7", "Not threatened" = "#00b2c3")
 
 #' @title A4 useable width.
 #' @description The width of useable space within an a4 sheet.

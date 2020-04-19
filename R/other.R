@@ -170,7 +170,7 @@ a4_width_mm <- 170
 #' @export
 a4_height_mm <- 257
 
-#' @title Convert column names to sentence case
+#' @title Convert column names to sentence case.
 #' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.
 #' @param data The number of digits to round the legend labels.
 #' @return A numeric value.
@@ -180,3 +180,20 @@ sentence_spaced_colnames <- function(data) {
   colnames(data) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(data)), "_", " ")
   return(data)
 }
+
+#' @title Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
+#' @description Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
+#' @param plotly A plotly object.
+#' @export
+remove_plotly_buttons <- function(plotly){
+  plotly::config(plotly,
+    modeBarButtonsToRemove = list(
+      "zoom2d", "pan2d", "zoomIn2d", "zoomOut2d", "autoScale2d","resetScale2d", "hoverClosestCartesian",
+      "hoverCompareCartesian", "sendDataToCloud", "toggleHover", "resetViews", "toggleSpikelines",
+      "resetViewMapbox", "toggleSpikelines", "resetViewMapbox", "lasso2d", "select2d"
+    ),
+    displaylogo = TRUE
+  )
+}
+
+

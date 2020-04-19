@@ -31,7 +31,6 @@ theme_box <-
           face = "plain",
           hjust = 0.5
         ),
-        plot.title.position = "plot",
         plot.caption = element_text(
           family = font_family,
           colour = "#323232",
@@ -39,7 +38,6 @@ theme_box <-
           face = "plain",
           hjust = 0.99
         ),
-        plot.caption.position = "plot",
         plot.margin = margin(
           t = 5,
           l = 5,

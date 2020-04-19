@@ -82,10 +82,8 @@ shinyUI(
         "About",
         icon = icon("info-circle", lib = "font-awesome"),
         fluidRow(includeMarkdown("www/about.Rmd"))
-      ),
-      tags$head(includeCSS("www/style.css"))
-    ),
-    HTML('<div data-iframe-height></div>')
-    # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
+      )
+    )
+    # HTML('<div data-iframe-height></div>') # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
   )
 )

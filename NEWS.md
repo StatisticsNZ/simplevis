@@ -1,6 +1,8 @@
 # simplevis 1.15
 
 * Breaking change: changed pal_trend3, pal_trend5, and pal_set1 to have pal_point prefixes
+* Added remove_plotly_buttons function
+* Removed theme(plot.title.position = "plot") out of functions, and into app templates
 
 # simplevis 1.14
 

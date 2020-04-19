@@ -2,7 +2,7 @@
 % Please edit documentation in R/other.R
 \name{sentence_spaced_colnames}
 \alias{sentence_spaced_colnames}
-\title{Convert column names to sentence case}
+\title{Convert column names to sentence case.}
 \usage{
 sentence_spaced_colnames(data)
 }

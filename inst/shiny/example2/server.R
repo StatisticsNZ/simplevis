@@ -109,19 +109,13 @@ shinyServer(function(input, output, session) {
 
   output$plot_desktop <- plotly::renderPlotly({ # render it as a html object for desktop users
     plotly::ggplotly(plot(), tooltip = "text") %>%
-      plotly::config(
-        modeBarButtonsToRemove = list(
-          "zoom2d", "pan2d", "zoomIn2d", "zoomOut2d", "autoScale2d","resetScale2d", "hoverClosestCartesian",
-          "hoverCompareCartesian", "sendDataToCloud", "toggleHover", "resetViews", "toggleSpikelines",
-          "resetViewMapbox", "toggleSpikelines", "resetViewMapbox", "lasso2d", "select2d"
-        ),
-        displaylogo = FALSE
-      )
-    
+      simplevis::remove_plotly_buttons()    
   })
 
   output$plot_mobile <- renderPlot({ # render it as a image for mobile users
-    plot()
+    plot() +
+      ggplot2::theme(plot.title.position = "plot") +
+      ggplot2::theme(plot.caption.position = "plot") 
   })
 
   ### use renderCachedPlot with relevant inputs listed to improve mobile performance ###

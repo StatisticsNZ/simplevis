@@ -24,10 +24,10 @@ shinyUI(
     tags$head(includeScript("www/js/tag-manager.js")),
     mobileDetect("isMobile"),
     # https://github.com/g3rv4/mobileDetect
-    tags$head(
-      tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.contentWindow.min.js",
-                  type = "text/javascript")
-    ), # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
+    # tags$head(
+    #   tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.contentWindow.min.js",
+    #               type = "text/javascript")
+    # ), # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
     navbarPage(
       title = HTML("<b>", app_title, "</b>"),
       windowTitle = app_title,
@@ -94,10 +94,8 @@ shinyUI(
         "About",
         icon = icon("info-circle", lib = "font-awesome"),
         fluidRow(includeMarkdown("www/about.Rmd"))
-      ),
-      tags$head(includeCSS("www/style.css"))
-    ),
-    HTML('<div data-iframe-height></div>')
-    # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
+      )
+    )
+    # HTML('<div data-iframe-height></div>') # https://www.cultureofinsight.com/blog/2018/03/15/2018-03-15-responsive-iframes-for-shiny-apps/
   )
 )

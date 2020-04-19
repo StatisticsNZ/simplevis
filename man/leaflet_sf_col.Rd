@@ -75,6 +75,8 @@ leaflet_sf_col(example_sf_nz_livestock, dairydens,
 map_data <- example_sf_nz_river_wq \%>\%
   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 
-leaflet_sf_col(map_data, trend_category, pal = pal_trend3,
+pal <- c("#4575B4", "#D3D3D3", "#D73027")
+
+leaflet_sf_col(map_data, trend_category, pal = pal,
    title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
 }

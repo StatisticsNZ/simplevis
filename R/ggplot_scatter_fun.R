@@ -466,7 +466,7 @@ ggplot_scatter_col <-
     }
     else if (col_method == "category") {
       if (is.null(pal))
-        pal <- pal_snz
+        pal <- pal_point_set1
       if (!is.null(legend_labels))
         labels <- legend_labels
       if (is.null(legend_labels))
@@ -1004,7 +1004,7 @@ ggplot_scatter_col_facet <-
     }
     else if (col_method == "category") {
       if (is.null(pal))
-        pal <- pal_snz
+        pal <- pal_point_set1
       if (!is.null(legend_labels))
         labels <- legend_labels
       if (is.null(legend_labels))

@@ -94,7 +94,9 @@ ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = n
 
 map_data <- example_sf_nz_river_wq \%>\%
   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
+  
+ pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
-ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, pal = pal_trend3,
+ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, pal = pal,
    title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
 }

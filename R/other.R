@@ -47,24 +47,6 @@ signed_sqrt_trans <- function()
   )
 
 #' @title Colour palette for categorical variables.
-#' @description Colour palette for categorical variables.
-#' @return A vector of hex codes.
-#' @export
-pal_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
-
-#' @title Colour palette for categorical variables.
-#' @description Colour palette for categorical variables.
-#' @return A vector of hex codes.
-#' @export
-pal_trend3 <- c("#4575B4", "#D3D3D3", "#D73027")
-
-#' @title Colour palette for categorical variables.
-#' @description Colour palette for categorical variables.
-#' @return A vector of hex codes.
-#' @export
-pal_trend5 <- c("#4575B4", "#90C3DD", "#D3D3D3", "#F98E52", "#D73027")
-
-#' @title Colour palette for categorical variables.
 #' @description  Colour palette for categorical variables.
 #' @return A vector of hex codes.
 #' @export
@@ -158,6 +140,24 @@ pal_ea19_nof5 <- c("#172a45", "#00b2c3", "#a2c62b", "#ff590d", "#702e01")
 #' @export
 pal_ea19_nztcs_c <- c("Threatened" = "#702e01", "At risk" = "#c04124", "Data deficient" = "#c4c4c7", "Not threatened" = "#00b2c3")
 
+#' @title Colour palette for categorical variables for points.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_point_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
+
+#' @title Colour palette for categorical variables for points.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_point_trend3 <- c("#4575B4", "#D3D3D3", "#D73027")
+
+#' @title Colour palette for categorical variables for points.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @export
+pal_point_trend5 <- c("#4575B4", "#90C3DD", "#D3D3D3", "#F98E52", "#D73027")
+
 #' @title A4 useable width.
 #' @description The width of useable space within an a4 sheet.
 #' @return A numeric value.
@@ -176,10 +176,7 @@ a4_height_mm <- 257
 #' @return A numeric value.
 #' @export
 sentence_spaced_colnames <- function(data) {
-  
   data <- janitor::clean_names(data) 
-  
   colnames(data) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(data)), "_", " ")
-  
   return(data)
 }

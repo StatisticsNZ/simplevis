@@ -1,3 +1,11 @@
+# simplevis 1.15
+
+* Breaking change: changed pal_trend3, pal_trend5, and pal_set1 to have pal_point prefixes
+
+# simplevis 1.14
+
+* App css changes to support iframing
+
 # simplevis 1.13
 
 * App css changes to support iframing

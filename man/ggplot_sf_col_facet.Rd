@@ -91,8 +91,10 @@ Map of simple features in ggplot that is coloured and facetted.
 map_data <- example_sf_nz_river_wq \%>\%
  dplyr::filter(period == "1998-2017",
  indicator \%in\% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))
+ 
+ pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col_facet(data = map_data, col_var = trend_category, facet_var = indicator,
- coastline = nz, pal = pal_trend3,
+ coastline = nz, pal = pal,
  title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
 }

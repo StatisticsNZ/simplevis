@@ -110,7 +110,7 @@ theme_hbar <-
 
 #' @title Horizontal bar ggplot.
 #' @description Horizontal bar ggplot that is not coloured and not facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
@@ -141,8 +141,7 @@ theme_hbar <-
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
 #'
 #' plot <- ggplot_hbar(data = plot_data, x_var = average_price_thousands, y_var = cut,
 #'    title = "Average diamond price by cut",
@@ -150,20 +149,6 @@ theme_hbar <-
 #'    y_title = "Cut")
 #'
 #' plot
-#'
-#' plotly::ggplotly(plot, tooltip = "text")
-#'
-#' plot_data <- plot_data %>%
-#'   dplyr::mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal")))
-#'
-#' plot <- ggplot_hbar(data = plot_data, x_var = average_price_thousands, y_var = cut,
-#'    title = "Average diamond price by cut",
-#'    x_title = "Average price ($US thousands)",
-#'    y_title = "Cut")
-#'
-#' plot
-#'
-#' plotly::ggplotly(plot, tooltip = "text")
 ggplot_hbar <- function(data,
                         x_var,
                         y_var,
@@ -188,10 +173,12 @@ ggplot_hbar <- function(data,
                         wrap_caption = 80,
                         isMobile = FALSE){
   
+  data <- dplyr::ungroup(data)
+  
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
   hover_var <- rlang::enquo(hover_var)
-  
+
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
@@ -272,13 +259,12 @@ ggplot_hbar <- function(data,
     x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
     if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    x_scale_oob <- scales::censor
   }
   else if (x_scale_zero == FALSE) {
-    x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-    if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-    if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-    x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
+    # x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
+    # if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
+    # if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
+    # x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
     
     if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     if(x_scale_trans == "log10") {
@@ -286,7 +272,6 @@ ggplot_hbar <- function(data,
       x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
     }
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    x_scale_oob <- scales::rescale_none
   }
   
   plot <- plot +
@@ -295,7 +280,7 @@ ggplot_hbar <- function(data,
       breaks = x_scale_breaks,
       limits = x_scale_limits,
       trans = x_scale_trans,
-      oob = x_scale_oob
+      oob = scales::rescale_none
     )
   
   if (isMobile == FALSE){
@@ -332,7 +317,7 @@ ggplot_hbar <- function(data,
 
 #' @title Horizontal bar ggplot that is coloured.
 #' @description Horizontal bar ggplot that is coloured, but not facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
@@ -413,6 +398,8 @@ ggplot_hbar_col <-
            wrap_caption = 80,
            isMobile = FALSE){
     
+    data <- dplyr::ungroup(data)
+    
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -437,13 +424,10 @@ ggplot_hbar_col <-
         dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
     }
     
-    if (position == "stack")
-      position2 <- "stack"
-    else if (position == "dodge")
-      position2 <- position_dodge2(preserve = "single")
+    if (position == "stack") position2 <- "stack"
+    else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (is.null(pal))
-      pal <- pal_snz
+    if (is.null(pal)) pal <- pal_snz
     
     plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
       coord_flip() +
@@ -527,6 +511,7 @@ ggplot_hbar_col <-
         dplyr::ungroup()
       
       x_var_vector <- dplyr::pull(data_sum, !!x_var)
+      
     }
     else if (position == "dodge" & x_scale_zero == FALSE){
       x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
@@ -542,7 +527,6 @@ ggplot_hbar_col <-
       x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
       if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      x_scale_oob <- scales::censor
     }
     else if (x_scale_zero == FALSE) {
       x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
@@ -556,14 +540,14 @@ ggplot_hbar_col <-
         x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
       }
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      x_scale_oob <- scales::rescale_none
     }
     
+    if(position == "stack" & all(between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
+
     plot <- plot +
       scale_fill_manual(
         values = pal,
         drop = col_scale_drop,
-        
         labels = labels,
         na.value = "#A8A8A8"
       ) +
@@ -572,7 +556,7 @@ ggplot_hbar_col <-
         breaks = x_scale_breaks,
         limits = x_scale_limits,
         trans = x_scale_trans,
-        oob = x_scale_oob
+        oob = scales::rescale_none
       )
     
     if (isMobile == FALSE){
@@ -621,7 +605,7 @@ ggplot_hbar_col <-
 
 #' @title Horizontal bar ggplot that is facetted.
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -655,8 +639,7 @@ ggplot_hbar_col <-
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
 #'
 #' plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
 #'                           y_var = cut, facet_var = clarity)
@@ -691,6 +674,8 @@ ggplot_hbar_facet <-
            wrap_y_label = 50,
            wrap_caption = 80,
            isMobile = FALSE){
+    
+    data <- dplyr::ungroup(data)
     
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
@@ -786,7 +771,6 @@ ggplot_hbar_facet <-
         x_scale_breaks <- pretty(c(0, x_var_vector))
         if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::censor
       }
       else if (x_scale_zero == FALSE) {
         x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
@@ -800,7 +784,6 @@ ggplot_hbar_facet <-
           x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         }
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -809,17 +792,14 @@ ggplot_hbar_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
-          oob = x_scale_oob
+          oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("free", "free_x")) {
-      if (x_scale_zero == TRUE) x_scale_oob <- scales::censor
-      else if (x_scale_zero == FALSE) x_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = x_scale_trans,
-                           oob = x_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     if (isMobile == FALSE){
@@ -861,7 +841,7 @@ ggplot_hbar_facet <-
 
 #' @title Horizontal bar ggplot that is coloured and facetted.
 #' @description Horizontal bar ggplot that is coloured and facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
@@ -947,6 +927,8 @@ ggplot_hbar_col_facet <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE){
+    
+    data <- dplyr::ungroup(data)
     
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
@@ -1066,7 +1048,7 @@ ggplot_hbar_col_facet <-
     
     if (position == "stack") {
       data_sum <- data %>%
-        dplyr::group_by_at(vars(!!y_var, !!col_var)) %>%
+        dplyr::group_by_at(vars(!!y_var, !!facet_var)) %>%
         dplyr::summarise_at(vars(!!x_var), list( ~ (sum(., na.rm = TRUE)))) %>%
         dplyr::ungroup()
       
@@ -1086,10 +1068,9 @@ ggplot_hbar_col_facet <-
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
-        x_scale_breaks <- pretty(c(0, x_var_vector))
+        x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
         if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::censor
       }
       else if (x_scale_zero == FALSE) {
         x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
@@ -1097,13 +1078,12 @@ ggplot_hbar_col_facet <-
         if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
         x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
         
-        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
+        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         if(x_scale_trans == "log10") {
-          x_scale_breaks <- pretty(c(0, x_var_vector)) 
+          x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
           x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         }
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -1112,17 +1092,14 @@ ggplot_hbar_col_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
-          oob = x_scale_oob
+          oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("free", "free_x")) {
-      if (x_scale_zero == TRUE) x_scale_oob <- scales::censor
-      else if (x_scale_zero == FALSE) x_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = x_scale_trans,
-                           oob = x_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     plot <- plot +

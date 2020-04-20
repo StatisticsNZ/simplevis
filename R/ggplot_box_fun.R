@@ -232,7 +232,7 @@ ggplot_box <- function(data,
     y_scale_breaks <- pretty(c(0, y_var_vector))
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::censor
+    y_scale_oob <- scales::rescale_none
   }
   else if (y_scale_zero == FALSE) {
     y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
@@ -448,7 +448,7 @@ ggplot_box_facet <-
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE) y_scale_oob <- scales::censor
+      if (y_scale_zero == TRUE) y_scale_oob <- scales::rescale_none
       else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
       
       plot <- plot +

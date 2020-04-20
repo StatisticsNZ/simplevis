@@ -171,6 +171,8 @@ ggplot_vbar <- function(data,
                         wrap_caption = 80,
                         isMobile = FALSE) {
   
+  data <- dplyr::ungroup(data)
+  
   x_var <- rlang::enquo(x_var)
   y_var <- rlang::enquo(y_var) #numeric var
   hover_var <- rlang::enquo(hover_var)
@@ -252,7 +254,6 @@ ggplot_vbar <- function(data,
     y_scale_breaks <- pretty(c(0, y_var_vector))
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::censor
   }
   else if (y_scale_zero == FALSE) {
     y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
@@ -266,13 +267,12 @@ ggplot_vbar <- function(data,
       y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     }
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::rescale_none
   }
   
   if (lubridate::is.Date(x_var_vector)) {
     plot <- plot +
       scale_x_date(
-        expand = c(0, 0),
+        expand = c(0.05, 0),
         breaks = x_scale_breaks,
         limits = x_scale_limits,
         labels = scales::date_format(x_scale_date_format)
@@ -280,9 +280,10 @@ ggplot_vbar <- function(data,
   }
   else if (is.numeric(x_var_vector)) {
     plot <- plot +
-      scale_x_continuous(expand = c(0, 0),
+      scale_x_continuous(expand = c(0.05, 0),
                          breaks = x_scale_breaks,
-                         limits = x_scale_limits)
+                         limits = x_scale_limits,
+                         oob = scales::rescale_none)
   }
 
   plot <- plot +
@@ -291,7 +292,7 @@ ggplot_vbar <- function(data,
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
-      oob = y_scale_oob
+      oob = scales::rescale_none
     )
   
   if (isMobile == FALSE) {
@@ -393,6 +394,8 @@ ggplot_vbar_col <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE) {
+    
+    data <- dplyr::ungroup(data)
     
     y_var <- rlang::enquo(y_var) #numeric var
     x_var <- rlang::enquo(x_var) #categorical var
@@ -515,7 +518,6 @@ ggplot_vbar_col <-
       y_scale_breaks <- pretty(c(0, y_var_vector))
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-      y_scale_oob <- scales::censor
     }
     else if (y_scale_zero == FALSE) {
       y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
@@ -529,13 +531,12 @@ ggplot_vbar_col <-
         y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       }
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-      y_scale_oob <- scales::rescale_none
     }
     
     if (lubridate::is.Date(x_var_vector)) {
       plot <- plot +
         scale_x_date(
-          expand = c(0, 0),
+          expand = c(0.05, 0),
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           labels = scales::date_format(x_scale_date_format)
@@ -543,9 +544,10 @@ ggplot_vbar_col <-
     }
     else if (is.numeric(x_var_vector)) {
       plot <- plot +
-        scale_x_continuous(expand = c(0, 0),
+        scale_x_continuous(expand = c(0.05, 0),
                            breaks = x_scale_breaks,
-                           limits = x_scale_limits)
+                           limits = x_scale_limits,
+                           oob = scales::rescale_none)
     }
     
     plot <- plot +
@@ -560,7 +562,7 @@ ggplot_vbar_col <-
         breaks = y_scale_breaks,
         limits = y_scale_limits,
         trans = y_scale_trans,
-        oob = y_scale_oob
+        oob = scales::rescale_none
       )
     
     if (isMobile == FALSE) {
@@ -668,6 +670,8 @@ ggplot_vbar_facet <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
+    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -763,7 +767,7 @@ ggplot_vbar_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
-            expand = c(0, 0),
+            expand = c(0.05, 0),
             breaks = x_scale_breaks,
             limits = x_scale_limits,
             labels = scales::date_format(x_scale_date_format)
@@ -771,9 +775,10 @@ ggplot_vbar_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(expand = c(0, 0),
+          scale_x_continuous(expand = c(0.05, 0),
                              breaks = x_scale_breaks,
-                             limits = x_scale_limits)
+                             limits = x_scale_limits,
+                             oob = scales::rescale_none)
       }
     }
     
@@ -782,7 +787,6 @@ ggplot_vbar_facet <-
         y_scale_breaks <- pretty(c(0, y_var_vector))
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::censor
       }
       else if (y_scale_zero == FALSE) {
         y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
@@ -796,7 +800,6 @@ ggplot_vbar_facet <-
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -805,17 +808,14 @@ ggplot_vbar_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
-          oob = y_scale_oob
+          oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE) y_scale_oob <- scales::censor
-      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
-                           oob = y_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     if (isMobile == FALSE) {
@@ -934,6 +934,8 @@ ggplot_vbar_col_facet <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
+    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -1042,7 +1044,7 @@ ggplot_vbar_col_facet <-
     
     if (position == "stack") {
       data_sum <- data %>%
-        dplyr::group_by_at(vars(!!x_var, !!col_var)) %>%
+        dplyr::group_by_at(vars(!!x_var, !!facet_var)) %>%
         dplyr::summarise_at(vars(!!y_var), list( ~ (sum(., na.rm = TRUE)))) %>%
         dplyr::ungroup()
       
@@ -1066,7 +1068,7 @@ ggplot_vbar_col_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
-            expand = c(0, 0),
+            expand = c(0.05, 0),
             breaks = x_scale_breaks,
             limits = x_scale_limits,
             labels = scales::date_format(x_scale_date_format)
@@ -1074,11 +1076,11 @@ ggplot_vbar_col_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(expand = c(0, 0),
+          scale_x_continuous(expand = c(0.05, 0),
                              breaks = x_scale_breaks,
-                             limits = x_scale_limits)
+                             limits = x_scale_limits,
+                             oob = scales::rescale_none)
       }
-      
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
@@ -1086,7 +1088,6 @@ ggplot_vbar_col_facet <-
         y_scale_breaks <- pretty(c(0, y_var_vector))
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::censor
       }
       else if (y_scale_zero == FALSE) {
         y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
@@ -1100,7 +1101,6 @@ ggplot_vbar_col_facet <-
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -1109,17 +1109,14 @@ ggplot_vbar_col_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
-          oob = y_scale_oob
+          oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE) y_scale_oob <- scales::censor
-      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
-                           oob = y_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     plot <- plot +

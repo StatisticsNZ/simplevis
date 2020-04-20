@@ -187,6 +187,7 @@ ggplot_hbar <- function(data,
                         wrap_y_label = 50,
                         wrap_caption = 80,
                         isMobile = FALSE){
+  
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
   hover_var <- rlang::enquo(hover_var)
@@ -194,10 +195,8 @@ ggplot_hbar <- function(data,
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
-  if (!is.numeric(x_var_vector))
-    stop("Please use a numeric x variable for a horizontal bar plot")
-  if (is.numeric(y_var_vector))
-    stop("Please use a categorical y variable for a horizontal bar plot")
+  if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
+  if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
   
   if (is.factor(y_var_vector) & y_scale_rev == FALSE){
     data <- data %>%
@@ -214,12 +213,9 @@ ggplot_hbar <- function(data,
     }
   }
   
-  if (is.null(pal))
-    pal <- pal_snz
+  if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data,
-                 aes(x = !!y_var,
-                     y = !!x_var)) +
+  plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
     coord_flip() +
     theme_hbar(
       font_family = font_family,
@@ -269,29 +265,29 @@ ggplot_hbar <- function(data,
       width = 0.75)
   }
   
-  if (x_scale_zero == FALSE){
-    x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-    if (x_scale_min_breaks_extra > 0)
-      x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-    if (x_scale_min_breaks_extra < 0)
-      x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-    x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-  }
+  if(isMobile == FALSE) x_scale_n <- 6
+  else if(isMobile == TRUE) x_scale_n <- 4
   
-  if (x_scale_zero == TRUE)
-    x_scale_breaks <- pretty(c(0, x_var_vector))
-  else if (x_scale_zero == FALSE)
-    x_scale_breaks <- pretty(x_var_vector)
-  x_scale_max_breaks <- max(x_scale_breaks)
-  x_scale_min_breaks <- min(x_scale_breaks)
-  if (x_scale_zero == TRUE)
-    x_scale_limits <- c(0, x_scale_max_breaks)
-  else if (x_scale_zero == FALSE)
-    x_scale_limits <- c(x_scale_min_breaks, x_scale_max_breaks)
-  if (x_scale_zero == TRUE)
+  if (x_scale_zero == TRUE) {
+    x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+    if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     x_scale_oob <- scales::censor
-  else if (x_scale_zero == FALSE)
+  }
+  else if (x_scale_zero == FALSE) {
+    x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
+    if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
+    if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
+    x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
+    
+    if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+    if(x_scale_trans == "log10") {
+      x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
+      x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+    }
+    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     x_scale_oob <- scales::rescale_none
+  }
   
   plot <- plot +
     scale_y_continuous(
@@ -416,6 +412,7 @@ ggplot_hbar_col <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE){
+    
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -425,18 +422,11 @@ ggplot_hbar_col <-
     y_var_vector <- dplyr::pull(data, !!y_var)
     col_var_vector <- dplyr::pull(data, !!col_var)
     
-    if (!is.numeric(x_var_vector))
-      stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(y_var_vector))
-      stop("Please use a categorical y variable for a horizontal bar plot")
-    if (is.numeric(col_var_vector))
-      stop("Please use a categorical colour variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
+    if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
     
-    if (position == "stack" &
-        x_scale_zero == FALSE)
-      message("simplevis does not support using an x scale not equal to zero for a stacked bar plot")
-    if (position == "stack" & x_scale_zero == FALSE)
-      x_scale_zero <- TRUE
+    if (position == "stack" & x_scale_trans != "identity") stop("simplevis does not support using an x scale other than identity where position equals stack")
     
     if (y_scale_rev == FALSE){
       data <- data %>%
@@ -455,9 +445,7 @@ ggplot_hbar_col <-
     if (is.null(pal))
       pal <- pal_snz
     
-    plot <- ggplot(data,
-                   aes(x = !!y_var,
-                       y = !!x_var)) +
+    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -523,17 +511,13 @@ ggplot_hbar_col <-
         position = position2)
     }
     
-    if (!is.null(legend_labels))
-      labels <- legend_labels
-    if (is.null(legend_labels))
-      labels <- waiver()
+    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(legend_labels)) labels <- waiver()
     
-    if (is.factor(col_var_vector) &
-        !is.null(levels(col_var_vector))) {
+    if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
       pal <- pal[1:length(levels(col_var_vector))]
     }
-    else
-      pal <- pal[1:length(unique(col_var_vector))]
+    else pal <- pal[1:length(unique(col_var_vector))]
     pal <- rev(pal)
     
     if (position == "stack") {
@@ -546,34 +530,33 @@ ggplot_hbar_col <-
     }
     else if (position == "dodge" & x_scale_zero == FALSE){
       x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-      if (x_scale_min_breaks_extra > 0)
-        x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-      if (x_scale_min_breaks_extra < 0)
-        x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
+      if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
+      if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
       x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
     }
     
-    if (x_scale_zero == TRUE)
-      x_scale_breaks <- pretty(c(0, x_var_vector))
-    else if (position == "dodge" &
-             x_scale_zero == FALSE)
-      x_scale_breaks <- pretty(x_var_vector)
-    x_scale_max_breaks <- max(x_scale_breaks)
-    x_scale_min_breaks <- min(x_scale_breaks)
-    if (x_scale_zero == TRUE)
-      x_scale_limits <- c(0, x_scale_max_breaks)
-    else if (position == "dodge" &
-             x_scale_zero == FALSE)
-      x_scale_limits <- c(x_scale_min_breaks, x_scale_max_breaks)
-    if (x_scale_zero == TRUE)
+    if(isMobile == FALSE) x_scale_n <- 6
+    else if(isMobile == TRUE) x_scale_n <- 4
+    
+    if (x_scale_zero == TRUE) {
+      x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+      if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
       x_scale_oob <- scales::censor
-    else if (position == "dodge" &
-             x_scale_zero == FALSE)
+    }
+    else if (x_scale_zero == FALSE) {
+      x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
+      if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
+      if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
+      x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
+      
+      if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+      if(x_scale_trans == "log10") {
+        x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
+        x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      }
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
       x_scale_oob <- scales::rescale_none
-    if (position == "stack" &
-        x_scale_zero == TRUE & dplyr::between(max(x_var_vector, na.rm = TRUE), 99.5, 100.5)) {
-      x_scale_breaks <- seq(0, 100, 25)
-      x_scale_limits <- c(0, 100.5)
     }
     
     plot <- plot +
@@ -708,6 +691,7 @@ ggplot_hbar_facet <-
            wrap_y_label = 50,
            wrap_caption = 80,
            isMobile = FALSE){
+    
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -717,12 +701,9 @@ ggplot_hbar_facet <-
     x_var_vector <- dplyr::pull(data, !!x_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (is.numeric(y_var_vector))
-      stop("Please use a numeric x variable for a horizontal bar plot")
-    if (!is.numeric(x_var_vector))
-      stop("Please use a categorical y variable for a horizontal bar plot")
-    if (is.numeric(facet_var_vector))
-      stop("Please use a categorical facet variable for a horizontal bar plot")
+    if (is.numeric(y_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
     if (is.factor(y_var_vector) & y_scale_rev == FALSE){
       data <- data %>%
@@ -735,12 +716,9 @@ ggplot_hbar_facet <-
       }
     }
     
-    if (is.null(pal))
-      pal <- pal_snz
+    if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data,
-                   aes(x = !!y_var,
-                       y = !!x_var)) +
+    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -801,29 +779,29 @@ ggplot_hbar_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (x_scale_zero == FALSE){
-        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-        if (x_scale_min_breaks_extra > 0)
-          x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-        if (x_scale_min_breaks_extra < 0)
-          x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-      }
+      if(isMobile == FALSE) x_scale_n <- 6
+      else if(isMobile == TRUE) x_scale_n <- 4
       
-      if (x_scale_zero == TRUE)
+      if (x_scale_zero == TRUE) {
         x_scale_breaks <- pretty(c(0, x_var_vector))
-      else if (x_scale_zero == FALSE)
-        x_scale_breaks <- pretty(x_var_vector)
-      x_scale_max_breaks <- max(x_scale_breaks)
-      x_scale_min_breaks <- min(x_scale_breaks)
-      if (x_scale_zero == TRUE)
-        x_scale_limits <- c(0, x_scale_max_breaks)
-      else if (x_scale_zero == FALSE)
-        x_scale_limits <- c(x_scale_min_breaks, x_scale_max_breaks)
-      if (x_scale_zero == TRUE)
+        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
         x_scale_oob <- scales::censor
-      else if (x_scale_zero == FALSE)
+      }
+      else if (x_scale_zero == FALSE) {
+        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
+        if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
+        if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
+        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
+        
+        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
+        if(x_scale_trans == "log10") {
+          x_scale_breaks <- pretty(c(0, x_var_vector)) 
+          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+        }
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
         x_scale_oob <- scales::rescale_none
+      }
       
       plot <- plot +
         scale_y_continuous(
@@ -834,11 +812,9 @@ ggplot_hbar_facet <-
           oob = x_scale_oob
         )
     }
-    else if (facet_scales %in% c("free", "free_x")) {
-      if (x_scale_zero == TRUE)
-        x_scale_oob <- scales::censor
-      else if (x_scale_zero == FALSE)
-        x_scale_oob <- scales::rescale_none
+    if (facet_scales %in% c("free", "free_x")) {
+      if (x_scale_zero == TRUE) x_scale_oob <- scales::censor
+      else if (x_scale_zero == FALSE) x_scale_oob <- scales::rescale_none
       
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
@@ -847,12 +823,8 @@ ggplot_hbar_facet <-
     }
     
     if (isMobile == FALSE){
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) <= 3)
-        facet_nrow <- 1
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) > 3)
-        facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
       
       plot <- plot +
         labs(
@@ -975,6 +947,7 @@ ggplot_hbar_col_facet <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE){
+    
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -986,12 +959,11 @@ ggplot_hbar_col_facet <-
     col_var_vector <- dplyr::pull(data, !!col_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (is.numeric(y_var_vector))
-      stop("Please use a numeric x variable for a horizontal bar plot")
-    if (!is.numeric(x_var_vector))
-      stop("Please use a categorical y variable for a horizontal bar plot")
-    if (is.numeric(facet_var_vector))
-      stop("Please use a categorical facet variable for a horizontal bar plot")
+    if (is.numeric(y_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
+    
+    if (position == "stack" & x_scale_trans != "identity") stop("simplevis does not support using an x scale other than identity where position equals stack")
     
     if (y_scale_rev == FALSE){
       data <- data %>%
@@ -1002,17 +974,12 @@ ggplot_hbar_col_facet <-
         dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
     }
     
-    if (position == "stack")
-      position2 <- "stack"
-    else if (position == "dodge")
-      position2 <- position_dodge2(preserve = "single")
+    if (position == "stack") position2 <- "stack"
+    else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (is.null(pal))
-      pal <- pal_snz
+    if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data,
-                   aes(x = !!y_var,
-                       y = !!x_var)) +
+    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -1088,17 +1055,13 @@ ggplot_hbar_col_facet <-
         position = position2)
     }
     
-    if (!is.null(legend_labels))
-      labels <- legend_labels
-    if (is.null(legend_labels))
-      labels <- waiver()
+    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(legend_labels)) labels <- waiver()
     
-    if (is.factor(col_var_vector) &
-        !is.null(levels(col_var_vector))) {
+    if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
       pal <- pal[1:length(levels(col_var_vector))]
     }
-    else
-      pal <- pal[1:length(unique(col_var_vector))]
+    else pal <- pal[1:length(unique(col_var_vector))]
     pal <- rev(pal)
     
     if (position == "stack") {
@@ -1119,43 +1082,31 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (x_scale_zero == FALSE){
-        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-        if (x_scale_min_breaks_extra > 0)
-          x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-        if (x_scale_min_breaks_extra < 0)
-          x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-      }
+      if(isMobile == FALSE) x_scale_n <- 6
+      else if(isMobile == TRUE) x_scale_n <- 4
       
-      if (x_scale_zero == TRUE)
+      if (x_scale_zero == TRUE) {
         x_scale_breaks <- pretty(c(0, x_var_vector))
-      else if (x_scale_zero == FALSE)
-        x_scale_breaks <- pretty(x_var_vector)
-      x_scale_max_breaks <- max(x_scale_breaks)
-      x_scale_min_breaks <- min(x_scale_breaks)
-      if (x_scale_zero == TRUE)
-        x_scale_limits <- c(0, x_scale_max_breaks)
-      else if (x_scale_zero == FALSE)
-        x_scale_limits <- c(x_scale_min_breaks, x_scale_max_breaks)
-      if (x_scale_zero == TRUE)
+        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
         x_scale_oob <- scales::censor
-      else if (x_scale_zero == FALSE)
+      }
+      else if (x_scale_zero == FALSE) {
+        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
+        if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
+        if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
+        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
+        
+        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
+        if(x_scale_trans == "log10") {
+          x_scale_breaks <- pretty(c(0, x_var_vector)) 
+          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+        }
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
         x_scale_oob <- scales::rescale_none
-      if (position == "stack" &
-          x_scale_zero == TRUE & dplyr::between(max(x_var_vector, na.rm = TRUE), 99.5, 100.5)) {
-        x_scale_breaks <- seq(0, 100, 25)
-        x_scale_limits <- c(0, 100.5)
       }
       
       plot <- plot +
-        scale_fill_manual(
-          values = pal,
-          drop = col_scale_drop,
-          
-          labels = labels,
-          na.value = "#A8A8A8"
-        ) +
         scale_y_continuous(
           expand = c(0, 0),
           breaks = x_scale_breaks,
@@ -1164,24 +1115,23 @@ ggplot_hbar_col_facet <-
           oob = x_scale_oob
         )
     }
-    else if (facet_scales %in% c("free", "free_x")) {
-      if (x_scale_zero == TRUE)
-        x_scale_oob <- scales::censor
-      else if (x_scale_zero == FALSE)
-        x_scale_oob <- scales::rescale_none
+    if (facet_scales %in% c("free", "free_x")) {
+      if (x_scale_zero == TRUE) x_scale_oob <- scales::censor
+      else if (x_scale_zero == FALSE) x_scale_oob <- scales::rescale_none
       
       plot <- plot +
-        scale_fill_manual(
-          values = pal,
-          drop = col_scale_drop,
-          
-          labels = labels,
-          na.value = "#A8A8A8"
-        ) +
         scale_y_continuous(expand = c(0, 0),
                            trans = x_scale_trans,
                            oob = x_scale_oob)
     }
+    
+    plot <- plot +
+      scale_fill_manual(
+        values = pal,
+        drop = col_scale_drop,
+        labels = labels,
+        na.value = "#A8A8A8"
+      ) 
     
     if (isMobile == FALSE){
       if (is.null(facet_nrow) &

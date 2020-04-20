@@ -247,7 +247,7 @@ ggplot_line <- function(data,
       )
   }
   
-  if(isMobile == FALSE) x_scale_n <- 7
+  if(isMobile == FALSE) x_scale_n <- 6
   else if(isMobile == TRUE) x_scale_n <- 4
 
   x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -493,7 +493,7 @@ ggplot_line_col <-
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
-    if(isMobile == FALSE) x_scale_n <- 7
+    if(isMobile == FALSE) x_scale_n <- 6
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -802,12 +802,8 @@ ggplot_line_facet <-
     }
 
     if (isMobile == FALSE) {
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) <= 3)
-        facet_nrow <- 1
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) > 3)
-        facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
       
       plot <- plot +
         labs(
@@ -1082,12 +1078,6 @@ ggplot_line_col_facet <-
       }
       
       plot <- plot +
-        scale_fill_manual(
-          values = pal,
-          drop = col_scale_drop,
-          labels = labels,
-          na.value = "#A8A8A8"
-        ) +
         scale_y_continuous(
           expand = c(0, 0),
           breaks = y_scale_breaks,
@@ -1097,30 +1087,26 @@ ggplot_line_col_facet <-
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE)
-        y_scale_oob <- scales::censor
-      else if (y_scale_zero == FALSE)
-        y_scale_oob <- scales::rescale_none
+      if (y_scale_zero == TRUE) y_scale_oob <- scales::censor
+      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
       
       plot <- plot +
-        scale_fill_manual(
-          values = pal,
-          drop = col_scale_drop,
-          labels = labels,
-          na.value = "#A8A8A8"
-        ) +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
                            oob = y_scale_oob)
     }
+    
+    plot <- plot +
+      scale_fill_manual(
+        values = pal,
+        drop = col_scale_drop,
+        labels = labels,
+        na.value = "#A8A8A8"
+      ) 
 
     if (isMobile == FALSE) {
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) <= 3)
-        facet_nrow <- 1
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) > 3)
-        facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
       
       plot <- plot +
         labs(

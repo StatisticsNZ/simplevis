@@ -58,14 +58,14 @@ sentence_spaced_colnames <- function(data) {
 #' @description Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
 #' @param plotly A plotly object.
 #' @export
-remove_plotly_buttons <- function(plotly){
+remove_plotly_buttons <- function(plotly, logo = FALSE){
   plotly::config(plotly,
     modeBarButtonsToRemove = list(
       "zoom2d", "pan2d", "zoomIn2d", "zoomOut2d", "autoScale2d","resetScale2d", "hoverClosestCartesian",
       "hoverCompareCartesian", "sendDataToCloud", "toggleHover", "resetViews", "toggleSpikelines",
       "resetViewMapbox", "toggleSpikelines", "resetViewMapbox", "lasso2d", "select2d"
     ),
-    displaylogo = TRUE
+    displaylogo = logo
   )
 }
 

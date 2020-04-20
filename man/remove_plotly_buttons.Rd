@@ -4,7 +4,7 @@
 \alias{remove_plotly_buttons}
 \title{Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.}
 \usage{
-remove_plotly_buttons(plotly)
+remove_plotly_buttons(plotly, logo = FALSE)
 }
 \arguments{
 \item{plotly}{A plotly object.}

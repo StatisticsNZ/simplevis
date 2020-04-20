@@ -57,6 +57,7 @@ sentence_spaced_colnames <- function(data) {
 #' @title Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
 #' @description Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
 #' @param plotly A plotly object.
+#' @param logo TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.
 #' @export
 remove_plotly_buttons <- function(plotly, logo = FALSE){
   plotly::config(plotly,

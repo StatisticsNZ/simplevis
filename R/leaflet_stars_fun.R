@@ -140,7 +140,7 @@ leaflet_stars_col <- function(data,
     max_bin_cut <- max(col_var_vector, na.rm = TRUE) + 1
     bin_cuts <- seq(min(col_var_vector, na.rm = TRUE), max_bin_cut, 1)
     if (is.null(pal))
-      pal <- pal_set1[1:(length(bin_cuts) - 1)]
+      pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
     else if (!is.null(pal))
       pal <- pal[1:(length(bin_cuts) - 1)]
     if (rev_pal == TRUE)

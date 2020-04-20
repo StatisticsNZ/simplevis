@@ -311,7 +311,7 @@ ggplot_sf_col <- function(data,
   
   if (col_method == "category") {
     if (is.null(pal))
-      pal <- pal_set1
+      pal <- pal_point_set1
     if (!is.null(legend_labels))
       labels <- legend_labels
     if (is.null(legend_labels))
@@ -722,7 +722,7 @@ ggplot_sf_col_facet <- function(data,
   
   if (col_method == "category") {
     if (is.null(pal))
-      pal <- pal_set1
+      pal <- pal_point_set1
     if (!is.null(legend_labels))
       labels <- legend_labels
     if (is.null(legend_labels))

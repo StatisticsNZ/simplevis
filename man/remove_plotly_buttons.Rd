@@ -8,6 +8,8 @@ remove_plotly_buttons(plotly, logo = FALSE)
 }
 \arguments{
 \item{plotly}{A plotly object.}
+
+\item{logo}{TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.}
 }
 \description{
 Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.

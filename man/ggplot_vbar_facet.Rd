@@ -25,6 +25,8 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
+\item{x_scale_date_format}{Date format for x axis labels.}
+
 \item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}

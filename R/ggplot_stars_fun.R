@@ -302,7 +302,7 @@ ggplot_stars_col <- function(data,
       dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
-      pal <- pal_set1[1:(length(bin_cuts) - 1)]
+      pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
     if (!is.null(pal))
       pal <- pal[1:(length(bin_cuts) - 1)]
     if (is.null(legend_labels))
@@ -697,7 +697,7 @@ ggplot_stars_col_facet <- function(data,
                        ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
-      pal <- pal_set1[1:(length(bin_cuts) - 1)]
+      pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
     if (!is.null(pal))
       pal <- pal[1:(length(bin_cuts) - 1)]
     if (is.null(legend_labels))

@@ -14,3 +14,11 @@ remove_plotly_buttons(plotly, logo = FALSE)
 \description{
 Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
 }
+\examples{
+plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+
+plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price)
+
+plotly::ggplotly(plot, tooltip = "text") \%>\% 
+   remove_plotly_buttons()
+}

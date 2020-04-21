@@ -73,7 +73,7 @@ plot <- ggplot_box(data = plot_data, x_var = Species, y_var = Petal.Length,
 
 plot
 
-plotly::ggplotly(plot)
+plotly::ggplotly(plot, tooltip = "text")
 
 plot_data <- iris \%>\%
   dplyr::group_by(Species) \%>\%

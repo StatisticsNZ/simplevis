@@ -146,7 +146,7 @@ theme_box <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot)
+#' plotly::ggplotly(plot, tooltip = "text")
 #'
 #' plot_data <- iris %>%
 #'   dplyr::group_by(Species) %>%

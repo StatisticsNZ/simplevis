@@ -59,6 +59,13 @@ sentence_spaced_colnames <- function(data) {
 #' @param plotly A plotly object.
 #' @param logo TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.
 #' @export
+#' @examples
+#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+#' 
+#' plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price)
+#' 
+#' plotly::ggplotly(plot, tooltip = "text") %>% 
+#'    remove_plotly_buttons()
 remove_plotly_buttons <- function(plotly, logo = FALSE){
   plotly::config(plotly,
     modeBarButtonsToRemove = list(

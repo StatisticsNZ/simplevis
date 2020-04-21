@@ -75,8 +75,7 @@ Vertical bar ggplot that is facetted, but not coloured.
 plot_data <- dplyr::storms \%>\%
   dplyr::mutate(status = stringr::str_to_sentence(status)) \%>\%
   dplyr::group_by(year, status) \%>\%
-  dplyr::summarise(average_wind = round(mean(wind), 2)) \%>\%
-  dplyr::ungroup()
+  dplyr::summarise(average_wind = round(mean(wind), 2)) 
 
 plot <- ggplot_vbar_facet(data = plot_data, x_var = year, y_var = average_wind,
                           facet_var = status)

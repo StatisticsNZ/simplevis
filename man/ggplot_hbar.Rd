@@ -66,7 +66,6 @@ A ggplot object.
 Horizontal bar ggplot that is not coloured and not facetted.
 }
 \examples{
-
 plot_data <- ggplot2::diamonds \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   dplyr::group_by(cut) \%>\%
@@ -79,4 +78,6 @@ plot <- ggplot_hbar(data = plot_data, x_var = average_price_thousands, y_var = c
    y_title = "Cut")
 
 plot
+
+plotly::ggplotly(plot, tooltip = "text")
 }

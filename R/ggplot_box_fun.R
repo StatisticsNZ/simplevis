@@ -135,11 +135,11 @@ theme_box <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' iris <- iris %>%
+#' plot_data <- iris %>%
 #' tibble::as_tibble() %>%
 #'   dplyr::mutate(Species = stringr::str_to_sentence(Species))
 #'
-#' plot <- ggplot_box(data = iris, x_var = Species, y_var = Petal.Length,
+#' plot <- ggplot_box(data = plot_data, x_var = Species, y_var = Petal.Length,
 #'                     title = "Iris petal length by species",
 #'                     x_title = "Species",
 #'                     y_title = "Petal length (cm)")
@@ -148,13 +148,13 @@ theme_box <-
 #'
 #' plotly::ggplotly(plot)
 #'
-#' df <- iris %>%
+#' plot_data <- iris %>%
 #'   dplyr::group_by(Species) %>%
 #'   dplyr::summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
 #'   c('ymin','lower','middle','upper','ymax')))) %>%
 #'   tidyr::unnest_wider(boxplot_stats)
 #'
-#' ggplot_box(data = df, x_var = Species, y_var = Petal.Length, stat = "identity")
+#' ggplot_box(data = plot_data, x_var = Species, y_var = Petal.Length, stat = "identity")
 ggplot_box <- function(data,
                        x_var,
                        y_var = NULL,
@@ -177,6 +177,7 @@ ggplot_box <- function(data,
                        wrap_caption = 80,
                        isMobile = FALSE){
   
+  data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #categorical var
   y_var <- rlang::enquo(y_var) #numeric var
   
@@ -352,6 +353,7 @@ ggplot_box_facet <-
            wrap_caption = 80,
            isMobile = FALSE){
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var

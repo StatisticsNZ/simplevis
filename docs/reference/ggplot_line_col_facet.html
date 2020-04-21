@@ -146,7 +146,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>An ungrouped summarised tibble or dataframe. Required input.</p></td>
+      <td><p>A tibble or dataframe. Required input.</p></td>
     </tr>
     <tr>
       <th>x_var</th>
@@ -291,13 +291,12 @@
     <pre class="examples"><div class='input'><span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='no'><a href='https://dplyr.tidyverse.org/reference/storms.html'>storms</a></span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>status</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>status</span>)) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>status</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))
 
-  <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_line_col_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>wind</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>status</span>,
+ <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_line_col_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>wind</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>status</span>,
                                 <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>status</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
-  <span class='no'>plot</span></div><div class='img'><img src='ggplot_line_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
-  <span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
+ <span class='no'>plot</span></div><div class='img'><img src='ggplot_line_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

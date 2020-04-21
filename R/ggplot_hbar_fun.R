@@ -136,7 +136,6 @@ theme_hbar <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' 
 #' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut) %>%
@@ -149,6 +148,8 @@ theme_hbar <-
 #'    y_title = "Cut")
 #'
 #' plot
+#' 
+#' plotly::ggplotly(plot, tooltip = "text")
 ggplot_hbar <- function(data,
                         x_var,
                         y_var,
@@ -174,7 +175,6 @@ ggplot_hbar <- function(data,
                         isMobile = FALSE){
   
   data <- dplyr::ungroup(data)
-  
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
   hover_var <- rlang::enquo(hover_var)
@@ -346,13 +346,11 @@ ggplot_hbar <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' 
 #' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
 #'
 #' plot <- ggplot_hbar_col(data = plot_data, x_var = average_price_thousands, y_var = cut,
 #'                        col_var = clarity)
@@ -394,7 +392,6 @@ ggplot_hbar_col <-
            isMobile = FALSE){
     
     data <- dplyr::ungroup(data)
-    
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -618,7 +615,6 @@ ggplot_hbar_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' 
 #' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
@@ -660,7 +656,6 @@ ggplot_hbar_facet <-
            isMobile = FALSE){
     
     data <- dplyr::ungroup(data)
-    
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -857,13 +852,11 @@ ggplot_hbar_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' 
 #' plot_data <- ggplot2::diamonds %>%
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity, color) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1))
 #'
 #' plot <- ggplot_hbar_col_facet(data = plot_data, x_var = average_price_thousands,
 #'                               y_var = color, col_var = clarity, facet_var = cut)
@@ -908,7 +901,6 @@ ggplot_hbar_col_facet <-
            isMobile = FALSE){
     
     data <- dplyr::ungroup(data)
-    
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var

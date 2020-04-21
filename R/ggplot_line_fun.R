@@ -110,7 +110,7 @@ theme_line <-
 
 #' @title Line ggplot.
 #' @description Line ggplot that is not coloured and not facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
@@ -139,8 +139,7 @@ theme_line <-
 #' @examples
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::group_by(year) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(wind = round(mean(wind), 2)) 
 #'
 #'   plot <- ggplot_line(data = plot_data, x_var = year, y_var = wind,
 #'       title = "Average wind speed of Atlantic storms, 1975\u20132015",
@@ -174,6 +173,8 @@ ggplot_line <- function(data,
                         wrap_y_title = 50,
                         wrap_caption = 80,
                         isMobile = FALSE) {
+  
+  data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   hover_var <- rlang::enquo(hover_var)
@@ -319,7 +320,7 @@ ggplot_line <- function(data,
 
 #' @title Line ggplot that is coloured.
 #' @description Line ggplot that is coloured, but not facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
@@ -356,14 +357,13 @@ ggplot_line <- function(data,
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
 #'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(wind = round(mean(wind), 2))
 #'
-#'   plot <- ggplot_line_col(data = plot_data, x_var = year, y_var = wind, col_var = status)
+#' plot <- ggplot_line_col(data = plot_data, x_var = year, y_var = wind, col_var = status)
 #'
-#'   plot
+#' plot
 #'
-#'   plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot, tooltip = "text")
 ggplot_line_col <-
   function(data,
            x_var,
@@ -397,6 +397,7 @@ ggplot_line_col <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -566,7 +567,7 @@ ggplot_line_col <-
 
 #' @title Line ggplot that is facetted.
 #' @description Line ggplot that is facetted, but not coloured.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -599,14 +600,13 @@ ggplot_line_col <-
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
 #'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(wind = round(mean(wind), 2)) 
 #'
-#'   plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
+#'  plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
 #'
-#'   plot
+#'  plot
 #'
-#'   plotly::ggplotly(plot, tooltip = "text")
+#'  plotly::ggplotly(plot, tooltip = "text")
 ggplot_line_facet <-
   function(data,
            x_var,
@@ -636,6 +636,7 @@ ggplot_line_facet <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -810,7 +811,7 @@ ggplot_line_facet <-
 
 #' @title Line ggplot that is coloured and facetted.
 #' @description Line ggplot that is coloured and facetted.
-#' @param data An ungrouped summarised tibble or dataframe. Required input.
+#' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
@@ -850,15 +851,14 @@ ggplot_line_facet <-
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
 #'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(wind = round(mean(wind), 2)) 
 #'
-#'   plot <- ggplot_line_col_facet(data = plot_data, x_var = year, y_var = wind, col_var = status,
+#'  plot <- ggplot_line_col_facet(data = plot_data, x_var = year, y_var = wind, col_var = status,
 #'                                 facet_var = status)
 #'
-#'   plot
+#'  plot
 #'
-#'   plotly::ggplotly(plot, tooltip = "text")
+#'  plotly::ggplotly(plot, tooltip = "text")
 ggplot_line_col_facet <-
   function(data,
            x_var,
@@ -895,6 +895,7 @@ ggplot_line_col_facet <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var

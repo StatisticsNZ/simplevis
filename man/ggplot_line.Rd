@@ -15,7 +15,7 @@ ggplot_line(data, x_var, y_var, hover_var = NULL,
   isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric or date variable to be on the x axis. Required input.}
 
@@ -72,8 +72,7 @@ Line ggplot that is not coloured and not facetted.
 \examples{
 plot_data <- dplyr::storms \%>\%
   dplyr::group_by(year) \%>\%
-  dplyr::summarise(wind = round(mean(wind), 2)) \%>\%
-  dplyr::ungroup()
+  dplyr::summarise(wind = round(mean(wind), 2)) 
 
   plot <- ggplot_line(data = plot_data, x_var = year, y_var = wind,
       title = "Average wind speed of Atlantic storms, 1975\\u20132015",

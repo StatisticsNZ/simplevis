@@ -137,8 +137,7 @@ theme_vbar <-
 #' @examples
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::group_by(year) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(average_wind = round(mean(wind), 2)) 
 #'
 #' plot <- ggplot_vbar(data = plot_data, x_var = year, y_var = average_wind,
 #'       title = "Average wind speed of Atlantic storms, 1975\u20132015",
@@ -172,7 +171,6 @@ ggplot_vbar <- function(data,
                         isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
-  
   x_var <- rlang::enquo(x_var)
   y_var <- rlang::enquo(y_var) #numeric var
   hover_var <- rlang::enquo(hover_var)
@@ -351,8 +349,7 @@ ggplot_vbar <- function(data,
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
 #'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(average_wind = round(mean(wind), 2)) 
 #'
 #' plot <- ggplot_vbar_col(data = plot_data, x_var = year, y_var = average_wind, col_var = status)
 #'
@@ -391,7 +388,6 @@ ggplot_vbar_col <-
            isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
-    
     y_var <- rlang::enquo(y_var) #numeric var
     x_var <- rlang::enquo(x_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
@@ -617,8 +613,7 @@ ggplot_vbar_col <-
 #' plot_data <- dplyr::storms %>%
 #'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
 #'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) %>%
-#'   dplyr::ungroup()
+#'   dplyr::summarise(average_wind = round(mean(wind), 2)) 
 #'
 #' plot <- ggplot_vbar_facet(data = plot_data, x_var = year, y_var = average_wind,
 #'                           facet_var = status)
@@ -654,7 +649,6 @@ ggplot_vbar_facet <-
            isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
-    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -869,8 +863,7 @@ ggplot_vbar_facet <-
 #'   dplyr::filter(year %in% 1975:1980) %>%
 #'   dplyr::filter(!(status == "Tropical storm" & year == 1980)) %>%
 #'   dplyr::filter(name %in% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
-#'   "Henri", "Gloria", "Georges", "Frederic")) %>%
-#'   dplyr::ungroup()
+#'   "Henri", "Gloria", "Georges", "Frederic"))
 #'
 #'   plot <- ggplot_vbar_col_facet(data = plot_data, x_var = year, y_var = average_wind,
 #'                                 col_var = name, facet_var = status)
@@ -913,7 +906,6 @@ ggplot_vbar_col_facet <-
            isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
-    
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var

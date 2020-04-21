@@ -15,7 +15,7 @@ ggplot_line_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric or date variable to be on the x axis. Required input.}
 
@@ -79,12 +79,11 @@ Line ggplot that is facetted, but not coloured.
 plot_data <- dplyr::storms \%>\%
   dplyr::mutate(status = stringr::str_to_sentence(status)) \%>\%
   dplyr::group_by(year, status) \%>\%
-  dplyr::summarise(wind = round(mean(wind), 2)) \%>\%
-  dplyr::ungroup()
+  dplyr::summarise(wind = round(mean(wind), 2)) 
 
-  plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
+ plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
 
-  plot
+ plot
 
-  plotly::ggplotly(plot, tooltip = "text")
+ plotly::ggplotly(plot, tooltip = "text")
 }

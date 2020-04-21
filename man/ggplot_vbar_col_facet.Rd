@@ -94,8 +94,7 @@ plot_data <- dplyr::storms \%>\%
   dplyr::filter(year \%in\% 1975:1980) \%>\%
   dplyr::filter(!(status == "Tropical storm" & year == 1980)) \%>\%
   dplyr::filter(name \%in\% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
-  "Henri", "Gloria", "Georges", "Frederic")) \%>\%
-  dplyr::ungroup()
+  "Henri", "Gloria", "Georges", "Frederic"))
 
   plot <- ggplot_vbar_col_facet(data = plot_data, x_var = year, y_var = average_wind,
                                 col_var = name, facet_var = status)

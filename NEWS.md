@@ -1,4 +1,4 @@
-# simplevis 1.0.16
+# simplevis 1.0.17
 
 * More updated scales for all ggplot wrapper functions
 

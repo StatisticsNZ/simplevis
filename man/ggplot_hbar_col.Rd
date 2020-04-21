@@ -86,13 +86,11 @@ A ggplot object.
 Horizontal bar ggplot that is coloured, but not facetted.
 }
 \examples{
-
 plot_data <- ggplot2::diamonds \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   dplyr::group_by(cut, clarity) \%>\%
   dplyr::summarise(average_price = mean(price)) \%>\%
-  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) \%>\%
-  dplyr::ungroup()
+  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
 
 plot <- ggplot_hbar_col(data = plot_data, x_var = average_price_thousands, y_var = cut,
                        col_var = clarity)

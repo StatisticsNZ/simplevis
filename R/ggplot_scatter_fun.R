@@ -172,9 +172,9 @@ ggplot_scatter <- function(data,
                            wrap_caption = 80,
                            isMobile = FALSE) {
   
+  data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-  
   hover_var <- rlang::enquo(hover_var)
   
   x_var_vector <- dplyr::pull(data, !!x_var)
@@ -393,6 +393,7 @@ ggplot_scatter_col <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var)
@@ -648,6 +649,7 @@ ggplot_scatter_facet <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -909,6 +911,7 @@ ggplot_scatter_col_facet <-
            wrap_caption = 80,
            isMobile = FALSE) {
     
+    data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var)

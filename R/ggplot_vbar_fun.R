@@ -178,6 +178,7 @@ ggplot_vbar <- function(data,
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
+  if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
   if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
   
   if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
@@ -397,6 +398,7 @@ ggplot_vbar_col <-
     x_var_vector <- dplyr::pull(data, !!x_var)
     col_var_vector <- dplyr::pull(data, !!col_var)
     
+    if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a vertical bar plot")
   
@@ -658,6 +660,7 @@ ggplot_vbar_facet <-
     y_var_vector <- dplyr::pull(data, !!y_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
+    if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
@@ -917,6 +920,7 @@ ggplot_vbar_col_facet <-
     col_var_vector <- dplyr::pull(data, !!col_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
+    if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     

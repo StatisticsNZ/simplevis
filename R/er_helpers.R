@@ -109,3 +109,18 @@ pal_point_trend3 <- c("#4575B4", "#D3D3D3", "#D73027")
 #' @return A vector of hex codes.
 #' @export
 pal_point_trend5 <- c("#4575B4", "#90C3DD", "#D3D3D3", "#F98E52", "#D73027")
+
+#' @title Signed square root ggplot scale transformation.
+#' @description A signed square root ggplot scale transformation.
+#' @return A ggplot scale transformation.
+#' @export
+signed_sqrt_trans <- function()
+  scales::trans_new(
+    name = "signed_sqrt",
+    transform = function(x) {
+      sign(x) * sqrt(abs(x))
+    },
+    inverse = function(x) {
+      x ^ 2 * sign(x)
+    }
+  )

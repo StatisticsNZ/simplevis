@@ -77,17 +77,14 @@ remove_plotly_buttons <- function(plotly, logo = FALSE){
   )
 }
 
-#' @title Signed square root ggplot scale transformation.
-#' @description A signed square root ggplot scale transformation.
-#' @return A ggplot scale transformation.
-#' @export
-signed_sqrt_trans <- function()
-  scales::trans_new(
-    name = "signed_sqrt",
-    transform = function(x) {
-      sign(x) * sqrt(abs(x))
-    },
-    inverse = function(x) {
-      x ^ 2 * sign(x)
-    }
-  )
+#' @title Colour palette for categorical variables.
+#' @description  Colour palette for categorical variables.
+#' @return A vector of hex codes.
+pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
+
+#' @title Colour palette for categorical variables for points.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+pal_point_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
+
+

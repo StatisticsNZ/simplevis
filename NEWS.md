@@ -1,3 +1,7 @@
+# simplevis 1.1.0 
+
+* Released version to CRAN
+
 # simplevis 1.0.17
 
 * More updated scales for all ggplot wrapper functions

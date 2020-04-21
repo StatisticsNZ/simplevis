@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -295,7 +295,7 @@
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>average_price_thousands</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>average_price</span> / <span class='fl'>1000</span>, <span class='fl'>1</span>))
 
 <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_hbar_col_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>average_price_thousands</span>,
-                              <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>color</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>clarity</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>cut</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+                              <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>color</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>clarity</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>cut</span>)</div><div class='output co'>#&gt; <span class='message'>simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
 <span class='no'>plot</span></div><div class='img'><img src='ggplot_hbar_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
   </div>

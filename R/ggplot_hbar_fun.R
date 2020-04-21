@@ -406,7 +406,7 @@ ggplot_hbar_col <-
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
     
     if (position == "stack" & x_scale_trans != "identity") stop("simplevis does not support using an x scale other than identity where position equals stack")
-    if (position == "stack" & x_scale_zero == TRUE) warning("simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE")
+    if (position == "stack" & x_scale_zero == TRUE) message("simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE")
     
     if (y_scale_rev == FALSE){
       data <- data %>%
@@ -918,7 +918,7 @@ ggplot_hbar_col_facet <-
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
     if (position == "stack" & x_scale_trans != "identity") stop("simplevis does not support using an x scale other than identity where position equals stack")
-    if (position == "stack" & x_scale_zero == TRUE) warning("simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE")
+    if (position == "stack" & x_scale_zero == TRUE) message("simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE")
        
     if (y_scale_rev == FALSE){
       data <- data %>%

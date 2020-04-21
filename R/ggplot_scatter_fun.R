@@ -242,42 +242,28 @@ ggplot_scatter <- function(data,
     x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
     if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    x_scale_oob <- scales::rescale_none
   }
   else if (x_scale_zero == FALSE) {
-    x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-    if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-    if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-    x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-    
     if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     if(x_scale_trans == "log10") {
       x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
       x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
     }
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    x_scale_oob <- scales::rescale_none
   }
   
   if (y_scale_zero == TRUE) {
     y_scale_breaks <- pretty(c(0, y_var_vector))
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::rescale_none
   }
   else if (y_scale_zero == FALSE) {
-    y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-    if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-    if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-    y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-    
     if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
     if(y_scale_trans == "log10") {
       y_scale_breaks <- pretty(c(0, y_var_vector)) 
       y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     }
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::rescale_none
   }
   
   plot <- plot +
@@ -286,14 +272,14 @@ ggplot_scatter <- function(data,
       breaks = x_scale_breaks,
       limits = x_scale_limits,
       trans = x_scale_trans,
-      oob = x_scale_oob
+      oob = scales::rescale_none
     ) +
     scale_y_continuous(
       expand = c(0, 0),
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
-      oob = y_scale_oob
+      oob = scales::rescale_none
     )
   
   if (isMobile == FALSE) {
@@ -520,42 +506,28 @@ ggplot_scatter_col <-
       x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
       if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      x_scale_oob <- scales::rescale_none
     }
     else if (x_scale_zero == FALSE) {
-      x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-      if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-      if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-      x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-      
       if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
       if(x_scale_trans == "log10") {
         x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
         x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
       }
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      x_scale_oob <- scales::rescale_none
     }
     
     if (y_scale_zero == TRUE) {
       y_scale_breaks <- pretty(c(0, y_var_vector))
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-      y_scale_oob <- scales::rescale_none
     }
     else if (y_scale_zero == FALSE) {
-      y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-      if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-      if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-      y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-      
       if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
       if(y_scale_trans == "log10") {
         y_scale_breaks <- pretty(c(0, y_var_vector)) 
         y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       }
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-      y_scale_oob <- scales::rescale_none
     }
     
     plot <- plot +
@@ -571,14 +543,14 @@ ggplot_scatter_col <-
         breaks = x_scale_breaks,
         limits = x_scale_limits,
         trans = x_scale_trans,
-        oob = x_scale_oob
+        oob = scales::rescale_none
       ) +
       scale_y_continuous(
         expand = c(0, 0),
         breaks = y_scale_breaks,
         limits = y_scale_limits,
         trans = y_scale_trans,
-        oob = y_scale_oob
+        oob = scales::rescale_none
       )
 
     if (isMobile == FALSE) {
@@ -760,21 +732,14 @@ ggplot_scatter_facet <-
         x_scale_breaks <- pretty(c(0, x_var_vector))
         if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::rescale_none
       }
       else if (x_scale_zero == FALSE) {
-        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-        if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-        if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-        
         if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
         if(x_scale_trans == "log10") {
           x_scale_breaks <- pretty(c(0, x_var_vector)) 
           x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         }
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -783,7 +748,7 @@ ggplot_scatter_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
-          oob = x_scale_oob
+          oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("fixed", "free_x")) {
@@ -791,21 +756,14 @@ ggplot_scatter_facet <-
         y_scale_breaks <- pretty(c(0, y_var_vector))
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::rescale_none
       }
       else if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-        
         if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
         if(y_scale_trans == "log10") {
           y_scale_breaks <- pretty(c(0, y_var_vector)) 
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -814,17 +772,14 @@ ggplot_scatter_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
-          oob = y_scale_oob
+          oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE) y_scale_oob <- scales::rescale_none
-      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
-                           oob = y_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     if (isMobile == FALSE) {
@@ -1103,21 +1058,14 @@ ggplot_scatter_col_facet <-
         x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
         if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::rescale_none
       }
       else if (x_scale_zero == FALSE) {
-        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-        if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-        if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-        
         if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         if(x_scale_trans == "log10") {
           x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
           x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         }
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        x_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -1126,7 +1074,7 @@ ggplot_scatter_col_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
-          oob = x_scale_oob
+          oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("fixed", "free_x")) {
@@ -1134,21 +1082,14 @@ ggplot_scatter_col_facet <-
         y_scale_breaks <- pretty(c(0, y_var_vector))
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::rescale_none
       }
       else if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-        
         if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
         if(y_scale_trans == "log10") {
           y_scale_breaks <- pretty(c(0, y_var_vector)) 
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-        y_scale_oob <- scales::rescale_none
       }
       
       plot <- plot +
@@ -1157,17 +1098,14 @@ ggplot_scatter_col_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
-          oob = y_scale_oob
+          oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE) y_scale_oob <- scales::rescale_none
-      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
-                           oob = y_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     if (isMobile == FALSE) {

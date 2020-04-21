@@ -261,11 +261,6 @@ ggplot_hbar <- function(data,
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
   }
   else if (x_scale_zero == FALSE) {
-    # x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-    # if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-    # if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-    # x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-    
     if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     if(x_scale_trans == "log10") {
       x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
@@ -513,12 +508,6 @@ ggplot_hbar_col <-
       x_var_vector <- dplyr::pull(data_sum, !!x_var)
       
     }
-    else if (position == "dodge" & x_scale_zero == FALSE){
-      x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-      if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-      if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-      x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-    }
     
     if(isMobile == FALSE) x_scale_n <- 6
     else if(isMobile == TRUE) x_scale_n <- 4
@@ -529,11 +518,6 @@ ggplot_hbar_col <-
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     }
     else if (x_scale_zero == FALSE) {
-      x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-      if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-      if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-      x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-      
       if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
       if(x_scale_trans == "log10") {
         x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
@@ -773,11 +757,6 @@ ggplot_hbar_facet <-
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
       }
       else if (x_scale_zero == FALSE) {
-        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-        if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-        if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-        
         if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
         if(x_scale_trans == "log10") {
           x_scale_breaks <- pretty(c(0, x_var_vector)) 
@@ -1054,14 +1033,6 @@ ggplot_hbar_col_facet <-
       
       x_var_vector <- dplyr::pull(data_sum, !!x_var)
     }
-    else if (position == "dodge" & x_scale_zero == FALSE){
-      x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-      if (x_scale_min_breaks_extra > 0)
-        x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-      if (x_scale_min_breaks_extra < 0)
-        x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-      x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-    }
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_scale_n <- 6
@@ -1073,11 +1044,6 @@ ggplot_hbar_col_facet <-
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
       }
       else if (x_scale_zero == FALSE) {
-        x_scale_min_breaks_extra <- min(x_var_vector, na.rm = TRUE)
-        if (x_scale_min_breaks_extra > 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 0.999999
-        if (x_scale_min_breaks_extra < 0) x_scale_min_breaks_extra <- x_scale_min_breaks_extra * 1.000001
-        x_var_vector <- c(x_var_vector, x_scale_min_breaks_extra)
-        
         if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         if(x_scale_trans == "log10") {
           x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
@@ -1111,12 +1077,8 @@ ggplot_hbar_col_facet <-
       ) 
     
     if (isMobile == FALSE){
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) <= 3)
-        facet_nrow <- 1
-      if (is.null(facet_nrow) &
-          length(unique(facet_var_vector)) > 3)
-        facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
       
       plot <- plot +
         labs(

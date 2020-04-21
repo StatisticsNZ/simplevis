@@ -17,7 +17,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x axis. Required input.}
 

@@ -1,5 +1,9 @@
 # simplevis 1.0.16
 
+* More updated scales for all ggplot wrapper functions
+
+# simplevis 1.0.16
+
 * Updated scale for all ggplot wrapper functions
 
 # simplevis 1.0.15

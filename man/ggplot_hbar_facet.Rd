@@ -15,7 +15,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x axis. Required input.}
 
@@ -79,8 +79,7 @@ plot_data <- ggplot2::diamonds \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   dplyr::group_by(cut, clarity) \%>\%
   dplyr::summarise(average_price = mean(price)) \%>\%
-  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) \%>\%
-  dplyr::ungroup()
+  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
 
 plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
                           y_var = cut, facet_var = clarity)

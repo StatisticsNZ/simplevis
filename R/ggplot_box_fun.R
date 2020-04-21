@@ -232,21 +232,14 @@ ggplot_box <- function(data,
     y_scale_breaks <- pretty(c(0, y_var_vector))
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::rescale_none
   }
   else if (y_scale_zero == FALSE) {
-    y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-    if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-    if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-    y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-    
     if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
     if(y_scale_trans == "log10") {
       y_scale_breaks <- pretty(c(0, y_var_vector)) 
       y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     }
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    y_scale_oob <- scales::rescale_none
   }
   
   plot <- plot +
@@ -255,7 +248,7 @@ ggplot_box <- function(data,
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
-      oob = y_scale_oob
+      oob = scales::rescale_none
     )
   
   if (isMobile == FALSE){
@@ -414,47 +407,27 @@ ggplot_box_facet <-
     }
 
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_scale_zero == FALSE){
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0)
-          y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0)
-          y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-      }
-      
-      if (y_scale_zero == TRUE)
-        y_scale_breaks <- pretty(c(0, y_var_vector))
-      else if (y_scale_zero == FALSE)
-        y_scale_breaks <- pretty(y_var_vector)
+      if (y_scale_zero == TRUE) y_scale_breaks <- pretty(c(0, y_var_vector))
+      else if (y_scale_zero == FALSE) y_scale_breaks <- pretty(y_var_vector)
       y_scale_max_breaks <- max(y_scale_breaks)
       y_scale_min_breaks <- min(y_scale_breaks)
-      if (y_scale_zero == TRUE)
-        y_scale_limits <- c(0, y_scale_max_breaks)
-      else if (y_scale_zero == FALSE)
-        y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
-      if (y_scale_zero == TRUE)
-        y_scale_oob <- scales::squish
-      else if (y_scale_zero == FALSE)
-        y_scale_oob <- scales::rescale_none
-      
+      if (y_scale_zero == TRUE) y_scale_limits <- c(0, y_scale_max_breaks)
+      else if (y_scale_zero == FALSE) y_scale_limits <- c(y_scale_min_breaks, y_scale_max_breaks)
+
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
-          oob = y_scale_oob
+          oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (y_scale_zero == TRUE) y_scale_oob <- scales::rescale_none
-      else if (y_scale_zero == FALSE) y_scale_oob <- scales::rescale_none
-      
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
-                           oob = y_scale_oob)
+                           oob = scales::rescale_none)
     }
     
     if (isMobile == FALSE){

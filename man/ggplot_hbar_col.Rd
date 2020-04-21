@@ -17,7 +17,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, hover_var = NULL,
   isMobile = FALSE)
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x axis. Required input.}
 

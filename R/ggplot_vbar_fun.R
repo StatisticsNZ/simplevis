@@ -256,11 +256,6 @@ ggplot_vbar <- function(data,
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
   }
   else if (y_scale_zero == FALSE) {
-    y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-    if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-    if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-    y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-    
     if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
     if(y_scale_trans == "log10") {
       y_scale_breaks <- pretty(c(0, y_var_vector)) 
@@ -504,13 +499,6 @@ ggplot_vbar_col <-
       
       y_var_vector <- dplyr::pull(data_sum, !!y_var)
     }
-    else if (position == "dodge" & y_scale_zero == FALSE) {
-      y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-      if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-      if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-      y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-    }
-
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
 
@@ -520,11 +508,6 @@ ggplot_vbar_col <-
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
     }
     else if (y_scale_zero == FALSE) {
-      y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-      if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-      if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-      y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-      
       if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
       if(y_scale_trans == "log10") {
         y_scale_breaks <- pretty(c(0, y_var_vector)) 
@@ -789,11 +772,6 @@ ggplot_vbar_facet <-
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
       else if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-        
         if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
         if(y_scale_trans == "log10") {
           y_scale_breaks <- pretty(c(0, y_var_vector)) 
@@ -1050,13 +1028,7 @@ ggplot_vbar_col_facet <-
       
       y_var_vector <- dplyr::pull(data_sum, !!y_var)
     }
-    else if (position == "dodge" & y_scale_zero == FALSE) {
-      y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-      if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-      if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-      y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-    }
-    
+
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if(isMobile == FALSE) x_scale_n <- 5
@@ -1090,11 +1062,6 @@ ggplot_vbar_col_facet <-
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
       else if (y_scale_zero == FALSE) {
-        y_scale_min_breaks_extra <- min(y_var_vector, na.rm = TRUE)
-        if (y_scale_min_breaks_extra > 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 0.999999
-        if (y_scale_min_breaks_extra < 0) y_scale_min_breaks_extra <- y_scale_min_breaks_extra * 1.000001
-        y_var_vector <- c(y_var_vector, y_scale_min_breaks_extra)
-        
         if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
         if(y_scale_trans == "log10") {
           y_scale_breaks <- pretty(c(0, y_var_vector)) 

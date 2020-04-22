@@ -185,6 +185,11 @@ ggplot_hbar <- function(data,
   if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
   
+  if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+    x_scale_zero <- FALSE
+    message("x_scale_zero must be FALSE as data contains values less than zero")
+  }
+  
   if (is.factor(y_var_vector) & y_scale_rev == FALSE){
     data <- data %>%
       dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
@@ -405,8 +410,13 @@ ggplot_hbar_col <-
     if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
     
-    if (position == "stack" & x_scale_trans != "identity") stop("simplevis does not support using an x scale other than identity where position equals stack")
-    if (position == "stack" & x_scale_zero == TRUE) message("simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE")
+    if (position == "stack" & x_scale_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
+    if (position == "stack" & x_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_scale_zero equal to FALSE")
+    
+    if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+      x_scale_zero <- FALSE
+      message("x_scale_zero must be FALSE as data contains values less than zero")
+    }
     
     if (y_scale_rev == FALSE){
       data <- data %>%
@@ -524,7 +534,7 @@ ggplot_hbar_col <-
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     }
     
-    if(position == "stack" & all(between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
+    if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
 
     plot <- plot +
       scale_fill_manual(
@@ -669,6 +679,11 @@ ggplot_hbar_facet <-
     if (is.numeric(y_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
     if (!is.numeric(x_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
+    
+    if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+      x_scale_zero <- FALSE
+      message("x_scale_zero must be FALSE as data contains values less than zero")
+    }
     
     if (is.factor(y_var_vector) & y_scale_rev == FALSE){
       data <- data %>%
@@ -917,9 +932,14 @@ ggplot_hbar_col_facet <-
     if (!is.numeric(x_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
-    if (position == "stack" & x_scale_trans != "identity") stop("simplevis does not support using an x scale other than identity where position equals stack")
-    if (position == "stack" & x_scale_zero == TRUE) message("simplevis will often not perform correctly with position equal to stack and x_scale_zero equal to TRUE")
-       
+    if (position == "stack" & x_scale_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
+    if (position == "stack" & x_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_scale_zero equal to FALSE")
+    
+    if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+      x_scale_zero <- FALSE
+      message("x_scale_zero must be FALSE as data contains values less than zero")
+    }
+    
     if (y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))

@@ -401,7 +401,10 @@ ggplot_vbar_col <-
     if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a vertical bar plot")
-  
+    
+    if (position == "stack" & y_scale_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
+    if (position == "stack" & y_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_scale_zero equal to FALSE")
+
     if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
       y_scale_zero <- FALSE
       message("y_scale_zero must be FALSE as data contains values less than zero")
@@ -923,6 +926,9 @@ ggplot_vbar_col_facet <-
     if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
+    
+    if (position == "stack" & y_scale_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
+    if (position == "stack" & y_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_scale_zero equal to FALSE")
     
     if(min(y_var_vector) < 0 & y_scale_zero == TRUE) {
       y_scale_zero <- FALSE

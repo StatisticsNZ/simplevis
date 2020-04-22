@@ -307,7 +307,7 @@ ggplot_sf_col <- function(data,
       col_method <- "category"
   if (is.null(col_method))
     if (is.numeric(col_var_vector))
-      col_method <- "bin"
+      col_method <- "quantilegit "
   
   if (col_method == "category") {
     if (is.null(pal))
@@ -718,7 +718,7 @@ ggplot_sf_col_facet <- function(data,
       col_method <- "category"
   if (is.null(col_method))
     if (is.numeric(col_var_vector))
-      col_method <- "bin"
+      col_method <- "quantile"
   
   if (col_method == "category") {
     if (is.null(pal))

@@ -224,14 +224,11 @@ ggplot_sf <- function(data,
 #' @export
 #' @examples
 #' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
+#'      col_method = "bin", bin_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
 #' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
 #'      col_method = "quantile", quantile_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
-#'      title = "Dairy density in count per km\u00b2, 2017")
-#'
-#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
-#'      col_method = "bin", bin_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
 #' map_data <- example_sf_nz_river_wq %>%
@@ -239,7 +236,8 @@ ggplot_sf <- function(data,
 #'   
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, pal = pal,
+#' ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, 
+#'    pal = pal, col_method = "category",
 #'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
 ggplot_sf_col <- function(data,
                           col_var,

@@ -23,7 +23,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or bin if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "bin" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
 \item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.}
 

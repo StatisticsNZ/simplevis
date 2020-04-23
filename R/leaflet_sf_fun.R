@@ -213,9 +213,6 @@ leaflet_sf <- function(data,
 #' @export
 #' @examples
 #' leaflet_sf_col(example_sf_nz_livestock, dairydens,
-#'      title = "Dairy density in count per km\u00b2, 2017")
-#'
-#' leaflet_sf_col(example_sf_nz_livestock, dairydens,
 #'      col_method = "quantile", quantile_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
@@ -228,7 +225,7 @@ leaflet_sf <- function(data,
 #'
 #' pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' leaflet_sf_col(map_data, trend_category, pal = pal,
+#' leaflet_sf_col(map_data, trend_category, pal = pal, col_method = "category"
 #'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
 leaflet_sf_col <- function(data,
                            col_var,

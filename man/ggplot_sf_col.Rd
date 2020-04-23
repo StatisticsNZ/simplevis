@@ -20,7 +20,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or bin if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "bin" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
 \item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.}
 
@@ -81,12 +81,11 @@ A ggplot object.
 Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
-ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
-     title = "Dairy density in count per km\\u00b2, 2017")
-
+suppressWarnings({
 ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
      col_method = "quantile", quantile_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
      title = "Dairy density in count per km\\u00b2, 2017")
+})
 
 ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
      col_method = "bin", bin_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,

@@ -20,4 +20,7 @@ Colour palette for categorical variables.
 
 Colour palette for categorical variables.
 }
+\examples{
+scales::show_col(pal_snz)
+}
 \keyword{datasets}

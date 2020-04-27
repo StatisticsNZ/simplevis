@@ -14,4 +14,7 @@ A vector of hex codes.
 \description{
 Colour palette for categorical variables.
 }
+\examples{
+scales::show_col(pal_ea19_trend3)
+}
 \keyword{datasets}

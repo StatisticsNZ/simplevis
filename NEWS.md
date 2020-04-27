@@ -1,3 +1,9 @@
+# simplevis 1.1.01
+
+* Update leaflet_sf_col and leaflet_stars_col to default to bin col_method
+* Added scales:show_col to all colour pals
+
+
 # simplevis 1.1.0 
 
 * Renamed pal_trend3, pal_trend5, and pal_set1 to have pal_point prefixes

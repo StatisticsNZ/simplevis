@@ -14,4 +14,7 @@ A vector of hex codes.
 \description{
 A colour palette used for depicting categories in the NZ conservation threat status.
 }
+\examples{
+scales::show_col(pal_snz_nztcs_c)
+}
 \keyword{datasets}

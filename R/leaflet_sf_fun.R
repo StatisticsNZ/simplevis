@@ -225,7 +225,7 @@ leaflet_sf <- function(data,
 #'
 #' pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' leaflet_sf_col(map_data, trend_category, pal = pal, col_method = "category"
+#' leaflet_sf_col(map_data, trend_category, pal = pal, col_method = "category",
 #'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
 leaflet_sf_col <- function(data,
                            col_var,

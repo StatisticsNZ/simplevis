@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_point_trend3}
 \alias{pal_point_trend3}
-\title{Colour palette for categorical variables for points.}
+\title{Colour palette for a categorical trend variable with 3 values for points.}
 \format{An object of class \code{character} of length 3.}
 \usage{
 pal_point_trend3
@@ -13,5 +13,8 @@ A vector of hex codes.
 }
 \description{
 Colour palette for categorical variables.
+}
+\examples{
+scales::show_col(pal_point_trend3)
 }
 \keyword{datasets}

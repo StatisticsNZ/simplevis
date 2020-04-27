@@ -74,6 +74,6 @@ map_data <- example_sf_nz_river_wq \%>\%
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
-leaflet_sf_col(map_data, trend_category, pal = pal,
+leaflet_sf_col(map_data, trend_category, pal = pal, col_method = "category",
    title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
 }

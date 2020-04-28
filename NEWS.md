@@ -1,3 +1,7 @@
+# simplevis 1.1.2
+
+* Adjusted vbar expand on the x scale to be zero
+
 # simplevis 1.1.1
 
 * Update all maps to default to quantile col_method with quartiles

@@ -266,7 +266,7 @@ ggplot_vbar <- function(data,
   if (lubridate::is.Date(x_var_vector)) {
     plot <- plot +
       scale_x_date(
-        expand = c(0.05, 0),
+        expand = c(0, 0),
         breaks = x_scale_breaks,
         limits = x_scale_limits,
         labels = scales::date_format(x_scale_date_format)
@@ -274,7 +274,7 @@ ggplot_vbar <- function(data,
   }
   else if (is.numeric(x_var_vector)) {
     plot <- plot +
-      scale_x_continuous(expand = c(0.05, 0),
+      scale_x_continuous(expand = c(0, 0),
                          breaks = x_scale_breaks,
                          limits = x_scale_limits,
                          oob = scales::rescale_none)
@@ -520,7 +520,7 @@ ggplot_vbar_col <-
     if (lubridate::is.Date(x_var_vector)) {
       plot <- plot +
         scale_x_date(
-          expand = c(0.05, 0),
+          expand = c(0, 0),
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           labels = scales::date_format(x_scale_date_format)
@@ -528,7 +528,7 @@ ggplot_vbar_col <-
     }
     else if (is.numeric(x_var_vector)) {
       plot <- plot +
-        scale_x_continuous(expand = c(0.05, 0),
+        scale_x_continuous(expand = c(0, 0),
                            breaks = x_scale_breaks,
                            limits = x_scale_limits,
                            oob = scales::rescale_none)
@@ -750,7 +750,7 @@ ggplot_vbar_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
-            expand = c(0.05, 0),
+            expand = c(0, 0),
             breaks = x_scale_breaks,
             limits = x_scale_limits,
             labels = scales::date_format(x_scale_date_format)
@@ -758,7 +758,7 @@ ggplot_vbar_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(expand = c(0.05, 0),
+          scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
                              limits = x_scale_limits,
                              oob = scales::rescale_none)
@@ -1042,7 +1042,7 @@ ggplot_vbar_col_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
-            expand = c(0.05, 0),
+            expand = c(0, 0),
             breaks = x_scale_breaks,
             limits = x_scale_limits,
             labels = scales::date_format(x_scale_date_format)
@@ -1050,7 +1050,7 @@ ggplot_vbar_col_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(expand = c(0.05, 0),
+          scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
                              limits = x_scale_limits,
                              oob = scales::rescale_none)

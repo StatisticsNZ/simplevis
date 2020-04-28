@@ -16,7 +16,7 @@ Install stable version from CRAN:
 `install.packages("simplevis")`
 
 Install development version from github:
-`devtools::install_github("StatisticsNZ/simplevis")`
+`devtools::install_github("statisticsNZ/simplevis")`
 
 ### Documentation
 

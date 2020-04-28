@@ -230,7 +230,7 @@ ggplot_stars <- function(data,
 #' @export
 #' @examples
 #' ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
-#'    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
+#'    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 ggplot_stars_col <- function(data,
                              col_method = "quantile",
                              quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
@@ -622,7 +622,7 @@ ggplot_stars_facet <- function(data,
 #' map_data <- c(map_data1, map_data2)
 #'
 #' ggplot_stars_col_facet(data = map_data, coastline = nz,
-#'      title = "River modelled nutrient concentrations, 2013\u201317")
+#'      title = "River modelled nutrient concentrations, 2013-17")
 ggplot_stars_col_facet <- function(data,
                                    col_method = "quantile",
                                    quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),

@@ -61,5 +61,5 @@ map_data <- example_sf_nz_river_wq \%>\%
  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 
 ggplot_sf_facet(data = map_data, facet_var = trend_category, coastline = nz,
-  title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
+  title = "Monitored river nitrate-nitrogen trends, 2008-17")
 }

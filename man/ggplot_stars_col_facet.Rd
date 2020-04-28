@@ -84,5 +84,5 @@ map_data2 <- example_stars_nz_drp \%>\%
 map_data <- c(map_data1, map_data2)
 
 ggplot_stars_col_facet(data = map_data, coastline = nz,
-     title = "River modelled nutrient concentrations, 2013\\u201317")
+     title = "River modelled nutrient concentrations, 2013-17")
 }

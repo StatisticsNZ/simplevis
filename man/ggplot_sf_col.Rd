@@ -96,5 +96,5 @@ map_data <- example_sf_nz_river_wq \%>\%
 
 ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, 
    pal = pal, col_method = "category",
-   title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
+   title = "Monitored river nitrate-nitrogen trends, 2008-17")
 }

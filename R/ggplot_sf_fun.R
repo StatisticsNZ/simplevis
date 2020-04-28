@@ -238,7 +238,7 @@ ggplot_sf <- function(data,
 #'
 #' ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, 
 #'    pal = pal, col_method = "category",
-#'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
+#'    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col <- function(data,
                           col_var,
                           col_method = NULL,
@@ -479,7 +479,7 @@ ggplot_sf_col <- function(data,
 #'  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
 #' ggplot_sf_facet(data = map_data, facet_var = trend_category, coastline = nz,
-#'   title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
+#'   title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_facet <- function(data,
                             facet_var,
                             size = 0.5,
@@ -642,7 +642,7 @@ ggplot_sf_facet <- function(data,
 #'
 #' ggplot_sf_col_facet(data = map_data, col_var = trend_category, facet_var = indicator,
 #'  coastline = nz, pal = pal,
-#'  title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
+#'  title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col_facet <- function(data,
                                 col_var,
                                 facet_var,

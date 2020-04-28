@@ -204,7 +204,7 @@ ggplot_stars <- function(data,
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
 #' @param data A stars object with 2 dimensions x and y, and 1 attribute layer. Required input.
 #' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
-#' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to 0-0.05, 0.05-0.25, 0.25-0.5, 0.5-0.75, 0.75-0.95, and 0.95-1. Only applicable where col_method equals "quantile".
+#' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
@@ -233,7 +233,7 @@ ggplot_stars <- function(data,
 #'    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 ggplot_stars_col <- function(data,
                              col_method = "quantile",
-                             quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+                             quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                              bin_cuts = NULL,
                              pal = NULL,
                              rev_pal = FALSE,
@@ -586,7 +586,7 @@ ggplot_stars_facet <- function(data,
 #' @description Map of an array in ggplot that is coloured and facetted. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to 0-0.05, 0.05-0.25, 0.25-0.5, 0.5-0.75, 0.75-0.95, and 0.95-1. Only applicable where col_method equals "quantile".
+#' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.  Only applicable where col_method equals "bin".
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
@@ -625,7 +625,7 @@ ggplot_stars_facet <- function(data,
 #'      title = "River modelled nutrient concentrations, 2013-17")
 ggplot_stars_col_facet <- function(data,
                                    col_method = "quantile",
-                                   quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+                                   quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                                    quantile_by_facet = TRUE,
                                    bin_cuts = NULL,
                                    pal = NULL,

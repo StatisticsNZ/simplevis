@@ -1,8 +1,7 @@
-# simplevis 1.1.01
+# simplevis 1.1.1
 
-* Update leaflet_sf_col and leaflet_stars_col to default to bin col_method
+* Update all maps to default to quantile col_method with quartiles
 * Added scales:show_col to all colour pals
-
 
 # simplevis 1.1.0 
 

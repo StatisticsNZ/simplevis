@@ -5,8 +5,8 @@
 \title{Map of an array in ggplot that is coloured.}
 \usage{
 ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
-  0.05, 0.25, 0.5, 0.75, 0.95, 1), bin_cuts = NULL, pal = NULL,
-  rev_pal = FALSE, coastline = NULL, coastline_behind = TRUE,
+  0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, rev_pal = FALSE,
+  coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, col_title = "", caption = "",
   legend_labels = NULL, font_family = "Helvetica",
@@ -19,7 +19,7 @@ ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 
 \item{col_method}{The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".}
 
-\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to 0-0.05, 0.05-0.25, 0.25-0.5, 0.5-0.75, 0.75-0.95, and 0.95-1. Only applicable where col_method equals "quantile".}
+\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".}
 
 \item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".}
 

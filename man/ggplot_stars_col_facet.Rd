@@ -5,22 +5,22 @@
 \title{Map of an array in ggplot that is coloured and facetted.}
 \usage{
 ggplot_stars_col_facet(data, col_method = "quantile",
-  quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-  quantile_by_facet = TRUE, bin_cuts = NULL, pal = NULL,
-  rev_pal = FALSE, coastline = NULL, coastline_behind = TRUE,
-  coastline_pal = "#7f7f7f", facet_nrow = NULL, legend_ncol = 3,
-  legend_digits = 1, title = "[Title]", subtitle = NULL,
-  col_title = "", caption = "", legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = 11,
-  font_size_body = 10, wrap_title = 70, wrap_subtitle = 80,
-  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
+  quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), quantile_by_facet = TRUE,
+  bin_cuts = NULL, pal = NULL, rev_pal = FALSE, coastline = NULL,
+  coastline_behind = TRUE, coastline_pal = "#7f7f7f",
+  facet_nrow = NULL, legend_ncol = 3, legend_digits = 1,
+  title = "[Title]", subtitle = NULL, col_title = "", caption = "",
+  legend_labels = NULL, font_family = "Helvetica",
+  font_size_title = 11, font_size_body = 10, wrap_title = 70,
+  wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
+  isMobile = FALSE)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
-\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to 0-0.05, 0.05-0.25, 0.25-0.5, 0.5-0.75, 0.75-0.95, and 0.95-1. Only applicable where col_method equals "quantile".}
+\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".}
 
 \item{quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
 

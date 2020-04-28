@@ -193,7 +193,7 @@ ggplot_sf <- function(data,
 #' @description Map of simple features in ggplot that is coloured, but not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "bin" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param size Size of points. Defaults to 0.5.
@@ -305,7 +305,7 @@ ggplot_sf_col <- function(data,
       col_method <- "category"
   if (is.null(col_method))
     if (is.numeric(col_var_vector))
-      col_method <- "bin"
+      col_method <- "quantile"
   
   if (col_method == "category") {
     if (is.null(pal))
@@ -602,7 +602,7 @@ ggplot_sf_facet <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "bin" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
@@ -716,7 +716,7 @@ ggplot_sf_col_facet <- function(data,
       col_method <- "category"
   if (is.null(col_method))
     if (is.numeric(col_var_vector))
-      col_method <- "bin"
+      col_method <- "quantile"
   
   if (col_method == "category") {
     if (is.null(pal))

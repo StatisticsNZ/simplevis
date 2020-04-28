@@ -74,7 +74,8 @@ plot_data <- ggplot2::diamonds \%>\%
   dplyr::mutate(price_thousands = (price / 1000)) \%>\%
   dplyr::sample_frac(0.05)
 
-plot <- ggplot_box_facet(data = plot_data, x_var = cut, y_var = price_thousands, facet_var = color)
+plot <- ggplot_box_facet(data = plot_data, x_var = cut, y_var = price_thousands, facet_var = color,
+                         facet_nrow = 4)
 
 plot
 

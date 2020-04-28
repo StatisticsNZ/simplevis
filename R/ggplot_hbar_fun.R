@@ -355,11 +355,18 @@ ggplot_hbar <- function(data,
 #'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   dplyr::group_by(cut, clarity) %>%
 #'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
-#'
-#' plot <- ggplot_hbar_col(data = plot_data, x_var = average_price_thousands, y_var = cut,
-#'                        col_var = clarity)
-#'
+#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
+#'   dplyr::ungroup()
+#' 
+#' plot <- ggplot_hbar_col(data = plot_data, 
+#'                         x_var = average_price_thousands, 
+#'                         y_var = cut, 
+#'                         col_var = clarity, 
+#'                         legend_ncol = 4,
+#'                         title = "Average diamond price by cut and clarity", 
+#'                         x_title = "Average price ($US thousands)", 
+#'                         y_title = "Cut")
+#' 
 #' plot
 #'
 #' plotly::ggplotly(plot, tooltip = "text")
@@ -633,7 +640,10 @@ ggplot_hbar_col <-
 #'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
 #'
 #' plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
-#'                           y_var = cut, facet_var = clarity)
+#'                           y_var = cut, facet_var = clarity,
+#'                          title = "Average diamond price by cut and clarity", 
+#'                          x_title = "Average price ($US thousands)", 
+#'                          y_title = "Cut")
 #'
 #' plot
 #'
@@ -875,7 +885,10 @@ ggplot_hbar_facet <-
 #'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1))
 #'
 #' plot <- ggplot_hbar_col_facet(data = plot_data, x_var = average_price_thousands,
-#'                               y_var = color, col_var = clarity, facet_var = cut)
+#'                               y_var = color, col_var = clarity, facet_var = cut,
+#'                               title = "Average diamond price by colour, clarity and cut", 
+#'                               x_title = "Average price ($US thousands)", 
+#'                               y_title = "Colour")
 #'
 #' plot
 #'

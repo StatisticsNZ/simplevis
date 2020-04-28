@@ -90,10 +90,17 @@ plot_data <- ggplot2::diamonds \%>\%
   dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   dplyr::group_by(cut, clarity) \%>\%
   dplyr::summarise(average_price = mean(price)) \%>\%
-  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
+  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) \%>\%
+  dplyr::ungroup()
 
-plot <- ggplot_hbar_col(data = plot_data, x_var = average_price_thousands, y_var = cut,
-                       col_var = clarity)
+plot <- ggplot_hbar_col(data = plot_data, 
+                        x_var = average_price_thousands, 
+                        y_var = cut, 
+                        col_var = clarity, 
+                        legend_ncol = 4,
+                        title = "Average diamond price by cut and clarity", 
+                        x_title = "Average price ($US thousands)", 
+                        y_title = "Cut")
 
 plot
 

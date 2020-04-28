@@ -84,5 +84,6 @@ map_data2 <- example_stars_nz_drp \%>\%
 map_data <- c(map_data1, map_data2)
 
 ggplot_stars_col_facet(data = map_data, coastline = nz,
-     title = "River modelled nutrient concentrations, 2013-17")
+   col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+   title = "River modelled nutrient concentrations, 2013-17")
 }

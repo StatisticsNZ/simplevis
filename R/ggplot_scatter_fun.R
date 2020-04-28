@@ -313,7 +313,7 @@ ggplot_scatter <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "bin".
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles.
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
 #' @param size Size of points. Defaults to 1.
@@ -408,7 +408,7 @@ ggplot_scatter_col <-
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vector)) col_method <- "category"
-      else if (is.numeric(col_var_vector)) col_method <- "bin"
+      else if (is.numeric(col_var_vector)) col_method <- "quantile"
     }
     
     if (col_method == "quantile") {
@@ -821,7 +821,7 @@ ggplot_scatter_facet <-
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "bin".
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles.
 #' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
@@ -929,7 +929,7 @@ ggplot_scatter_col_facet <-
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vector)) col_method <- "category"
-      if (is.numeric(col_var_vector)) col_method <- "bin"      
+      if (is.numeric(col_var_vector)) col_method <- "quantile"      
     }
 
     if (col_method == "quantile") {

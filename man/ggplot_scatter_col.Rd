@@ -28,7 +28,7 @@ ggplot_scatter_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "bin".}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

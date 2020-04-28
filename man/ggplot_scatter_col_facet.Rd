@@ -53,7 +53,7 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "bin".}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
 \item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles.}
 

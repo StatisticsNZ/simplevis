@@ -185,7 +185,7 @@ ggplot_hbar <- function(data,
   if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
   
-  if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+  if(min(x_var_vector, na.rm = TRUE) < 0 & x_scale_zero == TRUE) {
     x_scale_zero <- FALSE
     message("x_scale_zero must be FALSE as data contains values less than zero")
   }
@@ -420,7 +420,7 @@ ggplot_hbar_col <-
     if (position == "stack" & x_scale_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_scale_zero equal to FALSE")
     
-    if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+    if(min(x_var_vector, na.rm = TRUE) < 0 & x_scale_zero == TRUE) {
       x_scale_zero <- FALSE
       message("x_scale_zero must be FALSE as data contains values less than zero")
     }
@@ -690,7 +690,7 @@ ggplot_hbar_facet <-
     if (!is.numeric(x_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
-    if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+    if(min(x_var_vector, na.rm = TRUE) < 0 & x_scale_zero == TRUE) {
       x_scale_zero <- FALSE
       message("x_scale_zero must be FALSE as data contains values less than zero")
     }
@@ -948,7 +948,7 @@ ggplot_hbar_col_facet <-
     if (position == "stack" & x_scale_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_scale_zero equal to FALSE")
     
-    if(min(x_var_vector) < 0 & x_scale_zero == TRUE) {
+    if(min(x_var_vector, na.rm = TRUE) < 0 & x_scale_zero == TRUE) {
       x_scale_zero <- FALSE
       message("x_scale_zero must be FALSE as data contains values less than zero")
     }

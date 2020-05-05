@@ -34,7 +34,8 @@ leaflet_sf <- function(data,
                        legend_labels = "[Feature]",
                        shiny = FALSE,
                        basemap = "light",
-                       map_id = "map") {
+                       map_id = "map",
+                       legend_id = "map_legend") {
   if (class(data)[1] != "sf")
     stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)))
@@ -47,7 +48,7 @@ leaflet_sf <- function(data,
   if (is.null(pal))
     pal <- pal_snz
   
-  legend_id <- paste0(map_id, "_legend")
+  # legend_id <- paste0(map_id, "_legend")
   
   if (shiny == FALSE) {
     
@@ -246,7 +247,8 @@ leaflet_sf_col <- function(data,
                            legend_labels = NULL,
                            basemap = "light",
                            shiny = FALSE,
-                           map_id = "map") {
+                           map_id = "map",
+                           legend_id = "map_legend") {
   if (class(data)[1] != "sf")
     stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)))
@@ -373,7 +375,7 @@ leaflet_sf_col <- function(data,
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  legend_id <- paste0(map_id, "_legend")
+  # legend_id <- paste0(map_id, "_legend")
   
   if (shiny == FALSE) {
     

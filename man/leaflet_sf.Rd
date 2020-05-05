@@ -8,7 +8,8 @@ leaflet_sf(data, pal = NULL,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
   radius = 1, weight = 2, opacity = 0.1, stroke = TRUE,
   title = "[Title]", legend_digits = 1, legend_labels = "[Feature]",
-  shiny = FALSE, basemap = "light", map_id = "map")
+  shiny = FALSE, basemap = "light", map_id = "map",
+  legend_id = "map_legend")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}

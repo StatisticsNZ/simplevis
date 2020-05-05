@@ -191,12 +191,12 @@ ggplot_hbar <- function(data,
   }
   
   if(is.null(font_size_title)){
-    if (input$isMobile == F) font_size_title <- 11
-    else if (input$isMobile == T) font_size_title <- 16
+    if (isMobile == F) font_size_title <- 11
+    else if (isMobile == T) font_size_title <- 16
   }
   if(is.null(font_size_body)){
-    if (input$isMobile == F) font_size_body <- 11
-    else if (input$isMobile == T) font_size_body <- 15
+    if (isMobile == F) font_size_body <- 11
+    else if (isMobile == T) font_size_body <- 15
   }
   
   if (is.factor(y_var_vector) & y_scale_rev == FALSE){
@@ -435,12 +435,12 @@ ggplot_hbar_col <-
     }
     
     if(is.null(font_size_title)){
-      if (input$isMobile == F) font_size_title <- 11
-      else if (input$isMobile == T) font_size_title <- 16
+      if (isMobile == F) font_size_title <- 11
+      else if (isMobile == T) font_size_title <- 16
     }
     if(is.null(font_size_body)){
-      if (input$isMobile == F) font_size_body <- 11
-      else if (input$isMobile == T) font_size_body <- 15
+      if (isMobile == F) font_size_body <- 11
+      else if (isMobile == T) font_size_body <- 15
     }
 
     if (y_scale_rev == FALSE){

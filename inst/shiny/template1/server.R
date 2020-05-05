@@ -19,14 +19,14 @@ shinyServer(function(input, output, session) {
   })
 
   plot <- reactive({ # create a reactive ggplot object
-    if (input$isMobile == F) {
-      font_size_title <- 11
-      font_size_body <- 10
-    }
-    else if (input$isMobile == T) {
-      font_size_title <- 16
-      font_size_body <- 15
-    }
+    # if (input$isMobile == F) {
+    #   font_size_title <- 11
+    #   font_size_body <- 10
+    # }
+    # else if (input$isMobile == T) {
+    #   font_size_title <- 16
+    #   font_size_body <- 15
+    # }
 
     ### add your plot code here ###
     ### remember to add the following arguments to simplevis functions:
@@ -40,8 +40,8 @@ shinyServer(function(input, output, session) {
                             title = "Average diamond price by cut and clarity", 
                             x_title = "Average price ($US thousands)", 
                             y_title = "Cut", 
-                            font_size_title = font_size_title,
-                            font_size_body = font_size_body,
+                            # font_size_title = font_size_title,
+                            # font_size_body = font_size_body,
                             isMobile = input$isMobile)
     
 

@@ -39,7 +39,7 @@ html, body, .container {
 }
 
 #plot_mobile {
-  min-height: 350px;
+  min-height: 400px;
   max-height: 800px;
   min-width: 350px;
   max-width: 1000px;

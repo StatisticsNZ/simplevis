@@ -164,8 +164,8 @@ ggplot_hbar <- function(data,
                         y_title = "[Y title]",
                         caption = "",
                         font_family = "Helvetica",
-                        font_size_title = 11,
-                        font_size_body = 10,
+                        font_size_title = NULL,
+                        font_size_body = NULL,
                         wrap_title = 70,
                         wrap_subtitle = 80,
                         wrap_x_title = 50,
@@ -188,6 +188,15 @@ ggplot_hbar <- function(data,
   if(min(x_var_vector, na.rm = TRUE) < 0 & x_scale_zero == TRUE) {
     x_scale_zero <- FALSE
     message("x_scale_zero must be FALSE as data contains values less than zero")
+  }
+  
+  if(is.null(font_size_title)){
+    if (input$isMobile == F) font_size_title <- 11
+    else if (input$isMobile == T) font_size_title <- 16
+  }
+  if(is.null(font_size_body)){
+    if (input$isMobile == F) font_size_body <- 11
+    else if (input$isMobile == T) font_size_body <- 15
   }
   
   if (is.factor(y_var_vector) & y_scale_rev == FALSE){
@@ -392,8 +401,8 @@ ggplot_hbar_col <-
            caption = "",
            legend_labels = NULL,
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -425,6 +434,15 @@ ggplot_hbar_col <-
       message("x_scale_zero must be FALSE as data contains values less than zero")
     }
     
+    if(is.null(font_size_title)){
+      if (input$isMobile == F) font_size_title <- 11
+      else if (input$isMobile == T) font_size_title <- 16
+    }
+    if(is.null(font_size_body)){
+      if (input$isMobile == F) font_size_body <- 11
+      else if (input$isMobile == T) font_size_body <- 15
+    }
+
     if (y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))

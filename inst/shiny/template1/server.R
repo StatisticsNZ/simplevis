@@ -8,8 +8,14 @@ shinyServer(function(input, output, session) {
   plot_data <- reactive({ # create a reactive data object
 
     ### add your plot_data code here ###
+    plot_data <- ggplot2::diamonds %>%
+      mutate(cut = stringr::str_to_sentence(cut)) %>%
+      group_by(cut, clarity) %>%
+      summarise(average_price = mean(price)) %>%
+      mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
+      ungroup()
 
-    # return(plot_data)
+    return(plot_data)
   })
 
   plot <- reactive({ # create a reactive ggplot object
@@ -18,17 +24,28 @@ shinyServer(function(input, output, session) {
       font_size_body <- 10
     }
     else if (input$isMobile == T) {
-      font_size_title <- 15
-      font_size_body <- 14
+      font_size_title <- 16
+      font_size_body <- 15
     }
 
     ### add your plot code here ###
     ### remember to add the following arguments to simplevis functions:
           ### isMobile = input$isMobile, font_size_title = font_size_title, font_size_body = font_size_body
     ### remember to refer to a reactive plot_data object as plot_data()
+    plot <- ggplot_hbar_col(data = plot_data(), 
+                            x_var = average_price_thousands, 
+                            y_var = cut, 
+                            col_var = clarity, 
+                            legend_ncol = 4,
+                            title = "Average diamond price by cut and clarity", 
+                            x_title = "Average price ($US thousands)", 
+                            y_title = "Cut", 
+                            font_size_title = font_size_title,
+                            font_size_body = font_size_body,
+                            isMobile = input$isMobile)
     
 
-    # return(plot)
+    return(plot)
   })
 
   output$plot_desktop <- plotly::renderPlotly({ ### render it as a html object for desktop users

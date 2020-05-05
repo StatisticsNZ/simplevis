@@ -2,6 +2,7 @@
 
 * Adjusted vbar expand on the x scale to be zero
 * Update hbar and vbar to remove NAs for a logic condition for a warning
+* Update app code to remove redundant code
 
 # simplevis 1.1.1
 

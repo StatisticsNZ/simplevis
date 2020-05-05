@@ -3,95 +3,6 @@
 
 shinyServer(function(input, output, session) {
 
-  # map
-
-  output$map1 <- leaflet::renderLeaflet({
-    basemap
-  })
-
-  map_data1 <- reactive({
-    ### add your map_data code here ###
-    tibble() #placeholder
-    
-    # return(map_data1)
-  })
-
-  draw_map1 <- function() {
-
-    map_id <- "map1"
-    legend_id <- paste0(map_id, "_legend")
-    map_id_zoom <- paste0(map_id, "_zoom") #reactive zoom for points
-    radius1 <- ifelse(input[[map_id_zoom]] < 7, 1, 
-                     ifelse(input[[map_id_zoom]] < 9, 2, 
-                            ifelse(input[[map_id_zoom]] < 12, 3, 4)))      
-    
-    if(nrow(map_data1()) == 0) {
-      leaflet::leafletProxy("map1") %>% 
-        leaflet::clearMarkers() %>% 
-        leaflet::clearShapes() %>% 
-        leaflet::clearImages() %>% 
-        leaflet::removeControl(legend_id)
-    }
-    else {
-      ### add your leaflet code here ###
-      ### remember to add the following argument to simplevis functions: shiny = TRUE
-      ### remember to refer to a reactive map_data1 object as map_data1()
-      
-    }
-  }
-
-  observe({
-    ### add req() statements for inputs that are needed before the map should be redrawn ###
-
-    withProgress(message = "Loading", {
-      draw_map1()
-    })
-  })
-
-  output$map2 <- leaflet::renderLeaflet({
-    basemap
-  })
-
-  map_data2 <- reactive({
-    ### add your map_data code here ###
-    tibble() #placeholder
-    
-    # return(map_data2)
-  })
-
-  draw_map2 <- function() {
-
-    map_id <- "map2"
-    legend_id <- paste0(map_id, "_legend")
-    map_id_zoom <- paste0(map_id, "_zoom") #reactive zoom for points
-    radius2 <- ifelse(input[[map_id_zoom]] < 7, 1, 
-                     ifelse(input[[map_id_zoom]] < 9, 2, 
-                            ifelse(input[[map_id_zoom]] < 12, 3, 4)))    
-    
-    if(nrow(map_data2()) == 0) {
-      leaflet::leafletProxy("map2") %>% 
-        leaflet::clearMarkers() %>% 
-        leaflet::clearShapes() %>% 
-        leaflet::clearImages() %>% 
-        leaflet::removeControl(legend_id)
-    }
-    else {
-      ### add your leaflet code here ###
-      ### remember to add the following argument to simplevis functions: shiny = TRUE
-      ### remember to refer to a reactive map_data2 object as map_data2()
-      
-    }
-  }
-
-  observe({
-    ### add req() statements for inputs that are needed before the map should be redrawn ###
-
-    withProgress(message = "Loading", {
-      draw_map2()
-    })
-
-  })
-
   # plot
 
   plot_data <- reactive({ # create a reactive data object
@@ -135,6 +46,75 @@ shinyServer(function(input, output, session) {
   # cacheKeyExpr = {
   #   list() ### list input$dependencies here
   # })
+  
+  # map
+  
+  output$map1 <- leaflet::renderLeaflet({
+    basemap
+  })
+  
+  map_data1 <- reactive({
+    ### add your map_data code here ###
+    tibble() #placeholder
+    
+    # return(map_data1)
+  })
+  
+  draw_map1 <- function() {
+    
+    map_id <- "map1"
+    legend_id <- paste0(map_id, "_legend")
+    map_id_zoom <- paste0(map_id, "_zoom") #reactive zoom for points
+    radius1 <- ifelse(input[[map_id_zoom]] < 7, 1, 
+                      ifelse(input[[map_id_zoom]] < 9, 2, 
+                             ifelse(input[[map_id_zoom]] < 12, 3, 4)))      
+    
+    ### add your leaflet code here ###
+    ### remember to add the following argument to simplevis functions: shiny = TRUE
+    ### remember to refer to a reactive map_data1 object as map_data1()
+    
+  }
+  
+  observe({
+    req(input$map1_zoom) #Wait for basemap before plotting points. Change the map prefix to your map_id if different
+    withProgress(message = "Loading", {
+      draw_map1()
+    })
+  })
+  
+  output$map2 <- leaflet::renderLeaflet({
+    basemap
+  })
+  
+  map_data2 <- reactive({
+    ### add your map_data code here ###
+    tibble() #placeholder
+    
+    # return(map_data2)
+  })
+  
+  draw_map2 <- function() {
+    
+    map_id <- "map2"
+    legend_id <- paste0(map_id, "_legend")
+    map_id_zoom <- paste0(map_id, "_zoom") #reactive zoom for points
+    radius2 <- ifelse(input[[map_id_zoom]] < 7, 1, 
+                      ifelse(input[[map_id_zoom]] < 9, 2, 
+                             ifelse(input[[map_id_zoom]] < 12, 3, 4)))    
+    
+    ### add your leaflet code here ###
+    ### remember to add the following argument to simplevis functions: shiny = TRUE
+    ### remember to refer to a reactive map_data2 object as map_data2()
+    
+  }
+
+  observe({
+  req(input$map2_zoom) #Wait for basemap before plotting points. Change the map prefix to your map_id if different
+  withProgress(message = "Loading", {
+    draw_map2()
+  })
+  
+})
 
   ### table ###
 

@@ -11,7 +11,7 @@ leaflet_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
   radius = 1, weight = 2, opacity = 0.9, stroke = TRUE,
   remove_na = FALSE, title = "[Title]", legend_digits = 1,
   legend_labels = NULL, basemap = "light", shiny = FALSE,
-  map_id = "map", legend_id = "map_legend")
+  map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}

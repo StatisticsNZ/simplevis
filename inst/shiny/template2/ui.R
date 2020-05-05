@@ -32,20 +32,6 @@ shinyUI(
       title = HTML("<b>", app_title, "</b>"),
       windowTitle = app_title,
       tabPanel(
-        "Map",
-        icon = icon("globe-americas", lib = "font-awesome"),
-        sidebarLayout(
-          sidebarPanel(
-            width = 3
-            ### add radioButtons and other widgets in here ###
-          ),
-          mainPanel(width = 9,
-                    fluidRow(
-                      shinycssloaders::withSpinner(leaflet::leafletOutput("map"), type = 7, color = "#A8A8A8")
-                    ))
-        )
-      ),
-      tabPanel(
         "Graph",
         icon = icon("chart-area", lib = "font-awesome"),
         sidebarLayout(
@@ -72,6 +58,20 @@ shinyUI(
               )
             )
           )
+        )
+      ),
+      tabPanel(
+        "Map",
+        icon = icon("globe-americas", lib = "font-awesome"),
+        sidebarLayout(
+          sidebarPanel(
+            width = 3
+            ### add radioButtons and other widgets in here ###
+          ),
+          mainPanel(width = 9,
+                    fluidRow(
+                      shinycssloaders::withSpinner(leaflet::leafletOutput("map"), type = 7, color = "#A8A8A8")
+                    ))
         )
       ),
       tabPanel(

@@ -26,36 +26,24 @@ shinyServer(function(input, output, session) {
                      ifelse(input[[map_id_zoom]] < 9, 2, 
                             ifelse(input[[map_id_zoom]] < 11, 4, 3)))    
 
-    if(nrow(map_data1()) == 0) {
-      leaflet::leafletProxy("map1") %>% 
-        leaflet::clearMarkers() %>% 
-        leaflet::clearShapes() %>% 
-        leaflet::clearImages() %>% 
-        leaflet::removeControl(legend_id)
-    }
-    else {
-      ### add your leaflet code here ###
-      ### remember to add the following arguments to simplevis functions: shiny = TRUE, map_id = "map1"
-      ### remember to refer to a reactive map_data1 object as map_data1()
-      
-      leaflet_sf_col(
-        map_data1(),
-        trend_likelihood,
-        pal = rev(pal_trend5),
-        title = paste0("Monitored river ", stringr::str_to_lower(input$map1_indicator), " trends, ", stringr::str_replace_all(input$map1_period, "-", "\u2013")),
-        radius = radius1,
-        shiny = TRUE,
-        map_id = "map1",
-      )
-    }
+    ### add your leaflet code here ###
+    ### remember to add the following arguments to simplevis functions: shiny = TRUE, map_id = "map1"
+    ### remember to refer to a reactive map_data1 object as map_data1()
+    
+    leaflet_sf_col(
+      map_data1(),
+      trend_likelihood,
+      pal = rev(pal_point_trend5),
+      title = paste0("Monitored river ", stringr::str_to_lower(input$map1_indicator), " trends, ", stringr::str_replace_all(input$map1_period, "-", "\u2013")),
+      radius = radius1,
+      shiny = TRUE,
+      map_id = "map1",
+    )
   }
 
   observe({
-    ### add req() statements for inputs that are needed before the map should be redrawn ###
-    req(input$map1_indicator)
-    req(input$map1_period)
-
     withProgress(message = "Loading", {
+      req(input$map1_zoom) #Wait for basemap before plotting points. Change the map prefix to your map_id if different
       draw_map1()
     })
   })
@@ -96,7 +84,7 @@ shinyServer(function(input, output, session) {
       leaflet_sf_col(
         map_data2(),
         trend_likelihood,
-        pal = rev(pal_trend5),
+        pal = rev(pal_point_trend5),
         title = paste0("Monitored river ", stringr::str_to_lower(input$map2_indicator), " trends, ", stringr::str_replace_all(input$map2_period, "-", "\u2013")),
         radius = radius2,
         shiny = TRUE,
@@ -106,11 +94,8 @@ shinyServer(function(input, output, session) {
   }
 
   observe({
-    ### add req() statements for inputs that are needed before the map should be redrawn ###
-    req(input$map2_indicator)
-    req(input$map2_period)
-
     withProgress(message = "Loading", {
+      req(input$map2_zoom) #Wait for basemap before plotting points. Change the map prefix to your map_id if different
       draw_map2()
     })
 

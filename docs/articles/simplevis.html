@@ -83,7 +83,7 @@
       <h1 data-toc-skip>simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2020-04-29</h4>
+            <h4 class="date">2020-05-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -360,25 +360,20 @@
 <h3 class="hasAnchor">
 <a href="#making-shiny-apps-with-simplevis" class="anchor"></a>Making <code>shiny</code> apps with <code>simplevis</code>
 </h3>
-<p><code>simplevis</code> provides three template <code>shiny</code> apps and three example apps showing how to apply each of these templates. Templates are called <code>template1</code>, <code>template2</code> and <code>template3</code>, and examples showing application of each of these called <code>example1</code>, <code>example2</code> and <code>example3</code>. Users can access these functions by using the <code>run_template</code> and <code>run_example</code> functions for the applicable app, and then clicking on the <code>download_code</code> button to access a zip file of the code. It is intended that users download the applicable template and example, and refer to both to understand how the code works.</p>
+<p><code>simplevis</code> provides two template <code>shiny</code> apps called <code>template1</code> and <code>template2</code>. Users can access these functions by using the <code>run_template</code> functions for the applicable app, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template1"</span>) <span class="co"># a graph and table</span>
-<span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template2"</span>) <span class="co"># a leaflet map, as well as graph and table</span>
-<span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template3"</span>) <span class="co"># a dual leaflet map, as well as graph and table</span>
-
-<span class="fu"><a href="../reference/run_example.html">run_example</a></span>(<span class="st">"example1"</span>) <span class="co"># example application of template1</span>
-<span class="fu"><a href="../reference/run_example.html">run_example</a></span>(<span class="st">"example2"</span>) <span class="co"># example application of template2</span>
-<span class="fu"><a href="../reference/run_example.html">run_example</a></span>(<span class="st">"example3"</span>) <span class="co"># example application of template3</span></pre></body></html></div>
-<p>For a simple graph app, the basic method to create an app is:</p>
+<span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template2"</span>) <span class="co"># a leaflet map, as well as graph and table</span></pre></body></html></div>
+<p>For a simple app, the basic method to create an app is:</p>
 <ul>
-<li>run <code><a href="../reference/run_template.html">run_template("template1")</a></code> and download the code to use as a template</li>
-<li>run <code><a href="../reference/run_example.html">run_example("example1")</a></code> and download the code to use as a reference</li>
+<li>run <code><a href="../reference/run_template.html">run_template("template1")</a></code> or <code><a href="../reference/run_template.html">run_template("template2")</a></code> and download the code to use as a template</li>
+<li>In <code>make_app_vis.R</code>, draft your visualisations with dummy character inputs</li>
 <li>In <code>data</code> subfolder, add your data</li>
-<li>In <code>global.R</code>, read your data in</li>
+<li>In <code>global.R</code>, read your data in, and create any vectors required</li>
 <li>In <code>ui.R</code>, add a app title</li>
 <li>In <code>ui.R</code>. add <code>radioButtons</code> and other widgets</li>
 <li>In <code>server.R</code>, add code within reactive plot_data</li>
-<li>In <code>server.R</code>, add code within reactive plot (Note: ensure you have isMobile = input$isMobile within any <code>simplevis</code> <code>ggplot</code> functions, and that the font size is appropriate for both desktop and mobile. There is defaults that work well in the server.R, but your <code>simplevis</code> <code>ggplot</code> function will have to include the arguments <code>font_size_title = font_size_title</code> and <code>font_size_body = font_size_body</code>)</li>
-<li>In <code>server.R</code>, check the table is referring to your right dataset, with intended columns to display</li>
+<li>In <code>server.R</code>, add code within reactive plot (Note: ensure you have isMobile = input$isMobile within any <code>simplevis</code> <code>ggplot</code> functions, and that <code>simplevis</code> <code>leaflet</code> functions have the argument <code>shiny = TRUE</code>)</li>
+<li>In <code>server.R</code>, check the table is referring to your right dataset</li>
 <li>In <code>server.R</code>, check download code is referring to your dataset. If there are many files, use the download zip code and add a file called download.zip to your data subfolder</li>
 <li>In <code>ui.R</code>, check that the heights of graphs for desktop and mobile are appropriate. (Note: you will need to publish the app and check on your phone before confident that the height for the graph on a mobile device is appropriate)</li>
 <li>In <code>www/About.Rmd</code>, update as necessary</li>
@@ -390,8 +385,7 @@
 <a href="#mobile-compliance---ggplotly-for-desktop-and-ggplot-for-mobile" class="anchor"></a>Mobile compliance - <code>ggplotly</code> for desktop and <code>ggplot</code> for mobile</h3>
 <p>The template apps have a function with javascript in it that provides a <code>TRUE</code> or <code>FALSE</code> values if the user is on a mobile device. This can value can be referred to in the server code as input$isMobile. This is using the method developed by <a href="https://g3rv4.com/2017/08/shiny-detect-mobile-browsers" target="_blank">Gervasio Marchand</a>.</p>
 <p>The <code>simplevis</code> <code>ggplot</code> functions have a <code>isMobile</code> specification with values of <code>TRUE</code> or <code>FALSE</code> for whether the user is on a mobile device or not. When <code>isMobile</code> equals <code>TRUE</code>, titles, legend elements, and facets are wrapped accordingly for the smaller screen size. Therefore, when <code>simplevis</code> <code>ggplot</code> functions are used within shiny, the app developer must specify <code>isMobile = input$isMobile</code> within the <code>simplevis</code> <code>ggplot</code> function.</p>
-<p><code>ggplotly</code> has a bug that it is currently not able to convert a ggplot object with a legend on the bottom to html. This causes <code>ggplotly</code> graphs not to be able to display well currently on a mobile. It is possible to add the legend in manually with a plotly argument to the ggplotly object. However, this causes positioning issues between the x axis title and the legend, with the two often overlapping.</p>
-<p>As such, the safest option to ensuring that a graph diplays well on a mobile device is to render it as a <code>ggplot</code> object. However, given that there is sufficient space on a desktop device for a legend to be on the side, the approach currently used is to render a <code>ggplotly</code> interactive object for desktop users and a <code>ggplot</code> object for mobile users.</p>
+<p>The safest option to ensuring that a graph diplays well on a mobile device is to render it as a <code>ggplot</code> object. Subsequently, the current recommended approach used is to render a <code>ggplotly</code> interactive object for desktop users and a <code>ggplot</code> object for mobile users. This is the approach taken by the template apps through the use of conditional panels.</p>
 </div>
 <div id="iframing" class="section level3">
 <h3 class="hasAnchor">
@@ -400,7 +394,7 @@
 <p>Template apps are build to be compatible with one of two approaches to iframing:</p>
 <ul>
 <li>if your website has ability for height responsive iframes, then follow the instructions described in the method developed by <a href="https://www.cultureofinsight.com/post/responsive-iframes-for-shiny-apps" target="_blank">Paul Campbell</a>.</li>
-<li>if your website does not support responsive iframes, then templates apps have css that supports a iframe of 750px for desktop users. The app developer can either code the iframe height to be bigger if a mobile user is detected, or simply a hyperlink to the app url can be provided to mobile users.</li>
+<li>if your website does not support responsive iframes, then templates apps have css that supports a iframe of 750px for desktop users. The app developer can then code the iframe height to be bigger if a mobile user is detected. If this is not possible, a hyperlink to the app url can be provided to mobile users.</li>
 </ul>
 </div>
   </div>

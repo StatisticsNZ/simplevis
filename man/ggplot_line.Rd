@@ -9,8 +9,8 @@ ggplot_line(data, x_var, y_var, hover_var = NULL,
   y_scale_trans = "identity", points = TRUE, point_size = 1,
   pal = NULL, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", caption = "",
-  font_family = "Helvetica", font_size_title = 11,
-  font_size_body = 10, wrap_title = 70, wrap_subtitle = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
   isMobile = FALSE)
 }

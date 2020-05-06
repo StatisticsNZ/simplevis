@@ -12,8 +12,8 @@ ggplot_scatter_col(data, x_var, y_var, col_var, hover_var = NULL,
   col_scale_drop = FALSE, legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = "", legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = 11,
-  font_size_body = 10, wrap_title = 70, wrap_subtitle = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
   wrap_caption = 80, isMobile = FALSE)
 }

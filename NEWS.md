@@ -1,8 +1,11 @@
 # simplevis 1.1.2
 
+* Added a req statement in the observe function of template2 to ensure the basemap is output before points are tried to be plotted 
+* Adjusted ggplot wrapper functions to default to nice sizes for mobile or desktop
+* Updated app templates to accomodate the above
+* Removed run_example functions
+* Removed template3 from run_template functions
 * Adjusted vbar expand on the x scale to be zero
-* Update hbar and vbar to remove NAs for a logic condition for a warning
-* Update app code to remove redundant code
 
 # simplevis 1.1.1
 

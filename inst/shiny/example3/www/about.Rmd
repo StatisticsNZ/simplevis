@@ -1,9 +1,0 @@
----
-output: html_document
----
-This work was developed by <a href="https://www.stats.govt.nz/" target="_blank">Stats NZ</a>.  
-
-This app is optimised for desktop, but is functional on a mobile device.
-
-![](cc_compact.png)
-This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.

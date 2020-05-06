@@ -165,8 +165,8 @@ ggplot_line <- function(data,
                         y_title = "[Y title]",
                         caption = "",
                         font_family = "Helvetica",
-                        font_size_title = 11,
-                        font_size_body = 10,
+                        font_size_title = NULL,
+                        font_size_body = NULL,
                         wrap_title = 70,
                         wrap_subtitle = 80,
                         wrap_x_title = 50,
@@ -184,6 +184,15 @@ ggplot_line <- function(data,
   
   if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
   if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   if (is.null(pal)) pal <- pal_snz
   
@@ -387,8 +396,8 @@ ggplot_line_col <-
            caption = "",
            legend_labels = NULL,
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -410,6 +419,15 @@ ggplot_line_col <-
     if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a line plot")
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
     
     if (is.null(pal)) pal <- pal_snz
     
@@ -627,8 +645,8 @@ ggplot_line_facet <-
            y_title = "[Y title]",
            caption = "",
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -649,6 +667,15 @@ ggplot_line_facet <-
     if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a line plot")
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
     
     if (is.null(pal)) pal <- pal_snz
     
@@ -885,8 +912,8 @@ ggplot_line_col_facet <-
            caption = "",
            legend_labels = NULL,
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -911,6 +938,15 @@ ggplot_line_col_facet <-
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a line plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a line plot")
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
     
     if (is.null(pal)) pal <- pal_snz
     

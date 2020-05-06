@@ -118,8 +118,8 @@ ggplot_stars <- function(data,
                          subtitle = NULL,
                          caption = "",
                          font_family = "Helvetica",
-                         font_size_title = 11,
-                         font_size_body = 10,
+                         font_size_title = NULL,
+                         font_size_body = NULL,
                          wrap_title = 70,
                          wrap_subtitle = 80,
                          wrap_caption = 80,
@@ -128,6 +128,15 @@ ggplot_stars <- function(data,
     stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data)))
     stop("Please assign a coordinate reference system")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   plot <- ggplot() +
     theme_stars(
@@ -249,8 +258,8 @@ ggplot_stars_col <- function(data,
                              caption = "",
                              legend_labels = NULL,
                              font_family = "Helvetica",
-                             font_size_title = 11,
-                             font_size_body = 10,
+                             font_size_title = NULL,
+                             font_size_body = NULL,
                              wrap_title = 70,
                              wrap_subtitle = 80,
                              wrap_col_title = 25,
@@ -260,6 +269,15 @@ ggplot_stars_col <- function(data,
     stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data)))
     stop("Please assign a coordinate reference system")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   plot <- ggplot() +
     theme_stars(
@@ -473,8 +491,8 @@ ggplot_stars_facet <- function(data,
                                subtitle = NULL,
                                caption = "",
                                font_family = "Helvetica",
-                               font_size_title = 11,
-                               font_size_body = 10,
+                               font_size_title = NULL,
+                               font_size_body = NULL,
                                wrap_title = 70,
                                wrap_subtitle = 80,
                                wrap_caption = 80,
@@ -483,6 +501,15 @@ ggplot_stars_facet <- function(data,
     stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data)))
     stop("Please assign a coordinate reference system")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   plot <- ggplot() +
     theme_stars(
@@ -644,8 +671,8 @@ ggplot_stars_col_facet <- function(data,
                                    caption = "",
                                    legend_labels = NULL,
                                    font_family = "Helvetica",
-                                   font_size_title = 11,
-                                   font_size_body = 10,
+                                   font_size_title = NULL,
+                                   font_size_body = NULL,
                                    wrap_title = 70,
                                    wrap_subtitle = 80,
                                    wrap_col_title = 25,
@@ -655,6 +682,15 @@ ggplot_stars_col_facet <- function(data,
     stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data)))
     stop("Please assign a coordinate reference system")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   plot <- ggplot() +
     theme_stars(

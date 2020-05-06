@@ -7,8 +7,8 @@
 ggplot_stars_facet(data, pal = NULL, coastline = NULL,
   coastline_behind = FALSE, coastline_pal = "black",
   facet_nrow = NULL, title = "[Title]", subtitle = NULL,
-  caption = "", font_family = "Helvetica", font_size_title = 11,
-  font_size_body = 10, wrap_title = 70, wrap_subtitle = 80,
+  caption = "", font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{

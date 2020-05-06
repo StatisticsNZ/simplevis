@@ -161,8 +161,8 @@ ggplot_vbar <- function(data,
                         y_title = "[Y title]",
                         caption = "",
                         font_family = "Helvetica",
-                        font_size_title = 11,
-                        font_size_body = 10,
+                        font_size_title = NULL,
+                        font_size_body = NULL,
                         wrap_title = 70,
                         wrap_subtitle = 80,
                         wrap_x_title = 50,
@@ -186,6 +186,15 @@ ggplot_vbar <- function(data,
     message("y_scale_zero must be FALSE as data contains values less than zero")
   }
   
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
+
   if (is.null(pal)) pal <- pal_snz
   
   plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
@@ -378,8 +387,8 @@ ggplot_vbar_col <-
            caption = "",
            legend_labels = NULL,
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -401,6 +410,15 @@ ggplot_vbar_col <-
     if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a vertical bar plot")
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
     
     if (position == "stack" & y_scale_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_scale_zero equal to FALSE")
@@ -644,8 +662,8 @@ ggplot_vbar_facet <-
            y_title = "[Y title]",
            caption = "",
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -670,6 +688,15 @@ ggplot_vbar_facet <-
     if(min(y_var_vector, na.rm = TRUE) < 0 & y_scale_zero == TRUE) {
       y_scale_zero <- FALSE
       message("y_scale_zero must be FALSE as data contains values less than zero")
+    }
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
     }
     
     if (is.null(pal)) pal <- pal_snz
@@ -901,8 +928,8 @@ ggplot_vbar_col_facet <-
            caption = "",
            legend_labels = NULL,
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -926,6 +953,15 @@ ggplot_vbar_col_facet <-
     if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
     
     if (position == "stack" & y_scale_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_scale_zero equal to FALSE")

@@ -684,8 +684,8 @@ ggplot_hbar_facet <-
            y_title = "[Y title]",
            caption = "",
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -713,6 +713,15 @@ ggplot_hbar_facet <-
       message("x_scale_zero must be FALSE as data contains values less than zero")
     }
     
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
+
     if (is.factor(y_var_vector) & y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
@@ -936,8 +945,8 @@ ggplot_hbar_col_facet <-
            caption = "",
            legend_labels = NULL,
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -971,6 +980,15 @@ ggplot_hbar_col_facet <-
       message("x_scale_zero must be FALSE as data contains values less than zero")
     }
     
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
+
     if (y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))

@@ -121,8 +121,8 @@ ggplot_sf <- function(data,
                       subtitle = NULL,
                       caption = "",
                       font_family = "Helvetica",
-                      font_size_title = 11,
-                      font_size_body = 10,
+                      font_size_title = NULL,
+                      font_size_body = NULL,
                       wrap_title = 70,
                       wrap_subtitle = 80,
                       wrap_caption = 80,
@@ -132,6 +132,15 @@ ggplot_sf <- function(data,
   if (is.na(sf::st_crs(data)))
     stop("Please assign a coordinate reference system")
   
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
+
   plot <- ggplot(data) +
     theme_sf(
       font_family = font_family,
@@ -261,8 +270,8 @@ ggplot_sf_col <- function(data,
                           caption = "",
                           legend_labels = NULL,
                           font_family = "Helvetica",
-                          font_size_title = 11,
-                          font_size_body = 10,
+                          font_size_title = NULL,
+                          font_size_body = NULL,
                           wrap_title = 70,
                           wrap_subtitle = 80,
                           wrap_col_title = 25,
@@ -276,6 +285,15 @@ ggplot_sf_col <- function(data,
     stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)))
     stop("Please assign a coordinate reference system")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -493,8 +511,8 @@ ggplot_sf_facet <- function(data,
                             subtitle = NULL,
                             caption = "",
                             font_family = "Helvetica",
-                            font_size_title = 11,
-                            font_size_body = 10,
+                            font_size_title = NULL,
+                            font_size_body = NULL,
                             wrap_title = 70,
                             wrap_subtitle = 80,
                             wrap_caption = 80,
@@ -509,6 +527,15 @@ ggplot_sf_facet <- function(data,
     stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vector))
     stop("Please use a categorical facet variable")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -668,8 +695,8 @@ ggplot_sf_col_facet <- function(data,
                                 caption = "",
                                 legend_labels = NULL,
                                 font_family = "Helvetica",
-                                font_size_title = 11,
-                                font_size_body = 10,
+                                font_size_title = NULL,
+                                font_size_body = NULL,
                                 wrap_title = 70,
                                 wrap_subtitle = 80,
                                 wrap_col_title = 25,
@@ -687,6 +714,15 @@ ggplot_sf_col_facet <- function(data,
     stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vector))
     stop("Please use a categorical facet variable")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   

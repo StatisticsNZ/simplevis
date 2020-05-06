@@ -168,8 +168,8 @@ ggplot_box <- function(data,
                        y_title = "[Y title]",
                        caption = "",
                        font_family = "Helvetica",
-                       font_size_title = 11,
-                       font_size_body = 10,
+                       font_size_title = NULL,
+                       font_size_body = NULL,
                        wrap_title = 70,
                        wrap_subtitle = 80,
                        wrap_x_title = 50,
@@ -187,6 +187,15 @@ ggplot_box <- function(data,
   
   if (is.numeric(x_var_vector)) stop("Please use a categorical x variable for a vertical boxplot")
   if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical boxplot")
+  
+  if(is.null(font_size_title)){
+    if (isMobile == FALSE) font_size_title <- 11
+    else if (isMobile == TRUE) font_size_title <- 15
+  }
+  if(is.null(font_size_body)){
+    if (isMobile == FALSE) font_size_body <- 10
+    else if (isMobile == TRUE) font_size_body <- 14
+  }
   
   if (is.null(pal)) pal <- pal_snz
   
@@ -345,8 +354,8 @@ ggplot_box_facet <-
            y_title = "[Y title]",
            caption = "",
            font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10,
+           font_size_title = NULL,
+           font_size_body = NULL,
            wrap_title = 70,
            wrap_subtitle = 80,
            wrap_x_title = 50,
@@ -367,6 +376,15 @@ ggplot_box_facet <-
     if (is.numeric(x_var_vector)) stop("Please use a categorical x variable for a vertical boxplot")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical boxplot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical boxplot")
+    
+    if(is.null(font_size_title)){
+      if (isMobile == FALSE) font_size_title <- 11
+      else if (isMobile == TRUE) font_size_title <- 15
+    }
+    if(is.null(font_size_body)){
+      if (isMobile == FALSE) font_size_body <- 10
+      else if (isMobile == TRUE) font_size_body <- 14
+    }
     
     if (is.null(pal)) pal <- pal_snz
     

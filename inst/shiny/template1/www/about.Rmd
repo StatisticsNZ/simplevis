@@ -1,7 +1,7 @@
 ---
 output: html_document
 ---
-Data was sourced from [DATA SOURCE]. 
+Data was sourced from [data source]. 
 
 This work was developed as part of the environmental reporting programme of <a href="https://www.stats.govt.nz/topics/environment" target="_blank">Stats NZ</a> and the <a href="http://www.mfe.govt.nz/more/environmental-reporting" target="_blank">Ministry for the Environment</a>.
 

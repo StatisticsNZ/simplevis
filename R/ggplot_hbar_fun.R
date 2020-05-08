@@ -118,6 +118,7 @@ theme_hbar <-
 #' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -158,6 +159,7 @@ ggplot_hbar <- function(data,
                         x_scale_trans = "identity",
                         y_scale_rev = FALSE,
                         pal = NULL,
+                        width = 0.75, 
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -178,7 +180,7 @@ ggplot_hbar <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
   hover_var <- rlang::enquo(hover_var)
-
+  
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
@@ -240,7 +242,7 @@ ggplot_hbar <- function(data,
         sep = "<br>"
       )),
       fill = pal[1],
-      width = 0.75)
+      width = width)
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
@@ -263,7 +265,7 @@ ggplot_hbar <- function(data,
         sep = "<br>"
       )),
       fill = pal[1],
-      width = 0.75)
+      width = width)
   }
   
   if(isMobile == FALSE) x_scale_n <- 6
@@ -339,6 +341,7 @@ ggplot_hbar <- function(data,
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param legend_ncol The number of columns in the legend.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -393,6 +396,7 @@ ggplot_hbar_col <-
            position = "stack",
            pal = NULL,
            legend_ncol = 3,
+           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -442,7 +446,7 @@ ggplot_hbar_col <-
       if (isMobile == FALSE) font_size_body <- 10
       else if (isMobile == TRUE) font_size_body <- 14
     }
-
+    
     if (y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
@@ -488,7 +492,7 @@ ggplot_hbar_col <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -519,7 +523,7 @@ ggplot_hbar_col <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     
@@ -560,7 +564,7 @@ ggplot_hbar_col <-
     }
     
     if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
-
+    
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -633,6 +637,7 @@ ggplot_hbar_col <-
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -678,6 +683,7 @@ ggplot_hbar_facet <-
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
+           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -721,7 +727,7 @@ ggplot_hbar_facet <-
       if (isMobile == FALSE) font_size_body <- 10
       else if (isMobile == TRUE) font_size_body <- 14
     }
-
+    
     if (is.factor(y_var_vector) & y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
@@ -764,7 +770,7 @@ ggplot_hbar_facet <-
           sep = "<br>"
         )),
         fill = pal[1],
-        width = 0.75)
+        width = width)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
@@ -792,7 +798,7 @@ ggplot_hbar_facet <-
           sep = "<br>"
         )),
         fill = pal[1],
-        width = 0.75)
+        width = width)
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
@@ -884,6 +890,7 @@ ggplot_hbar_facet <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param legend_ncol The number of columns in the legend.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -937,6 +944,7 @@ ggplot_hbar_col_facet <-
            facet_nrow = NULL,
            pal = NULL,
            legend_ncol = 3,
+           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -988,7 +996,7 @@ ggplot_hbar_col_facet <-
       if (isMobile == FALSE) font_size_body <- 10
       else if (isMobile == TRUE) font_size_body <- 14
     }
-
+    
     if (y_scale_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
@@ -1039,7 +1047,7 @@ ggplot_hbar_col_facet <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -1075,7 +1083,7 @@ ggplot_hbar_col_facet <-
             sep = "<br>"
           )
         ),
-        width = 0.75,
+        width = width,
         position = position2)
     }
     

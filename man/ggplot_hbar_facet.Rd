@@ -7,7 +7,7 @@
 ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   x_scale_zero = TRUE, x_scale_trans = "identity",
   y_scale_rev = FALSE, facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, title = "[Title]", subtitle = NULL,
+  pal = NULL, width = 0.75, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", caption = "",
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
@@ -36,6 +36,8 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+
+\item{width}{Width of bars. Defaults to 0.75.}
 
 \item{title}{Title string. Defaults to [Title].}
 

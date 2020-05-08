@@ -1,3 +1,7 @@
+# simplevis 1.1.3
+
+* Added width argument to hbar functions
+
 # simplevis 1.1.2
 
 * Added a req statement in the observe function of template2 to ensure the basemap is output before points are tried to be plotted 

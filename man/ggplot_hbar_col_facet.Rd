@@ -8,13 +8,13 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   hover_var = NULL, x_scale_zero = TRUE, x_scale_trans = "identity",
   y_scale_rev = FALSE, col_scale_rev = FALSE, col_scale_drop = FALSE,
   position = "stack", facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, legend_ncol = 3, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", col_title = "",
-  caption = "", legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
-  wrap_y_label = 50, wrap_col_title = 25, wrap_caption = 80,
-  isMobile = FALSE)
+  pal = NULL, legend_ncol = 3, width = 0.75, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  col_title = "", caption = "", legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_x_title = 50, wrap_y_title = 50, wrap_y_label = 50,
+  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -48,6 +48,8 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
 \item{legend_ncol}{The number of columns in the legend.}
+
+\item{width}{Width of bars. Defaults to 0.75.}
 
 \item{title}{Title string. Defaults to [Title].}
 

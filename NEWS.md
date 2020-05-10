@@ -1,6 +1,6 @@
 # simplevis 1.1.3
 
-* Added width argument to hbar functions
+* Added width argument to hbar and vbar functions
 
 # simplevis 1.1.2
 

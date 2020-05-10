@@ -118,6 +118,7 @@ theme_vbar <-
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -155,6 +156,7 @@ ggplot_vbar <- function(data,
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
                         pal = NULL,
+                        width = 0.75, 
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -336,6 +338,7 @@ ggplot_vbar <- function(data,
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param legend_ncol The number of columns in the legend.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -379,6 +382,7 @@ ggplot_vbar_col <-
            position = "stack",
            pal = NULL,
            legend_ncol = 3,
+           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -616,6 +620,7 @@ ggplot_vbar_col <-
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -656,6 +661,7 @@ ggplot_vbar_facet <-
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
+           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -869,6 +875,7 @@ ggplot_vbar_facet <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param legend_ncol The number of columns in the legend.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -920,6 +927,7 @@ ggplot_vbar_col_facet <-
            facet_nrow = NULL,
            pal = NULL,
            legend_ncol = 3,
+           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",

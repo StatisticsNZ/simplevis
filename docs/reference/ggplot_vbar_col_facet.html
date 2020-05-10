@@ -138,12 +138,13 @@
   <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_scale_date_format</span> <span class='kw'>=</span> <span class='st'>"%Y"</span>, <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>y_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>col_scale_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,6 +208,10 @@
     <tr>
       <th>legend_ncol</th>
       <td><p>The number of columns in the legend.</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>Width of bars. Defaults to 0.75.</p></td>
     </tr>
     <tr>
       <th>title</th>

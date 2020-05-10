@@ -207,9 +207,8 @@ ggplot_vbar <- function(data,
       font_size_title = font_size_title
     )
   
-  if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
-  else if (is.numeric(x_var_vector)) width <- 0.75
-  
+  if (lubridate::is.Date(x_var_vector)) width <- 365 * width
+
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
       geom_col(aes(text = paste(
@@ -447,8 +446,7 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       )
     
-    if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
-    else if (is.numeric(x_var_vector)) width <- 0.75
+    if (lubridate::is.Date(x_var_vector)) width <- 365 * width
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
@@ -715,8 +713,7 @@ ggplot_vbar_facet <-
         font_size_title = font_size_title
       )
     
-    if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
-    else if (is.numeric(x_var_vector)) width <- 0.75
+    if (lubridate::is.Date(x_var_vector)) width <- 365 * width
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
@@ -992,9 +989,8 @@ ggplot_vbar_col_facet <-
         font_size_title = font_size_title
       )
     
-    if (lubridate::is.Date(x_var_vector)) width <- 365 * 0.75
-    else if (is.numeric(x_var_vector)) width <- 0.75
-
+    if (lubridate::is.Date(x_var_vector)) width <- 365 * width
+    
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(

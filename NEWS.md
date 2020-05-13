@@ -2,7 +2,7 @@
 
 * Added width argument to hbar and vbar functions
 * Update css plot minimum height
-* Add reverse_plotly_legend function for hbar plots
+* Add reverse_plotly_legend and order_plotly_legend functions
 
 # simplevis 1.1.2
 

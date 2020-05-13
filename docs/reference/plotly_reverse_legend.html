@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • simplevis</title>
+<title>Reverse plotly legend elements. — plotly_reverse_legend • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,7 +43,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Reverse plotly legend elements. — plotly_reverse_legend" />
+
+<meta property="og:description" content="Reverse plotly legend elements." />
 
 <meta property="og:image" content="/logo.png" />
 
@@ -65,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -121,76 +123,55 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Reverse plotly legend elements.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/other.R'><code>R/other.R</code></a></small>
+    <div class="hidden name"><code>plotly_reverse_legend.Rd</code></div>
     </div>
 
-    <div id="simplevis-1-1-3" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.3">
-<a href="#simplevis-1-1-3" class="anchor"></a>simplevis 1.1.3<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added width argument to hbar and vbar functions</li>
-<li>Update css plot minimum height</li>
-<li>Add reverse_plotly_legend and order_plotly_legend functions</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-2" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.2">
-<a href="#simplevis-1-1-2" class="anchor"></a>simplevis 1.1.2<small> 2020-05-06 </small>
-</h1>
-<ul>
-<li>Added a req statement in the observe function of template2 to ensure the basemap is output before points are tried to be plotted</li>
-<li>Adjusted ggplot wrapper functions to default to nice sizes for mobile or desktop</li>
-<li>Updated app templates to accomodate the above</li>
-<li>Removed run_example functions</li>
-<li>Removed template3 from run_template functions</li>
-<li>Adjusted vbar expand on the x scale to be zero</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-1" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.1">
-<a href="#simplevis-1-1-1" class="anchor"></a>simplevis 1.1.1<small> 2020-04-28 </small>
-</h1>
-<ul>
-<li>Update all maps to default to quantile col_method with quartiles</li>
-<li>Added scales:show_col to all colour pals</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-0" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0">
-<a href="#simplevis-1-1-0" class="anchor"></a>simplevis 1.1.0<small> 2020-04-22 </small>
-</h1>
-<ul>
-<li>Renamed pal_trend3, pal_trend5, and pal_set1 to have pal_point prefixes</li>
-<li>Updated scales for all ggplot wrapper functions to have better limits and breaks</li>
-<li>Added remove_plotly_buttons function to remove buttons other than camera</li>
-<li>Updated app templates to add theme(plot.title.position = “plot”) to mobile plots</li>
-<li>Updated css to app templates</li>
-<li>Updated the default wrapping for titles</li>
-<li>Updated vertical bar functions to support numeric or date variables on the x axis</li>
-<li>Updated line graphs to move text to geom_point so that hover is on points</li>
-<li>Updated bar code to fix free_y and free_x facet_scales, which were around the wrong way</li>
-<li>Updated bar code to allow for graphs with scale_zero = FALSE &amp; position equals “stack”</li>
-<li>Updated plot margins in graphs</li>
-<li>Updated plot label wrapping in graphs</li>
-<li>Updated caption position and wrapping length</li>
-</ul>
-</div>
-    <div id="simplevis-1-0-0" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#simplevis-1-0-0" class="anchor"></a>simplevis 1.0.0<small> 2020-03-19 </small>
-</h1>
-<p>Initial release to CRAN.</p>
-</div>
-  </div>
+    <div class="ref-description">
+    
+    <p>Reverse plotly legend elements.</p>
+    
+    </div>
 
+    <pre class="usage"><span class='fu'>plotly_reverse_legend</span>(<span class='no'>plotly</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>plotly</th>
+      <td><p>A plotly object.</p></td>
+    </tr>
+    </table>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>cut</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>cut</span>)) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_price</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>price</span>)) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>average_price_thousands</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>average_price</span> / <span class='fl'>1000</span>, <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()
+
+<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_hbar_col.html'>ggplot_hbar_col</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>,
+                       <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>average_price_thousands</span>,
+                       <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>cut</span>,
+                       <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>clarity</span>,
+                       <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+                       <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Average diamond price by cut and clarity"</span>,
+                       <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Average price ($US thousands)"</span>,
+                       <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Cut"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)
+
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>) <span class='kw'>%&gt;%</span>
+   <span class='fu'>plotly_reverse_legend</span>()</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

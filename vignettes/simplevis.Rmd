@@ -118,7 +118,7 @@ plot
 
 These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly` with the `tooltip = "text"` specification. This results in the tooltip converting the applicable variable name to sentence case and replacing underscores with spaces.
 
-```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = round(mean(wind), 2)) %>%
@@ -131,8 +131,8 @@ plot <- ggplot_vbar(data = plot_data,
                     x_title = "Year",
                     y_title = "Average maximum sustained wind speed (knots)")
 
-plotly::ggplotly(plot, tooltip = "text") %>%
-      plotly::config(displayModeBar = F)
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_remove_buttons() 
 ```
 
 ### Making simplevis ggplot maps

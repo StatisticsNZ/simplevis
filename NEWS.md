@@ -2,7 +2,8 @@
 
 * Added width argument to hbar and vbar functions
 * Update css plot minimum height
-* Add reverse_plotly_legend and order_plotly_legend functions
+* Add plotly_reverse_legend and plotly_order_legend functions
+* Renamed remove_plotly_buttons as plotly_remove_buttons
 
 # simplevis 1.1.2
 

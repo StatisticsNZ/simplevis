@@ -54,8 +54,8 @@ sentence_spaced_colnames <- function(data) {
   return(data)
 }
 
-#' @title Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
-#' @description Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
+#' @title Remove plotly buttons from the mode bar, other than the camera and plotly logo.
+#' @description Remove plotly buttons from the mode bar, other than the camera and plotly logo.
 #' @param plotly A plotly object.
 #' @param logo TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.
 #' @export
@@ -76,6 +76,36 @@ remove_plotly_buttons <- function(plotly, logo = FALSE){
     displaylogo = logo
   )
 }
+
+#' @title Reverse plotly legend order.
+#' @description Reverse plotly legend order.
+#' @export
+#' @examples
+#' plot_data <- ggplot2::diamonds %>%
+#'    dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
+#'    dplyr::group_by(cut, clarity) %>%
+#'    dplyr::summarise(average_price = mean(price)) %>%
+#'    dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
+#'    dplyr::ungroup()
+#'    
+#' plot <- ggplot_hbar_col(data = plot_data, 
+#'                        x_var = average_price_thousands, 
+#'                        y_var = cut, 
+#'                        col_var = clarity, 
+#'                        legend_ncol = 4,
+#'                        title = "Average diamond price by cut and clarity", 
+#'                        x_title = "Average price ($US thousands)", 
+#'                        y_title = "Cut")
+#' 
+#' plotly::ggplotly(plot, tooltip = "text")
+#' 
+#' plotly::ggplotly(plot, tooltip = "text") %>% 
+#'    reverse_plotly_legend()
+reverse_plotly_legend <- function(plotly_plot) {
+  n_labels <- length(plotly_plot$x$data)
+  plotly_plot$x$data[1:n_labels] <- plotly_plot$x$data[n_labels:1]
+  plotly_plot
+}  
 
 #' @title Colour palette for categorical variables.
 #' @description  Colour palette for categorical variables.

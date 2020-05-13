@@ -32,7 +32,7 @@ html, body, .container {
 }
 
 #plot_desktop {
-  min-height: 400px;
+  min-height: 500px;
   min-width: 600px;
   max-width: 1000px;
 }

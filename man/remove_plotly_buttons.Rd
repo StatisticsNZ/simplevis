@@ -2,7 +2,7 @@
 % Please edit documentation in R/other.R
 \name{remove_plotly_buttons}
 \alias{remove_plotly_buttons}
-\title{Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.}
+\title{Remove plotly buttons from the mode bar, other than the camera and plotly logo.}
 \usage{
 remove_plotly_buttons(plotly, logo = FALSE)
 }
@@ -12,7 +12,7 @@ remove_plotly_buttons(plotly, logo = FALSE)
 \item{logo}{TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.}
 }
 \description{
-Remove ggplotly buttons from the mode bar, other than the camera and plotly logo.
+Remove plotly buttons from the mode bar, other than the camera and plotly logo.
 }
 \examples{
 plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)

@@ -43,16 +43,6 @@ numeric_legend_labels <- function(bin_cuts, legend_digits = 1) {
   }
 }
 
-#' @title Colour palette for categorical variables.
-#' @description  Colour palette for categorical variables.
-#' @return A vector of hex codes.
-pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
-
-#' @title Colour palette for categorical variables for points.
-#' @description Colour palette for categorical variables.
-#' @return A vector of hex codes.
-pal_point_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
-
 #' @title Convert column names to sentence case.
 #' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.
 #' @param data The number of digits to round the legend labels.

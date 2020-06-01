@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <h1 data-toc-skip>simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2020-05-15</h4>
+            <h4 class="date">2020-06-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -347,8 +347,8 @@
 <span class="no">y_var</span> <span class="kw">&lt;-</span> <span class="st">"cut"</span>
 
 <span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                    <span class="kw">x_var</span> <span class="kw">=</span> !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval.html">sym</a></span>(<span class="no">x_var</span>),
-                    <span class="kw">y_var</span> <span class="kw">=</span> !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval.html">sym</a></span>(<span class="no">y_var</span>),
+                    <span class="kw">x_var</span> <span class="kw">=</span> !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="no">x_var</span>),
+                    <span class="kw">y_var</span> <span class="kw">=</span> !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="no">y_var</span>),
                     <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
                     <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
                     <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)

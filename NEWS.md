@@ -1,3 +1,7 @@
+# simplevis 1.1.4
+
+* Dropped nz_region shape.
+
 # simplevis 1.1.3
 
 * Renamed remove_plotly_buttons as plotly_remove_buttons

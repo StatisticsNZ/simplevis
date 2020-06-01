@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -296,8 +296,7 @@
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>year</span> <span class='kw'>%in%</span> <span class='fl'>1975</span>:<span class='fl'>1980</span>) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(!(<span class='no'>status</span> <span class='kw'>==</span> <span class='st'>"Tropical storm"</span> <span class='kw'>&amp;</span> <span class='no'>year</span> <span class='kw'>==</span> <span class='fl'>1980</span>)) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>name</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Karl"</span>, <span class='st'>"Juliet"</span>, <span class='st'>"Jeanne"</span>, <span class='st'>"Ivan"</span>, <span class='st'>"Hermine"</span>,
-  <span class='st'>"Henri"</span>, <span class='st'>"Gloria"</span>, <span class='st'>"Georges"</span>, <span class='st'>"Frederic"</span>))
-
+  <span class='st'>"Henri"</span>, <span class='st'>"Gloria"</span>, <span class='st'>"Georges"</span>, <span class='st'>"Frederic"</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` regrouping output by 'year', 'status' (override with `.groups` argument)</span></div><div class='input'>
   <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_vbar_col_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>average_wind</span>,
                                 <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>status</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
   <span class='no'>plot</span></div><div class='img'><img src='ggplot_vbar_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>

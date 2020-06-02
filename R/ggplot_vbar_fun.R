@@ -111,7 +111,7 @@ theme_vbar <-
 #' @title Vertical bar ggplot.
 #' @description Vertical bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_date_format Date format for x axis labels.
@@ -180,7 +180,6 @@ ggplot_vbar <- function(data,
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
-  if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
   if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
   
   if(min(y_var_vector, na.rm = TRUE) < 0 & y_scale_zero == TRUE) {
@@ -253,12 +252,6 @@ ggplot_vbar <- function(data,
       )
   }
   
-  if(isMobile == FALSE) x_scale_n <- 6
-  else if(isMobile == TRUE) x_scale_n <- 4
-  
-  x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-  x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-  
   if (y_scale_zero == TRUE) {
     y_scale_breaks <- pretty(c(0, y_var_vector))
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
@@ -274,6 +267,12 @@ ggplot_vbar <- function(data,
   }
   
   if (lubridate::is.Date(x_var_vector)) {
+    if(isMobile == FALSE) x_scale_n <- 6
+    else if(isMobile == TRUE) x_scale_n <- 4
+    
+    x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    
     plot <- plot +
       scale_x_date(
         expand = c(0, 0),
@@ -283,11 +282,21 @@ ggplot_vbar <- function(data,
       )
   }
   else if (is.numeric(x_var_vector)) {
+    if(isMobile == FALSE) x_scale_n <- 6
+    else if(isMobile == TRUE) x_scale_n <- 4
+    
+    x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    
     plot <- plot +
       scale_x_continuous(expand = c(0, 0),
                          breaks = x_scale_breaks,
                          limits = x_scale_limits,
                          oob = scales::rescale_none)
+  }
+  else if (is.character(x_var_vector) | is.factor(x_var_vector)){
+    plot <- plot +
+      scale_x_discrete(expand = c(0, 0))
   }
 
   plot <- plot +
@@ -326,7 +335,7 @@ ggplot_vbar <- function(data,
 #' @title Vertical bar ggplot that is coloured.
 #' @description Vertical bar ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
@@ -410,7 +419,6 @@ ggplot_vbar_col <-
     x_var_vector <- dplyr::pull(data, !!x_var)
     col_var_vector <- dplyr::pull(data, !!col_var)
     
-    if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a vertical bar plot")
     
@@ -509,9 +517,6 @@ ggplot_vbar_col <-
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
-    if(isMobile == FALSE) x_scale_n <- 6
-    else if(isMobile == TRUE) x_scale_n <- 4
-    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by_at(vars(!!x_var)) %>%
@@ -520,8 +525,6 @@ ggplot_vbar_col <-
       
       y_var_vector <- dplyr::pull(data_sum, !!y_var)
     }
-    x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
 
     if (y_scale_zero == TRUE) {
       y_scale_breaks <- pretty(c(0, y_var_vector))
@@ -538,6 +541,12 @@ ggplot_vbar_col <-
     }
     
     if (lubridate::is.Date(x_var_vector)) {
+      if(isMobile == FALSE) x_scale_n <- 6
+      else if(isMobile == TRUE) x_scale_n <- 4
+      
+      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      
       plot <- plot +
         scale_x_date(
           expand = c(0, 0),
@@ -547,13 +556,23 @@ ggplot_vbar_col <-
         )
     }
     else if (is.numeric(x_var_vector)) {
+      if(isMobile == FALSE) x_scale_n <- 6
+      else if(isMobile == TRUE) x_scale_n <- 4
+      
+      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      
       plot <- plot +
         scale_x_continuous(expand = c(0, 0),
                            breaks = x_scale_breaks,
                            limits = x_scale_limits,
                            oob = scales::rescale_none)
     }
-    
+    else if (is.character(x_var_vector) | is.factor(x_var_vector)){
+      plot <- plot +
+        scale_x_discrete(expand = c(0, 0))
+    }
+
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -608,7 +627,7 @@ ggplot_vbar_col <-
 #' @title Vertical bar ggplot that is facetted.
 #' @description Vertical bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
@@ -685,7 +704,6 @@ ggplot_vbar_facet <-
     y_var_vector <- dplyr::pull(data, !!y_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
@@ -771,13 +789,13 @@ ggplot_vbar_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if(isMobile == FALSE) x_scale_n <- 5
-      else if(isMobile == TRUE) x_scale_n <- 4
-      
-      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      
       if (lubridate::is.Date(x_var_vector)) {
+        if(isMobile == FALSE) x_scale_n <- 5
+        else if(isMobile == TRUE) x_scale_n <- 4
+        
+        x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        
         plot <- plot +
           scale_x_date(
             expand = c(0, 0),
@@ -787,12 +805,23 @@ ggplot_vbar_facet <-
           )
       }
       else if (is.numeric(x_var_vector)) {
+        if(isMobile == FALSE) x_scale_n <- 5
+        else if(isMobile == TRUE) x_scale_n <- 4
+        
+        x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
                              limits = x_scale_limits,
                              oob = scales::rescale_none)
       }
+      else if (is.character(x_var_vector) | is.factor(x_var_vector)){
+        plot <- plot +
+          scale_x_discrete(expand = c(0, 0))
+      }
+
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
@@ -858,7 +887,7 @@ ggplot_vbar_facet <-
 #' @title Vertical bar ggplot that is coloured and facetted.
 #' @description Vertical bar ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -955,7 +984,6 @@ ggplot_vbar_col_facet <-
     col_var_vector <- dplyr::pull(data, !!col_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (!(is.numeric(x_var_vector) | lubridate::is.Date(x_var_vector))) stop("Please use a numeric or date x variable for a vertical bar plot. ")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a vertical bar plot")
     
@@ -1073,13 +1101,13 @@ ggplot_vbar_col_facet <-
 
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if(isMobile == FALSE) x_scale_n <- 5
-      else if(isMobile == TRUE) x_scale_n <- 4
-      
-      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      
       if (lubridate::is.Date(x_var_vector)) {
+        if(isMobile == FALSE) x_scale_n <- 5
+        else if(isMobile == TRUE) x_scale_n <- 4
+        
+        x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        
         plot <- plot +
           scale_x_date(
             expand = c(0, 0),
@@ -1089,11 +1117,21 @@ ggplot_vbar_col_facet <-
           )
       }
       else if (is.numeric(x_var_vector)) {
+        if(isMobile == FALSE) x_scale_n <- 5
+        else if(isMobile == TRUE) x_scale_n <- 4
+        
+        x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
                              limits = x_scale_limits,
                              oob = scales::rescale_none)
+      }
+      else if (is.character(x_var_vector) | is.factor(x_var_vector)){
+        plot <- plot +
+          scale_x_discrete(expand = c(0, 0))
       }
     }
     

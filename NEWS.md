@@ -1,3 +1,7 @@
+# simplevis 1.1.5
+
+* Added support for categoical x variables on vbar ggplots.
+
 # simplevis 1.1.4
 
 * Dropped nz_region shape.

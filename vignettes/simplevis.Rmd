@@ -116,7 +116,8 @@ plot <- ggplot_hbar_col_facet(data = plot_data,
 plot
 ```
 
-These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly` with the `tooltip = "text"` specification. This results in the tooltip converting the applicable variable name to sentence case and replacing underscores with spaces.
+These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly` with the `tooltip = "text"` specification. This results in the tooltip converting the applicable variable name to sentence case and replacing underscores with spaces. If users wish to specify a subset of variables, then they need to provide these as a vector instead. Note these variables will turn up in the tooltip as they are specified in the data (e.g. snakecase), unless converted prior in the plot data.
+
 
 ```{r, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%
@@ -133,6 +134,9 @@ plot <- ggplot_vbar(data = plot_data,
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_remove_buttons() 
+
+plotly::ggplotly(plot, tooltip = c("average_wind")) %>% 
+  plotly_remove_buttons()
 ```
 
 ### Making simplevis ggplot maps

@@ -1,3 +1,7 @@
+# simplevis 1.1.6
+
+* Added support for hover_var's being adding manually as ggplotly tooltips.
+
 # simplevis 1.1.5
 
 * Added support for categoical x variables on vbar ggplots.

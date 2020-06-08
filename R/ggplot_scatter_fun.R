@@ -194,7 +194,7 @@ ggplot_scatter <- function(data,
   
   if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data, aes(!!x_var, !!y_var)) +
+  plot <- ggplot(data, aes(!!x_var, !!y_var, key = !!hover_var)) +
     theme_scatter(
       font_family = font_family,
       font_size_body = font_size_body,
@@ -451,7 +451,7 @@ ggplot_scatter_col <-
       if (is.null(legend_labels)) labels <- waiver()
     }
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
       theme_scatter(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -692,7 +692,7 @@ ggplot_scatter_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
       theme_scatter(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -1002,7 +1002,7 @@ ggplot_scatter_col_facet <-
       if (is.null(legend_labels)) labels <- waiver()
     }
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var),) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
       theme_scatter(
         font_family = font_family,
         font_size_body = font_size_body,

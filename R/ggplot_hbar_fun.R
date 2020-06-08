@@ -218,7 +218,7 @@ ggplot_hbar <- function(data,
   
   if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
+  plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
     coord_flip() +
     theme_hbar(
       font_family = font_family,
@@ -461,7 +461,7 @@ ggplot_hbar_col <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
+    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -741,7 +741,7 @@ ggplot_hbar_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
+    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -1011,7 +1011,7 @@ ggplot_hbar_col_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var)) +
+    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,

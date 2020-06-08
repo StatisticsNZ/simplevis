@@ -196,7 +196,7 @@ ggplot_line <- function(data,
   
   if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data, aes(!!x_var, !!y_var)) +
+  plot <- ggplot(data, aes(!!x_var, !!y_var, key = !!hover_var)) +
     coord_cartesian(clip = "off") +
     theme_line(
       font_family = font_family,
@@ -431,7 +431,7 @@ ggplot_line_col <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var)) +
+    plot <- ggplot(data, aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, key = !!hover_var)) +
       coord_cartesian(clip = "off") +
       theme_line(
         font_family = font_family,
@@ -679,7 +679,7 @@ ggplot_line_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(!!x_var, !!y_var)) +
+    plot <- ggplot(data, aes(!!x_var, !!y_var, key = !!hover_var)) +
       coord_cartesian(clip = "off") +
       theme_line(
         font_family = font_family,
@@ -950,7 +950,7 @@ ggplot_line_col_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var)) +
+    plot <- ggplot(data, aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, key = !!hover_var)) +
       coord_cartesian(clip = "off") +
       theme_line(
         font_family = font_family,

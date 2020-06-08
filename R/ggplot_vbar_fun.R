@@ -198,7 +198,7 @@ ggplot_vbar <- function(data,
 
   if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+  plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
     coord_cartesian() +
     theme_vbar(
       font_family = font_family,
@@ -444,9 +444,7 @@ ggplot_vbar_col <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data,
-                   aes(x = !!x_var,
-                       y = !!y_var)) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,
@@ -723,7 +721,7 @@ ggplot_vbar_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,
@@ -1009,7 +1007,7 @@ ggplot_vbar_col_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
       coord_cartesian() +
       theme_vbar(
         font_family = font_family,

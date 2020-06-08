@@ -318,7 +318,7 @@ ggplot_stars_col <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
@@ -337,7 +337,13 @@ ggplot_stars_col <- function(data,
       bin_cuts <- pretty(col_var_vector)
       
       data <- data %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate_at(vars(-.data$x,-.data$y),
+                         ~ cut(
+                           .,
+                           bin_cuts,
+                           right = FALSE,
+                           include.lowest = TRUE
+                         ))
       
       if (is.null(pal))
         pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -357,7 +363,13 @@ ggplot_stars_col <- function(data,
       
       data <- data %>%
         tibble::as_tibble() %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate_at(vars(-.data$x,-.data$y),
+                         ~ cut(
+                           .,
+                           bin_cuts,
+                           right = FALSE,
+                           include.lowest = TRUE
+                         ))
       
       if (is.null(pal))
         pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -380,7 +392,7 @@ ggplot_stars_col <- function(data,
       stop("quantile_cuts do not provide unique breaks")
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -526,9 +538,7 @@ ggplot_stars_facet <- function(data,
   
   data <- data %>%
     tibble::as_tibble() %>%
-    tidyr::gather(key = "facet_var",
-                  value = "col_var",
-                  c(-.data$x,-.data$y))
+    tidyr::pivot_longer(c(-.data$x,-.data$y), names_to = "facet_var", values_to = "col_var")
   
   if (is.null(pal))
     pal <- pal_snz[1]
@@ -708,9 +718,7 @@ ggplot_stars_col_facet <- function(data,
   if (col_method == "category") {
     data <- data %>%
       tibble::as_tibble() %>%
-      tidyr::gather(key = "facet_var",
-                    value = "col_var",
-                    c(-.data$x,-.data$y))
+      tidyr::pivot_longer(c(-.data$x,-.data$y), names_to = "facet_var", values_to = "col_var")
     
     bin_cuts <- unique(dplyr::pull(data, .data$col_var))
     max_bin_cut <- max(bin_cuts, na.rm = TRUE)
@@ -719,7 +727,8 @@ ggplot_stars_col_facet <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
+                       ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
@@ -743,7 +752,13 @@ ggplot_stars_col_facet <- function(data,
       bin_cuts <- pretty(dplyr::pull(data, .data$col_var))
       
       data <- data %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
+                         ~ cut(
+                           .,
+                           bin_cuts,
+                           right = FALSE,
+                           include.lowest = TRUE
+                         ))
       
       if (is.null(pal))
         pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -768,7 +783,13 @@ ggplot_stars_col_facet <- function(data,
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
+                         ~ cut(
+                           .,
+                           bin_cuts,
+                           right = FALSE,
+                           include.lowest = TRUE
+                         ))
       
       if (is.null(pal))
         pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -792,9 +813,14 @@ ggplot_stars_col_facet <- function(data,
           values_to = "col_var"
         ) %>%
         dplyr::group_by(.data$facet_var) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ cut(., quantile_cuts, right = FALSE, include.lowest = TRUE))
-      
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
+                         ~ cut(
+                           .,
+                           quantile_cuts,
+                           right = FALSE,
+                           include.lowest = TRUE
+                         ))
       if (is.null(pal))
         pal <- viridis::viridis(length(quantile_cuts) - 1)
       if (is.null(legend_labels))
@@ -812,9 +838,14 @@ ggplot_stars_col_facet <- function(data,
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y, -.data$facet_var), ~ cut(., quantile_cuts, right = FALSE, include.lowest = TRUE))
-      
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
+                         ~ cut(
+                           .,
+                           quantile_cuts,
+                           right = FALSE,
+                           include.lowest = TRUE
+                         ))
       if (is.null(pal))
         pal <- viridis::viridis(length(quantile_cuts) - 1)
       if (is.null(legend_labels))

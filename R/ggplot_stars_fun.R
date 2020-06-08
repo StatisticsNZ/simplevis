@@ -241,7 +241,7 @@ ggplot_stars <- function(data,
 #' ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
 #'    col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
-git  <- function(data,
+ggplot_stars_col <- function(data,
                              col_method = "quantile",
                              quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                              bin_cuts = NULL,
@@ -318,7 +318,7 @@ git  <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
@@ -337,7 +337,7 @@ git  <- function(data,
       bin_cuts <- pretty(col_var_vector)
       
       data <- data %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y),
+        dplyr::mutate_at(vars(-.data$x,-.data$y),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -363,7 +363,7 @@ git  <- function(data,
       
       data <- data %>%
         tibble::as_tibble() %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y),
+        dplyr::mutate_at(vars(-.data$x,-.data$y),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -392,7 +392,7 @@ git  <- function(data,
       stop("quantile_cuts do not provide unique breaks")
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate_at(vars(-.data$x,-.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
       pal <- viridis::viridis(length(bin_cuts) - 1)
@@ -538,7 +538,9 @@ ggplot_stars_facet <- function(data,
   
   data <- data %>%
     tibble::as_tibble() %>%
-    tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var")
+    tidyr::gather(key = "facet_var",
+                  value = "col_var",
+                  c(-.data$x,-.data$y))
   
   if (is.null(pal))
     pal <- pal_snz[1]
@@ -718,8 +720,10 @@ ggplot_stars_col_facet <- function(data,
   if (col_method == "category") {
     data <- data %>%
       tibble::as_tibble() %>%
-      tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var")
-
+      tidyr::gather(key = "facet_var",
+                    value = "col_var",
+                    c(-.data$x,-.data$y))
+    
     bin_cuts <- unique(dplyr::pull(data, .data$col_var))
     max_bin_cut <- max(bin_cuts, na.rm = TRUE)
     min_bin_cut <- min(bin_cuts, na.rm = TRUE)
@@ -727,7 +731,7 @@ ggplot_stars_col_facet <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var),
+      dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                        ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal))
@@ -744,7 +748,7 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-.data$x, -.data$y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         )
@@ -752,7 +756,7 @@ ggplot_stars_col_facet <- function(data,
       bin_cuts <- pretty(dplyr::pull(data, .data$col_var))
       
       data <- data %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -779,11 +783,11 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-.data$x, -.data$y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            bin_cuts,
@@ -808,13 +812,13 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-.data$x, -.data$y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
         dplyr::group_by(.data$facet_var) %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            quantile_cuts,
@@ -834,12 +838,12 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(
-          cols = c(-.data$x, -.data$y),
+          cols = c(-.data$x,-.data$y),
           names_to = "facet_var",
           values_to = "col_var"
         ) %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-.data$x, -.data$y,-.data$facet_var),
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
+        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
                          ~ cut(
                            .,
                            quantile_cuts,

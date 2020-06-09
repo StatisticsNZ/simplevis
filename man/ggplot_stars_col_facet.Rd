@@ -16,7 +16,7 @@ ggplot_stars_col_facet(data, col_method = "quantile",
   isMobile = FALSE)
 }
 \arguments{
-\item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.}
+\item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 

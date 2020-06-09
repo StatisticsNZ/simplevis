@@ -1,9 +1,7 @@
-# simplevis 1.1.6
+# simplevis 1.2.0
 
+* Replaced dplyr and tidyr superceded and retired functions with maturing functions.
 * Added support for hover_var's being adding manually as ggplotly tooltips.
-
-# simplevis 1.1.5
-
 * Added support for categoical x variables on vbar ggplots.
 
 # simplevis 1.1.4

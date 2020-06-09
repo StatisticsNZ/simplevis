@@ -12,7 +12,7 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
   wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
-\item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.}
+\item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
 

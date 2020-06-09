@@ -15,7 +15,7 @@ ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
   isMobile = FALSE)
 }
 \arguments{
-\item{data}{A stars object with 2 dimensions x and y, and 1 attribute layer. Required input.}
+\item{data}{A stars object with 2 dimensions x and y, and 1 attribute layer that will be coloured. Required input.}
 
 \item{col_method}{The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".}
 

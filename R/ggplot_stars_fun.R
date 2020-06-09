@@ -124,10 +124,9 @@ ggplot_stars <- function(data,
                          wrap_subtitle = 80,
                          wrap_caption = 80,
                          isMobile = FALSE) {
-  if (class(data)[1] != "stars")
-    stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  if (class(data)[1] != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -146,8 +145,7 @@ ggplot_stars <- function(data,
     )
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -166,8 +164,7 @@ ggplot_stars <- function(data,
   data <- data %>%
     tibble::as_tibble()
   
-  if (is.null(pal))
-    pal <- pal_snz[1]
+  if (is.null(pal)) pal <- pal_snz[1]
   
   plot <- plot +
     geom_raster(aes(x = .data$x, y = .data$y),
@@ -211,7 +208,7 @@ ggplot_stars <- function(data,
 
 #' @title Map of an array in ggplot that is coloured.
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
-#' @param data A stars object with 2 dimensions x and y, and 1 attribute layer. Required input.
+#' @param data A stars object with 2 dimensions x and y, and 1 attribute layer that will be coloured. Required input.
 #' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
@@ -265,10 +262,9 @@ ggplot_stars_col <- function(data,
                              wrap_col_title = 25,
                              wrap_caption = 80,
                              isMobile = FALSE) {
-  if (class(data)[1] != "stars")
-    stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  if (class(data)[1] != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -286,12 +282,13 @@ ggplot_stars_col <- function(data,
       font_size_title = font_size_title
     )
   
-  data <- data %>% dplyr::select(col_var = 1)
+  data <- data %>% 
+    dplyr::select(col_var = 1)
+  
   col_var_vector <- dplyr::pull(data, .data$col_var)
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -318,16 +315,12 @@ ggplot_stars_col <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate(across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
+      dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal))
-      pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
-    if (!is.null(pal))
-      pal <- pal[1:(length(bin_cuts) - 1)]
-    if (is.null(legend_labels))
-      labels <- LETTERS[1:length(bin_cuts) - 1]
-    if (!is.null(legend_labels))
-      labels <- legend_labels
+    if (is.null(pal)) pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
+    if (!is.null(pal)) pal <- pal[1:(length(bin_cuts) - 1)]
+    if (is.null(legend_labels)) labels <- LETTERS[1:length(bin_cuts) - 1]
+    if (!is.null(legend_labels)) labels <- legend_labels
   }
   else if (col_method == "bin") {
     if (is.null(bin_cuts)) {
@@ -337,61 +330,45 @@ ggplot_stars_col <- function(data,
       bin_cuts <- pretty(col_var_vector)
       
       data <- data %>%
-        dplyr::mutate(across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
+        dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, legend_digits)
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (!is.null(legend_labels)) labels <- legend_labels
       
     }
     else if (!is.null(bin_cuts)) {
-      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf)))
-        warning(
-          "The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)"
-        )
-      if (dplyr::last(bin_cuts) != Inf)
-        warning("The last element of the bin_cuts vector should generally be Inf")
+      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf))) warning("The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)")
+      if (dplyr::last(bin_cuts) != Inf) warning("The last element of the bin_cuts vector should generally be Inf")
       
       data <- data %>%
         tibble::as_tibble() %>%
-        dplyr::mutate(across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
+        dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, legend_digits)
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (!is.null(legend_labels)) labels <- legend_labels
     }
   }
   else if (col_method == "quantile") {
-    if (dplyr::first(quantile_cuts) != 0)
-      warning("The first element of the quantile_cuts vector generally always be 0")
-    if (dplyr::last(quantile_cuts) != 1)
-      warning("The last element of the quantile_cuts vector should generally be 1")
+    if (dplyr::first(quantile_cuts) != 0) warning("The first element of the quantile_cuts vector generally always be 0")
+    if (dplyr::last(quantile_cuts) != 1) warning("The last element of the quantile_cuts vector should generally be 1")
     
-    data <- data %>% tibble::as_tibble()
-    bin_cuts <-
-      quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
-    if (anyDuplicated(bin_cuts) > 0)
-      stop("quantile_cuts do not provide unique breaks")
+    data <- data %>% 
+      tibble::as_tibble()
+    
+    bin_cuts <- quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
+    if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
     
     data <- data %>%
-      dplyr::mutate(across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
+      dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal))
-      pal <- viridis::viridis(length(bin_cuts) - 1)
-    if (is.null(legend_labels))
-      labels <- numeric_legend_labels(bin_cuts, legend_digits)
-    if (!is.null(legend_labels))
-      labels <- legend_labels
+    if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+    if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+    if (!is.null(legend_labels)) labels <- legend_labels
   }
   
-  if (rev_pal == TRUE)
-    pal <- rev(pal)
+  if (rev_pal == TRUE) pal <- rev(pal)
   
   plot <- plot +
     geom_raster(aes(x = .data$x, y = .data$y, fill = .data$col_var), data = data) +
@@ -441,7 +418,7 @@ ggplot_stars_col <- function(data,
 
 #' @title Map of an array in ggplot that is facetted.
 #' @description Map of an array in ggplot that is facetted, but not coloured. 
-#' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.
+#' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
@@ -485,10 +462,9 @@ ggplot_stars_facet <- function(data,
                                wrap_subtitle = 80,
                                wrap_caption = 80,
                                isMobile = FALSE) {
-  if (class(data)[1] != "stars")
-    stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  if (class(data)[1] != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -507,8 +483,7 @@ ggplot_stars_facet <- function(data,
     )
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -528,8 +503,7 @@ ggplot_stars_facet <- function(data,
     tibble::as_tibble() %>%
     tidyr::pivot_longer(c(-.data$x,-.data$y), names_to = "facet_var", values_to = "col_var")
   
-  if (is.null(pal))
-    pal <- pal_snz[1]
+  if (is.null(pal)) pal <- pal_snz[1]
   
   plot <- plot +
     geom_raster(aes(x = .data$x, y = .data$y),
@@ -552,12 +526,8 @@ ggplot_stars_facet <- function(data,
   }
   
   if (isMobile == FALSE) {
-    if (is.null(facet_nrow) &
-        length(unique(data$facet_var)) <= 3)
-      facet_nrow <- 1
-    if (is.null(facet_nrow) &
-        length(unique(data$facet_var)) > 3)
-      facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(data$facet_var)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(data$facet_var)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(
@@ -566,7 +536,7 @@ ggplot_stars_facet <- function(data,
         caption = stringr::str_wrap(caption, wrap_caption)
       ) +
       facet_wrap(
-        ~ facet_var,
+        ~ .data$facet_var,
         scales = "fixed",
         nrow = facet_nrow,
         labeller = labeller(
@@ -583,7 +553,7 @@ ggplot_stars_facet <- function(data,
         caption = stringr::str_wrap(caption, 50)
       )  +
       facet_wrap(
-        ~ facet_var,
+        ~ .data$facet_var,
         scales = "fixed",
         ncol = 1,
         labeller = labeller(
@@ -598,7 +568,7 @@ ggplot_stars_facet <- function(data,
 
 #' @title Map of an array in ggplot that is coloured and facetted.
 #' @description Map of an array in ggplot that is coloured and facetted. 
-#' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Required input.
+#' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
@@ -664,10 +634,9 @@ ggplot_stars_col_facet <- function(data,
                                    wrap_col_title = 25,
                                    wrap_caption = 80,
                                    isMobile = FALSE) {
-  if (class(data)[1] != "stars")
-    stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  if (class(data)[1] != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -686,8 +655,7 @@ ggplot_stars_col_facet <- function(data,
     )
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -715,112 +683,68 @@ ggplot_stars_col_facet <- function(data,
     no_bins <- length(bin_cuts)
     
     data <- data %>%
-      dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal))
-      pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
-    if (!is.null(pal))
-      pal <- pal[1:(length(bin_cuts) - 1)]
-    if (is.null(legend_labels))
-      labels <- LETTERS[1:length(bin_cuts) - 1]
-    if (!is.null(legend_labels))
-      labels <- legend_labels
+    if (is.null(pal)) pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
+    if (!is.null(pal)) pal <- pal[1:(length(bin_cuts) - 1)]
+    if (is.null(legend_labels)) labels <- LETTERS[1:length(bin_cuts) - 1]
+    if (!is.null(legend_labels)) labels <- legend_labels
   }
   else if (col_method == "bin") {
     if (is.null(bin_cuts)) {
       data <- data %>%
         tibble::as_tibble() %>%
-        tidyr::pivot_longer(
-          cols = c(-.data$x,-.data$y),
-          names_to = "facet_var",
-          values_to = "col_var"
-        )
+        tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var")
       
       bin_cuts <- pretty(dplyr::pull(data, .data$col_var))
       
       data <- data %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, legend_digits)
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (!is.null(legend_labels)) labels <- legend_labels
       
     }
     else if (!is.null(bin_cuts)) {
-      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf)))
-        warning(
-          "The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)"
-        )
-      if (dplyr::last(bin_cuts) != Inf)
-        warning("The last element of the bin_cuts vector should generally be Inf")
+      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf))) warning("The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)")
+      if (dplyr::last(bin_cuts) != Inf) warning("The last element of the bin_cuts vector should generally be Inf")
       
       data <- data %>%
         tibble::as_tibble() %>%
-        tidyr::pivot_longer(
-          cols = c(-.data$x,-.data$y),
-          names_to = "facet_var",
-          values_to = "col_var"
-        ) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE))
+        tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., bin_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, legend_digits)
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (!is.null(legend_labels)) labels <- legend_labels
     }
   }
   else if (col_method == "quantile") {
-    if (dplyr::first(quantile_cuts) != 0)
-      warning("The first element of the quantile_cuts vector generally always be 0")
-    if (dplyr::last(quantile_cuts) != 1)
-      warning("The last element of the quantile_cuts vector should generally be 1")
+    if (dplyr::first(quantile_cuts) != 0) warning("The first element of the quantile_cuts vector generally always be 0")
+    if (dplyr::last(quantile_cuts) != 1) warning("The last element of the quantile_cuts vector should generally be 1")
     if (quantile_by_facet == TRUE) {
       data <- data %>%
         tibble::as_tibble() %>%
-        tidyr::pivot_longer(
-          cols = c(-.data$x,-.data$y),
-          names_to = "facet_var",
-          values_to = "col_var"
-        ) %>%
+        tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::group_by(.data$facet_var) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
-                         ~ cut(., quantile_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., quantile_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(quantile_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <-
-          paste0(numeric_legend_labels(quantile_cuts * 100, 0),
-                 "\u1D57\u02B0 percentile")
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(quantile_cuts) - 1)
+      if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(quantile_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (quantile_by_facet == FALSE) {
       data <- data %>%
         tibble::as_tibble() %>%
-        tidyr::pivot_longer(
-          cols = c(-.data$x,-.data$y),
-          names_to = "facet_var",
-          values_to = "col_var"
-        ) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(vars(-.data$x,-.data$y,-.data$facet_var),
-                         ~ cut(., quantile_cuts, right = FALSE, include.lowest = TRUE))
+        tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
+        dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., quantile_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(quantile_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <-
-          paste0(numeric_legend_labels(quantile_cuts * 100, 0),
-                 "\u1D57\u02B0 percentile")
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(quantile_cuts) - 1)
+      if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(quantile_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (!is.null(legend_labels)) labels <- legend_labels
     }
   }
   
@@ -852,12 +776,8 @@ ggplot_stars_col_facet <- function(data,
   }
   
   if (isMobile == FALSE) {
-    if (is.null(facet_nrow) &
-        length(unique(data$facet_var)) <= 3)
-      facet_nrow <- 1
-    if (is.null(facet_nrow) &
-        length(unique(data$facet_var)) > 3)
-      facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(data$facet_var)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(data$facet_var)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(
@@ -867,7 +787,7 @@ ggplot_stars_col_facet <- function(data,
       ) +
       guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
       facet_wrap(
-        ~ facet_var,
+        ~ .data$facet_var,
         scales = "fixed",
         nrow = facet_nrow,
         labeller = labeller(

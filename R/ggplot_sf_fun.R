@@ -127,10 +127,9 @@ ggplot_sf <- function(data,
                       wrap_subtitle = 80,
                       wrap_caption = 80,
                       isMobile = FALSE) {
-  if (class(data)[1] != "sf")
-    stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  if (class(data)[1] != "sf") stop("Please use an sf object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -161,8 +160,7 @@ ggplot_sf <- function(data,
       )
   }
   
-  if (is.null(pal))
-    pal <- pal_snz
+  if (is.null(pal)) pal <- pal_snz
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
@@ -277,14 +275,13 @@ ggplot_sf_col <- function(data,
                           wrap_col_title = 25,
                           wrap_caption = 80,
                           isMobile = FALSE) {
+  
   col_var <- rlang::enquo(col_var)
   
   col_var_vector <- dplyr::pull(data, !!col_var)
   
-  if (class(data)[1] != "sf")
-    stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  if (class(data)[1] != "sf") stop("Please use an sf object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -305,8 +302,7 @@ ggplot_sf_col <- function(data,
     )
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -318,74 +314,53 @@ ggplot_sf_col <- function(data,
     }
   }
   
-  if (is.null(col_method))
-    if (!is.numeric(col_var_vector))
-      col_method <- "category"
-  if (is.null(col_method))
-    if (is.numeric(col_var_vector))
-      col_method <- "quantile"
+  if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
+  if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
   
   if (col_method == "category") {
-    if (is.null(pal))
-      pal <- pal_point_set1
-    if (!is.null(legend_labels))
-      labels <- legend_labels
-    if (is.null(legend_labels))
-      labels <- waiver()
+    if (is.null(pal)) pal <- pal_point_set1
+    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(legend_labels)) labels <- waiver()
   }
   else if (col_method == "bin") {
     if (!is.null(bin_cuts)) {
-      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf)))
-        warning(
-          "The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)"
-        )
-      if (dplyr::last(bin_cuts) != Inf)
-        warning("The last element of the bin_cuts vector should generally be Inf")
+      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf))) warning("The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)")
+      if (dplyr::last(bin_cuts) != Inf) warning("The last element of the bin_cuts vector should generally be Inf")
     }
-    if (is.null(bin_cuts))
-      bin_cuts <- pretty(col_var_vector)
-    data <-
-      dplyr::mutate(data,
+    if (is.null(bin_cuts)) bin_cuts <- pretty(col_var_vector)
+    
+    data <- dplyr::mutate(data,
                     !!col_var := cut(
                       col_var_vector,
                       bin_cuts,
                       right = FALSE,
                       include.lowest = TRUE
                     ))
-    if (is.null(pal))
-      pal <- viridis::viridis(length(bin_cuts) - 1)
-    if (is.null(legend_labels))
-      labels <- numeric_legend_labels(bin_cuts, legend_digits)
-    if (!is.null(legend_labels))
-      labels <- legend_labels
+    
+    if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+    if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+    if (!is.null(legend_labels)) labels <- legend_labels
   }
   else if (col_method == "quantile") {
-    if (dplyr::first(quantile_cuts) != 0)
-      warning("The first element of the quantile_cuts vector generally always be 0")
-    if (dplyr::last(quantile_cuts) != 1)
-      warning("The last element of the quantile_cuts vector should generally be 1")
-    bin_cuts <-
-      quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
-    if (anyDuplicated(bin_cuts) > 0)
-      stop("quantile_cuts do not provide unique breaks")
-    data <-
-      dplyr::mutate(data,
+    if (dplyr::first(quantile_cuts) != 0) warning("The first element of the quantile_cuts vector generally always be 0")
+    if (dplyr::last(quantile_cuts) != 1) warning("The last element of the quantile_cuts vector should generally be 1")
+    bin_cuts <- quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
+    if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
+    
+    data <- dplyr::mutate(data,
                     !!col_var := cut(
                       col_var_vector,
                       bin_cuts,
                       right = FALSE,
                       include.lowest = TRUE
                     ))
-    if (is.null(pal))
-      pal <- viridis::viridis(length(bin_cuts) - 1)
-    if (is.null(legend_labels))
-      labels <- numeric_legend_labels(bin_cuts, legend_digits)
-    if (!is.null(legend_labels))
-      labels <- legend_labels
+    
+    if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+    if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+    if (!is.null(legend_labels)) labels <- legend_labels
   }
   
-  if (rev_pal == TRUE)
-    pal <- rev(pal)
+  if (rev_pal == TRUE) pal <- rev(pal)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
@@ -407,10 +382,8 @@ ggplot_sf_col <- function(data,
       )
   }
   
-  if (remove_na == TRUE)
-    na.translate <- FALSE
-  if (remove_na == FALSE)
-    na.translate <- TRUE
+  if (remove_na == TRUE) na.translate <- FALSE
+  if (remove_na == FALSE) na.translate <- TRUE
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
@@ -517,16 +490,14 @@ ggplot_sf_facet <- function(data,
                             wrap_subtitle = 80,
                             wrap_caption = 80,
                             isMobile = FALSE) {
+  
   facet_var <- rlang::enquo(facet_var) #categorical var
   
   facet_var_vector <- dplyr::pull(data, !!facet_var)
   
-  if (class(data)[1] != "sf")
-    stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
-  if (is.numeric(facet_var_vector))
-    stop("Please use a categorical facet variable")
+  if (class(data)[1] != "sf") stop("Please use an sf object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -547,8 +518,7 @@ ggplot_sf_facet <- function(data,
     )
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -560,8 +530,7 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-  if (is.null(pal))
-    pal <- pal_snz
+  if (is.null(pal)) pal <- pal_snz
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
@@ -596,12 +565,8 @@ ggplot_sf_facet <- function(data,
   }
   
   if (isMobile == FALSE) {
-    if (is.null(facet_nrow) &
-        length(unique(facet_var_vector)) <= 3)
-      facet_nrow <- 1
-    if (is.null(facet_nrow) &
-        length(unique(facet_var_vector)) > 3)
-      facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(
@@ -702,18 +667,16 @@ ggplot_sf_col_facet <- function(data,
                                 wrap_col_title = 25,
                                 wrap_caption = 80,
                                 isMobile = FALSE) {
+  
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   
   col_var_vector <- dplyr::pull(data, !!col_var)
   facet_var_vector <- dplyr::pull(data, !!facet_var)
   
-  if (class(data)[1] != "sf")
-    stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
-  if (is.numeric(facet_var_vector))
-    stop("Please use a categorical facet variable")
+  if (class(data)[1] != "sf") stop("Please use an sf object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable")
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -734,8 +697,7 @@ ggplot_sf_col_facet <- function(data,
     )
   
   if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
     if (coastline_behind == TRUE) {
       plot <- plot +
         geom_sf(
@@ -747,52 +709,36 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (is.null(col_method))
-    if (!is.numeric(col_var_vector))
-      col_method <- "category"
-  if (is.null(col_method))
-    if (is.numeric(col_var_vector))
-      col_method <- "quantile"
+  if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
+  if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
   
   if (col_method == "category") {
-    if (is.null(pal))
-      pal <- pal_point_set1
-    if (!is.null(legend_labels))
-      labels <- legend_labels
-    if (is.null(legend_labels))
-      labels <- waiver()
+    if (is.null(pal)) pal <- pal_point_set1
+    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(legend_labels)) labels <- waiver()
   }
   else if (col_method == "bin") {
     if (!is.null(bin_cuts)) {
-      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf)))
-        warning(
-          "The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)"
-        )
-      if (dplyr::last(bin_cuts) != Inf)
-        warning("The last element of the bin_cuts vector should generally be Inf")
+      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf))) warning("The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)")
+      if (dplyr::last(bin_cuts) != Inf) warning("The last element of the bin_cuts vector should generally be Inf")
     }
-    if (is.null(bin_cuts))
-      bin_cuts <- pretty(col_var_vector)
-    data <-
-      dplyr::mutate(data,
-                    !!col_var := cut(
-                      col_var_vector,
-                      bin_cuts,
-                      right = FALSE,
-                      include.lowest = TRUE
-                    ))
-    if (is.null(pal))
-      pal <- viridis::viridis(length(bin_cuts) - 1)
-    if (is.null(legend_labels))
-      labels <- numeric_legend_labels(bin_cuts, legend_digits)
-    if (!is.null(legend_labels))
-      labels <- legend_labels
+    if (is.null(bin_cuts)) bin_cuts <- pretty(col_var_vector)
+    
+      data <- dplyr::mutate(data,
+                            !!col_var := cut(
+                              col_var_vector,
+                              bin_cuts,
+                              right = FALSE,
+                              include.lowest = TRUE
+                            ))
+
+    if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+    if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+    if (!is.null(legend_labels)) labels <- legend_labels
   }
   else if (col_method == "quantile") {
-    if (dplyr::first(quantile_cuts) != 0)
-      warning("The first element of the quantile_cuts vector generally always be 0")
-    if (dplyr::last(quantile_cuts) != 1)
-      warning("The last element of the quantile_cuts vector should generally be 1")
+    if (dplyr::first(quantile_cuts) != 0) warning("The first element of the quantile_cuts vector generally always be 0")
+    if (dplyr::last(quantile_cuts) != 1) warning("The last element of the quantile_cuts vector should generally be 1")
     if (quantile_by_facet == TRUE) {
       data <- data %>%
         dplyr::group_by(!!facet_var) %>%
@@ -817,27 +763,23 @@ ggplot_sf_col_facet <- function(data,
     else if (quantile_by_facet == FALSE) {
       bin_cuts <-
         quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
-      if (anyDuplicated(bin_cuts) > 0)
-        stop("quantile_cuts do not provide unique breaks")
-      data <-
-        dplyr::mutate(data,
-                      !!col_var := cut(
-                        col_var_vector,
-                        bin_cuts,
-                        right = FALSE,
-                        include.lowest = TRUE
-                      ))
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, 2)
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
+        data <-
+          dplyr::mutate(data,
+                        !!col_var := cut(
+                          col_var_vector,
+                          bin_cuts,
+                          right = FALSE,
+                          include.lowest = TRUE
+                        ))
+      
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, 2)
+      if (!is.null(legend_labels)) labels <- legend_labels
     }
   }
   
-  if (rev_pal == TRUE)
-    pal <- rev(pal)
+  if (rev_pal == TRUE) pal <- rev(pal)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +

@@ -1,3 +1,7 @@
+# simplevis 1.2.1
+
+* Added x_scale_labels argument to hbar functions.
+
 # simplevis 1.2.0
 
 * Replaced dplyr and tidyr superceded and retired functions with maturing functions.

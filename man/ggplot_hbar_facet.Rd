@@ -5,9 +5,10 @@
 \title{Horizontal bar ggplot that is facetted.}
 \usage{
 ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
-  x_scale_zero = TRUE, x_scale_trans = "identity",
-  y_scale_rev = FALSE, facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, width = 0.75, title = "[Title]", subtitle = NULL,
+  x_scale_labels = waiver(), x_scale_zero = TRUE,
+  x_scale_trans = "identity", y_scale_rev = FALSE,
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  width = 0.75, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", caption = "",
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
@@ -24,6 +25,8 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 

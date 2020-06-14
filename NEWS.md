@@ -1,6 +1,7 @@
 # simplevis 1.2.1
 
 * Added x_scale_labels argument to hbar functions.
+* Updated colour in pal_point_trend3 and pal_point_trend5.
 
 # simplevis 1.2.0
 

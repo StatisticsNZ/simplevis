@@ -117,6 +117,7 @@ theme_line <-
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -156,6 +157,7 @@ ggplot_line <- function(data,
                         x_scale_date_format = "%Y",
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
+                        y_scale_labels = waiver(),
                         points = TRUE,
                         point_size = 1,
                         pal = NULL,
@@ -163,7 +165,7 @@ ggplot_line <- function(data,
                         subtitle = NULL,
                         x_title = "[X title]",
                         y_title = "[Y title]",
-                        caption = "",
+                        caption = NULL,
                         font_family = "Helvetica",
                         font_size_title = NULL,
                         font_size_body = NULL,
@@ -300,6 +302,7 @@ ggplot_line <- function(data,
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
+      labels = y_scale_labels,
       oob = scales::rescale_none
     )
   
@@ -336,6 +339,7 @@ ggplot_line <- function(data,
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -382,6 +386,7 @@ ggplot_line_col <-
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            col_scale_drop = FALSE,
            points = TRUE,
            point_size = 1,
@@ -393,7 +398,7 @@ ggplot_line_col <-
            x_title = "[X title]",
            y_title = "[Y title]",
            col_title = "",
-           caption = "",
+           caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -554,6 +559,7 @@ ggplot_line_col <-
         breaks = y_scale_breaks,
         limits = y_scale_limits,
         trans = y_scale_trans,
+        labels = y_scale_labels,
         oob = scales::rescale_none
       )
     
@@ -593,6 +599,7 @@ ggplot_line_col <-
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -634,6 +641,7 @@ ggplot_line_facet <-
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -643,7 +651,7 @@ ggplot_line_facet <-
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           caption = "",
+           caption = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -796,6 +804,7 @@ ggplot_line_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -803,6 +812,7 @@ ggplot_line_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
 
@@ -847,6 +857,7 @@ ggplot_line_facet <-
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -896,6 +907,7 @@ ggplot_line_col_facet <-
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            col_scale_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -909,7 +921,7 @@ ggplot_line_col_facet <-
            x_title = "[X title]",
            y_title = "[Y title]",
            col_title = "",
-           caption = "",
+           caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -1090,6 +1102,7 @@ ggplot_line_col_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -1097,6 +1110,7 @@ ggplot_line_col_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
     

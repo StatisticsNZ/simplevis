@@ -8,10 +8,11 @@ ggplot_scatter_col(data, x_var, y_var, col_var, hover_var = NULL,
   col_method = NULL, col_title = "", quantile_cuts = NULL,
   bin_cuts = NULL, size = 1, pal = NULL, rev_pal = FALSE,
   remove_na = FALSE, x_scale_zero = TRUE, x_scale_trans = "identity",
-  y_scale_zero = TRUE, y_scale_trans = "identity",
+  x_scale_labels = waiver(), y_scale_zero = TRUE,
+  y_scale_trans = "identity", y_scale_labels = waiver(),
   col_scale_drop = FALSE, legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = "", legend_labels = NULL,
+  y_title = "[Y title]", caption = NULL, legend_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
@@ -48,9 +49,13 @@ ggplot_scatter_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+
+\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 

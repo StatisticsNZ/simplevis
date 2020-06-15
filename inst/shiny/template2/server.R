@@ -47,7 +47,7 @@ shinyServer(function(input, output, session) {
   
   output$plot_desktop <- plotly::renderPlotly({ 
     plotly::ggplotly(plot(), tooltip = "text") %>%
-      simplevis::remove_plotly_buttons()
+      plotly_remove_buttons()
   })
   
   output$plot_mobile <- renderPlot({
@@ -106,15 +106,11 @@ shinyServer(function(input, output, session) {
   
   ### table ###
   
-  table_data <- reactive({   #if more than one dataset
-    if(input$table_data == "Diamonds") table_data <- ggplot2::diamonds
-    else if(input$table_data == "Storms") table_data <- dplyr::storms
-    
-    return(table_data)
+  table_data <- reactive({   
+    ggplot2::diamonds 
   })
   
   output$table <- DT::renderDT(
-    # df1, ### adjust data object name, and columns as necessary ###
     table_data(),
     filter = "top",
     rownames = F,

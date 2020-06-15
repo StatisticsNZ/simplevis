@@ -6,12 +6,13 @@
 \usage{
 ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
   stat = "boxplot", y_scale_zero = TRUE, y_scale_trans = "identity",
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = "", font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
-  wrap_caption = 80, isMobile = FALSE)
+  y_scale_labels = waiver(), facet_scales = "fixed",
+  facet_nrow = NULL, pal = NULL, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
+  isMobile = FALSE)
 }
 \arguments{
 \item{data}{An tibble or dataframe. Required input.}
@@ -27,6 +28,8 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 \item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.}
+
+\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

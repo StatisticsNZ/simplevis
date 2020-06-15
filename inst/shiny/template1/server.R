@@ -46,36 +46,23 @@ shinyServer(function(input, output, session) {
 
   output$plot_desktop <- plotly::renderPlotly({ 
     plotly::ggplotly(plot(), tooltip = "text") %>%
-      simplevis::remove_plotly_buttons()
+      plotly_remove_buttons()
   })
 
-  # output$plot_mobile <- renderPlot({ 
-  #   plot() +
-  #     ggplot2::theme(plot.title.position = "plot") +
-  #     ggplot2::theme(plot.caption.position = "plot") 
-  # })
-  
-  ### use this code if you want to speed things up for mobile users
-  output$plot_mobile <- renderCachedPlot({
+  output$plot_mobile <- renderPlot({
     plot() +
-        ggplot2::theme(plot.title.position = "plot") +
-        ggplot2::theme(plot.caption.position = "plot")
-  },
-  cacheKeyExpr = {
-    list() ### list input$dependencies here
+      ggplot2::theme(plot.title.position = "plot") +
+      ggplot2::theme(plot.caption.position = "plot")
   })
   
   ### table ###
   
-  # table_data <- reactive({   #if more than one dataset
-  #   if(input$table_data == "Diamonds") table_data <- ggplot2::diamonds
-  #   else if(input$table_data == "Storms") table_data <- dplyr::storms
-  #   return(table_data)
-  # })
+  table_data <- reactive({   
+    ggplot2::diamonds 
+  })
   
   output$table <- DT::renderDT(
-    df, ### adjust data object name, and columns as necessary ###
-    # table_data(), 
+    table_data(), 
     filter = "top",
     rownames = F,
     options = list(pageLength = 5, scrollX = T)

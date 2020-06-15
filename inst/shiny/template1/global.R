@@ -6,7 +6,7 @@ library(dplyr)
 library(simplevis)
 
 # load data
-### read your RDS data in from data folder here and call it df ###
+### read your RDS data in from data folder here ###
 df <-  ggplot2::diamonds
 
 color_vector <- sort(unique(df$color))

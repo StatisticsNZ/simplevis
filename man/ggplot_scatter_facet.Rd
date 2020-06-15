@@ -6,10 +6,11 @@
 \usage{
 ggplot_scatter_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   size = 1, pal = NULL, x_scale_zero = TRUE,
-  x_scale_trans = "identity", y_scale_zero = TRUE,
-  y_scale_trans = "identity", facet_scales = "fixed",
+  x_scale_trans = "identity", x_scale_labels = waiver(),
+  y_scale_zero = TRUE, y_scale_trans = "identity",
+  y_scale_labels = waiver(), facet_scales = "fixed",
   facet_nrow = NULL, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = "",
+  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
@@ -34,9 +35,13 @@ ggplot_scatter_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+
+\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

@@ -6,12 +6,13 @@
 \usage{
 ggplot_scatter(data, x_var, y_var, hover_var = NULL, size = 1,
   pal = NULL, x_scale_zero = TRUE, x_scale_trans = "identity",
-  y_scale_zero = TRUE, y_scale_trans = "identity", title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  caption = "", font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = FALSE)
+  x_scale_labels = waiver(), y_scale_zero = TRUE,
+  y_scale_trans = "identity", y_scale_labels = waiver(),
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -30,9 +31,13 @@ ggplot_scatter(data, x_var, y_var, hover_var = NULL, size = 1,
 
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+
+\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

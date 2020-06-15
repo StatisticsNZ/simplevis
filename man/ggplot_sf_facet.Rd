@@ -7,7 +7,7 @@
 ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
   facet_nrow = NULL, coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", title = "[Title]", subtitle = NULL,
-  caption = "", font_family = "Helvetica", font_size_title = NULL,
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_caption = 80, isMobile = FALSE)
 }

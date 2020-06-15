@@ -118,8 +118,10 @@ theme_scatter <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param title  Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -155,13 +157,15 @@ ggplot_scatter <- function(data,
                            pal = NULL,
                            x_scale_zero = TRUE,
                            x_scale_trans = "identity",
+                           x_scale_labels = waiver(),
                            y_scale_zero = TRUE,
                            y_scale_trans = "identity",
+                           y_scale_labels = waiver(),
                            title = "[Title]",
                            subtitle = NULL,
                            x_title = "[X title]",
                            y_title = "[Y title]",
-                           caption = "",
+                           caption = NULL,
                            font_family = "Helvetica",
                            font_size_title = NULL,
                            font_size_body = NULL,
@@ -281,6 +285,7 @@ ggplot_scatter <- function(data,
       breaks = x_scale_breaks,
       limits = x_scale_limits,
       trans = x_scale_trans,
+      labels = x_scale_labels,
       oob = scales::rescale_none
     ) +
     scale_y_continuous(
@@ -288,6 +293,7 @@ ggplot_scatter <- function(data,
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
+      labels = y_scale_labels,
       oob = scales::rescale_none
     )
   
@@ -331,8 +337,10 @@ ggplot_scatter <- function(data,
 #' @param remove_na TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -380,8 +388,10 @@ ggplot_scatter_col <-
            remove_na = FALSE,
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
+           x_scale_labels = waiver(),
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            col_scale_drop = FALSE,
            legend_ncol = 3,
            legend_digits = 1,
@@ -389,7 +399,7 @@ ggplot_scatter_col <-
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           caption = "",
+           caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -562,6 +572,7 @@ ggplot_scatter_col <-
         breaks = x_scale_breaks,
         limits = x_scale_limits,
         trans = x_scale_trans,
+        labels = x_scale_labels,
         oob = scales::rescale_none
       ) +
       scale_y_continuous(
@@ -569,6 +580,7 @@ ggplot_scatter_col <-
         breaks = y_scale_breaks,
         limits = y_scale_limits,
         trans = y_scale_trans,
+        labels = y_scale_labels,
         oob = scales::rescale_none
       )
 
@@ -609,8 +621,10 @@ ggplot_scatter_col <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param title  Title string. Defaults to "[Title]".
@@ -648,15 +662,17 @@ ggplot_scatter_facet <-
            pal = NULL,
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
+           x_scale_labels = waiver(),
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            facet_scales = "fixed",
            facet_nrow = NULL,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           caption = "",
+           caption = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -777,6 +793,7 @@ ggplot_scatter_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
+          labels = x_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -801,6 +818,7 @@ ggplot_scatter_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -808,6 +826,7 @@ ggplot_scatter_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
     
@@ -858,8 +877,10 @@ ggplot_scatter_facet <-
 #' @param remove_na TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
@@ -909,8 +930,10 @@ ggplot_scatter_col_facet <-
            remove_na = FALSE,
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
+           x_scale_labels = waiver(),
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            col_scale_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -925,7 +948,7 @@ ggplot_scatter_col_facet <-
            x_title = "[X title]",
            y_title = "[Y title]",
            col_title = "",
-           caption = "",
+           caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -1113,6 +1136,7 @@ ggplot_scatter_col_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
+          labels = x_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -1137,6 +1161,7 @@ ggplot_scatter_col_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -1144,6 +1169,7 @@ ggplot_scatter_col_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
     

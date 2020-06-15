@@ -11,7 +11,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   facet_nrow = NULL, legend_ncol = 3, legend_digits = 1,
   coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", title = "[Title]", subtitle = NULL,
-  col_title = "", caption = "", legend_labels = NULL,
+  col_title = "", caption = NULL, legend_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)

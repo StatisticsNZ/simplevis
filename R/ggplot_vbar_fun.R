@@ -117,6 +117,7 @@ theme_vbar <-
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -155,13 +156,14 @@ ggplot_vbar <- function(data,
                         x_scale_date_format = "%Y",
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
+                        y_scale_labels = waiver(),
                         pal = NULL,
                         width = 0.75, 
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
                         y_title = "[Y title]",
-                        caption = "",
+                        caption = NULL,
                         font_family = "Helvetica",
                         font_size_title = NULL,
                         font_size_body = NULL,
@@ -305,6 +307,7 @@ ggplot_vbar <- function(data,
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
+      labels = y_scale_labels,
       oob = scales::rescale_none
     )
   
@@ -342,6 +345,7 @@ ggplot_vbar <- function(data,
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -386,6 +390,7 @@ ggplot_vbar_col <-
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            col_scale_drop = FALSE,
            position = "stack",
            pal = NULL,
@@ -396,7 +401,7 @@ ggplot_vbar_col <-
            x_title = "[X title]",
            y_title = "[Y title]",
            col_title = "",
-           caption = "",
+           caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -583,6 +588,7 @@ ggplot_vbar_col <-
         breaks = y_scale_breaks,
         limits = y_scale_limits,
         trans = y_scale_trans,
+        labels = y_scale_labels,
         oob = scales::rescale_none
       )
     
@@ -632,6 +638,7 @@ ggplot_vbar_col <-
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -673,6 +680,7 @@ ggplot_vbar_facet <-
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -681,7 +689,7 @@ ggplot_vbar_facet <-
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           caption = "",
+           caption = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -843,6 +851,7 @@ ggplot_vbar_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -850,6 +859,7 @@ ggplot_vbar_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
     
@@ -893,6 +903,7 @@ ggplot_vbar_facet <-
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -945,6 +956,7 @@ ggplot_vbar_col_facet <-
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            col_scale_drop = FALSE,
            position = "stack",
            facet_scales = "fixed",
@@ -957,7 +969,7 @@ ggplot_vbar_col_facet <-
            x_title = "[X title]",
            y_title = "[Y title]",
            col_title = "",
-           caption = "",
+           caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -1154,6 +1166,7 @@ ggplot_vbar_col_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -1161,6 +1174,7 @@ ggplot_vbar_col_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
     

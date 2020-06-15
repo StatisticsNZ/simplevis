@@ -117,6 +117,7 @@ theme_box <-
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -161,12 +162,13 @@ ggplot_box <- function(data,
                        stat = "boxplot",
                        y_scale_zero = TRUE,
                        y_scale_trans = "identity",
+                       y_scale_labels = waiver(),
                        pal = NULL,
                        title = "[Title]",
                        subtitle = NULL,
                        x_title = "[X title]",
                        y_title = "[Y title]",
-                       caption = "",
+                       caption = NULL,
                        font_family = "Helvetica",
                        font_size_title = NULL,
                        font_size_body = NULL,
@@ -258,6 +260,7 @@ ggplot_box <- function(data,
       breaks = y_scale_breaks,
       limits = y_scale_limits,
       trans = y_scale_trans,
+      labels = y_scale_labels,
       oob = scales::rescale_none
     )
   
@@ -306,6 +309,7 @@ ggplot_box <- function(data,
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -345,6 +349,7 @@ ggplot_box_facet <-
            stat = "boxplot",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
+           y_scale_labels = waiver(),
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -352,7 +357,7 @@ ggplot_box_facet <-
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           caption = "",
+           caption = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -441,6 +446,7 @@ ggplot_box_facet <-
           breaks = y_scale_breaks,
           limits = y_scale_limits,
           trans = y_scale_trans,
+          labels = y_scale_labels,
           oob = scales::rescale_none
         )
     }
@@ -448,6 +454,7 @@ ggplot_box_facet <-
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
                            trans = y_scale_trans,
+                           labels = y_scale_labels,
                            oob = scales::rescale_none)
     }
     

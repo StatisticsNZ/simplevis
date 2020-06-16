@@ -1,3 +1,7 @@
+# simplevis 1.3.1
+
+* Added argument for user to select a label variable in leaflet_sf.
+
 # simplevis 1.3.0
 
 * Updated colour in pal_point_trend3 and pal_point_trend5.

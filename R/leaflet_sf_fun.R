@@ -189,6 +189,7 @@ leaflet_sf <- function(data,
 #' @description Map of simple features in leaflet that is coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param col_var Unquoted variable to colour the features by. Required input.
+#' @param label_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
@@ -227,6 +228,7 @@ leaflet_sf <- function(data,
 #'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
 leaflet_sf_col <- function(data,
                            col_var,
+                           label_var = NULL,
                            col_method = NULL,
                            bin_cuts = NULL,
                            quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
@@ -252,11 +254,15 @@ leaflet_sf_col <- function(data,
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   
   col_var <- rlang::enquo(col_var)
-  
-  if (remove_na == TRUE) data <- dplyr::filter_at(data, vars(!!col_var), dplyr::all_vars(!is.na(.data)))
+  label_var <- rlang::enquo(label_var)
+  if(is.null(rlang::get_expr(label_var))) label_var <- col_var
+
+  if (remove_na == TRUE) data <- data %>%
+    dplyr::filter(across(!!col_var, ~!is.na(.data)))
   
   col_var_vector <- dplyr::pull(data, !!col_var)
-  
+  label_var_vector <- dplyr::pull(data, !!label_var)
+
   if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
   if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
   
@@ -360,7 +366,7 @@ leaflet_sf_col <- function(data,
         addCircleMarkers(
           data = data,
           color = ~ pal_fun(col_var_vector),
-          label = ~ as.character(col_var_vector),
+          label = ~ htmltools::htmlEscape(label_var_vector),
           popup = popup,
           radius = radius,
           stroke = stroke,
@@ -376,7 +382,7 @@ leaflet_sf_col <- function(data,
         addCircleMarkers(
           data = data,
           color = ~ pal_fun(col_var_vector),
-          label = ~ as.character(col_var_vector),
+          label = ~ htmltools::htmlEscape(label_var_vector),
           popup = popup,
           radius = radius,
           stroke = stroke,
@@ -407,7 +413,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vector),
           popup = popup,
-          label = ~ as.character(col_var_vector),
+          label = ~ htmltools::htmlEscape(label_var_vector),
           fillOpacity = 1,
           opacity = 1,
           weight = weight
@@ -421,7 +427,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vector),
           popup = popup,
-          label = ~ as.character(col_var_vector),
+          label = ~ htmltools::htmlEscape(label_var_vector),
           fillOpacity = 1,
           opacity = 1,
           weight = weight
@@ -448,7 +454,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vector),
           popup = popup,
-          label = ~ as.character(col_var_vector),
+          label = ~ htmltools::htmlEscape(label_var_vector),
           fillOpacity = opacity, opacity = 1,
           weight = weight
         ) 
@@ -461,7 +467,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vector),
           popup = popup,
-          label = ~ as.character(col_var_vector),
+          label = ~ htmltools::htmlEscape(label_var_vector),
           fillOpacity = opacity, opacity = 1,
           weight = weight
         ) 

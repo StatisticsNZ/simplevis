@@ -35,17 +35,15 @@ leaflet_sf <- function(data,
                        shiny = FALSE,
                        basemap = "light",
                        map_id = "map") {
-  if (class(data)[1] != "sf")
-    stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
   
-  if (sf::st_is_longlat(data) == FALSE)
-    data <- sf::st_transform(data, 4326)
+  if (class(data)[1] != "sf") stop("Please use an sf object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  
+  if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
+  
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  if (is.null(pal))
-    pal <- pal_snz
+  if (is.null(pal)) pal <- pal_snz
   
   legend_id <- paste0(map_id, "_legend")
   
@@ -247,26 +245,20 @@ leaflet_sf_col <- function(data,
                            basemap = "light",
                            shiny = FALSE,
                            map_id = "map") {
-  if (class(data)[1] != "sf")
-    stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
   
-  if (sf::st_is_longlat(data) == FALSE)
-    data <- sf::st_transform(data, 4326)
+  if (class(data)[1] != "sf") stop("Please use an sf object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  
+  if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
+  
   col_var <- rlang::enquo(col_var)
   
-  if (remove_na == TRUE)
-    data <- dplyr::filter_at(data, vars(!!col_var), dplyr::all_vars(!is.na(.data)))
+  if (remove_na == TRUE) data <- dplyr::filter_at(data, vars(!!col_var), dplyr::all_vars(!is.na(.data)))
   
   col_var_vector <- dplyr::pull(data, !!col_var)
   
-  if (is.null(col_method) &
-      !is.numeric(col_var_vector))
-    col_method <- "category"
-  if (is.null(col_method) &
-      is.numeric(col_var_vector))
-    col_method <- "quantile"
+  if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
+  if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
   
   if (col_method == "category") {
     if (is.null(legend_labels)){
@@ -277,98 +269,73 @@ leaflet_sf_col <- function(data,
     
     n_col_var_values <- length(labels)
     
-    if (is.null(pal))
-      pal <- pal_point_set1[1:n_col_var_values]
-    else if (!is.null(pal))
-      pal <- pal[1:n_col_var_values]
-    if (rev_pal == TRUE)
-      pal <- rev(pal)
+    if (is.null(pal)) pal <- pal_point_set1[1:n_col_var_values]
+    else if (!is.null(pal)) pal <- pal[1:n_col_var_values]
+    if (rev_pal == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
     
-    pal_fun <-
-      colorFactor(palette = pal,
+    pal_fun <- colorFactor(palette = pal,
                   domain = col_var_vector,
                   na.color = "#A8A8A8")
   }
   else if (col_method == "bin") {
     if (!is.null(bin_cuts)) {
-      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf)))
-        warning(
-          "The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)"
-        )
-      if (dplyr::last(bin_cuts) != Inf)
-        warning("The last element of the bin_cuts vector should generally be Inf")
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      else if (!is.null(pal))
-        pal <- pal[1:(length(bin_cuts) - 1)]
-      if (rev_pal == TRUE)
-        pal <- rev(pal)
+      if (!(dplyr::first(bin_cuts) %in% c(0,-Inf))) warning("The first element of the bin_cuts vector should generally be 0 (or -Inf if there are negative values)")
+      if (dplyr::last(bin_cuts) != Inf) warning("The last element of the bin_cuts vector should generally be Inf")
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      else if (!is.null(pal)) pal <- pal[1:(length(bin_cuts) - 1)]
+      if (rev_pal == TRUE) pal <- rev(pal)
       pal <- stringr::str_sub(pal, 1, 7)
-      pal_fun <-
-        colorBin(
+      
+      pal_fun <- colorBin(
           palette = pal,
           domain = col_var_vector,
           bins = bin_cuts,
           right = FALSE,
           na.color = "#A8A8A8"
         )
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, legend_digits)
-      else if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      else if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (is.null(bin_cuts)) {
       bin_cuts <- pretty(col_var_vector)
-      if (is.null(pal))
-        pal <- viridis::viridis(length(bin_cuts) - 1)
-      else if (!is.null(pal))
-        pal <- pal[1:(length(bin_cuts) - 1)]
-      if (rev_pal == TRUE)
-        pal <- rev(pal)
+      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
+      else if (!is.null(pal)) pal <- pal[1:(length(bin_cuts) - 1)]
+      if (rev_pal == TRUE) pal <- rev(pal)
       pal <- stringr::str_sub(pal, 1, 7)
-      pal_fun <-
-        colorBin(
+      
+      pal_fun <- colorBin(
           palette = pal,
           domain = col_var_vector,
           pretty = TRUE,
           right = FALSE,
           na.color = "#A8A8A8"
         )
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(bin_cuts, legend_digits)
-      else if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      else if (!is.null(legend_labels)) labels <- legend_labels
     }
   }
   else if (col_method == "quantile") {
-    if (dplyr::first(quantile_cuts) != 0)
-      warning("The first element of the quantile_cuts vector generally always be 0")
-    if (dplyr::last(quantile_cuts) != 1)
-      warning("The last element of the quantile_cuts vector should generally be 1")
-    if (is.null(pal))
-      pal <- viridis::viridis(length(quantile_cuts) - 1)
-    else if (!is.null(pal))
-      pal <- pal[1:(length(quantile_cuts) - 1)]
-    if (rev_pal == TRUE)
-      pal <- rev(pal)
+    if (dplyr::first(quantile_cuts) != 0) warning("The first element of the quantile_cuts vector generally always be 0")
+    if (dplyr::last(quantile_cuts) != 1) warning("The last element of the quantile_cuts vector should generally be 1")
+    if (is.null(pal)) pal <- viridis::viridis(length(quantile_cuts) - 1)
+    else if (!is.null(pal)) pal <- pal[1:(length(quantile_cuts) - 1)]
+    if (rev_pal == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
-    bin_cuts <-
-      quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
-    if (anyDuplicated(bin_cuts) > 0)
-      stop("quantile_cuts do not provide unique breaks")
-    pal_fun <-
-      colorBin(
+    
+    bin_cuts <- quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
+    if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
+    
+    pal_fun <- colorBin(
         palette = pal,
         domain = col_var_vector,
         bins = bin_cuts,
         right = FALSE,
         na.color = "#A8A8A8"
       )
-    if (is.null(legend_labels))
-      labels <- numeric_legend_labels(bin_cuts, legend_digits)
-    else if (!is.null(legend_labels))
-      labels <- legend_labels
+    
+    if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+    else if (!is.null(legend_labels)) labels <- legend_labels
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))

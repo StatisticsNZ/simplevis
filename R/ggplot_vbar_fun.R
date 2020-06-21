@@ -274,6 +274,8 @@ ggplot_vbar <- function(data,
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+    if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
     
     plot <- plot +
       scale_x_date(
@@ -289,6 +291,8 @@ ggplot_vbar <- function(data,
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+    if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
     
     plot <- plot +
       scale_x_continuous(expand = c(0, 0),
@@ -549,6 +553,8 @@ ggplot_vbar_col <-
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+      if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
       
       plot <- plot +
         scale_x_date(
@@ -564,6 +570,8 @@ ggplot_vbar_col <-
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+      if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
       
       plot <- plot +
         scale_x_continuous(expand = c(0, 0),
@@ -801,6 +809,8 @@ ggplot_vbar_facet <-
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
         
         plot <- plot +
           scale_x_date(
@@ -816,6 +826,8 @@ ggplot_vbar_facet <-
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
         
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
@@ -1117,6 +1129,8 @@ ggplot_vbar_col_facet <-
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
         
         plot <- plot +
           scale_x_date(
@@ -1132,6 +1146,8 @@ ggplot_vbar_col_facet <-
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
+        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
         
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),

@@ -1,6 +1,7 @@
-# simplevis 1.3.1
+# simplevis 1.4.0
 
-* Added argument for user to select a label variable in leaflet_sf.
+* Updated vbar x scale to accomodate edge bars.
+* Added argument to select a label variable in leaflet_sf.
 
 # simplevis 1.3.0
 

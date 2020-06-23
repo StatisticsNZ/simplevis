@@ -1,20 +1,24 @@
-#use this script to draft visualisation code to then add into the app
+# use this script to draft visualisation code to then add into the app
+# these plots or maps should use character inputs that mimic the inputs that the user will select
+# they can then be copied and pasted into the server reactive data and reactive plot/map code
+# note in the server, all reactive data objects must be referred to as data()
+# note in the server, an additional isMobile = input$isMobile argument should be added for mobile users
 
 library(dplyr)
 library(simplevis)
 
-df1 <- ggplot2::diamonds
+data_folder <- "inst/shiny/template2/data/"
 
-df2 <- simplevis::example_sf_nz_river_wq %>% 
-  filter(period == "2008-2017") %>% 
-  filter(indicator %in% c("Nitrate-nitrogen", "Total nitrogen", "Ammoniacal nitrogen"))
+data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
+
+data2 <-  readRDS(paste0(data_folder, "data2.RDS"))
 
 # make a plot filtered by a user selected colour
-color_vector <- sort(unique(df1$color))
+color_vector <- sort(unique(data1$color))
 
 selected_color <- "E"
 
-plot_data <- df1 %>%
+plot_data <- data1 %>%
   filter(color == selected_color) %>% 
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity, .drop = FALSE) %>%
@@ -23,6 +27,8 @@ plot_data <- df1 %>%
   ungroup()
 
 title <- paste0("Average diamond price of colour ", selected_color, " by cut and clarity")
+x_title <- "Average price ($US thousands)"
+y_title <- "Cut"
 
 plot <- ggplot_hbar_col(data = plot_data, 
                         x_var = average_price_thousands, 
@@ -30,23 +36,25 @@ plot <- ggplot_hbar_col(data = plot_data,
                         col_var = clarity, 
                         legend_ncol = 4,
                         title = title, 
-                        x_title = "Average price ($US thousands)", 
-                        y_title = "Cut")
+                        x_title = x_title, 
+                        y_title = y_title)
 
-plot
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_remove_buttons() 
 
-# make a trend map filtered by a user selected indicator
-indicator_vector <- sort(unique(df2$indicator))
+# make a trend map filtered by a user selected metric
+metric_vector <- sort(unique(data2$indicator))
 
-selected_indicator <- "Nitrate-nitrogen"
-  
-map_data <- df2 %>%
-  filter(indicator == selected_indicator)
+selected_metric <- "Nitrate-nitrogen"
+
+map_data <- data2 %>%
+  filter(period == "2008-2017") %>% 
+  filter(indicator == selected_metric)
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
-title <- paste0("Monitored river ", selected_indicator, " trends, 2008\u201317")
-  
+title <- paste0("Monitored river ", selected_metric, " trends, 2008\u201317")
+
 leaflet_sf_col(map_data, 
                trend_category, 
                pal = pal, 

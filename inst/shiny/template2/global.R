@@ -6,18 +6,15 @@ library(dplyr)
 library(simplevis)
 
 # load data
-### read your RDS data in from data folder here ###
-df1 <-  ggplot2::diamonds
+data_folder <- "data/"
+data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
+data2 <-  readRDS(paste0(data_folder, "data2.RDS"))
 
-df2 <- simplevis::example_sf_nz_river_wq %>% 
-  filter(period == "2008-2017") %>% 
-  filter(indicator %in% c("Nitrate-nitrogen", "Total nitrogen", "Ammoniacal nitrogen"))
+# add helper vectors (if required)
+color_vector <- sort(unique(data1$color))
 
-# make any vectors required for widgets
-color_vector <- sort(unique(df1$color))
+metric_vector <- sort(unique(data2$indicator))
 
-indicator_vector <- sort(unique(df2$indicator))
-
-# choose a basemap
+# choose a basemap (if required)
 basemap <- leaflet_basemap_stack_nz()
 

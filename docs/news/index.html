@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -125,9 +125,17 @@
       <small>Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="simplevis-1-4-1" class="section level1">
+<h1 class="page-header" data-toc-text="1.4.1">
+<a href="#simplevis-1-4-1" class="anchor"></a>simplevis 1.4.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Updated templates to help users learn an easy workflow method.</li>
+</ul>
+</div>
     <div id="simplevis-1-4-0" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.0">
-<a href="#simplevis-1-4-0" class="anchor"></a>simplevis 1.4.0<small> Unreleased </small>
+<a href="#simplevis-1-4-0" class="anchor"></a>simplevis 1.4.0<small> 2020-06-22 </small>
 </h1>
 <ul>
 <li>Updated vbar x scale to accomodate edge bars.</li>
@@ -152,47 +160,16 @@
 <li>Replaced dplyr and tidyr superceded and retired functions with maturing functions.</li>
 <li>Added support for hover_var’s being adding manually as ggplotly tooltips.</li>
 <li>Added support for categoical x variables on vbar ggplots.</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-4" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.4">
-<a href="#simplevis-1-1-4" class="anchor"></a>simplevis 1.1.4<small> 2020-06-02 </small>
-</h1>
-<ul>
 <li>Dropped nz_region shape.</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-3" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.3">
-<a href="#simplevis-1-1-3" class="anchor"></a>simplevis 1.1.3<small> 2020-05-14 </small>
-</h1>
-<ul>
-<li>Renamed remove_plotly_buttons as plotly_remove_buttons</li>
-<li>Added plotly_reverse_legend and plotly_order_legend functions</li>
-<li>Added width argument to hbar and vbar functions</li>
-<li>Updated css plot minimum height</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-2" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.2">
-<a href="#simplevis-1-1-2" class="anchor"></a>simplevis 1.1.2<small> 2020-05-06 </small>
-</h1>
-<ul>
-<li>Added a req statement in the observe function of template2 to ensure the basemap is output before points are tried to be plotted</li>
-<li>Adjusted ggplot wrapper functions to default to nice sizes for mobile or desktop</li>
-<li>Updated app templates to accomodate the above</li>
-<li>Removed run_example functions</li>
-<li>Removed template3 from run_template functions</li>
-<li>Adjusted vbar expand on the x scale to be zero</li>
-</ul>
-</div>
-    <div id="simplevis-1-1-1" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.1">
-<a href="#simplevis-1-1-1" class="anchor"></a>simplevis 1.1.1<small> 2020-04-28 </small>
-</h1>
-<ul>
-<li>Updated all maps to default to quantile col_method with quartiles</li>
-<li>Added scales:show_col to all colour pals</li>
+<li>Added plotly_reverse_legend and plotly_order_legend functions.</li>
+<li>Added width argument to hbar and vbar functions.</li>
+<li>Updated css plot minimum height.</li>
+<li>Added a req statement in the observe function of template2 to ensure the basemap is output before points are tried to be plotted.</li>
+<li>Adjusted ggplot wrapper functions to default to nice sizes for mobile or desktop.</li>
+<li>Removed run_example functions.</li>
+<li>Removed template3 from run_template functions.</li>
+<li>Adjusted vbar expand on the x scale to be zero.</li>
+<li>Updated all maps to default to quantile col_method with quartiles.</li>
 </ul>
 </div>
     <div id="simplevis-1-1-0" class="section level1">
@@ -200,19 +177,19 @@
 <a href="#simplevis-1-1-0" class="anchor"></a>simplevis 1.1.0<small> 2020-04-22 </small>
 </h1>
 <ul>
-<li>Renamed pal_trend3, pal_trend5, and pal_set1 to have pal_point prefixes</li>
-<li>Updated scales for all ggplot wrapper functions to have better limits and breaks</li>
-<li>Added remove_plotly_buttons function to remove buttons other than camera</li>
-<li>Updated app templates to add theme(plot.title.position = “plot”) to mobile plots</li>
-<li>Updated css to app templates</li>
-<li>Updated the default wrapping for titles</li>
-<li>Updated vertical bar functions to support numeric or date variables on the x axis</li>
-<li>Updated line graphs to move text to geom_point so that hover is on points</li>
-<li>Updated bar code to fix free_y and free_x facet_scales, which were around the wrong way</li>
-<li>Updated bar code to allow for graphs with scale_zero = FALSE &amp; position equals “stack”</li>
-<li>Updated plot margins in graphs</li>
-<li>Updated plot label wrapping in graphs</li>
-<li>Updated caption position and wrapping length</li>
+<li>Renamed pal_trend3, pal_trend5, and pal_set1 to have pal_point prefixes.</li>
+<li>Updated scales for all ggplot wrapper functions to have better limits and breaks.</li>
+<li>Added plotly_remove_buttons function to remove buttons other than camera.</li>
+<li>Updated app templates to add theme(plot.title.position = “plot”) to mobile plots.</li>
+<li>Updated css to app templates.</li>
+<li>Updated the default wrapping for titles.</li>
+<li>Updated vertical bar functions to support numeric or date variables on the x axis.</li>
+<li>Updated line graphs to move text to geom_point so that hover is on points.</li>
+<li>Updated bar code to fix free_y and free_x facet_scales, which were around the wrong way.</li>
+<li>Updated bar code to allow for graphs with scale_zero = FALSE &amp; position equals “stack”.</li>
+<li>Updated plot margins in graphs.</li>
+<li>Updated plot label wrapping in graphs.</li>
+<li>Updated caption position and wrapping length.</li>
 </ul>
 </div>
     <div id="simplevis-1-0-0" class="section level1">

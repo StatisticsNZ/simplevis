@@ -1,10 +1,9 @@
 # template2
 # ui.R
 
-app_title <- "Template 2" ### name the app ###
+app_title <- "Template 2" # name app
 
-### function to
-mobileDetect <- # https://github.com/g3rv4/mobileDetect
+mobileDetect <- 
   function(inputId, value = 0) {
     tagList(
       singleton(tags$head(tags$script(src = "js/mobile.js"))),
@@ -31,7 +30,7 @@ shinyUI(
         sidebarLayout(
           sidebarPanel(
             width = 3, 
-            # add radioButtons and other widgets in here 
+            # add widgets
             radioButtons("plot_color", "Colour", color_vector)
           ),
           mainPanel(
@@ -61,8 +60,8 @@ shinyUI(
         sidebarLayout(
           sidebarPanel(
             width = 3,
-            # add radioButtons and other widgets in here
-            radioButtons("map_indicator", "Indicator", indicator_vector)
+            # add widgets
+            radioButtons("map_metric", "Metric", metric_vector)
           ),
           mainPanel(width = 9,
                     fluidRow(
@@ -76,10 +75,9 @@ shinyUI(
         # fluidRow(
         #   shinycssloaders::withSpinner(DT::DTOutput("table"), type = 7, color = "#A8A8A8")
         # )
-        sidebarLayout( #use this if multiple datasets
+        sidebarLayout( 
           sidebarPanel(
             width = 3,
-            ### add radioButtons and other widgets in here ###
             radioButtons("table_data", "Dataset", c("Diamonds", "Storms"))
           ),
           mainPanel(

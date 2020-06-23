@@ -6,8 +6,10 @@ library(dplyr)
 library(simplevis)
 
 # load data
-### read your RDS data in from data folder here ###
-df <-  ggplot2::diamonds
+data_folder <- "data/"
+data <-  readRDS(paste0(data_folder, "data.RDS"))
 
-color_vector <- sort(unique(df$color))
-  
+# add helper vectors (if required)
+color_vector <- sort(unique(data$color))
+
+# choose a basemap (if required)

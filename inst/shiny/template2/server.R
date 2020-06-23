@@ -5,12 +5,14 @@ shinyServer(function(input, output, session) {
   
   ### plot ###
   
-  plot_data <- reactive({ # create a reactive data object
+  plot_data <- reactive({ # create a reactive plot_data object
     
-    # add your plot_data code here 
+    # add plot_data code from make_data_vis.R
+    # change any placeholder character values to input widgets
+    
     selected_color <- input$plot_color
     
-    plot_data <- df1 %>%
+    plot_data <- data1 %>%
       filter(color == selected_color) %>% 
       mutate(cut = stringr::str_to_sentence(cut)) %>%
       group_by(cut, clarity, .drop = FALSE) %>%
@@ -23,13 +25,16 @@ shinyServer(function(input, output, session) {
   
   plot <- reactive({ # create a reactive ggplot object
     
-    # add your plot code here 
-    # remember to add isMobile = input$isMobile to simplevis functions, so that mobile plot looks good
-    # remember to refer to a reactive plot_data object as plot_data()
+    # add plot code from make_data_vis.R
+    # change any placeholder character values to input widgets
+    # refer to a reactive plot_data object as plot_data()
+    # add isMobile = input$isMobile to simplevis functions, so that the plot looks good on a mobile
     
     selected_color <- input$plot_color
     
     title <- paste0("Average diamond price of colour ", selected_color, " by cut and clarity")
+    x_title <- "Average price ($US thousands)"
+    y_title <- "Cut"
     
     plot <- ggplot_hbar_col(data = plot_data(), 
                             x_var = average_price_thousands, 
@@ -37,8 +42,8 @@ shinyServer(function(input, output, session) {
                             col_var = clarity, 
                             legend_ncol = 4,
                             title = title, 
-                            x_title = "Average price ($US thousands)", 
-                            y_title = "Cut", 
+                            x_title = x_title, 
+                            y_title = y_title, 
                             isMobile = input$isMobile)
     
     
@@ -61,33 +66,38 @@ shinyServer(function(input, output, session) {
     basemap
   })
   
-  map_data <- reactive({
-    # add your map_data code here 
-    selected_indicator <- input$map_indicator
+  map_data <- reactive({ # create a reactive map_data object
     
-    map_data <- df2 %>%
-      filter(indicator == selected_indicator)
+    selected_metric <- input$map_metric
+    
+    map_data <- data2 %>%
+      filter(period == "2008-2017") %>% 
+      filter(indicator == selected_metric)
     
     return(map_data)
   })
   
   draw_map <- function() {
+    
+    # add leaflet code from make_data_vis.R
+    # change any placeholder character values to input widgets
+    # refer to a reactive map_data object as map_data()
+    # add shiny = TRUE to simplevis functions
+    
+    # use the code below if you need a reactive radius for points that get bigger as the user zooms in 
+    
     # map_id <- "map"
     # legend_id <- paste0(map_id, "_legend")
     # map_id_zoom <- paste0(map_id, "_zoom") #reactive zoom for points
-    # radius <- ifelse(input[[map_id_zoom]] < 7, 1, 
-    #                  ifelse(input[[map_id_zoom]] < 9, 2, 
-    #                         ifelse(input[[map_id_zoom]] < 12, 3, 4)))    
+    # radius <- ifelse(input[[map_id_zoom]] < 7, 1,
+    #                  ifelse(input[[map_id_zoom]] < 9, 2,
+    #                         ifelse(input[[map_id_zoom]] < 12, 3, 4)))
     
-    # add your leaflet code here 
-    # remember to refer to a reactive map_data object as map_data()
-    # remember to add the following argument to simplevis functions: shiny = TRUE
-    
-    selected_indicator <- input$map_indicator
+    selected_metric <- input$map_metric
     
     pal <- c("#4575B4", "#D3D3D3", "#D73027")
     
-    title <- paste0("Monitored river ", selected_indicator, " trends, 2008\u201317")
+    title <- paste0("Monitored river ", selected_metric, " trends, 2008\u201317")
     
     leaflet_sf_col(map_data(), 
                    trend_category, 
@@ -98,7 +108,9 @@ shinyServer(function(input, output, session) {
   }
   
   observe({
-    req(input$map_zoom) #Wait for basemap before plotting points. Change the map prefix to your map_id if different
+    req(input$map_zoom) # wait for basemap before plotting. 
+                        # change the map id prefix, if different (e.g. input$map1_zoom)
+    
     withProgress(message = "Loading", {
       draw_map()
     })
@@ -106,33 +118,26 @@ shinyServer(function(input, output, session) {
   
   ### table ###
   
-  table_data <- reactive({   
-    ggplot2::diamonds 
+  table_data <- reactive({    # create a reactive table_data object
+    if(input$table_data == "Diamonds") ggplot2::diamonds %>% 
+      select(carat:price)
+    
+    else if(input$table_data == "Storms") dplyr::storms %>% 
+      select(name, year, month, day, status, wind, pressure)
   })
   
   output$table <- DT::renderDT(
     table_data(),
     filter = "top",
-    rownames = F,
-    options = list(pageLength = 5, scrollX = T)
+    rownames = FALSE,
+    options = list(pageLength = 5, scrollX = TRUE)
   )
   
   ### download ###
   
-  # use this code if one dataset
-  # output$download <- downloadHandler(
-  #   filename = function() {
-  #     "data.csv"
-  #   },
-  #   content = function(file) {
-  #     readr::write_csv(df1, file, na = "") # adjust data object name, as necessary 
-  #   }
-  # )
-  
-  # use this code if multiple datasets
   output$download <- downloadHandler(
     filename <- function() {
-      "data.zip"   # add a zip file called data.zip into the data subfolder
+      "data.zip"   # add data.zip into the data subfolder using code in get_app_data.R
     },
     content <- function(file) {
       file.copy("data/data.zip", file)
@@ -147,7 +152,7 @@ shinyServer(function(input, output, session) {
       "template1.zip"
     },
     content <- function(file) {
-      file.copy("data/template1.zip", file)
+      file.copy("data/template2.zip", file)
     },
     contentType = "application/zip"
   )

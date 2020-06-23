@@ -1,3 +1,7 @@
+# simplevis 1.4.2 
+
+* Updated y scale in bar and line non-facetted plots for improved handling of all zero values.
+
 # simplevis 1.4.1
 
 * Updated templates to help users learn an easy workflow method.

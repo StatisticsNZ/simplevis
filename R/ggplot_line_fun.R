@@ -306,6 +306,11 @@ ggplot_line <- function(data,
       oob = scales::rescale_none
     )
   
+  if (all(y_var_vector == 0)){
+    plot <- plot +
+      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
+  }
+
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
@@ -563,6 +568,11 @@ ggplot_line_col <-
         oob = scales::rescale_none
       )
     
+    if (all(y_var_vector == 0)){
+      plot <- plot +
+        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
+    }
+
     if (isMobile == FALSE) {
       plot <- plot +
         labs(

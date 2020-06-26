@@ -4,7 +4,7 @@
 \alias{ggplot_vbar}
 \title{Vertical bar ggplot.}
 \usage{
-ggplot_vbar(data, x_var, y_var, hover_var = NULL,
+ggplot_vbar(data, x_var, y_var, hover_var = NULL, na_grey = TRUE,
   x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(), pal = NULL,
   width = 0.75, title = "[Title]", subtitle = NULL,
@@ -22,6 +22,8 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL,
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+
+\item{na_grey}{TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE.}
 
 \item{x_scale_date_format}{Date format for x axis labels.}
 

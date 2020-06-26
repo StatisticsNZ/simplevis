@@ -114,6 +114,7 @@ theme_vbar <-
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param na_grey TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE. 
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -153,6 +154,7 @@ ggplot_vbar <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
+                        na_grey = TRUE,
                         x_scale_date_format = "%Y",
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
@@ -208,7 +210,9 @@ ggplot_vbar <- function(data,
       font_size_title = font_size_title
     )
   
-  if (lubridate::is.Date(x_var_vector)) width <- 365 * width
+  if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+  else bar_unit <- 1
+  bar_width <- bar_unit * width
 
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
@@ -226,7 +230,7 @@ ggplot_vbar <- function(data,
         sep = "<br>"
       )),
       fill = pal[1],
-      width = width
+      width = bar_width
       )
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
@@ -250,7 +254,7 @@ ggplot_vbar <- function(data,
         sep = "<br>"
       )),
       fill = pal[1],
-      width = width
+      width = bar_width
       )
   }
   
@@ -273,15 +277,11 @@ ggplot_vbar <- function(data,
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-    if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-    
+
     plot <- plot +
       scale_x_date(
         expand = c(0, 0),
         breaks = x_scale_breaks,
-        limits = x_scale_limits,
         labels = scales::date_format(x_scale_date_format)
       )
   }
@@ -290,14 +290,10 @@ ggplot_vbar <- function(data,
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-    if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-    
+
     plot <- plot +
       scale_x_continuous(expand = c(0, 0),
                          breaks = x_scale_breaks,
-                         limits = x_scale_limits,
                          oob = scales::rescale_none)
   }
   else if (is.character(x_var_vector) | is.factor(x_var_vector)){
@@ -309,7 +305,6 @@ ggplot_vbar <- function(data,
     scale_y_continuous(
       expand = c(0, 0),
       breaks = y_scale_breaks,
-      limits = y_scale_limits,
       trans = y_scale_trans,
       labels = y_scale_labels,
       oob = scales::rescale_none
@@ -320,6 +315,15 @@ ggplot_vbar <- function(data,
       ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
   }
   
+  na_data <- filter(data, is.na(!!y_var))
+  
+  if(nrow(na_data) != 0){
+    plot <- plot +
+      ggplot2::geom_col(ggplot2::aes(y = y_scale_limits[2]), 
+                        fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
+                        data = na_data)
+  }
+
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
@@ -466,8 +470,10 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       )
     
-    if (lubridate::is.Date(x_var_vector)) width <- 365 * width
-    
+    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+    else bar_unit <- 1
+    bar_width <- bar_unit * width
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
@@ -491,7 +497,7 @@ ggplot_vbar_col <-
             sep = "<br>"
           )
         ),
-        width = width,
+        width = bar_width,
         position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -522,7 +528,7 @@ ggplot_vbar_col <-
             sep = "<br>"
           )
         ),
-        width = width,
+        width = bar_width,
         position = position2)
     }
     
@@ -557,15 +563,11 @@ ggplot_vbar_col <-
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-      if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-      
+
       plot <- plot +
         scale_x_date(
           expand = c(0, 0),
           breaks = x_scale_breaks,
-          limits = x_scale_limits,
           labels = scales::date_format(x_scale_date_format)
         )
     }
@@ -574,14 +576,10 @@ ggplot_vbar_col <-
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-      if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-      if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-      
+
       plot <- plot +
         scale_x_continuous(expand = c(0, 0),
                            breaks = x_scale_breaks,
-                           limits = x_scale_limits,
                            oob = scales::rescale_none)
     }
     else if (is.character(x_var_vector) | is.factor(x_var_vector)){
@@ -653,6 +651,7 @@ ggplot_vbar_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param na_grey TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE.
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -695,6 +694,7 @@ ggplot_vbar_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
+           na_grey = TRUE, 
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
@@ -755,8 +755,10 @@ ggplot_vbar_facet <-
         font_size_title = font_size_title
       )
     
-    if (lubridate::is.Date(x_var_vector)) width <- 365 * width
-    
+    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+    else bar_unit <- 1
+    bar_width <- bar_unit * width
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(text = paste(
@@ -778,7 +780,7 @@ ggplot_vbar_facet <-
           sep = "<br>"
         )),
         fill = pal[1],
-        width = width
+        width = bar_width
         )
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -807,7 +809,7 @@ ggplot_vbar_facet <-
           sep = "<br>"
         )),
         fill = pal[1],
-        width = width
+        width = bar_width
         )
     }
     
@@ -818,15 +820,11 @@ ggplot_vbar_facet <-
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-        
+
         plot <- plot +
           scale_x_date(
             expand = c(0, 0),
             breaks = x_scale_breaks,
-            limits = x_scale_limits,
             labels = scales::date_format(x_scale_date_format)
           )
       }
@@ -835,14 +833,10 @@ ggplot_vbar_facet <-
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-        
+
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
-                             limits = x_scale_limits,
                              oob = scales::rescale_none)
       }
       else if (is.character(x_var_vector) | is.factor(x_var_vector)){
@@ -883,6 +877,15 @@ ggplot_vbar_facet <-
                            trans = y_scale_trans,
                            labels = y_scale_labels,
                            oob = scales::rescale_none)
+    }
+    
+    na_data <- filter(data, is.na(!!y_var))
+    
+    if(nrow(na_data) != 0){
+      plot <- plot +
+        ggplot2::geom_col(ggplot2::aes(y = y_scale_limits[2]), 
+                          fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
+                          data = na_data)
     }
     
     if (isMobile == FALSE) {
@@ -1049,8 +1052,10 @@ ggplot_vbar_col_facet <-
         font_size_title = font_size_title
       )
     
-    if (lubridate::is.Date(x_var_vector)) width <- 365 * width
-    
+    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+    else bar_unit <- 1
+    bar_width <- bar_unit * width
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
@@ -1079,7 +1084,7 @@ ggplot_vbar_col_facet <-
             sep = "<br>"
           )
         ),
-        width = width,
+        width = bar_width,
         position = position2)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
@@ -1115,7 +1120,7 @@ ggplot_vbar_col_facet <-
             sep = "<br>"
           )
         ),
-        width = width,
+        width = bar_width,
         position = position2)
     }
     
@@ -1138,15 +1143,11 @@ ggplot_vbar_col_facet <-
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-        
+
         plot <- plot +
           scale_x_date(
             expand = c(0, 0),
             breaks = x_scale_breaks,
-            limits = x_scale_limits,
             labels = scales::date_format(x_scale_date_format)
           )
       }
@@ -1155,14 +1156,10 @@ ggplot_vbar_col_facet <-
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-        if(x_scale_limits[1] == min(x_var_vector)) x_scale_limits <- c(NA, x_scale_limits[2])
-        if(x_scale_limits[2] == max(x_var_vector)) x_scale_limits <- c(x_scale_limits[1], NA)
-        
+
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
-                             limits = x_scale_limits,
                              oob = scales::rescale_none)
       }
       else if (is.character(x_var_vector) | is.factor(x_var_vector)){

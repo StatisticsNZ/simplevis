@@ -23,7 +23,7 @@ leaflet_sf(data, pal = NULL,
 
 \item{opacity}{The opacity of the fill. Defaults to 0.1. Only applicable to polygons.}
 
-\item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to T.}
+\item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.}
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title"}
 

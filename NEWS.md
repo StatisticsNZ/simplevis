@@ -1,3 +1,9 @@
+# simplevis 1.4.3
+
+* Deleted remove_na argument from leaflet_sf.
+* Updated vbar x_scale code to start and stop at the minimum and maximum x bar.
+* Added na_grey argument to vbar and hbar non-coloured functions.
+
 # simplevis 1.4.2 
 
 * Updated y scale in bar and line non-facetted plots for improved handling of all zero values.

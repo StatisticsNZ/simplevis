@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.3</span>
       </span>
     </div>
 
@@ -139,9 +139,8 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rev_pal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_scale_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>popup</span> <span class='kw'>=</span> <span class='kw pkg'>leafpop</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leafpop/man/popup.html'>popupTable</a></span>(<span class='fu'><a href='sentence_spaced_colnames.html'>sentence_spaced_colnames</a></span>(<span class='no'>data</span>)),
   <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>stroke</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>remove_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>shiny</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>shiny</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,11 +175,11 @@
     </tr>
     <tr>
       <th>rev_pal</th>
-      <td><p>Reverses the palette. Defaults to F.</p></td>
+      <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>col_scale_drop</th>
-      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to F.</p></td>
+      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>popup</th>
@@ -200,11 +199,7 @@
     </tr>
     <tr>
       <th>stroke</th>
-      <td><p>TRUE or FALSE of whether to draw a border around the features. Defaults to T.</p></td>
-    </tr>
-    <tr>
-      <th>remove_na</th>
-      <td><p>TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to F.</p></td>
+      <td><p>TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>title</th>

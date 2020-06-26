@@ -114,6 +114,7 @@ theme_hbar <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param na_grey TRUE or FALSE of whether to provide light grey background to NA x_var values. Defaults to TRUE. 
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
@@ -156,6 +157,7 @@ ggplot_hbar <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
+                        na_grey = TRUE,
                         x_scale_labels = waiver(),
                         x_scale_zero = TRUE,
                         x_scale_trans = "identity",
@@ -296,6 +298,15 @@ ggplot_hbar <- function(data,
       trans = x_scale_trans,
       oob = scales::rescale_none
     )
+  
+  na_data <- filter(data, is.na(!!x_var))
+  
+  if(nrow(na_data) != 0){
+    plot <- plot +
+      ggplot2::geom_col(ggplot2::aes(y = x_scale_limits[2]),
+                        fill = "#F0F0F0", width = (1 + (1 - width)),
+                        data = na_data)
+  }
   
   if (isMobile == FALSE){
     plot <- plot +
@@ -637,6 +648,7 @@ ggplot_hbar_col <-
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param na_grey TRUE or FALSE of whether to provide light grey background to NA x_var values. Defaults to TRUE. 
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -684,6 +696,7 @@ ggplot_hbar_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
+           na_grey = TRUE,
            x_scale_labels = waiver(),
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
@@ -843,6 +856,15 @@ ggplot_hbar_facet <-
                            labels = x_scale_labels,
                            trans = x_scale_trans,
                            oob = scales::rescale_none)
+    }
+    
+    na_data <- filter(data, is.na(!!x_var))
+    
+    if(nrow(na_data) != 0){
+      plot <- plot +
+        ggplot2::geom_col(ggplot2::aes(y = x_scale_limits[2]),
+                          fill = "#F0F0F0", width = (1 + (1 - width)),
+                          data = na_data)
     }
     
     if (isMobile == FALSE){

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.3</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_hbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>ggplot_hbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na_grey</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>x_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_scale_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -162,6 +162,10 @@
     <tr>
       <th>hover_var</th>
       <td><p>Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.</p></td>
+    </tr>
+    <tr>
+      <th>na_grey</th>
+      <td><p>TRUE or FALSE of whether to provide light grey background to NA x_var values. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>x_scale_labels</th>

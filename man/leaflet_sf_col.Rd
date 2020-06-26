@@ -9,9 +9,8 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
   pal = NULL, rev_pal = FALSE, col_scale_drop = FALSE,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
   radius = 1, weight = 2, opacity = 0.9, stroke = TRUE,
-  remove_na = FALSE, title = "[Title]", legend_digits = 1,
-  legend_labels = NULL, basemap = "light", shiny = FALSE,
-  map_id = "map")
+  title = "[Title]", legend_digits = 1, legend_labels = NULL,
+  basemap = "light", shiny = FALSE, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -28,9 +27,9 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
-\item{rev_pal}{Reverses the palette. Defaults to F.}
+\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 
-\item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to F.}
+\item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{popup}{HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
 
@@ -40,9 +39,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{opacity}{The opacity of polygons. Defaults to 0.9.}
 
-\item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to T.}
-
-\item{remove_na}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to F.}
+\item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.}
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 

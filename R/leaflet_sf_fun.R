@@ -8,7 +8,7 @@
 #' @param radius Radius of points. Defaults to 1.
 #' @param weight Stroke border size. Defaults to 2.
 #' @param opacity The opacity of the fill. Defaults to 0.1. Only applicable to polygons.
-#' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to T.
+#' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title"
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param legend_labels A vector of legend label values. Defaults to "Feature".
@@ -194,14 +194,13 @@ leaflet_sf <- function(data,
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
-#' @param rev_pal Reverses the palette. Defaults to F.
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to F.
+#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
 #' @param radius Radius of points. Defaults to 1.
 #' @param weight Stroke border size. Defaults to 2.
-#' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to T.
+#' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
 #' @param opacity The opacity of polygons. Defaults to 0.9.
-#' @param remove_na TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to F.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
@@ -240,7 +239,6 @@ leaflet_sf_col <- function(data,
                            weight = 2,
                            opacity = 0.9,
                            stroke = TRUE,
-                           remove_na = FALSE,
                            title = "[Title]",
                            legend_digits = 1,
                            legend_labels = NULL,
@@ -257,9 +255,6 @@ leaflet_sf_col <- function(data,
   label_var <- rlang::enquo(label_var)
   if(is.null(rlang::get_expr(label_var))) label_var <- col_var
 
-  if (remove_na == TRUE) data <- data %>%
-    dplyr::filter(across(!!col_var, ~!is.na(.data)))
-  
   col_var_vector <- dplyr::pull(data, !!col_var)
   label_var_vector <- dplyr::pull(data, !!label_var)
 

@@ -4,7 +4,7 @@
 \alias{ggplot_hbar}
 \title{Horizontal bar ggplot.}
 \usage{
-ggplot_hbar(data, x_var, y_var, hover_var = NULL,
+ggplot_hbar(data, x_var, y_var, hover_var = NULL, na_grey = TRUE,
   x_scale_labels = waiver(), x_scale_zero = TRUE,
   x_scale_trans = "identity", y_scale_rev = FALSE, pal = NULL,
   width = 0.75, title = "[Title]", subtitle = NULL,
@@ -22,6 +22,8 @@ ggplot_hbar(data, x_var, y_var, hover_var = NULL,
 \item{y_var}{Unquoted categorical variable to be on the y axis. Required input.}
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+
+\item{na_grey}{TRUE or FALSE of whether to provide light grey background to NA x_var values. Defaults to TRUE.}
 
 \item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 

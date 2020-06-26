@@ -99,7 +99,7 @@ leaflet_stars <- function(data,
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
-#' @param rev_pal Reverses the palette. Defaults to F.
+#' @param rev_pal Reverses the palette. Defaults to FALSE.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.9.
 #' @param legend_digits Select the appropriate number of decimal places for the auto legend. Defaults to 1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".

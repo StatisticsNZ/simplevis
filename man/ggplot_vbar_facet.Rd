@@ -5,7 +5,7 @@
 \title{Vertical bar ggplot that is facetted.}
 \usage{
 ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
-  x_scale_date_format = "\%Y", y_scale_zero = TRUE,
+  na_grey = TRUE, x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(),
   facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
   width = 0.75, title = "[Title]", subtitle = NULL,
@@ -25,6 +25,8 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+
+\item{na_grey}{TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE.}
 
 \item{x_scale_date_format}{Date format for x axis labels.}
 

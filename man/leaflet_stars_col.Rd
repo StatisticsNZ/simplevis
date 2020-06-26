@@ -21,7 +21,7 @@ leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
-\item{rev_pal}{Reverses the palette. Defaults to F.}
+\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.9.}
 

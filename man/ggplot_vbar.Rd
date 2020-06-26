@@ -4,15 +4,15 @@
 \alias{ggplot_vbar}
 \title{Vertical bar ggplot.}
 \usage{
-ggplot_vbar(data, x_var, y_var, hover_var = NULL, na_grey = TRUE,
+ggplot_vbar(data, x_var, y_var, hover_var = NULL,
   x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(), pal = NULL,
-  width = 0.75, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = FALSE)
+  width = 0.75, na_grey = TRUE, na_grey_hover_value = "NA",
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -22,8 +22,6 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL, na_grey = TRUE,
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
-
-\item{na_grey}{TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE.}
 
 \item{x_scale_date_format}{Date format for x axis labels.}
 
@@ -36,6 +34,10 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL, na_grey = TRUE,
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
 \item{width}{Width of bars. Defaults to 0.75.}
+
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.}
+
+\item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 
 \item{title}{Title string. Defaults to [Title].}
 

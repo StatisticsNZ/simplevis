@@ -1,3 +1,7 @@
+# simplevis 1.4.4
+
+* Improved the tooltip for NA values in vbar and hbar plots.
+ 
 # simplevis 1.4.3
 
 * Deleted remove_na argument from leaflet_sf.

@@ -114,13 +114,14 @@ theme_vbar <-
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param na_grey TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE. 
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.
+#' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -154,13 +155,14 @@ ggplot_vbar <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
-                        na_grey = TRUE,
                         x_scale_date_format = "%Y",
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
                         y_scale_labels = waiver(),
                         pal = NULL,
                         width = 0.75, 
+                        na_grey = TRUE,
+                        na_grey_hover_value = "NA",
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -319,11 +321,23 @@ ggplot_vbar <- function(data,
   
   if(nrow(na_data) != 0){
     plot <- plot +
-      ggplot2::geom_col(ggplot2::aes(y = y_scale_limits[2]), 
-                        fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
-                        data = na_data)
+      geom_col(aes(y = y_scale_limits[2],
+                   text = paste(
+                     paste0(
+                       stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                       ": ",
+                       !!x_var
+                     ),
+                     paste0(
+                       stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                       ": ",
+                       na_grey_hover_value
+                     ),
+                     sep = "<br>")), 
+               fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
+               data = na_data)
   }
-
+  
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
@@ -651,7 +665,6 @@ ggplot_vbar_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param na_grey TRUE or FALSE of whether to provide light grey background to NA y_var values. Defaults to TRUE.
 #' @param x_scale_date_format Date format for x axis labels.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -660,6 +673,8 @@ ggplot_vbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.
+#' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -694,7 +709,6 @@ ggplot_vbar_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
-           na_grey = TRUE, 
            x_scale_date_format = "%Y",
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
@@ -703,6 +717,8 @@ ggplot_vbar_facet <-
            facet_nrow = NULL,
            pal = NULL,
            width = 0.75, 
+           na_grey_hover_value = "NA",
+           na_grey = TRUE, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -883,9 +899,26 @@ ggplot_vbar_facet <-
     
     if(nrow(na_data) != 0){
       plot <- plot +
-        ggplot2::geom_col(ggplot2::aes(y = y_scale_limits[2]), 
-                          fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
-                          data = na_data)
+        geom_col(aes(y = y_scale_limits[2],
+                     text = paste(
+                       paste0(
+                         stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                         ": ",
+                         !!x_var
+                       ),
+                       paste0(
+                         stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                         ": ",
+                         !!facet_var
+                       ),
+                       paste0(
+                         stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                         ": ",
+                         na_grey_hover_value
+                       ),
+                       sep = "<br>")), 
+                 fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
+                 data = na_data)
     }
     
     if (isMobile == FALSE) {

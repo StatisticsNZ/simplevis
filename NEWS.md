@@ -1,3 +1,7 @@
+# simplevis 1.4.5 
+
+* Default the na_grey argument to FALSE, given it is unorthodox.
+
 # simplevis 1.4.4
 
 * Improved the tooltip for NA values in vbar and hbar plots.

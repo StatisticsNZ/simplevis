@@ -7,7 +7,7 @@
 ggplot_vbar(data, x_var, y_var, hover_var = NULL,
   x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(), pal = NULL,
-  width = 0.75, na_grey = TRUE, na_grey_hover_value = "NA",
+  width = 0.75, na_grey = FALSE, na_grey_hover_value = "NA",
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
@@ -35,7 +35,7 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL,
 
 \item{width}{Width of bars. Defaults to 0.75.}
 
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.}
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
 \item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 

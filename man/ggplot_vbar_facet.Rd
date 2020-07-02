@@ -8,7 +8,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(),
   facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  width = 0.75, na_grey_hover_value = "NA", na_grey = TRUE,
+  width = 0.75, na_grey_hover_value = "NA", na_grey = FALSE,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
@@ -44,7 +44,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.}
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
 \item{title}{Title string. Defaults to [Title].}
 

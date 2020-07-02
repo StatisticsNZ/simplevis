@@ -8,7 +8,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   x_scale_labels = waiver(), x_scale_zero = TRUE,
   x_scale_trans = "identity", y_scale_rev = FALSE,
   facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  width = 0.75, title = "[Title]", na_grey = TRUE,
+  width = 0.75, title = "[Title]", na_grey = FALSE,
   na_grey_hover_value = "NA", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
@@ -44,7 +44,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{title}{Title string. Defaults to [Title].}
 
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.}
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
 \item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 

@@ -120,7 +120,7 @@ theme_hbar <-
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -164,7 +164,7 @@ ggplot_hbar <- function(data,
                         y_scale_rev = FALSE,
                         pal = NULL,
                         width = 0.75, 
-                        na_grey = TRUE,
+                        na_grey = FALSE,
                         na_grey_hover_value = "NA",
                         title = "[Title]",
                         subtitle = NULL,
@@ -671,7 +671,7 @@ ggplot_hbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -721,7 +721,7 @@ ggplot_hbar_facet <-
            pal = NULL,
            width = 0.75, 
            title = "[Title]",
-           na_grey = TRUE,
+           na_grey = FALSE,
            na_grey_hover_value = "NA",
            subtitle = NULL,
            x_title = "[X title]",

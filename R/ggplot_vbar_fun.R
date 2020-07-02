@@ -120,7 +120,7 @@ theme_vbar <-
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -161,7 +161,7 @@ ggplot_vbar <- function(data,
                         y_scale_labels = waiver(),
                         pal = NULL,
                         width = 0.75, 
-                        na_grey = TRUE,
+                        na_grey = FALSE,
                         na_grey_hover_value = "NA",
                         title = "[Title]",
                         subtitle = NULL,
@@ -673,7 +673,7 @@ ggplot_vbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to TRUE.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -718,7 +718,7 @@ ggplot_vbar_facet <-
            pal = NULL,
            width = 0.75, 
            na_grey_hover_value = "NA",
-           na_grey = TRUE, 
+           na_grey = FALSE, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",

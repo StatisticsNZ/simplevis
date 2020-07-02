@@ -1,6 +1,6 @@
 # simplevis 1.4.5 
 
-* Default the na_grey argument to FALSE, given it is unorthodox.
+* Default the na_grey argument to FALSE.
 
 # simplevis 1.4.4
 

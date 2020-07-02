@@ -303,7 +303,7 @@ ggplot_hbar <- function(data,
   
   na_data <- filter(data, is.na(!!x_var))
   
-  if(nrow(na_data) != 0){
+  if(nrow(na_data) != 0 & na_grey == TRUE){
     plot <- plot +
       geom_col(aes(y = x_scale_limits[2], 
                        text = paste(
@@ -877,7 +877,7 @@ ggplot_hbar_facet <-
     
     na_data <- filter(data, is.na(!!x_var))
     
-    if(nrow(na_data) != 0){
+    if(nrow(na_data) != 0 & na_grey == TRUE){
       plot <- plot +
         geom_col(aes(y = x_scale_limits[2],
                          text = paste(

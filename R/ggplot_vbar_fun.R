@@ -319,7 +319,7 @@ ggplot_vbar <- function(data,
   
   na_data <- filter(data, is.na(!!y_var))
   
-  if(nrow(na_data) != 0){
+  if(nrow(na_data) != 0 & na_grey == TRUE){
     plot <- plot +
       geom_col(aes(y = y_scale_limits[2],
                    text = paste(
@@ -897,7 +897,7 @@ ggplot_vbar_facet <-
     
     na_data <- filter(data, is.na(!!y_var))
     
-    if(nrow(na_data) != 0){
+    if(nrow(na_data) != 0 & na_grey == TRUE){
       plot <- plot +
         geom_col(aes(y = y_scale_limits[2],
                      text = paste(

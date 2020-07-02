@@ -301,26 +301,28 @@ ggplot_hbar <- function(data,
       oob = scales::rescale_none
     )
   
-  na_data <- filter(data, is.na(!!x_var))
-  
-  if(nrow(na_data) != 0 & na_grey == TRUE){
-    plot <- plot +
-      geom_col(aes(y = x_scale_limits[2], 
-                       text = paste(
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                           ": ",
-                           !!y_var
-                         ),
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                           ": ",
-                           na_grey_hover_value
-                         ),
-                         sep = "<br>"
-                       )),
-                      fill = "#F0F0F0", width = (1 + (1 - width)),
-                      data = na_data)
+  if(na_grey == TRUE) {
+    na_data <- filter(data, is.na(!!x_var))
+    
+    if(nrow(na_data) != 0){
+      plot <- plot +
+        geom_col(aes(y = x_scale_limits[2], 
+                     text = paste(
+                       paste0(
+                         stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                         ": ",
+                         !!y_var
+                       ),
+                       paste0(
+                         stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                         ": ",
+                         na_grey_hover_value
+                       ),
+                       sep = "<br>"
+                     )),
+                 fill = "#F0F0F0", width = (1 + (1 - width)),
+                 data = na_data)
+    }
   }
   
   if (isMobile == FALSE){
@@ -875,31 +877,33 @@ ggplot_hbar_facet <-
                            oob = scales::rescale_none)
     }
     
-    na_data <- filter(data, is.na(!!x_var))
-    
-    if(nrow(na_data) != 0 & na_grey == TRUE){
-      plot <- plot +
-        geom_col(aes(y = x_scale_limits[2],
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             na_grey_hover_value
-                           ),
-                           sep = "<br>"
-                         )),
-                        fill = "#F0F0F0", width = (1 + (1 - width)),
-                        data = na_data)
+    if(na_grey == TRUE) {
+      na_data <- filter(data, is.na(!!x_var))
+      
+      if(nrow(na_data) != 0){
+        plot <- plot +
+          geom_col(aes(y = x_scale_limits[2],
+                       text = paste(
+                         paste0(
+                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                           ": ",
+                           !!y_var
+                         ),
+                         paste0(
+                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                           ": ",
+                           !!facet_var
+                         ),
+                         paste0(
+                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                           ": ",
+                           na_grey_hover_value
+                         ),
+                         sep = "<br>"
+                       )),
+                   fill = "#F0F0F0", width = (1 + (1 - width)),
+                   data = na_data)
+      }
     }
     
     if (isMobile == FALSE){

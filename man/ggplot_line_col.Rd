@@ -8,13 +8,13 @@ ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
   x_scale_date_format = "\%Y", y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(),
   col_scale_drop = FALSE, points = TRUE, point_size = 1,
-  pal = NULL, rev_pal = FALSE, legend_ncol = 3, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
-  wrap_caption = 80, isMobile = FALSE)
+  lines = TRUE, pal = NULL, rev_pal = FALSE, legend_ncol = 3,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", col_title = "", caption = NULL,
+  legend_labels = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -40,6 +40,8 @@ ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
 \item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
 
 \item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
+
+\item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 

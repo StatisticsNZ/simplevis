@@ -120,6 +120,7 @@ theme_line <-
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -160,6 +161,7 @@ ggplot_line <- function(data,
                         y_scale_labels = waiver(),
                         points = TRUE,
                         point_size = 1,
+                        lines = TRUE,
                         pal = NULL,
                         title = "[Title]",
                         subtitle = NULL,
@@ -211,7 +213,6 @@ ggplot_line <- function(data,
   
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
-      geom_line(aes(group = 1), col = pal[1]) +
       geom_point(aes(text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -233,7 +234,6 @@ ggplot_line <- function(data,
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
-      geom_line(aes(group = 1), col = pal[1]) +
       geom_point(aes(text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -259,6 +259,9 @@ ggplot_line <- function(data,
       )
   }
   
+  if (lines == TRUE) plot <- plot +
+    geom_line(aes(group = 1), col = pal[1])
+
   if(isMobile == FALSE) x_scale_n <- 6
   else if(isMobile == TRUE) x_scale_n <- 4
 
@@ -348,6 +351,7 @@ ggplot_line <- function(data,
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
@@ -395,6 +399,7 @@ ggplot_line_col <-
            col_scale_drop = FALSE,
            points = TRUE,
            point_size = 1,
+           lines = TRUE,
            pal = NULL,
            rev_pal = FALSE,
            legend_ncol = 3,
@@ -454,7 +459,6 @@ ggplot_line_col <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_line() +
         geom_point(aes(
           text = paste(
             paste0(
@@ -481,7 +485,6 @@ ggplot_line_col <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_line() +
         geom_point(aes(
           text = paste(
             paste0(
@@ -511,6 +514,9 @@ ggplot_line_col <-
         alpha = alpha
         )
     }
+    
+    if (lines == TRUE) plot <- plot +
+      geom_line() 
 
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
@@ -612,6 +618,7 @@ ggplot_line_col <-
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -656,6 +663,7 @@ ggplot_line_facet <-
            facet_nrow = NULL,
            points = TRUE,
            point_size = 1,
+           lines = TRUE,
            pal = NULL,
            title = "[Title]",
            subtitle = NULL,
@@ -710,7 +718,6 @@ ggplot_line_facet <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_line(aes(group = 1), col = pal[1]) +
         geom_point(aes(text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -737,7 +744,6 @@ ggplot_line_facet <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_line(aes(group = 1), col = pal[1]) +
         geom_point(aes(text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -768,6 +774,9 @@ ggplot_line_facet <-
         )
     }
     
+    if (lines == TRUE) plot <- plot +
+      geom_line(aes(group = 1), col = pal[1]) 
+
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if(isMobile == FALSE) x_scale_n <- 5
@@ -871,6 +880,7 @@ ggplot_line_facet <-
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -923,6 +933,7 @@ ggplot_line_col_facet <-
            facet_nrow = NULL,
            points = TRUE,
            point_size = 1,
+           lines = TRUE,
            pal = NULL,
            rev_pal = FALSE,
            legend_ncol = 3,
@@ -985,7 +996,6 @@ ggplot_line_col_facet <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_line() +
         geom_point(aes(
           text = paste(
             paste0(
@@ -1017,7 +1027,6 @@ ggplot_line_col_facet <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_line() +
         geom_point(aes(
           text = paste(
             paste0(
@@ -1052,7 +1061,9 @@ ggplot_line_col_facet <-
         alpha = alpha
         )
     }
-
+    if (lines == TRUE) plot <- plot +
+      geom_line()
+    
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()

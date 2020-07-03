@@ -1,3 +1,7 @@
+# simplevis 1.4.6
+
+* Update line functions with lines = FALSE argument.
+
 # simplevis 1.4.5 
 
 * Default the na_grey argument to FALSE.

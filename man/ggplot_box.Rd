@@ -5,13 +5,13 @@
 \title{Vertical box ggplot.}
 \usage{
 ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
-  y_scale_zero = TRUE, y_scale_trans = "identity",
-  y_scale_labels = waiver(), pal = NULL, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = FALSE)
+  x_scale_labels = waiver(), y_scale_zero = TRUE,
+  y_scale_trans = "identity", y_scale_labels = waiver(), pal = NULL,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -21,6 +21,8 @@ ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
 \item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
+
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 

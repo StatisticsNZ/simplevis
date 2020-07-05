@@ -5,14 +5,14 @@
 \title{Vertical box ggplot that is facetted.}
 \usage{
 ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
-  stat = "boxplot", y_scale_zero = TRUE, y_scale_trans = "identity",
-  y_scale_labels = waiver(), facet_scales = "fixed",
-  facet_nrow = NULL, pal = NULL, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = FALSE)
+  stat = "boxplot", x_scale_labels = waiver(), y_scale_zero = TRUE,
+  y_scale_trans = "identity", y_scale_labels = waiver(),
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{An tibble or dataframe. Required input.}
@@ -24,6 +24,8 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
+
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 

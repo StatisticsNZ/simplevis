@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.7</span>
       </span>
     </div>
 
@@ -137,14 +137,15 @@
     <pre class="usage"><span class='fu'>ggplot_hbar_col</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>x_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_scale_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col_scale_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_scale_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>y_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>col_scale_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_scale_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_label</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,6 +185,10 @@
     <tr>
       <th>y_scale_rev</th>
       <td><p>TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>y_scale_labels</th>
+      <td><p>Argument to adjust the format of the y scale labels.</p></td>
     </tr>
     <tr>
       <th>col_scale_rev</th>
@@ -264,10 +269,6 @@
     <tr>
       <th>wrap_y_title</th>
       <td><p>Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>wrap_y_label</th>
-      <td><p>Number of characters to wrap the y labels to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>wrap_col_title</th>

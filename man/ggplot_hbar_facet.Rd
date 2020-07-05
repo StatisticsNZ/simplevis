@@ -7,13 +7,14 @@
 ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   x_scale_labels = waiver(), x_scale_zero = TRUE,
   x_scale_trans = "identity", y_scale_rev = FALSE,
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  width = 0.75, title = "[Title]", na_grey = FALSE,
-  na_grey_hover_value = "NA", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
-  wrap_y_label = 50, wrap_caption = 80, isMobile = FALSE)
+  y_scale_labels = waiver(), facet_scales = "fixed",
+  facet_nrow = NULL, pal = NULL, width = 0.75, title = "[Title]",
+  na_grey = FALSE, na_grey_hover_value = "NA", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
+  isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -33,6 +34,8 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
 \item{y_scale_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
+
+\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
@@ -69,8 +72,6 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 \item{wrap_x_title}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
 
 \item{wrap_y_title}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
-
-\item{wrap_y_label}{Number of characters to wrap the y labels to. Defaults to 50. Not applicable where isMobile equals TRUE.}
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 

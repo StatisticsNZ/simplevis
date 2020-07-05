@@ -5,7 +5,7 @@
 \title{Line ggplot that is facetted.}
 \usage{
 ggplot_line_facet(data, x_var, y_var, facet_var, hover_var = NULL,
-  x_scale_date_format = "\%Y", y_scale_zero = TRUE,
+  x_scale_labels = waiver(), y_scale_zero = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(),
   facet_scales = "fixed", facet_nrow = NULL, points = TRUE,
   point_size = 1, lines = TRUE, pal = NULL, title = "[Title]",
@@ -26,7 +26,7 @@ ggplot_line_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
-\item{x_scale_date_format}{Date format for x axis labels.}
+\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 

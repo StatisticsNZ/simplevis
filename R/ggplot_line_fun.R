@@ -114,7 +114,7 @@ theme_line <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_date_format Date format for x axis labels.
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
@@ -155,7 +155,7 @@ ggplot_line <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
-                        x_scale_date_format = "%Y",
+                        x_scale_labels = waiver(),
                         y_scale_zero = TRUE,
                         y_scale_trans = "identity",
                         y_scale_labels = waiver(),
@@ -288,7 +288,7 @@ ggplot_line <- function(data,
         expand = c(0, 0),
         breaks = x_scale_breaks,
         limits = x_scale_limits,
-        labels = scales::date_format(x_scale_date_format)
+        labels = x_scale_labels
       )
   }
   else if (is.numeric(x_var_vector)) {
@@ -296,6 +296,7 @@ ggplot_line <- function(data,
       scale_x_continuous(expand = c(0, 0),
                          breaks = x_scale_breaks,
                          limits = x_scale_limits,
+                         labels = x_scale_labels,
                          oob = scales::rescale_none)
   }
   
@@ -345,6 +346,7 @@ ggplot_line <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
@@ -362,7 +364,6 @@ ggplot_line <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param x_scale_date_format Date format for x axis labels.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -392,7 +393,7 @@ ggplot_line_col <-
            y_var,
            col_var,
            hover_var = NULL,
-           x_scale_date_format = "%Y",
+           x_scale_labels = waiver(),
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
@@ -548,14 +549,15 @@ ggplot_line_col <-
           expand = c(0, 0),
           breaks = x_scale_breaks,
           limits = x_scale_limits,
-          labels = scales::date_format(x_scale_date_format)
+          labels = x_scale_labels
         )
     }
     else if (is.numeric(x_var_vector)) {
       plot <- plot +
         scale_x_continuous(expand = c(0, 0),
                            breaks = x_scale_breaks,
-                           limits = x_scale_limits)
+                           limits = x_scale_limits,
+                           labels = x_scale_labels)
     }
     
     plot <- plot +
@@ -612,7 +614,7 @@ ggplot_line_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_date_format Date format for x axis labels.
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
@@ -655,7 +657,7 @@ ggplot_line_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
-           x_scale_date_format = "%Y",
+           x_scale_labels = waiver(),
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
@@ -791,14 +793,15 @@ ggplot_line_facet <-
             expand = c(0, 0),
             breaks = x_scale_breaks,
             limits = x_scale_limits,
-            labels = scales::date_format(x_scale_date_format)
+            labels = x_scale_labels
           )
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
-                             limits = x_scale_limits)
+                             limits = x_scale_limits,
+                             labels = x_scale_labels)
       }
     }
     
@@ -873,7 +876,7 @@ ggplot_line_facet <-
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_date_format Date format for x axis labels.
+#' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
@@ -924,7 +927,7 @@ ggplot_line_col_facet <-
            col_var,
            facet_var,
            hover_var = NULL,
-           x_scale_date_format = "%Y",
+           x_scale_labels = waiver(),
            y_scale_zero = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
@@ -1090,14 +1093,15 @@ ggplot_line_col_facet <-
             expand = c(0, 0),
             breaks = x_scale_breaks,
             limits = x_scale_limits,
-            labels = scales::date_format(x_scale_date_format)
+            labels = x_scale_labels
           )
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
                              breaks = x_scale_breaks,
-                             limits = x_scale_limits)
+                             limits = x_scale_limits,
+                             labels = x_scale_labels)
       }
       
     }

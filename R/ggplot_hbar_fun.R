@@ -118,6 +118,7 @@ theme_hbar <-
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
@@ -134,7 +135,6 @@ theme_hbar <-
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_label Number of characters to wrap the y labels to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
 #' @return A ggplot object.
@@ -162,6 +162,7 @@ ggplot_hbar <- function(data,
                         x_scale_zero = TRUE,
                         x_scale_trans = "identity",
                         y_scale_rev = FALSE,
+                        y_scale_labels = waiver(),
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
@@ -178,7 +179,6 @@ ggplot_hbar <- function(data,
                         wrap_subtitle = 80,
                         wrap_x_title = 50,
                         wrap_y_title = 50,
-                        wrap_y_label = 50,
                         wrap_caption = 80,
                         isMobile = FALSE){
   
@@ -325,6 +325,9 @@ ggplot_hbar <- function(data,
     }
   }
   
+  plot <- plot +
+    scale_x_discrete(labels = y_scale_labels)
+
   if (isMobile == FALSE){
     plot <- plot +
       labs(
@@ -333,11 +336,7 @@ ggplot_hbar <- function(data,
         y = stringr::str_wrap(x_title, wrap_x_title),
         x = stringr::str_wrap(y_title, wrap_y_title),
         caption = stringr::str_wrap(caption, wrap_caption)
-      ) +
-      scale_x_discrete(
-        labels = function(x)
-          stringr::str_wrap(x, wrap_y_label)
-      )
+      ) 
   }
   else if (isMobile == TRUE){
     plot <- plot +
@@ -347,10 +346,6 @@ ggplot_hbar <- function(data,
         y = stringr::str_wrap(x_title, 20),
         x = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 50)
-      ) +
-      scale_x_discrete(
-        labels = function(x)
-          stringr::str_wrap(x, 30)
       ) 
   }
   
@@ -368,6 +363,7 @@ ggplot_hbar <- function(data,
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
@@ -388,7 +384,6 @@ ggplot_hbar <- function(data,
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_label Number of characters to wrap the y labels to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
@@ -424,6 +419,7 @@ ggplot_hbar_col <-
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
            y_scale_rev = FALSE,
+           y_scale_labels = waiver(),
            col_scale_rev = FALSE,
            col_scale_drop = FALSE,
            position = "stack",
@@ -444,7 +440,6 @@ ggplot_hbar_col <-
            wrap_subtitle = 80,
            wrap_x_title = 50,
            wrap_y_title = 50,
-           wrap_y_label = 50,
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE){
@@ -605,6 +600,7 @@ ggplot_hbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) +
+      scale_x_discrete(labels = y_scale_labels) +
       scale_y_continuous(
         expand = c(0, 0),
         breaks = x_scale_breaks,
@@ -613,7 +609,7 @@ ggplot_hbar_col <-
         trans = x_scale_trans,
         oob = scales::rescale_none
       )
-    
+
     if (isMobile == FALSE){
       plot <- plot +
         labs(
@@ -622,10 +618,6 @@ ggplot_hbar_col <-
           y = stringr::str_wrap(x_title, wrap_x_title),
           x = stringr::str_wrap(y_title, wrap_y_title),
           caption = stringr::str_wrap(caption, wrap_caption)
-        ) +
-        scale_x_discrete(
-          labels = function(x)
-            stringr::str_wrap(x, wrap_y_label)
         ) +
         guides(fill = guide_legend(
           ncol = legend_ncol,
@@ -642,10 +634,6 @@ ggplot_hbar_col <-
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
-        ) +
-        scale_x_discrete(
-          labels = function(x)
-            stringr::str_wrap(x, 30)
         ) +
         guides(fill = guide_legend(
           ncol = 1,
@@ -669,6 +657,7 @@ ggplot_hbar_col <-
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -687,7 +676,6 @@ ggplot_hbar_col <-
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_label Number of characters to wrap the y labels to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
 #' @return A ggplot object.
@@ -718,6 +706,7 @@ ggplot_hbar_facet <-
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
            y_scale_rev = FALSE,
+           y_scale_labels = waiver(),
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -736,7 +725,6 @@ ggplot_hbar_facet <-
            wrap_subtitle = 80,
            wrap_x_title = 50,
            wrap_y_title = 50,
-           wrap_y_label = 50,
            wrap_caption = 80,
            isMobile = FALSE){
     
@@ -906,6 +894,9 @@ ggplot_hbar_facet <-
       }
     }
     
+    plot <- plot +
+      scale_x_discrete(labels = y_scale_labels)
+    
     if (isMobile == FALSE){
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
@@ -918,10 +909,6 @@ ggplot_hbar_facet <-
           x = stringr::str_wrap(y_title, wrap_y_title),
           caption = stringr::str_wrap(caption, wrap_caption)
         ) +
-        scale_x_discrete(
-          labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), wrap_y_label)
-        ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
     }
     else if (isMobile == TRUE){
@@ -932,10 +919,6 @@ ggplot_hbar_facet <-
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
-        ) +
-        scale_x_discrete(
-          labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 30)
         ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
     }
@@ -955,6 +938,7 @@ ggplot_hbar_facet <-
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
@@ -977,7 +961,6 @@ ggplot_hbar_facet <-
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_label Number of characters to wrap the y labels to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
@@ -1010,6 +993,7 @@ ggplot_hbar_col_facet <-
            x_scale_zero = TRUE,
            x_scale_trans = "identity",
            y_scale_rev = FALSE,
+           y_scale_labels = waiver(),
            col_scale_rev = FALSE,
            col_scale_drop = FALSE,
            position = "stack",
@@ -1032,7 +1016,6 @@ ggplot_hbar_col_facet <-
            wrap_subtitle = 80,
            wrap_x_title = 50,
            wrap_y_title = 50,
-           wrap_y_label = 50,
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE){
@@ -1202,14 +1185,15 @@ ggplot_hbar_col_facet <-
           breaks = x_scale_breaks,
           limits = x_scale_limits,
           trans = x_scale_trans,
+          labels = x_scale_labels,
           oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           labels = x_scale_labels,
                            trans = x_scale_trans,
+                           labels = x_scale_labels,
                            oob = scales::rescale_none)
     }
     
@@ -1219,8 +1203,9 @@ ggplot_hbar_col_facet <-
         drop = col_scale_drop,
         labels = labels,
         na.value = "#A8A8A8"
-      ) 
-    
+      ) +
+      scale_x_discrete(labels = y_scale_labels)
+
     if (isMobile == FALSE){
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
@@ -1232,10 +1217,6 @@ ggplot_hbar_col_facet <-
           y = stringr::str_wrap(x_title, wrap_x_title),
           x = stringr::str_wrap(y_title, wrap_y_title),
           caption = stringr::str_wrap(caption, wrap_caption)
-        ) +
-        scale_x_discrete(
-          labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), wrap_y_label)
         ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
         guides(fill = guide_legend(
@@ -1254,10 +1235,6 @@ ggplot_hbar_col_facet <-
           y = stringr::str_wrap(x_title, 20),
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
-        ) +
-        scale_x_discrete(
-          labels = function(x)
-            stringr::str_wrap(stringr::str_replace_all(x, "__.+$", ""), 30)
         ) +
         guides(fill = guide_legend(
           ncol = 1,

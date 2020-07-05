@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.7</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_vbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_scale_date_format</span> <span class='kw'>=</span> <span class='st'>"%Y"</span>, <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>y_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>na_grey</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na_grey_hover_value</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
@@ -164,8 +164,8 @@
       <td><p>Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.</p></td>
     </tr>
     <tr>
-      <th>x_scale_date_format</th>
-      <td><p>Date format for x axis labels.</p></td>
+      <th>x_scale_labels</th>
+      <td><p>Argument to adjust the format of the x scale labels.</p></td>
     </tr>
     <tr>
       <th>y_scale_zero</th>

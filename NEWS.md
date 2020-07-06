@@ -1,33 +1,15 @@
-# simplevis 1.4.7
+# simplevis 1.5.0
 
 * added x_scale_labels and y_scale_labels for all places where missing from plots.
 * removed x_scale_date_format from plots.
 * removed wrap_y_labels argument from plots.
-
-# simplevis 1.4.6
-
 * Update line functions with lines = FALSE argument.
-
-# simplevis 1.4.5 
-
 * Default the na_grey argument to FALSE.
-
-# simplevis 1.4.4
-
 * Improved the tooltip for NA values in vbar and hbar plots.
- 
-# simplevis 1.4.3
-
 * Deleted remove_na argument from leaflet_sf.
 * Updated vbar x_scale code to start and stop at the minimum and maximum x bar.
 * Added na_grey argument to vbar and hbar non-coloured functions.
-
-# simplevis 1.4.2 
-
 * Updated y scale in bar and line non-facetted plots for improved handling of all zero values.
-
-# simplevis 1.4.1
-
 * Updated templates to help users learn an easy workflow method.
 
 # simplevis 1.4.0

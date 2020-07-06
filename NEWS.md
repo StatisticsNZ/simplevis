@@ -1,8 +1,8 @@
 # simplevis 1.5.0
 
-* added x_scale_labels and y_scale_labels for all places where missing from plots.
-* removed x_scale_date_format from plots.
-* removed wrap_y_labels argument from plots.
+* Added x_scale_labels and y_scale_labels for all places where missing from plots.
+* Removed x_scale_date_format from plots.
+* Removed wrap_y_labels argument from plots.
 * Update line functions with lines = FALSE argument.
 * Default the na_grey argument to FALSE.
 * Improved the tooltip for NA values in vbar and hbar plots.

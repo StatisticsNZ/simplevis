@@ -77,10 +77,11 @@ A ggplot object.
 Vertical box ggplot that is facetted, but not coloured.
 }
 \examples{
+library(dplyr)
 
 plot_data <- ggplot2::diamonds \%>\%
-  dplyr::mutate(price_thousands = (price / 1000)) \%>\%
-  dplyr::sample_frac(0.05)
+  mutate(price_thousands = (price / 1000)) \%>\%
+  slice_sample(prop = 0.05)
 
 plot <- ggplot_box_facet(data = plot_data, x_var = cut, y_var = price_thousands, facet_var = color,
                          facet_nrow = 4)

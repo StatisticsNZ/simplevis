@@ -116,10 +116,11 @@ A ggplot object.
 Scatter ggplot that is coloured and facetted.
 }
 \examples{
+library(dplyr)
 
 plot_data <- ggplot2::diamonds \%>\%
-  dplyr::sample_frac(0.05) \%>\%
-  dplyr::mutate(cut = stringr::str_to_sentence(cut))
+  sample_frac(0.05) \%>\%
+  mutate(cut = stringr::str_to_sentence(cut))
 
 plot <- ggplot_scatter_col_facet(data = plot_data, x_var = carat, y_var = price, col_var = color,
                                  facet_var = cut)

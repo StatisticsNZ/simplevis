@@ -88,10 +88,12 @@ A ggplot object.
 Vertical bar ggplot that is coloured, but not facetted.
 }
 \examples{
-plot_data <- dplyr::storms \%>\%
-  dplyr::mutate(status = stringr::str_to_sentence(status)) \%>\%
-  dplyr::group_by(year, status) \%>\%
-  dplyr::summarise(average_wind = round(mean(wind), 2)) 
+library(dplyr)
+
+plot_data <- storms \%>\%
+  mutate(status = stringr::str_to_sentence(status)) \%>\%
+  group_by(year, status) \%>\%
+  summarise(average_wind = round(mean(wind), 2)) 
 
 plot <- ggplot_vbar_col(data = plot_data, x_var = year, y_var = average_wind, col_var = status)
 

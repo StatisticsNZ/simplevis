@@ -140,9 +140,11 @@ theme_line <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::group_by(year) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) 
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   group_by(year) %>%
+#'   summarise(wind = round(mean(wind), 2)) 
 #'
 #'   plot <- ggplot_line(data = plot_data, x_var = year, y_var = wind,
 #'       title = "Average wind speed of Atlantic storms, 1975-2015",
@@ -277,8 +279,8 @@ ggplot_line <- function(data,
   x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
   
   if (y_scale_zero == TRUE) {
-    if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-    if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
     
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -393,10 +395,12 @@ ggplot_line <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
-#'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2))
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   mutate(status = stringr::str_to_sentence(status)) %>%
+#'   group_by(year, status) %>%
+#'   summarise(wind = round(mean(wind), 2))
 #'
 #' plot <- ggplot_line_col(data = plot_data, x_var = year, y_var = wind, col_var = status)
 #'
@@ -553,8 +557,8 @@ ggplot_line_col <-
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     
     if (y_scale_zero == TRUE) {
-      if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-      if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
       
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -672,10 +676,12 @@ ggplot_line_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
-#'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) 
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   mutate(status = stringr::str_to_sentence(status)) %>%
+#'   group_by(year, status) %>%
+#'   summarise(wind = round(mean(wind), 2)) 
 #'
 #'  plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
 #'
@@ -845,8 +851,8 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -955,10 +961,12 @@ ggplot_line_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
-#'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(wind = round(mean(wind), 2)) 
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   mutate(status = stringr::str_to_sentence(status)) %>%
+#'   group_by(year, status) %>%
+#'   summarise(wind = round(mean(wind), 2)) 
 #'
 #'  plot <- ggplot_line_col_facet(data = plot_data, x_var = year, y_var = wind, col_var = status,
 #'                                 facet_var = status)
@@ -1161,8 +1169,8 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))

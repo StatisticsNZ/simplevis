@@ -1,3 +1,7 @@
+# simplevis 1.5.1
+
+* Fixed bug where plot functions ability were not able to deal with NA values.
+
 # simplevis 1.5.0
 
 * Added default zero lines to plots for where there are negative values.

@@ -166,7 +166,7 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 map_data <- example_sf_nz_river_wq %>%
-  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
+  filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
 
 ggplot_sf(data = map_data, 
           coastline = nz, 

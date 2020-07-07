@@ -141,7 +141,9 @@ theme_scatter <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+#' library(dplyr)
+#' 
+#' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
 #' plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price,
 #'    title = "Diamond price by carat",
@@ -394,8 +396,9 @@ ggplot_scatter <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
 #' 
-#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+#' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
 #' plot <- ggplot_scatter_col(data = plot_data, x_var = carat, y_var = price, col_var = color)
 #'
@@ -592,8 +595,8 @@ ggplot_scatter_col <-
     }
     
     if (y_scale_zero == TRUE) {
-      if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-      if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
 
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -704,8 +707,9 @@ ggplot_scatter_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
 #' 
-#' plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+#' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
 #' plot <- ggplot_scatter_facet(data = plot_data, x_var = carat, y_var = price, facet_var = color)
 #'
@@ -872,8 +876,8 @@ ggplot_scatter_facet <-
     }
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
 
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -993,10 +997,11 @@ ggplot_scatter_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
 #' 
 #' plot_data <- ggplot2::diamonds %>%
-#'   dplyr::sample_frac(0.05) %>%
-#'   dplyr::mutate(cut = stringr::str_to_sentence(cut))
+#'   sample_frac(0.05) %>%
+#'   mutate(cut = stringr::str_to_sentence(cut))
 #'
 #' plot <- ggplot_scatter_col_facet(data = plot_data, x_var = carat, y_var = price, col_var = color,
 #'                                  facet_var = cut)
@@ -1245,8 +1250,8 @@ ggplot_scatter_col_facet <-
     }
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
 
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))

@@ -70,9 +70,11 @@ A ggplot object.
 Vertical box ggplot that is not coloured and not facetted.
 }
 \examples{
+library(dplyr)
+
 plot_data <- iris \%>\%
 tibble::as_tibble() \%>\%
-  dplyr::mutate(Species = stringr::str_to_sentence(Species))
+  mutate(Species = stringr::str_to_sentence(Species))
 
 plot <- ggplot_box(data = plot_data, x_var = Species, y_var = Petal.Length,
                     title = "Iris petal length by species",
@@ -84,8 +86,8 @@ plot
 plotly::ggplotly(plot, tooltip = "text")
 
 plot_data <- iris \%>\%
-  dplyr::group_by(Species) \%>\%
-  dplyr::summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
+  group_by(Species) \%>\%
+  summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
   c('ymin','lower','middle','upper','ymax')))) \%>\%
   tidyr::unnest_wider(boxplot_stats)
 

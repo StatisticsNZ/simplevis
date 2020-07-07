@@ -49,7 +49,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{title}{Title string. Defaults to [Title].}
 
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Only works where facet_scales = "fixed" or "free_y". Defaults to FALSE.}
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
 
 \item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 
@@ -86,11 +86,13 @@ A ggplot object.
 Horizontal bar ggplot that is facetted, but not coloured.
 }
 \examples{
+library(dplyr)
+
 plot_data <- ggplot2::diamonds \%>\%
-  dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
-  dplyr::group_by(cut, clarity) \%>\%
-  dplyr::summarise(average_price = mean(price)) \%>\%
-  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
+  mutate(cut = stringr::str_to_sentence(cut)) \%>\%
+  group_by(cut, clarity) \%>\%
+  summarise(average_price = mean(price)) \%>\%
+  mutate(average_price_thousands = round(average_price / 1000, 1)) 
 
 plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
                           y_var = cut, facet_var = clarity,

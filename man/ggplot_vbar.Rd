@@ -77,9 +77,11 @@ A ggplot object.
 Vertical bar ggplot that is not coloured and not facetted.
 }
 \examples{
-plot_data <- dplyr::storms \%>\%
-  dplyr::group_by(year) \%>\%
-  dplyr::summarise(average_wind = round(mean(wind), 2)) 
+library(dplyr)
+
+plot_data <- storms \%>\%
+  group_by(year) \%>\%
+  summarise(average_wind = round(mean(wind), 2)) 
 
 plot <- ggplot_vbar(data = plot_data, x_var = year, y_var = average_wind,
       title = "Average wind speed of Atlantic storms, 1975-2015",

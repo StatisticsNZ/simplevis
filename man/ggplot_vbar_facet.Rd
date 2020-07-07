@@ -47,7 +47,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Only works where facet_scales = "fixed" or "free_y". Defaults to FALSE.}
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
 
 \item{title}{Title string. Defaults to [Title].}
 
@@ -84,10 +84,12 @@ A ggplot object.
 Vertical bar ggplot that is facetted, but not coloured.
 }
 \examples{
-plot_data <- dplyr::storms \%>\%
-  dplyr::mutate(status = stringr::str_to_sentence(status)) \%>\%
-  dplyr::group_by(year, status) \%>\%
-  dplyr::summarise(average_wind = round(mean(wind), 2)) 
+library(dplyr)
+
+plot_data <- storms \%>\%
+  mutate(status = stringr::str_to_sentence(status)) \%>\%
+  group_by(year, status) \%>\%
+  summarise(average_wind = round(mean(wind), 2)) 
 
 plot <- ggplot_vbar_facet(data = plot_data, x_var = year, y_var = average_wind,
                           facet_var = status)

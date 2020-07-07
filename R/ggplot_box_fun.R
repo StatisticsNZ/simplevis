@@ -138,9 +138,11 @@ theme_box <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
+#' 
 #' plot_data <- iris %>%
 #' tibble::as_tibble() %>%
-#'   dplyr::mutate(Species = stringr::str_to_sentence(Species))
+#'   mutate(Species = stringr::str_to_sentence(Species))
 #'
 #' plot <- ggplot_box(data = plot_data, x_var = Species, y_var = Petal.Length,
 #'                     title = "Iris petal length by species",
@@ -152,8 +154,8 @@ theme_box <-
 #' plotly::ggplotly(plot, tooltip = "text")
 #'
 #' plot_data <- iris %>%
-#'   dplyr::group_by(Species) %>%
-#'   dplyr::summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
+#'   group_by(Species) %>%
+#'   summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
 #'   c('ymin','lower','middle','upper','ymax')))) %>%
 #'   tidyr::unnest_wider(boxplot_stats)
 #'
@@ -251,8 +253,8 @@ ggplot_box <- function(data,
   }
   
   if (y_scale_zero == TRUE) {
-    if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-    if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
     
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -341,10 +343,11 @@ ggplot_box <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
 #' 
 #' plot_data <- ggplot2::diamonds %>%
-#'   dplyr::mutate(price_thousands = (price / 1000)) %>%
-#'   dplyr::sample_frac(0.05)
+#'   mutate(price_thousands = (price / 1000)) %>%
+#'   slice_sample(prop = 0.05)
 #'
 #' plot <- ggplot_box_facet(data = plot_data, x_var = cut, y_var = price_thousands, facet_var = color,
 #'                          facet_nrow = 4)
@@ -453,8 +456,8 @@ ggplot_box_facet <-
 
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))

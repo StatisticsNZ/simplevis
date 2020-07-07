@@ -79,7 +79,9 @@ A ggplot object.
 Scatter ggplot that is not coloured and not facetted.
 }
 \examples{
-plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+library(dplyr)
+
+plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 
 plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price,
    title = "Diamond price by carat",

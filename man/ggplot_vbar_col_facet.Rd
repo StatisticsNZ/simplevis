@@ -95,13 +95,15 @@ A ggplot object.
 Vertical bar ggplot that is coloured and facetted.
 }
 \examples{
-plot_data <- dplyr::storms \%>\%
-  dplyr::mutate(status = stringr::str_to_sentence(status)) \%>\%
-  dplyr::group_by(year, status, name) \%>\%
-  dplyr::summarise(average_wind = round(mean(wind), 2)) \%>\%
-  dplyr::filter(year \%in\% 1975:1980) \%>\%
-  dplyr::filter(!(status == "Tropical storm" & year == 1980)) \%>\%
-  dplyr::filter(name \%in\% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
+library(dplyr)
+
+plot_data <- storms \%>\%
+  mutate(status = stringr::str_to_sentence(status)) \%>\%
+  group_by(year, status, name) \%>\%
+  summarise(average_wind = round(mean(wind), 2)) \%>\%
+  filter(year \%in\% 1975:1980) \%>\%
+  filter(!(status == "Tropical storm" & year == 1980)) \%>\%
+  filter(name \%in\% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
   "Henri", "Gloria", "Georges", "Frederic"))
 
   plot <- ggplot_vbar_col_facet(data = plot_data, x_var = year, y_var = average_wind,

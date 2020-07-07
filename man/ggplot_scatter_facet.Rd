@@ -87,8 +87,9 @@ A ggplot object.
 Scatter ggplot that is facetted, but not coloured.
 }
 \examples{
+library(dplyr)
 
-plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 
 plot <- ggplot_scatter_facet(data = plot_data, x_var = carat, y_var = price, facet_var = color)
 

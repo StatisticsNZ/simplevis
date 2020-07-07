@@ -100,11 +100,13 @@ A ggplot object.
 Horizontal bar ggplot that is coloured and facetted.
 }
 \examples{
+library(dplyr)
+
 plot_data <- ggplot2::diamonds \%>\%
-  dplyr::mutate(cut = stringr::str_to_sentence(cut)) \%>\%
-  dplyr::group_by(cut, clarity, color) \%>\%
-  dplyr::summarise(average_price = mean(price)) \%>\%
-  dplyr::mutate(average_price_thousands = round(average_price / 1000, 1))
+  mutate(cut = stringr::str_to_sentence(cut)) \%>\%
+  group_by(cut, clarity, color) \%>\%
+  summarise(average_price = mean(price)) \%>\%
+  mutate(average_price_thousands = round(average_price / 1000, 1))
 
 plot <- ggplot_hbar_col_facet(data = plot_data, x_var = average_price_thousands,
                               y_var = color, col_var = clarity, facet_var = cut,

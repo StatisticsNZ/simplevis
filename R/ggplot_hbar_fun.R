@@ -141,11 +141,13 @@ theme_hbar <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
+#' 
 #' plot_data <- ggplot2::diamonds %>%
-#'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
-#'   dplyr::group_by(cut) %>%
-#'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
+#'   mutate(cut = stringr::str_to_sentence(cut)) %>%
+#'   group_by(cut) %>%
+#'   summarise(average_price = mean(price)) %>%
+#'   mutate(average_price_thousands = round(average_price / 1000, 1)) 
 #'
 #' plot <- ggplot_hbar(data = plot_data, x_var = average_price_thousands, y_var = cut,
 #'    title = "Average diamond price by cut",
@@ -422,12 +424,14 @@ ggplot_hbar <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
+#' 
 #' plot_data <- ggplot2::diamonds %>%
-#'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
-#'   dplyr::group_by(cut, clarity) %>%
-#'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-#'   dplyr::ungroup()
+#'   mutate(cut = stringr::str_to_sentence(cut)) %>%
+#'   group_by(cut, clarity) %>%
+#'   summarise(average_price = mean(price)) %>%
+#'   mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
+#'   ungroup()
 #' 
 #' plot <- ggplot_hbar_col(data = plot_data, 
 #'                         x_var = average_price_thousands, 
@@ -704,7 +708,7 @@ ggplot_hbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Only works where facet_scales = "fixed" or "free_y". Defaults to FALSE.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -723,11 +727,13 @@ ggplot_hbar_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
+#' 
 #' plot_data <- ggplot2::diamonds %>%
-#'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
-#'   dplyr::group_by(cut, clarity) %>%
-#'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1)) 
+#'   mutate(cut = stringr::str_to_sentence(cut)) %>%
+#'   group_by(cut, clarity) %>%
+#'   summarise(average_price = mean(price)) %>%
+#'   mutate(average_price_thousands = round(average_price / 1000, 1)) 
 #'
 #' plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
 #'                           y_var = cut, facet_var = clarity,
@@ -903,6 +909,60 @@ ggplot_hbar_facet <-
           oob = scales::rescale_none
         )
       
+      if(na_grey == TRUE) {
+        na_data <- filter(data, is.na(!!x_var))
+        
+        if(nrow(na_data) != 0){
+          if(x_scale_limits[2] > 0){
+            plot <- plot +
+              geom_col(aes(y = x_scale_limits[2],
+                           text = paste(
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                               ": ",
+                               !!y_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                               ": ",
+                               !!facet_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                               ": ",
+                               na_grey_hover_value
+                             ),
+                             sep = "<br>"
+                           )),
+                       fill = "#F0F0F0", width = (1 + (1 - width)),
+                       data = na_data)
+          }
+          if(x_scale_limits[1] < 0){
+            plot <- plot +
+              geom_col(aes(y = x_scale_limits[1],
+                           text = paste(
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                               ": ",
+                               !!y_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                               ": ",
+                               !!facet_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                               ": ",
+                               na_grey_hover_value
+                             ),
+                             sep = "<br>"
+                           )),
+                       fill = "#F0F0F0", width = (1 + (1 - width)),
+                       data = na_data)
+          }
+        }
+      }
     }
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
@@ -910,61 +970,6 @@ ggplot_hbar_facet <-
                            labels = x_scale_labels,
                            trans = x_scale_trans,
                            oob = scales::rescale_none)
-    }
-    
-    if(na_grey == TRUE) {
-      na_data <- filter(data, is.na(!!x_var))
-      
-      if(nrow(na_data) != 0){
-        if(x_scale_limits[2] > 0){
-          plot <- plot +
-            geom_col(aes(y = x_scale_limits[2],
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             na_grey_hover_value
-                           ),
-                           sep = "<br>"
-                         )),
-                     fill = "#F0F0F0", width = (1 + (1 - width)),
-                     data = na_data)
-        }
-        if(x_scale_limits[1] < 0){
-          plot <- plot +
-            geom_col(aes(y = x_scale_limits[1],
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             na_grey_hover_value
-                           ),
-                           sep = "<br>"
-                         )),
-                     fill = "#F0F0F0", width = (1 + (1 - width)),
-                     data = na_data)
-        }
-      }
     }
     
     plot <- plot +
@@ -1046,11 +1051,13 @@ ggplot_hbar_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(dplyr)
+#' 
 #' plot_data <- ggplot2::diamonds %>%
-#'   dplyr::mutate(cut = stringr::str_to_sentence(cut)) %>%
-#'   dplyr::group_by(cut, clarity, color) %>%
-#'   dplyr::summarise(average_price = mean(price)) %>%
-#'   dplyr::mutate(average_price_thousands = round(average_price / 1000, 1))
+#'   mutate(cut = stringr::str_to_sentence(cut)) %>%
+#'   group_by(cut, clarity, color) %>%
+#'   summarise(average_price = mean(price)) %>%
+#'   mutate(average_price_thousands = round(average_price / 1000, 1))
 #'
 #' plot <- ggplot_hbar_col_facet(data = plot_data, x_var = average_price_thousands,
 #'                               y_var = color, col_var = clarity, facet_var = cut,

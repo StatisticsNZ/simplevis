@@ -140,9 +140,11 @@ theme_vbar <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::group_by(year) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) 
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   group_by(year) %>%
+#'   summarise(average_wind = round(mean(wind), 2)) 
 #'
 #' plot <- ggplot_vbar(data = plot_data, x_var = year, y_var = average_wind,
 #'       title = "Average wind speed of Atlantic storms, 1975-2015",
@@ -264,8 +266,8 @@ ggplot_vbar <- function(data,
   }
   
   if (y_scale_zero == TRUE) {
-    if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-    if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
     
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -433,10 +435,12 @@ ggplot_vbar <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
-#'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) 
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   mutate(status = stringr::str_to_sentence(status)) %>%
+#'   group_by(year, status) %>%
+#'   summarise(average_wind = round(mean(wind), 2)) 
 #'
 #' plot <- ggplot_vbar_col(data = plot_data, x_var = year, y_var = average_wind, col_var = status)
 #'
@@ -596,8 +600,8 @@ ggplot_vbar_col <-
     }
 
     if (y_scale_zero == TRUE) {
-      if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-      if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
       
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -719,7 +723,7 @@ ggplot_vbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Only works where facet_scales = "fixed" or "free_y". Defaults to FALSE.
+#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -738,10 +742,12 @@ ggplot_vbar_col <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
-#'   dplyr::group_by(year, status) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) 
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   mutate(status = stringr::str_to_sentence(status)) %>%
+#'   group_by(year, status) %>%
+#'   summarise(average_wind = round(mean(wind), 2)) 
 #'
 #' plot <- ggplot_vbar_facet(data = plot_data, x_var = year, y_var = average_wind,
 #'                           facet_var = status)
@@ -913,8 +919,8 @@ ggplot_vbar_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -937,6 +943,59 @@ ggplot_vbar_facet <-
           labels = y_scale_labels,
           oob = scales::rescale_none
         )
+      
+      if(na_grey == TRUE) {
+        na_data <- filter(data, is.na(!!y_var))
+        
+        if(nrow(na_data) != 0){
+          if(y_scale_limits[2] > 0){
+            plot <- plot +
+              geom_col(aes(y = y_scale_limits[2],
+                           text = paste(
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                               ": ",
+                               !!x_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                               ": ",
+                               !!facet_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                               ": ",
+                               na_grey_hover_value
+                             ),
+                             sep = "<br>")), 
+                       fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
+                       data = na_data)
+          }
+          if(y_scale_limits[1] < 0){
+            plot <- plot +
+              geom_col(aes(y = y_scale_limits[1],
+                           text = paste(
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                               ": ",
+                               !!x_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                               ": ",
+                               !!facet_var
+                             ),
+                             paste0(
+                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                               ": ",
+                               na_grey_hover_value
+                             ),
+                             sep = "<br>")), 
+                       fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
+                       data = na_data)
+          }
+        }
+      }
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
@@ -944,59 +1003,6 @@ ggplot_vbar_facet <-
                            trans = y_scale_trans,
                            labels = y_scale_labels,
                            oob = scales::rescale_none)
-    }
-    
-    if(na_grey == TRUE) {
-      na_data <- filter(data, is.na(!!y_var))
-      
-      if(nrow(na_data) != 0){
-        if(y_scale_limits[2] > 0){
-          plot <- plot +
-            geom_col(aes(y = y_scale_limits[2],
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             na_grey_hover_value
-                           ),
-                           sep = "<br>")), 
-                     fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
-                     data = na_data)
-        }
-        if(y_scale_limits[1] < 0){
-          plot <- plot +
-            geom_col(aes(y = y_scale_limits[1],
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             na_grey_hover_value
-                           ),
-                           sep = "<br>")), 
-                     fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
-                     data = na_data)
-        }
-      }
     }
     
     if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
@@ -1073,13 +1079,15 @@ ggplot_vbar_facet <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' plot_data <- dplyr::storms %>%
-#'   dplyr::mutate(status = stringr::str_to_sentence(status)) %>%
-#'   dplyr::group_by(year, status, name) %>%
-#'   dplyr::summarise(average_wind = round(mean(wind), 2)) %>%
-#'   dplyr::filter(year %in% 1975:1980) %>%
-#'   dplyr::filter(!(status == "Tropical storm" & year == 1980)) %>%
-#'   dplyr::filter(name %in% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
+#' library(dplyr)
+#' 
+#' plot_data <- storms %>%
+#'   mutate(status = stringr::str_to_sentence(status)) %>%
+#'   group_by(year, status, name) %>%
+#'   summarise(average_wind = round(mean(wind), 2)) %>%
+#'   filter(year %in% 1975:1980) %>%
+#'   filter(!(status == "Tropical storm" & year == 1980)) %>%
+#'   filter(name %in% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
 #'   "Henri", "Gloria", "Georges", "Frederic"))
 #'
 #'   plot <- ggplot_vbar_col_facet(data = plot_data, x_var = year, y_var = average_wind,
@@ -1290,8 +1298,8 @@ ggplot_vbar_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))

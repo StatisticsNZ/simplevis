@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <h1 data-toc-skip>simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2020-07-07</h4>
+            <h4 class="date">2020-07-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -234,7 +234,7 @@
 <li>They do <em>not</em> support conversion to interactive objects through <code>plotly::gglotly</code>.</li>
 </ul>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">map_data</span> <span class="kw">&lt;-</span> <span class="no">example_sf_nz_river_wq</span> <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">period</span> <span class="kw">==</span> <span class="st">"1998-2017"</span>, <span class="no">indicator</span> <span class="kw">==</span> <span class="st">"Nitrate-nitrogen"</span>)
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">period</span> <span class="kw">==</span> <span class="st">"1998-2017"</span>, <span class="no">indicator</span> <span class="kw">==</span> <span class="st">"Nitrate-nitrogen"</span>)
 
 <span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
           <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,

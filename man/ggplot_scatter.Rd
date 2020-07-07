@@ -5,8 +5,9 @@
 \title{Scatter ggplot.}
 \usage{
 ggplot_scatter(data, x_var, y_var, hover_var = NULL, size = 1,
-  pal = NULL, x_scale_zero = TRUE, x_scale_trans = "identity",
-  x_scale_labels = waiver(), y_scale_zero = TRUE,
+  pal = NULL, x_scale_zero = TRUE, x_scale_zero_line = TRUE,
+  x_scale_trans = "identity", x_scale_labels = waiver(),
+  y_scale_zero = TRUE, y_scale_zero_line = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(),
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
@@ -29,11 +30,15 @@ ggplot_scatter(data, x_var, y_var, hover_var = NULL, size = 1,
 
 \item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
+\item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
 \item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+
+\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 

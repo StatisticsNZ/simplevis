@@ -6,15 +6,15 @@
 \usage{
 ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
   x_scale_labels = waiver(), x_scale_zero = TRUE,
-  x_scale_trans = "identity", y_scale_rev = FALSE,
-  y_scale_labels = waiver(), facet_scales = "fixed",
-  facet_nrow = NULL, pal = NULL, width = 0.75, title = "[Title]",
-  na_grey = FALSE, na_grey_hover_value = "NA", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = FALSE)
+  x_scale_zero_line = TRUE, x_scale_trans = "identity",
+  y_scale_rev = FALSE, y_scale_labels = waiver(),
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  width = 0.75, title = "[Title]", na_grey = FALSE,
+  na_grey_hover_value = "NA", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -30,6 +30,8 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 \item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
+
+\item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
@@ -47,7 +49,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{title}{Title string. Defaults to [Title].}
 
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
+\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Only works where facet_scales = "fixed" or "free_y". Defaults to FALSE.}
 
 \item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 

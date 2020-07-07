@@ -116,6 +116,7 @@ theme_line <-
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
@@ -157,6 +158,7 @@ ggplot_line <- function(data,
                         hover_var = NULL,
                         x_scale_labels = waiver(),
                         y_scale_zero = TRUE,
+                        y_scale_zero_line = TRUE,
                         y_scale_trans = "identity",
                         y_scale_labels = waiver(),
                         points = TRUE,
@@ -188,6 +190,12 @@ ggplot_line <- function(data,
   
   if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
   if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
+  
+  min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
+  max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
+    y_scale_zero <- FALSE
+  }
   
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -269,7 +277,9 @@ ggplot_line <- function(data,
   x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
   
   if (y_scale_zero == TRUE) {
-    y_scale_breaks <- pretty(c(0, y_var_vector))
+    if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+    if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+    
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
   }
@@ -314,6 +324,11 @@ ggplot_line <- function(data,
     plot <- plot +
       ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
   }
+  
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    plot <- plot +
+      ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+  }
 
   if (isMobile == FALSE) {
     plot <- plot +
@@ -348,6 +363,7 @@ ggplot_line <- function(data,
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
@@ -395,6 +411,7 @@ ggplot_line_col <-
            hover_var = NULL,
            x_scale_labels = waiver(),
            y_scale_zero = TRUE,
+           y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
            col_scale_drop = FALSE,
@@ -435,6 +452,12 @@ ggplot_line_col <-
     if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a line plot")
+    
+    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
+    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
+      y_scale_zero <- FALSE
+    }
     
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
@@ -530,7 +553,9 @@ ggplot_line_col <-
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     
     if (y_scale_zero == TRUE) {
-      y_scale_breaks <- pretty(c(0, y_var_vector))
+      if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+      if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+      
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
     }
@@ -580,6 +605,11 @@ ggplot_line_col <-
       plot <- plot +
         ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
     }
+    
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+      plot <- plot +
+        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+    }
 
     if (isMobile == FALSE) {
       plot <- plot +
@@ -616,6 +646,7 @@ ggplot_line_col <-
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
@@ -659,6 +690,7 @@ ggplot_line_facet <-
            hover_var = NULL,
            x_scale_labels = waiver(),
            y_scale_zero = TRUE,
+           y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
            facet_scales = "fixed",
@@ -695,6 +727,12 @@ ggplot_line_facet <-
     if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a line plot")
+    
+    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
+    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
+      y_scale_zero <- FALSE
+    }
     
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
@@ -807,7 +845,9 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
@@ -836,6 +876,11 @@ ggplot_line_facet <-
                            trans = y_scale_trans,
                            labels = y_scale_labels,
                            oob = scales::rescale_none)
+    }
+    
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+      plot <- plot +
+        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE) {
@@ -878,6 +923,7 @@ ggplot_line_facet <-
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
 #' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
@@ -929,6 +975,7 @@ ggplot_line_col_facet <-
            hover_var = NULL,
            x_scale_labels = waiver(),
            y_scale_zero = TRUE,
+           y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
            col_scale_drop = FALSE,
@@ -974,6 +1021,12 @@ ggplot_line_col_facet <-
     if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a line plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a line plot")
+    
+    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
+    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
+      y_scale_zero <- FALSE
+    }
     
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
@@ -1108,7 +1161,9 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(max(y_var_vector) > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min(y_var_vector) < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
@@ -1146,6 +1201,11 @@ ggplot_line_col_facet <-
         labels = labels,
         na.value = "#A8A8A8"
       ) 
+    
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+      plot <- plot +
+        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+    }
 
     if (isMobile == FALSE) {
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 

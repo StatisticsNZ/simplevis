@@ -6,8 +6,9 @@
 \usage{
 ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
   hover_var = NULL, size = 1, pal = NULL, rev_pal = FALSE,
-  remove_na = FALSE, x_scale_zero = TRUE, x_scale_trans = "identity",
-  x_scale_labels = waiver(), y_scale_zero = TRUE,
+  remove_na = FALSE, x_scale_zero = TRUE, x_scale_zero_line = TRUE,
+  x_scale_trans = "identity", x_scale_labels = waiver(),
+  y_scale_zero = TRUE, y_scale_zero_line = TRUE,
   y_scale_trans = "identity", y_scale_labels = waiver(),
   col_scale_drop = FALSE, facet_scales = "fixed", facet_nrow = NULL,
   col_method = NULL, quantile_cuts = NULL, quantile_by_facet = TRUE,
@@ -42,11 +43,15 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
+\item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
 \item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+
+\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
 \item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 

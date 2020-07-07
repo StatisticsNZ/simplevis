@@ -1,8 +1,8 @@
 # simplevis 1.5.0
 
-* Added default zero lines for where there are negative values.
-* Updated scales to deal with negative values better.
-* Added x_scale_labels and y_scale_labels for all places where missing from plots.
+* Added default zero lines to plots for where there are negative values.
+* Updated plot scales to deal with negative values better.
+* Added x_scale_labels and y_scale_labels for arguments to all plots.
 * Removed x_scale_date_format from plots.
 * Removed wrap_y_labels argument from plots.
 * Update line functions with lines = FALSE argument.

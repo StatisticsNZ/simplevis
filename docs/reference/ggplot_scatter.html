@@ -135,8 +135,9 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_scatter</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_scale_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>x_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_scale_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>y_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
@@ -176,6 +177,10 @@
       <td><p>TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.</p></td>
     </tr>
     <tr>
+      <th>x_scale_zero_line</th>
+      <td><p>TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
       <th>x_scale_trans</th>
       <td><p>A string specifying a transformation for the x scale. Defaults to "identity".</p></td>
     </tr>
@@ -186,6 +191,10 @@
     <tr>
       <th>y_scale_zero</th>
       <td><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>y_scale_zero_line</th>
+      <td><p>TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>y_scale_trans</th>

@@ -283,8 +283,8 @@ ggplot_hbar <- function(data,
   else if(isMobile == TRUE) x_scale_n <- 4
   
   if (x_scale_zero == TRUE) {
-    if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-    if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+    if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+    if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
     
     if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
@@ -616,8 +616,8 @@ ggplot_hbar_col <-
     else if(isMobile == TRUE) x_scale_n <- 4
     
     if (x_scale_zero == TRUE) {
-      if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-      if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+      if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
       
       if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
       x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
@@ -884,8 +884,8 @@ ggplot_hbar_facet <-
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
-        if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+        if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+        if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
         
         if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
@@ -1254,8 +1254,8 @@ ggplot_hbar_col_facet <-
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
-        if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+        if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+        if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
         
         if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
         x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))

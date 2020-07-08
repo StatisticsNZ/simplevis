@@ -1,6 +1,7 @@
 # simplevis 1.5.1
 
 * Fixed bug where plot functions ability were not able to deal with NA values.
+* Fixed bug where vbar and vbar_col were not handling all zero values appropriately.
 
 # simplevis 1.5.0
 

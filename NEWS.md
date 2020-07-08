@@ -1,3 +1,8 @@
+# simplevis 1.5.2
+
+* Fixed bug where hbar and hbar_col were not handling all zero values appropriately.
+* Fixed bug where line and line_col were not handling all zero values appropriately.
+
 # simplevis 1.5.1
 
 * Fixed bug where plot functions ability were not able to deal with NA values.

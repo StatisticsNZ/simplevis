@@ -279,34 +279,43 @@ ggplot_hbar <- function(data,
       width = width)
   }
   
-  if(isMobile == FALSE) x_scale_n <- 6
-  else if(isMobile == TRUE) x_scale_n <- 4
-  
-  if (x_scale_zero == TRUE) {
-    if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-    if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+  if (all(x_var_vector == 0, na.rm = TRUE)) {
+    x_scale_limits <- c(0, 1)
     
-    if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    plot <- plot +
+      ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_scale_labels, limits = x_scale_limits)
   }
-  else if (x_scale_zero == FALSE) {
-    if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-    if(x_scale_trans == "log10") {
-      x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-      x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+  else ({
+    
+    if(isMobile == FALSE) x_scale_n <- 6
+    else if(isMobile == TRUE) x_scale_n <- 4
+    
+    if (x_scale_zero == TRUE) {
+      if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+      if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      
+      if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     }
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-  }
-  
-  plot <- plot +
-    scale_y_continuous(
-      expand = c(0, 0),
-      breaks = x_scale_breaks,
-      limits = x_scale_limits,
-      labels = x_scale_labels,
-      trans = x_scale_trans,
-      oob = scales::rescale_none
-    )
+    else if (x_scale_zero == FALSE) {
+      if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+      if(x_scale_trans == "log10") {
+        x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
+        x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      }
+      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    }
+    
+    plot <- plot +
+      scale_y_continuous(
+        expand = c(0, 0),
+        breaks = x_scale_breaks,
+        limits = x_scale_limits,
+        labels = x_scale_labels,
+        trans = x_scale_trans,
+        oob = scales::rescale_none
+      )
+  })
   
   if(na_grey == TRUE) {
     na_data <- filter(data, is.na(!!x_var))
@@ -612,26 +621,45 @@ ggplot_hbar_col <-
       
     }
     
-    if(isMobile == FALSE) x_scale_n <- 6
-    else if(isMobile == TRUE) x_scale_n <- 4
-    
-    if (x_scale_zero == TRUE) {
-      if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-      if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+    if (all(x_var_vector == 0, na.rm = TRUE)) {
+      x_scale_limits <- c(0, 1)
       
-      if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      plot <- plot +
+        ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_scale_labels, limits = x_scale_limits)
     }
-    else if (x_scale_zero == FALSE) {
-      if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      if(x_scale_trans == "log10") {
-        x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-        x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+    else ({
+      
+      if(isMobile == FALSE) x_scale_n <- 6
+      else if(isMobile == TRUE) x_scale_n <- 4
+      
+      if (x_scale_zero == TRUE) {
+        if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
+        if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+        
+        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
       }
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
-    }
-    
-    if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
+      else if (x_scale_zero == FALSE) {
+        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
+        if(x_scale_trans == "log10") {
+          x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
+          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+        }
+        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      }
+      
+      if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
+      
+      plot <- plot +
+        scale_y_continuous(
+          expand = c(0, 0),
+          breaks = x_scale_breaks,
+          limits = x_scale_limits,
+          labels = x_scale_labels,
+          trans = x_scale_trans,
+          oob = scales::rescale_none
+        )
+    })
     
     plot <- plot +
       scale_fill_manual(
@@ -640,16 +668,8 @@ ggplot_hbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) +
-      scale_x_discrete(labels = y_scale_labels) +
-      scale_y_continuous(
-        expand = c(0, 0),
-        breaks = x_scale_breaks,
-        limits = x_scale_limits,
-        labels = x_scale_labels,
-        trans = x_scale_trans,
-        oob = scales::rescale_none
-      )
-    
+      scale_x_discrete(labels = y_scale_labels)
+
     if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)

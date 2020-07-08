@@ -299,7 +299,7 @@ ggplot_vbar <- function(data,
     y_scale_limits <- c(0, 1)
       
     plot <- plot +
-      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = y_scale_limits)
+      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_scale_labels, limits = y_scale_limits)
   }
   else ({
     if (y_scale_zero == TRUE) {
@@ -636,7 +636,7 @@ ggplot_vbar_col <-
       y_scale_limits <- c(0, 1)
       
       plot <- plot +
-        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = y_scale_limits)
+        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_scale_labels, limits = y_scale_limits)
     }
     else ({
       if (y_scale_zero == TRUE) {

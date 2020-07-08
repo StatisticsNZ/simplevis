@@ -278,22 +278,6 @@ ggplot_line <- function(data,
   x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
   x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
   
-  if (y_scale_zero == TRUE) {
-    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
-    
-    if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-  }
-  else if (y_scale_zero == FALSE) {
-    if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
-    if(y_scale_trans == "log10") {
-      y_scale_breaks <- pretty(c(0, y_var_vector)) 
-      y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-    }
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-  }
-  
   if (lubridate::is.Date(x_var_vector)) {
     plot <- plot +
       scale_x_date(
@@ -312,21 +296,41 @@ ggplot_line <- function(data,
                          oob = scales::rescale_none)
   }
   
-  plot <- plot +
-    scale_y_continuous(
-      expand = c(0, 0),
-      breaks = y_scale_breaks,
-      limits = y_scale_limits,
-      trans = y_scale_trans,
-      labels = y_scale_labels,
-      oob = scales::rescale_none
-    )
-  
-  if (all(y_var_vector == 0)){
+  if (all(y_var_vector == 0, na.rm = TRUE)) {
+    y_scale_limits <- c(0, 1)
+    
     plot <- plot +
-      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
+      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_scale_labels, limits = y_scale_limits)
   }
-  
+  else ({
+    
+    if (y_scale_zero == TRUE) {
+      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+      
+      if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+    }
+    else if (y_scale_zero == FALSE) {
+      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+      if(y_scale_trans == "log10") {
+        y_scale_breaks <- pretty(c(0, y_var_vector)) 
+        y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      }
+      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+    }
+    
+    plot <- plot +
+      scale_y_continuous(
+        expand = c(0, 0),
+        breaks = y_scale_breaks,
+        limits = y_scale_limits,
+        trans = y_scale_trans,
+        labels = y_scale_labels,
+        oob = scales::rescale_none
+      )
+  })
+
   if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -556,22 +560,6 @@ ggplot_line_col <-
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
     x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
     
-    if (y_scale_zero == TRUE) {
-      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
-      
-      if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    }
-    else if (y_scale_zero == FALSE) {
-      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
-      if(y_scale_trans == "log10") {
-        y_scale_breaks <- pretty(c(0, y_var_vector)) 
-        y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-      }
-      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
-    }
-
     if (lubridate::is.Date(x_var_vector)) {
       plot <- plot +
         scale_x_date(
@@ -589,27 +577,49 @@ ggplot_line_col <-
                            labels = x_scale_labels)
     }
     
+    if (all(y_var_vector == 0, na.rm = TRUE)) {
+      y_scale_limits <- c(0, 1)
+      
+      plot <- plot +
+        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_scale_labels, limits = y_scale_limits)
+    }
+    else ({
+      
+      if (y_scale_zero == TRUE) {
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        
+        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+      }
+      else if (y_scale_zero == FALSE) {
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans == "log10") {
+          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+        }
+        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+      }
+  
+      plot <- plot +
+        scale_y_continuous(
+          expand = c(0, 0),
+          breaks = y_scale_breaks,
+          limits = y_scale_limits,
+          trans = y_scale_trans,
+          labels = y_scale_labels,
+          oob = scales::rescale_none
+        )
+    })
+    
     plot <- plot +
       scale_color_manual(
         values = pal,
         drop = col_scale_drop,
         labels = labels,
         na.value = "#A8A8A8"
-      ) +
-      scale_y_continuous(
-        expand = c(0, 0),
-        breaks = y_scale_breaks,
-        limits = y_scale_limits,
-        trans = y_scale_trans,
-        labels = y_scale_labels,
-        oob = scales::rescale_none
-      )
-    
-    if (all(y_var_vector == 0)){
-      plot <- plot +
-        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = c(0, 1), limits = c(0, 1))
-    }
-    
+      ) 
+
     if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)

@@ -266,7 +266,7 @@ ggplot_vbar <- function(data,
   }
   
   if (lubridate::is.Date(x_var_vector)) {
-    if(isMobile == FALSE) x_scale_n <- 6
+    if(isMobile == FALSE) x_scale_n <- 5
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -279,7 +279,7 @@ ggplot_vbar <- function(data,
       )
   }
   else if (is.numeric(x_var_vector)) {
-    if(isMobile == FALSE) x_scale_n <- 6
+    if(isMobile == FALSE) x_scale_n <- 5
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -594,7 +594,7 @@ ggplot_vbar_col <-
     if (is.null(legend_labels)) labels <- waiver()
     
     if (lubridate::is.Date(x_var_vector)) {
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -607,7 +607,7 @@ ggplot_vbar_col <-
         )
     }
     else if (is.numeric(x_var_vector)) {
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)

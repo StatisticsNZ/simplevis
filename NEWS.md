@@ -1,3 +1,7 @@
+# simplevis 1.5.3
+
+* Update desktop pretty x breaks to n = 5 on desktop.
+
 # simplevis 1.5.2
 
 * Fixed bug where hbar and hbar_col were not handling all zero values appropriately.

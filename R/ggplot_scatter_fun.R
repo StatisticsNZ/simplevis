@@ -266,7 +266,7 @@ ggplot_scatter <- function(data,
       size = size)
   }
   
-  if(isMobile == FALSE) x_scale_n <- 6
+  if(isMobile == FALSE) x_scale_n <- 5
   else if(isMobile == TRUE) x_scale_n <- 4
   
   if (x_scale_zero == TRUE) {
@@ -575,7 +575,7 @@ ggplot_scatter_col <-
     if (rev_pal == TRUE) pal <- rev(pal)
     if (remove_na == TRUE) na.translate <- FALSE
     if (remove_na == FALSE) na.translate <- TRUE
-    if(isMobile == FALSE) x_scale_n <- 6
+    if(isMobile == FALSE) x_scale_n <- 5
     else if(isMobile == TRUE) x_scale_n <- 4
     
     if (x_scale_zero == TRUE) {
@@ -845,7 +845,7 @@ ggplot_scatter_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
@@ -1219,7 +1219,7 @@ ggplot_scatter_col_facet <-
       )
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {

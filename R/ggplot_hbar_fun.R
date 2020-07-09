@@ -287,7 +287,7 @@ ggplot_hbar <- function(data,
   }
   else ({
     
-    if(isMobile == FALSE) x_scale_n <- 6
+    if(isMobile == FALSE) x_scale_n <- 5
     else if(isMobile == TRUE) x_scale_n <- 4
     
     if (x_scale_zero == TRUE) {
@@ -629,7 +629,7 @@ ggplot_hbar_col <-
     }
     else ({
       
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
@@ -900,7 +900,7 @@ ggplot_hbar_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
@@ -1270,7 +1270,7 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- 6
+      if(isMobile == FALSE) x_scale_n <- 5
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {

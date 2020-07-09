@@ -8,8 +8,9 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
   hover_var = NULL, size = 1, pal = NULL, rev_pal = FALSE,
   remove_na = FALSE, x_scale_zero = TRUE, x_scale_zero_line = TRUE,
   x_scale_trans = "identity", x_scale_labels = waiver(),
-  y_scale_zero = TRUE, y_scale_zero_line = TRUE,
-  y_scale_trans = "identity", y_scale_labels = waiver(),
+  x_scale_pretty_n = 5, y_scale_zero = TRUE,
+  y_scale_zero_line = TRUE, y_scale_trans = "identity",
+  y_scale_labels = waiver(), y_scale_pretty_n = 5,
   col_scale_drop = FALSE, facet_scales = "fixed", facet_nrow = NULL,
   col_method = NULL, quantile_cuts = NULL, quantile_by_facet = TRUE,
   bin_cuts = NULL, legend_ncol = 3, legend_digits = 1,
@@ -49,6 +50,8 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
 
+\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
+
 \item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
@@ -56,6 +59,8 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 
 \item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+
+\item{y_scale_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 

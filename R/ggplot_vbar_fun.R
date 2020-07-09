@@ -115,10 +115,12 @@ theme_vbar <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
@@ -159,10 +161,12 @@ ggplot_vbar <- function(data,
                         y_var,
                         hover_var = NULL,
                         x_scale_labels = waiver(),
+                        x_scale_pretty_n = 6,
                         y_scale_zero = TRUE,
                         y_scale_zero_line = TRUE,
                         y_scale_trans = "identity",
                         y_scale_labels = waiver(),
+                        y_scale_pretty_n = 5,
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
@@ -266,7 +270,7 @@ ggplot_vbar <- function(data,
   }
   
   if (lubridate::is.Date(x_var_vector)) {
-    if(isMobile == FALSE) x_scale_n <- 5
+    if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -279,7 +283,7 @@ ggplot_vbar <- function(data,
       )
   }
   else if (is.numeric(x_var_vector)) {
-    if(isMobile == FALSE) x_scale_n <- 5
+    if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
     else if(isMobile == TRUE) x_scale_n <- 4
     
     x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -303,16 +307,16 @@ ggplot_vbar <- function(data,
   }
   else ({
     if (y_scale_zero == TRUE) {
-      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
+      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
       
       if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
     }
     else if (y_scale_zero == FALSE) {
-      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
       if(y_scale_trans == "log10") {
-        y_scale_breaks <- pretty(c(0, y_var_vector)) 
+        y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
         y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
       }
       y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -409,10 +413,12 @@ ggplot_vbar <- function(data,
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -457,10 +463,12 @@ ggplot_vbar_col <-
            col_var,
            hover_var = NULL,
            x_scale_labels = waiver(),
+           x_scale_pretty_n = 6,
            y_scale_zero = TRUE,
            y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
+           y_scale_pretty_n = 5,
            col_scale_drop = FALSE,
            position = "stack",
            pal = NULL,
@@ -594,7 +602,7 @@ ggplot_vbar_col <-
     if (is.null(legend_labels)) labels <- waiver()
     
     if (lubridate::is.Date(x_var_vector)) {
-      if(isMobile == FALSE) x_scale_n <- 5
+      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -607,7 +615,7 @@ ggplot_vbar_col <-
         )
     }
     else if (is.numeric(x_var_vector)) {
-      if(isMobile == FALSE) x_scale_n <- 5
+      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
       else if(isMobile == TRUE) x_scale_n <- 4
       
       x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -640,16 +648,16 @@ ggplot_vbar_col <-
     }
     else ({
       if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
       else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
         if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -723,10 +731,12 @@ ggplot_vbar_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -770,10 +780,12 @@ ggplot_vbar_facet <-
            facet_var,
            hover_var = NULL,
            x_scale_labels = waiver(),
+           x_scale_pretty_n = 5,
            y_scale_zero = TRUE,
            y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
+           y_scale_pretty_n = 5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -894,7 +906,7 @@ ggplot_vbar_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if (lubridate::is.Date(x_var_vector)) {
-        if(isMobile == FALSE) x_scale_n <- 5
+        if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -907,7 +919,7 @@ ggplot_vbar_facet <-
           )
       }
       else if (is.numeric(x_var_vector)) {
-        if(isMobile == FALSE) x_scale_n <- 5
+        if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -927,16 +939,16 @@ ggplot_vbar_facet <-
 
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
       else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
         if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -1056,10 +1068,12 @@ ggplot_vbar_facet <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param x_scale_labels Argument to adjust the format of the x scale labels.
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -1112,10 +1126,12 @@ ggplot_vbar_col_facet <-
            facet_var,
            hover_var = NULL,
            x_scale_labels = waiver(),
+           x_scale_pretty_n = 5,
            y_scale_zero = TRUE,
            y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
+           y_scale_pretty_n = 5,
            col_scale_drop = FALSE,
            position = "stack",
            facet_scales = "fixed",
@@ -1274,7 +1290,7 @@ ggplot_vbar_col_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if (lubridate::is.Date(x_var_vector)) {
-        if(isMobile == FALSE) x_scale_n <- 5
+        if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -1287,7 +1303,7 @@ ggplot_vbar_col_facet <-
           )
       }
       else if (is.numeric(x_var_vector)) {
-        if(isMobile == FALSE) x_scale_n <- 5
+        if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
         else if(isMobile == TRUE) x_scale_n <- 4
         
         x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
@@ -1306,16 +1322,16 @@ ggplot_vbar_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
       else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
         if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))

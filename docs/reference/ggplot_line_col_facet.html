@@ -135,9 +135,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_line_col_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>,
-  <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y_scale_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>y_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>col_scale_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_scale_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_scale_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_scale_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>y_scale_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_scale_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_scale_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>col_scale_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rev_pal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -179,6 +180,10 @@
       <td><p>Argument to adjust the format of the x scale labels.</p></td>
     </tr>
     <tr>
+      <th>x_scale_pretty_n</th>
+      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.</p></td>
+    </tr>
+    <tr>
       <th>y_scale_zero</th>
       <td><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
     </tr>
@@ -193,6 +198,10 @@
     <tr>
       <th>y_scale_labels</th>
       <td><p>Argument to adjust the format of the y scale labels.</p></td>
+    </tr>
+    <tr>
+      <th>y_scale_pretty_n</th>
+      <td><p>The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.</p></td>
     </tr>
     <tr>
       <th>col_scale_drop</th>

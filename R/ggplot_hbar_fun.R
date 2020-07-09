@@ -118,6 +118,7 @@ theme_hbar <-
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -165,6 +166,7 @@ ggplot_hbar <- function(data,
                         x_scale_zero = TRUE,
                         x_scale_zero_line = TRUE,
                         x_scale_trans = "identity",
+                        x_scale_pretty_n = 6,
                         y_scale_rev = FALSE,
                         y_scale_labels = waiver(),
                         pal = NULL,
@@ -287,7 +289,7 @@ ggplot_hbar <- function(data,
   }
   else ({
     
-    if(isMobile == FALSE) x_scale_n <- 5
+    if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
     else if(isMobile == TRUE) x_scale_n <- 4
     
     if (x_scale_zero == TRUE) {
@@ -405,6 +407,7 @@ ggplot_hbar <- function(data,
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
@@ -464,6 +467,7 @@ ggplot_hbar_col <-
            x_scale_zero = TRUE,
            x_scale_zero_line = TRUE,
            x_scale_trans = "identity",
+           x_scale_pretty_n = 6,
            y_scale_rev = FALSE,
            y_scale_labels = waiver(),
            col_scale_rev = FALSE,
@@ -629,7 +633,7 @@ ggplot_hbar_col <-
     }
     else ({
       
-      if(isMobile == FALSE) x_scale_n <- 5
+      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
@@ -722,6 +726,7 @@ ggplot_hbar_col <-
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -774,6 +779,7 @@ ggplot_hbar_facet <-
            x_scale_zero = TRUE,
            x_scale_zero_line = TRUE,
            x_scale_trans = "identity",
+           x_scale_pretty_n = 5,
            y_scale_rev = FALSE,
            y_scale_labels = waiver(),
            facet_scales = "fixed",
@@ -900,7 +906,7 @@ ggplot_hbar_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- 5
+      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {
@@ -1041,6 +1047,7 @@ ggplot_hbar_facet <-
 #' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
 #' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
 #' @param col_scale_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
@@ -1099,6 +1106,7 @@ ggplot_hbar_col_facet <-
            x_scale_zero = TRUE,
            x_scale_zero_line = TRUE,
            x_scale_trans = "identity",
+           x_scale_pretty_n = 5,
            y_scale_rev = FALSE,
            y_scale_labels = waiver(),
            col_scale_rev = FALSE,
@@ -1270,7 +1278,7 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- 5
+      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
       else if(isMobile == TRUE) x_scale_n <- 4
       
       if (x_scale_zero == TRUE) {

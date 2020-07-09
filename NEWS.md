@@ -1,6 +1,6 @@
 # simplevis 1.5.3
 
-* Update desktop pretty x breaks to n = 5 on desktop.
+* Update to allow user to modify pretty n algorathim for numeric breaks.
 
 # simplevis 1.5.2
 

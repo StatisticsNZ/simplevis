@@ -7,16 +7,16 @@
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   hover_var = NULL, x_scale_labels = waiver(), x_scale_zero = TRUE,
   x_scale_zero_line = TRUE, x_scale_trans = "identity",
-  y_scale_rev = FALSE, y_scale_labels = waiver(),
-  col_scale_rev = FALSE, col_scale_drop = FALSE, position = "stack",
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  legend_ncol = 3, width = 0.75, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
-  wrap_caption = 80, isMobile = FALSE)
+  x_scale_pretty_n = 5, y_scale_rev = FALSE,
+  y_scale_labels = waiver(), col_scale_rev = FALSE,
+  col_scale_drop = FALSE, position = "stack", facet_scales = "fixed",
+  facet_nrow = NULL, pal = NULL, legend_ncol = 3, width = 0.75,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", col_title = "", caption = NULL,
+  legend_labels = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -38,6 +38,8 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
 \item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
+
+\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
 \item{y_scale_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 

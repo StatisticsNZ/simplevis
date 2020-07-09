@@ -120,6 +120,7 @@ theme_box <-
 #' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_scale_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -169,6 +170,7 @@ ggplot_box <- function(data,
                        y_scale_zero_line = TRUE,
                        y_scale_trans = "identity",
                        y_scale_labels = waiver(),
+                       y_scale_pretty_n = 5,
                        pal = NULL,
                        title = "[Title]",
                        subtitle = NULL,
@@ -253,16 +255,16 @@ ggplot_box <- function(data,
   }
   
   if (y_scale_zero == TRUE) {
-    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
+    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
     
     if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
   }
   else if (y_scale_zero == FALSE) {
-    if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+    if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
     if(y_scale_trans == "log10") {
-      y_scale_breaks <- pretty(c(0, y_var_vector)) 
+      y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
       y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
     }
     y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
@@ -323,6 +325,7 @@ ggplot_box <- function(data,
 #' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_scale_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
 #' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -366,6 +369,7 @@ ggplot_box_facet <-
            y_scale_zero_line = TRUE,
            y_scale_trans = "identity",
            y_scale_labels = waiver(),
+           y_scale_pretty_n = 5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -456,16 +460,16 @@ ggplot_box_facet <-
 
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector))
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0))
+        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
+        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
         
         if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
       }
       else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector)
+        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
         if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector)) 
+          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
           y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
         }
         y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))

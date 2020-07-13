@@ -7,8 +7,7 @@
 leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
   0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, rev_pal = FALSE,
   opacity = 1, legend_digits = 1, title = "[Title]",
-  legend_labels = NULL, basemap = "light", shiny = FALSE,
-  map_id = "map")
+  legend_labels = NULL, basemap = "light", map_id = "map")
 }
 \arguments{
 \item{data}{A stars object with dimensions x and y, and 1 attribute layer with crs in wgs84 (epsg4326). Required input.}
@@ -32,8 +31,6 @@ leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 \item{legend_labels}{A vector of legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
-
-\item{shiny}{TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.}
 
 \item{map_id}{This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

@@ -10,7 +10,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
   radius = 1, weight = 2, opacity = 0.9, stroke = TRUE,
   title = "[Title]", legend_digits = 1, legend_labels = NULL,
-  basemap = "light", shiny = FALSE, map_id = "map")
+  basemap = "light", map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -48,8 +48,6 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 \item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
-
-\item{shiny}{TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

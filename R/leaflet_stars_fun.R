@@ -9,7 +9,6 @@
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param legend_labels A vector of legend label values. Defaults to "[Array]".
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param shiny TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.
 #' @param map_id This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -22,12 +21,12 @@ leaflet_stars <- function(data,
                           legend_digits = 1,
                           legend_labels = "[Array]",
                           basemap = "light",
-                          shiny = FALSE,
                           map_id = "map") {
-  if (class(data) != "stars")
-    stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  shiny <- shiny::isRunning()
+  
+  if (class(data) != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   data <- methods::as(data, "Raster")
   data <- projectRasterForLeaflet(data, method = "ngb")
@@ -105,7 +104,6 @@ leaflet_stars <- function(data,
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
 #' @param legend_labels A vector of legend label values. Defaults to NULL, which results in automatic labels.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param shiny TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.
 #' @param map_id This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -124,12 +122,12 @@ leaflet_stars_col <- function(data,
                               title = "[Title]",
                               legend_labels = NULL,
                               basemap = "light",
-                              shiny = FALSE,
                               map_id = "map") {
-  if (class(data) != "stars")
-    stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data)))
-    stop("Please assign a coordinate reference system")
+  
+  shiny <- shiny::isRunning()
+  
+  if (class(data) != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   # data <- data %>% dplyr::select(1)
   

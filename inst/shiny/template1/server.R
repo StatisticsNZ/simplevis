@@ -28,8 +28,7 @@ shinyServer(function(input, output, session) {
     # add plot code from make_data_vis.R
     # change any placeholder character values to input widgets
     # refer to a reactive plot_data object as plot_data()
-    # add isMobile = input$isMobile to simplevis functions, so that the plot looks good on a mobile
-    
+
     selected_color <- input$plot_color
     
     title <- paste0("Average diamond price of colour ", selected_color, " by cut and clarity")
@@ -43,8 +42,7 @@ shinyServer(function(input, output, session) {
                             legend_ncol = 4,
                             title = title, 
                             x_title = x_title, 
-                            y_title = y_title, 
-                            isMobile = input$isMobile)
+                            y_title = y_title)
     
     
     return(plot)

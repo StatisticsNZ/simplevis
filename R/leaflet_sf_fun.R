@@ -13,7 +13,6 @@
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param legend_labels A vector of legend label values. Defaults to "Feature".
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param shiny TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -32,9 +31,10 @@ leaflet_sf <- function(data,
                        title = "[Title]",
                        legend_digits = 1,
                        legend_labels = "[Feature]",
-                       shiny = FALSE,
                        basemap = "light",
                        map_id = "map") {
+  
+  shiny <- shiny::isRunning()
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -205,7 +205,6 @@ leaflet_sf <- function(data,
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param shiny TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -243,8 +242,9 @@ leaflet_sf_col <- function(data,
                            legend_digits = 1,
                            legend_labels = NULL,
                            basemap = "light",
-                           shiny = FALSE,
                            map_id = "map") {
+  
+  shiny <- shiny::isRunning()
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -480,3 +480,5 @@ leaflet_sf_col <- function(data,
       )
   }
 }
+
+

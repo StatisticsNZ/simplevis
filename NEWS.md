@@ -1,6 +1,14 @@
+# simplevis 1.5.5
+
+* Made isMobile default to NULL, which selects input$isMobile in apps and FALSE otherwise.
+
+# simplevis 1.5.4 
+
+* Removed shiny logical argument from leaflet functions.
+
 # simplevis 1.5.3
 
-* Update to allow user to modify pretty n algorathim for numeric breaks.
+* Added argument to modify pretty n algorathim for numeric breaks.
 
 # simplevis 1.5.2
 

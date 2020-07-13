@@ -8,7 +8,7 @@ leaflet_sf(data, pal = NULL,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
   radius = 1, weight = 2, opacity = 0.1, stroke = TRUE,
   title = "[Title]", legend_digits = 1, legend_labels = "[Feature]",
-  shiny = FALSE, basemap = "light", map_id = "map")
+  basemap = "light", map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -30,8 +30,6 @@ leaflet_sf(data, pal = NULL,
 \item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{legend_labels}{A vector of legend label values. Defaults to "Feature".}
-
-\item{shiny}{TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

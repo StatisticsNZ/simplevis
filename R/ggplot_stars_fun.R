@@ -104,7 +104,7 @@ theme_stars <-
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile. TRUEhis enable mobile compatible apps, where apps have ui mobileDetect function defined and mobile.js file in www/js/ folder  https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -123,7 +123,14 @@ ggplot_stars <- function(data,
                          wrap_title = 70,
                          wrap_subtitle = 80,
                          wrap_caption = 80,
-                         isMobile = FALSE) {
+                         isMobile = NULL) {
+  
+  if(is.null(isMobile)){
+    shiny <- shiny::isRunning()
+    if(shiny == FALSE) isMobile <- FALSE
+    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+    else isMobile <- FALSE
+  }
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -231,7 +238,7 @@ ggplot_stars <- function(data,
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile. TRUEhis enable mobile compatible apps, where apps have ui mobileDetect function defined and mobile.js file in www/js/ folder  https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -261,7 +268,14 @@ ggplot_stars_col <- function(data,
                              wrap_subtitle = 80,
                              wrap_col_title = 25,
                              wrap_caption = 80,
-                             isMobile = FALSE) {
+                             isMobile = NULL) {
+  
+  if(is.null(isMobile)){
+    shiny <- shiny::isRunning()
+    if(shiny == FALSE) isMobile <- FALSE
+    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+    else isMobile <- FALSE
+  }
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -433,7 +447,7 @@ ggplot_stars_col <- function(data,
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile. TRUEhis enable mobile compatible apps, where apps have ui mobileDetect function defined and mobile.js file in www/js/ folder  https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -461,7 +475,14 @@ ggplot_stars_facet <- function(data,
                                wrap_title = 70,
                                wrap_subtitle = 80,
                                wrap_caption = 80,
-                               isMobile = FALSE) {
+                               isMobile = NULL) {
+  
+  if(is.null(isMobile)){
+    shiny <- shiny::isRunning()
+    if(shiny == FALSE) isMobile <- FALSE
+    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+    else isMobile <- FALSE
+  }
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -593,7 +614,7 @@ ggplot_stars_facet <- function(data,
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile. TRUEhis enable mobile compatible apps, where apps have ui mobileDetect function defined and mobile.js file in www/js/ folder  https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -633,7 +654,14 @@ ggplot_stars_col_facet <- function(data,
                                    wrap_subtitle = 80,
                                    wrap_col_title = 25,
                                    wrap_caption = 80,
-                                   isMobile = FALSE) {
+                                   isMobile = NULL) {
+  
+  if(is.null(isMobile)){
+    shiny <- shiny::isRunning()
+    if(shiny == FALSE) isMobile <- FALSE
+    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+    else isMobile <- FALSE
+  }
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")

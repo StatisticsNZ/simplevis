@@ -15,7 +15,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, hover_var = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
-  wrap_caption = 80, isMobile = FALSE)
+  wrap_caption = 80, isMobile = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -84,7 +84,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.}
+\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.}
 }
 \value{
 A ggplot object.

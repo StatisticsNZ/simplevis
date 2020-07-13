@@ -29,3 +29,7 @@ NULL
 #'
 #' @importFrom rlang !!
 NULL
+
+#' Shiny input
+utils::globalVariables("input")
+

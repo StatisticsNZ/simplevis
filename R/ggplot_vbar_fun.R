@@ -138,7 +138,7 @@ theme_vbar <-
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -184,8 +184,16 @@ ggplot_vbar <- function(data,
                         wrap_x_title = 50,
                         wrap_y_title = 50,
                         wrap_caption = 80,
-                        isMobile = FALSE) {
+                        isMobile = NULL
+                        ) {
   
+  if(is.null(isMobile)){
+    shiny <- shiny::isRunning()
+    if(shiny == FALSE) isMobile <- FALSE
+    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+    else isMobile <- FALSE
+  }
+
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
   y_var <- rlang::enquo(y_var) #numeric var
@@ -397,7 +405,7 @@ ggplot_vbar <- function(data,
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
         x = stringr::str_wrap(x_title, 20),
-        y = stringr::str_wrap(y_title, 20),
+        y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       )
   }
@@ -440,7 +448,7 @@ ggplot_vbar <- function(data,
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -490,7 +498,14 @@ ggplot_vbar_col <-
            wrap_y_title = 50,
            wrap_col_title = 25,
            wrap_caption = 80,
-           isMobile = FALSE) {
+           isMobile = NULL) {
+
+    if(is.null(isMobile)){
+      shiny <- shiny::isRunning()
+      if(shiny == FALSE) isMobile <- FALSE
+      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+      else isMobile <- FALSE
+    }
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #numeric var
@@ -709,7 +724,7 @@ ggplot_vbar_col <-
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
-          y = stringr::str_wrap(y_title, 20),
+          y = stringr::str_wrap(y_title, 30),
           caption = stringr::str_wrap(caption, 50)
         ) +
         guides(fill = guide_legend(
@@ -756,7 +771,7 @@ ggplot_vbar_col <-
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -805,7 +820,14 @@ ggplot_vbar_facet <-
            wrap_x_title = 50,
            wrap_y_title = 50,
            wrap_caption = 80,
-           isMobile = FALSE) {
+           isMobile = NULL) {
+    
+    if(is.null(isMobile)){
+      shiny <- shiny::isRunning()
+      if(shiny == FALSE) isMobile <- FALSE
+      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+      else isMobile <- FALSE
+    }
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #categorical var
@@ -1050,7 +1072,7 @@ ggplot_vbar_facet <-
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
-          y = stringr::str_wrap(y_title, 20),
+          y = stringr::str_wrap(y_title, 30),
           caption = stringr::str_wrap(caption, 50)
         ) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
@@ -1097,7 +1119,7 @@ ggplot_vbar_facet <-
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shinyapp, isMobile should be specified as input$isMobile.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -1155,7 +1177,14 @@ ggplot_vbar_col_facet <-
            wrap_y_title = 50,
            wrap_col_title = 25,
            wrap_caption = 80,
-           isMobile = FALSE) {
+           isMobile = NULL) {
+    
+    if(is.null(isMobile)){
+      shiny <- shiny::isRunning()
+      if(shiny == FALSE) isMobile <- FALSE
+      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
+      else isMobile <- FALSE
+    }
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #categorical var
@@ -1395,7 +1424,7 @@ ggplot_vbar_col_facet <-
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
           x = stringr::str_wrap(x_title, 20),
-          y = stringr::str_wrap(y_title, 20),
+          y = stringr::str_wrap(y_title, 30),
           caption = stringr::str_wrap(caption, 50)
         ) +
         guides(fill = guide_legend(

@@ -2,7 +2,6 @@
 # these plots or maps should use character inputs that mimic the inputs that the user will select
 # they can then be copied and pasted into the server reactive data and reactive plot/map code
 # note in the server, all reactive data objects must be referred to as data()
-# note in the server, an additional isMobile = input$isMobile argument should be added for mobile users
 
 library(dplyr)
 library(simplevis)

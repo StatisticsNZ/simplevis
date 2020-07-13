@@ -14,7 +14,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   col_title = "", caption = NULL, legend_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
+  wrap_col_title = 25, wrap_caption = 80, isMobile = NULL)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -79,7 +79,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. In a shiny app, use input$isMobile if your app is able to retreive this input. A method to do this is described at https://g3rv4.com/2017/08/shiny-detect-mobile-browsers}
+\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.}
 }
 \value{
 A ggplot object.

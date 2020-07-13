@@ -6,7 +6,7 @@
 \usage{
 leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
   legend_digits = 1, legend_labels = "[Array]", basemap = "light",
-  shiny = FALSE, map_id = "map")
+  map_id = "map")
 }
 \arguments{
 \item{data}{A stars object with dimensions x and y with crs in wgs84 (epsg4326). Required input.}
@@ -22,8 +22,6 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
 \item{legend_labels}{A vector of legend label values. Defaults to "[Array]".}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
-
-\item{shiny}{TRUE or FALSE for whether the map is being run within a shiny app. Defaults to FALSE.}
 
 \item{map_id}{This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

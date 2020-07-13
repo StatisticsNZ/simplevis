@@ -254,10 +254,10 @@ leaflet_sf_col <- function(data,
   col_var <- rlang::enquo(col_var)
   label_var <- rlang::enquo(label_var)
   if(is.null(rlang::get_expr(label_var))) label_var <- col_var
-
+  
   col_var_vector <- dplyr::pull(data, !!col_var)
   label_var_vector <- dplyr::pull(data, !!label_var)
-
+  
   if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
   if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
   
@@ -276,8 +276,8 @@ leaflet_sf_col <- function(data,
     pal <- stringr::str_sub(pal, 1, 7)
     
     pal_fun <- colorFactor(palette = pal,
-                  domain = col_var_vector,
-                  na.color = "#A8A8A8")
+                           domain = col_var_vector,
+                           na.color = "#A8A8A8")
   }
   else if (col_method == "bin") {
     if (!is.null(bin_cuts)) {
@@ -289,12 +289,12 @@ leaflet_sf_col <- function(data,
       pal <- stringr::str_sub(pal, 1, 7)
       
       pal_fun <- colorBin(
-          palette = pal,
-          domain = col_var_vector,
-          bins = bin_cuts,
-          right = FALSE,
-          na.color = "#A8A8A8"
-        )
+        palette = pal,
+        domain = col_var_vector,
+        bins = bin_cuts,
+        right = FALSE,
+        na.color = "#A8A8A8"
+      )
       if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
       else if (!is.null(legend_labels)) labels <- legend_labels
     }
@@ -306,12 +306,12 @@ leaflet_sf_col <- function(data,
       pal <- stringr::str_sub(pal, 1, 7)
       
       pal_fun <- colorBin(
-          palette = pal,
-          domain = col_var_vector,
-          pretty = TRUE,
-          right = FALSE,
-          na.color = "#A8A8A8"
-        )
+        palette = pal,
+        domain = col_var_vector,
+        pretty = TRUE,
+        right = FALSE,
+        na.color = "#A8A8A8"
+      )
       if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
       else if (!is.null(legend_labels)) labels <- legend_labels
     }
@@ -328,12 +328,12 @@ leaflet_sf_col <- function(data,
     if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
     
     pal_fun <- colorBin(
-        palette = pal,
-        domain = col_var_vector,
-        bins = bin_cuts,
-        right = FALSE,
-        na.color = "#A8A8A8"
-      )
+      palette = pal,
+      domain = col_var_vector,
+      bins = bin_cuts,
+      right = FALSE,
+      na.color = "#A8A8A8"
+    )
     
     if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
     else if (!is.null(legend_labels)) labels <- legend_labels
@@ -480,5 +480,4 @@ leaflet_sf_col <- function(data,
       )
   }
 }
-
 

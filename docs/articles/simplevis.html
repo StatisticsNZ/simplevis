@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -369,26 +369,15 @@
 <p>For a simple app, the basic method to create an app is:</p>
 <ul>
 <li>run <code><a href="../reference/run_template.html">run_template("template1")</a></code> or <code><a href="../reference/run_template.html">run_template("template2")</a></code> and download the code to use as a template</li>
+<li>In <code>get_data.R</code>, extract, process and save your data into the <code>data</code> subfolder, including a zip file for download</li>
 <li>In <code>make_app_vis.R</code>, draft your visualisations with dummy character inputs</li>
-<li>In <code>data</code> subfolder, add your data</li>
 <li>In <code>global.R</code>, read your data in, and create any vectors required</li>
 <li>In <code>ui.R</code>, add a app title</li>
 <li>In <code>ui.R</code>. add <code>radioButtons</code> and other widgets</li>
-<li>In <code>server.R</code>, add code within reactive plot_data</li>
-<li>In <code>server.R</code>, add code within reactive plot (Note: ensure you have isMobile = input$isMobile within any <code>simplevis</code> <code>ggplot</code> functions, and that <code>simplevis</code> <code>leaflet</code> functions have the argument <code>shiny = TRUE</code>)</li>
-<li>In <code>server.R</code>, check the table is referring to your right dataset</li>
-<li>In <code>server.R</code>, check download code is referring to your dataset. If there are many files, use the download zip code and add a file called download.zip to your data subfolder</li>
-<li>In <code>ui.R</code>, check that the heights of graphs for desktop and mobile are appropriate. (Note: you will need to publish the app and check on your phone before confident that the height for the graph on a mobile device is appropriate)</li>
+<li>In <code>server.R</code>, add code within reactive plot_data and plot components, as well as equivalent map and table components.</li>
 <li>In <code>www/About.Rmd</code>, update as necessary</li>
 <li>If using google tag-manager, obtain a tag and replace <code>GTM-XXXXXXX</code> with it in the <code>www/js/tag-manager-js</code> file.</li>
 </ul>
-</div>
-<div id="mobile-compliance---ggplotly-for-desktop-and-ggplot-for-mobile" class="section level3">
-<h3 class="hasAnchor">
-<a href="#mobile-compliance---ggplotly-for-desktop-and-ggplot-for-mobile" class="anchor"></a>Mobile compliance - <code>ggplotly</code> for desktop and <code>ggplot</code> for mobile</h3>
-<p>The template apps have a function with javascript in it that provides a <code>TRUE</code> or <code>FALSE</code> values if the user is on a mobile device. This can value can be referred to in the server code as input$isMobile. This is using the method developed by <a href="https://g3rv4.com/2017/08/shiny-detect-mobile-browsers" target="_blank">Gervasio Marchand</a>.</p>
-<p>The <code>simplevis</code> <code>ggplot</code> functions have a <code>isMobile</code> specification with values of <code>TRUE</code> or <code>FALSE</code> for whether the user is on a mobile device or not. When <code>isMobile</code> equals <code>TRUE</code>, titles, legend elements, and facets are wrapped accordingly for the smaller screen size. Therefore, when <code>simplevis</code> <code>ggplot</code> functions are used within shiny, the app developer must specify <code>isMobile = input$isMobile</code> within the <code>simplevis</code> <code>ggplot</code> function.</p>
-<p>The safest option to ensuring that a graph diplays well on a mobile device is to render it as a <code>ggplot</code> object. Subsequently, the current recommended approach used is to render a <code>ggplotly</code> interactive object for desktop users and a <code>ggplot</code> object for mobile users. This is the approach taken by the template apps through the use of conditional panels.</p>
 </div>
 <div id="iframing" class="section level3">
 <h3 class="hasAnchor">

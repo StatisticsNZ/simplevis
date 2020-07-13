@@ -80,16 +80,10 @@ shinyServer(function(input, output, session) {
     # add leaflet code from make_data_vis.R
     # change any placeholder character values to input widgets
     # refer to a reactive map_data object as map_data()
+    # use reactive radius for points that get bigger as the user zooms in, if necessary 
+    
+    # reactive_radius <-  case_when(input$map_zoom < 7, 1, ifelse(input$map_zoom < 9, 2, ifelse(input$map_zoom < 12, 3, 4)))  
 
-    # use the code below if you need a reactive radius for points that get bigger as the user zooms in 
-    
-    # map_id <- "map"
-    # legend_id <- paste0(map_id, "_legend")
-    # map_id_zoom <- paste0(map_id, "_zoom") #reactive zoom for points
-    # radius <- ifelse(input[[map_id_zoom]] < 7, 1,
-    #                  ifelse(input[[map_id_zoom]] < 9, 2,
-    #                         ifelse(input[[map_id_zoom]] < 12, 3, 4)))
-    
     selected_metric <- input$map_metric
     
     pal <- c("#4575B4", "#D3D3D3", "#D73027")
@@ -105,8 +99,7 @@ shinyServer(function(input, output, session) {
   
   observe({
     req(input$map_zoom) # wait for basemap before plotting. 
-                        # change the map id prefix, if different (e.g. input$map1_zoom)
-    
+
     withProgress(message = "Loading", {
       draw_map()
     })

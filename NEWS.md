@@ -1,22 +1,11 @@
-# simplevis 1.5.5
+# simplevis 1.6.0
 
+* Update template apps, and vignette.
 * Made isMobile default to NULL, which selects input$isMobile in apps and FALSE otherwise.
-
-# simplevis 1.5.4 
-
 * Removed shiny logical argument from leaflet functions.
-
-# simplevis 1.5.3
-
 * Added argument to modify pretty n algorathim for numeric breaks.
-
-# simplevis 1.5.2
-
 * Fixed bug where hbar and hbar_col were not handling all zero values appropriately.
 * Fixed bug where line and line_col were not handling all zero values appropriately.
-
-# simplevis 1.5.1
-
 * Fixed bug where plot functions ability were not able to deal with NA values.
 * Fixed bug where vbar and vbar_col were not handling all zero values appropriately.
 

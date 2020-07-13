@@ -325,26 +325,14 @@ run_template("template2") # a leaflet map, as well as graph and table
 For a simple app, the basic method to create an app is:
 
 * run `run_template("template1")` or  `run_template("template2")` and download the code to use as a template
+* In `get_data.R`, extract, process and save your data into the `data` subfolder, including a zip file for download
 * In `make_app_vis.R`, draft your visualisations with dummy character inputs
-* In `data` subfolder, add your data
 * In `global.R`, read your data in, and create any vectors required
 * In `ui.R`, add a app title
 * In `ui.R`. add `radioButtons` and other widgets
-* In `server.R`, add code within reactive plot_data
-* In `server.R`, add code within reactive plot (Note: ensure you have isMobile = input$isMobile within any `simplevis` `ggplot` functions, and that `simplevis` `leaflet` functions have the argument `shiny = TRUE`) 
-* In `server.R`, check the table is referring to your right dataset
-* In `server.R`, check download code is referring to your dataset. If there are many files, use the download zip code and add a file called download.zip to your data subfolder
-* In `ui.R`, check that the heights of graphs for desktop and mobile are appropriate. (Note: you will need to publish the app and check on your phone before confident that the height for the graph on a mobile device is appropriate) 
+* In `server.R`, add code within reactive plot_data and plot components, as well as equivalent map and table components.
 * In `www/About.Rmd`, update as necessary
 * If using google tag-manager, obtain a tag and replace `GTM-XXXXXXX` with it in the `www/js/tag-manager-js` file. 
-
-### Mobile compliance - `ggplotly` for desktop and `ggplot` for mobile
-
-The template apps have a function with javascript in it that provides a `TRUE` or `FALSE` values if the user is on a mobile device. This can value can be referred to in the server code as input$isMobile. This is using the method developed by <a href="https://g3rv4.com/2017/08/shiny-detect-mobile-browsers" target="_blank">Gervasio Marchand</a>. 
-
-The `simplevis` `ggplot` functions have a `isMobile` specification with values of `TRUE` or `FALSE` for whether the user is on a mobile device or not. When `isMobile` equals `TRUE`,  titles, legend elements, and facets are wrapped accordingly for the smaller screen size. Therefore, when `simplevis` `ggplot` functions are used within shiny, the app developer must specify `isMobile = input$isMobile` within the `simplevis` `ggplot` function.
-
-The safest option to ensuring that a graph diplays well on a mobile device is to render it as a `ggplot` object. Subsequently, the current recommended approach used is to render a `ggplotly` interactive object for desktop users and a `ggplot` object for mobile users. This is the approach taken by the template apps through the use of conditional panels.
 
 ### Iframing
 

@@ -1,5 +1,6 @@
 # simplevis 1.6.0
 
+* Fixed bug with line hover_var.
 * Update template apps, and vignette.
 * Made isMobile default to NULL, which selects input$isMobile in apps and FALSE otherwise.
 * Removed shiny logical argument from leaflet functions.

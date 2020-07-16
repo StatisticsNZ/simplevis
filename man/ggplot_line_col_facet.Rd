@@ -5,10 +5,9 @@
 \title{Line ggplot that is coloured and facetted.}
 \usage{
 ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
-  hover_var = NULL, x_scale_labels = waiver(), x_scale_pretty_n = 5,
-  y_scale_zero = TRUE, y_scale_zero_line = TRUE,
-  y_scale_trans = "identity", y_scale_labels = waiver(),
-  y_scale_pretty_n = 5, col_scale_drop = FALSE,
+  hover_var = NULL, x_labels = waiver(), x_pretty_n = 5,
+  y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, col_drop = FALSE,
   facet_scales = "fixed", facet_nrow = NULL, points = TRUE,
   point_size = 1, lines = TRUE, pal = NULL, rev_pal = FALSE,
   legend_ncol = 3, title = "[Title]", subtitle = NULL,
@@ -31,21 +30,21 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
-\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
-\item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
+\item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
-\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_scale_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

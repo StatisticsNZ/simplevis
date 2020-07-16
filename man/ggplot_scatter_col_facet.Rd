@@ -6,20 +6,19 @@
 \usage{
 ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
   hover_var = NULL, size = 1, pal = NULL, rev_pal = FALSE,
-  remove_na = FALSE, x_scale_zero = TRUE, x_scale_zero_line = TRUE,
-  x_scale_trans = "identity", x_scale_labels = waiver(),
-  x_scale_pretty_n = 5, y_scale_zero = TRUE,
-  y_scale_zero_line = TRUE, y_scale_trans = "identity",
-  y_scale_labels = waiver(), y_scale_pretty_n = 5,
-  col_scale_drop = FALSE, facet_scales = "fixed", facet_nrow = NULL,
-  col_method = NULL, quantile_cuts = NULL, quantile_by_facet = TRUE,
-  bin_cuts = NULL, legend_ncol = 3, legend_digits = 1,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
-  wrap_col_title = 25, wrap_caption = 80, isMobile = NULL)
+  col_na_remove = FALSE, x_zero = TRUE, x_zero_line = TRUE,
+  x_trans = "identity", x_labels = waiver(), x_pretty_n = 5,
+  y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, col_drop = FALSE,
+  facet_scales = "fixed", facet_nrow = NULL, col_method = NULL,
+  quantile_cuts = NULL, quantile_by_facet = TRUE, bin_cuts = NULL,
+  legend_ncol = 3, legend_digits = 1, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
+  wrap_caption = 80, isMobile = NULL)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -40,29 +39,29 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 
-\item{remove_na}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.}
+\item{col_na_remove}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
-\item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
+\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
+\item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
-\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
-\item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+\item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 
-\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_scale_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

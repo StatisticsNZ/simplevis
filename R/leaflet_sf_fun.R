@@ -195,7 +195,8 @@ leaflet_sf <- function(data,
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
 #' @param radius Radius of points. Defaults to 1.
 #' @param weight Stroke border size. Defaults to 2.
@@ -232,7 +233,8 @@ leaflet_sf_col <- function(data,
                            quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                            pal = NULL,
                            rev_pal = FALSE,
-                           col_scale_drop = FALSE,
+                           col_drop = FALSE,
+                           col_na_remove = FALSE,
                            popup = leafpop::popupTable(sentence_spaced_colnames(data)),
                            radius = 1,
                            weight = 2,
@@ -250,10 +252,13 @@ leaflet_sf_col <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
-  
+
   col_var <- rlang::enquo(col_var)
   label_var <- rlang::enquo(label_var)
   if(is.null(rlang::get_expr(label_var))) label_var <- col_var
+  
+  if (col_na_remove == TRUE) data <- data %>% 
+    filter(!is.na(!!col_var))
   
   col_var_vector <- dplyr::pull(data, !!col_var)
   label_var_vector <- dplyr::pull(data, !!label_var)
@@ -263,8 +268,8 @@ leaflet_sf_col <- function(data,
   
   if (col_method == "category") {
     if (is.null(legend_labels)){
-      if (is.factor(col_var_vector) &  col_scale_drop == FALSE) labels <- levels(col_var_vector)
-      else if (is.character(col_var_vector) | col_scale_drop == TRUE) labels <- sort(unique(col_var_vector))
+      if (is.factor(col_var_vector) &  col_drop == FALSE) labels <- levels(col_var_vector)
+      else if (is.character(col_var_vector) | col_drop == TRUE) labels <- sort(unique(col_var_vector))
     }
     else if (!is.null(legend_labels)) labels <- legend_labels
     

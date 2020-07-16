@@ -115,12 +115,12 @@ theme_box <-
 #' @param x_var Unquoted categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param y_scale_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -165,12 +165,12 @@ ggplot_box <- function(data,
                        x_var,
                        y_var = NULL,
                        stat = "boxplot",
-                       x_scale_labels = waiver(),
-                       y_scale_zero = TRUE,
-                       y_scale_zero_line = TRUE,
-                       y_scale_trans = "identity",
-                       y_scale_labels = waiver(),
-                       y_scale_pretty_n = 5,
+                       x_labels = waiver(),
+                       y_zero = TRUE,
+                       y_zero_line = TRUE,
+                       y_trans = "identity",
+                       y_labels = waiver(),
+                       y_pretty_n = 5,
                        pal = NULL,
                        title = "[Title]",
                        subtitle = NULL,
@@ -207,8 +207,8 @@ ggplot_box <- function(data,
   
   min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
   max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-    y_scale_zero <- FALSE
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    y_zero <- FALSE
   }
   
   if(is.null(font_size_title)){
@@ -261,34 +261,34 @@ ggplot_box <- function(data,
       )
   }
   
-  if (y_scale_zero == TRUE) {
-    if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-    if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+  if (y_zero == TRUE) {
+    if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+    if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
     
-    if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+    if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+    y_limits <- c(min(y_breaks), max(y_breaks))
   }
-  else if (y_scale_zero == FALSE) {
-    if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-    if(y_scale_trans == "log10") {
-      y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-      y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+  else if (y_zero == FALSE) {
+    if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+    if(y_trans == "log10") {
+      y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+      y_breaks <- c(1, y_breaks[y_breaks > 1])
     }
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+    y_limits <- c(min(y_breaks), max(y_breaks))
   }
 
   plot <- plot +
-    scale_x_discrete(labels = x_scale_labels) +
+    scale_x_discrete(labels = x_labels) +
     scale_y_continuous(
       expand = c(0, 0),
-      breaks = y_scale_breaks,
-      limits = y_scale_limits,
-      trans = y_scale_trans,
-      labels = y_scale_labels,
+      breaks = y_breaks,
+      limits = y_limits,
+      trans = y_trans,
+      labels = y_labels,
       oob = scales::rescale_none
     )
   
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -327,12 +327,12 @@ ggplot_box <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param y_scale_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param y_scale_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -371,12 +371,12 @@ ggplot_box_facet <-
            y_var = NULL,
            facet_var,
            stat = "boxplot",
-           x_scale_labels = waiver(),
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
+           x_labels = waiver(),
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -418,8 +418,8 @@ ggplot_box_facet <-
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -473,44 +473,44 @@ ggplot_box_facet <-
     }
 
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+      if (y_zero == TRUE) {
+        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
         
-        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
-      else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-        if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      else if (y_zero == FALSE) {
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans == "log10") {
+          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = y_scale_breaks,
-          limits = y_scale_limits,
-          trans = y_scale_trans,
-          labels = y_scale_labels,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
           oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           trans = y_scale_trans,
-                           labels = y_scale_labels,
+                           trans = y_trans,
+                           labels = y_labels,
                            oob = scales::rescale_none)
     }    
     
     plot <- plot +
-      scale_x_discrete(labels = x_scale_labels)
+      scale_x_discrete(labels = x_labels)
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }

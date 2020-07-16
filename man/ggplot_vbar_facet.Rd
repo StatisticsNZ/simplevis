@@ -5,10 +5,9 @@
 \title{Vertical bar ggplot that is facetted.}
 \usage{
 ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
-  x_scale_labels = waiver(), x_scale_pretty_n = 5,
-  y_scale_zero = TRUE, y_scale_zero_line = TRUE,
-  y_scale_trans = "identity", y_scale_labels = waiver(),
-  y_scale_pretty_n = 5, facet_scales = "fixed", facet_nrow = NULL,
+  x_labels = waiver(), x_pretty_n = 5, y_zero = TRUE,
+  y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
+  y_pretty_n = 5, facet_scales = "fixed", facet_nrow = NULL,
   pal = NULL, width = 0.75, na_grey_hover_value = "NA",
   na_grey = FALSE, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", caption = NULL,
@@ -28,19 +27,19 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
-\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
-\item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
+\item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
-\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_scale_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

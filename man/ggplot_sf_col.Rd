@@ -6,8 +6,8 @@
 \usage{
 ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
   quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), size = 0.5, alpha = 0.9,
-  pal = NULL, rev_pal = FALSE, col_scale_drop = FALSE,
-  remove_na = FALSE, coastline = NULL, coastline_behind = TRUE,
+  pal = NULL, rev_pal = FALSE, col_drop = FALSE,
+  col_na_remove = FALSE, coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, col_title = "",
   caption = NULL, legend_labels = NULL, font_family = "Helvetica",
@@ -34,9 +34,9 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 
-\item{col_scale_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{col_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
 
-\item{remove_na}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
+\item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
 \item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
 

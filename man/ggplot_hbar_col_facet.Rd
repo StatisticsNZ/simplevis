@@ -5,11 +5,10 @@
 \title{Horizontal bar ggplot that is coloured and facetted.}
 \usage{
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
-  hover_var = NULL, x_scale_labels = waiver(), x_scale_zero = TRUE,
-  x_scale_zero_line = TRUE, x_scale_trans = "identity",
-  x_scale_pretty_n = 5, y_scale_rev = FALSE,
-  y_scale_labels = waiver(), col_scale_rev = FALSE,
-  col_scale_drop = FALSE, position = "stack", facet_scales = "fixed",
+  hover_var = NULL, x_labels = waiver(), x_zero = TRUE,
+  x_zero_line = TRUE, x_trans = "identity", x_pretty_n = 5,
+  y_rev = FALSE, y_labels = waiver(), col_rev = FALSE,
+  col_drop = FALSE, position = "stack", facet_scales = "fixed",
   facet_nrow = NULL, pal = NULL, legend_ncol = 3, width = 0.75,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", col_title = "", caption = NULL,
@@ -31,23 +30,23 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
 
-\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
+\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
+\item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
-\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
-\item{y_scale_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
+\item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 
-\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{col_scale_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
+\item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
 
-\item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 

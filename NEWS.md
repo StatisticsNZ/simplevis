@@ -1,6 +1,9 @@
-# simplevis 1.6.2
+# simplevis 1.7.0
 
-* Fix bug with legend key in line graphs not displaying the line.
+* Renamed all plot x_scale_ prefixed arguments with x_ and likewise for y_scale_ and col_scale_.
+* Renamed remove_na argument in scatter and sf plots as col_na_remove.
+* Added col_na_remove argument to leaflet_sf_col.
+* Fixed bug with legend key in line plots not displaying the line and point in the key.
 
 # simplevis 1.6.0
 

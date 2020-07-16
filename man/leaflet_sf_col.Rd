@@ -6,7 +6,8 @@
 \usage{
 leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
   bin_cuts = NULL, quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
-  pal = NULL, rev_pal = FALSE, col_scale_drop = FALSE,
+  pal = NULL, rev_pal = FALSE, col_drop = FALSE,
+  col_na_remove = FALSE,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
   radius = 1, weight = 2, opacity = 0.9, stroke = TRUE,
   title = "[Title]", legend_digits = 1, legend_labels = NULL,
@@ -29,7 +30,9 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 
-\item{col_scale_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
+
+\item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
 \item{popup}{HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
 

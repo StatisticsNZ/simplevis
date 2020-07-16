@@ -5,14 +5,14 @@
 \title{Vertical box ggplot.}
 \usage{
 ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
-  x_scale_labels = waiver(), y_scale_zero = TRUE,
-  y_scale_zero_line = TRUE, y_scale_trans = "identity",
-  y_scale_labels = waiver(), y_scale_pretty_n = 5, pal = NULL,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
-  wrap_caption = 80, isMobile = NULL)
+  x_labels = waiver(), y_zero = TRUE, y_zero_line = TRUE,
+  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
+  pal = NULL, title = "[Title]", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
+  isMobile = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -23,17 +23,17 @@ ggplot_box(data, x_var, y_var = NULL, stat = "boxplot",
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
 
-\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{y_scale_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.}
+\item{y_trans}{TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.}
 
-\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_scale_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 

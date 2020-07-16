@@ -5,11 +5,10 @@
 \title{Scatter ggplot.}
 \usage{
 ggplot_scatter(data, x_var, y_var, hover_var = NULL, size = 1,
-  pal = NULL, x_scale_zero = TRUE, x_scale_zero_line = TRUE,
-  x_scale_trans = "identity", x_scale_labels = waiver(),
-  x_scale_pretty_n = 6, y_scale_zero = TRUE,
-  y_scale_zero_line = TRUE, y_scale_trans = "identity",
-  y_scale_labels = waiver(), y_scale_pretty_n = 5, title = "[Title]",
+  pal = NULL, x_zero = TRUE, x_zero_line = TRUE,
+  x_trans = "identity", x_labels = waiver(), x_pretty_n = 6,
+  y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
@@ -29,25 +28,25 @@ ggplot_scatter(data, x_var, y_var, hover_var = NULL, size = 1,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
-\item{x_scale_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
+\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{x_scale_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
+\item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
-\item{x_scale_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_scale_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
-\item{y_scale_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_scale_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
 
-\item{y_scale_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+\item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 
-\item{y_scale_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_scale_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

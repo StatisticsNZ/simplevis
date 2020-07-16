@@ -7,7 +7,7 @@
 ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   bin_cuts = NULL, quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
   quantile_by_facet = TRUE, size = 0.5, alpha = 0.9, pal = NULL,
-  rev_pal = FALSE, col_scale_drop = FALSE, remove_na = FALSE,
+  rev_pal = FALSE, col_drop = FALSE, col_na_remove = FALSE,
   facet_nrow = NULL, legend_ncol = 3, legend_digits = 1,
   coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", title = "[Title]", subtitle = NULL,
@@ -39,9 +39,9 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 
-\item{col_scale_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{col_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
 
-\item{remove_na}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
+\item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
 \item{facet_nrow}{The number of rows of facetted plots. Not applicable to where isMobile is TRUE.}
 

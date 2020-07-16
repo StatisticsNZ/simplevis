@@ -114,13 +114,13 @@ theme_hbar <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
@@ -162,13 +162,13 @@ ggplot_hbar <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
-                        x_scale_labels = waiver(),
-                        x_scale_zero = TRUE,
-                        x_scale_zero_line = TRUE,
-                        x_scale_trans = "identity",
-                        x_scale_pretty_n = 6,
-                        y_scale_rev = FALSE,
-                        y_scale_labels = waiver(),
+                        x_labels = waiver(),
+                        x_zero = TRUE,
+                        x_zero_line = TRUE,
+                        x_trans = "identity",
+                        x_pretty_n = 6,
+                        y_rev = FALSE,
+                        y_labels = waiver(),
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
@@ -208,8 +208,8 @@ ggplot_hbar <- function(data,
   
   min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
   max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-    x_scale_zero <- FALSE
+  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+    x_zero <- FALSE
   }
   
   if(is.null(font_size_title)){
@@ -221,16 +221,16 @@ ggplot_hbar <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
   
-  if (is.factor(y_var_vector) & y_scale_rev == FALSE){
+  if (is.factor(y_var_vector) & y_rev == FALSE){
     data <- data %>%
       dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
   }
   else if (is.character(y_var_vector)) {
-    if (y_scale_rev == FALSE){
+    if (y_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var))
     }
-    else if (y_scale_rev == TRUE){
+    else if (y_rev == TRUE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var, .desc = TRUE))
     }
@@ -289,39 +289,39 @@ ggplot_hbar <- function(data,
   }
   
   if (all(x_var_vector == 0, na.rm = TRUE)) {
-    x_scale_limits <- c(0, 1)
+    x_limits <- c(0, 1)
     
     plot <- plot +
-      ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_scale_labels, limits = x_scale_limits)
+      ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_labels, limits = x_limits)
   }
   else ({
     
-    if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-    else if(isMobile == TRUE) x_scale_n <- 4
+    if(isMobile == FALSE) x_n <- x_pretty_n
+    else if(isMobile == TRUE) x_n <- 4
     
-    if (x_scale_zero == TRUE) {
-      if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-      if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+    if (x_zero == TRUE) {
+      if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+      if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
       
-      if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+      x_limits <- c(min(x_breaks), max(x_breaks))
     }
-    else if (x_scale_zero == FALSE) {
-      if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      if(x_scale_trans == "log10") {
-        x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-        x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+    else if (x_zero == FALSE) {
+      if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+      if(x_trans == "log10") {
+        x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+        x_breaks <- c(1, x_breaks[x_breaks > 1])
       }
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      x_limits <- c(min(x_breaks), max(x_breaks))
     }
     
     plot <- plot +
       scale_y_continuous(
         expand = c(0, 0),
-        breaks = x_scale_breaks,
-        limits = x_scale_limits,
-        labels = x_scale_labels,
-        trans = x_scale_trans,
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels,
+        trans = x_trans,
         oob = scales::rescale_none
       )
   })
@@ -330,9 +330,9 @@ ggplot_hbar <- function(data,
     na_data <- filter(data, is.na(!!x_var))
     
     if(nrow(na_data) != 0){
-      if(x_scale_limits[2] > 0){
+      if(x_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(y = x_scale_limits[2], 
+          geom_col(aes(y = x_limits[2], 
                        text = paste(
                          paste0(
                            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -349,9 +349,9 @@ ggplot_hbar <- function(data,
                    fill = "#F0F0F0", width = (1 + (1 - width)),
                    data = na_data)
       }
-      if(x_scale_limits[1] < 0){
+      if(x_limits[1] < 0){
         plot <- plot +
-          geom_col(aes(y = x_scale_limits[1], 
+          geom_col(aes(y = x_limits[1], 
                        text = paste(
                          paste0(
                            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -372,9 +372,9 @@ ggplot_hbar <- function(data,
   }
   
   plot <- plot +
-    scale_x_discrete(labels = y_scale_labels)
+    scale_x_discrete(labels = y_labels)
   
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -410,15 +410,15 @@ ggplot_hbar <- function(data,
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
-#' @param x_scale_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param col_scale_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
+#' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param legend_ncol The number of columns in the legend.
@@ -470,15 +470,15 @@ ggplot_hbar_col <-
            y_var,
            col_var,
            hover_var = NULL,
-           x_scale_labels = waiver(),
-           x_scale_zero = TRUE,
-           x_scale_zero_line = TRUE,
-           x_scale_trans = "identity",
-           x_scale_pretty_n = 6,
-           y_scale_rev = FALSE,
-           y_scale_labels = waiver(),
-           col_scale_rev = FALSE,
-           col_scale_drop = FALSE,
+           x_labels = waiver(),
+           x_zero = TRUE,
+           x_zero_line = TRUE,
+           x_trans = "identity",
+           x_pretty_n = 6,
+           y_rev = FALSE,
+           y_labels = waiver(),
+           col_rev = FALSE,
+           col_drop = FALSE,
            position = "stack",
            pal = NULL,
            legend_ncol = 3,
@@ -522,13 +522,13 @@ ggplot_hbar_col <-
     if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
     
-    if (position == "stack" & x_scale_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
-    if (position == "stack" & x_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_scale_zero equal to FALSE")
+    if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
+    if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-      x_scale_zero <- FALSE
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+      x_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -540,11 +540,11 @@ ggplot_hbar_col <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if (y_scale_rev == FALSE){
+    if (y_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
     }
-    if (col_scale_rev == FALSE){
+    if (col_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
     }
@@ -640,41 +640,41 @@ ggplot_hbar_col <-
     }
     
     if (all(x_var_vector == 0, na.rm = TRUE)) {
-      x_scale_limits <- c(0, 1)
+      x_limits <- c(0, 1)
       
       plot <- plot +
-        ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_scale_labels, limits = x_scale_limits)
+        ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_labels, limits = x_limits)
     }
     else ({
       
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      if (x_scale_zero == TRUE) {
-        if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      if (x_zero == TRUE) {
+        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
         
-        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
-      else if (x_scale_zero == FALSE) {
-        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        if(x_scale_trans == "log10") {
-          x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      else if (x_zero == FALSE) {
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+        if(x_trans == "log10") {
+          x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+          x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
-      if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_scale_limits <- c(0, 100)
+      if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_limits <- c(0, 100)
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = x_scale_breaks,
-          limits = x_scale_limits,
-          labels = x_scale_labels,
-          trans = x_scale_trans,
+          breaks = x_breaks,
+          limits = x_limits,
+          labels = x_labels,
+          trans = x_trans,
           oob = scales::rescale_none
         )
     })
@@ -682,13 +682,13 @@ ggplot_hbar_col <-
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.value = "#A8A8A8"
       ) +
-      scale_x_discrete(labels = y_scale_labels)
+      scale_x_discrete(labels = y_labels)
 
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -736,13 +736,13 @@ ggplot_hbar_col <-
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
-#' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
-#' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -789,13 +789,13 @@ ggplot_hbar_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
-           x_scale_labels = waiver(),
-           x_scale_zero = TRUE,
-           x_scale_zero_line = TRUE,
-           x_scale_trans = "identity",
-           x_scale_pretty_n = 5,
-           y_scale_rev = FALSE,
-           y_scale_labels = waiver(),
+           x_labels = waiver(),
+           x_zero = TRUE,
+           x_zero_line = TRUE,
+           x_trans = "identity",
+           x_pretty_n = 5,
+           y_rev = FALSE,
+           y_labels = waiver(),
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -840,8 +840,8 @@ ggplot_hbar_facet <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-      x_scale_zero <- FALSE
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+      x_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -853,12 +853,12 @@ ggplot_hbar_facet <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if (is.factor(y_var_vector) & y_scale_rev == FALSE){
+    if (is.factor(y_var_vector) & y_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
     }
     else if (is.character(y_var_vector)) {
-      if (y_scale_rev == FALSE){
+      if (y_rev == FALSE){
         data <- data %>%
           dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
       }
@@ -927,32 +927,32 @@ ggplot_hbar_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      if (x_scale_zero == TRUE) {
-        if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      if (x_zero == TRUE) {
+        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
         
-        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
-      else if (x_scale_zero == FALSE) {
-        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
-        if(x_scale_trans == "log10") {
-          x_scale_breaks <- pretty(c(0, x_var_vector)) 
-          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      else if (x_zero == FALSE) {
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector)
+        if(x_trans == "log10") {
+          x_breaks <- pretty(c(0, x_var_vector)) 
+          x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = x_scale_breaks,
-          limits = x_scale_limits,
-          labels = x_scale_labels,
-          trans = x_scale_trans,
+          breaks = x_breaks,
+          limits = x_limits,
+          labels = x_labels,
+          trans = x_trans,
           oob = scales::rescale_none
         )
       
@@ -960,9 +960,9 @@ ggplot_hbar_facet <-
         na_data <- filter(data, is.na(!!x_var))
         
         if(nrow(na_data) != 0){
-          if(x_scale_limits[2] > 0){
+          if(x_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(y = x_scale_limits[2],
+              geom_col(aes(y = x_limits[2],
                            text = paste(
                              paste0(
                                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -984,9 +984,9 @@ ggplot_hbar_facet <-
                        fill = "#F0F0F0", width = (1 + (1 - width)),
                        data = na_data)
           }
-          if(x_scale_limits[1] < 0){
+          if(x_limits[1] < 0){
             plot <- plot +
-              geom_col(aes(y = x_scale_limits[1],
+              geom_col(aes(y = x_limits[1],
                            text = paste(
                              paste0(
                                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -1014,15 +1014,15 @@ ggplot_hbar_facet <-
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           labels = x_scale_labels,
-                           trans = x_scale_trans,
+                           labels = x_labels,
+                           trans = x_trans,
                            oob = scales::rescale_none)
     }
     
     plot <- plot +
-      scale_x_discrete(labels = y_scale_labels)
+      scale_x_discrete(labels = y_labels)
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -1064,15 +1064,15 @@ ggplot_hbar_facet <-
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
-#' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
-#' @param y_scale_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param col_scale_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
@@ -1123,15 +1123,15 @@ ggplot_hbar_col_facet <-
            col_var,
            facet_var,
            hover_var = NULL,
-           x_scale_labels = waiver(),
-           x_scale_zero = TRUE,
-           x_scale_zero_line = TRUE,
-           x_scale_trans = "identity",
-           x_scale_pretty_n = 5,
-           y_scale_rev = FALSE,
-           y_scale_labels = waiver(),
-           col_scale_rev = FALSE,
-           col_scale_drop = FALSE,
+           x_labels = waiver(),
+           x_zero = TRUE,
+           x_zero_line = TRUE,
+           x_trans = "identity",
+           x_pretty_n = 5,
+           y_rev = FALSE,
+           y_labels = waiver(),
+           col_rev = FALSE,
+           col_drop = FALSE,
            position = "stack",
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -1179,13 +1179,13 @@ ggplot_hbar_col_facet <-
     if (!is.numeric(x_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
-    if (position == "stack" & x_scale_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
-    if (position == "stack" & x_scale_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_scale_zero equal to FALSE")
+    if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
+    if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-      x_scale_zero <- FALSE
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+      x_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -1197,11 +1197,11 @@ ggplot_hbar_col_facet <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if (y_scale_rev == FALSE){
+    if (y_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
     }
-    if (col_scale_rev == FALSE){
+    if (col_rev == FALSE){
       data <- data %>%
         dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
     }
@@ -1306,53 +1306,53 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      if (x_scale_zero == TRUE) {
-        if(max_x_var_vector > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min_x_var_vector < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      if (x_zero == TRUE) {
+        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
         
-        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
-      else if (x_scale_zero == FALSE) {
-        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        if(x_scale_trans == "log10") {
-          x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      else if (x_zero == FALSE) {
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+        if(x_trans == "log10") {
+          x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+          x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = x_scale_breaks,
-          limits = x_scale_limits,
-          trans = x_scale_trans,
-          labels = x_scale_labels,
+          breaks = x_breaks,
+          limits = x_limits,
+          trans = x_trans,
+          labels = x_labels,
           oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           trans = x_scale_trans,
-                           labels = x_scale_labels,
+                           trans = x_trans,
+                           labels = x_labels,
                            oob = scales::rescale_none)
     }
     
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.value = "#A8A8A8"
       ) +
-      scale_x_discrete(labels = y_scale_labels)
+      scale_x_discrete(labels = y_labels)
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }

@@ -114,13 +114,13 @@ theme_line <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
-#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
+#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -160,13 +160,13 @@ ggplot_line <- function(data,
                         x_var,
                         y_var,
                         hover_var = NULL,
-                        x_scale_labels = waiver(),
-                        x_scale_pretty_n = 6,
-                        y_scale_zero = TRUE,
-                        y_scale_zero_line = TRUE,
-                        y_scale_trans = "identity",
-                        y_scale_labels = waiver(),
-                        y_scale_pretty_n = 5,
+                        x_labels = waiver(),
+                        x_pretty_n = 6,
+                        y_zero = TRUE,
+                        y_zero_line = TRUE,
+                        y_trans = "identity",
+                        y_labels = waiver(),
+                        y_pretty_n = 5,
                         points = TRUE,
                         point_size = 1,
                         lines = TRUE,
@@ -206,8 +206,8 @@ ggplot_line <- function(data,
   
   min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
   max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-    y_scale_zero <- FALSE
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    y_zero <- FALSE
   }
   
   if(is.null(font_size_title)){
@@ -280,66 +280,66 @@ ggplot_line <- function(data,
   if (lines == TRUE) plot <- plot +
     geom_line(aes(group = 1), col = pal[1])
 
-  if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-  else if(isMobile == TRUE) x_scale_n <- 4
+  if(isMobile == FALSE) x_n <- x_pretty_n
+  else if(isMobile == TRUE) x_n <- 4
 
-  x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-  x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+  x_breaks <- pretty(x_var_vector, n = x_n)
+  x_limits <- c(min(x_breaks), max(x_breaks))
   
   if (lubridate::is.Date(x_var_vector)) {
     plot <- plot +
       scale_x_date(
         expand = c(0, 0),
-        breaks = x_scale_breaks,
-        limits = x_scale_limits,
-        labels = x_scale_labels
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels
       )
   }
   else if (is.numeric(x_var_vector)) {
     plot <- plot +
       scale_x_continuous(expand = c(0, 0),
-                         breaks = x_scale_breaks,
-                         limits = x_scale_limits,
-                         labels = x_scale_labels,
+                         breaks = x_breaks,
+                         limits = x_limits,
+                         labels = x_labels,
                          oob = scales::rescale_none)
   }
   
   if (all(y_var_vector == 0, na.rm = TRUE)) {
-    y_scale_limits <- c(0, 1)
+    y_limits <- c(0, 1)
     
     plot <- plot +
-      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_scale_labels, limits = y_scale_limits)
+      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
   }
   else ({
     
-    if (y_scale_zero == TRUE) {
-      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+    if (y_zero == TRUE) {
+      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
       
-      if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+      if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+      y_limits <- c(min(y_breaks), max(y_breaks))
     }
-    else if (y_scale_zero == FALSE) {
-      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-      if(y_scale_trans == "log10") {
-        y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-        y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+    else if (y_zero == FALSE) {
+      if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+      if(y_trans == "log10") {
+        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+        y_breaks <- c(1, y_breaks[y_breaks > 1])
       }
-      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+      y_limits <- c(min(y_breaks), max(y_breaks))
     }
     
     plot <- plot +
       scale_y_continuous(
         expand = c(0, 0),
-        breaks = y_scale_breaks,
-        limits = y_scale_limits,
-        trans = y_scale_trans,
-        labels = y_scale_labels,
+        breaks = y_breaks,
+        limits = y_limits,
+        trans = y_trans,
+        labels = y_labels,
         oob = scales::rescale_none
       )
   })
 
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -375,14 +375,14 @@ ggplot_line <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
-#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
+#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -427,14 +427,14 @@ ggplot_line_col <-
            y_var,
            col_var,
            hover_var = NULL,
-           x_scale_labels = waiver(),
-           x_scale_pretty_n = 6,
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
-           col_scale_drop = FALSE,
+           x_labels = waiver(),
+           x_pretty_n = 6,
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
+           col_drop = FALSE,
            points = TRUE,
            point_size = 1,
            lines = TRUE,
@@ -484,8 +484,8 @@ ggplot_line_col <-
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -574,60 +574,60 @@ ggplot_line_col <-
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
-    if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-    else if(isMobile == TRUE) x_scale_n <- 4
+    if(isMobile == FALSE) x_n <- x_pretty_n
+    else if(isMobile == TRUE) x_n <- 4
     
-    x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    x_breaks <- pretty(x_var_vector, n = x_n)
+    x_limits <- c(min(x_breaks), max(x_breaks))
     
     if (lubridate::is.Date(x_var_vector)) {
       plot <- plot +
         scale_x_date(
           expand = c(0, 0),
-          breaks = x_scale_breaks,
-          limits = x_scale_limits,
-          labels = x_scale_labels
+          breaks = x_breaks,
+          limits = x_limits,
+          labels = x_labels
         )
     }
     else if (is.numeric(x_var_vector)) {
       plot <- plot +
         scale_x_continuous(expand = c(0, 0),
-                           breaks = x_scale_breaks,
-                           limits = x_scale_limits,
-                           labels = x_scale_labels)
+                           breaks = x_breaks,
+                           limits = x_limits,
+                           labels = x_labels)
     }
     
     if (all(y_var_vector == 0, na.rm = TRUE)) {
-      y_scale_limits <- c(0, 1)
+      y_limits <- c(0, 1)
       
       plot <- plot +
-        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_scale_labels, limits = y_scale_limits)
+        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
     }
     else ({
       
-      if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+      if (y_zero == TRUE) {
+        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
         
-        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
-      else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-        if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      else if (y_zero == FALSE) {
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans == "log10") {
+          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
   
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = y_scale_breaks,
-          limits = y_scale_limits,
-          trans = y_scale_trans,
-          labels = y_scale_labels,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
           oob = scales::rescale_none
         )
     })
@@ -635,12 +635,12 @@ ggplot_line_col <-
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.value = "#A8A8A8"
       ) 
 
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -678,13 +678,13 @@ ggplot_line_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
-#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
+#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -726,13 +726,13 @@ ggplot_line_facet <-
            y_var,
            facet_var,
            hover_var = NULL,
-           x_scale_labels = waiver(),
-           x_scale_pretty_n = 5,
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
+           x_labels = waiver(),
+           x_pretty_n = 5,
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -777,8 +777,8 @@ ggplot_line_facet <-
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -865,66 +865,66 @@ ggplot_line_facet <-
 
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      x_breaks <- pretty(x_var_vector, n = x_n)
+      x_limits <- c(min(x_breaks), max(x_breaks))
       
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
             expand = c(0, 0),
-            breaks = x_scale_breaks,
-            limits = x_scale_limits,
-            labels = x_scale_labels
+            breaks = x_breaks,
+            limits = x_limits,
+            labels = x_labels
           )
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
-                             breaks = x_scale_breaks,
-                             limits = x_scale_limits,
-                             labels = x_scale_labels)
+                             breaks = x_breaks,
+                             limits = x_limits,
+                             labels = x_labels)
       }
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+      if (y_zero == TRUE) {
+        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
         
-        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
-      else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-        if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      else if (y_zero == FALSE) {
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans == "log10") {
+          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = y_scale_breaks,
-          limits = y_scale_limits,
-          trans = y_scale_trans,
-          labels = y_scale_labels,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
           oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           trans = y_scale_trans,
-                           labels = y_scale_labels,
+                           trans = y_trans,
+                           labels = y_labels,
                            oob = scales::rescale_none)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -967,14 +967,14 @@ ggplot_line_facet <-
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
-#' @param y_scale_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
+#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -1023,14 +1023,14 @@ ggplot_line_col_facet <-
            col_var,
            facet_var,
            hover_var = NULL,
-           x_scale_labels = waiver(),
-           x_scale_pretty_n = 5,
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
-           col_scale_drop = FALSE,
+           x_labels = waiver(),
+           x_pretty_n = 5,
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
+           col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -1085,8 +1085,8 @@ ggplot_line_col_facet <-
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -1188,82 +1188,82 @@ ggplot_line_col_facet <-
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.value = "#A8A8A8"
       )
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      x_breaks <- pretty(x_var_vector, n = x_n)
+      x_limits <- c(min(x_breaks), max(x_breaks))
       
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
             expand = c(0, 0),
-            breaks = x_scale_breaks,
-            limits = x_scale_limits,
-            labels = x_scale_labels
+            breaks = x_breaks,
+            limits = x_limits,
+            labels = x_labels
           )
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
           scale_x_continuous(expand = c(0, 0),
-                             breaks = x_scale_breaks,
-                             limits = x_scale_limits,
-                             labels = x_scale_labels)
+                             breaks = x_breaks,
+                             limits = x_limits,
+                             labels = x_labels)
       }
       
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+      if (y_zero == TRUE) {
+        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
         
-        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
-      else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-        if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      else if (y_zero == FALSE) {
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans == "log10") {
+          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = y_scale_breaks,
-          limits = y_scale_limits,
-          trans = y_scale_trans,
-          labels = y_scale_labels,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
           oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           trans = y_scale_trans,
-                           labels = y_scale_labels,
+                           trans = y_trans,
+                           labels = y_labels,
                            oob = scales::rescale_none)
     }
     
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.value = "#A8A8A8"
       ) 
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }

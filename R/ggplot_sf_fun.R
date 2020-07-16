@@ -214,8 +214,8 @@ ggplot_sf <- function(data,
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
-#' @param col_scale_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param remove_na TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
+#' @param col_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
 #' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
@@ -262,8 +262,8 @@ ggplot_sf_col <- function(data,
                           alpha = 0.9,
                           pal = NULL,
                           rev_pal = FALSE,
-                          col_scale_drop = FALSE,
-                          remove_na = FALSE,
+                          col_drop = FALSE,
+                          col_na_remove = FALSE,
                           coastline = NULL,
                           coastline_behind = TRUE,
                           coastline_pal = "#7f7f7f",
@@ -396,14 +396,14 @@ ggplot_sf_col <- function(data,
       )
   }
   
-  if (remove_na == TRUE) na.translate <- FALSE
-  if (remove_na == FALSE) na.translate <- TRUE
+  if (col_na_remove == TRUE) na.translate <- FALSE
+  if (col_na_remove == FALSE) na.translate <- TRUE
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.translate = na.translate,
         na.value = "#A8A8A8"
@@ -413,7 +413,7 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.translate = na.translate,
         na.value = "#A8A8A8"
@@ -623,8 +623,8 @@ ggplot_sf_facet <- function(data,
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
-#' @param col_scale_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param remove_na TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
+#' @param col_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
 #' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
@@ -667,8 +667,8 @@ ggplot_sf_col_facet <- function(data,
                                 alpha = 0.9,
                                 pal = NULL,
                                 rev_pal = FALSE,
-                                col_scale_drop = FALSE,
-                                remove_na = FALSE,
+                                col_drop = FALSE,
+                                col_na_remove = FALSE,
                                 facet_nrow = NULL,
                                 legend_ncol = 3,
                                 legend_digits = 1,
@@ -829,16 +829,16 @@ ggplot_sf_col_facet <- function(data,
       )
   }
   
-  if (remove_na == TRUE)
+  if (col_na_remove == TRUE)
     na.translate <- FALSE
-  if (remove_na == FALSE)
+  if (col_na_remove == FALSE)
     na.translate <- TRUE
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.translate = na.translate,
         na.value = "#A8A8A8"
@@ -848,7 +848,7 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.translate = na.translate,
         na.value = "#A8A8A8"

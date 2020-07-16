@@ -116,16 +116,16 @@ theme_scatter <-
 #' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param title  Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -161,16 +161,16 @@ ggplot_scatter <- function(data,
                            hover_var = NULL,
                            size = 1,
                            pal = NULL,
-                           x_scale_zero = TRUE,
-                           x_scale_zero_line = TRUE,
-                           x_scale_trans = "identity",
-                           x_scale_labels = waiver(),
-                           x_scale_pretty_n = 6,
-                           y_scale_zero = TRUE,
-                           y_scale_zero_line = TRUE,
-                           y_scale_trans = "identity",
-                           y_scale_labels = waiver(),
-                           y_scale_pretty_n = 5,
+                           x_zero = TRUE,
+                           x_zero_line = TRUE,
+                           x_trans = "identity",
+                           x_labels = waiver(),
+                           x_pretty_n = 6,
+                           y_zero = TRUE,
+                           y_zero_line = TRUE,
+                           y_trans = "identity",
+                           y_labels = waiver(),
+                           y_pretty_n = 5,
                            title = "[Title]",
                            subtitle = NULL,
                            x_title = "[X title]",
@@ -206,14 +206,14 @@ ggplot_scatter <- function(data,
   
   min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
   max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-    x_scale_zero <- FALSE
+  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+    x_zero <- FALSE
   }
   
   min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
   max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-    y_scale_zero <- FALSE
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    y_zero <- FALSE
   }
   
   if(is.null(font_size_title)){
@@ -277,63 +277,63 @@ ggplot_scatter <- function(data,
       size = size)
   }
   
-  if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-  else if(isMobile == TRUE) x_scale_n <- 4
+  if(isMobile == FALSE) x_n <- x_pretty_n
+  else if(isMobile == TRUE) x_n <- 4
   
-  if (x_scale_zero == TRUE) {
-    if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-    if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+  if (x_zero == TRUE) {
+    if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+    if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
-    if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+    x_limits <- c(min(x_breaks), max(x_breaks))
   }
-  else if (x_scale_zero == FALSE) {
-    if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-    if(x_scale_trans == "log10") {
-      x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-      x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+  else if (x_zero == FALSE) {
+    if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+    if(x_trans == "log10") {
+      x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+      x_breaks <- c(1, x_breaks[x_breaks > 1])
     }
-    x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+    x_limits <- c(min(x_breaks), max(x_breaks))
   }
   
-  if (y_scale_zero == TRUE) {
-    y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-    if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+  if (y_zero == TRUE) {
+    y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+    if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+    y_limits <- c(min(y_breaks), max(y_breaks))
   }
-  else if (y_scale_zero == FALSE) {
-    if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-    if(y_scale_trans == "log10") {
-      y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-      y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+  else if (y_zero == FALSE) {
+    if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+    if(y_trans == "log10") {
+      y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+      y_breaks <- c(1, y_breaks[y_breaks > 1])
     }
-    y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+    y_limits <- c(min(y_breaks), max(y_breaks))
   }
   
   plot <- plot +
     scale_x_continuous(
       expand = c(0, 0),
-      breaks = x_scale_breaks,
-      limits = x_scale_limits,
-      trans = x_scale_trans,
-      labels = x_scale_labels,
+      breaks = x_breaks,
+      limits = x_limits,
+      trans = x_trans,
+      labels = x_labels,
       oob = scales::rescale_none
     ) +
     scale_y_continuous(
       expand = c(0, 0),
-      breaks = y_scale_breaks,
-      limits = y_scale_limits,
-      trans = y_scale_trans,
-      labels = y_scale_labels,
+      breaks = y_breaks,
+      limits = y_limits,
+      trans = y_trans,
+      labels = y_labels,
       oob = scales::rescale_none
     )
   
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -375,18 +375,18 @@ ggplot_scatter <- function(data,
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
-#' @param remove_na TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title  Title string. Defaults to "[Title]".
@@ -431,18 +431,18 @@ ggplot_scatter_col <-
            size = 1,
            pal = NULL,
            rev_pal = FALSE,
-           remove_na = FALSE,
-           x_scale_zero = TRUE,
-           x_scale_zero_line = TRUE,
-           x_scale_trans = "identity",
-           x_scale_labels = waiver(),
-           x_scale_pretty_n = 6,
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
-           col_scale_drop = FALSE,
+           col_na_remove = FALSE,
+           x_zero = TRUE,
+           x_zero_line = TRUE,
+           x_trans = "identity",
+           x_labels = waiver(),
+           x_pretty_n = 6,
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
+           col_drop = FALSE,
            legend_ncol = 3,
            legend_digits = 1,
            title = "[Title]",
@@ -484,14 +484,14 @@ ggplot_scatter_col <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-      x_scale_zero <- FALSE
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+      x_zero <- FALSE
     }
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -595,74 +595,74 @@ ggplot_scatter_col <-
     }
     
     if (rev_pal == TRUE) pal <- rev(pal)
-    if (remove_na == TRUE) na.translate <- FALSE
-    if (remove_na == FALSE) na.translate <- TRUE
-    if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-    else if(isMobile == TRUE) x_scale_n <- 4
+    if (col_na_remove == TRUE) na.translate <- FALSE
+    if (col_na_remove == FALSE) na.translate <- TRUE
+    if(isMobile == FALSE) x_n <- x_pretty_n
+    else if(isMobile == TRUE) x_n <- 4
     
-    if (x_scale_zero == TRUE) {
-      if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-      if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+    if (x_zero == TRUE) {
+      if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+      if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
-      if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+      x_limits <- c(min(x_breaks), max(x_breaks))
     }
-    else if (x_scale_zero == FALSE) {
-      if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-      if(x_scale_trans == "log10") {
-        x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-        x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+    else if (x_zero == FALSE) {
+      if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+      if(x_trans == "log10") {
+        x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+        x_breaks <- c(1, x_breaks[x_breaks > 1])
       }
-      x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+      x_limits <- c(min(x_breaks), max(x_breaks))
     }
     
-    if (y_scale_zero == TRUE) {
-      if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-      if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+    if (y_zero == TRUE) {
+      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
 
-      if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+      if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+      y_limits <- c(min(y_breaks), max(y_breaks))
     }
-    else if (y_scale_zero == FALSE) {
-      if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-      if(y_scale_trans == "log10") {
-        y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-        y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+    else if (y_zero == FALSE) {
+      if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+      if(y_trans == "log10") {
+        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+        y_breaks <- c(1, y_breaks[y_breaks > 1])
       }
-      y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+      y_limits <- c(min(y_breaks), max(y_breaks))
     }
     
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.translate = na.translate,
         na.value = "#A8A8A8"
       ) +
       scale_x_continuous(
         expand = c(0, 0),
-        breaks = x_scale_breaks,
-        limits = x_scale_limits,
-        trans = x_scale_trans,
-        labels = x_scale_labels,
+        breaks = x_breaks,
+        limits = x_limits,
+        trans = x_trans,
+        labels = x_labels,
         oob = scales::rescale_none
       ) +
       scale_y_continuous(
         expand = c(0, 0),
-        breaks = y_scale_breaks,
-        limits = y_scale_limits,
-        trans = y_scale_trans,
-        labels = y_scale_labels,
+        breaks = y_breaks,
+        limits = y_limits,
+        trans = y_trans,
+        labels = y_labels,
         oob = scales::rescale_none
       )
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -702,16 +702,16 @@ ggplot_scatter_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param title  Title string. Defaults to "[Title]".
@@ -748,16 +748,16 @@ ggplot_scatter_facet <-
            hover_var = NULL,
            size = 1,
            pal = NULL,
-           x_scale_zero = TRUE,
-           x_scale_zero_line = TRUE,
-           x_scale_trans = "identity",
-           x_scale_labels = waiver(),
-           x_scale_pretty_n = 5,
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
+           x_zero = TRUE,
+           x_zero_line = TRUE,
+           x_trans = "identity",
+           x_labels = waiver(),
+           x_pretty_n = 5,
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            title = "[Title]",
@@ -798,14 +798,14 @@ ggplot_scatter_facet <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-      x_scale_zero <- FALSE
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+      x_zero <- FALSE
     }
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -878,76 +878,76 @@ ggplot_scatter_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      if (x_scale_zero == TRUE) {
-        if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      if (x_zero == TRUE) {
+        if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
-        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
-      else if (x_scale_zero == FALSE) {
-        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector)
-        if(x_scale_trans == "log10") {
-          x_scale_breaks <- pretty(c(0, x_var_vector)) 
-          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      else if (x_zero == FALSE) {
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector)
+        if(x_trans == "log10") {
+          x_breaks <- pretty(c(0, x_var_vector)) 
+          x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
       plot <- plot +
         scale_x_continuous(
           expand = c(0, 0),
-          breaks = x_scale_breaks,
-          limits = x_scale_limits,
-          trans = x_scale_trans,
-          labels = x_scale_labels,
+          breaks = x_breaks,
+          limits = x_limits,
+          trans = x_trans,
+          labels = x_labels,
           oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+      if (y_zero == TRUE) {
+        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
 
-        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
-      else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-        if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      else if (y_zero == FALSE) {
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans == "log10") {
+          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = y_scale_breaks,
-          limits = y_scale_limits,
-          trans = y_scale_trans,
-          labels = y_scale_labels,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
           oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           trans = y_scale_trans,
-                           labels = y_scale_labels,
+                           trans = y_trans,
+                           labels = y_labels,
                            oob = scales::rescale_none)
     }
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -996,18 +996,18 @@ ggplot_scatter_facet <-
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
-#' @param remove_na TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
-#' @param x_scale_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param x_scale_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_scale_labels Argument to adjust the format of the x scale labels.
-#' @param x_scale_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
-#' @param y_scale_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_scale_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
-#' @param y_scale_trans A string specifying a transformation for the y scale. Defaults to "identity".
-#' @param y_scale_labels Argument to adjust the format of the y scale labels.
-#' @param y_scale_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_scale_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param legend_ncol The number of columns in the legend.
@@ -1054,18 +1054,18 @@ ggplot_scatter_col_facet <-
            size = 1,
            pal = NULL,
            rev_pal = FALSE,
-           remove_na = FALSE,
-           x_scale_zero = TRUE,
-           x_scale_zero_line = TRUE,
-           x_scale_trans = "identity",
-           x_scale_labels = waiver(),
-           x_scale_pretty_n = 5,
-           y_scale_zero = TRUE,
-           y_scale_zero_line = TRUE,
-           y_scale_trans = "identity",
-           y_scale_labels = waiver(),
-           y_scale_pretty_n = 5,
-           col_scale_drop = FALSE,
+           col_na_remove = FALSE,
+           x_zero = TRUE,
+           x_zero_line = TRUE,
+           x_trans = "identity",
+           x_labels = waiver(),
+           x_pretty_n = 5,
+           y_zero = TRUE,
+           y_zero_line = TRUE,
+           y_trans = "identity",
+           y_labels = waiver(),
+           y_pretty_n = 5,
+           col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            col_method = NULL,
@@ -1117,14 +1117,14 @@ ggplot_scatter_col_facet <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero == TRUE) {
-      x_scale_zero <- FALSE
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+      x_zero <- FALSE
     }
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero == TRUE) {
-      y_scale_zero <- FALSE
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+      y_zero <- FALSE
     }
     
     if(is.null(font_size_title)){
@@ -1250,89 +1250,89 @@ ggplot_scatter_col_facet <-
     }
     
     if (rev_pal == TRUE) pal <- rev(pal)
-    if (remove_na == TRUE) na.translate <- FALSE
-    if (remove_na == FALSE) na.translate <- TRUE
+    if (col_na_remove == TRUE) na.translate <- FALSE
+    if (col_na_remove == FALSE) na.translate <- TRUE
     
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_scale_drop,
+        drop = col_drop,
         labels = labels,
         na.translate = na.translate,
         na.value = "#A8A8A8"
       )
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_scale_n <- x_scale_pretty_n
-      else if(isMobile == TRUE) x_scale_n <- 4
+      if(isMobile == FALSE) x_n <- x_pretty_n
+      else if(isMobile == TRUE) x_n <- 4
       
-      if (x_scale_zero == TRUE) {
-        if(max(x_var_vector) > 0) x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n)
-        if(min(x_var_vector) < 0) x_scale_breaks <- pretty(c(x_var_vector, 0), n = x_scale_n)
+      if (x_zero == TRUE) {
+        if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
-        if(x_scale_trans == "log10") x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
-      else if (x_scale_zero == FALSE) {
-        if(x_scale_trans != "log10") x_scale_breaks <- pretty(x_var_vector, n = x_scale_n)
-        if(x_scale_trans == "log10") {
-          x_scale_breaks <- pretty(c(0, x_var_vector), n = x_scale_n) 
-          x_scale_breaks <- c(1, x_scale_breaks[x_scale_breaks > 1])
+      else if (x_zero == FALSE) {
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+        if(x_trans == "log10") {
+          x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+          x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
-        x_scale_limits <- c(min(x_scale_breaks), max(x_scale_breaks))
+        x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
       plot <- plot +
         scale_x_continuous(
           expand = c(0, 0),
-          breaks = x_scale_breaks,
-          limits = x_scale_limits,
-          trans = x_scale_trans,
-          labels = x_scale_labels,
+          breaks = x_breaks,
+          limits = x_limits,
+          trans = x_trans,
+          labels = x_labels,
           oob = scales::rescale_none
         )
     }
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_scale_zero == TRUE) {
-        if(max_y_var_vector > 0) y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n)
-        if(min_y_var_vector < 0) y_scale_breaks <- pretty(c(y_var_vector, 0), n = y_scale_pretty_n)
+      if (y_zero == TRUE) {
+        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
 
-        if(y_scale_trans == "log10") y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
-      else if (y_scale_zero == FALSE) {
-        if(y_scale_trans != "log10") y_scale_breaks <- pretty(y_var_vector, n = y_scale_pretty_n)
-        if(y_scale_trans == "log10") {
-          y_scale_breaks <- pretty(c(0, y_var_vector), n = y_scale_pretty_n) 
-          y_scale_breaks <- c(1, y_scale_breaks[y_scale_breaks > 1])
+      else if (y_zero == FALSE) {
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans == "log10") {
+          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
-        y_scale_limits <- c(min(y_scale_breaks), max(y_scale_breaks))
+        y_limits <- c(min(y_breaks), max(y_breaks))
       }
       
       plot <- plot +
         scale_y_continuous(
           expand = c(0, 0),
-          breaks = y_scale_breaks,
-          limits = y_scale_limits,
-          trans = y_scale_trans,
-          labels = y_scale_labels,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
           oob = scales::rescale_none
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
-                           trans = y_scale_trans,
-                           labels = y_scale_labels,
+                           trans = y_trans,
+                           labels = y_labels,
                            oob = scales::rescale_none)
     }
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_scale_zero_line == TRUE) {
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_scale_zero_line == TRUE) {
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
       plot <- plot +
         ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }

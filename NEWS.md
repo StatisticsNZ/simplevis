@@ -1,4 +1,4 @@
-# simplevis 1.6.1
+# simplevis 1.6.2
 
 * Fix bug with legend key in line graphs not displaying the line.
 

@@ -67,7 +67,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$table <- DT::renderDT(
-    table_data(), 
+    arrange(table_data(), desc(year)), 
     filter = "top",
     rownames = FALSE,
     options = list(pageLength = 5, scrollX = TRUE)

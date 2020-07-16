@@ -1,3 +1,7 @@
+# simplevis 1.6.1
+
+* Fix bug with legend key in line graphs not displaying the line.
+
 # simplevis 1.6.0
 
 * Fixed bug with line hover_var.

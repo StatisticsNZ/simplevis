@@ -5,7 +5,7 @@
 \title{Map of an array in leaflet that is coloured.}
 \usage{
 leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
-  0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, rev_pal = FALSE,
+  0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, pal_rev = FALSE,
   opacity = 1, legend_digits = 1, title = "[Title]",
   legend_labels = NULL, basemap = "light", map_id = "map")
 }
@@ -20,7 +20,7 @@ leaflet_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
-\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.9.}
 

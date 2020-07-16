@@ -374,7 +374,7 @@ ggplot_scatter <- function(data,
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
@@ -430,7 +430,7 @@ ggplot_scatter_col <-
            bin_cuts = NULL,
            size = 1,
            pal = NULL,
-           rev_pal = FALSE,
+           pal_rev = FALSE,
            col_na_remove = FALSE,
            x_zero = TRUE,
            x_zero_line = TRUE,
@@ -594,7 +594,7 @@ ggplot_scatter_col <-
         size = size)
     }
     
-    if (rev_pal == TRUE) pal <- rev(pal)
+    if (pal_rev == TRUE) pal <- rev(pal)
     if (col_na_remove == TRUE) na.translate <- FALSE
     if (col_na_remove == FALSE) na.translate <- TRUE
     if(isMobile == FALSE) x_n <- x_pretty_n
@@ -995,7 +995,7 @@ ggplot_scatter_facet <-
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
@@ -1053,7 +1053,7 @@ ggplot_scatter_col_facet <-
            hover_var = NULL,
            size = 1,
            pal = NULL,
-           rev_pal = FALSE,
+           pal_rev = FALSE,
            col_na_remove = FALSE,
            x_zero = TRUE,
            x_zero_line = TRUE,
@@ -1249,7 +1249,7 @@ ggplot_scatter_col_facet <-
         size = size)
     }
     
-    if (rev_pal == TRUE) pal <- rev(pal)
+    if (pal_rev == TRUE) pal <- rev(pal)
     if (col_na_remove == TRUE) na.translate <- FALSE
     if (col_na_remove == FALSE) na.translate <- TRUE
     

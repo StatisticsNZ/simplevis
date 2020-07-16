@@ -2,6 +2,7 @@
 
 * Renamed all plot x_scale_ prefixed arguments with x_ and likewise for y_scale_ and col_scale_.
 * Renamed remove_na argument in scatter and sf plots as col_na_remove.
+* Renamed rev_pal as pal_rev in scatter, sf and stars functions.
 * Added col_na_remove argument to leaflet_sf_col.
 * Fixed bug with legend key in line plots not displaying the line and point in the key.
 

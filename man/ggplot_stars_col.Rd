@@ -5,7 +5,7 @@
 \title{Map of an array in ggplot that is coloured.}
 \usage{
 ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
-  0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, rev_pal = FALSE,
+  0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, pal_rev = FALSE,
   coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, col_title = "",
@@ -25,7 +25,7 @@ ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
-\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
 

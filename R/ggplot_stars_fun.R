@@ -220,7 +220,7 @@ ggplot_stars <- function(data,
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
 #' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
@@ -250,7 +250,7 @@ ggplot_stars_col <- function(data,
                              quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                              bin_cuts = NULL,
                              pal = NULL,
-                             rev_pal = FALSE,
+                             pal_rev = FALSE,
                              coastline = NULL,
                              coastline_behind = TRUE,
                              coastline_pal = "#7f7f7f",
@@ -382,7 +382,7 @@ ggplot_stars_col <- function(data,
     if (!is.null(legend_labels)) labels <- legend_labels
   }
   
-  if (rev_pal == TRUE) pal <- rev(pal)
+  if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- plot +
     geom_raster(aes(x = .data$x, y = .data$y, fill = .data$col_var), data = data) +
@@ -595,7 +595,7 @@ ggplot_stars_facet <- function(data,
 #' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.  Only applicable where col_method equals "bin".
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
 #' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
@@ -635,7 +635,7 @@ ggplot_stars_col_facet <- function(data,
                                    quantile_by_facet = TRUE,
                                    bin_cuts = NULL,
                                    pal = NULL,
-                                   rev_pal = FALSE,
+                                   pal_rev = FALSE,
                                    coastline = NULL,
                                    coastline_behind = TRUE,
                                    coastline_pal = "#7f7f7f",
@@ -776,7 +776,7 @@ ggplot_stars_col_facet <- function(data,
     }
   }
   
-  if (rev_pal == TRUE)
+  if (pal_rev == TRUE)
     pal <- rev(pal)
   
   plot <- plot +

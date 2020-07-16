@@ -194,7 +194,7 @@ leaflet_sf <- function(data,
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
@@ -232,7 +232,7 @@ leaflet_sf_col <- function(data,
                            bin_cuts = NULL,
                            quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                            pal = NULL,
-                           rev_pal = FALSE,
+                           pal_rev = FALSE,
                            col_drop = FALSE,
                            col_na_remove = FALSE,
                            popup = leafpop::popupTable(sentence_spaced_colnames(data)),
@@ -277,7 +277,7 @@ leaflet_sf_col <- function(data,
     
     if (is.null(pal)) pal <- pal_point_set1[1:n_col_var_values]
     else if (!is.null(pal)) pal <- pal[1:n_col_var_values]
-    if (rev_pal == TRUE) pal <- rev(pal)
+    if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
     
     pal_fun <- colorFactor(palette = pal,
@@ -290,7 +290,7 @@ leaflet_sf_col <- function(data,
       if (dplyr::last(bin_cuts) != Inf) warning("The last element of the bin_cuts vector should generally be Inf")
       if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
       else if (!is.null(pal)) pal <- pal[1:(length(bin_cuts) - 1)]
-      if (rev_pal == TRUE) pal <- rev(pal)
+      if (pal_rev == TRUE) pal <- rev(pal)
       pal <- stringr::str_sub(pal, 1, 7)
       
       pal_fun <- colorBin(
@@ -307,7 +307,7 @@ leaflet_sf_col <- function(data,
       bin_cuts <- pretty(col_var_vector)
       if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
       else if (!is.null(pal)) pal <- pal[1:(length(bin_cuts) - 1)]
-      if (rev_pal == TRUE) pal <- rev(pal)
+      if (pal_rev == TRUE) pal <- rev(pal)
       pal <- stringr::str_sub(pal, 1, 7)
       
       pal_fun <- colorBin(
@@ -326,7 +326,7 @@ leaflet_sf_col <- function(data,
     if (dplyr::last(quantile_cuts) != 1) warning("The last element of the quantile_cuts vector should generally be 1")
     if (is.null(pal)) pal <- viridis::viridis(length(quantile_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(quantile_cuts) - 1)]
-    if (rev_pal == TRUE) pal <- rev(pal)
+    if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
     
     bin_cuts <- quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)

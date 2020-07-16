@@ -137,7 +137,7 @@
     <pre class="usage"><span class='fu'>ggplot_sf_col_facet</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>bin_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quantile_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>1</span>),
   <span class='kw'>quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rev_pal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_na_remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_na_remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coastline_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>coastline_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -190,7 +190,7 @@
       <td><p>Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.</p></td>
     </tr>
     <tr>
-      <th>rev_pal</th>
+      <th>pal_rev</th>
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>

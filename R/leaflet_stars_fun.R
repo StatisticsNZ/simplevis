@@ -98,7 +98,7 @@ leaflet_stars <- function(data,
 #' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".
 #' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.9.
 #' @param legend_digits Select the appropriate number of decimal places for the auto legend. Defaults to 1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
@@ -116,7 +116,7 @@ leaflet_stars_col <- function(data,
                               quantile_cuts = c(0, 0.25, 0.5, 0.75, 1),
                               bin_cuts = NULL,
                               pal = NULL,
-                              rev_pal = FALSE,
+                              pal_rev = FALSE,
                               opacity = 1,
                               legend_digits = 1,
                               title = "[Title]",
@@ -142,7 +142,7 @@ leaflet_stars_col <- function(data,
       pal <- pal_point_set1[1:(length(bin_cuts) - 1)]
     else if (!is.null(pal))
       pal <- pal[1:(length(bin_cuts) - 1)]
-    if (rev_pal == TRUE)
+    if (pal_rev == TRUE)
       pal <- rev(pal)
     pal_fun <-
       colorBin(
@@ -170,7 +170,7 @@ leaflet_stars_col <- function(data,
         pal <- viridis::viridis(length(bin_cuts) - 1)
       else if (!is.null(pal))
         pal <- pal[1:(length(bin_cuts) - 1)]
-      if (rev_pal == TRUE)
+      if (pal_rev == TRUE)
         pal <- rev(pal)
       pal_fun <-
         colorBin(
@@ -192,7 +192,7 @@ leaflet_stars_col <- function(data,
         pal <- viridis::viridis(length(bin_cuts) - 1)
       else if (!is.null(pal))
         pal <- pal[1:(length(bin_cuts) - 1)]
-      if (rev_pal == TRUE)
+      if (pal_rev == TRUE)
         pal <- rev(pal)
       pal_fun <-
         colorBin(
@@ -218,7 +218,7 @@ leaflet_stars_col <- function(data,
       pal <- viridis::viridis(length(quantile_cuts) - 1)
     else if (!is.null(pal))
       pal <- pal[1:(length(quantile_cuts) - 1)]
-    if (rev_pal == TRUE)
+    if (pal_rev == TRUE)
       pal <- rev(pal)
     bin_cuts <-
       stats::quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)

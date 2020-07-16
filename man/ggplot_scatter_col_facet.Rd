@@ -5,7 +5,7 @@
 \title{Scatter ggplot that is coloured and facetted.}
 \usage{
 ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
-  hover_var = NULL, size = 1, pal = NULL, rev_pal = FALSE,
+  hover_var = NULL, size = 1, pal = NULL, pal_rev = FALSE,
   col_na_remove = FALSE, x_zero = TRUE, x_zero_line = TRUE,
   x_trans = "identity", x_labels = waiver(), x_pretty_n = 5,
   y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
@@ -37,7 +37,7 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.}
 
-\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{col_na_remove}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.}
 

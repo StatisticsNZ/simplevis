@@ -6,7 +6,7 @@
 \usage{
 ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
   quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), size = 0.5, alpha = 0.9,
-  pal = NULL, rev_pal = FALSE, col_drop = FALSE,
+  pal = NULL, pal_rev = FALSE, col_drop = FALSE,
   col_na_remove = FALSE, coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, col_title = "",
@@ -32,7 +32,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
-\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{col_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
 

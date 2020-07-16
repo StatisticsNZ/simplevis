@@ -213,7 +213,7 @@ ggplot_sf <- function(data,
 #' @param size Size of points. Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
@@ -261,7 +261,7 @@ ggplot_sf_col <- function(data,
                           size = 0.5,
                           alpha = 0.9,
                           pal = NULL,
-                          rev_pal = FALSE,
+                          pal_rev = FALSE,
                           col_drop = FALSE,
                           col_na_remove = FALSE,
                           coastline = NULL,
@@ -374,7 +374,7 @@ ggplot_sf_col <- function(data,
     if (!is.null(legend_labels)) labels <- legend_labels
   }
   
-  if (rev_pal == TRUE) pal <- rev(pal)
+  if (pal_rev == TRUE) pal <- rev(pal)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
@@ -622,7 +622,7 @@ ggplot_sf_facet <- function(data,
 #' @param size Size of points. Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
@@ -666,7 +666,7 @@ ggplot_sf_col_facet <- function(data,
                                 size = 0.5,
                                 alpha = 0.9,
                                 pal = NULL,
-                                rev_pal = FALSE,
+                                pal_rev = FALSE,
                                 col_drop = FALSE,
                                 col_na_remove = FALSE,
                                 facet_nrow = NULL,
@@ -807,7 +807,7 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (rev_pal == TRUE) pal <- rev(pal)
+  if (pal_rev == TRUE) pal <- rev(pal)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +

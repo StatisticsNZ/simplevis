@@ -3,8 +3,11 @@
 * Renamed all plot x_scale_ prefixed arguments with x_ and likewise for y_scale_ and col_scale_.
 * Renamed remove_na argument in scatter and sf plots as col_na_remove.
 * Renamed rev_pal as pal_rev in scatter, sf and stars functions.
+* Renamed bin_cuts and quantile_cuts as col_cuts.
+* Renamed quantile_by_facet as col_quantile_by_facet.
 * Added col_na_remove argument to leaflet_sf_col.
 * Fixed bug with legend key in line plots not displaying the line and point in the key.
+* Removed dplyr 1.0.0 dependency by replacing across function in stars plots with _at functions.
 
 # simplevis 1.6.0
 

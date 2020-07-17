@@ -4,13 +4,13 @@
 \alias{ggplot_sf_col}
 \title{Map of simple features in ggplot that is coloured.}
 \usage{
-ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
-  quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), size = 0.5, alpha = 0.9,
-  pal = NULL, pal_rev = FALSE, col_drop = FALSE,
-  col_na_remove = FALSE, coastline = NULL, coastline_behind = TRUE,
-  coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
-  title = "[Title]", subtitle = NULL, col_title = "",
-  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
+ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
+  col_drop = FALSE, col_na_remove = FALSE, pal = NULL,
+  pal_rev = FALSE, size = 0.5, alpha = 0.9, coastline = NULL,
+  coastline_behind = TRUE, coastline_pal = "#7f7f7f",
+  legend_ncol = 3, legend_digits = 1, title = "[Title]",
+  subtitle = NULL, col_title = "", caption = NULL,
+  legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
   wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
   isMobile = NULL)
@@ -22,21 +22,19 @@ ggplot_sf_col(data, col_var, col_method = NULL, bin_cuts = NULL,
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
-\item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.}
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".}
+\item{col_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
 
-\item{size}{Size of points. Defaults to 0.5.}
-
-\item{alpha}{The opacity of polygons. Defaults to 0.9.}
+\item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{col_drop}{TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.}
+\item{size}{Size of points. Defaults to 0.5.}
 
-\item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
+\item{alpha}{The opacity of polygons. Defaults to 0.9.}
 
 \item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
 
@@ -82,11 +80,11 @@ Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
 ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
-     col_method = "bin", bin_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
      title = "Dairy density in count per km\\u00b2, 2017")
 
 ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
-     col_method = "quantile", quantile_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
+     col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
      title = "Dairy density in count per km\\u00b2, 2017")
 
 map_data <- example_sf_nz_river_wq \%>\%

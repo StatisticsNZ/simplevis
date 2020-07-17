@@ -5,26 +5,23 @@
 \title{Map of an array in ggplot that is coloured and facetted.}
 \usage{
 ggplot_stars_col_facet(data, col_method = "quantile",
-  quantile_cuts = c(0, 0.25, 0.5, 0.75, 1), quantile_by_facet = TRUE,
-  bin_cuts = NULL, pal = NULL, pal_rev = FALSE, coastline = NULL,
-  coastline_behind = TRUE, coastline_pal = "#7f7f7f",
-  facet_nrow = NULL, legend_ncol = 3, legend_digits = 1,
-  title = "[Title]", subtitle = NULL, col_title = "",
-  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
-  isMobile = NULL)
+  col_quantile_by_facet = TRUE, col_cuts = NULL, pal = NULL,
+  pal_rev = FALSE, coastline = NULL, coastline_behind = TRUE,
+  coastline_pal = "#7f7f7f", facet_nrow = NULL, legend_ncol = 3,
+  legend_digits = 1, title = "[Title]", subtitle = NULL,
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_col_title = 25, wrap_caption = 80, isMobile = NULL)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
-\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".}
+\item{col_quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
 
-\item{quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
-
-\item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.  Only applicable where col_method equals "bin".}
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
@@ -84,6 +81,6 @@ map_data2 <- example_stars_nz_drp \%>\%
 map_data <- c(map_data1, map_data2)
 
 ggplot_stars_col_facet(data = map_data, coastline = nz,
-   col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+   col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled nutrient concentrations, 2013-17")
 }

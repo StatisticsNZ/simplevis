@@ -4,12 +4,12 @@
 \alias{ggplot_stars_col}
 \title{Map of an array in ggplot that is coloured.}
 \usage{
-ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
-  0.25, 0.5, 0.75, 1), bin_cuts = NULL, pal = NULL, pal_rev = FALSE,
-  coastline = NULL, coastline_behind = TRUE,
-  coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
-  title = "[Title]", subtitle = NULL, col_title = "",
-  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
+ggplot_stars_col(data, col_method = "quantile", col_cuts = NULL,
+  pal = NULL, pal_rev = FALSE, coastline = NULL,
+  coastline_behind = TRUE, coastline_pal = "#7f7f7f",
+  legend_ncol = 3, legend_digits = 1, title = "[Title]",
+  subtitle = NULL, col_title = "", caption = NULL,
+  legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
   wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
   isMobile = NULL)
@@ -19,9 +19,7 @@ ggplot_stars_col(data, col_method = "quantile", quantile_cuts = c(0,
 
 \item{col_method}{The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".}
 
-\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".}
-
-\item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".}
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
@@ -71,6 +69,6 @@ Map of an array in ggplot that is coloured, but not facetted.
 }
 \examples{
 ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
-   col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+   col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 }

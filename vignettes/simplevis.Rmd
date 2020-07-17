@@ -232,7 +232,7 @@ These functions work in the same way as the `ggplot` `sf` map functions, but wit
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_stars_col(data = example_stars_nz_no3n, 
                  coastline = nz,
-                 col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+                 col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "River modelled median nitrate-nitrogen concentrations, 2013\u201317",
                  wrap_title = 40, 
                  legend_digits = 1)
@@ -249,7 +249,7 @@ map_data <- c(map_data1, map_data2)
 
 ggplot_stars_col_facet(data = map_data, 
                        coastline = nz,
-                       col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+                       col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                        title = "River modelled nutrient concentrations, 2013\u201317")
 ```
 
@@ -275,14 +275,14 @@ map_data <- example_sf_nz_livestock %>%
 leaflet_sf_col(data = map_data, 
                col_var = dairydens, 
                col_method = "bin", 
-               bin_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
+               col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
                legend_digits = 0,
                title = "Dairy density in count per km\u00b2, 2017")
 ```
 
 ```{r, echo = TRUE, results = 'hide', fig.height = 4, fig.width = 7}
 leaflet_stars_col(data = example_stars_nz_no3n,
-  col_method = "quantile", quantile_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 ```
 

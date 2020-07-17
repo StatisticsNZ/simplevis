@@ -232,6 +232,9 @@ ggplot_line <- function(data,
       font_size_title = font_size_title
     )
   
+  if (lines == TRUE) plot <- plot +
+    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1])
+
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
       geom_point(
@@ -277,9 +280,6 @@ ggplot_line <- function(data,
                 col = pal[1], size = point_size, alpha = alpha)
   }
   
-  if (lines == TRUE) plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1])
-
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
 
@@ -471,7 +471,8 @@ ggplot_line_col <-
     col_var <- rlang::enquo(col_var) #categorical var
     hover_var <- rlang::enquo(hover_var)
     
-    data <- dplyr::ungroup(data) %>%
+    data <- data %>% 
+      dplyr::ungroup() %>%
       arrange(!!x_var) #fix ggplotly legend bug
     
     x_var_vector <- dplyr::pull(data, !!x_var)
@@ -510,6 +511,9 @@ ggplot_line_col <-
         font_size_title = font_size_title
       ) 
     
+    if (lines == TRUE) plot <- plot +
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_point(
@@ -565,9 +569,6 @@ ggplot_line_col <-
           size = point_size, alpha = alpha)
     }
     
-    if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
-
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
@@ -800,7 +801,10 @@ ggplot_line_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       )
-      
+    
+    if (lines == TRUE) plot <- plot +
+      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1]) 
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_point(
@@ -856,8 +860,6 @@ ggplot_line_facet <-
           col = pal[1], size = point_size, alpha = alpha)
     }
     
-    if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1]) 
 
     if (facet_scales %in% c("fixed", "free_y")) {
       
@@ -1066,7 +1068,8 @@ ggplot_line_col_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     hover_var <- rlang::enquo(hover_var)
     
-    data <- dplyr::ungroup(data) %>% 
+    data <- data %>% 
+      dplyr::ungroup() %>%
       arrange(!!x_var) #fix ggplotly legend bug
 
     x_var_vector <- dplyr::pull(data, !!x_var)
@@ -1107,6 +1110,9 @@ ggplot_line_col_facet <-
         font_size_title = font_size_title
       ) 
     
+    if (lines == TRUE) plot <- plot +
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
+
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_point(
@@ -1171,9 +1177,6 @@ ggplot_line_col_facet <-
               )),
           size = point_size, alpha = alpha)
     }
-    
-    if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
     
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels

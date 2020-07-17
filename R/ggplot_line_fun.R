@@ -224,61 +224,61 @@ ggplot_line <- function(data,
   if (points == TRUE) alpha <- 1
   else if (points == FALSE) alpha <- 0
   
+  plot <- ggplot(data) +
+    coord_cartesian(clip = "off") +
+    theme_line(
+      font_family = font_family,
+      font_size_body = font_size_body,
+      font_size_title = font_size_title
+    )
+  
   if (is.null(rlang::get_expr(hover_var))) {
-    plot <- ggplot(data, aes(!!x_var, !!y_var, 
-                   text = paste(
-                     paste0(
-                       stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                       ": ",
-                       !!x_var
-                     ),
-                     paste0(
-                       stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                       ": ",
-                       !!y_var
-                     ),
-                     sep = "<br>"
-                   )                    
-      )) +
-      coord_cartesian(clip = "off") +
-      theme_line(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
-      geom_point(col = pal[1], size = point_size, alpha = alpha)
+    plot <- plot +
+      geom_point(
+        aes(!!x_var, !!y_var, 
+            text = paste(
+              paste0(
+                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                ": ",
+                !!x_var
+              ),
+              paste0(
+                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                ": ",
+                !!y_var
+              ),
+              sep = "<br>"
+            )                    
+        ),
+        col = pal[1], size = point_size, alpha = alpha)
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
-    plot <- ggplot(data, aes(!!x_var, !!y_var, key = !!hover_var, 
-                  text = paste(
-                            paste0(
-                              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                              ": ",
-                              !!x_var
-                            ),
-                            paste0(
-                              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                              ": ",
-                              !!y_var
-                            ),
-                            paste0(
-                              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                              ": ",
-                              !!hover_var
-                            ),
-                            sep = "<br>"
-              ))) +
-              coord_cartesian(clip = "off") +
-              theme_line(
-                font_family = font_family,
-                font_size_body = font_size_body,
-                font_size_title = font_size_title
-              ) +
-              geom_point(col = pal[1], size = point_size, alpha = alpha)
+      plot <- plot +
+              geom_point(
+                aes(!!x_var, !!y_var, key = !!hover_var, 
+                    text = paste(
+                      paste0(
+                        stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                        ": ",
+                        !!x_var
+                      ),
+                      paste0(
+                        stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                        ": ",
+                        !!y_var
+                      ),
+                      paste0(
+                        stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
+                        ": ",
+                        !!hover_var
+                      ),
+                      sep = "<br>"
+                    )),
+                col = pal[1], size = point_size, alpha = alpha)
   }
   
   if (lines == TRUE) plot <- plot +
-    geom_line(aes(group = 1), col = pal[1])
+    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1])
 
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
@@ -471,7 +471,7 @@ ggplot_line_col <-
     col_var <- rlang::enquo(col_var) #categorical var
     hover_var <- rlang::enquo(hover_var)
     
-    data <- dplyr::ungroup(data) %>% 
+    data <- dplyr::ungroup(data) %>%
       arrange(!!x_var) #fix ggplotly legend bug
     
     x_var_vector <- dplyr::pull(data, !!x_var)
@@ -502,73 +502,71 @@ ggplot_line_col <-
     if (points == TRUE) alpha <- 1
     else if (points == FALSE) alpha <- 0
     
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme_line(
+        font_family = font_family,
+        font_size_body = font_size_body,
+        font_size_title = font_size_title
+      ) 
+    
     if (is.null(rlang::get_expr(hover_var))) {
-      plot <- ggplot(data,
-                     aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                             ": ",
-                             !!col_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           sep = "<br>"
-                         ))) +
-        coord_cartesian(clip = "off") +
-        theme_line(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_point(size = point_size, alpha = alpha)
+      plot <- plot +
+        geom_point(
+          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
+              text = paste(
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                  ": ",
+                  !!x_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
+                  ": ",
+                  !!col_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                  ": ",
+                  !!y_var
+                ),
+                sep = "<br>"
+              )),
+          size = point_size, alpha = alpha)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- ggplot(data, 
-                     aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-                         key = !!hover_var,
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                             ": ",
-                             !!col_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                             ": ",
-                             !!hover_var
-                           ),
-                           sep = "<br>"
-                         ))) +
-        coord_cartesian(clip = "off") +
-        theme_line(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_point(size = point_size, alpha = alpha)
+      plot <- plot +
+        geom_point(
+          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
+              key = !!hover_var,
+              text = paste(
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                  ": ",
+                  !!x_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
+                  ": ",
+                  !!col_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                  ": ",
+                  !!y_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
+                  ": ",
+                  !!hover_var
+                ),
+                sep = "<br>"
+              )),
+          size = point_size, alpha = alpha)
     }
     
     if (lines == TRUE) plot <- plot +
-      geom_line() 
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
 
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
@@ -795,73 +793,71 @@ ggplot_line_facet <-
     if (points == TRUE) alpha <- 1
     else if (points == FALSE) alpha <- 0
     
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme_line(
+        font_family = font_family,
+        font_size_body = font_size_body,
+        font_size_title = font_size_title
+      )
+      
     if (is.null(rlang::get_expr(hover_var))) {
-      plot <- ggplot(data,
-                     aes(!!x_var, !!y_var,
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           sep = "<br>"
-                         ))) +
-        coord_cartesian(clip = "off") +
-        theme_line(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_point(col = pal[1], size = point_size, alpha = alpha)
+      plot <- plot +
+        geom_point(
+          aes(!!x_var, !!y_var,
+              text = paste(
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                  ": ",
+                  !!x_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                  ": ",
+                  !!facet_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                  ": ",
+                  !!y_var
+                ),
+                sep = "<br>"
+              )),
+          col = pal[1], size = point_size, alpha = alpha)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- ggplot(data,
-                     aes(!!x_var, !!y_var, 
-                         key = !!hover_var,
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                             ": ",
-                             !!hover_var
-                           ),
-                           sep = "<br>"
-                         ))) +
-        coord_cartesian(clip = "off") +
-        theme_line(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_point(col = pal[1], size = point_size, alpha = alpha)
+      plot <- plot +
+        geom_point(
+          aes(!!x_var, !!y_var, 
+              key = !!hover_var,
+              text = paste(
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                  ": ",
+                  !!x_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                  ": ",
+                  !!facet_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                  ": ",
+                  !!y_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
+                  ": ",
+                  !!hover_var
+                ),
+                sep = "<br>"
+              )),
+          col = pal[1], size = point_size, alpha = alpha)
     }
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(group = 1), col = pal[1]) 
+      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1]) 
 
     if (facet_scales %in% c("fixed", "free_y")) {
       
@@ -1103,83 +1099,81 @@ ggplot_line_col_facet <-
     if (points == TRUE) alpha <- 1
     else if (points == FALSE) alpha <- 0
     
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme_line(
+        font_family = font_family,
+        font_size_body = font_size_body,
+        font_size_title = font_size_title
+      ) 
+    
     if (is.null(rlang::get_expr(hover_var))) {
-      plot <- ggplot(data,
-                     aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                             ": ",
-                             !!col_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           sep = "<br>"
-                         ))) +
-        coord_cartesian(clip = "off") +
-        theme_line(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_point(size = point_size, alpha = alpha)
+      plot <- plot +
+        geom_point(
+          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
+              text = paste(
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                  ": ",
+                  !!x_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
+                  ": ",
+                  !!col_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                  ": ",
+                  !!facet_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                  ": ",
+                  !!y_var
+                ),
+                sep = "<br>"
+              )),
+          size = point_size, alpha = alpha)
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- ggplot(data,
-                     aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-                         key = !!hover_var,
-                         text = paste(
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                             ": ",
-                             !!x_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                             ": ",
-                             !!col_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                             ": ",
-                             !!facet_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                             ": ",
-                             !!y_var
-                           ),
-                           paste0(
-                             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                             ": ",
-                             !!hover_var
-                           ),
-                           sep = "<br>"
-                         )
-                     )) +
-        coord_cartesian(clip = "off") +
-        theme_line(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_point(size = point_size, alpha = alpha)
+      plot <- plot +
+        geom_point(
+          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
+              key = !!hover_var,
+              text = paste(
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
+                  ": ",
+                  !!x_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
+                  ": ",
+                  !!col_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
+                  ": ",
+                  !!facet_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
+                  ": ",
+                  !!y_var
+                ),
+                paste0(
+                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
+                  ": ",
+                  !!hover_var
+                ),
+                sep = "<br>"
+              )),
+          size = point_size, alpha = alpha)
     }
+    
     if (lines == TRUE) plot <- plot +
-      geom_line()
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
     
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels

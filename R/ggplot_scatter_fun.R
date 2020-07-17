@@ -227,7 +227,7 @@ ggplot_scatter <- function(data,
   
   if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data, aes(!!x_var, !!y_var, key = !!hover_var)) +
+  plot <- ggplot(data) +
     theme_scatter(
       font_family = font_family,
       font_size_body = font_size_body,
@@ -237,7 +237,9 @@ ggplot_scatter <- function(data,
   
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
-      geom_point(aes(text = paste(
+      geom_point(
+        aes(!!x_var, !!y_var, 
+        text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
           ": ",
@@ -255,7 +257,9 @@ ggplot_scatter <- function(data,
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
-      geom_point(aes(text = paste(
+      geom_point(
+        aes(!!x_var, !!y_var, key = !!hover_var, 
+        text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
           ": ",
@@ -530,7 +534,7 @@ ggplot_scatter_col <-
       if (is.null(legend_labels)) labels <- waiver()
     }
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
+    plot <- ggplot(data) +
       theme_scatter(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -540,8 +544,8 @@ ggplot_scatter_col <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_point(aes(
-          col = !!col_var,
+        geom_point(
+          aes(x = !!x_var, y = !!y_var, col = !!col_var, 
           text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -565,8 +569,8 @@ ggplot_scatter_col <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_point(aes(
-          col = !!col_var,
+        geom_point(
+          aes(x = !!x_var, y = !!y_var, col = !!col_var, key = !!hover_var,
           text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -819,7 +823,7 @@ ggplot_scatter_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
+    plot <- ggplot(data) +
       theme_scatter(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -829,7 +833,9 @@ ggplot_scatter_facet <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_point(aes(text = paste(
+        geom_point(
+          aes(x = !!x_var, y = !!y_var, 
+          text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
             ": ",
@@ -851,7 +857,9 @@ ggplot_scatter_facet <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_point(aes(text = paste(
+        geom_point(
+          aes(x = !!x_var, y = !!y_var, key = !!hover_var,
+          text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
             ": ",
@@ -1175,7 +1183,7 @@ ggplot_scatter_col_facet <-
       if (is.null(legend_labels)) labels <- waiver()
     }
     
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var, key = !!hover_var)) +
+    plot <- ggplot(data) +
       theme_scatter(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -1185,8 +1193,8 @@ ggplot_scatter_col_facet <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_point(aes(
-          col = !!col_var,
+        geom_point(
+          aes(x = !!x_var, y = !!y_var, col = !!col_var, 
           text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
@@ -1215,8 +1223,8 @@ ggplot_scatter_col_facet <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_point(aes(
-          col = !!col_var,
+        geom_point(
+          aes(x = !!x_var, y = !!y_var, col = !!col_var, key = !!hover_var,
           text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),

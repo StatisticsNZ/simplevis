@@ -238,7 +238,7 @@ ggplot_hbar <- function(data,
   
   if (is.null(pal)) pal <- pal_snz
   
-  plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
+  plot <- ggplot(data) +
     coord_flip() +
     theme_hbar(
       font_family = font_family,
@@ -248,7 +248,8 @@ ggplot_hbar <- function(data,
   
   if (is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
-      geom_col(aes(text = paste(
+      geom_col(aes(x = !!y_var, y = !!x_var, 
+        text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
           ": ",
@@ -266,7 +267,8 @@ ggplot_hbar <- function(data,
   }
   else if (!is.null(rlang::get_expr(hover_var))) {
     plot <- plot +
-      geom_col(aes(text = paste(
+      geom_col(aes(x = !!y_var, y = !!x_var, key = !!hover_var,
+        text = paste(
         paste0(
           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
           ": ",
@@ -332,7 +334,7 @@ ggplot_hbar <- function(data,
     if(nrow(na_data) != 0){
       if(x_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(y = x_limits[2], 
+          geom_col(aes(x = !!y_var, y = x_limits[2], key = !!hover_var, 
                        text = paste(
                          paste0(
                            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -351,7 +353,7 @@ ggplot_hbar <- function(data,
       }
       if(x_limits[1] < 0){
         plot <- plot +
-          geom_col(aes(y = x_limits[1], 
+          geom_col(aes(x = !!y_var, y = x_limits[1], key = !!hover_var, 
                        text = paste(
                          paste0(
                            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -554,7 +556,7 @@ ggplot_hbar_col <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
+    plot <- ggplot(data) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -565,7 +567,7 @@ ggplot_hbar_col <-
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
-          fill = !!col_var,
+          x = !!y_var, y = !!x_var, fill = !!col_var,
           text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -591,6 +593,7 @@ ggplot_hbar_col <-
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
+          x = !!y_var, y = !!x_var, key = !!hover_var,
           fill = !!col_var,
           text = paste(
             paste0(
@@ -866,7 +869,7 @@ ggplot_hbar_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
+    plot <- ggplot(data) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -876,7 +879,9 @@ ggplot_hbar_facet <-
     
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_col(aes(text = paste(
+        geom_col(aes(
+          x = !!y_var, y = !!x_var, 
+          text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
             ": ",
@@ -899,7 +904,9 @@ ggplot_hbar_facet <-
     }
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
-        geom_col(aes(text = paste(
+        geom_col(aes(
+          x = !!y_var, y = !!x_var, key = !!hover_var,
+          text = paste(
           paste0(
             stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
             ": ",
@@ -962,7 +969,7 @@ ggplot_hbar_facet <-
         if(nrow(na_data) != 0){
           if(x_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(y = x_limits[2],
+              geom_col(aes(x = !!y_var, y = x_limits[2], key = !!hover_var,
                            text = paste(
                              paste0(
                                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -986,7 +993,7 @@ ggplot_hbar_facet <-
           }
           if(x_limits[1] < 0){
             plot <- plot +
-              geom_col(aes(y = x_limits[1],
+              geom_col(aes(x = !!y_var, y = x_limits[1], key = !!hover_var,
                            text = paste(
                              paste0(
                                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -1211,7 +1218,7 @@ ggplot_hbar_col_facet <-
     
     if (is.null(pal)) pal <- pal_snz
     
-    plot <- ggplot(data, aes(x = !!y_var, y = !!x_var, key = !!hover_var)) +
+    plot <- ggplot(data) +
       coord_flip() +
       theme_hbar(
         font_family = font_family,
@@ -1222,7 +1229,7 @@ ggplot_hbar_col_facet <-
     if (is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
-          fill = !!col_var,
+          x = !!y_var, y = !!x_var, fill = !!col_var,
           text = paste(
             paste0(
               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
@@ -1253,6 +1260,7 @@ ggplot_hbar_col_facet <-
     else if (!is.null(rlang::get_expr(hover_var))) {
       plot <- plot +
         geom_col(aes(
+          x = !!y_var, y = !!x_var, key = !!hover_var,
           fill = !!col_var,
           text = paste(
             paste0(

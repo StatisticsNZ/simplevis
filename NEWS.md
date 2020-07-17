@@ -8,6 +8,7 @@
 * Added col_na_remove argument to leaflet_sf_col.
 * Fixed bug with legend key in line plots not displaying the line and point in the key.
 * Removed dplyr 1.0.0 dependency by replacing across function in stars plots with _at functions.
+* Moved all aesthetics from ggplot() function to geoms.
 
 # simplevis 1.6.0
 

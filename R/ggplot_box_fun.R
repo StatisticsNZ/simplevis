@@ -223,7 +223,7 @@ ggplot_box <- function(data,
   if (is.null(pal)) pal <- pal_snz
   
   if (stat == "boxplot") {
-    plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+    plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_box(
         font_family = font_family,
@@ -231,6 +231,7 @@ ggplot_box <- function(data,
         font_size_title = font_size_title
       ) +
       geom_boxplot(
+        aes(x = !!x_var, y = !!y_var),
         stat = stat,
         fill = pal[1],
         width = 0.5,
@@ -434,7 +435,7 @@ ggplot_box_facet <-
     if (is.null(pal)) pal <- pal_snz
     
     if (stat == "boxplot") {
-      plot <- ggplot(data, aes(x = !!x_var, y = !!y_var)) +
+      plot <- ggplot(data) +
           coord_cartesian(clip = "off") +
           theme_box(
             font_family = font_family,
@@ -442,6 +443,7 @@ ggplot_box_facet <-
             font_size_title = font_size_title
           ) +
           geom_boxplot(
+            aes(x = !!x_var, y = !!y_var),
             stat = stat,
             fill = pal[1],
             width = 0.5,

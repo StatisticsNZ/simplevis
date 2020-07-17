@@ -134,10 +134,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>quantile_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,
-  <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>1</span>), <span class='kw'>bin_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,12 +151,8 @@
       <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
     </tr>
     <tr>
-      <th>quantile_cuts</th>
-      <td><p>A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".</p></td>
-    </tr>
-    <tr>
-      <th>bin_cuts</th>
-      <td><p>A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used. Only applicable where col_method equals "bin".</p></td>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -199,7 +195,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars_nz_no3n</span>,
-   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>quantile_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
+   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

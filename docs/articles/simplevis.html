@@ -291,7 +291,7 @@
 </ul>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_stars_col.html">ggplot_stars_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_stars_nz_no3n</span>,
                  <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
-                 <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">quantile_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
+                 <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
                  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled median nitrate-nitrogen concentrations, 2013\u201317"</span>,
                  <span class="kw">wrap_title</span> <span class="kw">=</span> <span class="fl">40</span>,
                  <span class="kw">legend_digits</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
@@ -306,7 +306,7 @@
 
 <span class="fu"><a href="../reference/ggplot_stars_col_facet.html">ggplot_stars_col_facet</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
                        <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
-                       <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">quantile_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
+                       <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
                        <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled nutrient concentrations, 2013\u201317"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 </div>
@@ -327,11 +327,11 @@
 <span class="fu"><a href="../reference/leaflet_sf_col.html">leaflet_sf_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
                <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">dairydens</span>,
                <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
-               <span class="kw">bin_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">Inf</span>),
+               <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">Inf</span>),
                <span class="kw">legend_digits</span> <span class="kw">=</span> <span class="fl">0</span>,
                <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Dairy density in count per km\u00b2, 2017"</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_stars_col.html">leaflet_stars_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_stars_nz_no3n</span>,
-  <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">quantile_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
+  <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)</pre></body></html></div>
 </div>
 <div id="working-with-quoted-variable-inputs" class="section level3">

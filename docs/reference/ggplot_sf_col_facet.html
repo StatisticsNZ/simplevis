@@ -135,11 +135,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_sf_col_facet</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bin_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quantile_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>1</span>),
-  <span class='kw'>quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_na_remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coastline_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_na_remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coastline_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>coastline_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -166,24 +165,20 @@
       <td><p>The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
     </tr>
     <tr>
-      <th>bin_cuts</th>
-      <td><p>A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.</p></td>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
-      <th>quantile_cuts</th>
-      <td><p>A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles. Only applicable where col_method equals "quantile".</p></td>
-    </tr>
-    <tr>
-      <th>quantile_by_facet</th>
+      <th>col_quantile_by_facet</th>
       <td><p>TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.</p></td>
     </tr>
     <tr>
-      <th>size</th>
-      <td><p>Size of points. Defaults to 0.5.</p></td>
+      <th>col_drop</th>
+      <td><p>TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>The opacity of polygons. Defaults to 0.9.</p></td>
+      <th>col_na_remove</th>
+      <td><p>TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -194,12 +189,12 @@
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
+      <th>size</th>
+      <td><p>Size of points. Defaults to 0.5.</p></td>
     </tr>
     <tr>
-      <th>col_na_remove</th>
-      <td><p>TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.</p></td>
+      <th>alpha</th>
+      <td><p>The opacity of polygons. Defaults to 0.9.</p></td>
     </tr>
     <tr>
       <th>facet_nrow</th>

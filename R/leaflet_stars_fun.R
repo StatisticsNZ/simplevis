@@ -157,55 +157,31 @@ leaflet_stars_col <- function(data,
       labels <- legend_labels
   }
   else if (col_method == "bin") {
-    if (!is.null(col_cuts)) {
-      if (!(dplyr::first(col_cuts) %in% c(0, -Inf)))
-        warning(
-          "The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)"
-        )
-      if (dplyr::last(col_cuts) != Inf)
-        warning("The last element of the col_cuts vector should generally be Inf")
-      if (is.null(pal))
-        pal <- viridis::viridis(length(col_cuts) - 1)
-      else if (!is.null(pal))
-        pal <- pal[1:(length(col_cuts) - 1)]
-      if (pal_rev == TRUE)
-        pal <- rev(pal)
-      pal_fun <-
-        colorBin(
-          palette = pal,
-          domain = col_var_vector,
-          bins = col_cuts,
-          right = FALSE,
-          na.color = "transparent"
-        )
-      pal <- stringr::str_sub(pal, 1, 7)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(col_cuts, legend_digits)
-      else if (!is.null(legend_labels))
-        labels <- legend_labels
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
+    else if (!is.null(col_cuts)) {
+      if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+      if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
-    else if (is.null(col_cuts)) {
-      col_cuts <- pretty(col_var_vector)
-      if (is.null(pal))
-        pal <- viridis::viridis(length(col_cuts) - 1)
-      else if (!is.null(pal))
-        pal <- pal[1:(length(col_cuts) - 1)]
-      if (pal_rev == TRUE)
-        pal <- rev(pal)
-      pal_fun <-
-        colorBin(
-          palette = pal,
-          domain = col_var_vector,
-          pretty = TRUE,
-          right = FALSE,
-          na.color = "transparent"
-        )
-      pal <- stringr::str_sub(pal, 1, 7)
-      if (is.null(legend_labels))
-        labels <- numeric_legend_labels(col_cuts, legend_digits)
-      else if (!is.null(legend_labels))
-        labels <- legend_labels
-    }
+    
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
+    
+    if (pal_rev == TRUE) pal <- rev(pal)
+    
+    pal_fun <-
+      colorBin(
+        palette = pal,
+        domain = col_var_vector,
+        pretty = FALSE,
+        bins = col_cuts,
+        right = FALSE,
+        na.color = "transparent"
+      )
+    
+    pal <- stringr::str_sub(pal, 1, 7)
+    
+    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
+    else if (!is.null(legend_labels)) labels <- legend_labels
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)

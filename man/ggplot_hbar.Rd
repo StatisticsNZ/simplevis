@@ -7,7 +7,7 @@
 ggplot_hbar(data, x_var, y_var, hover_var = NULL, x_labels = waiver(),
   x_zero = TRUE, x_zero_line = TRUE, x_trans = "identity",
   x_pretty_n = 6, y_rev = FALSE, y_labels = waiver(), pal = NULL,
-  width = 0.75, na_grey = FALSE, na_grey_hover_value = "NA",
+  width = 0.75, na_grey = FALSE, na_hover_text = "NA",
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
@@ -43,7 +43,7 @@ ggplot_hbar(data, x_var, y_var, hover_var = NULL, x_labels = waiver(),
 
 \item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
-\item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
+\item{na_hover_text}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 
 \item{title}{Title string. Defaults to [Title].}
 

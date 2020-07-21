@@ -124,7 +124,7 @@ theme_hbar <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
-#' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
+#' @param na_hover_text Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -172,7 +172,7 @@ ggplot_hbar <- function(data,
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
-                        na_grey_hover_value = "NA",
+                        na_hover_text = "NA",
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -344,7 +344,7 @@ ggplot_hbar <- function(data,
                          paste0(
                            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
                            ": ",
-                           na_grey_hover_value
+                           na_hover_text
                          ),
                          sep = "<br>"
                        )),
@@ -363,7 +363,7 @@ ggplot_hbar <- function(data,
                          paste0(
                            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
                            ": ",
-                           na_grey_hover_value
+                           na_hover_text
                          ),
                          sep = "<br>"
                        )),
@@ -751,7 +751,7 @@ ggplot_hbar_col <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
-#' @param na_grey_hover_value Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
+#' @param na_hover_text Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -805,7 +805,7 @@ ggplot_hbar_facet <-
            width = 0.75, 
            title = "[Title]",
            na_grey = FALSE,
-           na_grey_hover_value = "NA",
+           na_hover_text = "NA",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
@@ -984,7 +984,7 @@ ggplot_hbar_facet <-
                              paste0(
                                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
                                ": ",
-                               na_grey_hover_value
+                               na_hover_text
                              ),
                              sep = "<br>"
                            )),
@@ -1008,7 +1008,7 @@ ggplot_hbar_facet <-
                              paste0(
                                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
                                ": ",
-                               na_grey_hover_value
+                               na_hover_text
                              ),
                              sep = "<br>"
                            )),

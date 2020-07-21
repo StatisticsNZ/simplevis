@@ -1,3 +1,7 @@
+# simplevis 1.7.2
+
+* Renamed na_grey_hover_value as na_hover_text. 
+
 # simplevis 1.7.1
 
 * Fixed bug in leaflet functions with colouring by bin col_method.

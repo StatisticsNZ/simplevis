@@ -7,13 +7,12 @@
 ggplot_vbar(data, x_var, y_var, hover_var = NULL, x_labels = waiver(),
   x_pretty_n = 6, y_zero = TRUE, y_zero_line = TRUE,
   y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  pal = NULL, width = 0.75, na_grey = FALSE,
-  na_grey_hover_value = "NA", title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = NULL)
+  pal = NULL, width = 0.75, na_grey = FALSE, na_hover_text = "NA",
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -44,7 +43,7 @@ ggplot_vbar(data, x_var, y_var, hover_var = NULL, x_labels = waiver(),
 
 \item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
-\item{na_grey_hover_value}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
+\item{na_hover_text}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
 
 \item{title}{Title string. Defaults to [Title].}
 

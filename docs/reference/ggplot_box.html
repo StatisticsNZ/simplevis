@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vertical box ggplot. — ggplot_box • simplevis</title>
+<title>Boxplot ggplot. — ggplot_box • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,9 +43,9 @@
 
 
 
-<meta property="og:title" content="Vertical box ggplot. — ggplot_box" />
+<meta property="og:title" content="Boxplot ggplot. — ggplot_box" />
 
-<meta property="og:description" content="Vertical box ggplot that is not coloured and not facetted." />
+<meta property="og:description" content="Boxplot ggplot that is not coloured and not facetted." />
 
 <meta property="og:image" content="/logo.png" />
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
       </span>
     </div>
 
@@ -123,26 +123,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vertical box ggplot.</h1>
+    <h1>Boxplot ggplot.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_box_fun.R'><code>R/ggplot_box_fun.R</code></a></small>
     <div class="hidden name"><code>ggplot_box.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Vertical box ggplot that is not coloured and not facetted.</p>
+    <p>Boxplot ggplot that is not coloured and not facetted.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_box</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_box</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,11 +153,15 @@
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted categorical variable to be on the x axis. Required input.</p></td>
+      <td><p>Unquoted variable to be on the x axis. Required input.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
       <td><p>Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".</p></td>
+    </tr>
+    <tr>
+      <th>group_var</th>
+      <td><p>Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".</p></td>
     </tr>
     <tr>
       <th>stat</th>
@@ -166,6 +170,10 @@
     <tr>
       <th>x_labels</th>
       <td><p>Argument to adjust the format of the x scale labels.</p></td>
+    </tr>
+    <tr>
+      <th>x_pretty_n</th>
+      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.</p></td>
     </tr>
     <tr>
       <th>y_zero</th>
@@ -190,6 +198,10 @@
     <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>Width of the box. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -271,7 +283,7 @@
                     <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Petal length (cm)"</span>)
 
 <span class='no'>plot</span></div><div class='img'><img src='ggplot_box-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>)
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>

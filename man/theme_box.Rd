@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot_box_fun.R
 \name{theme_box}
 \alias{theme_box}
-\title{Theme for vertical box ggplots.}
+\title{Theme for box ggplots.}
 \usage{
 theme_box(font_family = "Helvetica", font_size_title = 11,
   font_size_body = 10)
@@ -18,7 +18,7 @@ theme_box(font_family = "Helvetica", font_size_title = 11,
 A ggplot theme.
 }
 \description{
-Theme for vertical box ggplots.
+Theme for box ggplots.
 }
 \examples{
 

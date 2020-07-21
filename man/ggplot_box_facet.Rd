@@ -2,13 +2,14 @@
 % Please edit documentation in R/ggplot_box_fun.R
 \name{ggplot_box_facet}
 \alias{ggplot_box_facet}
-\title{Vertical box ggplot that is facetted.}
+\title{Boxplot ggplot that is facetted.}
 \usage{
 ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
-  stat = "boxplot", x_labels = waiver(), y_zero = TRUE,
-  y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
-  y_pretty_n = 5, facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, title = "[Title]", subtitle = NULL,
+  group_var = NULL, stat = "boxplot", x_labels = waiver(),
+  x_pretty_n = 5, y_zero = TRUE, y_zero_line = TRUE,
+  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  width = 0.5, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", caption = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
@@ -18,15 +19,19 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 \arguments{
 \item{data}{An tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted categorical variable to be on the x axis. Required input.}
+\item{x_var}{Unquoted variable to be on the x axis. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
+\item{group_var}{Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".}
+
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
+
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Only applicable to a x variable that is categorical or date.}
 
 \item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
@@ -43,6 +48,8 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+
+\item{width}{Width of the box. Defaults to 0.5.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -76,7 +83,7 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 A ggplot object.
 }
 \description{
-Vertical box ggplot that is facetted, but not coloured.
+Boxplot ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)
@@ -90,5 +97,5 @@ plot <- ggplot_box_facet(data = plot_data, x_var = cut, y_var = price_thousands,
 
 plot
 
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot)
 }

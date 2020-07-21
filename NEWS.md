@@ -1,3 +1,9 @@
+# simplevis 1.7.3
+
+* Added a group var to boxplot functions.
+* Removed requirement for categorical x var for boxplot functions.
+* Added a width argument to boxplot functions.
+
 # simplevis 1.7.2
 
 * Renamed na_grey_hover_value as na_hover_text. 

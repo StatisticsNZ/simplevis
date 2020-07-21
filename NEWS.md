@@ -1,3 +1,8 @@
+# simplevis 1.7.1
+
+* Fixed bug in leaflet functions with colouring by bin col_method.
+* Fixed bug in ggplot_vbar to support making a plot when all values are zero.
+
 # simplevis 1.7.0
 
 * Renamed all plot x_scale_ prefixed arguments with x_ and likewise for y_scale_ and col_scale_.

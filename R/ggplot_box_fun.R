@@ -262,33 +262,43 @@ ggplot_box <- function(data,
       )
   }
   
-  if (y_zero == TRUE) {
-    if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-    if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-    
-    if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-    y_limits <- c(min(y_breaks), max(y_breaks))
-  }
-  else if (y_zero == FALSE) {
-    if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
-    if(y_trans == "log10") {
-      y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
-      y_breaks <- c(1, y_breaks[y_breaks > 1])
-    }
-    y_limits <- c(min(y_breaks), max(y_breaks))
-  }
-
   plot <- plot +
-    scale_x_discrete(labels = x_labels) +
-    scale_y_continuous(
-      expand = c(0, 0),
-      breaks = y_breaks,
-      limits = y_limits,
-      trans = y_trans,
-      labels = y_labels,
-      oob = scales::rescale_none
-    )
+    scale_x_discrete(labels = x_labels)
   
+  if (all(y_var_vector == 0, na.rm = TRUE)) {
+    y_limits <- c(0, 1)
+    
+    plot <- plot +
+      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
+  }
+  else ({
+    if (y_zero == TRUE) {
+      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+      
+      if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
+      y_limits <- c(min(y_breaks), max(y_breaks))
+    }
+    else if (y_zero == FALSE) {
+      if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+      if(y_trans == "log10") {
+        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+        y_breaks <- c(1, y_breaks[y_breaks > 1])
+      }
+      y_limits <- c(min(y_breaks), max(y_breaks))
+    }
+  
+    plot <- plot +
+      scale_y_continuous(
+        expand = c(0, 0),
+        breaks = y_breaks,
+        limits = y_limits,
+        trans = y_trans,
+        labels = y_labels,
+        oob = scales::rescale_none
+      )
+  })
+
   if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
     plot <- plot +
       ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)

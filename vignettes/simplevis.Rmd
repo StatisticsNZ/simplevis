@@ -133,10 +133,10 @@ plot <- ggplot_vbar(data = plot_data,
                     y_title = "Average maximum sustained wind speed (knots)")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
-  plotly_remove_buttons() 
+  plotly_camera() 
 
 plotly::ggplotly(plot, tooltip = c("average_wind")) %>% 
-  plotly_remove_buttons()
+  plotly_camera()
 ```
 
 ### Making simplevis ggplot maps

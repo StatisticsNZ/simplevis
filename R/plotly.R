@@ -1,4 +1,4 @@
-#' @title Remove plotly buttons from the mode bar, other than the camera and plotly logo.
+#' @title Remove plotly buttons from the mode bar, other than the camera.
 #' @description Remove plotly buttons from the mode bar, other than the camera and plotly logo.
 #' @param plotly A plotly object.
 #' @param logo TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.
@@ -9,16 +9,15 @@
 #' plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price)
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_remove_buttons()
-plotly_remove_buttons <- function(plotly, logo = FALSE){
+#'    plotly_camera()
+plotly_camera <- function(plotly, logo = FALSE){
   plotly::config(plotly,
                  modeBarButtonsToRemove = list(
                    "zoom2d", "pan2d", "zoomIn2d", "zoomOut2d", "autoScale2d","resetScale2d", "hoverClosestCartesian",
                    "hoverCompareCartesian", "sendDataToCloud", "toggleHover", "resetViews", "toggleSpikelines",
                    "resetViewMapbox", "toggleSpikelines", "resetViewMapbox", "lasso2d", "select2d"
                  ),
-                 displaylogo = logo
-  )
+                 displaylogo = logo)
 }
 
 #' @title Reverse plotly legend elements.
@@ -45,8 +44,8 @@ plotly_remove_buttons <- function(plotly, logo = FALSE){
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_reverse_legend()
-plotly_reverse_legend <- function(plotly) {
+#'    plotly_legend_rev()
+plotly_legend_rev <- function(plotly) {
   n_labels <- length(plotly$x$data)
   plotly$x$data[1:n_labels] <- plotly$x$data[n_labels:1]
   plotly
@@ -77,8 +76,8 @@ plotly_reverse_legend <- function(plotly) {
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_order_legend(c(4, 1:3, 5:8))
-plotly_order_legend <- function(plotly, numeric_order = NULL) {
+#'    plotly_legend_order(c(4, 1:3, 5:8))
+plotly_legend_order <- function(plotly, numeric_order = NULL) {
   if(is.null(numeric_order)) stop("A numeric order vector must be provided")
   n_labels <- length(plotly$x$data)
   plotly$x$data[1:n_labels] <- plotly$x$data[numeric_order]

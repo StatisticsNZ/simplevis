@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Colour palette for 5 categories from good to bad — pal_snz_nof5 • simplevis</title>
+<title>Reverse plotly legend elements. — plotly_legend_rev • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,9 +43,9 @@
 
 
 
-<meta property="og:title" content="Colour palette for 5 categories from good to bad — pal_snz_nof5" />
+<meta property="og:title" content="Reverse plotly legend elements. — plotly_legend_rev" />
 
-<meta property="og:description" content="A colour palette used for depicting subcategories in the NZ conservation threat status." />
+<meta property="og:description" content="Reverse plotly legend elements." />
 
 <meta property="og:image" content="/logo.png" />
 
@@ -123,30 +123,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Colour palette for 5 categories from good to bad</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/er_helpers.R'><code>R/er_helpers.R</code></a></small>
-    <div class="hidden name"><code>pal_snz_nof5.Rd</code></div>
+    <h1>Reverse plotly legend elements.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/plotly.R'><code>R/plotly.R</code></a></small>
+    <div class="hidden name"><code>plotly_legend_rev.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A colour palette used for depicting subcategories in the NZ conservation threat status.</p>
+    <p>Reverse plotly legend elements.</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>pal_snz_nof5</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>An object of class <code>character</code> of length 5.</p>
+    <pre class="usage"><span class='fu'>plotly_legend_rev</span>(<span class='no'>plotly</span>)</pre>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A vector of hex codes.</p>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>plotly</th>
+      <td><p>A plotly object.</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/show_col.html'>show_col</a></span>(<span class='no'>pal_snz_nof5</span>)</div><div class='img'><img src='pal_snz_nof5-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>cut</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>cut</span>)) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_price</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>price</span>)) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>average_price_thousands</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>average_price</span> / <span class='fl'>1000</span>, <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
+   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()</div><div class='output co'>#&gt; <span class='message'>`summarise()` regrouping output by 'cut' (override with `.groups` argument)</span></div><div class='input'>
+<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_hbar_col.html'>ggplot_hbar_col</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>,
+                       <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>average_price_thousands</span>,
+                       <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>cut</span>,
+                       <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>clarity</span>,
+                       <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+                       <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Average diamond price by cut and clarity"</span>,
+                       <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Average price ($US thousands)"</span>,
+                       <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Cut"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)
+
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>) <span class='kw'>%&gt;%</span>
+   <span class='fu'>plotly_legend_rev</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -1,3 +1,7 @@
+# simplevis 1.7.4
+
+* Renamed plotly functions.
+
 # simplevis 1.7.3
 
 * Added a group var to boxplot functions.

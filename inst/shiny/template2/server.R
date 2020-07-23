@@ -50,7 +50,7 @@ shinyServer(function(input, output, session) {
   
   output$plot_desktop <- plotly::renderPlotly({ 
     plotly::ggplotly(plot(), tooltip = "text") %>%
-      plotly_remove_buttons()
+      plotly_camera()
   })
   
   output$plot_mobile <- renderPlot({

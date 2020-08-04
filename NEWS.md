@@ -1,27 +1,16 @@
-# simplevis 1.7.5
+# simplevis 1.8.0
 
 * Renamed leaflet_basemap_stack functions to remove the word stack.
 * Removed automatic addition of tooltip text into functions.
 * Added support for the user to add a tooltip variable into plot functions.
-* Created add_tip function to easily create a tooltip text column within a dataset.
+* Created add_plot_tip function to easily create a tooltip text column within a dataset.
 * In scatter plots, changed quantile_cuts and bin_cuts arguments to col_cuts.
-
-# simplevis 1.7.4
-
 * Renamed plotly functions.
-
-# simplevis 1.7.3
-
+* Added a size argument to lines in line plots.
 * Added a group var to boxplot functions.
 * Removed requirement for categorical x var for boxplot functions.
 * Added a width argument to boxplot functions.
-
-# simplevis 1.7.2
-
-* Renamed na_grey_hover_value as na_hover_text. 
-
-# simplevis 1.7.1
-
+* Renamed na_grey_hover_value. 
 * Fixed bug in leaflet functions with colouring by bin col_method.
 * Fixed bug in ggplot_vbar to support making a plot when all values are zero.
 

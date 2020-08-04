@@ -3,7 +3,7 @@
 * Renamed leaflet_basemap_stack functions to remove the word stack.
 * Removed automatic addition of tooltip text into functions.
 * Added support for the user to add a tooltip variable into plot functions.
-* Created add_plot_tip function to easily create a tooltip text column within a dataset.
+* Created add_tip function to easily create a tooltip text column within a dataset.
 * In scatter plots, changed quantile_cuts and bin_cuts arguments to col_cuts.
 * Renamed plotly functions.
 * Added a size argument to lines in line plots.

@@ -18,7 +18,7 @@ a4_height_mm <- 257
 #' @param vars_vctr A vector of quoted variables to include in the tooltip. Required input.
 #' @return A vector of labels.
 #' @export
-add_plot_tip <- function(data, vars_vctr) {
+add_tip <- function(data, vars_vctr) {
   
   data <- data %>%
     dplyr::ungroup() 

@@ -189,7 +189,7 @@
 
 <span class="no">plot</span></pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
-<p>These <code>ggplot</code> graphs have been designed that users can convert them easily to html interactive objects by wrapping them in <code>plotly::gglotly(plot)</code>. A customised tooltip can be provided using the <code>tip_var</code> argument in <code>simplevis</code> functions with <code>plotly::gglotly(plot, tooltip = "text)</code>. Automated tip_text columns can be created using the <code>add_plot_tip</code> function.</p>
+<p>These <code>ggplot</code> graphs have been designed that users can convert them easily to html interactive objects by wrapping them in <code>plotly::gglotly(plot)</code>. A customised tooltip can be provided using the <code>tip_var</code> argument in <code>simplevis</code> functions with <code>plotly::gglotly(plot, tooltip = "text)</code>. Automated tip_text columns can be created using the <code>add_tip</code> function.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>), <span class="fl">2</span>)) <span class="kw">%&gt;%</span>

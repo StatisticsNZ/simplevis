@@ -116,7 +116,7 @@ plot <- ggplot_hbar_col_facet(data = plot_data,
 plot
 ```
 
-These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly(plot)`. A customised tooltip can be provided using the `tip_var` argument in `simplevis` functions with `plotly::gglotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `add_plot_tip` function.
+These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly(plot)`. A customised tooltip can be provided using the `tip_var` argument in `simplevis` functions with `plotly::gglotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `add_tip` function.
 
 ```{r, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%

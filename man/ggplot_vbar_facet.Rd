@@ -4,11 +4,11 @@
 \alias{ggplot_vbar_facet}
 \title{Vertical bar ggplot that is facetted.}
 \usage{
-ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
+ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   x_labels = waiver(), x_pretty_n = 5, y_zero = TRUE,
   y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
   y_pretty_n = 5, facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, width = 0.75, na_hover_text = "NA", na_grey = FALSE,
+  pal = NULL, width = 0.75, na_tip = NULL, na_grey = FALSE,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
@@ -24,7 +24,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -48,7 +48,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{width}{Width of bars. Defaults to 0.75.}
 
-\item{na_hover_text}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
+\item{na_tip}{Text to provide to users in the tooltip for any NA grey bars. Defaults to "NA".}
 
 \item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
 
@@ -99,5 +99,5 @@ plot <- ggplot_vbar_facet(data = plot_data, x_var = year, y_var = average_wind,
 
 plot
 
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot)
 }

@@ -113,7 +113,7 @@ theme_line <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -124,6 +124,7 @@ theme_line <-
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -155,11 +156,11 @@ theme_line <-
 #'
 #'   plot
 #'
-#'   plotly::ggplotly(plot, tooltip = "text")
+#'   plotly::ggplotly(plot)
 ggplot_line <- function(data,
                         x_var,
                         y_var,
-                        hover_var = NULL,
+                        tip_var = NULL,
                         x_labels = waiver(),
                         x_pretty_n = 6,
                         y_zero = TRUE,
@@ -170,6 +171,7 @@ ggplot_line <- function(data,
                         points = TRUE,
                         point_size = 1,
                         lines = TRUE,
+                        size = 0.5,
                         pal = NULL,
                         title = "[Title]",
                         subtitle = NULL,
@@ -196,7 +198,7 @@ ggplot_line <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-  hover_var <- rlang::enquo(hover_var)
+  tip_var <- rlang::enquo(tip_var)
   
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
@@ -233,53 +235,11 @@ ggplot_line <- function(data,
     )
   
   if (lines == TRUE) plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1])
+    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1], size = size)
 
-  if (is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_point(
-        aes(!!x_var, !!y_var, 
-            text = paste(
-              paste0(
-                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                ": ",
-                !!x_var
-              ),
-              paste0(
-                stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                ": ",
-                !!y_var
-              ),
-              sep = "<br>"
-            )                    
-        ),
-        col = pal[1], size = point_size, alpha = alpha)
-  }
-  else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-              geom_point(
-                aes(!!x_var, !!y_var, key = !!hover_var, 
-                    text = paste(
-                      paste0(
-                        stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                        ": ",
-                        !!x_var
-                      ),
-                      paste0(
-                        stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                        ": ",
-                        !!y_var
-                      ),
-                      paste0(
-                        stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                        ": ",
-                        !!hover_var
-                      ),
-                      sep = "<br>"
-                    )),
-                col = pal[1], size = point_size, alpha = alpha)
-  }
-  
+  plot <- plot +
+    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
 
@@ -311,7 +271,6 @@ ggplot_line <- function(data,
       ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
   }
   else ({
-    
     if (y_zero == TRUE) {
       if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
       if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
@@ -374,7 +333,7 @@ ggplot_line <- function(data,
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -386,6 +345,7 @@ ggplot_line <- function(data,
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
@@ -420,13 +380,13 @@ ggplot_line <- function(data,
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_line_col <-
   function(data,
            x_var,
            y_var,
            col_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 6,
            y_zero = TRUE,
@@ -438,6 +398,7 @@ ggplot_line_col <-
            points = TRUE,
            point_size = 1,
            lines = TRUE,
+           size = 0.5,
            pal = NULL,
            rev_pal = FALSE,
            legend_ncol = 3,
@@ -469,7 +430,7 @@ ggplot_line_col <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     data <- data %>% 
       dplyr::ungroup() %>%
@@ -512,63 +473,12 @@ ggplot_line_col <-
       ) 
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size)
 
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-              text = paste(
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                  ": ",
-                  !!x_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                  ": ",
-                  !!col_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                  ": ",
-                  !!y_var
-                ),
-                sep = "<br>"
-              )),
-          size = point_size, alpha = alpha)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-              key = !!hover_var,
-              text = paste(
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                  ": ",
-                  !!x_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                  ": ",
-                  !!col_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                  ": ",
-                  !!y_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                  ": ",
-                  !!hover_var
-                ),
-                sep = "<br>"
-              )),
-          size = point_size, alpha = alpha)
-    }
-    
+    plot <- plot +
+      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
+        size = point_size, alpha = alpha)
+
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
@@ -603,7 +513,6 @@ ggplot_line_col <-
         ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
     }
     else ({
-      
       if (y_zero == TRUE) {
         if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
         if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
@@ -676,7 +585,7 @@ ggplot_line_col <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -687,6 +596,7 @@ ggplot_line_col <-
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -718,13 +628,13 @@ ggplot_line_col <-
 #'
 #'  plot
 #'
-#'  plotly::ggplotly(plot, tooltip = "text")
+#'  plotly::ggplotly(plot)
 ggplot_line_facet <-
   function(data,
            x_var,
            y_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            y_zero = TRUE,
@@ -737,6 +647,7 @@ ggplot_line_facet <-
            points = TRUE,
            point_size = 1,
            lines = TRUE,
+           size = 0.5,
            pal = NULL,
            title = "[Title]",
            subtitle = NULL,
@@ -764,7 +675,7 @@ ggplot_line_facet <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -803,63 +714,10 @@ ggplot_line_facet <-
       )
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1]) 
+      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1], size = size) 
 
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(!!x_var, !!y_var,
-              text = paste(
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                  ": ",
-                  !!x_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                  ": ",
-                  !!facet_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                  ": ",
-                  !!y_var
-                ),
-                sep = "<br>"
-              )),
-          col = pal[1], size = point_size, alpha = alpha)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(!!x_var, !!y_var, 
-              key = !!hover_var,
-              text = paste(
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                  ": ",
-                  !!x_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                  ": ",
-                  !!facet_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                  ": ",
-                  !!y_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                  ": ",
-                  !!hover_var
-                ),
-                sep = "<br>"
-              )),
-          col = pal[1], size = point_size, alpha = alpha)
-    }
-    
+    plot <- plot +
+      geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
 
     if (facet_scales %in% c("fixed", "free_y")) {
       
@@ -964,7 +822,7 @@ ggplot_line_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -976,6 +834,7 @@ ggplot_line_facet <-
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -1013,14 +872,14 @@ ggplot_line_facet <-
 #'
 #'  plot
 #'
-#'  plotly::ggplotly(plot, tooltip = "text")
+#'  plotly::ggplotly(plot)
 ggplot_line_col_facet <-
   function(data,
            x_var,
            y_var,
            col_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            y_zero = TRUE,
@@ -1034,6 +893,7 @@ ggplot_line_col_facet <-
            points = TRUE,
            point_size = 1,
            lines = TRUE,
+           size = 0.5,
            pal = NULL,
            rev_pal = FALSE,
            legend_ncol = 3,
@@ -1066,7 +926,7 @@ ggplot_line_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     data <- data %>% 
       dplyr::ungroup() %>%
@@ -1111,73 +971,12 @@ ggplot_line_col_facet <-
       ) 
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size)
 
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-              text = paste(
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                  ": ",
-                  !!x_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                  ": ",
-                  !!col_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                  ": ",
-                  !!facet_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                  ": ",
-                  !!y_var
-                ),
-                sep = "<br>"
-              )),
-          size = point_size, alpha = alpha)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var,
-              key = !!hover_var,
-              text = paste(
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                  ": ",
-                  !!x_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-                  ": ",
-                  !!col_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                  ": ",
-                  !!facet_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                  ": ",
-                  !!y_var
-                ),
-                paste0(
-                  stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-                  ": ",
-                  !!hover_var
-                ),
-                sep = "<br>"
-              )),
-          size = point_size, alpha = alpha)
-    }
-    
+    plot <- plot +
+      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
+        size = point_size, alpha = alpha)
+
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()

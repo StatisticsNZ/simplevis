@@ -113,7 +113,7 @@ theme_hbar <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
@@ -124,7 +124,7 @@ theme_hbar <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
-#' @param na_hover_text Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
+#' @param na_tip Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -157,11 +157,11 @@ theme_hbar <-
 #'
 #' plot
 #' 
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_hbar <- function(data,
                         x_var,
                         y_var,
-                        hover_var = NULL,
+                        tip_var = NULL,
                         x_labels = waiver(),
                         x_zero = TRUE,
                         x_zero_line = TRUE,
@@ -172,7 +172,7 @@ ggplot_hbar <- function(data,
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
-                        na_hover_text = "NA",
+                        na_tip = "NA",
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -198,7 +198,7 @@ ggplot_hbar <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
-  hover_var <- rlang::enquo(hover_var)
+  tip_var <- rlang::enquo(tip_var)
   
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
@@ -244,52 +244,9 @@ ggplot_hbar <- function(data,
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
-    )
-  
-  if (is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_col(aes(x = !!y_var, y = !!x_var, 
-        text = paste(
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-          ": ",
-          !!y_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-          ": ",
-          !!x_var
-        ),
-        sep = "<br>"
-      )),
-      fill = pal[1],
-      width = width)
-  }
-  else if (!is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_col(aes(x = !!y_var, y = !!x_var, key = !!hover_var,
-        text = paste(
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-          ": ",
-          !!y_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-          ": ",
-          !!x_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-          ": ",
-          !!hover_var
-        ),
-        sep = "<br>"
-      )),
-      fill = pal[1],
-      width = width)
-  }
-  
+    ) +
+      geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), fill = pal[1], width = width)
+
   if (all(x_var_vector == 0, na.rm = TRUE)) {
     x_limits <- c(0, 1)
     
@@ -331,46 +288,28 @@ ggplot_hbar <- function(data,
   if(na_grey == TRUE) {
     na_data <- filter(data, is.na(!!x_var))
     
+    if(!is.null(na_tip)) {
+      # na_data <- na_data %>%
+      #   dplyr::mutate(dplyr::across(!!tip_var, ~ stringr::str_replace(., "NA", na_tip)))
+      
+      na_data <- na_data %>%
+        dplyr::mutate_at(dplyr::vars(!!tip_var), ~ stringr::str_replace(., "NA", na_tip))
+    }
+    
     if(nrow(na_data) != 0){
       if(x_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[2], key = !!hover_var, 
-                       text = paste(
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                           ": ",
-                           !!y_var
-                         ),
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                           ": ",
-                           na_hover_text
-                         ),
-                         sep = "<br>"
-                       )),
+          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
                    fill = "#F0F0F0", width = (1 + (1 - width)),
                    data = na_data)
       }
       if(x_limits[1] < 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[1], key = !!hover_var, 
-                       text = paste(
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                           ": ",
-                           !!y_var
-                         ),
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                           ": ",
-                           na_hover_text
-                         ),
-                         sep = "<br>"
-                       )),
+          geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
                    fill = "#F0F0F0", width = (1 + (1 - width)),
                    data = na_data)
       }
-      }
+    }
   }
   
   plot <- plot +
@@ -411,7 +350,7 @@ ggplot_hbar <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
@@ -465,13 +404,13 @@ ggplot_hbar <- function(data,
 #' 
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_hbar_col <-
   function(data,
            x_var,
            y_var,
            col_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
            x_zero_line = TRUE,
@@ -514,7 +453,7 @@ ggplot_hbar_col <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -562,67 +501,10 @@ ggplot_hbar_col <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      )
-    
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!y_var, y = !!x_var, fill = !!col_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = width,
-        position = position2)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!y_var, y = !!x_var, key = !!hover_var,
-          fill = !!col_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-              ": ",
-              !!hover_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = width,
-        position = position2)
-    }
-    
+      ) +
+      geom_col(aes(
+        x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
+
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -738,7 +620,7 @@ ggplot_hbar_col <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
@@ -751,7 +633,7 @@ ggplot_hbar_col <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
-#' @param na_hover_text Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
+#' @param na_tip Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -785,13 +667,13 @@ ggplot_hbar_col <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_hbar_facet <-
   function(data,
            x_var,
            y_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
            x_zero_line = TRUE,
@@ -805,7 +687,7 @@ ggplot_hbar_facet <-
            width = 0.75, 
            title = "[Title]",
            na_grey = FALSE,
-           na_hover_text = "NA",
+           na_tip = "NA",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
@@ -831,7 +713,7 @@ ggplot_hbar_facet <-
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     y_var_vector <- dplyr::pull(data, !!y_var)
     x_var_vector <- dplyr::pull(data, !!x_var)
@@ -875,64 +757,10 @@ ggplot_hbar_facet <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      )
+      ) +
+      geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), fill = pal[1], width = width)
     
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!y_var, y = !!x_var, 
-          text = paste(
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-            ": ",
-            !!y_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-            ": ",
-            !!facet_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-            ": ",
-            !!x_var
-          ),
-          sep = "<br>"
-        )),
-        fill = pal[1],
-        width = width)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!y_var, y = !!x_var, key = !!hover_var,
-          text = paste(
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-            ": ",
-            !!y_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-            ": ",
-            !!facet_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-            ": ",
-            !!x_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-            ": ",
-            !!hover_var
-          ),
-          sep = "<br>"
-        )),
-        fill = pal[1],
-        width = width)
-    }
-    
+
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
@@ -967,51 +795,23 @@ ggplot_hbar_facet <-
         na_data <- filter(data, is.na(!!x_var))
         
         if(nrow(na_data) != 0){
+          if(!is.null(na_tip)) {
+            # na_data <- na_data %>%
+            #   dplyr::mutate(dplyr::across(!!tip_var, ~ stringr::str_replace(., "NA", na_tip)))
+            
+            na_data <- na_data %>%
+              dplyr::mutate_at(dplyr::vars(!!tip_var), ~ stringr::str_replace(., "NA", na_tip))
+          }
+          
           if(x_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[2], key = !!hover_var,
-                           text = paste(
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                               ": ",
-                               !!y_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                               ": ",
-                               !!facet_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                               ": ",
-                               na_hover_text
-                             ),
-                             sep = "<br>"
-                           )),
+              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
                        fill = "#F0F0F0", width = (1 + (1 - width)),
                        data = na_data)
           }
           if(x_limits[1] < 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[1], key = !!hover_var,
-                           text = paste(
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                               ": ",
-                               !!y_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                               ": ",
-                               !!facet_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                               ": ",
-                               na_hover_text
-                             ),
-                             sep = "<br>"
-                           )),
+              geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
                        fill = "#F0F0F0", width = (1 + (1 - width)),
                        data = na_data)
           }
@@ -1070,7 +870,7 @@ ggplot_hbar_facet <-
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
@@ -1122,14 +922,14 @@ ggplot_hbar_facet <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_hbar_col_facet <-
   function(data,
            x_var,
            y_var,
            col_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
            x_zero_line = TRUE,
@@ -1175,7 +975,7 @@ ggplot_hbar_col_facet <-
     x_var <- rlang::enquo(x_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     y_var_vector <- dplyr::pull(data, !!y_var)
     x_var_vector <- dplyr::pull(data, !!x_var)
@@ -1224,77 +1024,9 @@ ggplot_hbar_col_facet <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      )
-    
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!y_var, y = !!x_var, fill = !!col_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-              ": ",
-              !!facet_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = width,
-        position = position2)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!y_var, y = !!x_var, key = !!hover_var,
-          fill = !!col_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-              ": ",
-              !!facet_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-              ": ",
-              !!hover_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = width,
-        position = position2)
-    }
-    
+      ) +
+      geom_col(aes(x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
+
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     

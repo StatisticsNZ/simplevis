@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_scatter_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>facet_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>ggplot_scatter_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>facet_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -166,8 +166,8 @@
       <td><p>Unquoted categorical variable to facet the data by. Required input.</p></td>
     </tr>
     <tr>
-      <th>hover_var</th>
-      <td><p>Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.</p></td>
+      <th>tip_var</th>
+      <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>size</th>
@@ -293,9 +293,10 @@
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
 
-<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_scatter_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>color</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_scatter_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>color</span>)
+
 <span class='no'>plot</span></div><div class='img'><img src='ggplot_scatter_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

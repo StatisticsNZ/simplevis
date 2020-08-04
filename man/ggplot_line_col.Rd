@@ -4,14 +4,14 @@
 \alias{ggplot_line_col}
 \title{Line ggplot that is coloured.}
 \usage{
-ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
+ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
   x_labels = waiver(), x_pretty_n = 6, y_zero = TRUE,
   y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
   y_pretty_n = 5, col_drop = FALSE, points = TRUE, point_size = 1,
-  lines = TRUE, pal = NULL, rev_pal = FALSE, legend_ncol = 3,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
+  lines = TRUE, size = 0.5, pal = NULL, rev_pal = FALSE,
+  legend_ncol = 3, title = "[Title]", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", col_title = "",
+  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
   wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
   wrap_col_title = 25, wrap_caption = 80, isMobile = NULL)
@@ -25,7 +25,7 @@ ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{col_var}{Unquoted categorical variable for lines and points to be coloured by. Required input.}
 
-\item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -48,6 +48,8 @@ ggplot_line_col(data, x_var, y_var, col_var, hover_var = NULL,
 \item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
 
 \item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
+
+\item{size}{Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
@@ -107,5 +109,5 @@ plot <- ggplot_line_col(data = plot_data, x_var = year, y_var = wind, col_var = 
 
 plot
 
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot)
 }

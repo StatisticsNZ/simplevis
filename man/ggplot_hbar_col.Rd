@@ -4,7 +4,7 @@
 \alias{ggplot_hbar_col}
 \title{Horizontal bar ggplot that is coloured.}
 \usage{
-ggplot_hbar_col(data, x_var, y_var, col_var, hover_var = NULL,
+ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   x_labels = waiver(), x_zero = TRUE, x_zero_line = TRUE,
   x_trans = "identity", x_pretty_n = 6, y_rev = FALSE,
   y_labels = waiver(), col_rev = FALSE, col_drop = FALSE,
@@ -25,7 +25,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, hover_var = NULL,
 
 \item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
 
-\item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -114,5 +114,5 @@ plot <- ggplot_hbar_col(data = plot_data,
 
 plot
 
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot)
 }

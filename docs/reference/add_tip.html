@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert column names to sentence case. — sentence_spaced_colnames • simplevis</title>
+<title>Add a quick tooltip text column to data. — add_tip • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,9 +43,9 @@
 
 
 
-<meta property="og:title" content="Convert column names to sentence case. — sentence_spaced_colnames" />
+<meta property="og:title" content="Add a quick tooltip text column to data. — add_tip" />
 
-<meta property="og:description" content="A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values." />
+<meta property="og:description" content="Add a column of tooltip text which is automatically created based on column names and values." />
 
 <meta property="og:image" content="/logo.png" />
 
@@ -123,31 +123,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert column names to sentence case.</h1>
+    <h1>Add a quick tooltip text column to data.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/other.R'><code>R/other.R</code></a></small>
-    <div class="hidden name"><code>sentence_spaced_colnames.Rd</code></div>
+    <div class="hidden name"><code>add_tip.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.</p>
+    <p>Add a column of tooltip text which is automatically created based on column names and values.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sentence_spaced_colnames</span>(<span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>add_tip</span>(<span class='no'>data</span>, <span class='no'>vars_vctr</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>The number of digits to round the legend labels.</p></td>
+      <td><p>A tibble or dataframe. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>vars_vctr</th>
+      <td><p>A vector of quoted variables to include in the tooltip. Required input.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric value.</p>
+    <p>A vector of labels.</p>
     
 
   </div>

@@ -12,6 +12,34 @@ a4_width_mm <- 170
 #' @export
 a4_height_mm <- 257
 
+#' @title Add a quick tooltip text column to data.
+#' @description Add a column of tooltip text which is automatically created based on column names and values.
+#' @param data A tibble or dataframe. Required input.
+#' @param vars_vctr A vector of quoted variables to include in the tooltip. Required input.
+#' @return A vector of labels.
+#' @export
+add_tip <- function(data, vars_vctr) {
+  
+  data <- data %>%
+    dplyr::ungroup() 
+    
+  tip_text <- vector("character", 0)
+  
+  for (i in length(vars_vctr):1) {
+    temp <- dplyr::select(data, vars_vctr[i])
+    
+    temp <- paste0(stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
+                   ": ", pull(temp, 1))
+    
+    tip_text <- paste(temp, tip_text, sep = "<br>")
+  }
+  
+  data <- data %>%
+    dplyr::mutate(tip_text = tip_text)
+  
+  return(data)
+}
+
 #' @title Numeric legend labels.
 #' @description Pretty numeric legend labels.
 #' @param bin_cuts A numeric vector of bin cuts from which to create a vector of legend labels.

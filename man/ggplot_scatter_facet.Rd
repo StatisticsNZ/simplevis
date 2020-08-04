@@ -4,7 +4,7 @@
 \alias{ggplot_scatter_facet}
 \title{Scatter ggplot that is facetted.}
 \usage{
-ggplot_scatter_facet(data, x_var, y_var, facet_var, hover_var = NULL,
+ggplot_scatter_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   size = 1, pal = NULL, x_zero = TRUE, x_zero_line = TRUE,
   x_trans = "identity", x_labels = waiver(), x_pretty_n = 5,
   y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
@@ -25,7 +25,7 @@ ggplot_scatter_facet(data, x_var, y_var, facet_var, hover_var = NULL,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
 \item{size}{Size of points. Defaults to 1.}
 
@@ -98,5 +98,5 @@ plot <- ggplot_scatter_facet(data = plot_data, x_var = carat, y_var = price, fac
 
 plot
 
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot)
 }

@@ -5,7 +5,7 @@
 \title{Vertical bar ggplot that is coloured and facetted.}
 \usage{
 ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
-  hover_var = NULL, x_labels = waiver(), x_pretty_n = 5,
+  tip_var = NULL, x_labels = waiver(), x_pretty_n = 5,
   y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, col_drop = FALSE,
   position = "stack", facet_scales = "fixed", facet_nrow = NULL,
@@ -28,7 +28,7 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -115,5 +115,5 @@ plot_data <- storms \%>\%
 
   plot
 
-  plotly::ggplotly(plot, tooltip = "text")
+  plotly::ggplotly(plot)
 }

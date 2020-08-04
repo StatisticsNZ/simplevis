@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
       </span>
     </div>
 
@@ -134,10 +134,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_vbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>hover_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+    <pre class="usage"><span class='fu'>ggplot_vbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
   <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>na_grey</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na_hover_text</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>na_grey</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na_tip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
   <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>,
@@ -160,8 +160,8 @@
       <td><p>Unquoted numeric variable to be on the y axis. Required input.</p></td>
     </tr>
     <tr>
-      <th>hover_var</th>
-      <td><p>Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.</p></td>
+      <th>tip_var</th>
+      <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>x_labels</th>
@@ -204,8 +204,8 @@
       <td><p>TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>na_hover_text</th>
-      <td><p>Value to provide to users in the hover for any NA grey bars. Defaults to "NA".</p></td>
+      <th>na_tip</th>
+      <td><p>Text to provide to users in the tooltip for any NA grey bars. Defaults to "NA".</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -279,9 +279,10 @@
 <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_vbar</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>average_wind</span>,
       <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Average wind speed of Atlantic storms, 1975-2015"</span>,
       <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Year"</span>,
-      <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Average maximum sustained wind speed (knots)"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+      <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Average maximum sustained wind speed (knots)"</span>)
+
 <span class='no'>plot</span></div><div class='img'><img src='ggplot_vbar-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

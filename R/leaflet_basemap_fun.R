@@ -6,9 +6,9 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
-#' leaflet_basemap_stack("dark")
+#' leaflet_basemap("dark")
 
-leaflet_basemap_stack <- function(top_layer = "light"){
+leaflet_basemap <- function(top_layer = "light"){
   
   if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
   else if(top_layer == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")
@@ -61,9 +61,9 @@ leaflet_basemap_stack <- function(top_layer = "light"){
 #' @return A leaflet object.
 #' @export
 #' @examples
-#' leaflet_basemap_stack_nz("dark")
+#' leaflet_basemap_nz("dark")
 
-leaflet_basemap_stack_nz <- function(top_layer = "light"){
+leaflet_basemap_nz <- function(top_layer = "light"){
   
   if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
   else if(top_layer == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")

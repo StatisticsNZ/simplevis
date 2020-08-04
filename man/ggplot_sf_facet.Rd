@@ -16,7 +16,7 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{size}{Size of points. Defaults to 0.5.}
+\item{size}{Size of features (or shape outlines if polygon). Defaults to 0.5.}
 
 \item{alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
 

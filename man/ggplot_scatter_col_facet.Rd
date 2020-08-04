@@ -5,20 +5,19 @@
 \title{Scatter ggplot that is coloured and facetted.}
 \usage{
 ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
-  hover_var = NULL, size = 1, pal = NULL, pal_rev = FALSE,
-  col_na_remove = FALSE, x_zero = TRUE, x_zero_line = TRUE,
+  tip_var = NULL, col_method = NULL, col_cuts = NULL,
+  col_na_remove = FALSE, quantile_by_facet = TRUE, size = 1,
+  pal = NULL, pal_rev = FALSE, x_zero = TRUE, x_zero_line = TRUE,
   x_trans = "identity", x_labels = waiver(), x_pretty_n = 5,
   y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, col_drop = FALSE,
-  facet_scales = "fixed", facet_nrow = NULL, col_method = NULL,
-  quantile_cuts = NULL, quantile_by_facet = TRUE, bin_cuts = NULL,
-  legend_ncol = 3, legend_digits = 1, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
-  wrap_caption = 80, isMobile = NULL)
+  facet_scales = "fixed", facet_nrow = NULL, legend_ncol = 3,
+  legend_digits = 1, title = "[Title]", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", col_title = "",
+  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_col_title = 25, wrap_caption = 80, isMobile = NULL)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -31,15 +30,21 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{hover_var}{Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
+
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_na_remove}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.}
+
+\item{quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
 
 \item{size}{Size of points. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
-
-\item{col_na_remove}{TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
@@ -66,14 +71,6 @@ ggplot_scatter_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.}
-
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
-
-\item{quantile_cuts}{A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles.}
-
-\item{quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
-
-\item{bin_cuts}{A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 
@@ -131,5 +128,5 @@ plot <- ggplot_scatter_col_facet(data = plot_data, x_var = carat, y_var = price,
 
 plot
 
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot)
 }

@@ -113,7 +113,7 @@ theme_vbar <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -124,7 +124,7 @@ theme_vbar <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
-#' @param na_hover_text Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
+#' @param na_tip Text to provide to users in the tooltip for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -155,11 +155,11 @@ theme_vbar <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_vbar <- function(data,
                         x_var,
                         y_var,
-                        hover_var = NULL,
+                        tip_var = NULL,
                         x_labels = waiver(),
                         x_pretty_n = 6,
                         y_zero = TRUE,
@@ -170,7 +170,7 @@ ggplot_vbar <- function(data,
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
-                        na_hover_text = "NA",
+                        na_tip = NULL,
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -197,7 +197,7 @@ ggplot_vbar <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
   y_var <- rlang::enquo(y_var) #numeric var
-  hover_var <- rlang::enquo(hover_var)
+  tip_var <- rlang::enquo(tip_var)
   
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
@@ -221,66 +221,19 @@ ggplot_vbar <- function(data,
 
   if (is.null(pal)) pal <- pal_snz
   
+  if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+  else bar_unit <- 1
+  bar_width <- bar_unit * width
+
   plot <- ggplot(data) +
     coord_cartesian() +
     theme_vbar(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
-    )
-  
-  if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
-  else bar_unit <- 1
-  bar_width <- bar_unit * width
+    ) +
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), fill = pal[1], width = bar_width)
 
-  if (is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_col(
-        aes(x = !!x_var, y = !!y_var, 
-        text = paste(
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-          ": ",
-          !!x_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-          ": ",
-          !!y_var
-        ),
-        sep = "<br>"
-      )),
-      fill = pal[1],
-      width = bar_width
-      )
-  }
-  else if (!is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_col(
-        aes(x = !!x_var, y = !!y_var, key = !!hover_var,
-        text = paste(
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-          ": ",
-          !!x_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-          ": ",
-          !!y_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-          ": ",
-          !!hover_var
-        ),
-        sep = "<br>"
-      )),
-      fill = pal[1],
-      width = bar_width
-      )
-  }
-  
   if (lubridate::is.Date(x_var_vector)) {
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
@@ -349,39 +302,23 @@ ggplot_vbar <- function(data,
     na_data <- filter(data, is.na(!!y_var))
     
     if(nrow(na_data) != 0){
+      if(!is.null(na_tip)) {
+        # na_data <- na_data %>%
+        #   dplyr::mutate(dplyr::across(!!tip_var, ~ stringr::str_replace(., "NA", na_tip)))
+        
+        na_data <- na_data %>%
+          dplyr::mutate_at(dplyr::vars(!!tip_var), ~ stringr::str_replace(., "NA", na_tip))
+      }
+      
       if(y_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(x = !!x_var, y = y_limits[2], key = !!hover_var, 
-                       text = paste(
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                           ": ",
-                           !!x_var
-                         ),
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                           ": ",
-                           na_hover_text
-                         ),
-                         sep = "<br>")), 
+          geom_col(aes(x = !!x_var, y = y_limits[2], text = !!tip_var),
                    fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
                    data = na_data)
       }
       if(y_limits[1] < 0){
         plot <- plot +
-          geom_col(aes(x = !!x_var, y = y_limits[1], key = !!hover_var, 
-                       text = paste(
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                           ": ",
-                           !!x_var
-                         ),
-                         paste0(
-                           stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                           ": ",
-                           na_hover_text
-                         ),
-                         sep = "<br>")), 
+          geom_col(aes(x = !!x_var, y = y_limits[1], text = !!tip_var),
                    fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
                    data = na_data)
       }
@@ -423,7 +360,7 @@ ggplot_vbar <- function(data,
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -467,13 +404,13 @@ ggplot_vbar <- function(data,
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_vbar_col <-
   function(data,
            x_var,
            y_var,
            col_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 6,
            y_zero = TRUE,
@@ -515,7 +452,7 @@ ggplot_vbar_col <-
     y_var <- rlang::enquo(y_var) #numeric var
     x_var <- rlang::enquo(x_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     y_var_vector <- dplyr::pull(data, !!y_var)
     x_var_vector <- dplyr::pull(data, !!x_var)
@@ -546,6 +483,9 @@ ggplot_vbar_col <-
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
     if (is.null(pal)) pal <- pal_snz
+    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+    else bar_unit <- 1
+    bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
       coord_cartesian() +
@@ -553,72 +493,10 @@ ggplot_vbar_col <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      )
-    
-    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
-    else bar_unit <- 1
-    bar_width <- bar_unit * width
+      ) +
+      geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
+        width = bar_width, position = position2)
 
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(
-          aes(x = !!x_var, y = !!y_var, 
-          fill = !!col_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = bar_width,
-        position = position2)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(
-          aes(x = !!x_var, y = !!y_var, key = !!hover_var,
-          fill = !!col_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-              ": ",
-              !!hover_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = bar_width,
-        position = position2)
-    }
-    
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -750,7 +628,7 @@ ggplot_vbar_col <-
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -763,7 +641,7 @@ ggplot_vbar_col <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
-#' @param na_hover_text Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
+#' @param na_tip Text to provide to users in the tooltip for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -793,13 +671,13 @@ ggplot_vbar_col <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_vbar_facet <-
   function(data,
            x_var,
            y_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            y_zero = TRUE,
@@ -811,7 +689,7 @@ ggplot_vbar_facet <-
            facet_nrow = NULL,
            pal = NULL,
            width = 0.75, 
-           na_hover_text = "NA",
+           na_tip = NULL,
            na_grey = FALSE, 
            title = "[Title]",
            subtitle = NULL,
@@ -839,7 +717,7 @@ ggplot_vbar_facet <-
     x_var <- rlang::enquo(x_var) #categorical var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -864,6 +742,9 @@ ggplot_vbar_facet <-
     }
     
     if (is.null(pal)) pal <- pal_snz
+    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+    else bar_unit <- 1
+    bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
       coord_cartesian() +
@@ -871,70 +752,9 @@ ggplot_vbar_facet <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      )
-    
-    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
-    else bar_unit <- 1
-    bar_width <- bar_unit * width
+      ) +
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), fill = pal[1], width = bar_width)
 
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(
-          aes(x = !!x_var, y = !!y_var, 
-          text = paste(
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-            ": ",
-            !!x_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-            ": ",
-            !!facet_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-            ": ",
-            !!y_var
-          ),
-          sep = "<br>"
-        )),
-        fill = pal[1],
-        width = bar_width
-        )
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(
-          aes(x = !!x_var, y = !!y_var, key = !!hover_var,
-          text = paste(
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-            ": ",
-            !!x_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-            ": ",
-            !!facet_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-            ": ",
-            !!y_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-            ": ",
-            !!hover_var
-          ),
-          sep = "<br>"
-        )),
-        fill = pal[1],
-        width = bar_width
-        )
-    }
-    
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if (lubridate::is.Date(x_var_vector)) {
@@ -1000,49 +820,23 @@ ggplot_vbar_facet <-
         na_data <- filter(data, is.na(!!y_var))
         
         if(nrow(na_data) != 0){
+          if(!is.null(na_tip)) {
+            # na_data <- na_data %>%
+            #   dplyr::mutate(dplyr::across(!!tip_var, ~ stringr::str_replace(., "NA", na_tip)))
+            
+            na_data <- na_data %>%
+              dplyr::mutate_at(dplyr::vars(!!tip_var), ~ stringr::str_replace(., "NA", na_tip))
+          }
+          
           if(y_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(x = !!x_var, y = y_limits[2], key = !!hover_var, 
-                           text = paste(
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                               ": ",
-                               !!x_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                               ": ",
-                               !!facet_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                               ": ",
-                               na_hover_text
-                             ),
-                             sep = "<br>")), 
+              geom_col(aes(x = !!x_var, y = y_limits[2], text = !!tip_var), 
                        fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
                        data = na_data)
           }
           if(y_limits[1] < 0){
             plot <- plot +
-              geom_col(aes(x = !!x_var, y = y_limits[1], key = !!hover_var, 
-                           text = paste(
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-                               ": ",
-                               !!x_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-                               ": ",
-                               !!facet_var
-                             ),
-                             paste0(
-                               stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-                               ": ",
-                               na_hover_text
-                             ),
-                             sep = "<br>")), 
+              geom_col(aes(x = !!x_var, y = y_limits[1], text = !!tip_var), 
                        fill = "#F0F0F0", width = (bar_unit + (bar_unit - bar_width)),
                        data = na_data)
           }
@@ -1098,7 +892,7 @@ ggplot_vbar_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
@@ -1149,14 +943,14 @@ ggplot_vbar_facet <-
 #'
 #'   plot
 #'
-#'   plotly::ggplotly(plot, tooltip = "text")
+#'   plotly::ggplotly(plot)
 ggplot_vbar_col_facet <-
   function(data,
            x_var,
            y_var,
            col_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            y_zero = TRUE,
@@ -1201,7 +995,7 @@ ggplot_vbar_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -1233,6 +1027,9 @@ ggplot_vbar_col_facet <-
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
     if (is.null(pal)) pal <- pal_snz
+    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
+    else bar_unit <- 1
+    bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
       coord_cartesian() +
@@ -1240,80 +1037,10 @@ ggplot_vbar_col_facet <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      )
-    
-    if (lubridate::is.Date(x_var_vector)) bar_unit <- 365
-    else bar_unit <- 1
-    bar_width <- bar_unit * width
+      ) +
+        geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
+                 width = bar_width, position = position2)
 
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(
-          aes(x = !!x_var, y = !!y_var, fill = !!col_var, 
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-              ": ",
-              !!facet_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = bar_width,
-        position = position2)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_col(
-          aes(x = !!x_var, y = !!y_var, fill = !!col_var, key = !!hover_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-              ": ",
-              !!facet_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-              ": ",
-              !!hover_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        width = bar_width,
-        position = position2)
-    }
-    
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     

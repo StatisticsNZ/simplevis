@@ -91,7 +91,7 @@ theme_sf <-
 #' @title Map of simple features in ggplot.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
-#' @param size Size of points. Defaults to 0.5.
+#' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
@@ -213,7 +213,7 @@ ggplot_sf <- function(data,
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size Size of points. Defaults to 0.5.
+#' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
@@ -390,6 +390,7 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       geom_sf(
         aes(fill = !!col_var),
+        size = size,
         col = NA,
         key_glyph = draw_key_rect,
         alpha = alpha,
@@ -461,7 +462,7 @@ ggplot_sf_col <- function(data,
 #' @description Map of simple features in ggplot that is facetted, but not coloured. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param size Size of points. Defaults to 0.5.
+#' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param facet_nrow The number of rows of facetted plots. Not applicable to where isMobile is TRUE.
@@ -567,6 +568,7 @@ ggplot_sf_facet <- function(data,
     plot <- plot +
       geom_sf(
         fill = pal[1],
+        size = size,
         col = NA,
         key_glyph = draw_key_rect,
         alpha = alpha,
@@ -623,7 +625,7 @@ ggplot_sf_facet <- function(data,
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size Size of points. Defaults to 0.5.
+#' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
@@ -824,6 +826,7 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       geom_sf(
         aes(fill = !!col_var),
+        size = size,
         col = NA,
         key_glyph = draw_key_rect,
         alpha = alpha,

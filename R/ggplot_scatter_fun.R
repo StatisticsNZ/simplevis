@@ -8,9 +8,9 @@
 #' @export
 #' @examples
 #' ggplot2::ggplot() +
-#'   theme_scatter("Courier", 9, 7) +
+#'   theme_point("Courier", 9, 7) +
 #'   ggplot2::ggtitle("This is a title of a selected font family and size")
-theme_scatter <-
+theme_point <-
   function(font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10) {
@@ -113,7 +113,7 @@ theme_scatter <-
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
@@ -154,11 +154,11 @@ theme_scatter <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_scatter <- function(data,
                            x_var,
                            y_var,
-                           hover_var = NULL,
+                           tip_var = NULL,
                            size = 1,
                            pal = NULL,
                            x_zero = TRUE,
@@ -196,7 +196,7 @@ ggplot_scatter <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-  hover_var <- rlang::enquo(hover_var)
+  tip_var <- rlang::enquo(tip_var)
   
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
@@ -228,59 +228,14 @@ ggplot_scatter <- function(data,
   if (is.null(pal)) pal <- pal_snz
   
   plot <- ggplot(data) +
-    theme_scatter(
+    theme_point(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    coord_cartesian(clip = "off")
-  
-  if (is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_point(
-        aes(!!x_var, !!y_var, 
-        text = paste(
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-          ": ",
-          !!x_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-          ": ",
-          !!y_var
-        ),
-        sep = "<br>"
-      )),
-      col = pal[1],
-      size = size)
-  }
-  else if (!is.null(rlang::get_expr(hover_var))) {
-    plot <- plot +
-      geom_point(
-        aes(!!x_var, !!y_var, key = !!hover_var, 
-        text = paste(
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-          ": ",
-          !!x_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-          ": ",
-          !!y_var
-        ),
-        paste0(
-          stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-          ": ",
-          !!hover_var
-        ),
-        sep = "<br>"
-      )),
-      col = pal[1],
-      size = size)
-  }
-  
+    coord_cartesian(clip = "off") +
+    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = size)
+
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
   
@@ -372,14 +327,14 @@ ggplot_scatter <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles.
-#' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -390,7 +345,6 @@ ggplot_scatter <- function(data,
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title  Title string. Defaults to "[Title]".
@@ -421,21 +375,20 @@ ggplot_scatter <- function(data,
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_scatter_col <-
   function(data,
            x_var,
            y_var,
            col_var,
-           hover_var = NULL,
+           tip_var = NULL,
            col_method = NULL,
-           col_title = "",
-           quantile_cuts = NULL,
-           bin_cuts = NULL,
+           col_cuts = NULL,
+           col_drop = FALSE,
+           col_na_remove = FALSE,
            size = 1,
            pal = NULL,
            pal_rev = FALSE,
-           col_na_remove = FALSE,
            x_zero = TRUE,
            x_zero_line = TRUE,
            x_trans = "identity",
@@ -446,13 +399,13 @@ ggplot_scatter_col <-
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
-           col_drop = FALSE,
            legend_ncol = 3,
            legend_digits = 1,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
+           col_title = "",
            caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
@@ -477,7 +430,7 @@ ggplot_scatter_col <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var)
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -513,19 +466,19 @@ ggplot_scatter_col <-
     }
     
     if (col_method == "quantile") {
-      if (is.null(quantile_cuts)) quantile_cuts <- c(0, 0.25, 0.5, 0.75, 1)
-      bin_cuts <- quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
-      if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
-      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, bin_cuts))
-      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
+      col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_method == "bin") {
-      if (is.null(bin_cuts)) bin_cuts <- pretty(col_var_vector)
-      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, bin_cuts))
-      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
+      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_method == "category") {
@@ -535,69 +488,16 @@ ggplot_scatter_col <-
     }
     
     plot <- ggplot(data) +
-      theme_scatter(
+      theme_point(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off")
     
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(x = !!x_var, y = !!y_var, col = !!col_var, 
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        size = size)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(x = !!x_var, y = !!y_var, col = !!col_var, key = !!hover_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-              ": ",
-              !!hover_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        size = size)
-    }
-    
+    plot <- plot +
+      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
+
     if (pal_rev == TRUE) pal <- rev(pal)
     if (col_na_remove == TRUE) na.translate <- FALSE
     if (col_na_remove == FALSE) na.translate <- TRUE
@@ -702,7 +602,7 @@ ggplot_scatter_col <-
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -743,13 +643,13 @@ ggplot_scatter_col <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_scatter_facet <-
   function(data,
            x_var,
            y_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
            size = 1,
            pal = NULL,
            x_zero = TRUE,
@@ -790,7 +690,7 @@ ggplot_scatter_facet <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -824,67 +724,14 @@ ggplot_scatter_facet <-
     if (is.null(pal)) pal <- pal_snz
     
     plot <- ggplot(data) +
-      theme_scatter(
+      theme_point(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      coord_cartesian(clip = "off")
-    
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(x = !!x_var, y = !!y_var, 
-          text = paste(
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-            ": ",
-            !!x_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-            ": ",
-            !!facet_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-            ": ",
-            !!y_var
-          ),
-          sep = "<br>"
-        )),
-        col = pal[1], size = size)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(x = !!x_var, y = !!y_var, key = !!hover_var,
-          text = paste(
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-            ": ",
-            !!x_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-            ": ",
-            !!facet_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-            ": ",
-            !!y_var
-          ),
-          paste0(
-            stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-            ": ",
-            !!hover_var
-          ),
-          sep = "<br>"
-        )),
-        col = pal[1], size = size)
-    }
-    
+      coord_cartesian(clip = "off") +
+      geom_point(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], size = size)
+
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
@@ -996,15 +843,15 @@ ggplot_scatter_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param hover_var Unquoted variable to be an additional hover variable for when used inside plotly::ggplotly(). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param quantile_cuts A vector of probability cuts applicable where col_method of "quantile" is selected. The first number in the vector should 0 and the final number 1. Defaults to quartiles.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
+#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
-#' @param bin_cuts A vector of bin cuts applicable where col_method of "bin" is selected. The first number in the vector should be either -Inf or 0, and the final number Inf. If NULL, 'pretty' breaks are used.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -1015,7 +862,6 @@ ggplot_scatter_facet <-
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param legend_ncol The number of columns in the legend.
@@ -1051,18 +897,21 @@ ggplot_scatter_facet <-
 #'
 #' plot
 #'
-#' plotly::ggplotly(plot, tooltip = "text")
+#' plotly::ggplotly(plot)
 ggplot_scatter_col_facet <-
   function(data,
            x_var,
            y_var,
            col_var,
            facet_var,
-           hover_var = NULL,
+           tip_var = NULL,
+           col_method = NULL,
+           col_cuts = NULL,
+           col_na_remove = FALSE,
+           quantile_by_facet = TRUE,
            size = 1,
            pal = NULL,
            pal_rev = FALSE,
-           col_na_remove = FALSE,
            x_zero = TRUE,
            x_zero_line = TRUE,
            x_trans = "identity",
@@ -1076,10 +925,6 @@ ggplot_scatter_col_facet <-
            col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
-           col_method = NULL,
-           quantile_cuts = NULL,
-           quantile_by_facet = TRUE,
-           bin_cuts = NULL,
            legend_ncol = 3,
            legend_digits = 1,
            title = "[Title]",
@@ -1112,7 +957,7 @@ ggplot_scatter_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var)
     facet_var <- rlang::enquo(facet_var) #categorical var
-    hover_var <- rlang::enquo(hover_var)
+    tip_var <- rlang::enquo(tip_var)
     
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
@@ -1150,31 +995,31 @@ ggplot_scatter_col_facet <-
     }
 
     if (col_method == "quantile") {
-      if (is.null(quantile_cuts)) quantile_cuts <- c(0, 0.25, 0.5, 0.75, 1)
+      if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
       if (quantile_by_facet == TRUE) {
         data <- data %>%
           dplyr::group_by(!!facet_var) %>%
           dplyr::mutate(!!col_var := percent_rank(!!col_var)) %>%
-          dplyr::mutate(!!col_var := cut(!!col_var, quantile_cuts))
+          dplyr::mutate(!!col_var := cut(!!col_var, col_cuts))
         
-        if (is.null(pal)) pal <- viridis::viridis(length(quantile_cuts) - 1)
-        if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(quantile_cuts * 100, 0), "%")
+        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+        if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "%")
         if (!is.null(legend_labels)) labels <- legend_labels
       }
       else if (quantile_by_facet == FALSE) {
-        bin_cuts <- quantile(col_var_vector, probs = quantile_cuts, na.rm = TRUE)
-        if (anyDuplicated(bin_cuts) > 0) stop("quantile_cuts do not provide unique breaks")
-        data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, bin_cuts))
-        if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
-        if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+        col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+        data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+        if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
         if (!is.null(legend_labels)) labels <- legend_labels
       }
     }
     else if (col_method == "bin") {
-      if (is.null(bin_cuts)) bin_cuts <- pretty(col_var_vector)
-      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, bin_cuts))
-      if (is.null(pal)) pal <- viridis::viridis(length(bin_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(bin_cuts, legend_digits)
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
+      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_method == "category") {
@@ -1184,79 +1029,14 @@ ggplot_scatter_col_facet <-
     }
     
     plot <- ggplot(data) +
-      theme_scatter(
+      theme_point(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      coord_cartesian(clip = "off")
-    
-    if (is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(x = !!x_var, y = !!y_var, col = !!col_var, 
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-              ": ",
-              !!facet_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        size = size)
-    }
-    else if (!is.null(rlang::get_expr(hover_var))) {
-      plot <- plot +
-        geom_point(
-          aes(x = !!x_var, y = !!y_var, col = !!col_var, key = !!hover_var,
-          text = paste(
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(x_var), "_", " ")),
-              ": ",
-              !!x_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(col_var), "_", " ")),
-              ": ",
-              !!col_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(facet_var), "_", " ")),
-              ": ",
-              !!facet_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(y_var), "_", " ")),
-              ": ",
-              !!y_var
-            ),
-            paste0(
-              stringr::str_to_sentence(stringr::str_replace_all(rlang::as_name(hover_var), "_", " ")),
-              ": ",
-              !!hover_var
-            ),
-            sep = "<br>"
-          )
-        ),
-        size = size)
-    }
-    
+      coord_cartesian(clip = "off") +
+      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
+
     if (pal_rev == TRUE) pal <- rev(pal)
     if (col_na_remove == TRUE) na.translate <- FALSE
     if (col_na_remove == FALSE) na.translate <- TRUE

@@ -36,7 +36,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{size}{Size of points. Defaults to 0.5.}
+\item{size}{Size of features (or shape outlines if polygon). Defaults to 0.5.}
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 

@@ -124,7 +124,6 @@ theme_hbar <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
-#' @param na_tip Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -138,7 +137,7 @@ theme_hbar <-
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -172,7 +171,6 @@ ggplot_hbar <- function(data,
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
-                        na_tip = "NA",
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -186,14 +184,7 @@ ggplot_hbar <- function(data,
                         wrap_x_title = 50,
                         wrap_y_title = 50,
                         wrap_caption = 80,
-                        isMobile = NULL){
-  
-  if(is.null(isMobile)){
-    shiny <- shiny::isRunning()
-    if(shiny == FALSE) isMobile <- FALSE
-    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-    else isMobile <- FALSE
-  }
+                        isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -286,26 +277,21 @@ ggplot_hbar <- function(data,
   })
   
   if(na_grey == TRUE) {
-    na_data <- filter(data, is.na(!!x_var))
     
-    if(!is.null(na_tip)) {
-      # na_data <- na_data %>%
-      #   dplyr::mutate(dplyr::across(!!tip_var, ~ stringr::str_replace(., "NA", na_tip)))
-      
-      na_data <- na_data %>%
-        dplyr::mutate_at(dplyr::vars(!!tip_var), ~ stringr::str_replace(., "NA", na_tip))
-    }
-    
+    na_data <- data %>% 
+      filter(is.na(!!x_var)) %>% 
+      add_tip(c(rlang::as_name(y_var), rlang::as_name(x_var)))
+
     if(nrow(na_data) != 0){
       if(x_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+          geom_col(aes(x = !!y_var, y = x_limits[2], text = .data$tip_text),
                    fill = "#F0F0F0", width = (1 + (1 - width)),
                    data = na_data)
       }
       if(x_limits[1] < 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
+          geom_col(aes(x = !!y_var, y = x_limits[1], text = .data$tip_text),
                    fill = "#F0F0F0", width = (1 + (1 - width)),
                    data = na_data)
       }
@@ -380,7 +366,7 @@ ggplot_hbar <- function(data,
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -440,14 +426,7 @@ ggplot_hbar_col <-
            wrap_y_title = 50,
            wrap_col_title = 25,
            wrap_caption = 80,
-           isMobile = NULL){
-    
-    if(is.null(isMobile)){
-      shiny <- shiny::isRunning()
-      if(shiny == FALSE) isMobile <- FALSE
-      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-      else isMobile <- FALSE
-    }
+           isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
@@ -633,7 +612,6 @@ ggplot_hbar_col <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
-#' @param na_tip Value to provide to users in the hover for any NA grey bars. Defaults to "NA".
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -647,7 +625,7 @@ ggplot_hbar_col <-
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -687,7 +665,6 @@ ggplot_hbar_facet <-
            width = 0.75, 
            title = "[Title]",
            na_grey = FALSE,
-           na_tip = "NA",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
@@ -700,14 +677,7 @@ ggplot_hbar_facet <-
            wrap_x_title = 50,
            wrap_y_title = 50,
            wrap_caption = 80,
-           isMobile = NULL){
-    
-    if(is.null(isMobile)){
-      shiny <- shiny::isRunning()
-      if(shiny == FALSE) isMobile <- FALSE
-      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-      else isMobile <- FALSE
-    }
+           isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #categorical var
@@ -792,32 +762,26 @@ ggplot_hbar_facet <-
         )
       
       if(na_grey == TRUE) {
-        na_data <- filter(data, is.na(!!x_var))
         
-        if(nrow(na_data) != 0){
-          if(!is.null(na_tip)) {
-            # na_data <- na_data %>%
-            #   dplyr::mutate(dplyr::across(!!tip_var, ~ stringr::str_replace(., "NA", na_tip)))
-            
-            na_data <- na_data %>%
-              dplyr::mutate_at(dplyr::vars(!!tip_var), ~ stringr::str_replace(., "NA", na_tip))
-          }
-          
+        na_data <- data %>% 
+          filter(is.na(!!x_var)) %>% 
+          add_tip(c(rlang::as_name(y_var), rlang::as_name(x_var)))
+        
           if(x_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+              geom_col(aes(x = !!y_var, y = x_limits[2], text = .data$tip_text),
                        fill = "#F0F0F0", width = (1 + (1 - width)),
                        data = na_data)
           }
           if(x_limits[1] < 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
+              geom_col(aes(x = !!y_var, y = x_limits[1], text = .data$tip_text),
                        fill = "#F0F0F0", width = (1 + (1 - width)),
                        data = na_data)
           }
         }
-      }
     }
+    
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
         scale_y_continuous(expand = c(0, 0),
@@ -902,7 +866,7 @@ ggplot_hbar_facet <-
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -961,14 +925,7 @@ ggplot_hbar_col_facet <-
            wrap_y_title = 50,
            wrap_col_title = 25,
            wrap_caption = 80,
-           isMobile = NULL){
-    
-    if(is.null(isMobile)){
-      shiny <- shiny::isRunning()
-      if(shiny == FALSE) isMobile <- FALSE
-      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-      else isMobile <- FALSE
-    }
+           isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #categorical var

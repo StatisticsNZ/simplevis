@@ -1,3 +1,11 @@
+# simplevis 1.8.2
+
+* Removed code to automate isMobile, as it was not working.
+
+# simplevis 1.8.1 
+
+* Removed na_tip as was not working.
+
 # simplevis 1.8.0
 
 * Renamed leaflet_basemap_stack functions to remove the word stack.

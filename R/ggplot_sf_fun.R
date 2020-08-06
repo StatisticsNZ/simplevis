@@ -104,7 +104,7 @@ theme_sf <-
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -126,14 +126,7 @@ ggplot_sf <- function(data,
                       wrap_title = 70,
                       wrap_subtitle = 80,
                       wrap_caption = 80,
-                      isMobile = NULL) {
-  
-  if(is.null(isMobile)){
-    shiny <- shiny::isRunning()
-    if(shiny == FALSE) isMobile <- FALSE
-    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-    else isMobile <- FALSE
-  }
+                      isMobile = FALSE) {
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -232,7 +225,7 @@ ggplot_sf <- function(data,
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -279,14 +272,7 @@ ggplot_sf_col <- function(data,
                           wrap_subtitle = 80,
                           wrap_col_title = 25,
                           wrap_caption = 80,
-                          isMobile = NULL) {
-  
-  if(is.null(isMobile)){
-    shiny <- shiny::isRunning()
-    if(shiny == FALSE) isMobile <- FALSE
-    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-    else isMobile <- FALSE
-  }
+                          isMobile = FALSE) {
   
   col_var <- rlang::enquo(col_var)
   
@@ -478,7 +464,7 @@ ggplot_sf_col <- function(data,
 #' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -505,14 +491,7 @@ ggplot_sf_facet <- function(data,
                             wrap_title = 70,
                             wrap_subtitle = 80,
                             wrap_caption = 80,
-                            isMobile = NULL) {
-  
-  if(is.null(isMobile)){
-    shiny <- shiny::isRunning()
-    if(shiny == FALSE) isMobile <- FALSE
-    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-    else isMobile <- FALSE
-  }
+                            isMobile = FALSE) {
   
   facet_var <- rlang::enquo(facet_var) #categorical var
   
@@ -645,7 +624,7 @@ ggplot_sf_facet <- function(data,
 #' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -688,14 +667,7 @@ ggplot_sf_col_facet <- function(data,
                                 wrap_subtitle = 80,
                                 wrap_col_title = 25,
                                 wrap_caption = 80,
-                                isMobile = NULL) {
-  
-  if(is.null(isMobile)){
-    shiny <- shiny::isRunning()
-    if(shiny == FALSE) isMobile <- FALSE
-    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-    else isMobile <- FALSE
-  }
+                                isMobile = FALSE) {
   
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var

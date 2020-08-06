@@ -13,7 +13,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
   legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
   wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
-  isMobile = NULL)
+  isMobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -70,7 +70,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.}
+\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }
 \value{
 A ggplot object.

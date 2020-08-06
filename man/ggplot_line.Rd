@@ -13,7 +13,7 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = NULL)
+  isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -74,7 +74,7 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.}
+\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }
 \value{
 A ggplot object.

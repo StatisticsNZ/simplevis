@@ -138,7 +138,7 @@ theme_box <-
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -191,14 +191,7 @@ ggplot_box <- function(data,
                        wrap_x_title = 50,
                        wrap_y_title = 50,
                        wrap_caption = 80,
-                       isMobile = NULL){
-  
-  if(is.null(isMobile)){
-    shiny <- shiny::isRunning()
-    if(shiny == FALSE) isMobile <- FALSE
-    else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-    else isMobile <- FALSE
-  }
+                       isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) 
@@ -404,7 +397,7 @@ ggplot_box <- function(data,
 #' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.
+#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -451,14 +444,7 @@ ggplot_box_facet <-
            wrap_x_title = 50,
            wrap_y_title = 50,
            wrap_caption = 80,
-           isMobile = NULL){
-    
-    if(is.null(isMobile)){
-      shiny <- shiny::isRunning()
-      if(shiny == FALSE) isMobile <- FALSE
-      else if(shiny == TRUE & exists("mobileDetect")) isMobile <- input$isMobile
-      else isMobile <- FALSE
-    }
+           isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) 

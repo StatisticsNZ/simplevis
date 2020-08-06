@@ -7,12 +7,12 @@
 ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   x_zero = TRUE, x_zero_line = TRUE, x_trans = "identity",
   x_pretty_n = 6, y_rev = FALSE, y_labels = waiver(), pal = NULL,
-  width = 0.75, na_grey = FALSE, na_tip = "NA", title = "[Title]",
+  width = 0.75, na_grey = FALSE, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = NULL)
+  isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -43,8 +43,6 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
-\item{na_tip}{Value to provide to users in the hover for any NA grey bars. Defaults to "NA".}
-
 \item{title}{Title string. Defaults to [Title].}
 
 \item{subtitle}{Subtitle string. Defaults to [Subtitle].}
@@ -71,7 +69,7 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.}
+\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }
 \value{
 A ggplot object.

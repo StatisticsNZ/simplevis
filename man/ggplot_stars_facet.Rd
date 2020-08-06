@@ -9,7 +9,7 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
   facet_nrow = NULL, title = "[Title]", subtitle = NULL,
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_caption = 80, isMobile = NULL)
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.}
@@ -42,7 +42,7 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
 
 \item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL, which is FALSE unless run inside an app with the mobileDetect function available.}
+\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }
 \value{
 A ggplot object.

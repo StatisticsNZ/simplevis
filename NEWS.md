@@ -1,3 +1,7 @@
+# simplevis 1.8.3
+
+* Drop region, TA and sea-draining catchments from nz basemap stack.
+
 # simplevis 1.8.2
 
 * Removed code to automate isMobile, as it was not working.

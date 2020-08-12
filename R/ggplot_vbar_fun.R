@@ -424,7 +424,7 @@ ggplot_vbar_col <-
            wrap_col_title = 25,
            wrap_caption = 80,
            isMobile = FALSE) {
-
+    
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #numeric var
     x_var <- rlang::enquo(x_var) #categorical var

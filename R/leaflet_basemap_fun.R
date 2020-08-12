@@ -76,7 +76,6 @@ leaflet_basemap_nz <- function(top_layer = "light"){
   
   leaflet() %>%
     fitBounds(166.70047,-34.45676, 178.52966,-47.06345) %>%
-    # leaflet.extras::addFullscreenControl() %>%
     leaflet.extras::addResetMapButton() %>%
     addProviderTiles(
       providers$CartoDB.PositronNoLabels,
@@ -103,41 +102,9 @@ leaflet_basemap_nz <- function(top_layer = "light"){
       group = "Dark",
       options = providerTileOptions(zIndex = 0, attribution = "\u00A9 CartoDB")
     ) %>%
-    addWMSTiles(
-      baseUrl = "https://s3-stats.cloud.eaglegis.co.nz/arcgis/services/Environmental2018/catchment/MapServer/WmsServer?",
-      layers = c("3"),
-      options = WMSTileOptions(
-        format = "image/png",
-        transparent = TRUE,
-        zIndex = 900
-      ),
-      group = "Regions"
-    ) %>%
-    addWMSTiles(
-      baseUrl = "https://s3-stats.cloud.eaglegis.co.nz/arcgis/services/Environmental2018/catchment/MapServer/WmsServer?",
-      layers = c("2"),
-      options = WMSTileOptions(
-        format = "image/png",
-        transparent = TRUE,
-        zIndex = 900
-      ),
-      group = "Territorial authorities"
-    ) %>%
-    addWMSTiles(
-      baseUrl = "https://s3-stats.cloud.eaglegis.co.nz/arcgis/services/Environmental2018/catchment/MapServer/WmsServer?",
-      layers = c("0"),
-      options = WMSTileOptions(
-        format = "image/png",
-        transparent = TRUE,
-        zIndex = 900
-      ),
-      group = "Catchments"
-    ) %>%
     addLayersControl(
       baseGroups = basemap_order,
-      overlayGroups = c("Regions", "Territorial authorities", "Catchments"),
       position = "topleft",
       options = layersControlOptions(autoZIndex = FALSE)
-    ) %>%
-    hideGroup(c("Regions", "Territorial authorities", "Catchments"))
+    ) 
 }

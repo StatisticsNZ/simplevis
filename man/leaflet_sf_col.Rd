@@ -8,7 +8,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
   col_cuts = NULL, col_drop = FALSE, col_na_remove = FALSE,
   pal = NULL, pal_rev = FALSE,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
-  radius = 1, weight = 2, opacity = 0.9, stroke = TRUE,
+  radius = 2, weight = 2, opacity = 0.9, stroke = TRUE,
   title = "[Title]", legend_digits = 1, legend_labels = NULL,
   basemap = "light", map_id = "map")
 }
@@ -33,7 +33,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{popup}{HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
 
-\item{radius}{Radius of points. Defaults to 1.}
+\item{radius}{Radius of points. Defaults to 2.}
 
 \item{weight}{Stroke border size. Defaults to 2.}
 

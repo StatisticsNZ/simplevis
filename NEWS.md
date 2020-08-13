@@ -1,13 +1,9 @@
-# simplevis 1.8.3
+# simplevis 2.0.0
 
+* Update shiny templates.
+* Update leaflet radius default to 2.
 * Drop region, TA and sea-draining catchments from nz basemap stack.
-
-# simplevis 1.8.2
-
 * Removed code to automate isMobile, as it was not working.
-
-# simplevis 1.8.1 
-
 * Removed na_tip as was not working.
 
 # simplevis 1.8.0

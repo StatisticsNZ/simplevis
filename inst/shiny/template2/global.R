@@ -16,5 +16,5 @@ color_vector <- sort(unique(data1$color))
 metric_vector <- sort(unique(data2$indicator))
 
 # choose a basemap (if required)
-basemap <- leaflet_basemap_stack_nz()
+basemap <- leaflet_basemap_nz()
 

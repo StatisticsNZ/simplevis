@@ -28,9 +28,8 @@ add_tip <- function(data, vars_vctr) {
   for (i in length(vars_vctr):1) {
     
     temp <- data %>% 
-      dplyr::select(vars_vctr[i]) %>% 
-      mutate_all(~stringr::str_replace_na(., "Not available"))
-    
+      dplyr::select(vars_vctr[i]) 
+
     temp <- paste0(
       stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
       ": ", 
@@ -40,8 +39,8 @@ add_tip <- function(data, vars_vctr) {
   }
   
   data <- data %>%
-    dplyr::mutate(tip_text = tip_text)
-  
+    dplyr::mutate(tip_text = stringr::str_replace_all(tip_text, "NA", "Not available"))
+
   return(data)
 }
 
@@ -61,22 +60,23 @@ add_tip_c <- function(data, vars_vctr) {
   for (i in length(vars_vctr):1) {
     
     temp <- data %>% 
-      dplyr::select(vars_vctr[i]) %>% 
-      mutate_all(~stringr::str_replace_na(., "Not available"))
-
+      dplyr::select(vars_vctr[i]) 
+    
     temp <- paste0(
       stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
       ": ", 
-      format(pull(temp, 1), big.mark = ","))
+      stringr::str_replace_na(format(pull(temp, 1), big.mark = ","), "Not available"))
     
     tip_text <- paste(temp, tip_text, sep = "<br>")
+    
   }
   
   data <- data %>%
-    dplyr::mutate(tip_text = tip_text)
+    dplyr::mutate(tip_text = stringr::str_replace_all(tip_text, "NA", "Not available"))
   
   return(data)
 }
+
 
 #' @title Numeric legend labels.
 #' @description Pretty numeric legend labels.

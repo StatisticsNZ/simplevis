@@ -26,7 +26,10 @@ add_tip <- function(data, vars_vctr) {
   tip_text <- vector("character", 0)
   
   for (i in length(vars_vctr):1) {
-    temp <- dplyr::select(data, vars_vctr[i])
+    
+    temp <- data %>% 
+      dplyr::select(vars_vctr[i]) %>% 
+      mutate_all(~stringr::str_replace_na(., "Not available"))
     
     temp <- paste0(
       stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
@@ -56,8 +59,11 @@ add_tip_c <- function(data, vars_vctr) {
   tip_text <- vector("character", 0)
   
   for (i in length(vars_vctr):1) {
-    temp <- dplyr::select(data, vars_vctr[i])
     
+    temp <- data %>% 
+      dplyr::select(vars_vctr[i]) %>% 
+      mutate_all(~stringr::str_replace_na(., "Not available"))
+
     temp <- paste0(
       stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
       ": ", 

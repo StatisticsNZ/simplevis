@@ -1,6 +1,6 @@
 # simplevis 2.0.1
 
-* Added comma to tooltips.
+* Added a function to create tool tips with numeric values seperated by commas.
 
 # simplevis 2.0.0
 

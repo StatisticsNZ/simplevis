@@ -31,6 +31,36 @@ add_tip <- function(data, vars_vctr) {
     temp <- paste0(
       stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
       ": ", 
+      pull(temp, 1))
+    
+    tip_text <- paste(temp, tip_text, sep = "<br>")
+  }
+  
+  data <- data %>%
+    dplyr::mutate(tip_text = tip_text)
+  
+  return(data)
+}
+
+#' @title Add a quick tooltip text column to data with numeric values seperated by commas.
+#' @description Add a column of tooltip text which is automatically created based on column names and values. Numeric values are seperated by commas. Convert year values to characters to avoid a comma.
+#' @param data A tibble or dataframe. Required input.
+#' @param vars_vctr A vector of quoted variables to include in the tooltip. Required input.
+#' @return A vector of labels.
+#' @export
+add_tip_c <- function(data, vars_vctr) {
+  
+  data <- data %>%
+    dplyr::ungroup() 
+  
+  tip_text <- vector("character", 0)
+  
+  for (i in length(vars_vctr):1) {
+    temp <- dplyr::select(data, vars_vctr[i])
+    
+    temp <- paste0(
+      stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
+      ": ", 
       format(pull(temp, 1), big.mark = ","))
     
     tip_text <- paste(temp, tip_text, sep = "<br>")

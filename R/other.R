@@ -22,14 +22,16 @@ add_tip <- function(data, vars_vctr) {
   
   data <- data %>%
     dplyr::ungroup() 
-    
+  
   tip_text <- vector("character", 0)
   
   for (i in length(vars_vctr):1) {
     temp <- dplyr::select(data, vars_vctr[i])
     
-    temp <- paste0(stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
-                   ": ", pull(temp, 1))
+    temp <- paste0(
+      stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
+      ": ", 
+      format(pull(temp, 1), big.mark = ","))
     
     tip_text <- paste(temp, tip_text, sep = "<br>")
   }

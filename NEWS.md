@@ -1,3 +1,7 @@
+# simplevis 2.0.1
+
+* Added comma to tooltips.
+
 # simplevis 2.0.0
 
 * Update shiny templates.

@@ -1,6 +1,6 @@
 # simplevis 2.0.1
 
-* Added a function to create tool tips with numeric values seperated by commas.
+* Added argument to add_tip to enable the conversion of numeric values to character values seperated by commas.
 
 # simplevis 2.0.0
 

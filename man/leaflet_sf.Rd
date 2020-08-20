@@ -6,7 +6,7 @@
 \usage{
 leaflet_sf(data, pal = NULL,
   popup = leafpop::popupTable(sentence_spaced_colnames(data)),
-  radius = 2, weight = 2, opacity = 0.1, stroke = TRUE,
+  radius = 1, weight = 2, opacity = 0.1, stroke = TRUE,
   title = "[Title]", legend_digits = 1, legend_labels = "[Feature]",
   basemap = "light", map_id = "map")
 }

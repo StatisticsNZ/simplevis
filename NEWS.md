@@ -1,11 +1,6 @@
-# simplevis 2.0.1
-
-* Added argument to add_tip to enable the conversion of numeric values to character values seperated by commas.
-
 # simplevis 2.0.0
 
 * Update shiny templates.
-* Update leaflet radius default to 2.
 * Drop region, TA and sea-draining catchments from nz basemap stack.
 * Removed code to automate isMobile, as it was not working.
 * Removed na_tip as was not working.

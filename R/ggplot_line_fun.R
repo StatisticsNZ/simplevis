@@ -242,7 +242,6 @@ ggplot_line <- function(data,
   if (lubridate::is.Date(x_var_vector)) {
     plot <- plot +
       scale_x_date(
-        expand = c(0, 0),
         breaks = x_breaks,
         limits = x_limits,
         labels = x_labels
@@ -250,8 +249,7 @@ ggplot_line <- function(data,
   }
   else if (is.numeric(x_var_vector)) {
     plot <- plot +
-      scale_x_continuous(expand = c(0, 0),
-                         breaks = x_breaks,
+      scale_x_continuous(breaks = x_breaks,
                          limits = x_limits,
                          labels = x_labels,
                          oob = scales::rescale_none)
@@ -478,7 +476,6 @@ ggplot_line_col <-
     if (lubridate::is.Date(x_var_vector)) {
       plot <- plot +
         scale_x_date(
-          expand = c(0, 0),
           breaks = x_breaks,
           limits = x_limits,
           labels = x_labels
@@ -486,8 +483,7 @@ ggplot_line_col <-
     }
     else if (is.numeric(x_var_vector)) {
       plot <- plot +
-        scale_x_continuous(expand = c(0, 0),
-                           breaks = x_breaks,
+        scale_x_continuous(breaks = x_breaks,
                            limits = x_limits,
                            labels = x_labels)
     }
@@ -496,7 +492,7 @@ ggplot_line_col <-
       y_limits <- c(0, 1)
       
       plot <- plot +
-        ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
+        ggplot2::scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = y_limits)
     }
     else ({
       if (y_zero == TRUE) {
@@ -709,7 +705,6 @@ ggplot_line_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
-            expand = c(0, 0),
             breaks = x_breaks,
             limits = x_limits,
             labels = x_labels
@@ -717,8 +712,7 @@ ggplot_line_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(expand = c(0, 0),
-                             breaks = x_breaks,
+          scale_x_continuous(breaks = x_breaks,
                              limits = x_limits,
                              labels = x_labels)
       }
@@ -972,7 +966,6 @@ ggplot_line_col_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
-            expand = c(0, 0),
             breaks = x_breaks,
             limits = x_limits,
             labels = x_labels
@@ -980,8 +973,7 @@ ggplot_line_col_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(expand = c(0, 0),
-                             breaks = x_breaks,
+          scale_x_continuous(breaks = x_breaks,
                              limits = x_limits,
                              labels = x_labels)
       }

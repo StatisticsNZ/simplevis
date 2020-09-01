@@ -16,12 +16,87 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, warning = FALSE, message = FALSE}
+### Purpose 
+
+`simplevis` is a package of `ggplot2` and `leaflet` wrapper functions designed to support effortless high quality `ggplot2` and `leaflet` visualisations  for reports or interactive `shiny` apps. The intent is that these can be made more consistently with less effort, code and expertise than would otherwise be required.
+
+### Example illustrating the need and benefit of simplevis.
+
+Below is a simple example dataset.
+```{r, message = FALSE, warning = FALSE}
 library(simplevis)
 library(dplyr)
+library(ggplot2)
+
+data <- tibble::tribble(
+  ~pet, ~count,
+  "Cat", 567,
+  "Dog", 443,
+  "Horse", 11)  
+
+data
 ```
 
-### Making simplevis ggplot graphs
+We can make a `ggplot2` plot quickly. However, it does not look ready for a report or app.
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot(data) +
+  geom_col(aes(pet, count)) +
+  labs(title = "Wellington pets, 2020",
+       x = "Pet",
+       y = "Count")
+```
+
+We can modify the design with `ggplot2`. However, there is a lot of code. 
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot(data) +
+  geom_col(aes(pet, count), fill = "#085C75", width = 0.75) +
+  labs(title = "Wellington pets, 2020",
+       x = "Pet",
+       y = "Count") +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 600)) + #hardcoded = bad!
+  theme_minimal() +
+  theme(plot.title = element_text(
+    family = "Helvetica",
+    hjust = 0.5,
+    size = 11,
+    face = "bold",
+    colour = "#000000"
+  )) +
+  theme(
+    axis.title = element_text(
+      family = "Helvetica",
+      hjust = 0.5,
+      size = 10,
+      face = "plain",
+      colour = "#323232"
+    )
+  ) +
+  theme(axis.text = element_text(
+    family = "Helvetica",
+    hjust = 0.5,
+    size = 10,
+    face = "plain",
+    colour = "#323232"
+  )) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(panel.grid.minor.y = element_blank()) +
+  theme(axis.line = element_line(colour = "#323232", size = 0.3)) +
+  theme(axis.ticks = element_line(colour = "#323232", size = 0.3)) +
+  theme(axis.title.x = element_text(margin = margin(t = 10))) +
+  theme(axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+`simplevis` wraps these defaults into the functions, but allows the user to modify as required.
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot_vbar(data = data, 
+            x_var = pet, 
+            y_var = count, 
+            title = "Wellington pets, 2020", 
+            x_title = "Pet", 
+            y_title = "Count")
+```
+
+### simplevis ggplot graph types
 
 `simplevis` provides the following types of `ggplot` graph:
 
@@ -135,7 +210,21 @@ plotly::ggplotly(plot) %>%
   plotly_camera() 
 ```
 
-### Making simplevis ggplot maps
+The variable types supported by the different groups of functions are outlined below.
+
+```{r, echo = FALSE}
+tibble::tribble(
+  ~fun_group, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
+  "vbar", "numeric, date or categorical", "numeric", "categorical or numeric", "categorical", "identity",
+  "hbar", "numeric", "categorical", "categorical or numeric", "categorical", "identity",
+  "line", "numeric or date", "numeric", "categorical or numeric", "categorical", "identity",
+  "scatter", "numeric", "numeric", "categorical or numeric", "categorical", "identity",
+    "box", "categorical", "numeric", "categorical or numeric", "categorical", "boxplot or identity"
+  ) %>% 
+  DT::datatable()
+```
+
+### simplevis ggplot maps
 
 `simplevis` provides the following types of `ggplot` map:
 
@@ -249,7 +338,7 @@ ggplot_stars_col_facet(data = map_data,
                        title = "River modelled nutrient concentrations, 2013\u201317")
 ```
 
-### Making simplevis leaflet maps
+### simplevis leaflet maps
 
 `simplevis` provides the following types of `leaflet` map:
 
@@ -308,7 +397,7 @@ plot <- ggplot_hbar(data = plot_data,
 plot 
 ```
 
-### Making `shiny` apps with `simplevis`
+### `shiny` apps with `simplevis`
 
 `simplevis` provides two template `shiny` apps called `template1` and `template2`. Users can access these functions by using the `run_template` functions for the applicable app, and then clicking on the `download_code` button to access a zip file of the code. 
 
@@ -326,15 +415,22 @@ For a simple app, the basic method to create an app is:
 * In `global.R`, read your data in, and create any vectors required
 * In `ui.R`, add a app title
 * In `ui.R`. add `radioButtons` and other widgets
-* In `server.R`, add code within reactive plot_data and plot components, as well as equivalent map and table components.
+* In `server.R`, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a `isMobile = input$isMobile` specification to any simplevis graphs if you are looking to support mobile users as well as desktop
+* In `server.R`, add code for map and table components, as applicable
 * In `www/About.Rmd`, update as necessary
 * If using google tag-manager, obtain a tag and replace `GTM-XXXXXXX` with it in the `www/js/tag-manager-js` file. 
 
-### Iframing
+### Iframing apps
 
 Iframing apps can provide a great experience for users.
 
 Template apps are build to be compatible with one of two approaches to iframing:
 
 * if your website has ability for height responsive iframes, then follow the instructions described in the method developed by <a href="https://www.cultureofinsight.com/post/responsive-iframes-for-shiny-apps" target="_blank">Paul Campbell</a>. 
-* if your website does not support responsive iframes, then templates apps have css that supports a iframe of 750px for desktop users. The app developer can then code the iframe height to be bigger if a mobile user is detected. If this is not possible, a hyperlink to the app url can be provided to mobile users. 
+* if your website does not support responsive iframes, then templates apps have css that supports a iframe of 750px for desktop users. The app developer can then code the iframe height to be bigger if a mobile user is detected. If this is not possible, a hyperlink to the app url can be provided to mobile users. Note if you are trying to support mobile users, it is not recommended to facet graphs.
+
+
+
+
+
+

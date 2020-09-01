@@ -251,7 +251,7 @@ ggplot_vbar <- function(data,
   }
   else if (is.character(x_var_vector) | is.factor(x_var_vector)){
     plot <- plot +
-      scale_x_discrete(expand = c(0, 0), labels = x_labels)
+      scale_x_discrete(labels = x_labels)
   }
   
   if (all(y_var_vector == 0, na.rm = TRUE)) {
@@ -504,7 +504,7 @@ ggplot_vbar_col <-
     }
     else if (is.character(x_var_vector) | is.factor(x_var_vector)){
       plot <- plot +
-        scale_x_discrete(expand = c(0, 0), labels = x_labels)
+        scale_x_discrete(labels = x_labels)
     }
     
     if (position == "stack") {
@@ -752,7 +752,7 @@ ggplot_vbar_facet <-
       }
       else if (is.character(x_var_vector) | is.factor(x_var_vector)){
         plot <- plot +
-          scale_x_discrete(expand = c(0, 0), labels = x_labels)
+          scale_x_discrete(labels = x_labels)
       }
 
     }
@@ -1039,7 +1039,7 @@ ggplot_vbar_col_facet <-
       }
       else if (is.character(x_var_vector) | is.factor(x_var_vector)){
         plot <- plot +
-          scale_x_discrete(expand = c(0, 0), labels = x_labels)
+          scale_x_discrete(labels = x_labels)
       }
     }
     

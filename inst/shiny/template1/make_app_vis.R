@@ -6,9 +6,12 @@
 library(dplyr)
 library(simplevis)
 
-data_folder <- "inst/shiny/template1/data/"
+# data_folder <- "inst/shiny/template1/data/"
+# 
+# data <-  readRDS(paste0(data_folder, "data.RDS"))
 
-data <-  readRDS(paste0(data_folder, "data.RDS"))
+data <- ggplot2::diamonds %>%
+  slice_sample(prop = 0.1)
 
 color_vector <- sort(unique(data$color))
 

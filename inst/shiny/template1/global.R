@@ -6,8 +6,8 @@ library(dplyr)
 library(simplevis)
 
 # load data
-data_folder <- "data/"
-data <-  readRDS(paste0(data_folder, "data.RDS"))
+data <- ggplot2::diamonds %>%
+  slice_sample(prop = 0.1)
 
 # add helper vectors (if required)
 color_vector <- sort(unique(data$color))

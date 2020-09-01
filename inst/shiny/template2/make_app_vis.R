@@ -6,11 +6,18 @@
 library(dplyr)
 library(simplevis)
 
-data_folder <- "inst/shiny/template2/data/"
+# data_folder <- "inst/shiny/template2/data/"
+# 
+# data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
+# 
+# data2 <-  readRDS(paste0(data_folder, "data2.RDS"))
 
-data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
+data1 <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.1)
 
-data2 <-  readRDS(paste0(data_folder, "data2.RDS"))
+data2 <- simplevis::example_sf_nz_river_wq %>% 
+  filter(indicator %in% c("Nitrate-nitrogen", "Total nitrogen", "Ammoniacal nitrogen")) %>% 
+  slice_sample(prop = 0.1)
 
 # make a plot filtered by a user selected colour
 color_vector <- sort(unique(data1$color))

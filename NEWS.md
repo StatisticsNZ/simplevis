@@ -1,3 +1,7 @@
+# simplevis 2.0.1
+
+* Fixed bug with scatter not working with NAs appropriately.
+
 # simplevis 2.0.0
 
 * Update shiny templates.

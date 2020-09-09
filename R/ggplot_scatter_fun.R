@@ -233,8 +233,8 @@ ggplot_scatter <- function(data,
   else if(isMobile == TRUE) x_n <- 4
   
   if (x_zero == TRUE) {
-    if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-    if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+    if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+    if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
     if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
     x_limits <- c(min(x_breaks), max(x_breaks))
@@ -491,8 +491,8 @@ ggplot_scatter_col <-
     else if(isMobile == TRUE) x_n <- 4
     
     if (x_zero == TRUE) {
-      if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-      if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+      if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+      if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
       if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
       x_limits <- c(min(x_breaks), max(x_breaks))
@@ -716,8 +716,8 @@ ggplot_scatter_facet <-
       else if(isMobile == TRUE) x_n <- 4
       
       if (x_zero == TRUE) {
-        if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
@@ -1027,8 +1027,8 @@ ggplot_scatter_col_facet <-
       else if(isMobile == TRUE) x_n <- 4
       
       if (x_zero == TRUE) {
-        if(max(x_var_vector) > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min(x_var_vector) < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
 
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))

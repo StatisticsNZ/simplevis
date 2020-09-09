@@ -100,15 +100,15 @@ ggplot_vbar(data = data,
 
 `simplevis` provides the following types of `ggplot` graph:
 
-* horizontal bar (e.g. `gglot_hbar`)
-* vertical bar (e.g. `gglot_vbar`)
-* line plot (e.g. `gglot_line`)
-* scatter plot (e.g. `gglot_scatter`)
-* boxplot (e.g. `gglot_box`)
+* horizontal bar (e.g. `ggplot_hbar`)
+* vertical bar (e.g. `ggplot_vbar`)
+* line plot (e.g. `ggplot_line`)
+* scatter plot (e.g. `ggplot_scatter`)
+* boxplot (e.g. `ggplot_box`)
 
 For each graph type 4 functions are available.
 
-1. A `ggplot` not coloured or faceted (e.g. `gglot_hbar`)
+1. A `ggplot` not coloured or faceted (e.g. `ggplot_hbar`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
@@ -128,7 +128,7 @@ plot <- ggplot_hbar(data = plot_data,
 plot 
 ```
 
-2. A `ggplot` coloured, but not faceted (e.g. `gglot_hbar_col`)
+2. A `ggplot` coloured, but not faceted (e.g. `ggplot_hbar_col`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
@@ -149,7 +149,7 @@ plot <- ggplot_hbar_col(data = plot_data,
 plot
 ```
 
-3. A `ggplot` facetted, but not coloured (e.g. `gglot_hbar_facet`)
+3. A `ggplot` facetted, but not coloured (e.g. `ggplot_hbar_facet`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
@@ -169,7 +169,7 @@ plot <- ggplot_hbar_facet(data = plot_data,
 plot
 ```
 
-4. A `ggplot` coloured and facetted (e.g. `gglot_hbar_col_facet`)
+4. A `ggplot` coloured and facetted (e.g. `ggplot_hbar_col_facet`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 7}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
@@ -191,7 +191,7 @@ plot <- ggplot_hbar_col_facet(data = plot_data,
 plot
 ```
 
-These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::gglotly(plot)`. A customised tooltip can be provided using the `tip_var` argument in `simplevis` functions with `plotly::gglotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `add_tip` function.
+These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::ggplotly(plot)`. A customised tooltip can be provided using the `tip_var` argument in `simplevis` functions with `plotly::ggplotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `add_tip` function.
 
 ```{r, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%
@@ -247,7 +247,7 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 * Data can have any coordinate reference system (CRS), but it must be defined
 * No `x_var` and `y_var` variables are required
 * There is a coastline specification, which allows for a further `sf` object as a coastline or administrative boundaries to be added to the map. A New Zealand coastline (`nz`) and New Zealand coastline with regional boundaries (`nz_region`) has been provided with the package. 
-* They do _not_ support conversion to interactive objects through `plotly::gglotly`.
+* They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 map_data <- example_sf_nz_river_wq %>%
@@ -311,7 +311,7 @@ The following functions are available:
 These functions work in the same way as the `ggplot` `sf` map functions, but with the following key differences:
 
 * No non-colouring functions have been made, as it is assumed that this functionality is not required
-* They do _not_ support conversion to interactive objects through `plotly::gglotly`.
+* They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
 * Data must be provided in the format of a `stars` object. For, `ggplot_sf_col`, the `stars` object must have 2 dimensions x and y, and only 1 attribute layer. Required input. For, `ggplot_sf_col_facet`,  the stars object must have 2 dimensions, x and y, and multiple named attribute layers with the usual convention of lower case and underscores. Use `select`, `slice`, `c` and `split`to get the `stars` object into the appropriate format.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}

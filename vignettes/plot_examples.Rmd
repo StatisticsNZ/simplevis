@@ -1,0 +1,326 @@
+---
+title: "Plot examples"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+#### Load dplyr, convert the iris data to a tibble so it's easier to print.
+
+```{r setup, message = FALSE, warning = FALSE}
+library(dplyr)
+library(simplevis)
+
+iris <- iris %>% as_tibble() 
+
+iris 
+
+```
+
+#### Create a scatter plot of iris sepal width and length.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+
+```
+
+#### Add titles and adjust the font family and sizes.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               title = "Iris sepal length by width, 2020",
+               x_title = "Sepal width (cm)",
+               y_title = "Sepal length (cm)",
+               caption = "Fisher, 1936",
+               pal = pal_ea19,
+               font_family = "Lato",
+               font_size_title = 9,
+               font_size_body = 7)
+
+```
+
+#### Colour the points by the species variable.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter_col(iris, Sepal.Width, Sepal.Length, Species)
+
+```
+
+#### Facet the points by the species variable.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter_facet(iris, Sepal.Width, Sepal.Length, Species)
+
+```
+
+#### Turn off the 'zero'-ing of the x and y axis.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               x_zero = FALSE, y_zero = FALSE)
+
+```
+
+#### Use the pal_ea19 colours and increase the size of the dots.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               size = 2, pal = pal_ea19)
+
+```
+
+#### Use a bright colour from the pal_ea19 palette.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+pal_ea19
+
+scales::show_col(pal_ea19)
+
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               pal = pal_ea19[2])
+
+```
+
+#### Add some more pretty breaks to the y scale.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length, 
+               y_zero = FALSE,
+               y_pretty_n = 10,
+               x_zero = FALSE,
+               x_pretty_n = 10)
+
+```
+
+#### Transform the x scale to sqrt and the y scale to log10.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               x_trans = "sqrt", 
+               y_trans = "log10")
+
+```
+
+#### Put sepal length in terms of metres on the y axis.
+Method 1: Change the data to create a new variable.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- iris %>% 
+  mutate(Sepal.Length_m = Sepal.Length / 100)
+
+ggplot_scatter(plot_data, Sepal.Width, Sepal.Length_m,
+               y_title = "Sepal length (m)",
+               x_title = "Sepal width (cm)")
+```
+
+Method 2: Adjust the y_labels, and keep the data unchanged.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
+               y_title = "Sepal length (m)",
+               x_title = "Sepal width (cm)")
+```
+
+#### Make a ggplotly interactive plot with default tooltip.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+
+plotly::ggplotly(plot)
+
+```
+
+#### Make a ggplotly object with custom tooltip, and use only plotly camera button.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- iris %>% 
+  add_tip(c("Species", "Sepal.Width", "Sepal.Length", "Petal.Width"))
+
+plot_data
+
+plot <- ggplot_scatter(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
+
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
+
+```
+
+# Create a hbar graph.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = as.character(cut)) %>% 
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) 
+  
+ggplot_hbar(plot_data, average_price, cut)
+
+
+```
+
+##### Reverse the order of y axis.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_hbar(plot_data, average_price, cut,
+            y_rev = TRUE)
+```
+
+##### Specify the order by converting to a factor.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+
+cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
+
+plot_data <- plot_data %>% 
+ mutate(cut = factor(cut, levels = cut_levels)) 
+
+ggplot_hbar(plot_data, average_price, cut)
+
+
+```
+
+##### Add a $ prefix to y labels.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+
+ggplot_hbar(plot_data, average_price, cut, 
+            y_rev = TRUE, 
+            x_labels = scales::comma_format(prefix = "$"))
+
+```
+
+#### Make a coloured hbar plot.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+
+plot_data <- ggplot2::diamonds %>%
+  group_by(cut, clarity) %>%
+  summarise(average_price = mean(price))
+
+ggplot_hbar_col(plot_data, average_price, cut, clarity)
+
+```
+
+#### Reverse the colouring of the col var bar pieces.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_hbar_col(plot_data, average_price, cut, clarity,
+                pal = pal_snz[8:1])
+
+```
+
+#### change the ordering of the coloured bar pieces.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_hbar_col(plot_data, average_price, cut, clarity,
+                col_rev = TRUE)
+
+```
+
+#### Put the coloured bars in a "dodge" position instead of "stack".
+
+```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 6}
+ggplot_hbar_col(plot_data, average_price, cut, clarity,
+                position = "dodge")
+
+```
+
+#### Adjust the x labels, and change legend columns to 3.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_hbar_col(plot_data, average_price, cut, clarity,
+                x_labels = scales::number_format(scale = 1/1000, accuracy = 1),
+                x_title = "Average price ($US thousands)",
+                legend_ncol = 2)
+
+```
+
+#### Make a coloured and facetted plot.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 6}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
+  group_by(cut, clarity, color) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price_thousands = round(average_price / 1000, 1))
+
+ggplot_hbar_col_facet(plot_data, average_price_thousands, color, clarity, cut,
+                              title = "Average diamond price by colour, clarity and cut, 2020", 
+                              x_title = "Average price ($US thousands)", 
+                              y_title = "Colour")
+
+```
+
+##### Make a line graph of the storms data.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = round(mean(wind), 2)) 
+
+ggplot_line(plot_data, year, wind,
+  title = "Atlantic storms average maximum wind speed, 1975\u20132015",
+  x_title = "Year",
+  y_title = "Average maximum wind speed (knots)")
+
+
+```
+
+##### Make a vbar graph of the storms data.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_vbar(plot_data, year, wind)
+
+
+```
+
+##### Turn off the y-zeroing on the line.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_line(plot_data, year, wind,
+            y_zero = FALSE)
+
+
+```
+
+##### Turn off the y-zeroing on the vbar.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_vbar(plot_data, year, wind,
+            y_zero = FALSE)
+
+
+```
+
+##### Make a boxplot.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_box(iris, Species, Petal.Length)
+
+
+```
+
+##### Make a boxplot using the identity stat.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+plot_data <- iris %>%
+  group_by(Species) %>%
+  summarise(boxplot_stats =
+              list(rlang::set_names(
+                boxplot.stats(Petal.Length)$stats,
+                c('ymin', 'lower', 'middle', 'upper', 'ymax')
+              ))) %>%
+  tidyr::unnest_wider(boxplot_stats)
+
+plot_data
+
+ggplot_box(plot_data, Species, Petal.Length, stat = "identity")
+
+```

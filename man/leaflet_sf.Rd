@@ -4,18 +4,17 @@
 \alias{leaflet_sf}
 \title{Map of simple features in leaflet.}
 \usage{
-leaflet_sf(data, pal = NULL,
-  popup = leafpop::popupTable(sentence_spaced_colnames(data)),
-  radius = 1, weight = 2, opacity = 0.1, stroke = TRUE,
-  title = "[Title]", legend_digits = 1, legend_labels = "[Feature]",
-  basemap = "light", map_id = "map")
+leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
+  opacity = 0.1, stroke = TRUE, title = "[Title]",
+  legend_digits = 1, legend_labels = "[Feature]", basemap = "light",
+  map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
-\item{popup}{HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
+\item{popup}{HTML strings for use in popup. If NULL, defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
 
 \item{radius}{Radius of points. Defaults to 2.}
 

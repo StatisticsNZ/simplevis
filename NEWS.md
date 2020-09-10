@@ -1,3 +1,7 @@
+# simplevis 2.0.2
+
+* Removed geometry from defaulting into the leaflet popup.
+
 # simplevis 2.0.1
 
 * Fixed bug with scatter not working with NAs appropriately.

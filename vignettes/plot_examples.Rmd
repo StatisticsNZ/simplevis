@@ -30,6 +30,13 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length)
 
 ```
 
+Or pipe it in, if you prefer.
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+iris %>% 
+  ggplot_scatter(Sepal.Width, Sepal.Length)
+
+```
+
 Add titles and adjust the font family and sizes.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
@@ -129,31 +136,14 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
                x_title = "Sepal width (cm)")
 ```
 
-Make a ggplotly interactive plot with default tooltip.
+Add another ggplot2 layer. It will use your data as default. All other aesthetic variables need to be added.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length)
-
-plotly::ggplotly(plot)
-
+ggplot_scatter(iris, Sepal.Width, Sepal.Length) +
+  ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length))
 ```
 
-Make a ggplotly object with custom tooltip, and use only plotly camera button.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot_data <- iris %>% 
-  add_tip(c("Species", "Sepal.Width", "Sepal.Length", "Petal.Width"))
-
-plot_data
-
-plot <- ggplot_scatter(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
-
-plotly::ggplotly(plot, tooltip = "text") %>% 
-  plotly_camera()
-
-```
-
- Create a hbar graph.
+Create a hbar graph.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
@@ -342,5 +332,37 @@ plot_data <- iris %>%
 plot_data
 
 ggplot_box(plot_data, Species, Petal.Length, stat = "identity")
+
+```
+
+Make a ggplotly interactive plot with default tooltip.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+
+plotly::ggplotly(plot)
+
+```
+
+Make a ggplotly interactive plot with a different variable.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length, tip_var = Petal.Width)
+
+plotly::ggplotly(plot, tooltip = "text")
+
+```
+
+Make a ggplotly interactive plot with custom tooltip that can be created with the add_tip function.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- iris %>% 
+  add_tip(c("Species", "Sepal.Width", "Sepal.Length", "Petal.Width"))
+
+plot_data
+
+plot <- ggplot_scatter(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
+
+plotly::ggplotly(plot, tooltip = "text") 
 
 ```

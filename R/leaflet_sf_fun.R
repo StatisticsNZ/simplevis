@@ -4,7 +4,7 @@
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
-#' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
+#' @param popup HTML strings for use in popup. If NULL, defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
 #' @param radius Radius of points. Defaults to 2.
 #' @param weight Stroke border size. Defaults to 2.
 #' @param opacity The opacity of the fill. Defaults to 0.1. Only applicable to polygons.
@@ -23,7 +23,7 @@
 #' leaflet_sf(map_data)
 leaflet_sf <- function(data,
                        pal = NULL,
-                       popup = leafpop::popupTable(sentence_spaced_colnames(data)),
+                       popup = NULL,
                        radius = 1,
                        weight = 2,
                        opacity = 0.1,
@@ -56,6 +56,12 @@ leaflet_sf <- function(data,
     else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
+  
+  if(is.null(popup)) popup <- leafpop::popupTable(
+    sentence_spaced_colnames(
+      sf::st_drop_geometry(data)
+    )
+  )
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     
@@ -196,7 +202,7 @@ leaflet_sf <- function(data,
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param popup HTML strings for use in popup. Defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
+#' @param popup HTML strings for use in popup. If NULL, defaults to making a leafpop::popupTable of all attribute columns in the sf object. 
 #' @param radius Radius of points. Defaults to 2.
 #' @param weight Stroke border size. Defaults to 2.
 #' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
@@ -233,7 +239,7 @@ leaflet_sf_col <- function(data,
                            col_na_remove = FALSE,
                            pal = NULL,
                            pal_rev = FALSE,
-                           popup = leafpop::popupTable(sentence_spaced_colnames(data)),
+                           popup = NULL,
                            radius = 1,
                            weight = 2,
                            opacity = 0.9,
@@ -344,6 +350,12 @@ leaflet_sf_col <- function(data,
     else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
+  
+  if(is.null(popup)) popup <- leafpop::popupTable(
+    sentence_spaced_colnames(
+      sf::st_drop_geometry(data)
+    )
+  )
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (shiny == FALSE) {

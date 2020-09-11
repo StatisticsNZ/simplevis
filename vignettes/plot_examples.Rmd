@@ -344,6 +344,16 @@ plotly::ggplotly(plot)
 
 ```
 
+Turn off all plotly buttons other than the camera.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+
+plotly::ggplotly(plot) %>% 
+  plotly_camera()
+
+```
+
 Make a ggplotly interactive plot with a different variable.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
@@ -353,7 +363,7 @@ plotly::ggplotly(plot, tooltip = "text")
 
 ```
 
-Make a ggplotly interactive plot with custom tooltip that can be created with the add_tip function.
+Make a ggplotly interactive plot with custom tooltip that can be created with the add_tip function. Note that this function will convert snakecase column names to sentence case with underscores changed to spaces. The ggplotly argument tooltip = "text" is required to implement this in combination with the tip_var argument in the simplevis function. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <- iris %>% 
@@ -364,5 +374,35 @@ plot_data
 plot <- ggplot_scatter(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
 
 plotly::ggplotly(plot, tooltip = "text") 
+
+```
+
+The plotly default legend can sometimes not be in the ideal order.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- ggplot2::diamonds %>%
+  group_by(cut, clarity) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price_thousands = round(average_price / 1000, 1))
+
+plot <- ggplot_hbar_col(plot_data, average_price_thousands, cut, clarity, 
+                        legend_ncol = 4)
+
+plotly::ggplotly(plot)
+```
+
+You can change the default order based on a vector of elements.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plotly::ggplotly(plot) %>% 
+  plotly_legend_order(c(1, 3, 4, 5, 6, 7, 8, 2))
+
+```
+
+Or you can reverse the order of legend elements.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plotly::ggplotly(plot) %>% 
+  plotly_legend_rev()
 
 ```

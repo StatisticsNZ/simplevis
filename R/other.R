@@ -45,6 +45,9 @@ add_tip <- function(data, vars_vctr, comma = FALSE) {
       temp <- data %>% 
         dplyr::select(vars_vctr[i]) 
       
+      if(class(map_data)[1] == "sf") temp <- temp %>% 
+          sf::st_drop_geometry()
+      
       temp <- paste0(
         stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
         ": ", 
@@ -58,6 +61,9 @@ add_tip <- function(data, vars_vctr, comma = FALSE) {
       
       temp <- data %>% 
         dplyr::select(vars_vctr[i]) 
+      
+      if(class(map_data)[1] == "sf") temp <- temp %>% 
+          sf::st_drop_geometry()
       
       temp <- paste0(
         stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),

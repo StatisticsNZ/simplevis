@@ -1,3 +1,8 @@
+# simplevis 2.03
+
+* Removed feature id and row number from popup.
+* Updated add_tip so that it can also work with sf objects.
+
 # simplevis 2.0.2
 
 * Removed geometry from defaulting into the leaflet popup.

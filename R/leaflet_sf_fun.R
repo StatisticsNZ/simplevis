@@ -60,9 +60,9 @@ leaflet_sf <- function(data,
   if(is.null(popup)) popup <- leafpop::popupTable(
     sentence_spaced_colnames(
       sf::st_drop_geometry(data)
-    )
-  )
-  
+    ),
+    row.numbers = FALSE, feature.id = FALSE)
+
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     
     if (shiny == FALSE) {
@@ -354,9 +354,9 @@ leaflet_sf_col <- function(data,
   if(is.null(popup)) popup <- leafpop::popupTable(
     sentence_spaced_colnames(
       sf::st_drop_geometry(data)
-    )
-  )
-  
+    ),
+    row.numbers = FALSE, feature.id = FALSE)
+
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (shiny == FALSE) {
       

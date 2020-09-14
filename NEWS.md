@@ -1,3 +1,7 @@
+# simplevis 2.05
+
+* Reverted default col_title = "" rather than NULL, as this works better with ggplotly.
+
 # simplevis 2.04
 
 * Added support for using logical variables to colour in hbar.

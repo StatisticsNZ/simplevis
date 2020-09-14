@@ -1,3 +1,8 @@
+# simplevis 2.04
+
+* Added support for using logical variables to colour in hbar.
+* Added pal_rev argument in hbar.
+
 # simplevis 2.03
 
 * Removed feature id and row number from popup.

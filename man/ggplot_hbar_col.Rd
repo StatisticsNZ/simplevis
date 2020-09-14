@@ -8,10 +8,10 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   x_labels = waiver(), x_zero = TRUE, x_zero_line = TRUE,
   x_trans = "identity", x_pretty_n = 6, y_rev = FALSE,
   y_labels = waiver(), col_rev = FALSE, col_drop = FALSE,
-  position = "stack", pal = NULL, legend_ncol = 3, width = 0.75,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
+  position = "stack", pal = NULL, pal_rev = FALSE, legend_ncol = 3,
+  width = 0.75, title = "[Title]", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", col_title = NULL,
+  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
   wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
   wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
@@ -48,6 +48,8 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+
+\item{pal_rev}{TRUE or FALSE of whether to reverse the pal.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 

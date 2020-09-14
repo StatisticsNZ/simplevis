@@ -348,6 +348,7 @@ ggplot_hbar <- function(data,
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param legend_ncol The number of columns in the legend.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -408,13 +409,14 @@ ggplot_hbar_col <-
            col_drop = FALSE,
            position = "stack",
            pal = NULL,
+           pal_rev = FALSE,
            legend_ncol = 3,
            width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           col_title = "",
+           col_title = NULL,
            caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
@@ -460,13 +462,15 @@ ggplot_hbar_col <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if (y_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
-    }
-    if (col_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
+    if(!is.logical(col_var_vector)){
+      if (y_rev == FALSE){
+        data <- data %>%
+          dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+      }
+      if (col_rev == FALSE){
+        data <- data %>%
+          dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
+      }
     }
     
     if (position == "stack") position2 <- "stack"
@@ -491,7 +495,8 @@ ggplot_hbar_col <-
       pal <- pal[1:length(levels(col_var_vector))]
     }
     else pal <- pal[1:length(unique(col_var_vector))]
-    pal <- rev(pal)
+    
+    if(pal_rev == FALSE) pal <- rev(pal)
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -848,6 +853,7 @@ ggplot_hbar_facet <-
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param legend_ncol The number of columns in the legend.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -907,13 +913,14 @@ ggplot_hbar_col_facet <-
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
+           pal_rev = FALSE,
            legend_ncol = 3,
            width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
-           col_title = "",
+           col_title = NULL,
            caption = NULL,
            legend_labels = NULL,
            font_family = "Helvetica",
@@ -961,15 +968,17 @@ ggplot_hbar_col_facet <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if (y_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+    if(!is.logical(col_var_vector)){
+      if (y_rev == FALSE){
+        data <- data %>%
+          dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+      }
+      if (col_rev == FALSE){
+        data <- data %>%
+          dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
+      }
     }
-    if (col_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
-    }
-    
+
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -991,7 +1000,8 @@ ggplot_hbar_col_facet <-
       pal <- pal[1:length(levels(col_var_vector))]
     }
     else pal <- pal[1:length(unique(col_var_vector))]
-    pal <- rev(pal)
+    
+    if(pal_rev == FALSE) pal <- rev(pal)
     
     if (position == "stack") {
       data_sum <- data %>%

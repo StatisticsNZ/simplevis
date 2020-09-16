@@ -30,7 +30,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{popup}{HTML strings for use in popup. If NULL, defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
+\item{popup}{HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.}
 
 \item{radius}{Radius of points. Defaults to 2.}
 

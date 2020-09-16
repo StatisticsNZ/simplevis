@@ -14,7 +14,7 @@ leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
-\item{popup}{HTML strings for use in popup. If NULL, defaults to making a leafpop::popupTable of all attribute columns in the sf object.}
+\item{popup}{HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.}
 
 \item{radius}{Radius of points. Defaults to 2.}
 

@@ -1,6 +1,7 @@
 # simplevis 2.05
 
 * Reverted default col_title = "" rather than NULL, as this works better with ggplotly.
+* Adjusted add_tip to default to putting in all variables, and work with sf objects.
 
 # simplevis 2.04
 

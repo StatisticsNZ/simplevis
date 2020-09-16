@@ -15,7 +15,7 @@ a4_height_mm <- 257
 #' @title Add a quick tooltip text column to data.
 #' @description Add a column of tooltip text which is automatically created based on column names and values. 
 #' @param data A tibble or dataframe. Required input.
-#' @param vars_vctr A vector of quoted variables to include in the tooltip. Required input.
+#' @param vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
 #' @param comma TRUE or FALSE of whether to convert numeric values to character values with comma seperators.
 #' @return A vector of labels.
 #' @export
@@ -32,10 +32,14 @@ a4_height_mm <- 257
 #'                        y_title = "Price ($US thousands)")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text")
-add_tip <- function(data, vars_vctr, comma = FALSE) {
+add_tip <- function(data, vars_vctr = NULL, comma = FALSE) {
   
-  data <- data %>%
-    dplyr::ungroup() 
+  class <- class(data)[1]
+  
+  if(is.null(vars_vctr)) {
+    if(class == "sf") vars_vctr <- names(data)[names(data) != "geometry"]
+    else if(class != "sf") vars_vctr <- names(data)
+  }
   
   tip_text <- vector("character", 0)
   
@@ -45,13 +49,13 @@ add_tip <- function(data, vars_vctr, comma = FALSE) {
       temp <- data %>% 
         dplyr::select(vars_vctr[i]) 
       
-      if(class(map_data)[1] == "sf") temp <- temp %>% 
+      if(class == "sf") temp <- temp %>% 
           sf::st_drop_geometry()
       
       temp <- paste0(
         stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
         ": ", 
-        format(pull(temp, 1), big.mark = ","))
+        format(dplyr::pull(temp, 1), big.mark = ","))
       
       tip_text <- paste(temp, tip_text, sep = "<br>")
     }
@@ -62,13 +66,13 @@ add_tip <- function(data, vars_vctr, comma = FALSE) {
       temp <- data %>% 
         dplyr::select(vars_vctr[i]) 
       
-      if(class(map_data)[1] == "sf") temp <- temp %>% 
+      if(class == "sf") temp <- temp %>% 
           sf::st_drop_geometry()
       
       temp <- paste0(
         stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
         ": ", 
-        pull(temp, 1))
+        dplyr::pull(temp, 1))
       
       tip_text <- paste(temp, tip_text, sep = "<br>")
     }

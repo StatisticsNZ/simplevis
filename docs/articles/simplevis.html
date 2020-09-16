@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.6</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@
       <h1 data-toc-skip>simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2020-09-16</h4>
+            <h4 class="date">2020-09-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -113,9 +113,9 @@
 <a href="#purpose" class="anchor"></a>Purpose</h3>
 <p><code>simplevis</code> is a package of <code>ggplot2</code> and <code>leaflet</code> wrapper functions designed to support effortless high quality <code>ggplot2</code> and <code>leaflet</code> visualisations for reports or interactive <code>shiny</code> apps. The intent is that these can be made more consistently with less effort, code and expertise than would otherwise be required.</p>
 </div>
-<div id="example-illustrating-the-need-and-benefit-of-simplevis-" class="section level3">
+<div id="example" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-illustrating-the-need-and-benefit-of-simplevis-" class="anchor"></a>Example illustrating the need and benefit of simplevis.</h3>
+<a href="#example" class="anchor"></a>Example</h3>
 <p>Below is a simple example dataset.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
@@ -140,7 +140,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Wellington pets, 2020"</span>,
        <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Pet"</span>,
        <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Count"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>We can modify the design with <code>ggplot2</code>. However, there is a lot of code.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">data</span>) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">pet</span>, <span class="no">count</span>), <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"#085C75"</span>, <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.75</span>) +
@@ -178,7 +178,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.ticks</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#323232"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.3</span>)) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.title.x</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">margin</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span>(<span class="kw">t</span> <span class="kw">=</span> <span class="fl">10</span>))) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.title.y</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">margin</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span>(<span class="kw">r</span> <span class="kw">=</span> <span class="fl">10</span>)))</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p><code>simplevis</code> wraps these defaults into the functions, but allows the user to modify as required.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_vbar.html">ggplot_vbar</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>,
             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">pet</span>,
@@ -186,7 +186,7 @@
             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Wellington pets, 2020"</span>,
             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Pet"</span>,
             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Count"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 </div>
 <div id="simplevis-ggplot-graph-types" class="section level3">
 <h3 class="hasAnchor">
@@ -218,7 +218,7 @@
                     <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)
 
 <span class="no">plot</span></pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>A <code>ggplot</code> coloured, but not faceted (e.g. <code>ggplot_hbar_col</code>)</li>
 </ol>
@@ -238,7 +238,7 @@
                         <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)
 
 <span class="no">plot</span></pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <ol start="3" style="list-style-type: decimal">
 <li>A <code>ggplot</code> facetted, but not coloured (e.g. <code>ggplot_hbar_facet</code>)</li>
 </ol>
@@ -294,8 +294,8 @@
 <span class="kw pkg">plotly</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">ggplotly</a></span>(<span class="no">plot</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plotly_camera.html">plotly_camera</a></span>()</pre></body></html></div>
 <p>The variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-7a13493036920655f9d1" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7a13493036920655f9d1">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","scatter","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>fun_group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-aaf258034a1339b0a824" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aaf258034a1339b0a824">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","scatter","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>fun_group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="simplevis-ggplot-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -423,32 +423,11 @@
   <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)</pre></body></html></div>
 </div>
-<div id="working-with-quoted-variable-inputs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#working-with-quoted-variable-inputs" class="anchor"></a>Working with quoted variable inputs</h3>
-<p><code>simplevis</code> can also work with quoted variable inputs. The user must place each quoted variable within a <code>simplevis</code> function within a <code>!!sym</code> function, as per the example below. This can be helpful, particularly when working in shiny apps.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span>  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"cut"</span>, ~<span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">.</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"cut"</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"price"</span>, ~<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">.</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"price"</span>, ~<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">.</span> / <span class="fl">1000</span>, <span class="fl">2</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"cut"</span>, ~<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">.</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>))))
-
-<span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                    <span class="kw">x_var</span> <span class="kw">=</span> !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="st">"price"</span>),
-                    <span class="kw">y_var</span> <span class="kw">=</span> !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="st">"cut"</span>),
-                    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
-                    <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                    <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)
-
-<span class="no">plot</span></pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
-</div>
 <div id="shiny-apps-with-simplevis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#shiny-apps-with-simplevis" class="anchor"></a>shiny apps with simplevis</h3>
 <p><code>simplevis</code> provides two template <code>shiny</code> apps called <code>template1</code> and <code>template2</code>. Users can access these functions by using the <code>run_template</code> functions for the applicable app, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template1"</span>) <span class="co"># a graph and table</span>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template1"</span>) <span class="co"># a graph and table</span>
 <span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template2"</span>) <span class="co"># a leaflet map, as well as graph and table</span></pre></body></html></div>
 <p>For a simple app, the basic method to create an app is:</p>
 <ul>

@@ -53,6 +53,15 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 
 ```
 
+Change the wrapping defaults of titles.
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+               title = "Iris sepal length by width, 2020", 
+               x_title = "Sepal width (cm)",
+               y_title = "Sepal length (cm)",
+               wrap_title = 10, wrap_x_title = 5, wrap_y_title = 5)
+```
+
 Colour the points by the species variable.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
@@ -223,13 +232,13 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity,
 
 ```
 
-Adjust the x labels, and change legend columns to 3.
+Adjust the x labels, and change legend columns to 1.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
                 x_labels = scales::number_format(scale = 1/1000, accuracy = 1),
                 x_title = "Average price ($US thousands)",
-                legend_ncol = 2)
+                legend_ncol = 1)
 
 ```
 
@@ -252,7 +261,6 @@ ggplot_hbar_col_facet(plot_data, average_price_thousands, color, clarity, cut,
 Make a line graph of the storms data.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(wind = round(mean(wind), 2)) 
@@ -261,7 +269,6 @@ ggplot_line(plot_data, year, wind,
   title = "Atlantic storms average maximum wind speed, 1975\u20132015",
   x_title = "Year",
   y_title = "Average maximum wind speed (knots)")
-
 
 ```
 
@@ -282,6 +289,7 @@ Update the x labels.
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_line(plot_data, date, wind,
             x_labels = scales::date_format(format = "%Y"))
+
 ```
 
 Make a vbar graph of the storms data.
@@ -306,6 +314,17 @@ Turn off the y-zeroing on the vbar.
 ggplot_vbar(plot_data, year, wind,
             y_zero = FALSE)
 
+
+```
+
+Manually adjust the legend labels for the colour variable.
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+plot_data <- storms %>%
+  group_by(year, status) %>%
+  summarise(wind = round(mean(wind), 2)) 
+
+ggplot_vbar_col(plot_data, year, wind, status,
+                legend_labels = c("A", "B", "C"))
 
 ```
 
@@ -334,6 +353,21 @@ plot_data
 ggplot_box(plot_data, Species, Petal.Length, stat = "identity")
 
 ```
+
+
+Use quoted variables.
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <-  ggplot2::diamonds %>%
+  group_by(across("cut")) %>%
+  summarise(across("price", ~mean(.))) 
+
+ggplot_hbar(plot_data, !!sym("price"), !!sym("cut"),
+                    title = "Average diamond price by cut", 
+                    x_title = "Average price ($US thousands)", 
+                    y_title = "Cut")
+
+```
+
 
 Make a ggplotly interactive plot with default tooltip.
 

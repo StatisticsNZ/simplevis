@@ -57,11 +57,16 @@ leaflet_sf <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
-  if(is.null(popup)) popup <- leafpop::popupTable(
-    sentence_spaced_colnames(
-      sf::st_drop_geometry(data)
-    ),
-    row.numbers = FALSE, feature.id = FALSE)
+  if(is.null(popup)) ({
+    if(ncol(data) == 1) popup <- NULL
+    else ({
+      popup <- leafpop::popupTable(
+        sentence_spaced_colnames(
+          sf::st_drop_geometry(data)
+        ),
+        row.numbers = FALSE, feature.id = FALSE)
+    })
+  })
 
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     
@@ -351,12 +356,17 @@ leaflet_sf_col <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
-  if(is.null(popup)) popup <- leafpop::popupTable(
-    sentence_spaced_colnames(
-      sf::st_drop_geometry(data)
-    ),
-    row.numbers = FALSE, feature.id = FALSE)
-
+  if(is.null(popup)) ({
+    if(ncol(data) == 1) popup <- NULL
+    else ({
+      popup <- leafpop::popupTable(
+        sentence_spaced_colnames(
+          sf::st_drop_geometry(data)
+        ),
+        row.numbers = FALSE, feature.id = FALSE)
+    })
+  })
+  
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (shiny == FALSE) {
       

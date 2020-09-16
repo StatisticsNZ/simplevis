@@ -474,7 +474,7 @@ ggplot_vbar_col <-
       geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
         width = bar_width, position = position2)
 
-    if (!is.null(legend_labels)) labels <- legend_labels
+    if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
     if (lubridate::is.Date(x_var_vector)) {
@@ -998,7 +998,7 @@ ggplot_vbar_col_facet <-
         geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
                  width = bar_width, position = position2)
 
-    if (!is.null(legend_labels)) labels <- legend_labels
+    if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
     if (position == "stack") {

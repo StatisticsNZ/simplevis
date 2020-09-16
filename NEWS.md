@@ -1,3 +1,8 @@
+# simplevis 2.06
+
+* Corrected the direction of bar legend labels if someone manually adds them in.
+* Update the leaflet sf popup so that it does not load if there is only geometry.
+
 # simplevis 2.05
 
 * Reverted default col_title = "" rather than NULL, as this works better with ggplotly.

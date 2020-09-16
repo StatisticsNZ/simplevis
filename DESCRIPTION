@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple Visualisation with 'ggplot2' and 'leaflet' Wrappers
-Version: 2.0.5
+Version: 2.0.6
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 
@@ -17,10 +17,9 @@ BugReports: https://github.com/statisticsNZ/simplevis/issues/
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: dplyr, DT, forcats, ggplot2, htmltools, leaflet, leafpop, 
-         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, plotly, readr, rgdal, rmarkdown, 
-         rlang, scales, sf, shiny, shinycssloaders, stars, stats, 
-         stringr, tibble, tidyr (>= 1.0.0), viridis
+Imports: dplyr, DT, forcats, ggplot2, htmltools, leaflet, leafpop, leaflet.extras, janitor, 
+         jsonlite, lubridate, magrittr, plotly, readr, rgdal, rmarkdown, rlang, scales, sf, shiny, 
+         shinycssloaders, stars, stringr, tibble, tidyr (>= 1.0.0), viridis
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr

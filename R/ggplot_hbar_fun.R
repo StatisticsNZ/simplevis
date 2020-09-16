@@ -488,7 +488,7 @@ ggplot_hbar_col <-
       geom_col(aes(
         x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
 
-    if (!is.null(legend_labels)) labels <- legend_labels
+    if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
     if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
@@ -993,7 +993,7 @@ ggplot_hbar_col_facet <-
       ) +
       geom_col(aes(x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
 
-    if (!is.null(legend_labels)) labels <- legend_labels
+    if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
     if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {

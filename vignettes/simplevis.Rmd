@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 `simplevis` is a package of `ggplot2` and `leaflet` wrapper functions designed to support effortless high quality `ggplot2` and `leaflet` visualisations  for reports or interactive `shiny` apps. The intent is that these can be made more consistently with less effort, code and expertise than would otherwise be required.
 
-### Example illustrating the need and benefit of simplevis.
+### Example
 
 Below is a simple example dataset.
 ```{r, message = FALSE, warning = FALSE}
@@ -38,7 +38,7 @@ data
 ```
 
 We can make a `ggplot2` plot quickly. However, it does not look ready for a report or app.
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot(data) +
   geom_col(aes(pet, count)) +
   labs(title = "Wellington pets, 2020",
@@ -47,7 +47,7 @@ ggplot(data) +
 ```
 
 We can modify the design with `ggplot2`. However, there is a lot of code. 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot(data) +
   geom_col(aes(pet, count), fill = "#085C75", width = 0.75) +
   labs(title = "Wellington pets, 2020",
@@ -87,7 +87,7 @@ ggplot(data) +
 ```
 
 `simplevis` wraps these defaults into the functions, but allows the user to modify as required.
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_vbar(data = data, 
             x_var = pet, 
             y_var = count, 
@@ -109,7 +109,7 @@ ggplot_vbar(data = data,
 For each graph type 4 functions are available.
 
 1. A `ggplot` not coloured or faceted (e.g. `ggplot_hbar`)
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut) %>%
@@ -128,7 +128,7 @@ plot
 ```
 
 2. A `ggplot` coloured, but not faceted (e.g. `ggplot_hbar_col`)
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity) %>%
@@ -364,28 +364,6 @@ leaflet_sf_col(data = map_data,
 leaflet_stars_col(data = example_stars_nz_no3n,
   col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
-```
-
-### Working with quoted variable inputs
-
-`simplevis` can also work with quoted variable inputs. The user must place each quoted variable within a `simplevis` function within a `!!sym` function, as per the example below. This can be helpful, particularly when working in shiny apps.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-plot_data <-  ggplot2::diamonds %>%
-  mutate(across("cut", ~stringr::str_to_sentence(.))) %>%
-  group_by(across("cut")) %>%
-  summarise(across("price", ~mean(.))) %>%
-  mutate(across("price", ~round(. / 1000, 2))) %>%
-  mutate(across("cut", ~factor(., levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))))
-
-plot <- ggplot_hbar(data = plot_data, 
-                    x_var = !!sym("price"), 
-                    y_var = !!sym("cut"),
-                    title = "Average diamond price by cut", 
-                    x_title = "Average price ($US thousands)", 
-                    y_title = "Cut")
-
-plot 
 ```
 
 ### shiny apps with simplevis

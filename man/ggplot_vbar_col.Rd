@@ -5,9 +5,10 @@
 \title{Vertical bar ggplot that is coloured.}
 \usage{
 ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
-  x_labels = waiver(), x_pretty_n = 6, y_zero = TRUE,
-  y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
-  y_pretty_n = 5, col_drop = FALSE, position = "stack", pal = NULL,
+  x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
+  y_zero = TRUE, y_zero_line = FALSE, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
+  col_drop = FALSE, position = "stack", pal = NULL,
   legend_ncol = 3, width = 0.75, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   col_title = "", caption = NULL, legend_labels = NULL,
@@ -31,6 +32,8 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
@@ -40,6 +43,8 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
@@ -99,9 +104,6 @@ plot_data <- storms \%>\%
   group_by(year, status) \%>\%
   summarise(average_wind = round(mean(wind), 2)) 
 
-plot <- ggplot_vbar_col(data = plot_data, x_var = year, y_var = average_wind, col_var = status)
+ggplot_vbar_col(plot_data, year, average_wind, status)
 
-plot
-
-plotly::ggplotly(plot)
 }

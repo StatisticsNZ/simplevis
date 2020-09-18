@@ -21,7 +21,9 @@ A ggplot theme.
 Theme for ggplot maps of simple features.
 }
 \examples{
-ggplot2::ggplot() +
+library(ggplot2)
+
+ggplot() +
   theme_sf("Courier", 9, 7) +
-  ggplot2::ggtitle("This is a title of a selected font family and size")
+  ggtitle("This is a title of a selected font family and size")
 }

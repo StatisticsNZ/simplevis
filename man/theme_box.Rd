@@ -21,8 +21,9 @@ A ggplot theme.
 Theme for box ggplots.
 }
 \examples{
+library(ggplot2)
 
-ggplot2::ggplot() +
+ggplot() +
   theme_box("Courier", 9, 7) +
-  ggplot2::ggtitle("This is a title of a selected font family and size")
+  ggtitle("This is a title of a selected font family and size")
 }

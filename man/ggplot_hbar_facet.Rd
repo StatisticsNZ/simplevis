@@ -5,10 +5,11 @@
 \title{Horizontal bar ggplot that is facetted.}
 \usage{
 ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
-  x_labels = waiver(), x_zero = TRUE, x_zero_line = TRUE,
-  x_trans = "identity", x_pretty_n = 5, y_rev = FALSE,
-  y_labels = waiver(), facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, width = 0.75, title = "[Title]", na_grey = FALSE,
+  x_labels = waiver(), x_zero = TRUE, x_zero_line = FALSE,
+  x_trans = "identity", x_pretty_n = 5, x_expand = NULL,
+  y_rev = FALSE, y_labels = waiver(), y_expand = NULL,
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  width = 0.75, title = "[Title]", na_grey = FALSE,
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
@@ -36,9 +37,13 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
@@ -91,15 +96,11 @@ plot_data <- ggplot2::diamonds \%>\%
   mutate(cut = stringr::str_to_sentence(cut)) \%>\%
   group_by(cut, clarity) \%>\%
   summarise(average_price = mean(price)) \%>\%
-  mutate(average_price_thousands = round(average_price / 1000, 1)) 
+  mutate(average_price = round(average_price / 1000, 1)) 
 
-plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
-                          y_var = cut, facet_var = clarity,
-                         title = "Average diamond price by cut and clarity", 
-                         x_title = "Average price ($US thousands)", 
-                         y_title = "Cut")
+ggplot_hbar_facet(plot_data, average_price, cut, clarity,
+   title = "Average diamond price by cut and clarity", 
+   x_title = "Average price ($US thousands)", 
+   y_title = "Cut")
 
-plot
-
-plotly::ggplotly(plot)
 }

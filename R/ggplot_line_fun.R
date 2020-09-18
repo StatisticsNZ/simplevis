@@ -7,9 +7,11 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' ggplot2::ggplot() +
+#' library(ggplot2)
+#' 
+#' ggplot() +
 #'   theme_line("Courier", 9, 7) +
-#'   ggplot2::ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a selected font family and size")
 theme_line <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -116,11 +118,13 @@ theme_line <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -149,25 +153,24 @@ theme_line <-
 #'   group_by(year) %>%
 #'   summarise(wind = round(mean(wind), 2)) 
 #'
-#'   plot <- ggplot_line(data = plot_data, x_var = year, y_var = wind,
+#'   ggplot_line(plot_data, year, wind,
 #'       title = "Average wind speed of Atlantic storms, 1975-2015",
 #'       x_title = "Year",
 #'       y_title = "Average maximum sustained wind speed (knots)")
 #'
-#'   plot
-#'
-#'   plotly::ggplotly(plot)
 ggplot_line <- function(data,
                         x_var,
                         y_var,
                         tip_var = NULL,
                         x_labels = waiver(),
                         x_pretty_n = 6,
+                        x_expand = NULL,
                         y_zero = TRUE,
-                        y_zero_line = TRUE,
+                        y_zero_line = FALSE,
                         y_trans = "identity",
                         y_labels = waiver(),
                         y_pretty_n = 5,
+                        y_expand = NULL,
                         points = TRUE,
                         point_size = 1,
                         lines = TRUE,
@@ -232,6 +235,9 @@ ggplot_line <- function(data,
 
   plot <- plot +
     geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+  
+  if(is.null(x_expand)) x_expand <- waiver()
+  if(is.null(y_expand)) y_expand <- c(0, 0)
 
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
@@ -242,6 +248,7 @@ ggplot_line <- function(data,
   if (lubridate::is.Date(x_var_vector)) {
     plot <- plot +
       scale_x_date(
+        expand = x_expand,
         breaks = x_breaks,
         limits = x_limits,
         labels = x_labels
@@ -249,17 +256,16 @@ ggplot_line <- function(data,
   }
   else if (is.numeric(x_var_vector)) {
     plot <- plot +
-      scale_x_continuous(breaks = x_breaks,
+      scale_x_continuous(expand = x_expand,
+                         breaks = x_breaks,
                          limits = x_limits,
                          labels = x_labels,
                          oob = scales::rescale_none)
   }
   
   if (all(y_var_vector == 0, na.rm = TRUE)) {
-    y_limits <- c(0, 1)
-    
     plot <- plot +
-      ggplot2::scale_y_continuous(expand = c(0, 0), breaks = c(0, 1), labels = y_labels, limits = y_limits)
+      scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 0))
   }
   else ({
     if (y_zero == TRUE) {
@@ -280,7 +286,7 @@ ggplot_line <- function(data,
     
     plot <- plot +
       scale_y_continuous(
-        expand = c(0, 0),
+        expand = y_expand,
         breaks = y_breaks,
         limits = y_limits,
         trans = y_trans,
@@ -289,9 +295,9 @@ ggplot_line <- function(data,
       )
   })
 
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+  if(y_zero_line == TRUE) {
     plot <- plot +
-      ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
 
   if (isMobile == FALSE) {
@@ -327,11 +333,13 @@ ggplot_line <- function(data,
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -367,11 +375,8 @@ ggplot_line <- function(data,
 #'   group_by(year, status) %>%
 #'   summarise(wind = round(mean(wind), 2))
 #'
-#' plot <- ggplot_line_col(data = plot_data, x_var = year, y_var = wind, col_var = status)
+#' ggplot_line_col(plot_data, year, wind, status)
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_line_col <-
   function(data,
            x_var,
@@ -380,11 +385,13 @@ ggplot_line_col <-
            tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 6,
+           x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = TRUE,
+           y_zero_line = FALSE,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
+           y_expand = NULL,
            col_drop = FALSE,
            points = TRUE,
            point_size = 1,
@@ -462,6 +469,9 @@ ggplot_line_col <-
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
         size = point_size, alpha = alpha)
+    
+    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
@@ -476,6 +486,7 @@ ggplot_line_col <-
     if (lubridate::is.Date(x_var_vector)) {
       plot <- plot +
         scale_x_date(
+          expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
           labels = x_labels
@@ -483,16 +494,15 @@ ggplot_line_col <-
     }
     else if (is.numeric(x_var_vector)) {
       plot <- plot +
-        scale_x_continuous(breaks = x_breaks,
+        scale_x_continuous(expand = x_expand,
+                           breaks = x_breaks,
                            limits = x_limits,
                            labels = x_labels)
     }
     
     if (all(y_var_vector == 0, na.rm = TRUE)) {
-      y_limits <- c(0, 1)
-      
       plot <- plot +
-        ggplot2::scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = y_limits)
+        scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
       if (y_zero == TRUE) {
@@ -513,7 +523,7 @@ ggplot_line_col <-
   
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = y_expand,
           breaks = y_breaks,
           limits = y_limits,
           trans = y_trans,
@@ -530,9 +540,9 @@ ggplot_line_col <-
         na.value = "#A8A8A8"
       ) 
 
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+    if(y_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE) {
@@ -570,11 +580,13 @@ ggplot_line_col <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -606,11 +618,8 @@ ggplot_line_col <-
 #'   group_by(year, status) %>%
 #'   summarise(wind = round(mean(wind), 2)) 
 #'
-#'  plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
+#'  ggplot_line_facet(plot_data, year, wind, status)
 #'
-#'  plot
-#'
-#'  plotly::ggplotly(plot)
 ggplot_line_facet <-
   function(data,
            x_var,
@@ -619,11 +628,13 @@ ggplot_line_facet <-
            tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
+           x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = TRUE,
+           y_zero_line = FALSE,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
+           y_expand = NULL,
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -693,6 +704,9 @@ ggplot_line_facet <-
 
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+    
+    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (facet_scales %in% c("fixed", "free_y")) {
       
@@ -705,6 +719,7 @@ ggplot_line_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
+            expand = x_expand,
             breaks = x_breaks,
             limits = x_limits,
             labels = x_labels
@@ -712,7 +727,8 @@ ggplot_line_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(breaks = x_breaks,
+          scale_x_continuous(expand = x_expand,
+                             breaks = x_breaks,
                              limits = x_limits,
                              labels = x_labels)
       }
@@ -737,7 +753,7 @@ ggplot_line_facet <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = y_expand,
           breaks = y_breaks,
           limits = y_limits,
           trans = y_trans,
@@ -747,15 +763,15 @@ ggplot_line_facet <-
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = c(0, 0),
+        scale_y_continuous(expand = y_expand,
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+    if(y_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE) {
@@ -798,11 +814,13 @@ ggplot_line_facet <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -840,12 +858,8 @@ ggplot_line_facet <-
 #'   group_by(year, status) %>%
 #'   summarise(wind = round(mean(wind), 2)) 
 #'
-#'  plot <- ggplot_line_col_facet(data = plot_data, x_var = year, y_var = wind, col_var = status,
-#'                                 facet_var = status)
+#'  ggplot_line_col_facet(plot_data, year, wind, status, status)
 #'
-#'  plot
-#'
-#'  plotly::ggplotly(plot)
 ggplot_line_col_facet <-
   function(data,
            x_var,
@@ -855,11 +869,13 @@ ggplot_line_col_facet <-
            tip_var = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
+           x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = TRUE,
+           y_zero_line = FALSE,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
+           y_expand = NULL,
            col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -955,6 +971,9 @@ ggplot_line_col_facet <-
         na.value = "#A8A8A8"
       )
     
+    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(y_expand)) y_expand <- c(0, 0)
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if(isMobile == FALSE) x_n <- x_pretty_n
@@ -966,6 +985,7 @@ ggplot_line_col_facet <-
       if (lubridate::is.Date(x_var_vector)) {
         plot <- plot +
           scale_x_date(
+            expand = x_expand,
             breaks = x_breaks,
             limits = x_limits,
             labels = x_labels
@@ -973,7 +993,8 @@ ggplot_line_col_facet <-
       }
       else if (is.numeric(x_var_vector)) {
         plot <- plot +
-          scale_x_continuous(breaks = x_breaks,
+          scale_x_continuous(expand = x_expand,
+                             breaks = x_breaks,
                              limits = x_limits,
                              labels = x_labels)
       }
@@ -999,7 +1020,7 @@ ggplot_line_col_facet <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = y_expand,
           breaks = y_breaks,
           limits = y_limits,
           trans = y_trans,
@@ -1009,7 +1030,7 @@ ggplot_line_col_facet <-
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = c(0, 0),
+        scale_y_continuous(expand = y_expand,
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
@@ -1023,9 +1044,9 @@ ggplot_line_col_facet <-
         na.value = "#A8A8A8"
       ) 
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+    if(y_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE) {

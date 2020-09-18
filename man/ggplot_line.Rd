@@ -5,12 +5,12 @@
 \title{Line ggplot.}
 \usage{
 ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
-  x_pretty_n = 6, y_zero = TRUE, y_zero_line = TRUE,
-  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  points = TRUE, point_size = 1, lines = TRUE, size = 0.5,
-  pal = NULL, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
+  x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
+  y_zero_line = FALSE, y_trans = "identity", y_labels = waiver(),
+  y_pretty_n = 5, y_expand = NULL, points = TRUE, point_size = 1,
+  lines = TRUE, size = 0.5, pal = NULL, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
   isMobile = FALSE)
@@ -28,6 +28,8 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
@@ -37,6 +39,8 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
 
@@ -89,12 +93,9 @@ plot_data <- storms \%>\%
   group_by(year) \%>\%
   summarise(wind = round(mean(wind), 2)) 
 
-  plot <- ggplot_line(data = plot_data, x_var = year, y_var = wind,
+  ggplot_line(plot_data, year, wind,
       title = "Average wind speed of Atlantic storms, 1975-2015",
       x_title = "Year",
       y_title = "Average maximum sustained wind speed (knots)")
 
-  plot
-
-  plotly::ggplotly(plot)
 }

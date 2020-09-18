@@ -5,16 +5,16 @@
 \title{Line ggplot that is facetted.}
 \usage{
 ggplot_line_facet(data, x_var, y_var, facet_var, tip_var = NULL,
-  x_labels = waiver(), x_pretty_n = 5, y_zero = TRUE,
-  y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
-  y_pretty_n = 5, facet_scales = "fixed", facet_nrow = NULL,
-  points = TRUE, point_size = 1, lines = TRUE, size = 0.5,
-  pal = NULL, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
-  isMobile = FALSE)
+  x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
+  y_zero = TRUE, y_zero_line = FALSE, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
+  facet_scales = "fixed", facet_nrow = NULL, points = TRUE,
+  point_size = 1, lines = TRUE, size = 0.5, pal = NULL,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -31,6 +31,8 @@ ggplot_line_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
@@ -40,6 +42,8 @@ ggplot_line_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
@@ -97,9 +101,6 @@ plot_data <- storms \%>\%
   group_by(year, status) \%>\%
   summarise(wind = round(mean(wind), 2)) 
 
- plot <- ggplot_line_facet(data = plot_data, x_var = year, y_var = wind, facet_var = status)
+ ggplot_line_facet(plot_data, year, wind, status)
 
- plot
-
- plotly::ggplotly(plot)
 }

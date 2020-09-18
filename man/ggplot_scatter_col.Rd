@@ -7,16 +7,17 @@
 ggplot_scatter_col(data, x_var, y_var, col_var, tip_var = NULL,
   col_method = NULL, col_cuts = NULL, col_drop = FALSE,
   col_na_remove = FALSE, size = 1, pal = NULL, pal_rev = FALSE,
-  x_zero = TRUE, x_zero_line = TRUE, x_trans = "identity",
-  x_labels = waiver(), x_pretty_n = 6, y_zero = TRUE,
-  y_zero_line = TRUE, y_trans = "identity", y_labels = waiver(),
-  y_pretty_n = 5, legend_ncol = 3, legend_digits = 1,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
-  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
+  x_zero = TRUE, x_zero_line = FALSE, x_trans = "identity",
+  x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
+  y_zero = TRUE, y_zero_line = FALSE, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
+  legend_ncol = 3, legend_digits = 1, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
+  wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
+  wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -53,6 +54,8 @@ ggplot_scatter_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
@@ -62,6 +65,8 @@ ggplot_scatter_col(data, x_var, y_var, col_var, tip_var = NULL,
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 
@@ -112,9 +117,6 @@ library(dplyr)
 
 plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 
-plot <- ggplot_scatter_col(data = plot_data, x_var = carat, y_var = price, col_var = color)
+ggplot_scatter_col(plot_data, carat, price, color)
 
-plot
-
-plotly::ggplotly(plot)
 }

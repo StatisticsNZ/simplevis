@@ -1,3 +1,13 @@
+# simplevis 2.08
+
+* Added expand arguments to all other plots.
+
+# simplevis 2.07
+
+* Changed zero_lines to default off.
+* Removed automatic zero lines, so now they must be manually turned off and on.
+* Added expand arguments to scatterplots.
+
 # simplevis 2.06
 
 * Corrected the direction of bar legend labels if someone manually adds them in.

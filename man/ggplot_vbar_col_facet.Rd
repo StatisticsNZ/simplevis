@@ -6,10 +6,11 @@
 \usage{
 ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, x_labels = waiver(), x_pretty_n = 5,
-  y_zero = TRUE, y_zero_line = TRUE, y_trans = "identity",
-  y_labels = waiver(), y_pretty_n = 5, col_drop = FALSE,
-  position = "stack", facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, legend_ncol = 3, width = 0.75, title = "[Title]",
+  x_expand = NULL, y_zero = TRUE, y_zero_line = FALSE,
+  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
+  y_expand = NULL, col_drop = FALSE, position = "stack",
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  legend_ncol = 3, width = 0.75, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   col_title = "", caption = NULL, legend_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
@@ -34,6 +35,8 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
@@ -43,6 +46,8 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
@@ -110,10 +115,6 @@ plot_data <- storms \%>\%
   filter(name \%in\% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
   "Henri", "Gloria", "Georges", "Frederic"))
 
-  plot <- ggplot_vbar_col_facet(data = plot_data, x_var = year, y_var = average_wind,
-                                col_var = name, facet_var = status)
+  ggplot_vbar_col_facet(plot_data, year, average_wind, name, status)
 
-  plot
-
-  plotly::ggplotly(plot)
 }

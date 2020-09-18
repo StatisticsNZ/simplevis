@@ -7,9 +7,11 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' ggplot2::ggplot() +
+#' library(ggplot2)
+#' 
+#' ggplot() +
 #'   theme_hbar("Courier", 9, 7) +
-#'   ggplot2::ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a selected font family and size")
 theme_hbar <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -119,8 +121,10 @@ theme_hbar <-
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
@@ -147,27 +151,26 @@ theme_hbar <-
 #'   mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   group_by(cut) %>%
 #'   summarise(average_price = mean(price)) %>%
-#'   mutate(average_price_thousands = round(average_price / 1000, 1)) 
+#'   mutate(average_price = round(average_price / 1000, 1)) 
 #'
-#' plot <- ggplot_hbar(data = plot_data, x_var = average_price_thousands, y_var = cut,
+#' ggplot_hbar(plot_data, average_price, cut,
 #'    title = "Average diamond price by cut",
 #'    x_title = "Average price ($US thousands)",
 #'    y_title = "Cut")
 #'
-#' plot
-#' 
-#' plotly::ggplotly(plot)
 ggplot_hbar <- function(data,
                         x_var,
                         y_var,
                         tip_var = NULL,
                         x_labels = waiver(),
                         x_zero = TRUE,
-                        x_zero_line = TRUE,
+                        x_zero_line = FALSE,
                         x_trans = "identity",
                         x_pretty_n = 6,
+                        x_expand = NULL,
                         y_rev = FALSE,
                         y_labels = waiver(),
+                        y_expand = NULL,
                         pal = NULL,
                         width = 0.75, 
                         na_grey = FALSE,
@@ -237,12 +240,13 @@ ggplot_hbar <- function(data,
       font_size_title = font_size_title
     ) +
       geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), fill = pal[1], width = width)
+  
+  if(is.null(x_expand)) x_expand <- c(0, 0)
+  if(is.null(y_expand)) y_expand <- waiver()
 
   if (all(x_var_vector == 0, na.rm = TRUE)) {
-    x_limits <- c(0, 1)
-    
     plot <- plot +
-      ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_labels, limits = x_limits)
+      scale_x_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
     
@@ -267,7 +271,7 @@ ggplot_hbar <- function(data,
     
     plot <- plot +
       scale_y_continuous(
-        expand = c(0, 0),
+        expand = x_expand,
         breaks = x_breaks,
         limits = x_limits,
         labels = x_labels,
@@ -299,11 +303,11 @@ ggplot_hbar <- function(data,
   }
   
   plot <- plot +
-    scale_x_discrete(labels = y_labels)
+    scale_x_discrete(expand = y_expand, labels = y_labels)
   
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+  if(x_zero_line == TRUE) {
     plot <- plot +
-      ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
 
   if (isMobile == FALSE){
@@ -342,8 +346,10 @@ ggplot_hbar <- function(data,
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
@@ -377,21 +383,14 @@ ggplot_hbar <- function(data,
 #'   mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   group_by(cut, clarity) %>%
 #'   summarise(average_price = mean(price)) %>%
-#'   mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
+#'   mutate(average_price = round(average_price / 1000, 1)) %>%
 #'   ungroup()
 #' 
-#' plot <- ggplot_hbar_col(data = plot_data, 
-#'                         x_var = average_price_thousands, 
-#'                         y_var = cut, 
-#'                         col_var = clarity, 
-#'                         legend_ncol = 4,
-#'                         title = "Average diamond price by cut and clarity", 
-#'                         x_title = "Average price ($US thousands)", 
-#'                         y_title = "Cut")
+#' ggplot_hbar_col(plot_data, average_price, cut, clarity, 
+#'   title = "Average diamond price by cut and clarity", 
+#'   x_title = "Average price ($US thousands)", 
+#'   y_title = "Cut")
 #' 
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_hbar_col <-
   function(data,
            x_var,
@@ -400,11 +399,13 @@ ggplot_hbar_col <-
            tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
-           x_zero_line = TRUE,
+           x_zero_line = FALSE,
            x_trans = "identity",
            x_pretty_n = 6,
+           x_expand = NULL,
            y_rev = FALSE,
            y_labels = waiver(),
+           y_expand = NULL,
            col_rev = FALSE,
            col_drop = FALSE,
            position = "stack",
@@ -508,11 +509,12 @@ ggplot_hbar_col <-
       
     }
     
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- waiver()
+    
     if (all(x_var_vector == 0, na.rm = TRUE)) {
-      x_limits <- c(0, 1)
-      
       plot <- plot +
-        ggplot2::scale_x_continuous(expand = c(0, 0), breaks = c(0, 1), labels = x_labels, limits = x_limits)
+        scale_x_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
       
@@ -539,7 +541,7 @@ ggplot_hbar_col <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
           labels = x_labels,
@@ -555,11 +557,11 @@ ggplot_hbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) +
-      scale_x_discrete(labels = y_labels)
+      scale_x_discrete(expand = y_expand, labels = y_labels)
 
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+    if(x_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE){
@@ -610,8 +612,10 @@ ggplot_hbar_col <-
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -640,17 +644,13 @@ ggplot_hbar_col <-
 #'   mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   group_by(cut, clarity) %>%
 #'   summarise(average_price = mean(price)) %>%
-#'   mutate(average_price_thousands = round(average_price / 1000, 1)) 
+#'   mutate(average_price = round(average_price / 1000, 1)) 
 #'
-#' plot <- ggplot_hbar_facet(data = plot_data, x_var = average_price_thousands,
-#'                           y_var = cut, facet_var = clarity,
-#'                          title = "Average diamond price by cut and clarity", 
-#'                          x_title = "Average price ($US thousands)", 
-#'                          y_title = "Cut")
+#' ggplot_hbar_facet(plot_data, average_price, cut, clarity,
+#'    title = "Average diamond price by cut and clarity", 
+#'    x_title = "Average price ($US thousands)", 
+#'    y_title = "Cut")
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_hbar_facet <-
   function(data,
            x_var,
@@ -659,11 +659,13 @@ ggplot_hbar_facet <-
            tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
-           x_zero_line = TRUE,
+           x_zero_line = FALSE,
            x_trans = "identity",
            x_pretty_n = 5,
+           x_expand = NULL,
            y_rev = FALSE,
            y_labels = waiver(),
+           y_expand = NULL,
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -735,6 +737,8 @@ ggplot_hbar_facet <-
       ) +
       geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), fill = pal[1], width = width)
     
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- waiver()
 
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
@@ -758,7 +762,7 @@ ggplot_hbar_facet <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
           labels = x_labels,
@@ -789,18 +793,18 @@ ggplot_hbar_facet <-
     
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
-        scale_y_continuous(expand = c(0, 0),
+        scale_y_continuous(expand = x_expand,
                            labels = x_labels,
                            trans = x_trans,
                            oob = scales::rescale_none)
     }
     
     plot <- plot +
-      scale_x_discrete(labels = y_labels)
+      scale_x_discrete(expand = y_expand, labels = y_labels)
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+    if(x_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
     if (isMobile == FALSE){
@@ -845,8 +849,10 @@ ggplot_hbar_facet <-
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
@@ -882,17 +888,13 @@ ggplot_hbar_facet <-
 #'   mutate(cut = stringr::str_to_sentence(cut)) %>%
 #'   group_by(cut, clarity, color) %>%
 #'   summarise(average_price = mean(price)) %>%
-#'   mutate(average_price_thousands = round(average_price / 1000, 1))
+#'   mutate(average_price = round(average_price / 1000, 1))
 #'
-#' plot <- ggplot_hbar_col_facet(data = plot_data, x_var = average_price_thousands,
-#'                               y_var = color, col_var = clarity, facet_var = cut,
-#'                               title = "Average diamond price by colour, clarity and cut", 
-#'                               x_title = "Average price ($US thousands)", 
-#'                               y_title = "Colour")
+#' ggplot_hbar_col_facet(plot_data, average_price, color, clarity, cut,
+#'   title = "Average diamond price by colour, clarity and cut", 
+#'   x_title = "Average price ($US thousands)", 
+#'   y_title = "Colour")
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_hbar_col_facet <-
   function(data,
            x_var,
@@ -902,11 +904,13 @@ ggplot_hbar_col_facet <-
            tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
-           x_zero_line = TRUE,
+           x_zero_line = FALSE,
            x_trans = "identity",
            x_pretty_n = 5,
+           x_expand = NULL,
            y_rev = FALSE,
            y_labels = waiver(),
+           y_expand = NULL,
            col_rev = FALSE,
            col_drop = FALSE,
            position = "stack",
@@ -996,6 +1000,9 @@ ggplot_hbar_col_facet <-
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- waiver()
+
     if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
       pal <- pal[1:length(levels(col_var_vector))]
     }
@@ -1034,7 +1041,7 @@ ggplot_hbar_col_facet <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
           trans = x_trans,
@@ -1044,7 +1051,7 @@ ggplot_hbar_col_facet <-
     }
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
-        scale_y_continuous(expand = c(0, 0),
+        scale_y_continuous(expand = y_expand,
                            trans = x_trans,
                            labels = x_labels,
                            oob = scales::rescale_none)
@@ -1057,11 +1064,11 @@ ggplot_hbar_col_facet <-
         labels = labels,
         na.value = "#A8A8A8"
       ) +
-      scale_x_discrete(labels = y_labels)
+      scale_x_discrete(expand = y_expand, labels = y_labels)
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+    if(x_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE){

@@ -7,9 +7,11 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' ggplot2::ggplot() +
+#' library(ggplot2)
+#' 
+#' ggplot() +
 #'   theme_stars("Courier", 9, 7) +
-#'   ggplot2::ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a selected font family and size")
 theme_stars <-
   function(font_family = "Helvetica",
            font_size_title = 11,

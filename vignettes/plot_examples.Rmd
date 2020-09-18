@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Load dplyr, convert the iris data to a tibble so it's easier to print.
+Load dplyr, convert the iris data to a tibble so it prints better.
 
 ```{r setup, message = FALSE, warning = FALSE}
 library(dplyr)
@@ -318,7 +318,7 @@ ggplot_vbar(plot_data, year, wind,
 ```
 
 Manually adjust the legend labels for the colour variable.
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <- storms %>%
   group_by(year, status) %>%
   summarise(wind = round(mean(wind), 2)) 

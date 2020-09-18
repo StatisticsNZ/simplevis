@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.8</span>
       </span>
     </div>
 
@@ -148,13 +148,14 @@
 
     <pre class="usage"><span class='fu'>ggplot_box</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
-  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,6 +189,10 @@
       <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.</p></td>
     </tr>
     <tr>
+      <th>x_expand</th>
+      <td><p>A vector of range expansion constants used to add some padding on the x scale.</p></td>
+    </tr>
+    <tr>
       <th>y_zero</th>
       <td><p>TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
     </tr>
@@ -206,6 +211,10 @@
     <tr>
       <th>y_pretty_n</th>
       <td><p>The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+    </tr>
+    <tr>
+      <th>y_expand</th>
+      <td><p>A vector of range expansion constants used to add some padding on the y scale.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -285,20 +294,17 @@
 <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Species</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>Species</span>))
 
-<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot_box</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>Petal.Length</span>,
-                    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Iris petal length by species"</span>,
-                    <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Species"</span>,
-                    <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Petal length (cm)"</span>)
-
-<span class='no'>plot</span></div><div class='img'><img src='ggplot_box-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>)
-
+<span class='fu'>ggplot_box</span>(<span class='no'>plot_data</span>, <span class='no'>Species</span>, <span class='no'>Petal.Length</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Iris petal length by species"</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Species"</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Petal length (cm)"</span>)</div><div class='img'><img src='ggplot_box-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>boxplot_stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/set_names.html'>set_names</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/boxplot.stats.html'>boxplot.stats</a></span>(<span class='no'>Petal.Length</span>)$<span class='no'>stats</span>,
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'ymin'</span>,<span class='st'>'lower'</span>,<span class='st'>'middle'</span>,<span class='st'>'upper'</span>,<span class='st'>'ymax'</span>)))) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>boxplot_stats</span>)</div><div class='output co'>#&gt; <span class='message'>`summarise()` ungrouping output (override with `.groups` argument)</span></div><div class='input'>
-<span class='fu'>ggplot_box</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>Petal.Length</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='ggplot_box-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot_box</span>(<span class='no'>plot_data</span>, <span class='no'>Species</span>, <span class='no'>Petal.Length</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='ggplot_box-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

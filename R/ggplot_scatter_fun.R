@@ -7,9 +7,11 @@
 #' @return A ggplot theme.
 #' @export
 #' @examples
-#' ggplot2::ggplot() +
+#' library(ggplot2)
+#' 
+#' ggplot() +
 #'   theme_scatter("Courier", 9, 7) +
-#'   ggplot2::ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a selected font family and size")
 theme_scatter <-
   function(font_family = "Helvetica",
            font_size_title = 11,
@@ -121,11 +123,13 @@ theme_scatter <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param title  Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -147,14 +151,11 @@ theme_scatter <-
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
-#' plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price,
+#' ggplot_scatter(plot_data, carat, price, 
 #'    title = "Diamond price by carat",
 #'    x_title = "Carat",
 #'    y_title = "Price ($US thousands)")
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_scatter <- function(data,
                            x_var,
                            y_var,
@@ -162,15 +163,17 @@ ggplot_scatter <- function(data,
                            size = 1,
                            pal = NULL,
                            x_zero = TRUE,
-                           x_zero_line = TRUE,
+                           x_zero_line = FALSE,
                            x_trans = "identity",
                            x_labels = waiver(),
                            x_pretty_n = 6,
+                           x_expand = NULL,
                            y_zero = TRUE,
-                           y_zero_line = TRUE,
+                           y_zero_line = FALSE,
                            y_trans = "identity",
                            y_labels = waiver(),
                            y_pretty_n = 5,
+                           y_expand = NULL,
                            title = "[Title]",
                            subtitle = NULL,
                            x_title = "[X title]",
@@ -262,9 +265,12 @@ ggplot_scatter <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
   }
   
+  if(is.null(x_expand)) x_expand <- c(0, 0)
+  if(is.null(y_expand)) y_expand <- c(0, 0)
+
   plot <- plot +
     scale_x_continuous(
-      expand = c(0, 0),
+      expand = x_expand,
       breaks = x_breaks,
       limits = x_limits,
       trans = x_trans,
@@ -272,7 +278,7 @@ ggplot_scatter <- function(data,
       oob = scales::rescale_none
     ) +
     scale_y_continuous(
-      expand = c(0, 0),
+      expand = y_expand,
       breaks = y_breaks,
       limits = y_limits,
       trans = y_trans,
@@ -280,14 +286,14 @@ ggplot_scatter <- function(data,
       oob = scales::rescale_none
     )
   
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+  if(x_zero_line == TRUE) {
     plot <- plot +
-      ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+      geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+  if(y_zero_line == TRUE) {
     plot <- plot +
-      ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
   if (isMobile == FALSE) {
@@ -333,11 +339,13 @@ ggplot_scatter <- function(data,
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title  Title string. Defaults to "[Title]".
@@ -364,11 +372,8 @@ ggplot_scatter <- function(data,
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
-#' plot <- ggplot_scatter_col(data = plot_data, x_var = carat, y_var = price, col_var = color)
+#' ggplot_scatter_col(plot_data, carat, price, color)
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_scatter_col <-
   function(data,
            x_var,
@@ -383,15 +388,17 @@ ggplot_scatter_col <-
            pal = NULL,
            pal_rev = FALSE,
            x_zero = TRUE,
-           x_zero_line = TRUE,
+           x_zero_line = FALSE,
            x_trans = "identity",
            x_labels = waiver(),
            x_pretty_n = 6,
+           x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = TRUE,
+           y_zero_line = FALSE,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
+           y_expand = NULL,
            legend_ncol = 3,
            legend_digits = 1,
            title = "[Title]",
@@ -522,6 +529,9 @@ ggplot_scatter_col <-
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
     
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- c(0, 0)
+    
     plot <- plot +
       scale_color_manual(
         values = pal,
@@ -531,7 +541,7 @@ ggplot_scatter_col <-
         na.value = "#A8A8A8"
       ) +
       scale_x_continuous(
-        expand = c(0, 0),
+        expand = x_expand,
         breaks = x_breaks,
         limits = x_limits,
         trans = x_trans,
@@ -539,7 +549,7 @@ ggplot_scatter_col <-
         oob = scales::rescale_none
       ) +
       scale_y_continuous(
-        expand = c(0, 0),
+        expand = y_expand,
         breaks = y_breaks,
         limits = y_limits,
         trans = y_trans,
@@ -547,14 +557,14 @@ ggplot_scatter_col <-
         oob = scales::rescale_none
       )
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+    if(x_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+    if(y_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE) {
@@ -597,11 +607,13 @@ ggplot_scatter_col <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param title  Title string. Defaults to "[Title]".
@@ -625,11 +637,8 @@ ggplot_scatter_col <-
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
-#' plot <- ggplot_scatter_facet(data = plot_data, x_var = carat, y_var = price, facet_var = color)
+#' ggplot_scatter_facet(plot_data, carat, price, color)
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_scatter_facet <-
   function(data,
            x_var,
@@ -639,15 +648,17 @@ ggplot_scatter_facet <-
            size = 1,
            pal = NULL,
            x_zero = TRUE,
-           x_zero_line = TRUE,
+           x_zero_line = FALSE,
            x_trans = "identity",
            x_labels = waiver(),
+           x_expand = NULL,
            x_pretty_n = 5,
            y_zero = TRUE,
-           y_zero_line = TRUE,
+           y_zero_line = FALSE,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
+           y_expand = NULL,
            facet_scales = "fixed",
            facet_nrow = NULL,
            title = "[Title]",
@@ -731,9 +742,12 @@ ggplot_scatter_facet <-
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
+      if(is.null(x_expand)) x_expand <- c(0, 0)
+      if(is.null(y_expand)) y_expand <- c(0, 0)
+      
       plot <- plot +
         scale_x_continuous(
-          expand = c(0, 0),
+          expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
           trans = x_trans,
@@ -760,7 +774,7 @@ ggplot_scatter_facet <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = y_expand,
           breaks = y_breaks,
           limits = y_limits,
           trans = y_trans,
@@ -776,14 +790,14 @@ ggplot_scatter_facet <-
                            oob = scales::rescale_none)
     }
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+    if(x_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+    if(y_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
     if (isMobile == FALSE) {
@@ -836,11 +850,13 @@ ggplot_scatter_facet <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param legend_ncol The number of columns in the legend.
@@ -871,12 +887,8 @@ ggplot_scatter_facet <-
 #'   sample_frac(0.05) %>%
 #'   mutate(cut = stringr::str_to_sentence(cut))
 #'
-#' plot <- ggplot_scatter_col_facet(data = plot_data, x_var = carat, y_var = price, col_var = color,
-#'                                  facet_var = cut)
+#' ggplot_scatter_col_facet(plot_data, carat, price, color, cut)
 #'
-#' plot
-#'
-#' plotly::ggplotly(plot)
 ggplot_scatter_col_facet <-
   function(data,
            x_var,
@@ -892,15 +904,17 @@ ggplot_scatter_col_facet <-
            pal = NULL,
            pal_rev = FALSE,
            x_zero = TRUE,
-           x_zero_line = TRUE,
+           x_zero_line = FALSE,
            x_trans = "identity",
            x_labels = waiver(),
            x_pretty_n = 5,
+           x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = TRUE,
+           y_zero_line = FALSE,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
+           y_expand = NULL,
            col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -1022,6 +1036,9 @@ ggplot_scatter_col_facet <-
         na.value = "#A8A8A8"
       )
     
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- c(0, 0)
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
@@ -1044,7 +1061,7 @@ ggplot_scatter_col_facet <-
       
       plot <- plot +
         scale_x_continuous(
-          expand = c(0, 0),
+          expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
           trans = x_trans,
@@ -1071,7 +1088,7 @@ ggplot_scatter_col_facet <-
       
       plot <- plot +
         scale_y_continuous(
-          expand = c(0, 0),
+          expand = y_expand,
           breaks = y_breaks,
           limits = y_limits,
           trans = y_trans,
@@ -1081,20 +1098,20 @@ ggplot_scatter_col_facet <-
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = c(0, 0),
+        scale_y_continuous(expand = y_expand,
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
     }
     
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero_line == TRUE) {
+    if(x_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero_line == TRUE) {
+    if(y_zero_line == TRUE) {
       plot <- plot +
-        ggplot2::geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
     if (isMobile == FALSE) {

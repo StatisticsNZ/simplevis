@@ -40,7 +40,6 @@ iris %>%
 Add titles and adjust the font family and sizes.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-
 ggplot_scatter(iris, Sepal.Width, Sepal.Length,
                title = "Iris sepal length by width, 2020",
                x_title = "Sepal width (cm)",
@@ -175,7 +174,6 @@ ggplot_hbar(plot_data, average_price, cut,
 Specify the order by converting to a factor.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-
 cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
 
 plot_data <- plot_data %>% 
@@ -189,7 +187,6 @@ ggplot_hbar(plot_data, average_price, cut)
 Add a $ prefix to y labels and a comma.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-
 ggplot_hbar(plot_data, average_price, cut, 
             y_rev = TRUE, 
             x_labels = scales::comma_format(prefix = "$"))
@@ -199,7 +196,6 @@ ggplot_hbar(plot_data, average_price, cut,
 Make a coloured hbar plot.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
-
 plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
@@ -305,7 +301,6 @@ Turn off the y-zeroing on the line.
 ggplot_line(plot_data, year, wind,
             y_zero = FALSE)
 
-
 ```
 
 Turn off the y-zeroing on the vbar.
@@ -314,10 +309,10 @@ Turn off the y-zeroing on the vbar.
 ggplot_vbar(plot_data, year, wind,
             y_zero = FALSE)
 
-
 ```
 
 Manually adjust the legend labels for the colour variable.
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <- storms %>%
   group_by(year, status) %>%
@@ -326,6 +321,29 @@ plot_data <- storms %>%
 ggplot_vbar_col(plot_data, year, wind, status,
                 legend_labels = c("A", "B", "C"))
 
+```
+
+Make the bar width narrower.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(average_wind = round(mean(wind), 2)) 
+
+ggplot_vbar(plot_data, year, average_wind,
+  width = 0.33)
+
+```
+
+Add some space between the x axis and the lower break.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(average_wind = round(mean(wind), 2)) 
+
+ggplot_vbar(plot_data, year, average_wind,
+  y_expand = c(0.05, 0))
 ```
 
 Make a boxplot.
@@ -354,8 +372,8 @@ ggplot_box(plot_data, Species, Petal.Length, stat = "identity")
 
 ```
 
-
 Use quoted variables.
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <-  ggplot2::diamonds %>%
   group_by(across("cut")) %>%

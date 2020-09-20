@@ -99,7 +99,7 @@
       <h1 data-toc-skip>simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2020-09-18</h4>
+            <h4 class="date">2020-09-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -144,34 +144,12 @@
 <p>We can modify the design with <code>ggplot2</code>. However, there is a lot of code.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">data</span>) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">pet</span>, <span class="no">count</span>), <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"#085C75"</span>, <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.75</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Wellington pets, 2020"</span>,
-       <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Pet"</span>,
-       <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Count"</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Wellington pets, 2020"</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Pet"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Count"</span>) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">600</span>)) + <span class="co">#hardcoded = bad!</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">plot.title</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(
-    <span class="kw">family</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>,
-    <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>,
-    <span class="kw">size</span> <span class="kw">=</span> <span class="fl">11</span>,
-    <span class="kw">face</span> <span class="kw">=</span> <span class="st">"bold"</span>,
-    <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#000000"</span>
-  )) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(
-    <span class="kw">axis.title</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(
-      <span class="kw">family</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>,
-      <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>,
-      <span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>,
-      <span class="kw">face</span> <span class="kw">=</span> <span class="st">"plain"</span>,
-      <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#323232"</span>
-    )
-  ) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.text</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(
-    <span class="kw">family</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>,
-    <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>,
-    <span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>,
-    <span class="kw">face</span> <span class="kw">=</span> <span class="st">"plain"</span>,
-    <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#323232"</span>
-  )) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">plot.title</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">family</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>, <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">11</span>, <span class="kw">face</span> <span class="kw">=</span> <span class="st">"bold"</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#000000"</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.title</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">family</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>, <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">face</span> <span class="kw">=</span> <span class="st">"plain"</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#323232"</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.text</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">family</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>, <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="kw">face</span> <span class="kw">=</span> <span class="st">"plain"</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#323232"</span>)) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">panel.grid.major.x</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>()) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">panel.grid.minor.y</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>()) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.line</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#323232"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.3</span>)) +
@@ -180,9 +158,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.title.y</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">margin</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span>(<span class="kw">r</span> <span class="kw">=</span> <span class="fl">10</span>)))</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p><code>simplevis</code> wraps these defaults into the functions, but allows the user to modify as required.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_vbar.html">ggplot_vbar</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>,
-            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">pet</span>,
-            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">count</span>,
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_vbar.html">ggplot_vbar</a></span>(<span class="no">data</span>, <span class="no">pet</span>, <span class="no">count</span>,
             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Wellington pets, 2020"</span>,
             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Pet"</span>,
             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Count"</span>)</pre></body></html></div>
@@ -207,17 +183,13 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price_thousands</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>)))
 
-<span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                    <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price_thousands</span>,
-                    <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-                    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
-                    <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                    <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)
-
-<span class="no">plot</span></pre></body></html></div>
+<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
+            <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
+            <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
+            <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>A <code>ggplot</code> coloured, but not faceted (e.g. <code>ggplot_hbar_col</code>)</li>
@@ -226,18 +198,13 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price_thousands</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
 
-<span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price_thousands</span>,
-                        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-                        <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-                        <span class="kw">legend_ncol</span> <span class="kw">=</span> <span class="fl">4</span>,
-                        <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-                        <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                        <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)
-
-<span class="no">plot</span></pre></body></html></div>
+<span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
+                <span class="kw">legend_ncol</span> <span class="kw">=</span> <span class="fl">4</span>,
+                <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
+                <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
+                <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <ol start="3" style="list-style-type: decimal">
 <li>A <code>ggplot</code> facetted, but not coloured (e.g. <code>ggplot_hbar_facet</code>)</li>
@@ -246,17 +213,12 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price_thousands</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
 
-<span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_hbar_facet.html">ggplot_hbar_facet</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                          <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price_thousands</span>,
-                          <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-                          <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-                          <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-                          <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                          <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)
-
-<span class="no">plot</span></pre></body></html></div>
+<span class="fu"><a href="../reference/ggplot_hbar_facet.html">ggplot_hbar_facet</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
+                  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
+                  <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
+                  <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>A <code>ggplot</code> coloured and facetted (e.g. <code>ggplot_hbar_col_facet</code>)</li>
@@ -265,19 +227,13 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>, <span class="no">color</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price_thousands</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
 
-<span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_hbar_col_facet.html">ggplot_hbar_col_facet</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price_thousands</span>,
-                              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">color</span>,
-                              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-                              <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-                              <span class="kw">legend_ncol</span> <span class="kw">=</span> <span class="fl">4</span>,
-                              <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by colour, clarity and cut"</span>,
-                              <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                              <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Colour"</span>)
-
-<span class="no">plot</span></pre></body></html></div>
+<span class="fu"><a href="../reference/ggplot_hbar_col_facet.html">ggplot_hbar_col_facet</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">color</span>, <span class="no">clarity</span>, <span class="no">cut</span>,
+                      <span class="kw">legend_ncol</span> <span class="kw">=</span> <span class="fl">4</span>,
+                      <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by colour, clarity and cut"</span>,
+                      <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
+                      <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Colour"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 <p>These <code>ggplot</code> graphs have been designed that users can convert them easily to html interactive objects by wrapping them in <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">plotly::ggplotly(plot)</a></code>. A customised tooltip can be provided using the <code>tip_var</code> argument in <code>simplevis</code> functions with <code>plotly::ggplotly(plot, tooltip = "text)</code>. Automated tip_text columns can be created using the <code>add_tip</code> function.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
@@ -294,8 +250,8 @@
 <span class="kw pkg">plotly</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">ggplotly</a></span>(<span class="no">plot</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plotly_camera.html">plotly_camera</a></span>()</pre></body></html></div>
 <p>The variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-9b1f7750575c599bc1bd" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9b1f7750575c599bc1bd">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","scatter","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>fun_group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2c97988278675fa734bf" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2c97988278675fa734bf">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","scatter","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>fun_group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="simplevis-ggplot-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -325,7 +281,7 @@
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">map_data</span> <span class="kw">&lt;-</span> <span class="no">example_sf_nz_river_wq</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">period</span> <span class="kw">==</span> <span class="st">"1998-2017"</span>, <span class="no">indicator</span> <span class="kw">==</span> <span class="st">"Nitrate-nitrogen"</span>)
 
-<span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
+<span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="no">map_data</span>,
           <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
           <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
           <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Monitored river nitrate-nitrogen trend sites, 2008\u201317"</span>,
@@ -336,8 +292,7 @@
 
 <span class="no">pal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>)
 
-<span class="fu"><a href="../reference/ggplot_sf_col.html">ggplot_sf_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
-              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
+<span class="fu"><a href="../reference/ggplot_sf_col.html">ggplot_sf_col</a></span>(<span class="no">map_data</span>, <span class="no">trend_category</span>,
               <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
               <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
               <span class="kw">pal</span> <span class="kw">=</span> <span class="no">pal</span>,
@@ -347,8 +302,7 @@
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">map_data</span> <span class="kw">&lt;-</span> <span class="no">example_sf_nz_river_wq</span> <span class="kw">%&gt;%</span>
  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">period</span> <span class="kw">==</span> <span class="st">"1998-2017"</span>, <span class="no">indicator</span> <span class="kw">==</span> <span class="st">"Nitrate-nitrogen"</span>)
 
-<span class="fu"><a href="../reference/ggplot_sf_facet.html">ggplot_sf_facet</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
-                <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
+<span class="fu"><a href="../reference/ggplot_sf_facet.html">ggplot_sf_facet</a></span>(<span class="no">map_data</span>, <span class="no">trend_category</span>,
                 <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
                 <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
                 <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Monitored river nitrate-nitrogen trends, 2008\u201317"</span>)</pre></body></html></div>
@@ -358,9 +312,7 @@
 
 <span class="no">pal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>)
 
-<span class="fu"><a href="../reference/ggplot_sf_col_facet.html">ggplot_sf_col_facet</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
-                    <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
-                    <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">indicator</span>,
+<span class="fu"><a href="../reference/ggplot_sf_col_facet.html">ggplot_sf_col_facet</a></span>(<span class="no">map_data</span>, <span class="no">trend_category</span>, <span class="no">indicator</span>,
                     <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
                     <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
                     <span class="kw">pal</span> <span class="kw">=</span> <span class="no">pal</span>,
@@ -378,7 +330,7 @@
 <li>They do <em>not</em> support conversion to interactive objects through <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">plotly::ggplotly</a></code>.</li>
 <li>Data must be provided in the format of a <code>stars</code> object. For, <code>ggplot_sf_col</code>, the <code>stars</code> object must have 2 dimensions x and y, and only 1 attribute layer. Required input. For, <code>ggplot_sf_col_facet</code>, the stars object must have 2 dimensions, x and y, and multiple named attribute layers with the usual convention of lower case and underscores. Use <code>select</code>, <code>slice</code>, <code>c</code> and <code>split</code>to get the <code>stars</code> object into the appropriate format.</li>
 </ul>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_stars_col.html">ggplot_stars_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_stars_nz_no3n</span>,
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_stars_col.html">ggplot_stars_col</a></span>(<span class="no">example_stars_nz_no3n</span>,
                  <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
                  <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
                  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled median nitrate-nitrogen concentrations, 2013\u201317"</span>,
@@ -393,7 +345,7 @@
 
 <span class="no">map_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">map_data1</span>, <span class="no">map_data2</span>)
 
-<span class="fu"><a href="../reference/ggplot_stars_col_facet.html">ggplot_stars_col_facet</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
+<span class="fu"><a href="../reference/ggplot_stars_col_facet.html">ggplot_stars_col_facet</a></span>(<span class="no">map_data</span>,
                        <span class="kw">coastline</span> <span class="kw">=</span> <span class="no">nz</span>,
                        <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
                        <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled nutrient concentrations, 2013\u201317"</span>)</pre></body></html></div>
@@ -413,13 +365,12 @@
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">map_data</span> <span class="kw">&lt;-</span> <span class="no">example_sf_nz_livestock</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">dairydens</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">dairydens</span>, <span class="fl">2</span>))
 
-<span class="fu"><a href="../reference/leaflet_sf_col.html">leaflet_sf_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">map_data</span>,
-               <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">dairydens</span>,
+<span class="fu"><a href="../reference/leaflet_sf_col.html">leaflet_sf_col</a></span>(<span class="no">map_data</span>, <span class="no">dairydens</span>,
                <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
                <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">Inf</span>),
                <span class="kw">legend_digits</span> <span class="kw">=</span> <span class="fl">0</span>,
                <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Dairy density in count per km\u00b2, 2017"</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_stars_col.html">leaflet_stars_col</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_stars_nz_no3n</span>,
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_stars_col.html">leaflet_stars_col</a></span>(<span class="no">example_stars_nz_no3n</span>,
   <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)</pre></body></html></div>
 </div>

@@ -34,6 +34,8 @@ a4_height_mm <- 257
 #' plotly::ggplotly(plot, tooltip = "text")
 add_tip <- function(data, vars_vctr = NULL, comma = FALSE) {
   
+  data <- data %>% ungroup()
+  
   class <- class(data)[1]
   
   if(is.null(vars_vctr)) {

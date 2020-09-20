@@ -107,9 +107,7 @@ Add some more pretty breaks to the y scale.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_scatter(iris, Sepal.Width, Sepal.Length, 
-               y_zero = FALSE,
                y_pretty_n = 10,
-               x_zero = FALSE,
                x_pretty_n = 10)
 
 ```
@@ -282,6 +280,7 @@ ggplot_line(plot_data, date, wind)
 ```
 
 Update the x labels.
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_line(plot_data, date, wind,
             x_labels = scales::date_format(format = "%Y"))
@@ -345,6 +344,21 @@ plot_data <- storms %>%
 ggplot_vbar(plot_data, year, average_wind,
   y_expand = c(0.05, 0))
 ```
+
+Sometimes you may want to include a category that is NA in a bar graph, and show that it is NA rather than zero.
+
+```{r}
+plot_data <- ggplot2::diamonds %>%
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price = round(average_price / 1000, 1))  %>% 
+  filter(cut != "Very Good") %>% 
+  add_row(cut = "Very Good", average_price = NA) %>% # make an NA value for the example
+  mutate(cut = factor(cut, levels = c("Fair", "Good", "Very Good", "Premium", "Ideal"))) 
+
+ggplot_hbar(plot_data, average_price, cut, na_grey = TRUE)
+```
+
 
 Make a boxplot.
 

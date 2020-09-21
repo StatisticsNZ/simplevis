@@ -101,7 +101,7 @@ ggplot_hbar(plot_data, average_price, cut,
 ```
 
 2. A `ggplot` coloured, but not faceted (e.g. `ggplot_hbar_col`)
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity) %>%
@@ -169,7 +169,7 @@ The variable types supported by the different groups of functions are outlined b
 
 ```{r, echo = FALSE}
 tibble::tribble(
-  ~fun_group, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
+  ~group, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
   "vbar", "numeric, date or categorical", "numeric", "categorical or numeric", "categorical", "identity",
   "hbar", "numeric", "categorical", "categorical or numeric", "categorical", "identity",
   "line", "numeric or date", "numeric", "categorical or numeric", "categorical", "identity",

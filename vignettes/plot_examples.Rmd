@@ -206,7 +206,7 @@ Reverse the colouring of the col var bar pieces.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
-                pal = pal_snz[8:1])
+                pal = pal_snz, pal_rev = TRUE)
 
 ```
 

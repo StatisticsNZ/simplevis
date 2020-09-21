@@ -41,9 +41,7 @@ We can make a `ggplot2` plot quickly. However, it does not look ready for a repo
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot(data) +
   geom_col(aes(pet, count)) +
-  labs(title = "Wellington pets, 2020",
-       x = "Pet",
-       y = "Count")
+  labs(title = "Wellington pets, 2020", x = "Pet", y = "Count")
 ```
 
 We can modify the design with `ggplot2`. However, there is a lot of code. 

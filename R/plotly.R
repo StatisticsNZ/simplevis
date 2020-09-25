@@ -17,7 +17,8 @@ plotly_camera <- function(plotly, logo = FALSE){
                    "hoverCompareCartesian", "sendDataToCloud", "toggleHover", "resetViews", "toggleSpikelines",
                    "resetViewMapbox", "toggleSpikelines", "resetViewMapbox", "lasso2d", "select2d"
                  ),
-                 displaylogo = logo)
+                 displaylogo = logo) %>% 
+    plotly::style(hoverlabel = list(align = "left"))
 }
 
 #' @title Reverse plotly legend elements.

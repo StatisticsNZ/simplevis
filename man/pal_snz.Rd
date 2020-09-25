@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_snz}
 \alias{pal_snz}
-\title{Colour palette for categorical variables.}
+\title{Colour palette for a graph with a nominal categorical variable.}
 \format{An object of class \code{character} of length 9.}
 \usage{
 pal_snz
@@ -12,7 +12,7 @@ pal_snz
 A vector of hex codes.
 }
 \description{
-Colour palette for categorical variables.
+Colour palette for a graph with a nominal categorical variable.
 }
 \examples{
 scales::show_col(pal_snz)

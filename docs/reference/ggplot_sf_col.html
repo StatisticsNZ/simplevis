@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -146,16 +146,16 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_na_remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>coastline_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>coastline_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
-  <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_sf_col</span>(<span class='kw'>data</span>, <span class='kw'>col_var</span>, col_method = <span class='kw'>NULL</span>, col_cuts = <span class='kw'>NULL</span>,
+  col_drop = <span class='fl'>FALSE</span>, col_na_remove = <span class='fl'>FALSE</span>, pal = <span class='kw'>NULL</span>,
+  pal_rev = <span class='fl'>FALSE</span>, size = <span class='fl'>0.5</span>, alpha = <span class='fl'>0.9</span>, coastline = <span class='kw'>NULL</span>,
+  coastline_behind = <span class='fl'>TRUE</span>, coastline_pal = <span class='st'>"#7f7f7f"</span>,
+  legend_ncol = <span class='fl'>3</span>, legend_digits = <span class='fl'>1</span>, title = <span class='st'>"[Title]"</span>,
+  subtitle = <span class='kw'>NULL</span>, col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>,
+  legend_labels = <span class='kw'>NULL</span>, font_family = <span class='st'>"Helvetica"</span>,
+  font_size_title = <span class='kw'>NULL</span>, font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>,
+  wrap_subtitle = <span class='fl'>80</span>, wrap_col_title = <span class='fl'>25</span>, wrap_caption = <span class='fl'>80</span>,
+  isMobile = <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -280,20 +280,23 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot_sf_col</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_nz_livestock</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>dairydens</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='no'>nz</span>,
-     <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>), <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-     <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Dairy density in count per km\u00b2, 2017"</span>)</div><div class='img'><img src='ggplot_sf_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>ggplot_sf_col</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_nz_livestock</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>dairydens</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='no'>nz</span>,
-     <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
-     <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Dairy density in count per km\u00b2, 2017"</span>)</div><div class='img'><img src='ggplot_sf_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>map_data</span> <span class='kw'>&lt;-</span> <span class='no'>example_sf_nz_river_wq</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>period</span> <span class='kw'>==</span> <span class='st'>"1998-2017"</span>, <span class='no'>indicator</span> <span class='kw'>==</span> <span class='st'>"Nitrate-nitrogen"</span>)
+    <pre class="examples"><div class='input'><span class='fu'>ggplot_sf_col</span>(data = <span class='kw'>example_sf_nz_livestock</span>, col_var = <span class='kw'>dairydens</span>, coastline = <span class='kw'>nz</span>,
+     col_method = <span class='st'>"bin"</span>, col_cuts = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>), legend_digits = <span class='fl'>0</span>,
+     title = <span class='st'>"Dairy density in count per km\u00b2, 2017"</span>)
+</div><div class='img'><img src='ggplot_sf_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot_sf_col</span>(data = <span class='kw'>example_sf_nz_livestock</span>, col_var = <span class='kw'>dairydens</span>, coastline = <span class='kw'>nz</span>,
+     col_method = <span class='st'>"quantile"</span>, col_cuts = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
+     title = <span class='st'>"Dairy density in count per km\u00b2, 2017"</span>)
+</div><div class='img'><img src='ggplot_sf_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>map_data</span> <span class='op'>&lt;-</span> <span class='kw'>example_sf_nz_river_wq</span> <span class='op'>%&gt;%</span>
+  <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>period</span> <span class='op'>==</span> <span class='st'>"1998-2017"</span>, <span class='kw'>indicator</span> <span class='op'>==</span> <span class='st'>"Nitrate-nitrogen"</span>)
+  
+ <span class='kw'>pal</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#4575B4"</span>, <span class='st'>"#D3D3D3"</span>, <span class='st'>"#D73027"</span>)
 
- <span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#4575B4"</span>, <span class='st'>"#D3D3D3"</span>, <span class='st'>"#D73027"</span>)
-
-<span class='fu'>ggplot_sf_col</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>map_data</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='no'>nz</span>,
-   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"category"</span>,
-   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Monitored river nitrate-nitrogen trends, 2008-17"</span>)</div><div class='img'><img src='ggplot_sf_col-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot_sf_col</span>(data = <span class='kw'>map_data</span>, col_var = <span class='kw'>trend_category</span>, coastline = <span class='kw'>nz</span>, 
+   pal = <span class='kw'>pal</span>, col_method = <span class='st'>"category"</span>,
+   title = <span class='st'>"Monitored river nitrate-nitrogen trends, 2008-17"</span>)
+</div><div class='img'><img src='ggplot_sf_col-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -309,7 +312,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

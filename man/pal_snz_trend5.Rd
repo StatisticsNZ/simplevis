@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_snz_trend5}
 \alias{pal_snz_trend5}
-\title{Colour palette for a categorical trend variable with 5 values.}
+\title{Colour palette for a graph of a ordinal categorical trend variable with 5 values.}
 \format{An object of class \code{character} of length 5.}
 \usage{
 pal_snz_trend5
@@ -12,7 +12,7 @@ pal_snz_trend5
 A vector of hex codes.
 }
 \description{
-Colour palette for categorical variables.
+Colour palette for a graph of a ordinal categorical trend variable with 5 values.
 }
 \examples{
 scales::show_col(pal_snz_trend5)

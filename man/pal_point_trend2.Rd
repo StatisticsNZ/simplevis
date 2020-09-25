@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_point_trend2}
 \alias{pal_point_trend2}
-\title{Colour palette for a categorical trend variable with 2 values for points.}
+\title{Colour palette for a map of a ordinal categorical trend variable with 2 values.}
 \format{An object of class \code{character} of length 2.}
 \usage{
 pal_point_trend2
@@ -12,7 +12,7 @@ pal_point_trend2
 A vector of hex codes.
 }
 \description{
-Colour palette for categorical variables.
+Colour palette for a map of a ordinal categorical trend variable with 2 values.
 }
 \examples{
 scales::show_col(pal_point_trend2)

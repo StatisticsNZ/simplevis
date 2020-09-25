@@ -1,3 +1,11 @@
+# simplevis 2.1.0
+
+* Added two new palettes for graphs that compare a current year against a previous year.
+
+# simplevis 2.09
+
+* Added left-align to hover values with the plotly_camera function.
+
 # simplevis 2.08
 
 * Added expand arguments to all other plots.

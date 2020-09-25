@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -146,10 +146,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='kw'>data</span>, col_method = <span class='st'>"quantile"</span>, col_cuts = <span class='kw'>NULL</span>,
+  pal = <span class='kw'>NULL</span>, pal_rev = <span class='fl'>FALSE</span>, opacity = <span class='fl'>1</span>, legend_digits = <span class='fl'>1</span>,
+  title = <span class='st'>"[Title]"</span>, legend_labels = <span class='kw'>NULL</span>, basemap = <span class='st'>"light"</span>,
+  map_id = <span class='st'>"map"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,9 +206,10 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars_nz_no3n</span>,
-   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
-   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>leaflet_stars_col</span>(<span class='kw'>example_stars_nz_no3n</span>, 
+   col_method = <span class='st'>"quantile"</span>, col_cuts = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
+   title = <span class='st'>"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +225,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

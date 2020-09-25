@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_ea19_trend3}
 \alias{pal_ea19_trend3}
-\title{Colour palette for a categorical trend variable with 3 values.}
+\title{Colour palette for a graph of a ordinal categorical trend variable with 3 values.}
 \format{An object of class \code{character} of length 3.}
 \usage{
 pal_ea19_trend3
@@ -12,7 +12,7 @@ pal_ea19_trend3
 A vector of hex codes.
 }
 \description{
-Colour palette for categorical variables.
+Colour palette for a graph of a ordinal categorical trend variable with 3 values.
 }
 \examples{
 scales::show_col(pal_ea19_trend3)

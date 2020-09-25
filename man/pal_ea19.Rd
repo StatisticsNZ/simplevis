@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_ea19}
 \alias{pal_ea19}
-\title{Colour palette for categorical variables.}
+\title{Colour palette for a graph with a nominal categorical variable.}
 \format{An object of class \code{character} of length 9.}
 \usage{
 pal_ea19
@@ -12,7 +12,7 @@ pal_ea19
 A vector of hex codes.
 }
 \description{
-Colour palette for categorical variables.
+Colour palette for a graph with a nominal categorical variable.
 }
 \examples{
 scales::show_col(pal_ea19)

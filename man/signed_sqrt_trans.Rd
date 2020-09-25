@@ -7,7 +7,7 @@
 signed_sqrt_trans()
 }
 \value{
-A ggplot scale transformation.
+A ggplot scale transformation function.
 }
 \description{
 A signed square root ggplot scale transformation.

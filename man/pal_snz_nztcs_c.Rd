@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_snz_nztcs_c}
 \alias{pal_snz_nztcs_c}
-\title{Colour palette for the NZTCS.}
+\title{Colour palette for a NZTCS category graph.}
 \format{An object of class \code{character} of length 4.}
 \usage{
 pal_snz_nztcs_c
@@ -12,7 +12,7 @@ pal_snz_nztcs_c
 A vector of hex codes.
 }
 \description{
-A colour palette used for depicting categories in the NZ conservation threat status.
+Colour palette for a NZTCS category graph.
 }
 \examples{
 scales::show_col(pal_snz_nztcs_c)

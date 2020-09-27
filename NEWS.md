@@ -1,3 +1,7 @@
+# simplevis 2.1.1
+
+* Removed col_drop and col_remove_na arguments.
+
 # simplevis 2.1.0
 
 * Added two new palettes for graphs that compare a current year against a previous year.

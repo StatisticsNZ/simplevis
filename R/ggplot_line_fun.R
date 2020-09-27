@@ -340,7 +340,6 @@ ggplot_line <- function(data,
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -392,7 +391,6 @@ ggplot_line_col <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           col_drop = FALSE,
            points = TRUE,
            point_size = 1,
            lines = TRUE,
@@ -535,7 +533,7 @@ ggplot_line_col <-
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
       ) 
@@ -821,7 +819,6 @@ ggplot_line_facet <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -876,7 +873,6 @@ ggplot_line_col_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -966,7 +962,6 @@ ggplot_line_col_facet <-
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_drop,
         labels = labels,
         na.value = "#A8A8A8"
       )
@@ -1039,7 +1034,7 @@ ggplot_line_col_facet <-
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
       ) 

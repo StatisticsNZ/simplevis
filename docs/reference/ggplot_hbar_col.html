@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -147,17 +147,17 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_hbar_col</span>(<span class='kw'>data</span>, <span class='kw'>x_var</span>, <span class='kw'>y_var</span>, <span class='kw'>col_var</span>, tip_var = <span class='kw'>NULL</span>,
-  x_labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), x_zero = <span class='fl'>TRUE</span>, x_zero_line = <span class='fl'>FALSE</span>,
+  x_labels = <span class='fu'>waiver</span>(), x_zero = <span class='fl'>TRUE</span>, x_zero_line = <span class='fl'>FALSE</span>,
   x_trans = <span class='st'>"identity"</span>, x_pretty_n = <span class='fl'>6</span>, x_expand = <span class='kw'>NULL</span>,
-  y_rev = <span class='fl'>FALSE</span>, y_labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), y_expand = <span class='kw'>NULL</span>,
-  col_rev = <span class='fl'>FALSE</span>, col_drop = <span class='fl'>FALSE</span>, position = <span class='st'>"stack"</span>,
-  pal = <span class='kw'>NULL</span>, pal_rev = <span class='fl'>FALSE</span>, legend_ncol = <span class='fl'>3</span>, width = <span class='fl'>0.75</span>,
-  title = <span class='st'>"[Title]"</span>, subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>,
-  y_title = <span class='st'>"[Y title]"</span>, col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>,
-  legend_labels = <span class='kw'>NULL</span>, font_family = <span class='st'>"Helvetica"</span>,
-  font_size_title = <span class='kw'>NULL</span>, font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>,
-  wrap_subtitle = <span class='fl'>80</span>, wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>,
-  wrap_col_title = <span class='fl'>25</span>, wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
+  y_rev = <span class='fl'>FALSE</span>, y_labels = <span class='fu'>waiver</span>(), y_expand = <span class='kw'>NULL</span>,
+  col_rev = <span class='fl'>FALSE</span>, position = <span class='st'>"stack"</span>, pal = <span class='kw'>NULL</span>, pal_rev = <span class='fl'>FALSE</span>,
+  legend_ncol = <span class='fl'>3</span>, width = <span class='fl'>0.75</span>, title = <span class='st'>"[Title]"</span>,
+  subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>, y_title = <span class='st'>"[Y title]"</span>,
+  col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>, legend_labels = <span class='kw'>NULL</span>,
+  font_family = <span class='st'>"Helvetica"</span>, font_size_title = <span class='kw'>NULL</span>,
+  font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>, wrap_subtitle = <span class='fl'>80</span>,
+  wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>, wrap_col_title = <span class='fl'>25</span>,
+  wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,10 +221,6 @@
     <tr>
       <th>col_rev</th>
       <td><p>TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>position</th>

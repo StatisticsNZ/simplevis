@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -147,18 +147,18 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_line_col_facet</span>(<span class='kw'>data</span>, <span class='kw'>x_var</span>, <span class='kw'>y_var</span>, <span class='kw'>col_var</span>, <span class='kw'>facet_var</span>,
-  tip_var = <span class='kw'>NULL</span>, x_labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), x_pretty_n = <span class='fl'>5</span>,
+  tip_var = <span class='kw'>NULL</span>, x_labels = <span class='fu'>waiver</span>(), x_pretty_n = <span class='fl'>5</span>,
   x_expand = <span class='kw'>NULL</span>, y_zero = <span class='fl'>TRUE</span>, y_zero_line = <span class='fl'>FALSE</span>,
-  y_trans = <span class='st'>"identity"</span>, y_labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), y_pretty_n = <span class='fl'>5</span>,
-  y_expand = <span class='kw'>NULL</span>, col_drop = <span class='fl'>FALSE</span>, facet_scales = <span class='st'>"fixed"</span>,
-  facet_nrow = <span class='kw'>NULL</span>, points = <span class='fl'>TRUE</span>, point_size = <span class='fl'>1</span>, lines = <span class='fl'>TRUE</span>,
-  size = <span class='fl'>0.5</span>, pal = <span class='kw'>NULL</span>, rev_pal = <span class='fl'>FALSE</span>, legend_ncol = <span class='fl'>3</span>,
-  title = <span class='st'>"[Title]"</span>, subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>,
-  y_title = <span class='st'>"[Y title]"</span>, col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>,
-  legend_labels = <span class='kw'>NULL</span>, font_family = <span class='st'>"Helvetica"</span>,
-  font_size_title = <span class='kw'>NULL</span>, font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>,
-  wrap_subtitle = <span class='fl'>80</span>, wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>,
-  wrap_col_title = <span class='fl'>25</span>, wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
+  y_trans = <span class='st'>"identity"</span>, y_labels = <span class='fu'>waiver</span>(), y_pretty_n = <span class='fl'>5</span>,
+  y_expand = <span class='kw'>NULL</span>, facet_scales = <span class='st'>"fixed"</span>, facet_nrow = <span class='kw'>NULL</span>,
+  points = <span class='fl'>TRUE</span>, point_size = <span class='fl'>1</span>, lines = <span class='fl'>TRUE</span>, size = <span class='fl'>0.5</span>,
+  pal = <span class='kw'>NULL</span>, rev_pal = <span class='fl'>FALSE</span>, legend_ncol = <span class='fl'>3</span>, title = <span class='st'>"[Title]"</span>,
+  subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>, y_title = <span class='st'>"[Y title]"</span>,
+  col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>, legend_labels = <span class='kw'>NULL</span>,
+  font_family = <span class='st'>"Helvetica"</span>, font_size_title = <span class='kw'>NULL</span>,
+  font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>, wrap_subtitle = <span class='fl'>80</span>,
+  wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>, wrap_col_title = <span class='fl'>25</span>,
+  wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,10 +222,6 @@
     <tr>
       <th>y_expand</th>
       <td><p>A vector of range expansion constants used to add some padding on the y scale.</p></td>
-    </tr>
-    <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>facet_scales</th>

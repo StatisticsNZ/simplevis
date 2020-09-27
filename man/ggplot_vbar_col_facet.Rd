@@ -8,15 +8,14 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_expand = NULL, y_zero = TRUE, y_zero_line = FALSE,
   y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, col_drop = FALSE, position = "stack",
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  legend_ncol = 3, width = 0.75, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_col_title = 25,
-  wrap_caption = 80, isMobile = FALSE)
+  y_expand = NULL, position = "stack", facet_scales = "fixed",
+  facet_nrow = NULL, pal = NULL, legend_ncol = 3, width = 0.75,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", col_title = "", caption = NULL,
+  legend_labels = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
+  wrap_subtitle = 80, wrap_x_title = 50, wrap_y_title = 50,
+  wrap_col_title = 25, wrap_caption = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -48,8 +47,6 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 

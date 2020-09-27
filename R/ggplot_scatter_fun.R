@@ -329,8 +329,6 @@ ggplot_scatter <- function(data,
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -382,8 +380,6 @@ ggplot_scatter_col <-
            tip_var = NULL,
            col_method = NULL,
            col_cuts = NULL,
-           col_drop = FALSE,
-           col_na_remove = FALSE,
            size = 1,
            pal = NULL,
            pal_rev = FALSE,
@@ -492,8 +488,6 @@ ggplot_scatter_col <-
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
 
     if (pal_rev == TRUE) pal <- rev(pal)
-    if (col_na_remove == TRUE) na.translate <- FALSE
-    if (col_na_remove == FALSE) na.translate <- TRUE
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
@@ -535,9 +529,8 @@ ggplot_scatter_col <-
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
-        na.translate = na.translate,
         na.value = "#A8A8A8"
       ) +
       scale_x_continuous(
@@ -839,8 +832,6 @@ ggplot_scatter_facet <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param col_na_remove TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
@@ -898,7 +889,6 @@ ggplot_scatter_col_facet <-
            tip_var = NULL,
            col_method = NULL,
            col_cuts = NULL,
-           col_na_remove = FALSE,
            quantile_by_facet = TRUE,
            size = 1,
            pal = NULL,
@@ -915,7 +905,6 @@ ggplot_scatter_col_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           col_drop = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            legend_ncol = 3,
@@ -1024,15 +1013,12 @@ ggplot_scatter_col_facet <-
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
 
     if (pal_rev == TRUE) pal <- rev(pal)
-    if (col_na_remove == TRUE) na.translate <- FALSE
-    if (col_na_remove == FALSE) na.translate <- TRUE
-    
+
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
-        na.translate = na.translate,
         na.value = "#A8A8A8"
       )
     

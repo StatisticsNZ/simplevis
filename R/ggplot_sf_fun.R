@@ -204,8 +204,6 @@ ggplot_sf <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
@@ -251,8 +249,6 @@ ggplot_sf_col <- function(data,
                           col_var,
                           col_method = NULL,
                           col_cuts = NULL,
-                          col_drop = FALSE,
-                          col_na_remove = FALSE,
                           pal = NULL,
                           pal_rev = FALSE,
                           size = 0.5,
@@ -386,16 +382,12 @@ ggplot_sf_col <- function(data,
       )
   }
   
-  if (col_na_remove == TRUE) na.translate <- FALSE
-  if (col_na_remove == FALSE) na.translate <- TRUE
-  
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
-        na.translate = na.translate,
         na.value = "#A8A8A8"
       )
   }
@@ -403,9 +395,8 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
-        na.translate = na.translate,
         na.value = "#A8A8A8"
       )
   }
@@ -602,8 +593,6 @@ ggplot_sf_facet <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
-#' @param col_drop TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
@@ -645,8 +634,6 @@ ggplot_sf_col_facet <- function(data,
                                 col_method = NULL,
                                 col_cuts = NULL,
                                 col_quantile_by_facet = TRUE,
-                                col_drop = FALSE,
-                                col_na_remove = FALSE,
                                 pal = NULL,
                                 pal_rev = FALSE,
                                 size = 0.5,
@@ -808,18 +795,12 @@ ggplot_sf_col_facet <- function(data,
       )
   }
   
-  if (col_na_remove == TRUE)
-    na.translate <- FALSE
-  if (col_na_remove == FALSE)
-    na.translate <- TRUE
-  
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
       scale_color_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
-        na.translate = na.translate,
         na.value = "#A8A8A8"
       )
   }
@@ -827,9 +808,8 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
-        na.translate = na.translate,
         na.value = "#A8A8A8"
       )
   }

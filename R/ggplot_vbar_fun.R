@@ -361,7 +361,6 @@ ggplot_vbar <- function(data,
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param legend_ncol The number of columns in the legend.
@@ -410,7 +409,6 @@ ggplot_vbar_col <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           col_drop = FALSE,
            position = "stack",
            pal = NULL,
            legend_ncol = 3,
@@ -565,7 +563,7 @@ ggplot_vbar_col <-
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
       ) 
@@ -884,7 +882,6 @@ ggplot_vbar_facet <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
@@ -940,7 +937,6 @@ ggplot_vbar_col_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           col_drop = FALSE,
            position = "stack",
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -1105,7 +1101,7 @@ ggplot_vbar_col_facet <-
     plot <- plot +
       scale_fill_manual(
         values = pal,
-        drop = col_drop,
+        drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
       )

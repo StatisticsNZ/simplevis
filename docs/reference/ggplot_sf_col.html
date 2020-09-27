@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -147,12 +147,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_sf_col</span>(<span class='kw'>data</span>, <span class='kw'>col_var</span>, col_method = <span class='kw'>NULL</span>, col_cuts = <span class='kw'>NULL</span>,
-  col_drop = <span class='fl'>FALSE</span>, col_na_remove = <span class='fl'>FALSE</span>, pal = <span class='kw'>NULL</span>,
-  pal_rev = <span class='fl'>FALSE</span>, size = <span class='fl'>0.5</span>, alpha = <span class='fl'>0.9</span>, coastline = <span class='kw'>NULL</span>,
-  coastline_behind = <span class='fl'>TRUE</span>, coastline_pal = <span class='st'>"#7f7f7f"</span>,
-  legend_ncol = <span class='fl'>3</span>, legend_digits = <span class='fl'>1</span>, title = <span class='st'>"[Title]"</span>,
-  subtitle = <span class='kw'>NULL</span>, col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>,
-  legend_labels = <span class='kw'>NULL</span>, font_family = <span class='st'>"Helvetica"</span>,
+  pal = <span class='kw'>NULL</span>, pal_rev = <span class='fl'>FALSE</span>, size = <span class='fl'>0.5</span>, alpha = <span class='fl'>0.9</span>,
+  coastline = <span class='kw'>NULL</span>, coastline_behind = <span class='fl'>TRUE</span>,
+  coastline_pal = <span class='st'>"#7f7f7f"</span>, legend_ncol = <span class='fl'>3</span>, legend_digits = <span class='fl'>1</span>,
+  title = <span class='st'>"[Title]"</span>, subtitle = <span class='kw'>NULL</span>, col_title = <span class='st'>""</span>,
+  caption = <span class='kw'>NULL</span>, legend_labels = <span class='kw'>NULL</span>, font_family = <span class='st'>"Helvetica"</span>,
   font_size_title = <span class='kw'>NULL</span>, font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>,
   wrap_subtitle = <span class='fl'>80</span>, wrap_col_title = <span class='fl'>25</span>, wrap_caption = <span class='fl'>80</span>,
   isMobile = <span class='fl'>FALSE</span>)</pre>
@@ -175,14 +174,6 @@
     <tr>
       <th>col_cuts</th>
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE  of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>col_na_remove</th>
-      <td><p>TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>pal</th>

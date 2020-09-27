@@ -8,9 +8,9 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, x_labels = waiver(), x_zero = TRUE,
   x_zero_line = FALSE, x_trans = "identity", x_pretty_n = 5,
   x_expand = NULL, y_rev = FALSE, y_labels = waiver(),
-  y_expand = NULL, col_rev = FALSE, col_drop = FALSE,
-  position = "stack", facet_scales = "fixed", facet_nrow = NULL,
-  pal = NULL, pal_rev = FALSE, legend_ncol = 3, width = 0.75,
+  y_expand = NULL, col_rev = FALSE, position = "stack",
+  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
+  pal_rev = FALSE, legend_ncol = 3, width = 0.75,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", col_title = "", caption = NULL,
   legend_labels = NULL, font_family = "Helvetica",
@@ -50,8 +50,6 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
-
-\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 

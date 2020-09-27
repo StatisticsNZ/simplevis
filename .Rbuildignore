@@ -12,3 +12,4 @@
 ^vignettes/leaflet_example_maps\.Rmd$
 ^vignettes/plot_examples\.Rmd$
 ^vignettes/scatter_examples\.Rmd$
+^vignettes/test\.Rmd$

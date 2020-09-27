@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
       </span>
     </div>
 
@@ -147,19 +147,18 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_scatter_col</span>(<span class='kw'>data</span>, <span class='kw'>x_var</span>, <span class='kw'>y_var</span>, <span class='kw'>col_var</span>, tip_var = <span class='kw'>NULL</span>,
-  col_method = <span class='kw'>NULL</span>, col_cuts = <span class='kw'>NULL</span>, col_drop = <span class='fl'>FALSE</span>,
-  col_na_remove = <span class='fl'>FALSE</span>, size = <span class='fl'>1</span>, pal = <span class='kw'>NULL</span>, pal_rev = <span class='fl'>FALSE</span>,
-  x_zero = <span class='fl'>TRUE</span>, x_zero_line = <span class='fl'>FALSE</span>, x_trans = <span class='st'>"identity"</span>,
-  x_labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), x_pretty_n = <span class='fl'>6</span>, x_expand = <span class='kw'>NULL</span>,
-  y_zero = <span class='fl'>TRUE</span>, y_zero_line = <span class='fl'>FALSE</span>, y_trans = <span class='st'>"identity"</span>,
-  y_labels = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>waiver</a></span>(), y_pretty_n = <span class='fl'>5</span>, y_expand = <span class='kw'>NULL</span>,
-  legend_ncol = <span class='fl'>3</span>, legend_digits = <span class='fl'>1</span>, title = <span class='st'>"[Title]"</span>,
-  subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>, y_title = <span class='st'>"[Y title]"</span>,
-  col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>, legend_labels = <span class='kw'>NULL</span>,
-  font_family = <span class='st'>"Helvetica"</span>, font_size_title = <span class='kw'>NULL</span>,
-  font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>, wrap_subtitle = <span class='fl'>80</span>,
-  wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>, wrap_col_title = <span class='fl'>25</span>,
-  wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
+  col_method = <span class='kw'>NULL</span>, col_cuts = <span class='kw'>NULL</span>, size = <span class='fl'>1</span>, pal = <span class='kw'>NULL</span>,
+  pal_rev = <span class='fl'>FALSE</span>, x_zero = <span class='fl'>TRUE</span>, x_zero_line = <span class='fl'>FALSE</span>,
+  x_trans = <span class='st'>"identity"</span>, x_labels = <span class='fu'>waiver</span>(), x_pretty_n = <span class='fl'>6</span>,
+  x_expand = <span class='kw'>NULL</span>, y_zero = <span class='fl'>TRUE</span>, y_zero_line = <span class='fl'>FALSE</span>,
+  y_trans = <span class='st'>"identity"</span>, y_labels = <span class='fu'>waiver</span>(), y_pretty_n = <span class='fl'>5</span>,
+  y_expand = <span class='kw'>NULL</span>, legend_ncol = <span class='fl'>3</span>, legend_digits = <span class='fl'>1</span>,
+  title = <span class='st'>"[Title]"</span>, subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>,
+  y_title = <span class='st'>"[Y title]"</span>, col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>,
+  legend_labels = <span class='kw'>NULL</span>, font_family = <span class='st'>"Helvetica"</span>,
+  font_size_title = <span class='kw'>NULL</span>, font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>,
+  wrap_subtitle = <span class='fl'>80</span>, wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>,
+  wrap_col_title = <span class='fl'>25</span>, wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,14 +190,6 @@
     <tr>
       <th>col_cuts</th>
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>col_na_remove</th>
-      <td><p>TRUE or FALSE of whether to remove NAs of the colour variable. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>size</th>

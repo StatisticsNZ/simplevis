@@ -577,9 +577,16 @@ ggplot_hbar_col <-
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
       
       if(is.character(y_var_vector)) {
+        all_na <- data %>% 
+          group_by(!!y_var) %>%
+          summarise(all_na = all(is.na(!!x_var))) %>% 
+          filter(all_na == TRUE) %>% 
+          mutate(!!y_var := as.character(!!y_var)) %>% 
+          pull(!!y_var)
+        
         data <- data %>% 
-          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), 0, !!x_var)) %>%
-          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, .data$x_var2, .fun = last, .desc = FALSE))
+          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var, .fun = median, na.rm = TRUE))  %>% 
+          dplyr::mutate(!!y_var := forcats::fct_relevel(!!y_var, all_na))  
       }
       
       data <- data %>%

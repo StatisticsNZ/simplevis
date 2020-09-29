@@ -579,7 +579,7 @@ ggplot_hbar_col <-
       if(is.character(y_var_vector)) {
         data <- data %>% 
           dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), 0, !!x_var)) %>%
-          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, .data$x_var2, .fun = first, .desc = FALSE))
+          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, .data$x_var2, .fun = last, .desc = FALSE))
       }
       
       data <- data %>%

@@ -573,8 +573,7 @@ ggplot_hbar_col <-
     }
     else if(x_na_bar == TRUE) {
       data <- data %>% 
-        dplyr::mutate(!!col_var := as.character(!!col_var)) %>%
-        dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, !!col_var)) %>%
+        dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
       
       if(is.character(y_var_vector)) {

@@ -1,3 +1,7 @@
+# simplevis 2.1.3
+
+* Changed name of compare2 pals to alpha2 pals.
+
 # simplevis 2.1.2
 
 * Changed hbar and vbar na_grey arguments to be x_na_bar or y__na_bar.

@@ -146,18 +146,18 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_line_col</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rev_pal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
-  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wrap_title</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>wrap_subtitle</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>wrap_x_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_y_title</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>wrap_caption</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_line_col</span>(<span class='kw'>data</span>, <span class='kw'>x_var</span>, <span class='kw'>y_var</span>, <span class='kw'>col_var</span>, tip_var = <span class='kw'>NULL</span>,
+  x_labels = <span class='fu'>waiver</span>(), x_pretty_n = <span class='fl'>6</span>, x_expand = <span class='kw'>NULL</span>,
+  y_zero = <span class='fl'>TRUE</span>, y_zero_line = <span class='fl'>FALSE</span>, y_trans = <span class='st'>"identity"</span>,
+  y_labels = <span class='fu'>waiver</span>(), y_pretty_n = <span class='fl'>5</span>, y_expand = <span class='kw'>NULL</span>,
+  points = <span class='fl'>TRUE</span>, point_size = <span class='fl'>1</span>, lines = <span class='fl'>TRUE</span>, size = <span class='fl'>0.5</span>,
+  pal = <span class='kw'>NULL</span>, rev_pal = <span class='fl'>FALSE</span>, legend_ncol = <span class='fl'>3</span>, title = <span class='st'>"[Title]"</span>,
+  subtitle = <span class='kw'>NULL</span>, x_title = <span class='st'>"[X title]"</span>, y_title = <span class='st'>"[Y title]"</span>,
+  col_title = <span class='st'>""</span>, caption = <span class='kw'>NULL</span>, legend_labels = <span class='kw'>NULL</span>,
+  font_family = <span class='st'>"Helvetica"</span>, font_size_title = <span class='kw'>NULL</span>,
+  font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>, wrap_subtitle = <span class='fl'>80</span>,
+  wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>, wrap_col_title = <span class='fl'>25</span>,
+  wrap_caption = <span class='fl'>80</span>, isMobile = <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -322,13 +322,15 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>storms</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>status</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>status</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>status</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` regrouping output by 'year' (override with `.groups` argument)</span></div><div class='input'>
-<span class='fu'>ggplot_line_col</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>wind</span>, <span class='no'>status</span>)</div><div class='img'><img src='ggplot_line_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>plot_data</span> <span class='op'>&lt;-</span> <span class='kw'>storms</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(status = <span class='kw'>stringr</span>::<span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='kw'>status</span>)) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>year</span>, <span class='kw'>status</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(wind = <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>wind</span>), <span class='fl'>2</span>))
+</div><div class='output co'>#&gt; <span class='message'>`summarise()` regrouping output by 'year' (override with `.groups` argument)</span></div><div class='input'>
+<span class='fu'>ggplot_line_col</span>(<span class='kw'>plot_data</span>, <span class='kw'>year</span>, <span class='kw'>wind</span>, <span class='kw'>status</span>)
+</div><div class='img'><img src='ggplot_line_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -345,7 +347,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

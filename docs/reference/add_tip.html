@@ -146,7 +146,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>add_tip</span>(<span class='no'>data</span>, <span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>add_tip</span>(<span class='kw'>data</span>, vars_vctr = <span class='kw'>NULL</span>, comma = <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,21 +171,24 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_tip</span>(<span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>), <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>plot_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw'>ggplot2</span>::<span class='kw'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, prop = <span class='fl'>0.05</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'>add_tip</span>(vars_vctr = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>), comma = <span class='fl'>TRUE</span>)
 
-<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_scatter.html'>ggplot_scatter</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>,
-                       <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='no'>tip_text</span>,
-                       <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Diamond price by carat"</span>,
-                       <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Carat"</span>,
-                       <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Price ($US thousands)"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
+<span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_scatter.html'>ggplot_scatter</a></span>(data = <span class='kw'>plot_data</span>, x_var = <span class='kw'>carat</span>, y_var = <span class='kw'>price</span>,
+                       tip_var = <span class='kw'>tip_text</span>,
+                       title = <span class='st'>"Diamond price by carat"</span>,
+                       x_title = <span class='st'>"Carat"</span>,
+                       y_title = <span class='st'>"Price ($US thousands)"</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+<span class='kw'>plotly</span>::<span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='kw'>plot</span>, tooltip = <span class='st'>"text"</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -201,7 +204,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

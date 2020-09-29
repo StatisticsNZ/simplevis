@@ -127,7 +127,7 @@ theme_vbar <-
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -171,7 +171,7 @@ ggplot_vbar <- function(data,
                         y_expand = NULL,
                         pal = NULL,
                         width = 0.75, 
-                        na_grey = FALSE,
+                        y_na_bar = FALSE,
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -295,7 +295,7 @@ ggplot_vbar <- function(data,
       )
   })
   
-  if(na_grey == TRUE) {
+  if(y_na_bar == TRUE) {
     na_data <- data %>% 
       filter(is.na(!!y_var)) %>% 
       add_tip(c(rlang::as_name(x_var), rlang::as_name(y_var)))
@@ -629,7 +629,7 @@ ggplot_vbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
+#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -675,7 +675,7 @@ ggplot_vbar_facet <-
            facet_nrow = NULL,
            pal = NULL,
            width = 0.75, 
-           na_grey = FALSE, 
+           y_na_bar = FALSE, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -800,7 +800,7 @@ ggplot_vbar_facet <-
           oob = scales::rescale_none
         )
       
-      if(na_grey == TRUE) {
+      if(y_na_bar == TRUE) {
         
         na_data <- data %>% 
           filter(is.na(!!y_var)) %>% 

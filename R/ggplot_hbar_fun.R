@@ -127,7 +127,7 @@ theme_hbar <-
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -173,7 +173,7 @@ ggplot_hbar <- function(data,
                         y_expand = NULL,
                         pal = NULL,
                         width = 0.75, 
-                        na_grey = FALSE,
+                        x_na_bar = FALSE,
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -280,7 +280,7 @@ ggplot_hbar <- function(data,
       )
   })
   
-  if(na_grey == TRUE) {
+  if(x_na_bar == TRUE) {
     
     na_data <- data %>% 
       filter(is.na(!!x_var)) %>% 
@@ -290,13 +290,13 @@ ggplot_hbar <- function(data,
       if(x_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[2], text = .data$tip_text),
-                   fill = "#F0F0F0", width = (1 + (1 - width)),
+                   fill = ""#F5F5F5"", width = width,
                    data = na_data)
       }
       if(x_limits[1] < 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[1], text = .data$tip_text),
-                   fill = "#F0F0F0", width = (1 + (1 - width)),
+                   fill = ""#F5F5F5"", width = width,
                    data = na_data)
       }
     }
@@ -618,7 +618,7 @@ ggplot_hbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param na_grey TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -669,7 +669,7 @@ ggplot_hbar_facet <-
            pal = NULL,
            width = 0.75, 
            title = "[Title]",
-           na_grey = FALSE,
+           x_na_bar = FALSE,
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
@@ -768,7 +768,7 @@ ggplot_hbar_facet <-
           oob = scales::rescale_none
         )
       
-      if(na_grey == TRUE) {
+      if(x_na_bar == TRUE) {
         
         na_data <- data %>% 
           filter(is.na(!!x_var)) %>% 
@@ -777,13 +777,13 @@ ggplot_hbar_facet <-
           if(x_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[2], text = .data$tip_text),
-                       fill = "#F0F0F0", width = (1 + (1 - width)),
+                       fill = ""#F5F5F5"", width = width,
                        data = na_data)
           }
           if(x_limits[1] < 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[1], text = .data$tip_text),
-                       fill = "#F0F0F0", width = (1 + (1 - width)),
+                       fill = ""#F5F5F5"", width = width,
                        data = na_data)
           }
         }

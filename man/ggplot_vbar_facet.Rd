@@ -8,10 +8,10 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
   y_zero = TRUE, y_zero_line = FALSE, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  width = 0.75, na_grey = FALSE, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
+  y_na_bar = FALSE, facet_scales = "fixed", facet_nrow = NULL,
+  pal = NULL, width = 0.75, title = "[Title]", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
   isMobile = FALSE)
@@ -45,6 +45,8 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
+\item{y_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
+
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.}
@@ -52,8 +54,6 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 
 \item{width}{Width of bars. Defaults to 0.75.}
-
-\item{na_grey}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
 
 \item{title}{Title string. Defaults to [Title].}
 

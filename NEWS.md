@@ -1,3 +1,8 @@
+# simplevis 2.1.2
+
+* Changed hbar and vbar na_grey arguments to be x_na_bar or y__na_bar.
+* Added y_na_na_bar argument to ggplot_hbar_col.
+
 # simplevis 2.1.1
 
 * Removed col_drop and col_remove_na arguments.

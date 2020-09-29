@@ -122,12 +122,12 @@ theme_hbar <-
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -290,13 +290,13 @@ ggplot_hbar <- function(data,
       if(x_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[2], text = .data$tip_text),
-                   fill = ""#F5F5F5"", width = width,
+                   fill = "#F5F5F5", width = width,
                    data = na_data)
       }
       if(x_limits[1] < 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[1], text = .data$tip_text),
-                   fill = ""#F5F5F5"", width = width,
+                   fill = "#F5F5F5", width = width,
                    data = na_data)
       }
     }
@@ -347,6 +347,7 @@ ggplot_hbar <- function(data,
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -402,6 +403,7 @@ ggplot_hbar_col <-
            x_trans = "identity",
            x_pretty_n = 6,
            x_expand = NULL,
+           x_na_bar = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
            y_expand = NULL,
@@ -442,6 +444,7 @@ ggplot_hbar_col <-
     if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
     if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
+    if (x_na_bar == TRUE & position == "stack") stop("Please use a position of dodge for where x_na_bar equals TRUE")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
@@ -483,10 +486,8 @@ ggplot_hbar_col <-
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      ) +
-      geom_col(aes(
-        x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
-
+      ) 
+    
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -497,6 +498,15 @@ ggplot_hbar_col <-
     
     if(pal_rev == FALSE) pal <- rev(pal)
     
+    if (!is.null(pal) & x_na_bar == TRUE) { 
+      if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
+        names(pal) <- levels(col_var_vector)
+      }
+      else names(pal) <- unique(col_var_vector)
+      
+      pal <- c(pal, "Not available" = "#f5f5f5")
+    }
+
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by_at(vars(!!y_var)) %>%
@@ -509,6 +519,14 @@ ggplot_hbar_col <-
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
+    
+    plot <- plot +
+      scale_x_discrete(expand = y_expand, labels = y_labels)
+    
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+    }
     
     if (all(x_var_vector == 0, na.rm = TRUE)) {
       plot <- plot +
@@ -548,19 +566,39 @@ ggplot_hbar_col <-
         )
     })
     
+    if(x_na_bar == FALSE) {
+      plot <- plot +
+        geom_col(aes(
+          x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
+    }
+    else if(x_na_bar == TRUE) {
+      data <- data %>% 
+        dplyr::mutate(!!col_var := as.character(!!col_var)) %>%
+        dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, !!col_var)) %>%
+        dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
+      
+      if(is.character(y_var_vector)) {
+        data <- data %>% 
+          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), 0, !!x_var)) %>%
+          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, .data$x_var2, .fun = first, .desc = FALSE))
+      }
+      
+      data <- data %>%
+        dplyr::mutate(x_var3 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
+      
+      plot <- plot +
+        geom_col(aes(
+          x = !!y_var, y = .data$x_var3, fill = .data$col_var2, group = !!col_var, text = !!tip_var), width = width, position = position2,
+          data = data)
+    }
+
     plot <- plot +
       scale_fill_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
-      ) +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
-
-    if(x_zero_line == TRUE) {
-      plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
-    }
+      )
 
     if (isMobile == FALSE){
       plot <- plot +
@@ -611,6 +649,7 @@ ggplot_hbar_col <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -618,7 +657,6 @@ ggplot_hbar_col <-
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -661,6 +699,7 @@ ggplot_hbar_facet <-
            x_trans = "identity",
            x_pretty_n = 5,
            x_expand = NULL,
+           x_na_bar = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
            y_expand = NULL,
@@ -669,7 +708,6 @@ ggplot_hbar_facet <-
            pal = NULL,
            width = 0.75, 
            title = "[Title]",
-           x_na_bar = FALSE,
            subtitle = NULL,
            x_title = "[X title]",
            y_title = "[Y title]",
@@ -777,13 +815,13 @@ ggplot_hbar_facet <-
           if(x_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[2], text = .data$tip_text),
-                       fill = ""#F5F5F5"", width = width,
+                       fill = "#F5F5F5", width = width,
                        data = na_data)
           }
           if(x_limits[1] < 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[1], text = .data$tip_text),
-                       fill = ""#F5F5F5"", width = width,
+                       fill = "#F5F5F5", width = width,
                        data = na_data)
           }
         }

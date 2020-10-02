@@ -236,7 +236,7 @@ ggplot_line <- function(data,
   plot <- plot +
     geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
   
-  if(is.null(x_expand)) x_expand <- waiver()
+  if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
 
   if(isMobile == FALSE) x_n <- x_pretty_n
@@ -468,7 +468,7 @@ ggplot_line_col <-
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
         size = point_size, alpha = alpha)
     
-    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (rev_pal == TRUE) pal <- rev(pal)
@@ -703,7 +703,7 @@ ggplot_line_facet <-
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
     
-    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (facet_scales %in% c("fixed", "free_y")) {
@@ -966,7 +966,7 @@ ggplot_line_col_facet <-
         na.value = "#A8A8A8"
       )
     
-    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {

@@ -15,6 +15,6 @@ A vector of hex codes. Uses the first colour and a 40% tint.
 Colour palette for a graph that compares a current year to 1 past year.
 }
 \examples{
-scales::show_col(pal_ea19_compare2)
+scales::show_col(pal_ea19_alpha2)
 }
 \keyword{datasets}

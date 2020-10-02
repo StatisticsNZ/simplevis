@@ -11,7 +11,7 @@ pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "
 #' @return A vector of hex codes. Uses the first colour and a 30% tint.
 #' @export
 #' @examples
-#' scales::show_col(pal_snz_compare2)
+#' scales::show_col(pal_snz_alpha2)
 pal_snz_alpha2 <- c("#085c75", "#B4CED5")
 
 #' @title Colour palette for a graph of a ordinal categorical trend variable with 2 values.
@@ -71,7 +71,7 @@ pal_ea19 <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", 
 #' @return A vector of hex codes. Uses the first colour and a 40% tint.
 #' @export
 #' @examples
-#' scales::show_col(pal_ea19_compare2)
+#' scales::show_col(pal_ea19_alpha2)
 pal_ea19_alpha2 <- c("#172a45", "#a2a9b4")
 
 #' @title Colour palette for a graph of a ordinal categorical trend variable with 2 values.

@@ -1,6 +1,7 @@
 # simplevis 2.1.3
 
 * Changed name of compare2 pals to alpha2 pals.
+* Made ggplot line functions default to expanding by zero on x.
 
 # simplevis 2.1.2
 

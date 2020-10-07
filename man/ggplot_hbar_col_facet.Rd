@@ -7,10 +7,10 @@
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, x_labels = waiver(), x_zero = TRUE,
   x_zero_line = FALSE, x_trans = "identity", x_pretty_n = 5,
-  x_expand = NULL, y_rev = FALSE, y_labels = waiver(),
-  y_expand = NULL, col_rev = FALSE, position = "stack",
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  pal_rev = FALSE, legend_ncol = 3, width = 0.75,
+  x_expand = NULL, x_balance = FALSE, y_rev = FALSE,
+  y_labels = waiver(), y_expand = NULL, col_rev = FALSE,
+  position = "stack", facet_scales = "fixed", facet_nrow = NULL,
+  pal = NULL, pal_rev = FALSE, legend_ncol = 3, width = 0.75,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", col_title = "", caption = NULL,
   legend_labels = NULL, font_family = "Helvetica",
@@ -42,6 +42,8 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.}
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 

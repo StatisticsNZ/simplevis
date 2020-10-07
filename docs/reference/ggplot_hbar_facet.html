@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -146,17 +146,17 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_hbar_facet</span>(<span class='kw'>data</span>, <span class='kw'>x_var</span>, <span class='kw'>y_var</span>, <span class='kw'>facet_var</span>, tip_var = <span class='kw'>NULL</span>,
-  x_labels = <span class='fu'>waiver</span>(), x_zero = <span class='fl'>TRUE</span>, x_zero_line = <span class='fl'>FALSE</span>,
-  x_trans = <span class='st'>"identity"</span>, x_pretty_n = <span class='fl'>5</span>, x_expand = <span class='kw'>NULL</span>,
-  x_na_bar = <span class='fl'>FALSE</span>, y_rev = <span class='fl'>FALSE</span>, y_labels = <span class='fu'>waiver</span>(),
-  y_expand = <span class='kw'>NULL</span>, facet_scales = <span class='st'>"fixed"</span>, facet_nrow = <span class='kw'>NULL</span>,
-  pal = <span class='kw'>NULL</span>, width = <span class='fl'>0.75</span>, title = <span class='st'>"[Title]"</span>, subtitle = <span class='kw'>NULL</span>,
-  x_title = <span class='st'>"[X title]"</span>, y_title = <span class='st'>"[Y title]"</span>, caption = <span class='kw'>NULL</span>,
-  font_family = <span class='st'>"Helvetica"</span>, font_size_title = <span class='kw'>NULL</span>,
-  font_size_body = <span class='kw'>NULL</span>, wrap_title = <span class='fl'>70</span>, wrap_subtitle = <span class='fl'>80</span>,
-  wrap_x_title = <span class='fl'>50</span>, wrap_y_title = <span class='fl'>50</span>, wrap_caption = <span class='fl'>80</span>,
-  isMobile = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_hbar_facet</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x_var</span>, <span class='va'>y_var</span>, <span class='va'>facet_var</span>, tip_var <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x_labels <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>, x_zero <span class='op'>=</span> <span class='cn'>TRUE</span>, x_zero_line <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  x_trans <span class='op'>=</span> <span class='st'>"identity"</span>, x_pretty_n <span class='op'>=</span> <span class='fl'>5</span>, x_expand <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x_na_bar <span class='op'>=</span> <span class='cn'>FALSE</span>, x_balance <span class='op'>=</span> <span class='cn'>FALSE</span>, y_rev <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  y_labels <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>, y_expand <span class='op'>=</span> <span class='cn'>NULL</span>, facet_scales <span class='op'>=</span> <span class='st'>"fixed"</span>,
+  facet_nrow <span class='op'>=</span> <span class='cn'>NULL</span>, pal <span class='op'>=</span> <span class='cn'>NULL</span>, width <span class='op'>=</span> <span class='fl'>0.75</span>, title <span class='op'>=</span> <span class='st'>"[Title]"</span>,
+  subtitle <span class='op'>=</span> <span class='cn'>NULL</span>, x_title <span class='op'>=</span> <span class='st'>"[X title]"</span>, y_title <span class='op'>=</span> <span class='st'>"[Y title]"</span>,
+  caption <span class='op'>=</span> <span class='cn'>NULL</span>, font_family <span class='op'>=</span> <span class='st'>"Helvetica"</span>, font_size_title <span class='op'>=</span> <span class='cn'>NULL</span>,
+  font_size_body <span class='op'>=</span> <span class='cn'>NULL</span>, wrap_title <span class='op'>=</span> <span class='fl'>70</span>, wrap_subtitle <span class='op'>=</span> <span class='fl'>80</span>,
+  wrap_x_title <span class='op'>=</span> <span class='fl'>50</span>, wrap_y_title <span class='op'>=</span> <span class='fl'>50</span>, wrap_caption <span class='op'>=</span> <span class='fl'>80</span>,
+  isMobile <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -208,6 +208,10 @@
     <tr>
       <th>x_na_bar</th>
       <td><p>TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".</p></td>
+    </tr>
+    <tr>
+      <th>x_balance</th>
+      <td><p>Add balance to the x axis so that zero is in the centre of the x scale.</p></td>
     </tr>
     <tr>
       <th>y_rev</th>
@@ -301,18 +305,18 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 
-<span class='kw'>plot_data</span> <span class='op'>&lt;-</span> <span class='kw'>ggplot2</span>::<span class='kw'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(cut = <span class='kw'>stringr</span>::<span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='kw'>cut</span>)) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>cut</span>, <span class='kw'>clarity</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(average_price = <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>price</span>)) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(average_price = <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='kw'>average_price</span> <span class='op'>/</span> <span class='fl'>1000</span>, <span class='fl'>1</span>)) 
+<span class='va'>plot_data</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='va'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>cut <span class='op'>=</span> <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>clarity</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>average_price <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>average_price <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>average_price</span> <span class='op'>/</span> <span class='fl'>1000</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> 
 </div><div class='output co'>#&gt; <span class='message'>`summarise()` regrouping output by 'cut' (override with `.groups` argument)</span></div><div class='input'>
-<span class='fu'>ggplot_hbar_facet</span>(<span class='kw'>plot_data</span>, <span class='kw'>average_price</span>, <span class='kw'>cut</span>, <span class='kw'>clarity</span>,
-   title = <span class='st'>"Average diamond price by cut and clarity"</span>, 
-   x_title = <span class='st'>"Average price ($US thousands)"</span>, 
-   y_title = <span class='st'>"Cut"</span>)
+<span class='fu'>ggplot_hbar_facet</span><span class='op'>(</span><span class='va'>plot_data</span>, <span class='va'>average_price</span>, <span class='va'>cut</span>, <span class='va'>clarity</span>,
+   title <span class='op'>=</span> <span class='st'>"Average diamond price by cut and clarity"</span>, 
+   x_title <span class='op'>=</span> <span class='st'>"Average price ($US thousands)"</span>, 
+   y_title <span class='op'>=</span> <span class='st'>"Cut"</span><span class='op'>)</span>
 </div><div class='img'><img src='ggplot_hbar_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

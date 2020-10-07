@@ -6,11 +6,11 @@
 \usage{
 ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   x_zero = TRUE, x_zero_line = FALSE, x_trans = "identity",
-  x_pretty_n = 6, x_expand = NULL, y_rev = FALSE,
-  y_labels = waiver(), y_expand = NULL, pal = NULL, width = 0.75,
-  x_na_bar = FALSE, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
+  x_pretty_n = 6, x_expand = NULL, x_balance = FALSE,
+  y_rev = FALSE, y_labels = waiver(), y_expand = NULL, pal = NULL,
+  width = 0.75, x_na_bar = FALSE, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
   wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80,
   isMobile = FALSE)
@@ -35,6 +35,8 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 

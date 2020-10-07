@@ -1,3 +1,7 @@
+# simplevis 2.1.4
+
+* Added x_balance argument to hbar functions.
+
 # simplevis 2.1.3
 
 * Changed name of compare2 pals to alpha2 pals.

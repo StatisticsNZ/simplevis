@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.4</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotly_legend_order</span>(<span class='kw'>plotly</span>, numeric_order = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plotly_legend_order</span><span class='op'>(</span><span class='va'>plotly</span>, numeric_order <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,27 +163,27 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>plot_data</span> <span class='op'>&lt;-</span> <span class='kw'>ggplot2</span>::<span class='kw'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='op'>%&gt;%</span>
-   <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(cut = <span class='kw'>stringr</span>::<span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='kw'>cut</span>)) <span class='op'>%&gt;%</span>
-   <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>cut</span>, <span class='kw'>clarity</span>) <span class='op'>%&gt;%</span>
-   <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(average_price = <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>price</span>)) <span class='op'>%&gt;%</span>
-   <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(average_price_thousands = <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='kw'>average_price</span> <span class='op'>/</span> <span class='fl'>1000</span>, <span class='fl'>1</span>)) <span class='op'>%&gt;%</span>
-   <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()
+    <pre class="examples"><div class='input'><span class='va'>plot_data</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='va'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='op'>%&gt;%</span>
+   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>cut <span class='op'>=</span> <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span><span class='op'>(</span><span class='va'>cut</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>cut</span>, <span class='va'>clarity</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>average_price <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>average_price_thousands <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>average_price</span> <span class='op'>/</span> <span class='fl'>1000</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>`summarise()` regrouping output by 'cut' (override with `.groups` argument)</span></div><div class='input'>   
-<span class='kw'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_hbar_col.html'>ggplot_hbar_col</a></span>(data = <span class='kw'>plot_data</span>, 
-                       x_var = <span class='kw'>average_price_thousands</span>, 
-                       y_var = <span class='kw'>cut</span>, 
-                       col_var = <span class='kw'>clarity</span>, 
-                       legend_ncol = <span class='fl'>4</span>,
-                       title = <span class='st'>"Average diamond price by cut and clarity"</span>, 
-                       x_title = <span class='st'>"Average price ($US thousands)"</span>, 
-                       y_title = <span class='st'>"Cut"</span>)
+<span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ggplot_hbar_col.html'>ggplot_hbar_col</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>plot_data</span>, 
+                       x_var <span class='op'>=</span> <span class='va'>average_price_thousands</span>, 
+                       y_var <span class='op'>=</span> <span class='va'>cut</span>, 
+                       col_var <span class='op'>=</span> <span class='va'>clarity</span>, 
+                       legend_ncol <span class='op'>=</span> <span class='fl'>4</span>,
+                       title <span class='op'>=</span> <span class='st'>"Average diamond price by cut and clarity"</span>, 
+                       x_title <span class='op'>=</span> <span class='st'>"Average price ($US thousands)"</span>, 
+                       y_title <span class='op'>=</span> <span class='st'>"Cut"</span><span class='op'>)</span>
 
-<span class='kw'>plotly</span>::<span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='kw'>plot</span>, tooltip = <span class='st'>"text"</span>)
+<span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span><span class='op'>(</span><span class='va'>plot</span>, tooltip <span class='op'>=</span> <span class='st'>"text"</span><span class='op'>)</span>
 
-<span class='kw'>plotly</span>::<span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='kw'>plot</span>, tooltip = <span class='st'>"text"</span>) <span class='op'>%&gt;%</span> 
-   <span class='fu'>plotly_legend_order</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>8</span>))
-</div><div class='img'><img src='plotly_legend_order-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span><span class='op'>(</span><span class='va'>plot</span>, tooltip <span class='op'>=</span> <span class='st'>"text"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+   <span class='fu'>plotly_legend_order</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

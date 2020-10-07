@@ -122,6 +122,7 @@ theme_hbar <-
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
@@ -168,6 +169,7 @@ ggplot_hbar <- function(data,
                         x_trans = "identity",
                         x_pretty_n = 6,
                         x_expand = NULL,
+                        x_balance = FALSE,
                         y_rev = FALSE,
                         y_labels = waiver(),
                         y_expand = NULL,
@@ -253,10 +255,12 @@ ggplot_hbar <- function(data,
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
+    if (x_balance == TRUE) {
+      x_var_vector <- abs(x_var_vector)
+      x_var_vector <- c(-x_var_vector, x_var_vector)
+    }
     if (x_zero == TRUE) {
-      if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-      if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-      
+      x_breaks <- pretty(c(0, x_var_vector), n = x_n)
       if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
@@ -348,6 +352,7 @@ ggplot_hbar <- function(data,
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -404,6 +409,7 @@ ggplot_hbar_col <-
            x_pretty_n = 6,
            x_expand = NULL,
            x_na_bar = FALSE,
+           x_balance = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
            y_expand = NULL,
@@ -514,7 +520,6 @@ ggplot_hbar_col <-
         dplyr::ungroup()
       
       x_var_vector <- dplyr::pull(data_sum, !!x_var)
-      
     }
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -537,10 +542,12 @@ ggplot_hbar_col <-
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
       
+      if (x_balance == TRUE) {
+        x_var_vector <- abs(x_var_vector)
+        x_var_vector <- c(-x_var_vector, x_var_vector)
+      }
       if (x_zero == TRUE) {
-        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-        
+        x_breaks <- pretty(c(0, x_var_vector), n = x_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
@@ -656,6 +663,7 @@ ggplot_hbar_col <-
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -706,6 +714,7 @@ ggplot_hbar_facet <-
            x_pretty_n = 5,
            x_expand = NULL,
            x_na_bar = FALSE,
+           x_balance = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
            y_expand = NULL,
@@ -786,10 +795,12 @@ ggplot_hbar_facet <-
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
       
+      if (x_balance == TRUE) {
+        x_var_vector <- abs(x_var_vector)
+        x_var_vector <- c(-x_var_vector, x_var_vector)
+      }
       if (x_zero == TRUE) {
-        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-        
+        x_breaks <- pretty(c(0, x_var_vector), n = x_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
@@ -892,6 +903,7 @@ ggplot_hbar_facet <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -949,6 +961,7 @@ ggplot_hbar_col_facet <-
            x_trans = "identity",
            x_pretty_n = 5,
            x_expand = NULL,
+           x_balance = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
            y_expand = NULL,
@@ -1063,10 +1076,12 @@ ggplot_hbar_col_facet <-
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
       
+      if (x_balance == TRUE) {
+        x_var_vector <- abs(x_var_vector)
+        x_var_vector <- c(-x_var_vector, x_var_vector)
+      }
       if (x_zero == TRUE) {
-        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-        
+        x_breaks <- pretty(c(0, x_var_vector), n = x_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }

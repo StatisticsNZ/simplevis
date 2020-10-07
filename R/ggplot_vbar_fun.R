@@ -269,9 +269,7 @@ ggplot_vbar <- function(data,
   }
   else ({
     if (y_zero == TRUE) {
-      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-      
+      y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
       if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
@@ -534,9 +532,7 @@ ggplot_vbar_col <-
     }
     else ({
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-        
+        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
@@ -775,9 +771,7 @@ ggplot_vbar_facet <-
 
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-        
+        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
@@ -1065,9 +1059,7 @@ ggplot_vbar_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-        
+        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }

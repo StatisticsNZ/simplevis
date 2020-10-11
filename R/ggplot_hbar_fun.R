@@ -204,10 +204,8 @@ ggplot_hbar <- function(data,
   
   min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
   max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
-    x_zero <- FALSE
-  }
-  
+  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
+
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
     else if (isMobile == TRUE) font_size_title <- 15
@@ -241,7 +239,7 @@ ggplot_hbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), fill = pal[1], width = width)
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), fill = pal[1], width = width)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
@@ -253,7 +251,7 @@ ggplot_hbar <- function(data,
   else ({
     
     if(isMobile == FALSE) x_n <- x_pretty_n
-    else if(isMobile == TRUE) x_n <- 4
+    else if(isMobile == TRUE) x_n <- 1
     
     if (x_balance == TRUE) {
       x_var_vector <- abs(x_var_vector)
@@ -332,7 +330,8 @@ ggplot_hbar <- function(data,
         y = stringr::str_wrap(x_title, 20),
         x = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 50)
-      ) 
+      ) +
+      theme(axis.text.x = element_text(hjust = 1))
   }
   
   return(plot)
@@ -457,9 +456,7 @@ ggplot_hbar_col <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
-      x_zero <- FALSE
-    }
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
     
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
@@ -540,7 +537,7 @@ ggplot_hbar_col <-
     else ({
       
       if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 4
+      else if(isMobile == TRUE) x_n <- 1
       
       if (x_balance == TRUE) {
         x_var_vector <- abs(x_var_vector)
@@ -638,6 +635,7 @@ ggplot_hbar_col <-
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
+        theme(axis.text.x = element_text(hjust = 1)) +
         guides(fill = guide_legend(
           ncol = 1,
           byrow = TRUE,
@@ -753,9 +751,7 @@ ggplot_hbar_facet <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
-      x_zero <- FALSE
-    }
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
     
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
@@ -793,7 +789,7 @@ ggplot_hbar_facet <-
 
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 4
+      else if(isMobile == TRUE) x_n <- 1
       
       if (x_balance == TRUE) {
         x_var_vector <- abs(x_var_vector)
@@ -883,6 +879,7 @@ ggplot_hbar_facet <-
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
+        theme(axis.text.x = element_text(hjust = 1)) +
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1)
     }
     
@@ -1012,10 +1009,8 @@ ggplot_hbar_col_facet <-
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
-      x_zero <- FALSE
-    }
-    
+    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
+
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
       else if (isMobile == TRUE) font_size_title <- 15
@@ -1074,7 +1069,7 @@ ggplot_hbar_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 4
+      else if(isMobile == TRUE) x_n <- 1
       
       if (x_balance == TRUE) {
         x_var_vector <- abs(x_var_vector)
@@ -1156,6 +1151,7 @@ ggplot_hbar_col_facet <-
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
+        theme(axis.text.x = element_text(hjust = 1))  +
         guides(fill = guide_legend(
           ncol = 1,
           byrow = TRUE,

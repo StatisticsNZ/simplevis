@@ -1,6 +1,10 @@
+# simplevis 2.1.5
+
+* For hbar, made plots x aim for 1 interval of breaks for mobile, and left-align labels.
+
 # simplevis 2.1.4
 
-* Added x_balance argument to hbar functions.
+* For hbar, added x_balance argument to hbar functions.
 
 # simplevis 2.1.3
 

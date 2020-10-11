@@ -199,10 +199,8 @@ ggplot_vbar <- function(data,
   
   min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
   max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
-    y_zero <- FALSE
-  }
-  
+  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
+
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
     else if (isMobile == TRUE) font_size_title <- 15
@@ -456,10 +454,8 @@ ggplot_vbar_col <-
 
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
-      y_zero <- FALSE
-    }
-    
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
+
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -702,10 +698,8 @@ ggplot_vbar_facet <-
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
-      y_zero <- FALSE
-    }
-    
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
+
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
       else if (isMobile == TRUE) font_size_title <- 15
@@ -984,10 +978,8 @@ ggplot_vbar_col_facet <-
     
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
-      y_zero <- FALSE
-    }
-    
+    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
+
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     

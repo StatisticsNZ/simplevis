@@ -313,13 +313,13 @@ ggplot_hbar <- function(data,
       scale_x_discrete(expand = y_expand, labels = y_labels)
   }
   else if (isMobile == TRUE){
-    if(is.null(y_labels)) {
-      plot <- plot +
-        scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
-    }
-    else if(!is.null(y_labels)) {
+    if(is.character(y_labels)) {
       plot <- plot +
         scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+    }
+    else {
+      plot <- plot +
+        scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
     }
   }
   
@@ -545,13 +545,13 @@ ggplot_hbar_col <-
         scale_x_discrete(expand = y_expand, labels = y_labels)
     }
     else if (isMobile == TRUE){
-      if(is.null(y_labels)) {
-        plot <- plot +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-      else if(!is.null(y_labels)) {
+      if(is.character(y_labels)) {
         plot <- plot +
           scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
       }
     }
     
@@ -890,13 +890,13 @@ ggplot_hbar_facet <-
         scale_x_discrete(expand = y_expand, labels = y_labels)
     }
     else if (isMobile == TRUE){
-      if(is.null(y_labels)) {
-        plot <- plot +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-      else if(!is.null(y_labels)) {
+      if(is.character(y_labels)) {
         plot <- plot +
           scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
       }
     }
 
@@ -1166,13 +1166,13 @@ ggplot_hbar_col_facet <-
         scale_x_discrete(expand = y_expand, labels = y_labels)
     }
     else if (isMobile == TRUE){
-      if(is.null(y_labels)) {
-        plot <- plot +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-      else if(!is.null(y_labels)) {
+      if(is.character(y_labels)) {
         plot <- plot +
           scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
       }
     }
     

@@ -123,7 +123,7 @@ theme_hbar <-
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param x_pretty_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -175,7 +175,7 @@ ggplot_hbar <- function(data,
                         y_expand = NULL,
                         pal = NULL,
                         width = 0.75, 
-                        x_na_bar = FALSE,
+                        x_pretty_na_bar = FALSE,
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -250,25 +250,27 @@ ggplot_hbar <- function(data,
   }
   else ({
     
-    if(isMobile == FALSE) x_n <- x_pretty_n
-    else if(isMobile == TRUE) x_n <- 1
-    
     if (x_balance == TRUE) {
       x_var_vector <- abs(x_var_vector)
       x_var_vector <- c(-x_var_vector, x_var_vector)
     }
     if (x_zero == TRUE) {
-      x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+      x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
       if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
     else if (x_zero == FALSE) {
-      if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+      if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_pretty_n)
       if(x_trans == "log10") {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n) 
         x_breaks <- c(1, x_breaks[x_breaks > 1])
       }
       x_limits <- c(min(x_breaks), max(x_breaks))
+    }
+    
+    if(isMobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
     }
     
     plot <- plot +
@@ -282,7 +284,7 @@ ggplot_hbar <- function(data,
       )
   })
   
-  if(x_na_bar == TRUE) {
+  if(x_pretty_na_bar == TRUE) {
     
     na_data <- data %>% 
       filter(is.na(!!x_var)) %>% 
@@ -350,7 +352,7 @@ ggplot_hbar <- function(data,
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param x_pretty_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
@@ -407,7 +409,7 @@ ggplot_hbar_col <-
            x_trans = "identity",
            x_pretty_n = 6,
            x_expand = NULL,
-           x_na_bar = FALSE,
+           x_pretty_na_bar = FALSE,
            x_balance = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
@@ -449,7 +451,7 @@ ggplot_hbar_col <-
     if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
     if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
-    if (x_na_bar == TRUE & position == "stack") stop("Please use a position of dodge for where x_na_bar equals TRUE")
+    if (x_pretty_na_bar == TRUE & position == "stack") stop("Please use a position of dodge for where x_pretty_na_bar equals TRUE")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
@@ -501,7 +503,7 @@ ggplot_hbar_col <-
     
     if(pal_rev == FALSE) pal <- rev(pal)
     
-    if (!is.null(pal) & x_na_bar == TRUE) { 
+    if (!is.null(pal) & x_pretty_na_bar == TRUE) { 
       if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
         names(pal) <- levels(col_var_vector)
       }
@@ -536,28 +538,30 @@ ggplot_hbar_col <-
     }
     else ({
       
-      if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 1
-      
       if (x_balance == TRUE) {
         x_var_vector <- abs(x_var_vector)
         x_var_vector <- c(-x_var_vector, x_var_vector)
       }
       if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_pretty_n)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+          x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
       if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_limits <- c(0, 100)
+      
+      if(isMobile == TRUE) {
+        x_breaks <- x_limits
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+      }
       
       plot <- plot +
         scale_y_continuous(
@@ -570,12 +574,12 @@ ggplot_hbar_col <-
         )
     })
     
-    if(x_na_bar == FALSE) {
+    if(x_pretty_na_bar == FALSE) {
       plot <- plot +
         geom_col(aes(
           x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, position = position2)
     }
-    else if(x_na_bar == TRUE) {
+    else if(x_pretty_na_bar == TRUE) {
       data <- data %>% 
         dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
@@ -589,7 +593,7 @@ ggplot_hbar_col <-
           pull(!!y_var)
         
         data <- data %>% 
-          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var, .fun = median, na.rm = TRUE))  %>% 
+          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var, .fun = stats::median, na.rm = TRUE))  %>% 
           dplyr::mutate(!!y_var := forcats::fct_relevel(!!y_var, all_na))  
       }
       
@@ -660,7 +664,7 @@ ggplot_hbar_col <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param x_pretty_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
@@ -711,7 +715,7 @@ ggplot_hbar_facet <-
            x_trans = "identity",
            x_pretty_n = 5,
            x_expand = NULL,
-           x_na_bar = FALSE,
+           x_pretty_na_bar = FALSE,
            x_balance = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
@@ -788,15 +792,13 @@ ggplot_hbar_facet <-
     if(is.null(y_expand)) y_expand <- waiver()
 
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 1
-      
+
       if (x_balance == TRUE) {
         x_var_vector <- abs(x_var_vector)
         x_var_vector <- c(-x_var_vector, x_var_vector)
       }
       if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
@@ -809,6 +811,11 @@ ggplot_hbar_facet <-
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
+      if(isMobile == TRUE) {
+        x_breaks <- x_limits
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+      }
+
       plot <- plot +
         scale_y_continuous(
           expand = x_expand,
@@ -819,7 +826,7 @@ ggplot_hbar_facet <-
           oob = scales::rescale_none
         )
       
-      if(x_na_bar == TRUE) {
+      if(x_pretty_na_bar == TRUE) {
         
         na_data <- data %>% 
           filter(is.na(!!x_var)) %>% 
@@ -1068,27 +1075,30 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 1
-      
+
       if (x_balance == TRUE) {
         x_var_vector <- abs(x_var_vector)
         x_var_vector <- c(-x_var_vector, x_var_vector)
       }
       if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_n)
+        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_pretty_n)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+          x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
+      if(isMobile == TRUE) {
+        x_breaks <- x_limits
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+      }
+
       plot <- plot +
         scale_y_continuous(
           expand = x_expand,

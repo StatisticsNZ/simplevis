@@ -1,3 +1,7 @@
+# simplevis 2.1.6
+
+* For hbar, update the mobile x breaks, so always only min and max, and zero if relevant.
+
 # simplevis 2.1.5
 
 * For hbar, made plots x aim for 1 interval of breaks for mobile, and left-align labels.

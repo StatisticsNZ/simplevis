@@ -7,7 +7,7 @@
 ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   x_zero = TRUE, x_zero_line = FALSE, x_trans = "identity",
   x_pretty_n = 6, x_expand = NULL, x_balance = FALSE,
-  y_rev = FALSE, y_labels = waiver(), y_expand = NULL, pal = NULL,
+  y_rev = FALSE, y_labels = NULL, y_expand = NULL, pal = NULL,
   width = 0.75, x_na_bar = FALSE, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,

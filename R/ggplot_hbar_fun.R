@@ -171,7 +171,7 @@ ggplot_hbar <- function(data,
                         x_expand = NULL,
                         x_balance = FALSE,
                         y_rev = FALSE,
-                        y_labels = waiver(),
+                        y_labels = NULL,
                         y_expand = NULL,
                         pal = NULL,
                         width = 0.75, 
@@ -246,7 +246,7 @@ ggplot_hbar <- function(data,
 
   if (all(x_var_vector == 0, na.rm = TRUE)) {
     plot <- plot +
-      scale_x_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+      scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
     
@@ -306,8 +306,22 @@ ggplot_hbar <- function(data,
     }
   }
   
-  plot <- plot +
-    scale_x_discrete(expand = y_expand, labels = y_labels)
+  if (isMobile == FALSE){
+    if(is.null(y_labels)) y_labels <- waiver()
+    
+    plot <- plot +
+      scale_x_discrete(expand = y_expand, labels = y_labels)
+  }
+  else if (isMobile == TRUE){
+    if(is.null(y_labels)) {
+      plot <- plot +
+        scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
+    }
+    else if(!is.null(y_labels)) {
+      plot <- plot +
+        scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+    }
+  }
   
   if(x_zero_line == TRUE) {
     plot <- plot +
@@ -524,8 +538,22 @@ ggplot_hbar_col <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
     
-    plot <- plot +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
+    if (isMobile == FALSE){
+      if(is.null(y_labels)) y_labels <- waiver()
+      
+      plot <- plot +
+        scale_x_discrete(expand = y_expand, labels = y_labels)
+    }
+    else if (isMobile == TRUE){
+      if(is.null(y_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+      else if(!is.null(y_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+      }
+    }
     
     if(x_zero_line == TRUE) {
       plot <- plot +
@@ -534,7 +562,7 @@ ggplot_hbar_col <-
     
     if (all(x_var_vector == 0, na.rm = TRUE)) {
       plot <- plot +
-        scale_x_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+        scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
       
@@ -855,9 +883,23 @@ ggplot_hbar_facet <-
                            oob = scales::rescale_none)
     }
     
-    plot <- plot +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
-    
+    if (isMobile == FALSE){
+      if(is.null(y_labels)) y_labels <- waiver()
+      
+      plot <- plot +
+        scale_x_discrete(expand = y_expand, labels = y_labels)
+    }
+    else if (isMobile == TRUE){
+      if(is.null(y_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+      else if(!is.null(y_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+      }
+    }
+
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -1117,15 +1159,31 @@ ggplot_hbar_col_facet <-
                            oob = scales::rescale_none)
     }
     
+    if (isMobile == FALSE){
+      if(is.null(y_labels)) y_labels <- waiver()
+      
+      plot <- plot +
+        scale_x_discrete(expand = y_expand, labels = y_labels)
+    }
+    else if (isMobile == TRUE){
+      if(is.null(y_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+      else if(!is.null(y_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+      }
+    }
+    
     plot <- plot +
       scale_fill_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
-      ) +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
-    
+      ) 
+
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)

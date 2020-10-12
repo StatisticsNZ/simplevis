@@ -1,3 +1,7 @@
+# simplevis 2.1.7
+
+* For hbar, add mobile wrapping for x labels.
+
 # simplevis 2.1.6
 
 * For hbar, update the mobile x breaks, so always only min and max, and zero if relevant.

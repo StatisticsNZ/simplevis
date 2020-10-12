@@ -7,7 +7,7 @@
 ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   x_labels = waiver(), x_zero = TRUE, x_zero_line = FALSE,
   x_trans = "identity", x_pretty_n = 5, x_expand = NULL,
-  x_pretty_na_bar = FALSE, x_balance = FALSE, y_rev = FALSE,
+  x_na_bar = FALSE, x_balance = FALSE, y_rev = FALSE,
   y_labels = waiver(), y_expand = NULL, facet_scales = "fixed",
   facet_nrow = NULL, pal = NULL, width = 0.75, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
@@ -39,7 +39,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_pretty_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
+\item{x_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 

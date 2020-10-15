@@ -1,3 +1,7 @@
+# simplevis 2.1.8
+
+* Updated app templates css and default table rows.
+
 # simplevis 2.1.7
 
 * For hbar, add mobile wrapping for x labels.

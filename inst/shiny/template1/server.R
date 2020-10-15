@@ -73,7 +73,7 @@ shinyServer(function(input, output, session) {
     table_data(), 
     filter = "top",
     rownames = FALSE,
-    options = list(pageLength = 5, scrollX = TRUE)
+    options = list(scrollX = TRUE)
   )
   
   ### download ###

@@ -270,7 +270,7 @@ ggplot_hbar <- function(data,
     
     if(isMobile == TRUE) {
       x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
     }
     
     plot <- plot +
@@ -347,7 +347,8 @@ ggplot_hbar <- function(data,
         x = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      theme(axis.text.x = element_text(hjust = 1))
+      theme(axis.text.x = element_text(hjust = 1)) +
+      theme(plot.title.position = "plot")
   }
   
   return(plot)
@@ -588,7 +589,7 @@ ggplot_hbar_col <-
       
       if(isMobile == TRUE) {
         x_breaks <- x_limits
-        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
       
       plot <- plot +
@@ -660,6 +661,7 @@ ggplot_hbar_col <-
     }
     else if (isMobile == TRUE){
       plot <- plot +
+        theme(plot.title.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -841,7 +843,7 @@ ggplot_hbar_facet <-
       
       if(isMobile == TRUE) {
         x_breaks <- x_limits
-        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
 
       plot <- plot +
@@ -921,6 +923,7 @@ ggplot_hbar_facet <-
     }
     else if (isMobile == TRUE){
       plot <- plot +
+        theme(plot.title.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -1138,7 +1141,7 @@ ggplot_hbar_col_facet <-
       
       if(isMobile == TRUE) {
         x_breaks <- x_limits
-        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0 , x_limits[2])
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
 
       plot <- plot +
@@ -1212,6 +1215,7 @@ ggplot_hbar_col_facet <-
     }
     else if (isMobile == TRUE){
       plot <- plot +
+        theme(plot.title.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -1219,7 +1223,7 @@ ggplot_hbar_col_facet <-
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
-        theme(axis.text.x = element_text(hjust = 1))  +
+        theme(axis.text.x = element_text(hjust = 1)) +
         guides(fill = guide_legend(
           ncol = 1,
           byrow = TRUE,

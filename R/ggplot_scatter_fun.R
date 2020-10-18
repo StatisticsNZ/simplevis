@@ -308,6 +308,8 @@ ggplot_scatter <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -486,7 +488,7 @@ ggplot_scatter_col <-
     
     plot <- plot +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
-
+    
     if (pal_rev == TRUE) pal <- rev(pal)
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
@@ -494,7 +496,7 @@ ggplot_scatter_col <-
     if (x_zero == TRUE) {
       if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
       if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-
+      
       if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
@@ -510,7 +512,7 @@ ggplot_scatter_col <-
     if (y_zero == TRUE) {
       if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
       if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-
+      
       if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
@@ -559,7 +561,7 @@ ggplot_scatter_col <-
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       plot <- plot +
         labs(
@@ -573,6 +575,8 @@ ggplot_scatter_col <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -714,7 +718,7 @@ ggplot_scatter_facet <-
       ) +
       coord_cartesian(clip = "off") +
       geom_point(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], size = size)
-
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
@@ -722,7 +726,7 @@ ggplot_scatter_facet <-
       if (x_zero == TRUE) {
         if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
         if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-
+        
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
@@ -752,7 +756,7 @@ ggplot_scatter_facet <-
       if (y_zero == TRUE) {
         if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
         if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-
+        
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
@@ -792,7 +796,7 @@ ggplot_scatter_facet <-
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
@@ -809,6 +813,8 @@ ggplot_scatter_facet <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -968,7 +974,7 @@ ggplot_scatter_col_facet <-
       if (!is.numeric(col_var_vector)) col_method <- "category"
       if (is.numeric(col_var_vector)) col_method <- "quantile"      
     }
-
+    
     if (col_method == "quantile") {
       if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
       if (quantile_by_facet == TRUE) {
@@ -1011,9 +1017,9 @@ ggplot_scatter_col_facet <-
       ) +
       coord_cartesian(clip = "off") +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
-
+    
     if (pal_rev == TRUE) pal <- rev(pal)
-
+    
     plot <- plot +
       scale_color_manual(
         values = pal,
@@ -1032,7 +1038,7 @@ ggplot_scatter_col_facet <-
       if (x_zero == TRUE) {
         if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
         if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
-
+        
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
@@ -1059,7 +1065,7 @@ ggplot_scatter_col_facet <-
       if (y_zero == TRUE) {
         if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
         if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
-
+        
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
@@ -1117,6 +1123,8 @@ ggplot_scatter_col_facet <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),

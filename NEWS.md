@@ -1,3 +1,9 @@
+# simplevis 2.1.9
+
+* Updated box to behave better on mobile.
+* Added plotyl
+
+
 # simplevis 2.1.8
 
 * Updated app templates css and default table rows.

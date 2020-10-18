@@ -58,9 +58,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$plot_mobile <- renderPlot({
-    plot() +
-      ggplot2::theme(plot.title.position = "plot") +
-      ggplot2::theme(plot.caption.position = "plot")
+    plot() 
   })
   
   ### table ###

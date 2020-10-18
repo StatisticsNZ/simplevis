@@ -312,6 +312,8 @@ ggplot_line <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -463,14 +465,14 @@ ggplot_line_col <-
     
     if (lines == TRUE) plot <- plot +
       geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size)
-
+    
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
-        size = point_size, alpha = alpha)
+                 size = point_size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
@@ -518,7 +520,7 @@ ggplot_line_col <-
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
-  
+      
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,
@@ -537,12 +539,12 @@ ggplot_line_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) 
-
+    
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       plot <- plot +
         labs(
@@ -556,6 +558,8 @@ ggplot_line_col <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -699,13 +703,13 @@ ggplot_line_facet <-
     
     if (lines == TRUE) plot <- plot +
       geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1], size = size) 
-
+    
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if(isMobile == FALSE) x_n <- x_pretty_n
@@ -771,7 +775,7 @@ ggplot_line_facet <-
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
@@ -788,6 +792,8 @@ ggplot_line_facet <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -909,7 +915,7 @@ ggplot_line_col_facet <-
     data <- data %>% 
       dplyr::ungroup() %>%
       arrange(!!x_var) #fix ggplotly legend bug
-
+    
     x_var_vector <- dplyr::pull(data, !!x_var)
     y_var_vector <- dplyr::pull(data, !!y_var)
     col_var_vector <- dplyr::pull(data, !!col_var)
@@ -950,11 +956,11 @@ ggplot_line_col_facet <-
     
     if (lines == TRUE) plot <- plot +
       geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size)
-
+    
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
-        size = point_size, alpha = alpha)
-
+                 size = point_size, alpha = alpha)
+    
     if (rev_pal == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
@@ -1043,7 +1049,7 @@ ggplot_line_col_facet <-
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
@@ -1061,6 +1067,8 @@ ggplot_line_col_facet <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),

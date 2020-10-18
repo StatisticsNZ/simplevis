@@ -198,6 +198,8 @@ ggplot_stars <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -422,6 +424,8 @@ ggplot_stars_col <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -564,6 +568,8 @@ ggplot_stars_facet <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -702,7 +708,7 @@ ggplot_stars_col_facet <- function(data,
     
     data <- data %>%
       dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
+    
     if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
     if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (is.null(legend_labels)) labels <- LETTERS[1:length(col_cuts) - 1]
@@ -721,7 +727,7 @@ ggplot_stars_col_facet <- function(data,
       
       data <- data %>%
         dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
+      
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -740,7 +746,7 @@ ggplot_stars_col_facet <- function(data,
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
+      
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -766,7 +772,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::group_by(.data$facet_var) %>%
         dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
         dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
+      
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -783,7 +789,7 @@ ggplot_stars_col_facet <- function(data,
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
         dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
+      
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -840,6 +846,8 @@ ggplot_stars_col_facet <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),

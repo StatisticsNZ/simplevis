@@ -300,8 +300,22 @@ ggplot_box <- function(data,
                          oob = scales::rescale_none)
   }
   else if (is.character(x_var_vector) | is.factor(x_var_vector)){
-    plot <- plot +
-      scale_x_discrete(expand = x_expand, labels = x_labels)
+    if (isMobile == FALSE){
+      if(is.null(y_labels)) y_labels <- waiver()
+      
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else if (isMobile == TRUE){
+      if(is.character(x_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = stringr::str_wrap(x_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+    }
   }
   
   if (all(y_var_vector == 0, na.rm = TRUE)) {
@@ -324,7 +338,12 @@ ggplot_box <- function(data,
       }
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
-  
+    
+    if(isMobile == TRUE) {
+      y_breaks <- y_limits
+      if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
+    }
+
     plot <- plot +
       scale_y_continuous(
         expand = y_expand,
@@ -353,6 +372,8 @@ ggplot_box <- function(data,
   }
   else if (isMobile == TRUE){
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -362,7 +383,8 @@ ggplot_box <- function(data,
       ) +
       coord_flip() +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
-      theme(panel.grid.major.y = element_blank())
+      theme(panel.grid.major.y = element_blank()) +
+      theme(axis.text.x = element_text(hjust = 1))  
   }
   
   return(plot)
@@ -512,26 +534,26 @@ ggplot_box_facet <-
     }
     else if (stat == "identity") {
       plot <- ggplot(data) +
-      coord_cartesian(clip = "off") +
-      theme_box(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
-      geom_boxplot(
-        aes(
-          x = !!x_var,
-          ymin = .data$ymin,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$ymax
-        ),
-        stat = stat,
-        fill = pal[1],
-        width = width,
-        alpha = 0.9
-      )
+        coord_cartesian(clip = "off") +
+        theme_box(
+          font_family = font_family,
+          font_size_body = font_size_body,
+          font_size_title = font_size_title
+        ) +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$ymin,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$ymax
+          ),
+          stat = stat,
+          fill = pal[1],
+          width = width,
+          alpha = 0.9
+        )
     }
     
     if(is.null(x_expand)) x_expand <- waiver()
@@ -570,7 +592,7 @@ ggplot_box_facet <-
       }
       
     }
-
+    
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
         if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
@@ -586,6 +608,11 @@ ggplot_box_facet <-
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
+      }
+      
+      if(isMobile == TRUE) {
+        y_breaks <- y_limits
+        if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
       }
       
       plot <- plot +
@@ -627,6 +654,8 @@ ggplot_box_facet <-
     }
     else if (isMobile == TRUE){
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -637,7 +666,8 @@ ggplot_box_facet <-
         facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1) +
         coord_flip() +
         theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
-        theme(panel.grid.major.y = element_blank())
+        theme(panel.grid.major.y = element_blank()) +
+        theme(axis.text.x = element_text(hjust = 1))  
     }
     
     return(plot)

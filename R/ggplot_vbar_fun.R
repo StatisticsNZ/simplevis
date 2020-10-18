@@ -329,6 +329,8 @@ ggplot_vbar <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -451,11 +453,11 @@ ggplot_vbar_col <-
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
-
+    
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
     if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
-
+    
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -472,14 +474,14 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
-        width = bar_width, position = position2)
+               width = bar_width, position = position2)
     
     if(is.null(x_expand))  {
       if(is.character(x_var_vector) | is.factor(x_var_vector)) x_expand <- waiver()
       else x_expand <- c(0, 0)
     }
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -559,12 +561,12 @@ ggplot_vbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) 
-
+    
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       plot <- plot +
         labs(
@@ -583,6 +585,8 @@ ggplot_vbar_col <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -699,7 +703,7 @@ ggplot_vbar_facet <-
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
     if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
-
+    
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
       else if (isMobile == TRUE) font_size_title <- 15
@@ -728,7 +732,7 @@ ggplot_vbar_facet <-
       else x_expand <- c(0, 0)
     }
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if (lubridate::is.Date(x_var_vector)) {
@@ -736,7 +740,7 @@ ggplot_vbar_facet <-
         else if(isMobile == TRUE) x_n <- 4
         
         x_breaks <- pretty(x_var_vector, n = x_n)
-
+        
         plot <- plot +
           scale_x_date(
             expand = x_expand,
@@ -749,7 +753,7 @@ ggplot_vbar_facet <-
         else if(isMobile == TRUE) x_n <- 4
         
         x_breaks <- pretty(x_var_vector, n = x_n)
-
+        
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
@@ -760,9 +764,9 @@ ggplot_vbar_facet <-
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
-
+      
     }
-
+    
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
         y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
@@ -795,7 +799,7 @@ ggplot_vbar_facet <-
           add_tip(c(rlang::as_name(x_var), rlang::as_name(y_var)))
         
         if(nrow(na_data) != 0){
-
+          
           if(y_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!x_var, y = y_limits[2], text = .data$tip_text), 
@@ -840,6 +844,8 @@ ggplot_vbar_facet <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -979,7 +985,7 @@ ggplot_vbar_col_facet <-
     min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
     max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
     if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) y_zero <- FALSE
-
+    
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -995,15 +1001,15 @@ ggplot_vbar_col_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-        geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
-                 width = bar_width, position = position2)
+      geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
+               width = bar_width, position = position2)
     
     if(is.null(x_expand))  {
       if(is.character(x_var_vector) | is.factor(x_var_vector)) x_expand <- waiver()
       else x_expand <- c(0, 0)
     }
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -1015,7 +1021,7 @@ ggplot_vbar_col_facet <-
       
       y_var_vector <- dplyr::pull(data_sum, !!y_var)
     }
-
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if (lubridate::is.Date(x_var_vector)) {
@@ -1023,7 +1029,7 @@ ggplot_vbar_col_facet <-
         else if(isMobile == TRUE) x_n <- 4
         
         x_breaks <- pretty(x_var_vector, n = x_n)
-
+        
         plot <- plot +
           scale_x_date(
             expand = x_expand,
@@ -1036,7 +1042,7 @@ ggplot_vbar_col_facet <-
         else if(isMobile == TRUE) x_n <- 4
         
         x_breaks <- pretty(x_var_vector, n = x_n)
-
+        
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
@@ -1094,7 +1100,7 @@ ggplot_vbar_col_facet <-
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     if (isMobile == FALSE) {
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
       if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
@@ -1118,6 +1124,8 @@ ggplot_vbar_col_facet <-
     }
     else if (isMobile == TRUE) {
       plot <- plot +
+        theme(plot.title.position = "plot") +
+        theme(plot.caption.position = "plot") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),

@@ -188,6 +188,8 @@ ggplot_sf <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -425,6 +427,8 @@ ggplot_sf_col <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -574,6 +578,8 @@ ggplot_sf_facet <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -714,14 +720,14 @@ ggplot_sf_col_facet <- function(data,
     }
     if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
     
-      data <- dplyr::mutate(data,
-                            !!col_var := cut(
-                              col_var_vector,
-                              col_cuts,
-                              right = FALSE,
-                              include.lowest = TRUE
-                            ))
-
+    data <- dplyr::mutate(data,
+                          !!col_var := cut(
+                            col_var_vector,
+                            col_cuts,
+                            right = FALSE,
+                            include.lowest = TRUE
+                          ))
+    
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
@@ -757,14 +763,14 @@ ggplot_sf_col_facet <- function(data,
       col_cuts <-
         quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-        data <-
-          dplyr::mutate(data,
-                        !!col_var := cut(
-                          col_var_vector,
-                          col_cuts,
-                          right = FALSE,
-                          include.lowest = TRUE
-                        ))
+      data <-
+        dplyr::mutate(data,
+                      !!col_var := cut(
+                        col_var_vector,
+                        col_cuts,
+                        right = FALSE,
+                        include.lowest = TRUE
+                      ))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, 2)
@@ -846,6 +852,8 @@ ggplot_sf_col_facet <- function(data,
   }
   else if (isMobile == TRUE) {
     plot <- plot +
+      theme(plot.title.position = "plot") +
+      theme(plot.caption.position = "plot") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),

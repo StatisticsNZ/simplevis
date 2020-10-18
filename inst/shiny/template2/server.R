@@ -57,9 +57,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$plot_mobile <- renderPlot({
-    plot() +
-      ggplot2::theme(plot.title.position = "plot") +
-      ggplot2::theme(plot.caption.position = "plot")
+    plot() 
   })
   
   ### map ###
@@ -142,7 +140,7 @@ shinyServer(function(input, output, session) {
   
   output$download_code <- downloadHandler(
     filename <- function() {
-      "template1.zip"
+      "template2.zip"
     },
     content <- function(file) {
       file.copy("data/template2.zip", file)

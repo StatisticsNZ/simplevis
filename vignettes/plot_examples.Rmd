@@ -400,6 +400,20 @@ ggplot_hbar(plot_data, !!sym("price"), !!sym("cut"),
 
 ```
 
+Make a plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 4}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price = round(average_price / 1000, 1)) 
+
+ggplot_hbar(plot_data, average_price, cut,
+            title = "Average diamond price by cut",
+            x_title = "Average price ($US thousands)",
+            y_title = "Cut", isMobile = TRUE)
+```
 
 Make a ggplotly interactive plot with default tooltip.
 

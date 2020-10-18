@@ -426,6 +426,7 @@ ggplot_stars_col <- function(data,
     plot <- plot +
       theme(plot.title.position = "plot") +
       theme(plot.caption.position = "plot") +
+      theme(legend.justification = "left") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -848,6 +849,7 @@ ggplot_stars_col_facet <- function(data,
     plot <- plot +
       theme(plot.title.position = "plot") +
       theme(plot.caption.position = "plot") +
+      theme(legend.justification = "left") +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),

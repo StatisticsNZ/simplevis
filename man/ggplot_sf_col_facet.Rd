@@ -12,8 +12,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   title = "[Title]", subtitle = NULL, col_title = "",
   caption = NULL, legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, wrap_title = 70,
-  wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80,
-  isMobile = FALSE)
+  wrap_subtitle = 80, wrap_col_title = 25, wrap_caption = 80)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -36,7 +35,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 
-\item{facet_nrow}{The number of rows of facetted plots. Not applicable to where isMobile is TRUE.}
+\item{facet_nrow}{The number of rows of facetted plots.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 
@@ -64,15 +63,13 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
+\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25.}
 
-\item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
-
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
+\item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80.}
 }
 \value{
 A ggplot object.

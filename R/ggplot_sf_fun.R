@@ -449,7 +449,7 @@ ggplot_sf_col <- function(data,
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
-#' @param facet_nrow The number of rows of facetted plots. Not applicable to where isMobile is TRUE.
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
 #' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
@@ -459,10 +459,9 @@ ggplot_sf_col <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
+#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -488,8 +487,7 @@ ggplot_sf_facet <- function(data,
                             font_size_body = NULL,
                             wrap_title = 70,
                             wrap_subtitle = 80,
-                            wrap_caption = 80,
-                            isMobile = FALSE) {
+                            wrap_caption = 80) {
   
   facet_var <- rlang::enquo(facet_var) #categorical var
   
@@ -499,14 +497,8 @@ ggplot_sf_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable")
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
+  if(is.null(font_size_title)) font_size_title <- 11
+  if(is.null(font_size_body)) font_size_body <- 10
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -565,30 +557,17 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-  if (isMobile == FALSE) {
     if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
     if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
     
-    plot <- plot +
-      labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        caption = stringr::str_wrap(caption, 50)
-      ) +
-      facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
-  }
-  else if (isMobile == TRUE) {
-    plot <- plot +
-      theme(plot.title.position = "plot") +
-      theme(plot.caption.position = "plot") +
-      labs(
-        title = stringr::str_wrap(title, 40),
-        subtitle = stringr::str_wrap(subtitle, 40),
-        caption = stringr::str_wrap(caption, wrap_caption)
-      )  +
-      facet_wrap(vars(!!facet_var), scales = "fixed", ncol = 1)
-  }
-  
+  plot <- plot +
+    labs(
+      title = stringr::str_wrap(title, wrap_title),
+      subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
+      caption = stringr::str_wrap(caption, 50)
+    ) +
+    facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
+
   return(plot)
 }
 
@@ -607,7 +586,7 @@ ggplot_sf_facet <- function(data,
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
 #' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
-#' @param facet_nrow The number of rows of facetted plots. Not applicable to where isMobile is TRUE.
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
@@ -618,11 +597,10 @@ ggplot_sf_facet <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
+#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -662,8 +640,7 @@ ggplot_sf_col_facet <- function(data,
                                 wrap_title = 70,
                                 wrap_subtitle = 80,
                                 wrap_col_title = 25,
-                                wrap_caption = 80,
-                                isMobile = FALSE) {
+                                wrap_caption = 80) {
   
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
@@ -675,14 +652,8 @@ ggplot_sf_col_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable")
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
+  if(is.null(font_size_title)) font_size_title <- 11
+  if(is.null(font_size_body)) font_size_body <- 10
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -833,38 +804,18 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (isMobile == FALSE) {
-    if (is.null(facet_nrow) &
-        length(unique(facet_var_vector)) <= 3)
-      facet_nrow <- 1
-    if (is.null(facet_nrow) &
-        length(unique(facet_var_vector)) > 3)
-      facet_nrow <- 2
-    
-    plot <- plot +
-      labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        caption = stringr::str_wrap(caption, wrap_caption)
-      ) +
-      guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
-      guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
-      facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
-  }
-  else if (isMobile == TRUE) {
-    plot <- plot +
-      theme(plot.title.position = "plot") +
-      theme(plot.caption.position = "plot") +
-      theme(legend.justification = "left") +
-      labs(
-        title = stringr::str_wrap(title, 40),
-        subtitle = stringr::str_wrap(subtitle, 40),
-        caption = stringr::str_wrap(caption, 50)
-      )  +
-      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
-      guides(fill = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
-      facet_wrap(vars(!!facet_var), scales = "fixed", ncol = 1)
-  }
+  if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+  if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
   
+  plot <- plot +
+    labs(
+      title = stringr::str_wrap(title, wrap_title),
+      subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
+      caption = stringr::str_wrap(caption, wrap_caption)
+    ) +
+    guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
+    guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
+    facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
+
   return(plot)
 }

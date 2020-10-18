@@ -408,7 +408,7 @@ ggplot_box <- function(data,
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of the box. Defaults to 0.5.
 #' @param title Title string. Defaults to "[Title]".
@@ -419,12 +419,11 @@ ggplot_box <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
+#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. 
+#' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. 
+#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -468,8 +467,7 @@ ggplot_box_facet <-
            wrap_subtitle = 80,
            wrap_x_title = 50,
            wrap_y_title = 50,
-           wrap_caption = 80,
-           isMobile = FALSE) {
+           wrap_caption = 80) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) 
@@ -491,15 +489,9 @@ ggplot_box_facet <-
       y_zero <- FALSE
     }
     
-    if(is.null(font_size_title)){
-      if (isMobile == FALSE) font_size_title <- 11
-      else if (isMobile == TRUE) font_size_title <- 15
-    }
-    if(is.null(font_size_body)){
-      if (isMobile == FALSE) font_size_body <- 10
-      else if (isMobile == TRUE) font_size_body <- 14
-    }
-    
+    if(is.null(font_size_title)) font_size_title <- 11
+    if(is.null(font_size_body)) font_size_body <- 10
+
     if (is.null(pal)) pal <- pal_snz
     
     plot <- ggplot(data) +
@@ -562,9 +554,7 @@ ggplot_box_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       
       if (lubridate::is.Date(x_var_vector)) {
-        if(isMobile == FALSE) x_n <- x_pretty_n
-        else if(isMobile == TRUE) x_n <- 4
-        
+        x_n <- x_pretty_n
         x_breaks <- pretty(x_var_vector, n = x_n)
         
         plot <- plot +
@@ -575,9 +565,7 @@ ggplot_box_facet <-
           )
       }
       else if (is.numeric(x_var_vector)) {
-        if(isMobile == FALSE) x_n <- x_pretty_n
-        else if(isMobile == TRUE) x_n <- 4
-        
+        x_n <- x_pretty_n
         x_breaks <- pretty(x_var_vector, n = x_n)
         
         plot <- plot +
@@ -610,11 +598,6 @@ ggplot_box_facet <-
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       
-      if(isMobile == TRUE) {
-        y_breaks <- y_limits
-        if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
-      }
-      
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,
@@ -638,37 +621,18 @@ ggplot_box_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (isMobile == FALSE){
-      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-      if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
-      
-      plot <- plot +
-        labs(
-          title = stringr::str_wrap(title, wrap_title),
-          subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-          x = stringr::str_wrap(x_title, wrap_x_title),
-          y = stringr::str_wrap(y_title, wrap_y_title),
-          caption = stringr::str_wrap(caption, wrap_caption)
-        ) +
-        facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
-    }
-    else if (isMobile == TRUE){
-      plot <- plot +
-        theme(plot.title.position = "plot") +
-        theme(plot.caption.position = "plot") +
-        labs(
-          title = stringr::str_wrap(title, 40),
-          subtitle = stringr::str_wrap(subtitle, 40),
-          x = stringr::str_wrap(x_title, 20),
-          y = stringr::str_wrap(y_title, 30),
-          caption = stringr::str_wrap(caption, 50)
-        ) +
-        facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = 1) +
-        coord_flip() +
-        theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
-        theme(panel.grid.major.y = element_blank()) +
-        theme(axis.text.x = element_text(hjust = 1))  
-    }
+    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
     
+    plot <- plot +
+      labs(
+        title = stringr::str_wrap(title, wrap_title),
+        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
+        x = stringr::str_wrap(x_title, wrap_x_title),
+        y = stringr::str_wrap(y_title, wrap_y_title),
+        caption = stringr::str_wrap(caption, wrap_caption)
+      ) +
+      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+
     return(plot)
   }

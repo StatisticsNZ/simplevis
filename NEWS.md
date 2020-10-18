@@ -1,8 +1,10 @@
+# simplevis 2.2.0
+
+* Removed support for mobile in `_facet` and `_col_facet` functions.
+
 # simplevis 2.1.9
 
-* Updated box to behave better on mobile.
-* Added plotyl
-
+* Updated functions for a more reliable mobile experience.
 
 # simplevis 2.1.8
 

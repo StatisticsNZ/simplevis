@@ -400,7 +400,7 @@ ggplot_hbar(plot_data, !!sym("price"), !!sym("cut"),
 
 ```
 
-Make a plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile.
+Make a non-facetted plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 4}
 plot_data <- ggplot2::diamonds %>%

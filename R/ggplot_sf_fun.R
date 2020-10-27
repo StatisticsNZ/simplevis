@@ -130,6 +130,8 @@ ggplot_sf <- function(data,
                       wrap_caption = 80,
                       isMobile = FALSE) {
   
+  data <- dplyr::ungroup(data)
+  
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
@@ -273,6 +275,8 @@ ggplot_sf_col <- function(data,
                           wrap_col_title = 25,
                           wrap_caption = 80,
                           isMobile = FALSE) {
+  
+  data <- dplyr::ungroup(data)
   
   col_var <- rlang::enquo(col_var)
   
@@ -489,6 +493,8 @@ ggplot_sf_facet <- function(data,
                             wrap_subtitle = 80,
                             wrap_caption = 80) {
   
+  data <- dplyr::ungroup(data)
+  
   facet_var <- rlang::enquo(facet_var) #categorical var
   
   facet_var_vector <- dplyr::pull(data, !!facet_var)
@@ -642,6 +648,7 @@ ggplot_sf_col_facet <- function(data,
                                 wrap_col_title = 25,
                                 wrap_caption = 80) {
   
+  data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   

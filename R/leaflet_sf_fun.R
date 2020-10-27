@@ -34,6 +34,7 @@ leaflet_sf <- function(data,
                        basemap = "light",
                        map_id = "map") {
   
+  data <- dplyr::ungroup(data)
   shiny <- shiny::isRunning()
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
@@ -255,6 +256,7 @@ leaflet_sf_col <- function(data,
                            basemap = "light",
                            map_id = "map") {
   
+  data <- dplyr::ungroup(data)
   shiny <- shiny::isRunning()
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")

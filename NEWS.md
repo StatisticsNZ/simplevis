@@ -1,3 +1,7 @@
+# simplevis 2.2.1
+
+* Ungrouped data in sf functions.
+
 # simplevis 2.2.0
 
 * Removed support for mobile in `_facet` and `_col_facet` functions.

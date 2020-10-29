@@ -349,7 +349,7 @@ ggplot_hbar <- function(data,
         x = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      theme(axis.text.x = element_text(hjust = 1))
+      theme(axis.text.x = element_text(hjust = 0.75))
       
   }
   
@@ -673,7 +673,7 @@ ggplot_hbar_col <-
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
-        theme(axis.text.x = element_text(hjust = 1)) +
+        theme(axis.text.x = element_text(hjust = 0.75)) +
         guides(fill = guide_legend(
           ncol = 1,
           byrow = TRUE,

@@ -1,3 +1,7 @@
+# simplevis 2.2.2
+
+* Adjusted mobile hbar x label justification.
+
 # simplevis 2.2.1
 
 * Ungrouped data in sf functions.

@@ -44,7 +44,7 @@ pal_snz_trend5 <- c("#35345D", "#0D94A3", "#C4C4C7", "#AE4E51", "#6F2E38")
 #' @export
 #' @examples
 #' scales::show_col(pal_snz_nztcs_c)
-pal_snz_nztcs_c <- c("Threatened" = "#6f2e38", "At risk" = "#ae4e51", "Data deficient" = "#c4c4c7", "Not threatened" = "#0d94a3")
+pal_snz_nztcs_c <- c("Threatened" = "#6f2e38", "At risk of becoming threatened" = "#ae4e51", "Data deficient" = "#c4c4c7", "Not threatened" = "#0d94a3")
 
 #' @title Colour palette for a NZTCS subcategory graph.
 #' @description A colour palette used for depicting subcategories in the NZ conservation threat status.

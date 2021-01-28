@@ -125,7 +125,7 @@ theme_vbar <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -169,7 +169,7 @@ ggplot_vbar <- function(data,
                         y_labels = waiver(),
                         y_pretty_n = 5,
                         y_expand = NULL,
-                        y_na_bar = FALSE,
+                        na_bar = FALSE,
                         pal = NULL,
                         width = 0.75, 
                         title = "[Title]",
@@ -291,7 +291,7 @@ ggplot_vbar <- function(data,
       )
   })
   
-  if(y_na_bar == TRUE) {
+  if(na_bar == TRUE) {
     na_data <- data %>% 
       filter(is.na(!!y_var)) %>% 
       add_tip(c(rlang::as_name(x_var), rlang::as_name(y_var)))
@@ -622,7 +622,7 @@ ggplot_vbar_col <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
+#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -667,7 +667,7 @@ ggplot_vbar_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           y_na_bar = FALSE, 
+           na_bar = FALSE, 
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -781,7 +781,7 @@ ggplot_vbar_facet <-
           oob = scales::rescale_none
         )
       
-      if(y_na_bar == TRUE) {
+      if(na_bar == TRUE) {
         
         na_data <- data %>% 
           filter(is.na(!!y_var)) %>% 

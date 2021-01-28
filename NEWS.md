@@ -1,3 +1,11 @@
+# simplevis 2.2.4
+
+* Updated x_na_bar and y_na_bar arguments to na_bar.
+
+# simplevis 2.2.3
+
+* Corrected hbar error messages for faceted plots.
+
 # simplevis 2.2.2
 
 * Adjusted mobile hbar x label justification.

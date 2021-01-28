@@ -7,9 +7,9 @@
 ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   x_labels = waiver(), x_zero = TRUE, x_zero_line = FALSE,
   x_trans = "identity", x_pretty_n = 6, x_expand = NULL,
-  x_na_bar = FALSE, x_balance = FALSE, y_rev = FALSE,
-  y_labels = waiver(), y_expand = NULL, col_rev = FALSE,
-  position = "stack", pal = NULL, pal_rev = FALSE, legend_ncol = 3,
+  x_balance = FALSE, y_rev = FALSE, y_labels = waiver(),
+  y_expand = NULL, col_rev = FALSE, position = "stack",
+  na_bar = FALSE, pal = NULL, pal_rev = FALSE, legend_ncol = 3,
   width = 0.75, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", col_title = "",
   caption = NULL, legend_labels = NULL, font_family = "Helvetica",
@@ -40,8 +40,6 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
-
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
@@ -53,6 +51,8 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 \item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
+
+\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
 

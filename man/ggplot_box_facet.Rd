@@ -12,8 +12,8 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
   facet_nrow = NULL, pal = NULL, width = 0.5, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_x_title = 50, wrap_y_title = 50, wrap_caption = 80)
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  x_title_wrap = 50, y_title_wrap = 50, caption_wrap = 80)
 }
 \arguments{
 \item{data}{An tibble or dataframe. Required input.}
@@ -70,15 +70,15 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{wrap_x_title}{Number of characters to wrap the x title to. Defaults to 50.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{wrap_y_title}{Number of characters to wrap the y title to. Defaults to 50.}
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
-\item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }
 \value{
 A ggplot object.

@@ -1,8 +1,8 @@
 pandoc: 2.3.1
-pkgdown: 1.5.1
+pkgdown: 1.5.0
 pkgdown_sha: ~
 articles:
   plot_examples: plot_examples.html
   simplevis: simplevis.html
-last_built: 2021-01-28T23:38Z
+last_built: 2021-01-31T22:26Z
 

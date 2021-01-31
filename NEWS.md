@@ -1,3 +1,7 @@
+#simplevis 2.2.5 
+
+* Changed wrap text arguments to prefix with what is being wrapped.
+
 # simplevis 2.2.4
 
 * Updated x_na_bar and y_na_bar arguments to na_bar.

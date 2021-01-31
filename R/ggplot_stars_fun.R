@@ -103,9 +103,9 @@ theme_stars <-
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile. 
 #' @return A ggplot object.
 #' @export
@@ -122,9 +122,9 @@ ggplot_stars <- function(data,
                          font_family = "Helvetica",
                          font_size_title = NULL,
                          font_size_body = NULL,
-                         wrap_title = 70,
-                         wrap_subtitle = 80,
-                         wrap_caption = 80,
+                         title_wrap = 70,
+                         subtitle_wrap = 80,
+                         caption_wrap = 80,
                          isMobile = FALSE) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
@@ -191,9 +191,9 @@ ggplot_stars <- function(data,
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       )
   }
   else if (isMobile == TRUE) {
@@ -230,10 +230,10 @@ ggplot_stars <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile. 
 #' @return A ggplot object.
 #' @export
@@ -259,10 +259,10 @@ ggplot_stars_col <- function(data,
                              font_family = "Helvetica",
                              font_size_title = NULL,
                              font_size_body = NULL,
-                             wrap_title = 70,
-                             wrap_subtitle = 80,
+                             title_wrap = 70,
+                             subtitle_wrap = 80,
                              wrap_col_title = 25,
-                             wrap_caption = 80,
+                             caption_wrap = 80,
                              isMobile = FALSE) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
@@ -316,11 +316,11 @@ ggplot_stars_col <- function(data,
     col_cuts <- seq(min_bin_cut, max_bin_cut + 1, 1)
     no_bins <- length(col_cuts)
     
-    # data <- data %>%
-    #   dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-    
     data <- data %>%
-      dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    # data <- data %>%
+    #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
 
     if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
     if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
@@ -334,13 +334,12 @@ ggplot_stars_col <- function(data,
       
       col_cuts <- pretty(col_var_vector)
       
-      # data <- data %>%
-      #   dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
       data <- data %>%
-        dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      
+      # data <- data %>%
+      #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -350,13 +349,13 @@ ggplot_stars_col <- function(data,
       if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
       data <- data %>%
         tibble::as_tibble() %>%
-        dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      # data <- data %>%
+      #   tibble::as_tibble() %>%
+      #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
 
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -376,11 +375,11 @@ ggplot_stars_col <- function(data,
     col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
-    # data <- data %>%
-    #   dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-    
     data <- data %>%
-      dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    # data <- data %>%
+    #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
 
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -416,9 +415,9 @@ ggplot_stars_col <- function(data,
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title)))
   }
@@ -452,9 +451,9 @@ ggplot_stars_col <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -479,9 +478,9 @@ ggplot_stars_facet <- function(data,
                                font_family = "Helvetica",
                                font_size_title = NULL,
                                font_size_body = NULL,
-                               wrap_title = 70,
-                               wrap_subtitle = 80,
-                               wrap_caption = 80) {
+                               title_wrap = 70,
+                               subtitle_wrap = 80,
+                               caption_wrap = 80) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -544,9 +543,9 @@ ggplot_stars_facet <- function(data,
   
   plot <- plot +
     labs(
-      title = stringr::str_wrap(title, wrap_title),
-      subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-      caption = stringr::str_wrap(caption, wrap_caption)
+      title = stringr::str_wrap(title, title_wrap),
+      subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+      caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     facet_wrap(
       ~ .data$facet_var,
@@ -583,10 +582,10 @@ ggplot_stars_facet <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -621,10 +620,10 @@ ggplot_stars_col_facet <- function(data,
                                    font_family = "Helvetica",
                                    font_size_title = NULL,
                                    font_size_body = NULL,
-                                   wrap_title = 70,
-                                   wrap_subtitle = 80,
+                                   title_wrap = 70,
+                                   subtitle_wrap = 80,
                                    wrap_col_title = 25,
-                                   wrap_caption = 80) {
+                                   caption_wrap = 80) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -667,11 +666,11 @@ ggplot_stars_col_facet <- function(data,
     col_cuts <- seq(min_bin_cut, max_bin_cut + 1, 1)
     no_bins <- length(col_cuts)
     
-    # data <- data %>%
-    #   dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-    
     data <- data %>%
-      dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    # data <- data %>%
+    #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
     
     if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
     if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
@@ -686,11 +685,11 @@ ggplot_stars_col_facet <- function(data,
       
       col_cuts <- pretty(dplyr::pull(data, .data$col_var))
       
-      # data <- data %>%
-      #   dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
       data <- data %>%
-        dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      # data <- data %>%
+      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -701,15 +700,15 @@ ggplot_stars_col_facet <- function(data,
       if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-      #   dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-        dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      # data <- data %>%
+      #   tibble::as_tibble() %>%
+      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
+      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -723,36 +722,36 @@ ggplot_stars_col_facet <- function(data,
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
     if (col_quantile_by_facet == TRUE) {
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-      #   dplyr::group_by(.data$facet_var) %>%
-      #   dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
-      #   dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::group_by(.data$facet_var) %>%
-        dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      # data <- data %>%
+      #   tibble::as_tibble() %>%
+      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
+      #   dplyr::group_by(.data$facet_var) %>%
+      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
+      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_quantile_by_facet == FALSE) {
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-      #   dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
-      #   dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-        dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
-        dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
+        dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
+        dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      # data <- data %>%
+      #   tibble::as_tibble() %>%
+      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
+      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
+      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
@@ -792,9 +791,9 @@ ggplot_stars_col_facet <- function(data,
   
   plot <- plot +
     labs(
-      title = stringr::str_wrap(title, wrap_title),
-      subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-      caption = stringr::str_wrap(caption, wrap_caption)
+      title = stringr::str_wrap(title, title_wrap),
+      subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+      caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
     facet_wrap(

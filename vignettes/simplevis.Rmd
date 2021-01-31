@@ -63,6 +63,7 @@ ggplot(data) +
 ```
 
 `simplevis` wraps these defaults into the functions, but allows the user to modify as required.
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_vbar(data, pet, count, 
             title = "Wellington pets, 2020", 
@@ -210,7 +211,7 @@ ggplot_sf(map_data,
           coastline = nz, 
           size = 0.25,
           title = "Monitored river nitrate-nitrogen trend sites, 2008\u201317",
-          wrap_title = 40)
+          title_wrap = 40)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
@@ -224,7 +225,7 @@ ggplot_sf_col(map_data, trend_category,
               size = 0.25, 
               pal = pal, 
               title = "Monitored river nitrate-nitrogen trends, 2008\u201317",
-              wrap_title = 40)
+              title_wrap = 40)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
@@ -268,7 +269,7 @@ ggplot_stars_col(example_stars_nz_no3n,
                  coastline = nz,
                  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "River modelled median nitrate-nitrogen concentrations, 2013\u201317",
-                 wrap_title = 40, 
+                 title_wrap = 40, 
                  legend_digits = 1)
 ```
 

@@ -103,9 +103,9 @@ theme_sf <-
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -125,9 +125,9 @@ ggplot_sf <- function(data,
                       font_family = "Helvetica",
                       font_size_title = NULL,
                       font_size_body = NULL,
-                      wrap_title = 70,
-                      wrap_subtitle = 80,
-                      wrap_caption = 80,
+                      title_wrap = 70,
+                      subtitle_wrap = 80,
+                      caption_wrap = 80,
                       isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
@@ -183,9 +183,9 @@ ggplot_sf <- function(data,
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       )
   }
   else if (isMobile == TRUE) {
@@ -225,9 +225,9 @@ ggplot_sf <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
@@ -270,10 +270,10 @@ ggplot_sf_col <- function(data,
                           font_family = "Helvetica",
                           font_size_title = NULL,
                           font_size_body = NULL,
-                          wrap_title = 70,
-                          wrap_subtitle = 80,
+                          title_wrap = 70,
+                          subtitle_wrap = 80,
                           wrap_col_title = 25,
-                          wrap_caption = 80,
+                          caption_wrap = 80,
                           isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
@@ -422,9 +422,9 @@ ggplot_sf_col <- function(data,
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
       guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title)))
@@ -463,9 +463,9 @@ ggplot_sf_col <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -489,9 +489,9 @@ ggplot_sf_facet <- function(data,
                             font_family = "Helvetica",
                             font_size_title = NULL,
                             font_size_body = NULL,
-                            wrap_title = 70,
-                            wrap_subtitle = 80,
-                            wrap_caption = 80) {
+                            title_wrap = 70,
+                            subtitle_wrap = 80,
+                            caption_wrap = 80) {
   
   data <- dplyr::ungroup(data)
   
@@ -568,8 +568,8 @@ ggplot_sf_facet <- function(data,
     
   plot <- plot +
     labs(
-      title = stringr::str_wrap(title, wrap_title),
-      subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
+      title = stringr::str_wrap(title, title_wrap),
+      subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, 50)
     ) +
     facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
@@ -603,10 +603,10 @@ ggplot_sf_facet <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -643,10 +643,10 @@ ggplot_sf_col_facet <- function(data,
                                 font_family = "Helvetica",
                                 font_size_title = NULL,
                                 font_size_body = NULL,
-                                wrap_title = 70,
-                                wrap_subtitle = 80,
+                                title_wrap = 70,
+                                subtitle_wrap = 80,
                                 wrap_col_title = 25,
-                                wrap_caption = 80) {
+                                caption_wrap = 80) {
   
   data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
@@ -816,9 +816,9 @@ ggplot_sf_col_facet <- function(data,
   
   plot <- plot +
     labs(
-      title = stringr::str_wrap(title, wrap_title),
-      subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-      caption = stringr::str_wrap(caption, wrap_caption)
+      title = stringr::str_wrap(title, title_wrap),
+      subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+      caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
     guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +

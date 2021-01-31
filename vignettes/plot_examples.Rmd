@@ -53,12 +53,13 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 ```
 
 Change the wrapping defaults of titles.
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_scatter(iris, Sepal.Width, Sepal.Length,
                title = "Iris sepal length by width, 2020", 
                x_title = "Sepal width (cm)",
                y_title = "Sepal length (cm)",
-               wrap_title = 10, wrap_x_title = 5, wrap_y_title = 5)
+               title_wrap = 10, x_title_wrap = 5, y_title_wrap = 5)
 ```
 
 Colour the points by the species variable.

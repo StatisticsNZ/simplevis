@@ -8,8 +8,8 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
   facet_nrow = NULL, coastline = NULL, coastline_behind = TRUE,
   coastline_pal = "#7f7f7f", title = "[Title]", subtitle = NULL,
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_caption = 80)
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  caption_wrap = 80)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -42,11 +42,11 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }
 \value{
 A ggplot object.

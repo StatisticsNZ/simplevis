@@ -137,11 +137,11 @@ theme_hbar <-
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -184,11 +184,11 @@ ggplot_hbar <- function(data,
                         font_family = "Helvetica",
                         font_size_title = NULL,
                         font_size_body = NULL,
-                        wrap_title = 70,
-                        wrap_subtitle = 80,
-                        wrap_x_title = 50,
-                        wrap_y_title = 50,
-                        wrap_caption = 80,
+                        title_wrap = 70,
+                        subtitle_wrap = 80,
+                        x_title_wrap = 50,
+                        y_title_wrap = 50,
+                        caption_wrap = 80,
                         isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
@@ -331,11 +331,11 @@ ggplot_hbar <- function(data,
   if (isMobile == FALSE){
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        y = stringr::str_wrap(x_title, wrap_x_title),
-        x = stringr::str_wrap(y_title, wrap_y_title),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        y = stringr::str_wrap(x_title, x_title_wrap),
+        x = stringr::str_wrap(y_title, y_title_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       ) 
   }
   else if (isMobile == TRUE){
@@ -390,12 +390,12 @@ ggplot_hbar <- function(data,
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -447,12 +447,12 @@ ggplot_hbar_col <-
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
-           wrap_title = 70,
-           wrap_subtitle = 80,
-           wrap_x_title = 50,
-           wrap_y_title = 50,
+           title_wrap = 70,
+           subtitle_wrap = 80,
+           x_title_wrap = 50,
+           y_title_wrap = 50,
            wrap_col_title = 25,
-           wrap_caption = 80,
+           caption_wrap = 80,
            isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
@@ -648,11 +648,11 @@ ggplot_hbar_col <-
     if (isMobile == FALSE){
       plot <- plot +
         labs(
-          title = stringr::str_wrap(title, wrap_title),
-          subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-          y = stringr::str_wrap(x_title, wrap_x_title),
-          x = stringr::str_wrap(y_title, wrap_y_title),
-          caption = stringr::str_wrap(caption, wrap_caption)
+          title = stringr::str_wrap(title, title_wrap),
+          subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+          y = stringr::str_wrap(x_title, x_title_wrap),
+          x = stringr::str_wrap(y_title, y_title_wrap),
+          caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
           ncol = legend_ncol,
@@ -715,11 +715,11 @@ ggplot_hbar_col <-
 #' @param font_family Font family to use. Defaults NULL.
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. 
-#' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. 
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -765,11 +765,11 @@ ggplot_hbar_facet <-
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
-           wrap_title = 70,
-           wrap_subtitle = 80,
-           wrap_x_title = 50,
-           wrap_y_title = 50,
-           wrap_caption = 80) {
+           title_wrap = 70,
+           subtitle_wrap = 80,
+           x_title_wrap = 50,
+           y_title_wrap = 50,
+           caption_wrap = 80) {
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #categorical var
@@ -891,11 +891,11 @@ ggplot_hbar_facet <-
       
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        y = stringr::str_wrap(x_title, wrap_x_title),
-        x = stringr::str_wrap(y_title, wrap_y_title),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        y = stringr::str_wrap(x_title, x_title_wrap),
+        x = stringr::str_wrap(y_title, y_title_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
 
@@ -938,12 +938,12 @@ ggplot_hbar_facet <-
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param wrap_title Number of characters to wrap the title to. Defaults to 70. 
-#' @param wrap_subtitle Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param wrap_x_title Number of characters to wrap the x title to. Defaults to 50. 
-#' @param wrap_y_title Number of characters to wrap the y title to. Defaults to 50. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param wrap_caption Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -995,12 +995,12 @@ ggplot_hbar_col_facet <-
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
-           wrap_title = 70,
-           wrap_subtitle = 80,
-           wrap_x_title = 50,
-           wrap_y_title = 50,
+           title_wrap = 70,
+           subtitle_wrap = 80,
+           x_title_wrap = 50,
+           y_title_wrap = 50,
            wrap_col_title = 25,
-           wrap_caption = 80) {
+           caption_wrap = 80) {
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #categorical var
@@ -1136,11 +1136,11 @@ ggplot_hbar_col_facet <-
     
     plot <- plot +
       labs(
-        title = stringr::str_wrap(title, wrap_title),
-        subtitle = stringr::str_wrap(subtitle, wrap_subtitle),
-        y = stringr::str_wrap(x_title, wrap_x_title),
-        x = stringr::str_wrap(y_title, wrap_y_title),
-        caption = stringr::str_wrap(caption, wrap_caption)
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        y = stringr::str_wrap(x_title, x_title_wrap),
+        x = stringr::str_wrap(y_title, y_title_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
       guides(fill = guide_legend(

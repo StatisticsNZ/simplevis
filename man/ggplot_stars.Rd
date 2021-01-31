@@ -8,8 +8,8 @@ ggplot_stars(data, pal = NULL, coastline = NULL,
   coastline_behind = FALSE, coastline_pal = "black",
   title = "[Title]", subtitle = NULL, caption = NULL,
   font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, wrap_title = 70, wrap_subtitle = 80,
-  wrap_caption = 80, isMobile = FALSE)
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions x and y. Required input.}
@@ -34,11 +34,11 @@ ggplot_stars(data, pal = NULL, coastline = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{wrap_title}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
 
-\item{wrap_subtitle}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{wrap_caption}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }

@@ -4,23 +4,22 @@
 \alias{ggplot_stars}
 \title{Map of an array in ggplot.}
 \usage{
-ggplot_stars(data, pal = NULL, coastline = NULL,
-  coastline_behind = FALSE, coastline_pal = "black",
-  title = "[Title]", subtitle = NULL, caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  caption_wrap = 80, isMobile = FALSE)
+ggplot_stars(data, pal = NULL, boundary = NULL,
+  boundary_behind = FALSE, boundary_pal = "black", title = "[Title]",
+  subtitle = NULL, caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
+  subtitle_wrap = 80, caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions x and y. Required input.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
-\item{coastline_behind}{TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
 
-\item{coastline_pal}{Colour of the coastline. Defaults to "#7F7F7F".}
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -49,5 +48,5 @@ A ggplot object.
 Map of an array in ggplot that is not coloured and not facetted.
 }
 \examples{
-ggplot_stars(data = example_stars_nz_no3n, coastline = nz)
+ggplot_stars(data = example_stars_nz_no3n, boundary = nz)
 }

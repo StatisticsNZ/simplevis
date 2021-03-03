@@ -5,8 +5,8 @@
 \title{Map of simple features in ggplot that is facetted.}
 \usage{
 ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
-  facet_nrow = NULL, coastline = NULL, coastline_behind = TRUE,
-  coastline_pal = "#7f7f7f", title = "[Title]", subtitle = NULL,
+  facet_nrow = NULL, boundary = NULL, boundary_behind = TRUE,
+  boundary_pal = "#7f7f7f", title = "[Title]", subtitle = NULL,
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   caption_wrap = 80)
@@ -24,11 +24,11 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
-\item{coastline_behind}{TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.}
 
-\item{coastline_pal}{Colour of the coastline. Defaults to "#7F7F7F".}
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -58,6 +58,6 @@ Map of simple features in ggplot that is facetted, but not coloured.
 map_data <- example_sf_nz_river_wq \%>\%
  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 
-ggplot_sf_facet(data = map_data, facet_var = trend_category, coastline = nz,
+ggplot_sf_facet(data = map_data, facet_var = trend_category, boundary = nz,
   title = "Monitored river nitrate-nitrogen trends, 2008-17")
 }

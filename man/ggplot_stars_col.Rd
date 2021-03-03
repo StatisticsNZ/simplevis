@@ -5,14 +5,13 @@
 \title{Map of an array in ggplot that is coloured.}
 \usage{
 ggplot_stars_col(data, col_method = "quantile", col_cuts = NULL,
-  pal = NULL, pal_rev = FALSE, coastline = NULL,
-  coastline_behind = TRUE, coastline_pal = "#7f7f7f",
-  legend_ncol = 3, legend_digits = 1, title = "[Title]",
-  subtitle = NULL, col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, wrap_col_title = 25, caption_wrap = 80,
-  isMobile = FALSE)
+  pal = NULL, pal_rev = FALSE, boundary = NULL,
+  boundary_behind = TRUE, boundary_pal = "#7f7f7f", legend_ncol = 3,
+  legend_digits = 1, title = "[Title]", subtitle = NULL,
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  wrap_col_title = 25, caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions x and y, and 1 attribute layer that will be coloured. Required input.}
@@ -25,11 +24,11 @@ ggplot_stars_col(data, col_method = "quantile", col_cuts = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
-\item{coastline_behind}{TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
 
-\item{coastline_pal}{Colour of the coastline. Defaults to "#7F7F7F".}
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
 
 \item{legend_ncol}{The number of columns in the legend.}
 
@@ -68,7 +67,7 @@ A ggplot object.
 Map of an array in ggplot that is coloured, but not facetted.
 }
 \examples{
-ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
+ggplot_stars_col(data = example_stars_nz_no3n, boundary = nz,
    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 }

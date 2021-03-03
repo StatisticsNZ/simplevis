@@ -96,7 +96,7 @@ theme_sf <-
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -113,12 +113,12 @@ theme_sf <-
 #' map_data <- example_sf_nz_river_wq %>%
 #'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
-#' ggplot_sf(data = map_data, coastline = nz)
+#' ggplot_sf(data = map_data, boundary = nz)
 ggplot_sf <- function(data,
                       size = 0.5,
                       alpha = 0.1,
                       pal = NULL,
-                      coastline = NULL,
+                      boundary = NULL,
                       title = "[Title]",
                       subtitle = NULL,
                       caption = NULL,
@@ -151,13 +151,13 @@ ggplot_sf <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
+  if (!is.null(boundary)) {
     if (sf::st_is_longlat(data) == FALSE)
-      coastline <- sf::st_transform(coastline, sf::st_crs(data))
+      boundary <- sf::st_transform(boundary, sf::st_crs(data))
     
     plot <- plot +
       geom_sf(
-        data = coastline,
+        data = boundary,
         size = 0.2,
         colour = "#7f7f7f",
         fill = "transparent"
@@ -212,9 +212,9 @@ ggplot_sf <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
@@ -233,11 +233,11 @@ ggplot_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
+#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, boundary = nz,
 #'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
-#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
+#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, boundary = nz,
 #'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
@@ -246,7 +246,7 @@ ggplot_sf <- function(data,
 #'   
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, 
+#' ggplot_sf_col(data = map_data, col_var = trend_category, boundary = nz, 
 #'    pal = pal, col_method = "category",
 #'    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col <- function(data,
@@ -257,9 +257,9 @@ ggplot_sf_col <- function(data,
                           pal_rev = FALSE,
                           size = 0.5,
                           alpha = 0.9,
-                          coastline = NULL,
-                          coastline_behind = TRUE,
-                          coastline_pal = "#7f7f7f",
+                          boundary = NULL,
+                          boundary_behind = TRUE,
+                          boundary_pal = "#7f7f7f",
                           legend_ncol = 3,
                           legend_digits = 1,
                           title = "[Title]",
@@ -303,14 +303,14 @@ ggplot_sf_col <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -407,13 +407,13 @@ ggplot_sf_col <- function(data,
       )
   }
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -454,9 +454,9 @@ ggplot_sf_col <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_nrow The number of rows of facetted plots. 
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -472,7 +472,7 @@ ggplot_sf_col <- function(data,
 #' map_data <- example_sf_nz_river_wq %>%
 #'  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
-#' ggplot_sf_facet(data = map_data, facet_var = trend_category, coastline = nz,
+#' ggplot_sf_facet(data = map_data, facet_var = trend_category, boundary = nz,
 #'   title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_facet <- function(data,
                             facet_var,
@@ -480,9 +480,9 @@ ggplot_sf_facet <- function(data,
                             alpha = 0.1,
                             pal = NULL,
                             facet_nrow = NULL,
-                            coastline = NULL,
-                            coastline_behind = TRUE,
-                            coastline_pal = "#7f7f7f",
+                            boundary = NULL,
+                            boundary_behind = TRUE,
+                            boundary_pal = "#7f7f7f",
                             title = "[Title]",
                             subtitle = NULL,
                             caption = NULL,
@@ -515,14 +515,14 @@ ggplot_sf_facet <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -551,13 +551,13 @@ ggplot_sf_facet <- function(data,
       )
   }
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -589,9 +589,9 @@ ggplot_sf_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -617,7 +617,7 @@ ggplot_sf_facet <- function(data,
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
 #' ggplot_sf_col_facet(data = map_data, col_var = trend_category, facet_var = indicator,
-#'  coastline = nz, pal = pal,
+#'  boundary = nz, pal = pal,
 #'  title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col_facet <- function(data,
                                 col_var,
@@ -632,9 +632,9 @@ ggplot_sf_col_facet <- function(data,
                                 facet_nrow = NULL,
                                 legend_ncol = 3,
                                 legend_digits = 1,
-                                coastline = NULL,
-                                coastline_behind = TRUE,
-                                coastline_pal = "#7f7f7f",
+                                boundary = NULL,
+                                boundary_behind = TRUE,
+                                boundary_pal = "#7f7f7f",
                                 title = "[Title]",
                                 subtitle = NULL,
                                 col_title = "",
@@ -671,14 +671,14 @@ ggplot_sf_col_facet <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -799,13 +799,13 @@ ggplot_sf_col_facet <- function(data,
       )
   }
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }

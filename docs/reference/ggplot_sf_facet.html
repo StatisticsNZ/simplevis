@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.7</span>
       </span>
     </div>
 
@@ -144,8 +144,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_sf_facet</span>(<span class='no'>data</span>, <span class='no'>facet_var</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coastline_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>coastline_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>boundary_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>)</pre>
@@ -178,16 +178,16 @@
       <td><p>The number of rows of facetted plots.</p></td>
     </tr>
     <tr>
-      <th>coastline</th>
-      <td><p>Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.</p></td>
+      <th>boundary</th>
+      <td><p>Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.</p></td>
     </tr>
     <tr>
-      <th>coastline_behind</th>
-      <td><p>TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.</p></td>
+      <th>boundary_behind</th>
+      <td><p>TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>coastline_pal</th>
-      <td><p>Colour of the coastline. Defaults to "#7F7F7F".</p></td>
+      <th>boundary_pal</th>
+      <td><p>Colour of the boundary. Defaults to "#7F7F7F".</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -235,7 +235,7 @@
     <pre class="examples"><div class='input'><span class='no'>map_data</span> <span class='kw'>&lt;-</span> <span class='no'>example_sf_nz_river_wq</span> <span class='kw'>%&gt;%</span>
  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>period</span> <span class='kw'>==</span> <span class='st'>"1998-2017"</span>, <span class='no'>indicator</span> <span class='kw'>==</span> <span class='st'>"Nitrate-nitrogen"</span>)
 
-<span class='fu'>ggplot_sf_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>map_data</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>, <span class='kw'>coastline</span> <span class='kw'>=</span> <span class='no'>nz</span>,
+<span class='fu'>ggplot_sf_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>map_data</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='no'>nz</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Monitored river nitrate-nitrogen trends, 2008-17"</span>)</div><div class='img'><img src='ggplot_sf_facet-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

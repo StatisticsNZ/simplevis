@@ -7,8 +7,8 @@
 ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   col_cuts = NULL, col_quantile_by_facet = TRUE, pal = NULL,
   pal_rev = FALSE, size = 0.5, alpha = 0.9, facet_nrow = NULL,
-  legend_ncol = 3, legend_digits = 1, coastline = NULL,
-  coastline_behind = TRUE, coastline_pal = "#7f7f7f",
+  legend_ncol = 3, legend_digits = 1, boundary = NULL,
+  boundary_behind = TRUE, boundary_pal = "#7f7f7f",
   title = "[Title]", subtitle = NULL, col_title = "",
   caption = NULL, legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
@@ -41,11 +41,11 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
-\item{coastline_behind}{TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.}
 
-\item{coastline_pal}{Colour of the coastline. Defaults to "#7F7F7F".}
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -85,6 +85,6 @@ map_data <- example_sf_nz_river_wq \%>\%
  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col_facet(data = map_data, col_var = trend_category, facet_var = indicator,
- coastline = nz, pal = pal,
+ boundary = nz, pal = pal,
  title = "Monitored river nitrate-nitrogen trends, 2008-17")
 }

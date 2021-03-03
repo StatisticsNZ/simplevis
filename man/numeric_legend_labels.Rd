@@ -17,3 +17,4 @@ A vector of labels.
 \description{
 Pretty numeric legend labels.
 }
+\keyword{internal}

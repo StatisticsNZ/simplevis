@@ -4,10 +4,10 @@
 \alias{ggplot_stars_facet}
 \title{Map of an array in ggplot that is facetted.}
 \usage{
-ggplot_stars_facet(data, pal = NULL, coastline = NULL,
-  coastline_behind = FALSE, coastline_pal = "black",
-  facet_nrow = NULL, title = "[Title]", subtitle = NULL,
-  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
+ggplot_stars_facet(data, pal = NULL, boundary = NULL,
+  boundary_behind = FALSE, boundary_pal = "black", facet_nrow = NULL,
+  title = "[Title]", subtitle = NULL, caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   caption_wrap = 80)
 }
@@ -16,11 +16,11 @@ ggplot_stars_facet(data, pal = NULL, coastline = NULL,
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
-\item{coastline_behind}{TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
 
-\item{coastline_pal}{Colour of the coastline. Defaults to "#7F7F7F".}
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
@@ -57,5 +57,5 @@ map_data2 <- example_stars_nz_drp \%>\%
 
 map_data <- c(map_data1, map_data2)
 
-ggplot_stars_facet(data = map_data, coastline = nz)
+ggplot_stars_facet(data = map_data, boundary = nz)
 }

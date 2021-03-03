@@ -200,7 +200,7 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry types
 * Data can have any coordinate reference system (CRS), but it must be defined
 * No `x_var` and `y_var` variables are required
-* There is a coastline specification, which allows for a further `sf` object as a coastline or administrative boundaries to be added to the map. A New Zealand coastline (`nz`) and New Zealand coastline with regional boundaries (`nz_region`) has been provided with the package. 
+* There is a boundary specification, which allows for a further `sf` object as a boundary or administrative boundaries to be added to the map. An example New Zealand boundary (`nz`) has been provided with the package. 
 * They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
@@ -208,7 +208,7 @@ map_data <- example_sf_nz_river_wq %>%
   filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
 
 ggplot_sf(map_data, 
-          coastline = nz, 
+          boundary = nz, 
           size = 0.25,
           title = "Monitored river nitrate-nitrogen trend sites, 2008\u201317",
           title_wrap = 40)
@@ -221,7 +221,7 @@ map_data <- example_sf_nz_river_wq %>%
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col(map_data, trend_category, 
-              coastline = nz, 
+              boundary = nz, 
               size = 0.25, 
               pal = pal, 
               title = "Monitored river nitrate-nitrogen trends, 2008\u201317",
@@ -233,7 +233,7 @@ map_data <- example_sf_nz_river_wq %>%
  filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
 
 ggplot_sf_facet(map_data, trend_category, 
-                coastline = nz, 
+                boundary = nz, 
                 size = 0.25,
                 title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
 ```
@@ -245,7 +245,7 @@ map_data <- example_sf_nz_river_wq %>%
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col_facet(map_data, trend_category, indicator,
-                    coastline = nz, 
+                    boundary = nz, 
                     size = 0.25, 
                     pal = pal,
                     title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
@@ -266,7 +266,7 @@ These functions work in the same way as the `ggplot` `sf` map functions, but wit
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_stars_col(example_stars_nz_no3n, 
-                 coastline = nz,
+                 boundary = nz,
                  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "River modelled median nitrate-nitrogen concentrations, 2013\u201317",
                  title_wrap = 40, 
@@ -283,7 +283,7 @@ map_data2 <- example_stars_nz_drp %>%
 map_data <- c(map_data1, map_data2)
 
 ggplot_stars_col_facet(map_data, 
-                       coastline = nz,
+                       boundary = nz,
                        col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                        title = "River modelled nutrient concentrations, 2013\u201317")
 ```
@@ -295,7 +295,7 @@ ggplot_stars_col_facet(map_data,
 * simple feature (`sf`) maps
 * spatial-temporal array (i.e. `stars`) maps 
 
-These work in the same way as the `ggplot` map functions, but with no coastline arguments.
+These work in the same way as the `ggplot` map functions, but with no boundary arguments.
 
 Outputs are hidden to keep the size of the vignette manageable. 
 

@@ -6,10 +6,10 @@
 \usage{
 ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
   pal = NULL, pal_rev = FALSE, size = 0.5, alpha = 0.9,
-  coastline = NULL, coastline_behind = TRUE,
-  coastline_pal = "#7f7f7f", legend_ncol = 3, legend_digits = 1,
-  title = "[Title]", subtitle = NULL, col_title = "",
-  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
+  boundary = NULL, boundary_behind = TRUE, boundary_pal = "#7f7f7f",
+  legend_ncol = 3, legend_digits = 1, title = "[Title]",
+  subtitle = NULL, col_title = "", caption = NULL,
+  legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
   subtitle_wrap = 80, wrap_col_title = 25, caption_wrap = 80,
   isMobile = FALSE)
@@ -31,11 +31,11 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
-\item{coastline_behind}{TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.}
 
-\item{coastline_pal}{Colour of the coastline. Defaults to "#7F7F7F".}
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
 
 \item{legend_ncol}{The number of columns in the legend.}
 
@@ -74,11 +74,11 @@ A ggplot object.
 Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
-ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
+ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, boundary = nz,
      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
      title = "Dairy density in count per km\\u00b2, 2017")
 
-ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, coastline = nz,
+ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, boundary = nz,
      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
      title = "Dairy density in count per km\\u00b2, 2017")
 
@@ -87,7 +87,7 @@ map_data <- example_sf_nz_river_wq \%>\%
   
  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
-ggplot_sf_col(data = map_data, col_var = trend_category, coastline = nz, 
+ggplot_sf_col(data = map_data, col_var = trend_category, boundary = nz, 
    pal = pal, col_method = "category",
    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 }

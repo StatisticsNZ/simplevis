@@ -1,3 +1,7 @@
+# simplevis 2.2.7
+
+* Changed coastline argument to boundary.
+
 # simplevis 2.2.6
 
 * Moved pals to er.helpers package.

@@ -5,7 +5,7 @@
 \title{Map of simple features in ggplot.}
 \usage{
 ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
-  coastline = NULL, title = "[Title]", subtitle = NULL,
+  boundary = NULL, title = "[Title]", subtitle = NULL,
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   caption_wrap = 80, isMobile = FALSE)
@@ -19,7 +19,7 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
-\item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
+\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -51,5 +51,5 @@ Map of simple features in ggplot that is not coloured and not facetted.
 map_data <- example_sf_nz_river_wq \%>\%
   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 
-ggplot_sf(data = map_data, coastline = nz)
+ggplot_sf(data = map_data, boundary = nz)
 }

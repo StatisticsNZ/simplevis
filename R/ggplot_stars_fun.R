@@ -94,9 +94,9 @@ theme_stars <-
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with 2 dimensions x and y. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -110,12 +110,12 @@ theme_stars <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_stars(data = example_stars_nz_no3n, coastline = nz)
+#' ggplot_stars(data = example_stars_nz_no3n, boundary = nz)
 ggplot_stars <- function(data,
                          pal = NULL,
-                         coastline = NULL,
-                         coastline_behind = FALSE,
-                         coastline_pal = "black",
+                         boundary = NULL,
+                         boundary_behind = FALSE,
+                         boundary_pal = "black",
                          title = "[Title]",
                          subtitle = NULL,
                          caption = NULL,
@@ -146,19 +146,19 @@ ggplot_stars <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
   }
-  else if (is.null(coastline)) {
+  else if (is.null(boundary)) {
     plot <- plot +
       coord_equal()
   }
@@ -176,13 +176,13 @@ ggplot_stars <- function(data,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -217,9 +217,9 @@ ggplot_stars <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
@@ -238,7 +238,7 @@ ggplot_stars <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_stars_col(data = example_stars_nz_no3n, coastline = nz,
+#' ggplot_stars_col(data = example_stars_nz_no3n, boundary = nz,
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 ggplot_stars_col <- function(data,
@@ -246,9 +246,9 @@ ggplot_stars_col <- function(data,
                              col_cuts = NULL,
                              pal = NULL,
                              pal_rev = FALSE,
-                             coastline = NULL,
-                             coastline_behind = TRUE,
-                             coastline_pal = "#7f7f7f",
+                             boundary = NULL,
+                             boundary_behind = TRUE,
+                             boundary_pal = "#7f7f7f",
                              legend_ncol = 3,
                              legend_digits = 1,
                              title = "[Title]",
@@ -289,19 +289,19 @@ ggplot_stars_col <- function(data,
   
   col_var_vector <- dplyr::pull(data, .data$col_var)
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
   }
-  else if (is.null(coastline)) {
+  else if (is.null(boundary)) {
     plot <- plot +
       coord_equal()
   }
@@ -400,13 +400,13 @@ ggplot_stars_col <- function(data,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -441,9 +441,9 @@ ggplot_stars_col <- function(data,
 #' @description Map of an array in ggplot that is facetted, but not coloured. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -465,12 +465,12 @@ ggplot_stars_col <- function(data,
 #'
 #' map_data <- c(map_data1, map_data2)
 #'
-#' ggplot_stars_facet(data = map_data, coastline = nz)
+#' ggplot_stars_facet(data = map_data, boundary = nz)
 ggplot_stars_facet <- function(data,
                                pal = NULL,
-                               coastline = NULL,
-                               coastline_behind = FALSE,
-                               coastline_pal = "black",
+                               boundary = NULL,
+                               boundary_behind = FALSE,
+                               boundary_pal = "black",
                                facet_nrow = NULL,
                                title = "[Title]",
                                subtitle = NULL,
@@ -495,19 +495,19 @@ ggplot_stars_facet <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
   }
-  else if (is.null(coastline)) {
+  else if (is.null(boundary)) {
     plot <- plot +
       coord_equal()
   }
@@ -526,13 +526,13 @@ ggplot_stars_facet <- function(data,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
@@ -568,9 +568,9 @@ ggplot_stars_facet <- function(data,
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
-#' @param coastline_behind TRUE or FALSE as to whether the coastline is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param coastline_pal Colour of the coastline. Defaults to "#7F7F7F".
+#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -597,7 +597,7 @@ ggplot_stars_facet <- function(data,
 #'
 #' map_data <- c(map_data1, map_data2)
 #'
-#' ggplot_stars_col_facet(data = map_data, coastline = nz,
+#' ggplot_stars_col_facet(data = map_data, boundary = nz,
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "River modelled nutrient concentrations, 2013-17")
 ggplot_stars_col_facet <- function(data,
@@ -606,9 +606,9 @@ ggplot_stars_col_facet <- function(data,
                                    col_cuts = NULL,
                                    pal = NULL,
                                    pal_rev = FALSE,
-                                   coastline = NULL,
-                                   coastline_behind = TRUE,
-                                   coastline_pal = "#7f7f7f",
+                                   boundary = NULL,
+                                   boundary_behind = TRUE,
+                                   boundary_pal = "#7f7f7f",
                                    facet_nrow = NULL,
                                    legend_ncol = 3,
                                    legend_digits = 1,
@@ -638,19 +638,19 @@ ggplot_stars_col_facet <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(coastline)) {
-    if (sf::st_is_longlat(data) == FALSE) coastline <- sf::st_transform(coastline, sf::st_crs(data))
-    if (coastline_behind == TRUE) {
+  if (!is.null(boundary)) {
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }
   }
-  else if (is.null(coastline)) {
+  else if (is.null(boundary)) {
     plot <- plot +
       coord_equal()
   }
@@ -774,13 +774,13 @@ ggplot_stars_col_facet <- function(data,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   
-  if (!is.null(coastline)) {
-    if (coastline_behind == FALSE) {
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = coastline,
+          data = boundary,
           size = 0.2,
-          colour = coastline_pal,
+          colour = boundary_pal,
           fill = "transparent"
         )
     }

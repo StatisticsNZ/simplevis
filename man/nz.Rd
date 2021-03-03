@@ -19,8 +19,8 @@ nz
 
 ggplot_sf(nz)
 
-ggplot_sf(dplyr::slice(nz, 2))
+ggplot_sf(dplyr::slice(nz, 2, 4))
 
-ggplot_sf(dplyr::slice(nz, 1, 3))
+ggplot_sf(dplyr::slice(nz, 1, 3, 5:7))
 }
 \keyword{datasets}

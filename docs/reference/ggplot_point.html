@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vertical bar ggplot that is coloured and facetted. — ggplot_vbar_col_facet • simplevis</title>
+<title>point ggplot. — ggplot_point • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Vertical bar ggplot that is coloured and facetted. — ggplot_vbar_col_facet" />
-<meta property="og:description" content="Vertical bar ggplot that is coloured and facetted." />
+<meta property="og:title" content="point ggplot. — ggplot_point" />
+<meta property="og:description" content="point ggplot that is not coloured and not facetted." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -134,54 +134,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vertical bar ggplot that is coloured and facetted.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_vbar_fun.R'><code>R/ggplot_vbar_fun.R</code></a></small>
-    <div class="hidden name"><code>ggplot_vbar_col_facet.Rd</code></div>
+    <h1>point ggplot.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_point_fun.R'><code>R/ggplot_point_fun.R</code></a></small>
+    <div class="hidden name"><code>ggplot_point.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Vertical bar ggplot that is coloured and facetted.</p>
+    <p>point ggplot that is not coloured and not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_vbar_col_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>,
-  <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+    <pre class="usage"><span class='fu'>ggplot_point</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
-  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>)</pre>
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A tibble or dataframe. Required input.</p></td>
+      <td><p>An ungrouped summarised tibble or dataframe. Required input.</p></td>
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted numeric, date or categorical variable to be on the x axis. Required input.</p></td>
+      <td><p>Unquoted numeric variable to be on the x axis. Required input.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
       <td><p>Unquoted numeric variable to be on the y axis. Required input.</p></td>
     </tr>
     <tr>
-      <th>col_var</th>
-      <td><p>Unquoted categorical variable to colour the bars. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>facet_var</th>
-      <td><p>Unquoted categorical variable to facet the data by. Required input.</p></td>
-    </tr>
-    <tr>
       <th>tip_var</th>
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.</p></td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td><p>Size of points. Defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>pal</th>
+      <td><p>Character vector of hex codes. Defaults to NULL, which selects a default palette.</p></td>
+    </tr>
+    <tr>
+      <th>x_zero</th>
+      <td><p>TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>x_zero_line</th>
+      <td><p>TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>x_trans</th>
+      <td><p>A string specifying a transformation for the x scale. Defaults to "identity".</p></td>
     </tr>
     <tr>
       <th>x_labels</th>
@@ -189,7 +200,7 @@
     </tr>
     <tr>
       <th>x_pretty_n</th>
-      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>x_expand</th>
@@ -197,7 +208,7 @@
     </tr>
     <tr>
       <th>y_zero</th>
-      <td><p>TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+      <td><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>y_zero_line</th>
@@ -205,7 +216,7 @@
     </tr>
     <tr>
       <th>y_trans</th>
-      <td><p>A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+      <td><p>A string specifying a transformation for the y scale. Defaults to "identity".</p></td>
     </tr>
     <tr>
       <th>y_labels</th>
@@ -220,56 +231,24 @@
       <td><p>A vector of range expansion constants used to add some padding on the y scale.</p></td>
     </tr>
     <tr>
-      <th>position</th>
-      <td><p>Whether bars are positioned by "stack" or "dodge". Defaults to "stack".</p></td>
-    </tr>
-    <tr>
-      <th>facet_scales</th>
-      <td><p>Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".</p></td>
-    </tr>
-    <tr>
-      <th>facet_nrow</th>
-      <td><p>The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.</p></td>
-    </tr>
-    <tr>
-      <th>pal</th>
-      <td><p>Character vector of hex codes. Defaults to NULL, which selects a default palette.</p></td>
-    </tr>
-    <tr>
-      <th>legend_ncol</th>
-      <td><p>The number of columns in the legend.</p></td>
-    </tr>
-    <tr>
-      <th>width</th>
-      <td><p>Width of bars. Defaults to 0.75.</p></td>
-    </tr>
-    <tr>
       <th>title</th>
-      <td><p>Title string. Defaults to [Title].</p></td>
+      <td><p>Title string. Defaults to "[Title]".</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
-      <td><p>Subtitle string. Defaults to [Subtitle].</p></td>
+      <td><p>Subtitle string. Defaults to "[Subtitle]".</p></td>
     </tr>
     <tr>
       <th>x_title</th>
-      <td><p>X axis title string. Defaults to [X title].</p></td>
+      <td><p>X axis title string. Defaults to "[X title]".</p></td>
     </tr>
     <tr>
       <th>y_title</th>
-      <td><p>Y axis title string. Defaults to [Y title].</p></td>
-    </tr>
-    <tr>
-      <th>col_title</th>
-      <td><p>Colour title string for the legend. Defaults to NULL.</p></td>
+      <td><p>Y axis title string. Defaults to "[Y title]".</p></td>
     </tr>
     <tr>
       <th>caption</th>
       <td><p>Caption title string. Defaults to NULL.</p></td>
-    </tr>
-    <tr>
-      <th>legend_labels</th>
-      <td><p>A vector of manual legend label values. Defaults to NULL, which results in automatic labels.</p></td>
     </tr>
     <tr>
       <th>font_family</th>
@@ -285,27 +264,27 @@
     </tr>
     <tr>
       <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70.</p></td>
+      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80.</p></td>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>x_title_wrap</th>
-      <td><p>Number of characters to wrap the x title to. Defaults to 50.</p></td>
+      <td><p>Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>y_title_wrap</th>
-      <td><p>Number of characters to wrap the y title to. Defaults to 50.</p></td>
-    </tr>
-    <tr>
-      <th>wrap_col_title</th>
-      <td><p>Number of characters to wrap the colour title to. Defaults to 25.</p></td>
+      <td><p>Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>caption_wrap</th>
-      <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
+      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>isMobile</th>
+      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.</p></td>
     </tr>
     </table>
 
@@ -316,15 +295,12 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>storms</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>status</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>status</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>status</span>, <span class='no'>name</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>year</span> <span class='kw'>%in%</span> <span class='fl'>1975</span>:<span class='fl'>1980</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(!(<span class='no'>status</span> <span class='kw'>==</span> <span class='st'>"Tropical storm"</span> <span class='kw'>&amp;</span> <span class='no'>year</span> <span class='kw'>==</span> <span class='fl'>1980</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>name</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Karl"</span>, <span class='st'>"Juliet"</span>, <span class='st'>"Jeanne"</span>, <span class='st'>"Ivan"</span>, <span class='st'>"Hermine"</span>,
-  <span class='st'>"Henri"</span>, <span class='st'>"Gloria"</span>, <span class='st'>"Georges"</span>, <span class='st'>"Frederic"</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'year', 'status'. You can override using the `.groups` argument.</span></div><div class='input'>
-  <span class='fu'>ggplot_vbar_col_facet</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>name</span>, <span class='no'>status</span>)</div><div class='img'><img src='ggplot_vbar_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
+
+<span class='fu'>ggplot_point</span>(<span class='no'>plot_data</span>, <span class='no'>carat</span>, <span class='no'>price</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Diamond price by carat"</span>,
+   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Carat"</span>,
+   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Price ($US thousands)"</span>)</div><div class='img'><img src='ggplot_point-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

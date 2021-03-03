@@ -8,9 +8,9 @@
 #'
 #' ggplot_sf(nz)
 #'
-#' ggplot_sf(dplyr::slice(nz, 2))
+#' ggplot_sf(dplyr::slice(nz, 2, 4))
 #'
-#' ggplot_sf(dplyr::slice(nz, 1, 3))
+#' ggplot_sf(dplyr::slice(nz, 1, 3, 5:7))
 #' @source \url{https://data.linz.govt.nz/layer/51153-nz-coastlines-and-islands-polygons-topo-150k/}
 "nz"
 

@@ -1,6 +1,6 @@
-# ggplot scatter functions
+# ggplot point functions
 
-#' @title Theme for scatter ggplots.
+#' @title Theme for point ggplots.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -10,9 +10,9 @@
 #' library(ggplot2)
 #' 
 #' ggplot() +
-#'   theme_scatter("Courier", 9, 7) +
+#'   theme_point("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
-theme_scatter <-
+theme_point <-
   function(font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10) {
@@ -110,8 +110,8 @@ theme_scatter <-
     )
   }
 
-#' @title Scatter ggplot.
-#' @description Scatter ggplot that is not coloured and not facetted.
+#' @title point ggplot.
+#' @description point ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -151,12 +151,12 @@ theme_scatter <-
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
-#' ggplot_scatter(plot_data, carat, price, 
+#' ggplot_point(plot_data, carat, price, 
 #'    title = "Diamond price by carat",
 #'    x_title = "Carat",
 #'    y_title = "Price ($US thousands)")
 #'
-ggplot_scatter <- function(data,
+ggplot_point <- function(data,
                            x_var,
                            y_var,
                            tip_var = NULL,
@@ -197,8 +197,8 @@ ggplot_scatter <- function(data,
   x_var_vector <- dplyr::pull(data, !!x_var)
   y_var_vector <- dplyr::pull(data, !!y_var)
   
-  if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a scatterplot")
-  if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a scatterplot")
+  if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
+  if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
   
   min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
   max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
@@ -224,7 +224,7 @@ ggplot_scatter <- function(data,
   if (is.null(pal)) pal <- pal_snz
   
   plot <- ggplot(data) +
-    theme_scatter(
+    theme_point(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -322,8 +322,8 @@ ggplot_scatter <- function(data,
   return(plot)
 }
 
-#' @title Scatter ggplot that is coloured.
-#' @description Scatter ggplot that is coloured, but not facetted.
+#' @title point ggplot that is coloured.
+#' @description point ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -372,9 +372,9 @@ ggplot_scatter <- function(data,
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
-#' ggplot_scatter_col(plot_data, carat, price, color)
+#' ggplot_point_col(plot_data, carat, price, color)
 #'
-ggplot_scatter_col <-
+ggplot_point_col <-
   function(data,
            x_var,
            y_var,
@@ -427,8 +427,8 @@ ggplot_scatter_col <-
     y_var_vector <- dplyr::pull(data, !!y_var)
     col_var_vector <- dplyr::pull(data, !!col_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a scatterplot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a scatterplot")
+    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
+    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
@@ -479,7 +479,7 @@ ggplot_scatter_col <-
     }
     
     plot <- ggplot(data) +
-      theme_scatter(
+      theme_point(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
@@ -591,8 +591,8 @@ ggplot_scatter_col <-
     return(plot)
   }
 
-#' @title Scatter ggplot that is facetted.
-#' @description Scatter ggplot that is facetted, but not coloured.
+#' @title point ggplot that is facetted.
+#' @description point ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -634,9 +634,9 @@ ggplot_scatter_col <-
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
 #'
-#' ggplot_scatter_facet(plot_data, carat, price, color)
+#' ggplot_point_facet(plot_data, carat, price, color)
 #'
-ggplot_scatter_facet <-
+ggplot_point_facet <-
   function(data,
            x_var,
            y_var,
@@ -682,9 +682,9 @@ ggplot_scatter_facet <-
     y_var_vector <- dplyr::pull(data, !!y_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a scatterplot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a scatterplot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a scatterplot")
+    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
+    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
+    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a point plot")
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
@@ -704,7 +704,7 @@ ggplot_scatter_facet <-
     if (is.null(pal)) pal <- pal_snz
     
     plot <- ggplot(data) +
-      theme_scatter(
+      theme_point(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
@@ -805,8 +805,8 @@ ggplot_scatter_facet <-
     return(plot)
   }
 
-#' @title Scatter ggplot that is coloured and facetted.
-#' @description Scatter ggplot that is coloured and facetted.
+#' @title point ggplot that is coloured and facetted.
+#' @description point ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -860,9 +860,9 @@ ggplot_scatter_facet <-
 #'   sample_frac(0.05) %>%
 #'   mutate(cut = stringr::str_to_sentence(cut))
 #'
-#' ggplot_scatter_col_facet(plot_data, carat, price, color, cut)
+#' ggplot_point_col_facet(plot_data, carat, price, color, cut)
 #'
-ggplot_scatter_col_facet <-
+ggplot_point_col_facet <-
   function(data,
            x_var,
            y_var,
@@ -920,9 +920,9 @@ ggplot_scatter_col_facet <-
     col_var_vector <- dplyr::pull(data, !!col_var)
     facet_var_vector <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a scatterplot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a scatterplot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a scatter plot")
+    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
+    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
+    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a point plot")
     
     min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
     max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
@@ -979,7 +979,7 @@ ggplot_scatter_col_facet <-
     }
     
     plot <- ggplot(data) +
-      theme_scatter(
+      theme_point(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title

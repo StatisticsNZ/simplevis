@@ -25,7 +25,7 @@ a4_height_mm <- 257
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) %>% 
 #'   add_tip(vars_vctr = c("carat", "price"), comma = TRUE)
 #' 
-#' plot <- ggplot_scatter(data = plot_data, x_var = carat, y_var = price,
+#' plot <- ggplot_point(data = plot_data, x_var = carat, y_var = price,
 #'                        tip_var = tip_text,
 #'                        title = "Diamond price by carat",
 #'                        x_title = "Carat",
@@ -116,6 +116,20 @@ numeric_legend_labels <- function(bin_cuts, legend_digits = 1) {
         paste0("\u2265", bin_cuts[length(bin_cuts) - 1]))
   }
 }
+
+#' @title Colour palette for a graph with a nominal categorical variable.
+#' @description  Colour palette for a graph with a nominal categorical variable.
+#' @return A vector of hex codes.
+#' @keywords internal
+#' scales::show_col(pal_snz)
+pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
+
+#' @title Colour palette for categorical variables for points on a map etc.
+#' @description Colour palette for categorical variables.
+#' @return A vector of hex codes.
+#' @keywords internal
+#' scales::show_col(pal_point_set1)
+pal_point_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
 
 #' @title Convert column names to sentence case.
 #' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.

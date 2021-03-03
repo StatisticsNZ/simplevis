@@ -1,6 +1,10 @@
+# Simplevis 2.2.8
+
+* Renamed ggplot_scatter to ggplot_point, and likewise for theme_scatter.  
+
 # simplevis 2.2.7
 
-* Changed coastline argument to boundary.
+* Renamed coastline argument to boundary.
 
 # simplevis 2.2.6
 
@@ -12,7 +16,7 @@
 
 # simplevis 2.2.4
 
-* Updated x_na_bar and y_na_bar arguments to na_bar.
+* Renamed x_na_bar and y_na_bar arguments to na_bar.
 
 # simplevis 2.2.3
 

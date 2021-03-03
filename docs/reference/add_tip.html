@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.8</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>add_tip</span>(<span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>), <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_scatter.html'>ggplot_scatter</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>,
+<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_point.html'>ggplot_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>,
                        <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='no'>tip_text</span>,
                        <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Diamond price by carat"</span>,
                        <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Carat"</span>,

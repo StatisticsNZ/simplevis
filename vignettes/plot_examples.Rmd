@@ -23,17 +23,17 @@ iris
 
 ```
 
-Create a scatter plot of iris sepal width and length.
+Create a point plot of iris sepal width and length.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+ggplot_point(iris, Sepal.Width, Sepal.Length)
 
 ```
 
 Or pipe it in, if you prefer.
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 iris %>% 
-  ggplot_scatter(Sepal.Width, Sepal.Length)
+  ggplot_point(Sepal.Width, Sepal.Length)
 
 ```
 
@@ -42,7 +42,7 @@ Add titles and adjust the font family and sizes.
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
 
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                title = "Iris sepal length by width, 2020",
                x_title = "Sepal width (cm)",
                y_title = "Sepal length (cm)",
@@ -57,7 +57,7 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 Change the wrapping defaults of titles.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                title = "Iris sepal length by width, 2020", 
                x_title = "Sepal width (cm)",
                y_title = "Sepal length (cm)",
@@ -67,21 +67,21 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 Colour the points by the species variable.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter_col(iris, Sepal.Width, Sepal.Length, Species)
+ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species)
 
 ```
 
 Facet the points by the species variable.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter_facet(iris, Sepal.Width, Sepal.Length, Species)
+ggplot_point_facet(iris, Sepal.Width, Sepal.Length, Species)
 
 ```
 
 Turn off the 'zero'-ing of the x and y axis.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                x_zero = FALSE, y_zero = FALSE)
 
 ```
@@ -91,7 +91,7 @@ Use a specified colour palette, and increase the size of the dots.
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
 
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                size = 2, pal = pal)
 
 ```
@@ -99,7 +99,7 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 Use a specified colour.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                pal = "#00b2c3")
 
 ```
@@ -107,7 +107,7 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 Add some more pretty breaks to the y scale.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length, 
+ggplot_point(iris, Sepal.Width, Sepal.Length, 
                y_pretty_n = 10,
                x_pretty_n = 10)
 
@@ -116,7 +116,7 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 Transform the x scale to sqrt and the y scale to log10.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                x_trans = "sqrt", 
                y_trans = "log10")
 
@@ -129,7 +129,7 @@ Method 1: Change the data to create a new variable.
 plot_data <- iris %>% 
   mutate(Sepal.Length_m = Sepal.Length / 100)
 
-ggplot_scatter(plot_data, Sepal.Width, Sepal.Length_m,
+ggplot_point(plot_data, Sepal.Width, Sepal.Length_m,
                y_title = "Sepal length (m)",
                x_title = "Sepal width (cm)")
 ```
@@ -137,7 +137,7 @@ ggplot_scatter(plot_data, Sepal.Width, Sepal.Length_m,
 Method 2: Adjust the y_labels, and keep the data unchanged.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length,
+ggplot_point(iris, Sepal.Width, Sepal.Length,
                y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
                y_title = "Sepal length (m)",
                x_title = "Sepal width (cm)")
@@ -146,7 +146,7 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 Add another ggplot2 layer. It will use your data as default. All other aesthetic variables need to be added.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_scatter(iris, Sepal.Width, Sepal.Length) +
+ggplot_point(iris, Sepal.Width, Sepal.Length) +
   ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length))
 ```
 
@@ -418,7 +418,7 @@ ggplot_hbar(plot_data, average_price, cut,
 Make a ggplotly interactive plot with default tooltip.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+plot <- ggplot_point(iris, Sepal.Width, Sepal.Length)
 
 plotly::ggplotly(plot)
 
@@ -427,7 +427,7 @@ plotly::ggplotly(plot)
 Turn off all plotly buttons other than the camera.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length)
+plot <- ggplot_point(iris, Sepal.Width, Sepal.Length)
 
 plotly::ggplotly(plot) %>% 
   plotly_camera()
@@ -437,7 +437,7 @@ plotly::ggplotly(plot) %>%
 Make a ggplotly interactive plot with a different variable.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot <- ggplot_scatter(iris, Sepal.Width, Sepal.Length, tip_var = Petal.Width)
+plot <- ggplot_point(iris, Sepal.Width, Sepal.Length, tip_var = Petal.Width)
 
 plotly::ggplotly(plot, tooltip = "text")
 
@@ -451,7 +451,7 @@ plot_data <- iris %>%
 
 plot_data
 
-plot <- ggplot_scatter(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
+plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
 
 plotly::ggplotly(plot, tooltip = "text") 
 

@@ -78,7 +78,7 @@ ggplot_vbar(data, pet, count,
 * horizontal bar (e.g. `ggplot_hbar`)
 * vertical bar (e.g. `ggplot_vbar`)
 * line plot (e.g. `ggplot_line`)
-* scatter plot (e.g. `ggplot_scatter`)
+* point plot (e.g. `ggplot_point`)
 * boxplot (e.g. `ggplot_box`)
 
 For each graph type 4 functions are available.
@@ -172,7 +172,7 @@ tibble::tribble(
   "vbar", "numeric, date or categorical", "numeric", "categorical or numeric", "categorical", "identity",
   "hbar", "numeric", "categorical", "categorical or numeric", "categorical", "identity",
   "line", "numeric or date", "numeric", "categorical or numeric", "categorical", "identity",
-  "scatter", "numeric", "numeric", "categorical or numeric", "categorical", "identity",
+  "point", "numeric", "numeric", "categorical or numeric", "categorical", "identity",
     "box", "categorical", "numeric", "categorical or numeric", "categorical", "boxplot or identity"
   ) %>% 
   DT::datatable()

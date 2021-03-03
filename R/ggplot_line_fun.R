@@ -129,7 +129,7 @@ theme_line <-
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -346,7 +346,7 @@ ggplot_line <- function(data,
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param title Title string. Defaults to "[Title]".
@@ -596,7 +596,7 @@ ggplot_line_col <-
 #' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -806,7 +806,7 @@ ggplot_line_facet <-
 #' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param rev_pal Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param title Title string. Defaults to "[Title]".

@@ -40,12 +40,14 @@ iris %>%
 Add titles and adjust the font family and sizes.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
+
 ggplot_scatter(iris, Sepal.Width, Sepal.Length,
                title = "Iris sepal length by width, 2020",
                x_title = "Sepal width (cm)",
                y_title = "Sepal length (cm)",
                caption = "Fisher, 1936",
-               pal = pal_ea19,
+               pal = pal,
                font_family = "Lato",
                font_size_title = 9,
                font_size_body = 7)
@@ -84,23 +86,21 @@ ggplot_scatter(iris, Sepal.Width, Sepal.Length,
 
 ```
 
-Use the pal_ea19 colours and increase the size of the dots.
+Use a specified colour palette, and increase the size of the dots.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
+
 ggplot_scatter(iris, Sepal.Width, Sepal.Length,
-               size = 2, pal = pal_ea19)
+               size = 2, pal = pal)
 
 ```
 
-Use a bright colour from the pal_ea19 palette.
+Use a specified colour.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-pal_ea19
-
-scales::show_col(pal_ea19)
-
 ggplot_scatter(iris, Sepal.Width, Sepal.Length,
-               pal = pal_ea19[2])
+               pal = "#00b2c3")
 
 ```
 
@@ -207,11 +207,11 @@ Reverse the colouring of the col var bar pieces.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
-                pal = pal_snz, pal_rev = TRUE)
+                pal_rev = TRUE)
 
 ```
 
-change the ordering of the coloured bar pieces.
+Change the ordering of the coloured bar pieces.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
@@ -365,7 +365,6 @@ Make a boxplot.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_box(iris, Species, Petal.Length)
-
 
 ```
 

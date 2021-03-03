@@ -9,7 +9,7 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
   map_id = "map")
 }
 \arguments{
-\item{data}{A stars object with dimensions x and y with crs in wgs84 (epsg4326). Required input.}
+\item{data}{A stars object with dimensions x and y with crs. Required input.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
 

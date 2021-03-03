@@ -3,7 +3,7 @@
 #' @title Map of simple features in leaflet.
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param popup HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object. 
 #' @param radius Radius of points. Defaults to 2.
 #' @param weight Stroke border size. Defaults to 2.

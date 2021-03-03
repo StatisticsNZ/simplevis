@@ -17,7 +17,7 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
 \item{coastline}{Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.}
 

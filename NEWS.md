@@ -1,4 +1,8 @@
-#simplevis 2.2.5 
+# simplevis 2.2.6
+
+* Moved pals to er.helpers package.
+
+# simplevis 2.2.5 
 
 * Changed wrap text arguments to prefix with what is being wrapped.
 

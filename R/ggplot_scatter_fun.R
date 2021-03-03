@@ -117,7 +117,7 @@ theme_scatter <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -599,7 +599,7 @@ ggplot_scatter_col <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param size Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".

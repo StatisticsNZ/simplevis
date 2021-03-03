@@ -15,3 +15,4 @@ A numeric value.
 \description{
 A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.
 }
+\keyword{internal}

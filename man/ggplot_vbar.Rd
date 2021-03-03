@@ -44,7 +44,7 @@ ggplot_vbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
 \item{width}{Width of bars. Defaults to 0.75.}
 

@@ -27,7 +27,7 @@ ggplot_scatter(data, x_var, y_var, tip_var = NULL, size = 1,
 
 \item{size}{Size of points. Defaults to 1.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 

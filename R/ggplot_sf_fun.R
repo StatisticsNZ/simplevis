@@ -95,7 +95,7 @@ theme_sf <-
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -452,7 +452,7 @@ ggplot_sf_col <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param coastline Add a sf object as a coastline (or administrative boundaries). Defaults to NULL. Use nz (or nz_region) to add a new zealand coastline. Or add a custom sf object.
 #' @param coastline_behind TRUE or FALSE  as to whether the coastline is to be behind the sf object defined in the data argument. Defaults to FALSE.

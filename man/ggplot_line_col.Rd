@@ -54,7 +54,7 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{size}{Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
 \item{rev_pal}{Reverses the palette. Defaults to FALSE.}
 

@@ -121,7 +121,7 @@ numeric_legend_labels <- function(bin_cuts, legend_digits = 1) {
 #' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.
 #' @param data The number of digits to round the legend labels.
 #' @return A numeric value.
-#' @export
+#' @keywords internal
 sentence_spaced_colnames <- function(data) {
   data <- janitor::clean_names(data) 
   colnames(data) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(data)), "_", " ")

@@ -10,7 +10,7 @@ leaflet_stars_col(data, col_method = "quantile", col_cuts = NULL,
   map_id = "map")
 }
 \arguments{
-\item{data}{A stars object with dimensions x and y, and 1 attribute layer with crs in wgs84 (epsg4326). Required input.}
+\item{data}{A stars object with dimensions x and y, and 1 attribute layer with crs. Required input.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 

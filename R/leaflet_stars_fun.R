@@ -2,7 +2,7 @@
 
 #' @title Map of an array in leaflet.
 #' @description Map of an array in leaflet. 
-#' @param data A stars object with dimensions x and y with crs in wgs84 (epsg4326). Required input.
+#' @param data A stars object with dimensions x and y with crs. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
@@ -93,7 +93,7 @@ leaflet_stars <- function(data,
 
 #' @title Map of an array in leaflet that is coloured.
 #' @description Map of an array in leaflet that is coloured. 
-#' @param data A stars object with dimensions x and y, and 1 attribute layer with crs in wgs84 (epsg4326). Required input.
+#' @param data A stars object with dimensions x and y, and 1 attribute layer with crs. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.

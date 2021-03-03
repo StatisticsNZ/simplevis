@@ -20,7 +20,7 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 

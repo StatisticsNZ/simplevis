@@ -43,7 +43,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 

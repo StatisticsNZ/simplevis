@@ -210,7 +210,7 @@ ggplot_hbar <- function(data,
   if(x_above_and_below_zero == TRUE) x_zero <- FALSE
     
   if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
       else(x_zero_line <- FALSE)
   }
 
@@ -251,7 +251,6 @@ ggplot_hbar <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    
     if (x_balance == TRUE) {
       x_var_vctr <- abs(x_var_vctr)
       x_var_vctr <- c(-x_var_vctr, x_var_vctr)
@@ -482,7 +481,7 @@ ggplot_hbar_col <-
     if(x_above_and_below_zero == TRUE) x_zero <- FALSE
     
     if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
       else(x_zero_line <- FALSE)
     }
 
@@ -577,7 +576,6 @@ ggplot_hbar_col <-
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      
       if (x_balance == TRUE) {
         x_var_vctr <- abs(x_var_vctr)
         x_var_vctr <- c(-x_var_vctr, x_var_vctr)
@@ -708,7 +706,7 @@ ggplot_hbar_col <-
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -802,7 +800,7 @@ ggplot_hbar_facet <-
     if(x_above_and_below_zero == TRUE) x_zero <- FALSE
     
     if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
       else(x_zero_line <- FALSE)
     }
 
@@ -835,7 +833,6 @@ ggplot_hbar_facet <-
     if(is.null(y_expand)) y_expand <- waiver()
 
     if (facet_scales %in% c("fixed", "free_y")) {
-
       if (x_balance == TRUE) {
         x_var_vctr <- abs(x_var_vctr)
         x_var_vctr <- c(-x_var_vctr, x_var_vctr)
@@ -903,7 +900,7 @@ ggplot_hbar_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-      if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1 
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1 
     if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
       
     plot <- plot +
@@ -933,7 +930,7 @@ ggplot_hbar_facet <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -1046,7 +1043,7 @@ ggplot_hbar_col_facet <-
     if(x_above_and_below_zero == TRUE) x_zero <- FALSE
     
     if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
       else(x_zero_line <- FALSE)
     }
 
@@ -1101,7 +1098,6 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-
       if (x_balance == TRUE) {
         x_var_vctr <- abs(x_var_vctr)
         x_var_vctr <- c(-x_var_vctr, x_var_vctr)

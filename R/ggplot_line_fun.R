@@ -125,6 +125,7 @@ theme_line <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -171,6 +172,7 @@ ggplot_line <- function(data,
                         y_labels = waiver(),
                         y_pretty_n = 5,
                         y_expand = NULL,
+                        y_balance = FALSE,
                         points = TRUE,
                         point_size = 1,
                         lines = TRUE,
@@ -210,7 +212,7 @@ ggplot_line <- function(data,
   if(y_above_and_below_zero == TRUE) y_zero <- FALSE
   
   if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+    if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
     else(y_zero_line <- FALSE)
   }
   
@@ -274,6 +276,10 @@ ggplot_line <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 0))
   }
   else ({
+    if (y_balance == TRUE) {
+      y_var_vctr <- abs(y_var_vctr)
+      y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+    }
     if (y_zero == TRUE) {
       if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
       if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
@@ -348,6 +354,7 @@ ggplot_line <- function(data,
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -399,6 +406,7 @@ ggplot_line_col <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            points = TRUE,
            point_size = 1,
            lines = TRUE,
@@ -449,7 +457,7 @@ ggplot_line_col <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
     
@@ -517,6 +525,10 @@ ggplot_line_col <-
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
@@ -602,6 +614,7 @@ ggplot_line_col <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -649,6 +662,7 @@ ggplot_line_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -692,7 +706,7 @@ ggplot_line_facet <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
     
@@ -746,6 +760,10 @@ ggplot_line_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
@@ -818,6 +836,7 @@ ggplot_line_facet <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -871,6 +890,7 @@ ggplot_line_col_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            points = TRUE,
@@ -925,7 +945,7 @@ ggplot_line_col_facet <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
     
@@ -992,6 +1012,10 @@ ggplot_line_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)

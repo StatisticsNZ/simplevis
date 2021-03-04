@@ -126,6 +126,7 @@ theme_box <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
 #' @param width Width of the box. Defaults to 0.5.
 #' @param title Title string. Defaults to "[Title]".
@@ -178,6 +179,7 @@ ggplot_box <- function(data,
                        y_labels = waiver(),
                        y_pretty_n = 5,
                        y_expand = NULL,
+                       y_balance = FALSE,
                        pal = NULL,
                        width = 0.5,
                        title = "[Title]",
@@ -214,7 +216,7 @@ ggplot_box <- function(data,
   if(y_above_and_below_zero == TRUE) y_zero <- FALSE
   
   if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+    if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
     else(y_zero_line <- FALSE)
   }
   
@@ -329,6 +331,10 @@ ggplot_box <- function(data,
       scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
+    if (y_balance == TRUE) {
+      y_var_vctr <- abs(y_var_vctr)
+      y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+    }
     if (y_zero == TRUE) {
       if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
       if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
@@ -413,6 +419,7 @@ ggplot_box <- function(data,
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
@@ -457,6 +464,7 @@ ggplot_box_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -497,7 +505,7 @@ ggplot_box_facet <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
     
@@ -594,6 +602,10 @@ ggplot_box_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)

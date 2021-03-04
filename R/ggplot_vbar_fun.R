@@ -125,6 +125,7 @@ theme_vbar <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
@@ -169,6 +170,7 @@ ggplot_vbar <- function(data,
                         y_labels = waiver(),
                         y_pretty_n = 5,
                         y_expand = NULL,
+                        y_balance = FALSE,
                         na_bar = FALSE,
                         pal = NULL,
                         width = 0.75, 
@@ -205,7 +207,7 @@ ggplot_vbar <- function(data,
   if(y_above_and_below_zero == TRUE) y_zero <- FALSE
   
   if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+    if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
     else(y_zero_line <- FALSE)
   }
   
@@ -274,6 +276,10 @@ ggplot_vbar <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
+    if (y_balance == TRUE) {
+      y_var_vctr <- abs(y_var_vctr)
+      y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+    }
     if (y_zero == TRUE) {
       y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
       if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
@@ -367,6 +373,7 @@ ggplot_vbar <- function(data,
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param legend_ncol The number of columns in the legend.
@@ -415,6 +422,7 @@ ggplot_vbar_col <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            position = "stack",
            pal = NULL,
            legend_ncol = 3,
@@ -470,7 +478,7 @@ ggplot_vbar_col <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
 
@@ -545,6 +553,10 @@ ggplot_vbar_col <-
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
@@ -638,6 +650,7 @@ ggplot_vbar_col <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
@@ -683,6 +696,7 @@ ggplot_vbar_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            na_bar = FALSE, 
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -723,7 +737,7 @@ ggplot_vbar_facet <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
     
@@ -781,6 +795,10 @@ ggplot_vbar_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
@@ -874,6 +892,7 @@ ggplot_vbar_facet <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
@@ -928,6 +947,7 @@ ggplot_vbar_col_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
+           y_balance = FALSE,
            position = "stack",
            facet_scales = "fixed",
            facet_nrow = NULL,
@@ -980,7 +1000,7 @@ ggplot_vbar_col_facet <-
     if(y_above_and_below_zero == TRUE) y_zero <- FALSE
     
     if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
       else(y_zero_line <- FALSE)
     }
 
@@ -1050,6 +1070,10 @@ ggplot_vbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
+      if (y_balance == TRUE) {
+        y_var_vctr <- abs(y_var_vctr)
+        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
+      }
       if (y_zero == TRUE) {
         y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])

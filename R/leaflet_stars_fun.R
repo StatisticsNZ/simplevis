@@ -129,13 +129,13 @@ leaflet_stars_col <- function(data,
   
   # data <- data %>% dplyr::select(1)
   
-  col_var_vector <- data %>% dplyr::pull()
+  col_var_vctr <- data %>% dplyr::pull()
   
   if (col_method == "category") {
     no_bins <-
-      max(col_var_vector, na.rm = TRUE) - min(col_var_vector, na.rm = TRUE) + 1
-    max_bin_cut <- max(col_var_vector, na.rm = TRUE) + 1
-    col_cuts <- seq(min(col_var_vector, na.rm = TRUE), max_bin_cut, 1)
+      max(col_var_vctr, na.rm = TRUE) - min(col_var_vctr, na.rm = TRUE) + 1
+    max_bin_cut <- max(col_var_vctr, na.rm = TRUE) + 1
+    col_cuts <- seq(min(col_var_vctr, na.rm = TRUE), max_bin_cut, 1)
     if (is.null(pal))
       pal <- pal_point_set1[1:(length(col_cuts) - 1)]
     else if (!is.null(pal))
@@ -145,7 +145,7 @@ leaflet_stars_col <- function(data,
     pal_fun <-
       colorBin(
         palette = pal,
-        domain = col_var_vector,
+        domain = col_var_vctr,
         bins = col_cuts,
         right = FALSE,
         na.color = "transparent"
@@ -157,7 +157,7 @@ leaflet_stars_col <- function(data,
       labels <- legend_labels
   }
   else if (col_method == "bin") {
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
     else if (!is.null(col_cuts)) {
       if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
@@ -171,7 +171,7 @@ leaflet_stars_col <- function(data,
     pal_fun <-
       colorBin(
         palette = pal,
-        domain = col_var_vector,
+        domain = col_var_vctr,
         pretty = FALSE,
         bins = col_cuts,
         right = FALSE,
@@ -193,12 +193,12 @@ leaflet_stars_col <- function(data,
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
-    col_cuts <- stats::quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+    col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     
     pal_fun <-
       colorBin(
         palette = pal,
-        domain = col_var_vector,
+        domain = col_var_vctr,
         bins = col_cuts,
         right = FALSE,
         na.color = "transparent"

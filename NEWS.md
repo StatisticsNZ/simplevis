@@ -1,4 +1,8 @@
-# Simplevis 2.2.8
+# simplevis 2.2.9
+
+* Peplace all superceded scoped functions with across.
+
+# simplevis 2.2.8
 
 * Renamed ggplot_scatter to ggplot_point, and likewise for theme_scatter.  
 

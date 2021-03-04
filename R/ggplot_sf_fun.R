@@ -280,7 +280,7 @@ ggplot_sf_col <- function(data,
   
   col_var <- rlang::enquo(col_var)
   
-  col_var_vector <- dplyr::pull(data, !!col_var)
+  col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -316,8 +316,8 @@ ggplot_sf_col <- function(data,
     }
   }
   
-  if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
-  if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
+  if (is.null(col_method) & !is.numeric(col_var_vctr)) col_method <- "category"
+  if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
   
   if (col_method == "category") {
     if (is.null(pal)) pal <- pal_point_set1
@@ -329,15 +329,10 @@ ggplot_sf_col <- function(data,
       if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
     
-    data <- dplyr::mutate(data,
-                    !!col_var := cut(
-                      col_var_vector,
-                      col_cuts,
-                      right = FALSE,
-                      include.lowest = TRUE
-                    ))
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -349,16 +344,11 @@ ggplot_sf_col <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+    col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
-    data <- dplyr::mutate(data,
-                    !!col_var := cut(
-                      col_var_vector,
-                      col_cuts,
-                      right = FALSE,
-                      include.lowest = TRUE
-                    ))
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -497,11 +487,11 @@ ggplot_sf_facet <- function(data,
   
   facet_var <- rlang::enquo(facet_var) #categorical var
   
-  facet_var_vector <- dplyr::pull(data, !!facet_var)
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
-  if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
   if(is.null(font_size_title)) font_size_title <- 11
   if(is.null(font_size_body)) font_size_body <- 10
@@ -563,8 +553,8 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
   plot <- plot +
     labs(
@@ -652,12 +642,12 @@ ggplot_sf_col_facet <- function(data,
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   
-  col_var_vector <- dplyr::pull(data, !!col_var)
-  facet_var_vector <- dplyr::pull(data, !!facet_var)
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
-  if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
   if(is.null(font_size_title)) font_size_title <- 11
   if(is.null(font_size_body)) font_size_body <- 10
@@ -684,8 +674,8 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (is.null(col_method) & !is.numeric(col_var_vector)) col_method <- "category"
-  if (is.null(col_method) & is.numeric(col_var_vector)) col_method <- "quantile"
+  if (is.null(col_method) & !is.numeric(col_var_vctr)) col_method <- "category"
+  if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
   
   if (col_method == "category") {
     if (is.null(pal)) pal <- pal_point_set1
@@ -697,15 +687,10 @@ ggplot_sf_col_facet <- function(data,
       if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
     
-    data <- dplyr::mutate(data,
-                          !!col_var := cut(
-                            col_var_vector,
-                            col_cuts,
-                            right = FALSE,
-                            include.lowest = TRUE
-                          ))
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -719,37 +704,21 @@ ggplot_sf_col_facet <- function(data,
     }  
     if (col_quantile_by_facet == TRUE) {
       data <- data %>%
-        dplyr::group_by(!!facet_var) %>%
-        dplyr::mutate(!!col_var := percent_rank(!!col_var)) %>%
-        dplyr::mutate(!!col_var := cut(
-          !!col_var,
-          col_cuts,
-          right = FALSE,
-          include.lowest = TRUE
-        ))
+        dplyr::group_by(dplyr::across(!!facet_var)) %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal))
-        pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(legend_labels))
-        labels <-
-          paste0(numeric_legend_labels(col_cuts * 100, 0),
-                 "\u1D57\u02B0 percentile")
-      if (!is.null(legend_labels))
-        labels <- legend_labels
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       
+      if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_quantile_by_facet == FALSE) {
-      col_cuts <-
-        quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+      col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      data <-
-        dplyr::mutate(data,
-                      !!col_var := cut(
-                        col_var_vector,
-                        col_cuts,
-                        right = FALSE,
-                        include.lowest = TRUE
-                      ))
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, 2)
@@ -811,8 +780,8 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-  if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
   
   plot <- plot +
     labs(

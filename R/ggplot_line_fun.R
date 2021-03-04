@@ -196,15 +196,15 @@ ggplot_line <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   tip_var <- rlang::enquo(tip_var)
   
-  x_var_vector <- dplyr::pull(data, !!x_var)
-  y_var_vector <- dplyr::pull(data, !!y_var)
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  y_var_vctr <- dplyr::pull(data, !!y_var)
   
-  if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
-  if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
+  if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
   
-  min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-  max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+  if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
     y_zero <- FALSE
   }
   
@@ -242,10 +242,10 @@ ggplot_line <- function(data,
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
 
-  x_breaks <- pretty(x_var_vector, n = x_n)
+  x_breaks <- pretty(x_var_vctr, n = x_n)
   x_limits <- c(min(x_breaks), max(x_breaks))
   
-  if (lubridate::is.Date(x_var_vector)) {
+  if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
       scale_x_date(
         expand = x_expand,
@@ -254,7 +254,7 @@ ggplot_line <- function(data,
         labels = x_labels
       )
   }
-  else if (is.numeric(x_var_vector)) {
+  else if (is.numeric(x_var_vctr)) {
     plot <- plot +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
@@ -263,22 +263,22 @@ ggplot_line <- function(data,
                          oob = scales::rescale_none)
   }
   
-  if (all(y_var_vector == 0, na.rm = TRUE)) {
+  if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 0))
   }
   else ({
     if (y_zero == TRUE) {
-      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+      if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+      if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
       
       if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
     else if (y_zero == FALSE) {
-      if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+      if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
       if(y_trans == "log10") {
-        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
         y_breaks <- c(1, y_breaks[y_breaks > 1])
       }
       y_limits <- c(min(y_breaks), max(y_breaks))
@@ -427,17 +427,17 @@ ggplot_line_col <-
       dplyr::ungroup() %>%
       arrange(!!x_var) #fix ggplotly legend bug
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    col_var_vector <- dplyr::pull(data, !!col_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
     
-    if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
-    if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a line plot")
+    if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -480,10 +480,10 @@ ggplot_line_col <-
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
-    x_breaks <- pretty(x_var_vector, n = x_n)
+    x_breaks <- pretty(x_var_vctr, n = x_n)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
-    if (lubridate::is.Date(x_var_vector)) {
+    if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
         scale_x_date(
           expand = x_expand,
@@ -492,7 +492,7 @@ ggplot_line_col <-
           labels = x_labels
         )
     }
-    else if (is.numeric(x_var_vector)) {
+    else if (is.numeric(x_var_vctr)) {
       plot <- plot +
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
@@ -500,22 +500,22 @@ ggplot_line_col <-
                            labels = x_labels)
     }
     
-    if (all(y_var_vector == 0, na.rm = TRUE)) {
+    if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
         
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
         if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
@@ -664,17 +664,17 @@ ggplot_line_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     tip_var <- rlang::enquo(tip_var)
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a line plot")
+    if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -706,10 +706,10 @@ ggplot_line_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       
       x_n <- x_pretty_n
-      x_breaks <- pretty(x_var_vector, n = x_n)
+      x_breaks <- pretty(x_var_vctr, n = x_n)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
-      if (lubridate::is.Date(x_var_vector)) {
+      if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
           scale_x_date(
             expand = x_expand,
@@ -718,7 +718,7 @@ ggplot_line_facet <-
             labels = x_labels
           )
       }
-      else if (is.numeric(x_var_vector)) {
+      else if (is.numeric(x_var_vctr)) {
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
@@ -729,16 +729,16 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
         
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
         if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
@@ -767,8 +767,8 @@ ggplot_line_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(
@@ -889,19 +889,19 @@ ggplot_line_col_facet <-
       dplyr::ungroup() %>%
       arrange(!!x_var) #fix ggplotly legend bug
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    col_var_vector <- dplyr::pull(data, !!col_var)
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!(lubridate::is.Date(x_var_vector) | is.numeric(x_var_vector))) stop("Please use a numeric or date x variable for a line plot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a line plot")
-    if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a line plot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a line plot")
+    if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -945,10 +945,10 @@ ggplot_line_col_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       
       x_n <- x_pretty_n
-      x_breaks <- pretty(x_var_vector, n = x_n)
+      x_breaks <- pretty(x_var_vctr, n = x_n)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
-      if (lubridate::is.Date(x_var_vector)) {
+      if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
           scale_x_date(
             expand = x_expand,
@@ -957,7 +957,7 @@ ggplot_line_col_facet <-
             labels = x_labels
           )
       }
-      else if (is.numeric(x_var_vector)) {
+      else if (is.numeric(x_var_vctr)) {
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
@@ -969,16 +969,16 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
         
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
         if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
@@ -1015,8 +1015,8 @@ ggplot_line_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1 
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(

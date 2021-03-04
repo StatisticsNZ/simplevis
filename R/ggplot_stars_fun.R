@@ -287,7 +287,7 @@ ggplot_stars_col <- function(data,
   data <- data %>% 
     dplyr::select(col_var = 1)
   
-  col_var_vector <- dplyr::pull(data, .data$col_var)
+  col_var_vctr <- dplyr::pull(data, .data$col_var)
   
   if (!is.null(boundary)) {
     if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
@@ -310,7 +310,7 @@ ggplot_stars_col <- function(data,
     data <- data %>%
       tibble::as_tibble()
     
-    col_cuts <- unique(col_var_vector)
+    col_cuts <- unique(col_var_vctr)
     max_bin_cut <- max(col_cuts, na.rm = TRUE)
     min_bin_cut <- min(col_cuts, na.rm = TRUE)
     col_cuts <- seq(min_bin_cut, max_bin_cut + 1, 1)
@@ -319,9 +319,6 @@ ggplot_stars_col <- function(data,
     data <- data %>%
       dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    # data <- data %>%
-    #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
     if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
     if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (is.null(legend_labels)) labels <- LETTERS[1:length(col_cuts) - 1]
@@ -332,14 +329,11 @@ ggplot_stars_col <- function(data,
       data <- data %>%
         tibble::as_tibble()
       
-      col_cuts <- pretty(col_var_vector)
+      col_cuts <- pretty(col_var_vctr)
       
       data <- data %>%
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      # data <- data %>%
-      #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -353,10 +347,6 @@ ggplot_stars_col <- function(data,
         tibble::as_tibble() %>%
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -372,15 +362,12 @@ ggplot_stars_col <- function(data,
     data <- data %>% 
       tibble::as_tibble()
     
-    col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+    col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
     data <- data %>%
       dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    # data <- data %>%
-    #   dplyr::mutate_at(dplyr::vars(c(-.data$x, -.data$y)), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
@@ -669,9 +656,6 @@ ggplot_stars_col_facet <- function(data,
     data <- data %>%
       dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    # data <- data %>%
-    #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-    
     if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
     if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (is.null(legend_labels)) labels <- LETTERS[1:length(col_cuts) - 1]
@@ -688,9 +672,6 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      # data <- data %>%
-      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-      
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -704,11 +685,6 @@ ggplot_stars_col_facet <- function(data,
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
@@ -729,13 +705,6 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-      #   dplyr::group_by(.data$facet_var) %>%
-      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
-      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
-      
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -746,12 +715,6 @@ ggplot_stars_col_facet <- function(data,
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      # data <- data %>%
-      #   tibble::as_tibble() %>%
-      #   tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
-      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ percent_rank(.)) %>%
-      #   dplyr::mutate_at(dplyr::vars(.data$col_var), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")

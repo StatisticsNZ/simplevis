@@ -200,15 +200,15 @@ ggplot_box <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   group_var <- rlang::enquo(group_var)
   
-  x_var_vector <- dplyr::pull(data, !!x_var)
-  if (stat == "boxplot") y_var_vector <- dplyr::pull(data, !!y_var)
-  else if (stat == "identity") y_var_vector <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
+  else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
 
-  if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a boxplot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
 
-  min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-  max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+  if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
     y_zero <- FALSE
   }
   
@@ -274,11 +274,11 @@ ggplot_box <- function(data,
   if(is.null(x_expand)) x_expand <- waiver()
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
-  if (lubridate::is.Date(x_var_vector)) {
+  if (lubridate::is.Date(x_var_vctr)) {
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
-    x_breaks <- pretty(x_var_vector, n = x_n)
+    x_breaks <- pretty(x_var_vctr, n = x_n)
     
     plot <- plot +
       scale_x_date(
@@ -287,11 +287,11 @@ ggplot_box <- function(data,
         labels = x_labels
       )
   }
-  else if (is.numeric(x_var_vector)) {
+  else if (is.numeric(x_var_vctr)) {
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
-    x_breaks <- pretty(x_var_vector, n = x_n)
+    x_breaks <- pretty(x_var_vctr, n = x_n)
     
     plot <- plot +
       scale_x_continuous(expand = x_expand,
@@ -299,7 +299,7 @@ ggplot_box <- function(data,
                          labels = x_labels,
                          oob = scales::rescale_none)
   }
-  else if (is.character(x_var_vector) | is.factor(x_var_vector)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (isMobile == FALSE){
       if(is.null(y_labels)) y_labels <- waiver()
       
@@ -318,22 +318,22 @@ ggplot_box <- function(data,
     }
   }
   
-  if (all(y_var_vector == 0, na.rm = TRUE)) {
+  if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
     if (y_zero == TRUE) {
-      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+      if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+      if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
       
       if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
     else if (y_zero == FALSE) {
-      if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+      if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
       if(y_trans == "log10") {
-        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
         y_breaks <- c(1, y_breaks[y_breaks > 1])
       }
       y_limits <- c(min(y_breaks), max(y_breaks))
@@ -475,17 +475,17 @@ ggplot_box_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     group_var <- rlang::enquo(group_var) 
     
-    x_var_vector <- dplyr::pull(data, !!x_var) 
-    if (stat == "boxplot") y_var_vector <- dplyr::pull(data, !!y_var)
-    else if (stat == "identity") y_var_vector <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var) 
+    if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
+    else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a boxplot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a boxplot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -553,9 +553,9 @@ ggplot_box_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if (lubridate::is.Date(x_var_vector)) {
+      if (lubridate::is.Date(x_var_vctr)) {
         x_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vector, n = x_n)
+        x_breaks <- pretty(x_var_vctr, n = x_n)
         
         plot <- plot +
           scale_x_date(
@@ -564,9 +564,9 @@ ggplot_box_facet <-
             labels = x_labels
           )
       }
-      else if (is.numeric(x_var_vector)) {
+      else if (is.numeric(x_var_vctr)) {
         x_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vector, n = x_n)
+        x_breaks <- pretty(x_var_vctr, n = x_n)
         
         plot <- plot +
           scale_x_continuous(expand = x_expand,
@@ -574,7 +574,7 @@ ggplot_box_facet <-
                              labels = x_labels,
                              oob = scales::rescale_none)
       }
-      else if (is.character(x_var_vector) | is.factor(x_var_vector)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
@@ -583,16 +583,16 @@ ggplot_box_facet <-
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
         
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
         if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
@@ -621,8 +621,8 @@ ggplot_box_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(

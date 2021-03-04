@@ -194,21 +194,21 @@ ggplot_point <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   tip_var <- rlang::enquo(tip_var)
   
-  x_var_vector <- dplyr::pull(data, !!x_var)
-  y_var_vector <- dplyr::pull(data, !!y_var)
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  y_var_vctr <- dplyr::pull(data, !!y_var)
   
-  if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
-  if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
   
-  min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-  max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+  min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+  max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+  if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
     x_zero <- FALSE
   }
   
-  min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-  max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-  if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+  if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
     y_zero <- FALSE
   }
   
@@ -236,30 +236,30 @@ ggplot_point <- function(data,
   else if(isMobile == TRUE) x_n <- 4
   
   if (x_zero == TRUE) {
-    if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-    if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+    if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
+    if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
 
     if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
     x_limits <- c(min(x_breaks), max(x_breaks))
   }
   else if (x_zero == FALSE) {
-    if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+    if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_n)
     if(x_trans == "log10") {
-      x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+      x_breaks <- pretty(c(0, x_var_vctr), n = x_n) 
       x_breaks <- c(1, x_breaks[x_breaks > 1])
     }
     x_limits <- c(min(x_breaks), max(x_breaks))
   }
   
   if (y_zero == TRUE) {
-    y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
+    y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
     if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
     y_limits <- c(min(y_breaks), max(y_breaks))
   }
   else if (y_zero == FALSE) {
-    if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+    if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
     if(y_trans == "log10") {
-      y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+      y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
       y_breaks <- c(1, y_breaks[y_breaks > 1])
     }
     y_limits <- c(min(y_breaks), max(y_breaks))
@@ -423,22 +423,22 @@ ggplot_point_col <-
     col_var <- rlang::enquo(col_var)
     tip_var <- rlang::enquo(tip_var)
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    col_var_vector <- dplyr::pull(data, !!col_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     
-    min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-    max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
       x_zero <- FALSE
     }
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -452,22 +452,22 @@ ggplot_point_col <-
     }
     
     if (is.null(col_method)) {
-      if (!is.numeric(col_var_vector)) col_method <- "category"
-      else if (is.numeric(col_var_vector)) col_method <- "quantile"
+      if (!is.numeric(col_var_vctr)) col_method <- "category"
+      else if (is.numeric(col_var_vctr)) col_method <- "quantile"
     }
     
     if (col_method == "quantile") {
       if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
-      col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+      col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+      data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
-      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -494,32 +494,32 @@ ggplot_point_col <-
     else if(isMobile == TRUE) x_n <- 4
     
     if (x_zero == TRUE) {
-      if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-      if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+      if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
+      if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
       
       if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
     else if (x_zero == FALSE) {
-      if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+      if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_n)
       if(x_trans == "log10") {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+        x_breaks <- pretty(c(0, x_var_vctr), n = x_n) 
         x_breaks <- c(1, x_breaks[x_breaks > 1])
       }
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
     
     if (y_zero == TRUE) {
-      if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-      if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+      if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+      if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
       
       if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
       y_limits <- c(min(y_breaks), max(y_breaks))
     }
     else if (y_zero == FALSE) {
-      if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+      if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
       if(y_trans == "log10") {
-        y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
         y_breaks <- c(1, y_breaks[y_breaks > 1])
       }
       y_limits <- c(min(y_breaks), max(y_breaks))
@@ -678,23 +678,23 @@ ggplot_point_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     tip_var <- rlang::enquo(tip_var)
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a point plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-    max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
       x_zero <- FALSE
     }
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -716,16 +716,16 @@ ggplot_point_facet <-
       x_n <- x_pretty_n
 
       if (x_zero == TRUE) {
-        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+        if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
+        if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
         
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector)) 
+          x_breaks <- pretty(c(0, x_var_vctr)) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
@@ -746,16 +746,16 @@ ggplot_point_facet <-
     }
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
         
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
         if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
@@ -789,8 +789,8 @@ ggplot_point_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(
@@ -915,24 +915,24 @@ ggplot_point_col_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     tip_var <- rlang::enquo(tip_var)
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    col_var_vector <- dplyr::pull(data, !!col_var)
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a point plot")
-    if (!is.numeric(y_var_vector)) stop("Please use a numeric y variable for a point plot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a point plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
+    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-    max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) {
+    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
       x_zero <- FALSE
     }
     
-    min_y_var_vector <- min(y_var_vector, na.rm = TRUE)
-    max_y_var_vector <- max(y_var_vector, na.rm = TRUE)
-    if(min_y_var_vector < 0 & max_y_var_vector > 0 & y_zero == TRUE) {
+    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
+    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
+    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
       y_zero <- FALSE
     }
     
@@ -940,8 +940,8 @@ ggplot_point_col_facet <-
     if(is.null(font_size_body)) font_size_body <- 10
     
     if (is.null(col_method)) {
-      if (!is.numeric(col_var_vector)) col_method <- "category"
-      if (is.numeric(col_var_vector)) col_method <- "quantile"      
+      if (!is.numeric(col_var_vctr)) col_method <- "category"
+      if (is.numeric(col_var_vctr)) col_method <- "quantile"      
     }
     
     if (col_method == "quantile") {
@@ -949,25 +949,25 @@ ggplot_point_col_facet <-
       if (quantile_by_facet == TRUE) {
         data <- data %>%
           dplyr::group_by(!!facet_var) %>%
-          dplyr::mutate(!!col_var := percent_rank(!!col_var)) %>%
-          dplyr::mutate(!!col_var := cut(!!col_var, col_cuts))
+          dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         
         if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
         if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "%")
         if (!is.null(legend_labels)) labels <- legend_labels
       }
       else if (quantile_by_facet == FALSE) {
-        col_cuts <- quantile(col_var_vector, probs = col_cuts, na.rm = TRUE)
+        col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
         if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-        data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+        data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
         if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
         if (!is.null(legend_labels)) labels <- legend_labels
       }
     }
     else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vector)
-      data <- dplyr::mutate(data, !!col_var := cut(col_var_vector, col_cuts))
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -1004,16 +1004,16 @@ ggplot_point_col_facet <-
       x_n <- x_pretty_n
 
       if (x_zero == TRUE) {
-        if(max_x_var_vector > 0) x_breaks <- pretty(c(0, x_var_vector), n = x_n)
-        if(min_x_var_vector < 0) x_breaks <- pretty(c(x_var_vector, 0), n = x_n)
+        if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
+        if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
         
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_n)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_n)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector), n = x_n) 
+          x_breaks <- pretty(c(0, x_var_vctr), n = x_n) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
@@ -1031,16 +1031,16 @@ ggplot_point_col_facet <-
     }
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_zero == TRUE) {
-        if(max_y_var_vector > 0) y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n)
-        if(min_y_var_vector < 0) y_breaks <- pretty(c(y_var_vector, 0), n = y_pretty_n)
+        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
+        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
         
         if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
         y_limits <- c(min(y_breaks), max(y_breaks))
       }
       else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vector, n = y_pretty_n)
+        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
         if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vector), n = y_pretty_n) 
+          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
           y_breaks <- c(1, y_breaks[y_breaks > 1])
         }
         y_limits <- c(min(y_breaks), max(y_breaks))
@@ -1074,8 +1074,8 @@ ggplot_point_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(

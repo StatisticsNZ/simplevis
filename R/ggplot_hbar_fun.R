@@ -196,15 +196,15 @@ ggplot_hbar <- function(data,
   y_var <- rlang::enquo(y_var) #categorical var
   tip_var <- rlang::enquo(tip_var)
   
-  x_var_vector <- dplyr::pull(data, !!x_var)
-  y_var_vector <- dplyr::pull(data, !!y_var)
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  y_var_vctr <- dplyr::pull(data, !!y_var)
   
-  if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
-  if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
   
-  min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-  max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-  if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
+  min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+  max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+  if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
 
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -215,19 +215,13 @@ ggplot_hbar <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
   
-  if (is.factor(y_var_vector) & y_rev == FALSE){
+  if (is.factor(y_var_vctr) & y_rev == FALSE){
     data <- data %>%
-      dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+      dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
   }
-  else if (is.character(y_var_vector)) {
-    if (y_rev == FALSE){
+  else if (is.character(y_var_vctr)) {
       data <- data %>%
-        dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var))
-    }
-    else if (y_rev == TRUE){
-      data <- data %>%
-        dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var, .desc = TRUE))
-    }
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
   }
   
   if (is.null(pal)) pal <- pal_snz
@@ -244,25 +238,25 @@ ggplot_hbar <- function(data,
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
 
-  if (all(x_var_vector == 0, na.rm = TRUE)) {
+  if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
     
     if (x_balance == TRUE) {
-      x_var_vector <- abs(x_var_vector)
-      x_var_vector <- c(-x_var_vector, x_var_vector)
+      x_var_vctr <- abs(x_var_vctr)
+      x_var_vctr <- c(-x_var_vctr, x_var_vctr)
     }
     if (x_zero == TRUE) {
-      x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
+      x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
       if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
     else if (x_zero == FALSE) {
-      if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_pretty_n)
+      if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
       if(x_trans == "log10") {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n) 
+        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
         x_breaks <- c(1, x_breaks[x_breaks > 1])
       }
       x_limits <- c(min(x_breaks), max(x_breaks))
@@ -461,21 +455,21 @@ ggplot_hbar_col <-
     col_var <- rlang::enquo(col_var) #categorical var
     tip_var <- rlang::enquo(tip_var)
     
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    col_var_vector <- dplyr::pull(data, !!col_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
     
-    if (!is.numeric(x_var_vector)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(y_var_vector)) stop("Please use a categorical y variable for a horizontal bar plot")
-    if (is.numeric(col_var_vector)) stop("Please use a categorical colour variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     if (na_bar == TRUE & position == "stack") stop("Please use a position of dodge for where na_bar equals TRUE")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-    max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
+    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
     
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
@@ -486,14 +480,14 @@ ggplot_hbar_col <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if(!is.logical(col_var_vector)){
+    if(!is.logical(col_var_vctr)){
       if (y_rev == FALSE){
         data <- data %>%
-          dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       }
       if (col_rev == FALSE){
         data <- data %>%
-          dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
       }
     }
     
@@ -513,29 +507,29 @@ ggplot_hbar_col <-
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
-    if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
-      pal <- pal[1:length(levels(col_var_vector))]
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      pal <- pal[1:length(levels(col_var_vctr))]
     }
-    else pal <- pal[1:length(unique(col_var_vector))]
+    else pal <- pal[1:length(unique(col_var_vctr))]
     
     if(pal_rev == FALSE) pal <- rev(pal)
     
     if (!is.null(pal) & na_bar == TRUE) { 
-      if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
-        names(pal) <- levels(col_var_vector)
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        names(pal) <- levels(col_var_vctr)
       }
-      else names(pal) <- unique(col_var_vector)
+      else names(pal) <- unique(col_var_vctr)
       
       pal <- c(pal, "Not available" = "#f5f5f5")
     }
 
     if (position == "stack") {
       data_sum <- data %>%
-        dplyr::group_by_at(vars(!!y_var)) %>%
-        dplyr::summarise_at(vars(!!x_var), list( ~ (sum(., na.rm = TRUE)))) %>%
+        dplyr::group_by(dplyr::across(!!y_var)) %>%
+        dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
         dplyr::ungroup()
       
-      x_var_vector <- dplyr::pull(data_sum, !!x_var)
+      x_var_vctr <- dplyr::pull(data_sum, !!x_var)
     }
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -563,31 +557,31 @@ ggplot_hbar_col <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (all(x_var_vector == 0, na.rm = TRUE)) {
+    if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
       
       if (x_balance == TRUE) {
-        x_var_vector <- abs(x_var_vector)
-        x_var_vector <- c(-x_var_vector, x_var_vector)
+        x_var_vctr <- abs(x_var_vctr)
+        x_var_vctr <- c(-x_var_vctr, x_var_vctr)
       }
       if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
+        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_pretty_n)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n) 
+          x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       
-      if(position == "stack" & all(dplyr::between(x_var_vector, 99, 101))) x_limits <- c(0, 100)
+      if(position == "stack" & all(dplyr::between(x_var_vctr, 99, 101))) x_limits <- c(0, 100)
       
       if(isMobile == TRUE) {
         x_breaks <- x_limits
@@ -615,17 +609,17 @@ ggplot_hbar_col <-
         dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
       
-      if(is.character(y_var_vector)) {
+      if(is.character(y_var_vctr)) {
         all_na <- data %>% 
           group_by(!!y_var) %>%
           summarise(all_na = all(is.na(!!x_var))) %>% 
           filter(all_na == TRUE) %>% 
-          mutate(!!y_var := as.character(!!y_var)) %>% 
+          mutate(dplyr::across(!!y_var, ~as.character(.x))) %>% 
           pull(!!y_var)
         
         data <- data %>% 
-          dplyr::mutate(!!y_var := forcats::fct_reorder(!!y_var, !!x_var, .fun = stats::median, na.rm = TRUE))  %>% 
-          dplyr::mutate(!!y_var := forcats::fct_relevel(!!y_var, all_na))  
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .fun = stats::median, na.rm = TRUE)))  %>% 
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_relevel(.x, all_na)))  
       }
       
       data <- data %>%
@@ -777,29 +771,29 @@ ggplot_hbar_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     tip_var <- rlang::enquo(tip_var)
     
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (is.numeric(y_var_vector)) stop("Please use a numeric y variable for a horizontal bar plot")
-    if (!is.numeric(x_var_vector)) stop("Please use a categorical x variable for a horizontal bar plot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a horizontal bar plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
-    min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-    max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
+    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
     
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
 
-    if (is.factor(y_var_vector) & y_rev == FALSE){
+    if (is.factor(y_var_vctr) & y_rev == FALSE){
       data <- data %>%
-        dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(y_var_vector)) {
+    else if (is.character(y_var_vctr)) {
       if (y_rev == FALSE){
         data <- data %>%
-          dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       }
     }
     
@@ -820,18 +814,18 @@ ggplot_hbar_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
 
       if (x_balance == TRUE) {
-        x_var_vector <- abs(x_var_vector)
-        x_var_vector <- c(-x_var_vector, x_var_vector)
+        x_var_vctr <- abs(x_var_vctr)
+        x_var_vctr <- c(-x_var_vctr, x_var_vctr)
       }
       if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
+        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector)) 
+          x_breaks <- pretty(c(0, x_var_vctr)) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
@@ -886,8 +880,8 @@ ggplot_hbar_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-      if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1 
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+      if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1 
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
       
     plot <- plot +
       labs(
@@ -1009,33 +1003,33 @@ ggplot_hbar_col_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     tip_var <- rlang::enquo(tip_var)
     
-    y_var_vector <- dplyr::pull(data, !!y_var)
-    x_var_vector <- dplyr::pull(data, !!x_var)
-    col_var_vector <- dplyr::pull(data, !!col_var)
-    facet_var_vector <- dplyr::pull(data, !!facet_var)
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (is.numeric(y_var_vector)) stop("Please use a numeric y variable for a horizontal bar plot")
-    if (!is.numeric(x_var_vector)) stop("Please use a categorical x variable for a horizontal bar plot")
-    if (is.numeric(facet_var_vector)) stop("Please use a categorical facet variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a horizontal bar plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    min_x_var_vector <- min(x_var_vector, na.rm = TRUE)
-    max_x_var_vector <- max(x_var_vector, na.rm = TRUE)
-    if(min_x_var_vector < 0 & max_x_var_vector > 0 & x_zero == TRUE) x_zero <- FALSE
+    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
+    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
+    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
 
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
 
-    if(!is.logical(col_var_vector)){
+    if (!is.logical(col_var_vctr)){
       if (y_rev == FALSE){
         data <- data %>%
-          dplyr::mutate(!!y_var := forcats::fct_rev(!!y_var))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       }
       if (col_rev == FALSE){
         data <- data %>%
-          dplyr::mutate(!!col_var := forcats::fct_rev(!!col_var))
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
       }
     }
 
@@ -1059,37 +1053,37 @@ ggplot_hbar_col_facet <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
 
-    if (is.factor(col_var_vector) & !is.null(levels(col_var_vector))) {
-      pal <- pal[1:length(levels(col_var_vector))]
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      pal <- pal[1:length(levels(col_var_vctr))]
     }
-    else pal <- pal[1:length(unique(col_var_vector))]
+    else pal <- pal[1:length(unique(col_var_vctr))]
     
     if(pal_rev == FALSE) pal <- rev(pal)
     
     if (position == "stack") {
       data_sum <- data %>%
-        dplyr::group_by_at(vars(!!y_var, !!facet_var)) %>%
-        dplyr::summarise_at(vars(!!x_var), list( ~ (sum(., na.rm = TRUE)))) %>%
+        dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var))) %>%
+        dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
         dplyr::ungroup()
       
-      x_var_vector <- dplyr::pull(data_sum, !!x_var)
+      x_var_vctr <- dplyr::pull(data_sum, !!x_var)
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
 
       if (x_balance == TRUE) {
-        x_var_vector <- abs(x_var_vector)
-        x_var_vector <- c(-x_var_vector, x_var_vector)
+        x_var_vctr <- abs(x_var_vctr)
+        x_var_vctr <- c(-x_var_vctr, x_var_vctr)
       }
       if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n)
+        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
         if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
         x_limits <- c(min(x_breaks), max(x_breaks))
       }
       else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vector, n = x_pretty_n)
+        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
         if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vector), n = x_pretty_n) 
+          x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
           x_breaks <- c(1, x_breaks[x_breaks > 1])
         }
         x_limits <- c(min(x_breaks), max(x_breaks))
@@ -1131,8 +1125,8 @@ ggplot_hbar_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vector)) > 3) facet_nrow <- 2
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
     
     plot <- plot +
       labs(

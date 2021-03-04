@@ -6,7 +6,7 @@
 \usage{
 ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
-  y_zero_line = FALSE, y_trans = "identity", y_labels = waiver(),
+  y_zero_line = NULL, y_trans = "identity", y_labels = waiver(),
   y_pretty_n = 5, y_expand = NULL, points = TRUE, point_size = 1,
   lines = TRUE, size = 0.5, pal = NULL, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
@@ -32,7 +32,7 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
 \item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 

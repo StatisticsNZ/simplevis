@@ -118,7 +118,7 @@ theme_hbar <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.  
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -165,7 +165,7 @@ ggplot_hbar <- function(data,
                         tip_var = NULL,
                         x_labels = waiver(),
                         x_zero = TRUE,
-                        x_zero_line = FALSE,
+                        x_zero_line = NULL,
                         x_trans = "identity",
                         x_pretty_n = 6,
                         x_expand = NULL,
@@ -204,7 +204,15 @@ ggplot_hbar <- function(data,
   
   min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
   max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-  if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
+  
+  x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+  
+  if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+  if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
+  }
 
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
@@ -344,7 +352,6 @@ ggplot_hbar <- function(data,
         caption = stringr::str_wrap(caption, 50)
       ) +
       theme(axis.text.x = element_text(hjust = 0.75))
-      
   }
   
   return(plot)
@@ -359,7 +366,7 @@ ggplot_hbar <- function(data,
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -416,7 +423,7 @@ ggplot_hbar_col <-
            tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
-           x_zero_line = FALSE,
+           x_zero_line = NULL,
            x_trans = "identity",
            x_pretty_n = 6,
            x_expand = NULL,
@@ -469,8 +476,16 @@ ggplot_hbar_col <-
     
     min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
     max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
     
+    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+    
+    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+    if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
+    }
+
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
       else if (isMobile == TRUE) font_size_title <- 15
@@ -688,7 +703,7 @@ ggplot_hbar_col <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -738,7 +753,7 @@ ggplot_hbar_facet <-
            tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
-           x_zero_line = FALSE,
+           x_zero_line = NULL,
            x_trans = "identity",
            x_pretty_n = 5,
            x_expand = NULL,
@@ -781,8 +796,16 @@ ggplot_hbar_facet <-
     
     min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
     max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
     
+    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+    
+    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+    if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
+    }
+
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
 
@@ -906,7 +929,7 @@ ggplot_hbar_facet <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -963,7 +986,7 @@ ggplot_hbar_col_facet <-
            tip_var = NULL,
            x_labels = waiver(),
            x_zero = TRUE,
-           x_zero_line = FALSE,
+           x_zero_line = NULL,
            x_trans = "identity",
            x_pretty_n = 5,
            x_expand = NULL,
@@ -1017,7 +1040,15 @@ ggplot_hbar_col_facet <-
     
     min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
     max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) x_zero <- FALSE
+    
+    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+    
+    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+    if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
+    }
 
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10

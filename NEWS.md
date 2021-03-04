@@ -1,3 +1,7 @@
+# simplevis 2.3.0
+
+* Defaulted zero reference lines to be on by default if there are positive and negative values in the data. 
+
 # simplevis 2.2.9
 
 * Peplace all superceded scoped functions with across.

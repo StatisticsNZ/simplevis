@@ -5,7 +5,7 @@
 \title{Horizontal bar ggplot.}
 \usage{
 ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
-  x_zero = TRUE, x_zero_line = FALSE, x_trans = "identity",
+  x_zero = TRUE, x_zero_line = NULL, x_trans = "identity",
   x_pretty_n = 6, x_expand = NULL, x_balance = FALSE,
   y_rev = FALSE, y_labels = NULL, y_expand = NULL, na_bar = FALSE,
   pal = NULL, width = 0.75, title = "[Title]", subtitle = NULL,
@@ -28,7 +28,7 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
 
 \item{x_trans}{A string specifying a transformation for the x axis scale. Defaults to "identity".}
 

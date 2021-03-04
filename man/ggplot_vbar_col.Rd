@@ -6,7 +6,7 @@
 \usage{
 ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
-  y_zero = TRUE, y_zero_line = FALSE, y_trans = "identity",
+  y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
   position = "stack", pal = NULL, legend_ncol = 3, width = 0.75,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
@@ -35,7 +35,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
 \item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 

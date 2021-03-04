@@ -120,7 +120,7 @@ theme_vbar <-
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -164,7 +164,7 @@ ggplot_vbar <- function(data,
                         x_pretty_n = 6,
                         x_expand = NULL,
                         y_zero = TRUE,
-                        y_zero_line = FALSE,
+                        y_zero_line = NULL,
                         y_trans = "identity",
                         y_labels = waiver(),
                         y_pretty_n = 5,
@@ -199,8 +199,16 @@ ggplot_vbar <- function(data,
   
   min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
   max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-  if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) y_zero <- FALSE
-
+  
+  y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+  
+  if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+  
+  if(is.null(y_zero_line)) {
+    if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+    else(y_zero_line <- FALSE)
+  }
+  
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
     else if (isMobile == TRUE) font_size_title <- 15
@@ -354,7 +362,7 @@ ggplot_vbar <- function(data,
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -402,7 +410,7 @@ ggplot_vbar_col <-
            x_pretty_n = 6,
            x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = FALSE,
+           y_zero_line = NULL,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -456,8 +464,16 @@ ggplot_vbar_col <-
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) y_zero <- FALSE
     
+    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+    
+    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+    
+    if(is.null(y_zero_line)) {
+      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      else(y_zero_line <- FALSE)
+    }
+
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -617,7 +633,7 @@ ggplot_vbar_col <-
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -662,7 +678,7 @@ ggplot_vbar_facet <-
            x_pretty_n = 5,
            x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = FALSE,
+           y_zero_line = NULL,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -701,7 +717,15 @@ ggplot_vbar_facet <-
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) y_zero <- FALSE
+    
+    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+    
+    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+    
+    if(is.null(y_zero_line)) {
+      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      else(y_zero_line <- FALSE)
+    }
     
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
@@ -845,7 +869,7 @@ ggplot_vbar_facet <-
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -899,7 +923,7 @@ ggplot_vbar_col_facet <-
            x_pretty_n = 5,
            x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = FALSE,
+           y_zero_line = NULL,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -950,8 +974,16 @@ ggplot_vbar_col_facet <-
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) y_zero <- FALSE
     
+    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+    
+    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+    
+    if(is.null(y_zero_line)) {
+      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      else(y_zero_line <- FALSE)
+    }
+
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     

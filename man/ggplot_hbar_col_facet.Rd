@@ -6,7 +6,7 @@
 \usage{
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, x_labels = waiver(), x_zero = TRUE,
-  x_zero_line = FALSE, x_trans = "identity", x_pretty_n = 5,
+  x_zero_line = NULL, x_trans = "identity", x_pretty_n = 5,
   x_expand = NULL, x_balance = FALSE, y_rev = FALSE,
   y_labels = waiver(), y_expand = NULL, col_rev = FALSE,
   position = "stack", facet_scales = "fixed", facet_nrow = NULL,
@@ -35,7 +35,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
 
 \item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 

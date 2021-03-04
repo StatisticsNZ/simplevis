@@ -5,9 +5,9 @@
 \title{point ggplot that is facetted.}
 \usage{
 ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
-  size = 1, pal = NULL, x_zero = TRUE, x_zero_line = FALSE,
+  size = 1, pal = NULL, x_zero = TRUE, x_zero_line = NULL,
   x_trans = "identity", x_labels = waiver(), x_expand = NULL,
-  x_pretty_n = 5, y_zero = TRUE, y_zero_line = FALSE,
+  x_pretty_n = 5, y_zero = TRUE, y_zero_line = NULL,
   y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
   y_expand = NULL, facet_scales = "fixed", facet_nrow = NULL,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
@@ -33,7 +33,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
 
 \item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
@@ -45,7 +45,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
 \item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 

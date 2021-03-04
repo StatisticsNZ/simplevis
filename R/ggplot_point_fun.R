@@ -119,13 +119,13 @@ theme_point <-
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.     
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -163,13 +163,13 @@ ggplot_point <- function(data,
                            size = 1,
                            pal = NULL,
                            x_zero = TRUE,
-                           x_zero_line = FALSE,
+                           x_zero_line = NULL,
                            x_trans = "identity",
                            x_labels = waiver(),
                            x_pretty_n = 6,
                            x_expand = NULL,
                            y_zero = TRUE,
-                           y_zero_line = FALSE,
+                           y_zero_line = NULL,
                            y_trans = "identity",
                            y_labels = waiver(),
                            y_pretty_n = 5,
@@ -202,14 +202,26 @@ ggplot_point <- function(data,
   
   min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
   max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-  if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
-    x_zero <- FALSE
+  
+  x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+  
+  if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+  
+  if(is.null(x_zero_line)) {
+    if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+    else(x_zero_line <- FALSE)
   }
   
   min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
   max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-  if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
-    y_zero <- FALSE
+  
+  y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+  
+  if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+  
+  if(is.null(y_zero_line)) {
+    if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+    else(y_zero_line <- FALSE)
   }
   
   if(is.null(font_size_title)){
@@ -335,13 +347,13 @@ ggplot_point <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -386,13 +398,13 @@ ggplot_point_col <-
            pal = NULL,
            pal_rev = FALSE,
            x_zero = TRUE,
-           x_zero_line = FALSE,
+           x_zero_line = NULL,
            x_trans = "identity",
            x_labels = waiver(),
            x_pretty_n = 6,
            x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = FALSE,
+           y_zero_line = NULL,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -432,14 +444,26 @@ ggplot_point_col <-
     
     min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
     max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
-      x_zero <- FALSE
-    }
     
+    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+    
+    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+    if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
+    }
+
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
-      y_zero <- FALSE
+    
+    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+    
+    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+    
+    if(is.null(y_zero_line)) {
+      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      else(y_zero_line <- FALSE)
     }
     
     if(is.null(font_size_title)){
@@ -601,13 +625,13 @@ ggplot_point_col <-
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -645,13 +669,13 @@ ggplot_point_facet <-
            size = 1,
            pal = NULL,
            x_zero = TRUE,
-           x_zero_line = FALSE,
+           x_zero_line = NULL,
            x_trans = "identity",
            x_labels = waiver(),
            x_expand = NULL,
            x_pretty_n = 5,
            y_zero = TRUE,
-           y_zero_line = FALSE,
+           y_zero_line = NULL,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -688,14 +712,26 @@ ggplot_point_facet <-
     
     min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
     max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
-      x_zero <- FALSE
+    
+    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+    
+    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+    if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
     }
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
-      y_zero <- FALSE
+    
+    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+    
+    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+    
+    if(is.null(y_zero_line)) {
+      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      else(y_zero_line <- FALSE)
     }
     
     if(is.null(font_size_title)) font_size_title <- 11
@@ -820,13 +856,13 @@ ggplot_point_facet <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero line in for when values are above and below zero. Defaults to TRUE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -876,13 +912,13 @@ ggplot_point_col_facet <-
            pal = NULL,
            pal_rev = FALSE,
            x_zero = TRUE,
-           x_zero_line = FALSE,
+           x_zero_line = NULL,
            x_trans = "identity",
            x_labels = waiver(),
            x_pretty_n = 5,
            x_expand = NULL,
            y_zero = TRUE,
-           y_zero_line = FALSE,
+           y_zero_line = NULL,
            y_trans = "identity",
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -926,14 +962,26 @@ ggplot_point_col_facet <-
     
     min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
     max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    if(min_x_var_vctr < 0 & max_x_var_vctr > 0 & x_zero == TRUE) {
-      x_zero <- FALSE
+    
+    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
+    
+    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
+    
+    if(is.null(x_zero_line)) {
+      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
+      else(x_zero_line <- FALSE)
     }
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    if(min_y_var_vctr < 0 & max_y_var_vctr > 0 & y_zero == TRUE) {
-      y_zero <- FALSE
+    
+    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
+    
+    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
+    
+    if(is.null(y_zero_line)) {
+      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
+      else(y_zero_line <- FALSE)
     }
     
     if(is.null(font_size_title)) font_size_title <- 11

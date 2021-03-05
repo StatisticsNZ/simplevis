@@ -240,29 +240,33 @@ ggplot_vbar <- function(data,
     else x_expand <- c(0, 0)
   }
   if(is.null(y_expand)) y_expand <- c(0, 0)
-
-  if (lubridate::is.Date(x_var_vctr)) {
+  
+  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
     x_breaks <- pretty(x_var_vctr, n = x_n)
+    x_limits <- c(min(x_breaks), max(x_breaks))
     
+    if(isMobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+    }
+  }
+  if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
+        limits = x_limits,
         labels = x_labels
       )
   }
   else if (is.numeric(x_var_vctr)) {
-    if(isMobile == FALSE) x_n <- x_pretty_n
-    else if(isMobile == TRUE) x_n <- 4
-    
-    x_breaks <- pretty(x_var_vctr, n = x_n)
-    
     plot <- plot +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
+                         limits = x_limits,
                          labels = x_labels,
                          oob = scales::rescale_none)
   }
@@ -351,7 +355,8 @@ ggplot_vbar <- function(data,
         x = stringr::str_wrap(x_title, 20),
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
-      )
+      ) +
+      theme(axis.text.x = element_text(hjust = 0.75))
   }
   
   return(plot)
@@ -509,28 +514,32 @@ ggplot_vbar_col <-
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
     
-    if (lubridate::is.Date(x_var_vctr)) {
+    if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
       if(isMobile == FALSE) x_n <- x_pretty_n
       else if(isMobile == TRUE) x_n <- 4
       
       x_breaks <- pretty(x_var_vctr, n = x_n)
+      x_limits <- c(min(x_breaks), max(x_breaks))
       
+      if(isMobile == TRUE) {
+        x_breaks <- x_limits
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+      }
+    }
+    if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
         scale_x_date(
           expand = x_expand,
           breaks = x_breaks,
+          limits = x_limits,
           labels = x_labels
         )
     }
     else if (is.numeric(x_var_vctr)) {
-      if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 4
-      
-      x_breaks <- pretty(x_var_vctr, n = x_n)
-      
       plot <- plot +
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
+                           limits = x_limits,
                            labels = x_labels,
                            oob = scales::rescale_none)
     }
@@ -628,7 +637,8 @@ ggplot_vbar_col <-
           byrow = TRUE,
           reverse = TRUE,
           title = stringr::str_wrap(col_title, 15)
-        ))
+        )) +
+        theme(axis.text.x = element_text(hjust = 0.75))
     }
     
     return(plot)
@@ -765,11 +775,10 @@ ggplot_vbar_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      
+      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+      }
       if (lubridate::is.Date(x_var_vctr)) {
-        x_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vctr, n = x_n)
-        
         plot <- plot +
           scale_x_date(
             expand = x_expand,
@@ -778,9 +787,6 @@ ggplot_vbar_facet <-
           )
       }
       else if (is.numeric(x_var_vctr)) {
-        x_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vctr, n = x_n)
-        
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
@@ -791,7 +797,6 @@ ggplot_vbar_facet <-
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
-      
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
@@ -870,7 +875,8 @@ ggplot_vbar_facet <-
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
+      theme(axis.text.x = element_text(hjust = 0.75))
 
     return(plot)
   }
@@ -1041,11 +1047,10 @@ ggplot_vbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      
+      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+      }
       if (lubridate::is.Date(x_var_vctr)) {
-        x_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vctr, n = x_n)
-        
         plot <- plot +
           scale_x_date(
             expand = x_expand,
@@ -1054,9 +1059,6 @@ ggplot_vbar_col_facet <-
           )
       }
       else if (is.numeric(x_var_vctr)) {
-        x_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vctr, n = x_n)
-        
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
@@ -1136,7 +1138,7 @@ ggplot_vbar_col_facet <-
         byrow = TRUE,
         reverse = TRUE,
         title = stringr::str_wrap(col_title, wrap_col_title)
-      ))
+      )) 
 
     return(plot)
   }

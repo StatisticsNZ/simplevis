@@ -253,6 +253,11 @@ ggplot_line <- function(data,
   x_breaks <- pretty(x_var_vctr, n = x_n)
   x_limits <- c(min(x_breaks), max(x_breaks))
   
+  if(isMobile == TRUE) {
+    x_breaks <- x_limits
+    if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+  }
+
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
       scale_x_date(
@@ -332,7 +337,8 @@ ggplot_line <- function(data,
         x = stringr::str_wrap(x_title, 20),
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
-      )
+      ) +
+      theme(axis.text.x = element_text(hjust = 0.75))
   }
   
   return(plot)
@@ -503,6 +509,11 @@ ggplot_line_col <-
     x_breaks <- pretty(x_var_vctr, n = x_n)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
+    if(isMobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+    }
+    
     if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
         scale_x_date(
@@ -592,7 +603,8 @@ ggplot_line_col <-
           y = stringr::str_wrap(y_title, 30),
           caption = stringr::str_wrap(caption, 50)
         )  +
-        guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15)))
+        guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
+        theme(axis.text.x = element_text(hjust = 0.75))
     }
     
     return(plot)
@@ -737,16 +749,13 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      x_n <- x_pretty_n
-      x_breaks <- pretty(x_var_vctr, n = x_n)
-      x_limits <- c(min(x_breaks), max(x_breaks))
-      
+      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            limits = x_limits,
             labels = x_labels
           )
       }
@@ -754,7 +763,6 @@ ggplot_line_facet <-
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             limits = x_limits,
                              labels = x_labels)
       }
     }
@@ -814,7 +822,7 @@ ggplot_line_facet <-
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) 
 
     return(plot)
   }
@@ -988,16 +996,13 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      x_n <- x_pretty_n
-      x_breaks <- pretty(x_var_vctr, n = x_n)
-      x_limits <- c(min(x_breaks), max(x_breaks))
-      
+      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            limits = x_limits,
             labels = x_labels
           )
       }
@@ -1005,7 +1010,6 @@ ggplot_line_col_facet <-
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             limits = x_limits,
                              labels = x_labels)
       }
       
@@ -1075,7 +1079,7 @@ ggplot_line_col_facet <-
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
-      guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title)))
+      guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) 
 
     return(plot)
   }

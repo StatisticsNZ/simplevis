@@ -1,3 +1,7 @@
+# simplevis 2.3.2
+
+* Make x axis labels just the minimum and maximum (and zero if applicable). 
+
 # simplevis 2.3.1
 
 * Added y_balance arguments to vbar, line and point functions.

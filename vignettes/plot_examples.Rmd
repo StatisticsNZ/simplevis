@@ -183,6 +183,15 @@ ggplot_hbar(plot_data, average_price, cut)
 
 ```
 
+Add a $ prefix to y labels and a comma.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_hbar(plot_data, average_price, cut, 
+            y_rev = TRUE, 
+            x_labels = scales::comma_format(prefix = "$"))
+
+```
+
 Balance an x scale between positive and negative values. This is particularly useful for visualising change data.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
@@ -194,16 +203,6 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price = average_price - 3.75)
 
 ggplot_hbar(plot_data, average_price, cut, x_balance = T)
-```
-
-
-Add a $ prefix to y labels and a comma.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-ggplot_hbar(plot_data, average_price, cut, 
-            y_rev = TRUE, 
-            x_labels = scales::comma_format(prefix = "$"))
-
 ```
 
 Make a coloured hbar plot.

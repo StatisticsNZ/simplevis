@@ -296,7 +296,7 @@ ggplot_hbar <- function(data,
                    data = na_data)
       }
       if(x_limits[1] < 0) {
-        if(x_limits[2] < 0) {
+        if(x_limits[2] <= 0) {
           plot <- plot +
             geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
                      fill = "#F5F5F5", width = width, 
@@ -622,7 +622,8 @@ ggplot_hbar_col <-
     if(na_bar == FALSE) {
       plot <- plot +
         geom_col(aes(
-          x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), width = width, 
+          x = !!y_var, y = !!x_var, fill = !!col_var, text = !!tip_var), 
+          width = width, 
           position = position2)
     }
     else if(na_bar == TRUE) {
@@ -643,12 +644,20 @@ ggplot_hbar_col <-
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_relevel(.x, all_na)))  
       }
       
-      data <- data %>%
-        dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
-      
+      if(x_limits[2] > 0 | x_limits[1] == 0) {
+        data <- data %>%
+          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
+      }
+      else if(x_limits[1] < 0) {
+        data <- data %>%
+          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[1], !!x_var))
+      }
+
       plot <- plot +
         geom_col(aes(
-          x = !!y_var, y = .data$x_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), width = width, position = position2,
+          x = !!y_var, y = .data$x_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+          width = width, 
+          position = position2,
           data = data)
     }
 
@@ -881,7 +890,7 @@ ggplot_hbar_facet <-
                      data = na_data)
         }
         if(x_limits[1] < 0) {
-          if(x_limits[2] < 0) {
+          if(x_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
                        fill = "#F5F5F5", width = width, 

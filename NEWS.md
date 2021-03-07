@@ -1,3 +1,7 @@
+# simplevis 2.3.4
+
+* For hbar_col, fix na_bar so that is works on negative data.
+
 # simplevis 2.2.3
 
 * For hbar and vbar, fix na_bar so that it works for negative and positive data with ggplotly(plot, tooltip = "text").

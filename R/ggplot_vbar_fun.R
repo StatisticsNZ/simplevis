@@ -320,7 +320,7 @@ ggplot_vbar <- function(data,
                    data = na_data)
       }
       if(y_limits[1] < 0) {
-        if(y_limits[2] < 0) {
+        if(y_limits[2] <= 0) {
           plot <- plot +
             geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
                      fill = "#F5F5F5", width = width, 
@@ -847,7 +847,7 @@ ggplot_vbar_facet <-
                        data = na_data)
           }
           if(y_limits[1] < 0) {
-            if(y_limits[2] < 0) {
+            if(y_limits[2] <= 0) {
               plot <- plot +
                 geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
                          fill = "#F5F5F5", width = width, 

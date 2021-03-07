@@ -1,6 +1,10 @@
+# simplevis 2.2.3
+
+* For hbar and vbar, fix na_bar so that it works for negative and positive data with ggplotly(plot, tooltip = "text").
+
 # simplevis 2.3.2
 
-* Make x axis labels just the minimum and maximum (and zero if applicable). 
+* For line graphs on mobile, make x axis labels just the minimum and maximum (and zero if applicable). 
 
 # simplevis 2.3.1
 

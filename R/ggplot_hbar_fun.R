@@ -891,38 +891,38 @@ ggplot_hbar_facet <-
           trans = x_trans,
           oob = scales::rescale_none
         )
-    }
       
-    if(na_bar == TRUE) {
-      na_data <- dplyr::filter(data, is.na(!!x_var))
-      
-      if(nrow(na_data) != 0) {
-        if(x_limits[1] >= 0 & x_limits[2] > 0){
-          plot <- plot +
-            geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
-                     fill = "#F5F5F5", width = width, 
-                     data = na_data)
-        }
-        else if(x_limits[1] < 0 & x_limits[2] <= 0) {
-          plot <- plot +
-            geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
-                     fill = "#F5F5F5", width = width, 
-                     data = na_data)        
-        }
-        else if(x_limits[1] < 0 & x_limits[2] > 0) {
-          ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
-          
-          plot <- plot +
-            geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
-                     fill = "#F5F5F5", width = width, 
-                     data = na_data) +
-            geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!tip_var),
-                     fill = "#F5F5F5", width = width, 
-                     data = na_data)
+      if(na_bar == TRUE) {
+        na_data <- dplyr::filter(data, is.na(!!x_var))
+        
+        if(nrow(na_data) != 0) {
+          if(x_limits[1] >= 0 & x_limits[2] > 0){
+            plot <- plot +
+              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data)
+          }
+          else if(x_limits[1] < 0 & x_limits[2] <= 0) {
+            plot <- plot +
+              geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data)        
+          }
+          else if(x_limits[1] < 0 & x_limits[2] > 0) {
+            ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
+            
+            plot <- plot +
+              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data) +
+              geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data)
+          }
         }
       }
     }
-    
+
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
         scale_y_continuous(expand = x_expand,

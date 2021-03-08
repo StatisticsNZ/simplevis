@@ -313,27 +313,28 @@ ggplot_vbar <- function(data,
     na_data <- dplyr::filter(data, is.na(!!y_var))
     
     if(nrow(na_data) != 0) {
-      if(y_limits[2] > 0){
+      if(y_limits[1] >= 0 & y_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
                    fill = "#F5F5F5", width = width, 
                    data = na_data)
       }
-      if(y_limits[1] < 0) {
-        if(y_limits[2] <= 0) {
-          plot <- plot +
-            geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                     fill = "#F5F5F5", width = width, 
-                     data = na_data)
-        }
-        else if(y_limits[2] > 0){ 
-          ggplotly_adjust <- (y_limits[2] - y_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
-          
-          plot <- plot +
-            geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                     fill = "#F5F5F5", width = width, 
-                     data = na_data)
-        }
+      else if(y_limits[1] < 0 & y_limits[2] <= 0) {
+        plot <- plot +
+          geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
+                   fill = "#F5F5F5", width = width, 
+                   data = na_data)        
+      }
+      else if(y_limits[1] < 0 & y_limits[2] > 0) {
+        ggplotly_adjust <- (y_limits[2] - y_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
+        
+        plot <- plot +
+          geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
+                   fill = "#F5F5F5", width = width, 
+                   data = na_data) +
+          geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
+                   fill = "#F5F5F5", width = width, 
+                   data = na_data)
       }
     }
   }
@@ -840,27 +841,28 @@ ggplot_vbar_facet <-
         na_data <- dplyr::filter(data, is.na(!!y_var))
         
         if(nrow(na_data) != 0) {
-          if(y_limits[2] > 0){
+          if(y_limits[1] >= 0 & y_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
                        fill = "#F5F5F5", width = width, 
                        data = na_data)
           }
-          if(y_limits[1] < 0) {
-            if(y_limits[2] <= 0) {
-              plot <- plot +
-                geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                         fill = "#F5F5F5", width = width, 
-                         data = na_data)
-            }
-            else if(y_limits[2] > 0){ 
-              ggplotly_adjust <- (y_limits[2] - y_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
-              
-              plot <- plot +
-                geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                         fill = "#F5F5F5", width = width, 
-                         data = na_data)
-            }
+          else if(y_limits[1] < 0 & y_limits[2] <= 0) {
+            plot <- plot +
+              geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data)        
+          }
+          else if(y_limits[1] < 0 & y_limits[2] > 0) {
+            ggplotly_adjust <- (y_limits[2] - y_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
+            
+            plot <- plot +
+              geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data) +
+              geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
+                       fill = "#F5F5F5", width = width, 
+                       data = na_data)
           }
         }
       }

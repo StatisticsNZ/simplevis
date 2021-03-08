@@ -38,7 +38,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
+\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".}
 

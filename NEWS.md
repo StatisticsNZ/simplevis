@@ -1,3 +1,7 @@
+# simplevis 2.3.5
+
+* Add na_bar argument to vbar_col.
+
 # simplevis 2.3.4
 
 * For hbar_col, fix na_bar so that is works on negative data.

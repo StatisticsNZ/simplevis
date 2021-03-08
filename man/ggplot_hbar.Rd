@@ -44,7 +44,7 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
-\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
+\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

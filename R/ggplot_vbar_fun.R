@@ -389,6 +389,7 @@ ggplot_vbar <- function(data,
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
+#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param legend_ncol The number of columns in the legend.
 #' @param width Width of bars. Defaults to 0.75.
@@ -438,6 +439,7 @@ ggplot_vbar_col <-
            y_expand = NULL,
            y_balance = FALSE,
            position = "stack",
+           na_bar = FALSE,
            pal = NULL,
            legend_ncol = 3,
            width = 0.75, 
@@ -600,6 +602,66 @@ ggplot_vbar_col <-
         )
     })
     
+    if(na_bar == FALSE) {
+      plot <- plot +
+        geom_col(aes(
+          x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
+          width = width, 
+          position = position2)
+    }
+    else if(na_bar == TRUE) {
+      data <- data %>% 
+        dplyr::mutate(col_var2 = ifelse(is.na(!!y_var), NA, as.character(!!col_var))) %>%
+        dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
+      
+      if(is.character(x_var_vctr)) {
+        all_na <- data %>% 
+          group_by(!!x_var) %>%
+          summarise(all_na = all(is.na(!!y_var))) %>% 
+          filter(all_na == TRUE) %>% 
+          mutate(dplyr::across(!!x_var, ~as.character(.x))) %>% 
+          pull(!!x_var)
+        
+        data <- data %>% 
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .fun = stats::median, na.rm = TRUE)))  %>% 
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_relevel(.x, all_na)))  
+      }
+      
+      if(y_limits[1] >= 0 & y_limits[2] > 0) {
+        data <- data %>%
+          dplyr::mutate(y_var2 = ifelse(is.na(!!y_var), y_limits[2], !!y_var))
+        
+        plot <- plot +
+          geom_col(aes(x = !!x_var, y = .data$y_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   width = width, position = position2, data = data)
+      }
+      else if(y_limits[1] < 0 & y_limits[2] <= 0) {
+        data <- data %>%
+          dplyr::mutate(y_var2 = ifelse(is.na(!!y_var), y_limits[1], !!y_var))
+        
+        plot <- plot +
+          geom_col(aes(x = !!x_var, y = .data$y_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   width = width, position = position2, data = data)
+      }
+      else if(y_limits[1] < 0 & y_limits[2] > 0) {
+        data <- data %>%
+          dplyr::mutate(col_var3 = .data$col_var2) %>% 
+          dplyr::mutate(y_var2 = ifelse(is.na(!!y_var), y_limits[1], !!y_var)) %>%
+          dplyr::mutate(y_var3 = ifelse(is.na(!!y_var), y_limits[2], !!y_var))
+        
+        plot <- plot +
+          geom_col(aes(x = !!x_var, y = .data$y_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   width = width, position = position2, data = data) +
+          geom_col(aes(x = !!x_var, y = .data$y_var3, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   width = width, position = position2, data = data)
+      }
+    }
+    
+    if(y_zero_line == TRUE) {
+      plot <- plot +
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+    }
+    
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -607,11 +669,6 @@ ggplot_vbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) 
-    
-    if(y_zero_line == TRUE) {
-      plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
-    }
     
     if (isMobile == FALSE) {
       plot <- plot +

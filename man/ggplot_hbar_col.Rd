@@ -52,7 +52,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 
-\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
+\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

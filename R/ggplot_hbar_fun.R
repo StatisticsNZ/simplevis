@@ -126,7 +126,7 @@ theme_hbar <-
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -383,7 +383,7 @@ ggplot_hbar <- function(data,
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
-#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param legend_ncol The number of columns in the legend.
@@ -736,7 +736,7 @@ ggplot_hbar_col <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_labels Argument to adjust the format of the y scale labels.

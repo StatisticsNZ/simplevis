@@ -8,8 +8,8 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
   y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
-  y_balance = FALSE, position = "stack", pal = NULL,
-  legend_ncol = 3, width = 0.75, title = "[Title]",
+  y_balance = FALSE, position = "stack", na_bar = FALSE,
+  pal = NULL, legend_ncol = 3, width = 0.75, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   col_title = "", caption = NULL, legend_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
@@ -49,6 +49,8 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
+
+\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

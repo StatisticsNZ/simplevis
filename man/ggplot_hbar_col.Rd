@@ -42,7 +42,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
-\item{x_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.}
+\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 

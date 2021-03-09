@@ -44,7 +44,7 @@ ggplot_vbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
 
-\item{y_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
+\item{y_na_bar}{TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

@@ -32,5 +32,5 @@ A leaflet object.
 Map of an array in leaflet.
 }
 \examples{
-leaflet_stars(example_stars_nz_no3n)
+leaflet_stars(example_stars)
 }

@@ -1,6 +1,11 @@
+# simplevis 2.3.8
+
+* Renamed example objects to focus on their object class.
+
 # simplevis 2.3.7
 
 * For line, renamed rev_pal to pal_rev for consistency. 
+* For vbar, added in the pal_rev argument for consistency.
 
 # simplevis 2.3.6
 

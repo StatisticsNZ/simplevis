@@ -5,7 +5,7 @@
 # data1 <- ggplot2::diamonds %>% 
 #   slice_sample(prop = 0.1)
 # 
-# data2 <- simplevis::example_sf_nz_river_wq %>% 
+# data2 <- simplevis::example_sf_point %>% 
 #   filter(indicator %in% c("Nitrate-nitrogen", "Total nitrogen", "Ammoniacal nitrogen")) %>% 
 #   slice_sample(prop = 0.1)
 # 

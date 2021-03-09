@@ -48,5 +48,5 @@ A ggplot object.
 Map of an array in ggplot that is not coloured and not facetted.
 }
 \examples{
-ggplot_stars(data = example_stars_nz_no3n, boundary = nz)
+ggplot_stars(data = example_stars, boundary = nz)
 }

@@ -13,7 +13,7 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
-#' leaflet_stars(example_stars_nz_no3n)
+#' leaflet_stars(example_stars)
 leaflet_stars <- function(data,
                           pal = NULL,
                           opacity = 0.5,
@@ -107,7 +107,7 @@ leaflet_stars <- function(data,
 #' @return A leaflet object.
 #' @export
 #' @examples
-#' leaflet_stars_col(example_stars_nz_no3n, 
+#' leaflet_stars_col(example_stars, 
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 leaflet_stars_col <- function(data,

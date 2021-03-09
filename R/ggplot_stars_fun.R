@@ -110,7 +110,7 @@ theme_stars <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_stars(data = example_stars_nz_no3n, boundary = nz)
+#' ggplot_stars(data = example_stars, boundary = nz)
 ggplot_stars <- function(data,
                          pal = NULL,
                          boundary = NULL,
@@ -238,7 +238,7 @@ ggplot_stars <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_stars_col(data = example_stars_nz_no3n, boundary = nz,
+#' ggplot_stars_col(data = example_stars, boundary = nz,
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 ggplot_stars_col <- function(data,
@@ -444,10 +444,10 @@ ggplot_stars_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data1 <- example_stars_nz_no3n %>%
+#' map_data1 <- example_stars %>%
 #'   rlang::set_names("nitrate_nitrogen")
 #'
-#' map_data2 <- example_stars_nz_drp %>%
+#' map_data2 <- example_stars_2 %>%
 #'   rlang::set_names("dissolved_reactive_phosphorus")
 #'
 #' map_data <- c(map_data1, map_data2)
@@ -576,10 +576,10 @@ ggplot_stars_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data1 <- example_stars_nz_no3n %>%
+#' map_data1 <- example_stars %>%
 #'   rlang::set_names("Nitrate nitrogen")
 #'
-#' map_data2 <- example_stars_nz_drp %>%
+#' map_data2 <- example_stars_2 %>%
 #'   rlang::set_names("Dissolved reactive phosphorus")
 #'
 #' map_data <- c(map_data1, map_data2)

@@ -6,10 +6,5 @@
 ^LICENSE\.md$
 ^doc$
 ^Meta$
-^vignettes/examples\.Rmd$
-^vignettes/ggplot_example_graphs\.Rmd$
-^vignettes/ggplot_example_maps\.Rmd$
-^vignettes/leaflet_example_maps\.Rmd$
+^data-raw$
 ^vignettes/plot_examples\.Rmd$
-^vignettes/scatter_examples\.Rmd$
-^vignettes/test\.Rmd$

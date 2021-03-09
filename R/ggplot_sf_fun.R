@@ -110,7 +110,7 @@ theme_sf <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data <- example_sf_nz_river_wq %>%
+#' map_data <- example_sf_point %>%
 #'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
 #' ggplot_sf(data = map_data, boundary = nz)
@@ -233,15 +233,15 @@ ggplot_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, boundary = nz,
+#' ggplot_sf_col(data = example_sf_polygon, col_var = dairydens, boundary = nz,
 #'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
-#' ggplot_sf_col(data = example_sf_nz_livestock, col_var = dairydens, boundary = nz,
+#' ggplot_sf_col(data = example_sf_polygon, col_var = dairydens, boundary = nz,
 #'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
 #'      title = "Dairy density in count per km\u00b2, 2017")
 #'
-#' map_data <- example_sf_nz_river_wq %>%
+#' map_data <- example_sf_point %>%
 #'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'   
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
@@ -459,7 +459,7 @@ ggplot_sf_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data <- example_sf_nz_river_wq %>%
+#' map_data <- example_sf_point %>%
 #'  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
 #'
 #' ggplot_sf_facet(data = map_data, facet_var = trend_category, boundary = nz,
@@ -600,7 +600,7 @@ ggplot_sf_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data <- example_sf_nz_river_wq %>%
+#' map_data <- example_sf_point %>%
 #'  dplyr::filter(period == "1998-2017",
 #'  indicator %in% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))
 #'  

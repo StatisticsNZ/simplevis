@@ -70,10 +70,10 @@ A ggplot object.
 Map of an array in ggplot that is coloured and facetted.
 }
 \examples{
-map_data1 <- example_stars_nz_no3n \%>\%
+map_data1 <- example_stars \%>\%
   rlang::set_names("Nitrate nitrogen")
 
-map_data2 <- example_stars_nz_drp \%>\%
+map_data2 <- example_stars_2 \%>\%
   rlang::set_names("Dissolved reactive phosphorus")
 
 map_data <- c(map_data1, map_data2)

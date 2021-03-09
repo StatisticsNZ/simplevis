@@ -204,7 +204,7 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 * They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-map_data <- example_sf_nz_river_wq %>%
+map_data <- example_sf_point %>%
   filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
 
 ggplot_sf(map_data, 
@@ -215,7 +215,7 @@ ggplot_sf(map_data,
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-map_data <- example_sf_nz_river_wq %>%
+map_data <- example_sf_point %>%
   filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
@@ -229,7 +229,7 @@ ggplot_sf_col(map_data, trend_category,
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-map_data <- example_sf_nz_river_wq %>%
+map_data <- example_sf_point %>%
  filter(period == "1998-2017", indicator == "Nitrate-nitrogen") 
 
 ggplot_sf_facet(map_data, trend_category, 
@@ -239,7 +239,7 @@ ggplot_sf_facet(map_data, trend_category,
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 7}
-map_data <- example_sf_nz_river_wq %>%
+map_data <- example_sf_point %>%
  filter(period == "1998-2017", indicator %in% c("Nitrate-nitrogen", "Dissolved reactive phosphorus")) 
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
@@ -265,7 +265,7 @@ These functions work in the same way as the `ggplot` `sf` map functions, but wit
 * Data must be provided in the format of a `stars` object. For, `ggplot_sf_col`, the `stars` object must have 2 dimensions x and y, and only 1 attribute layer. Required input. For, `ggplot_sf_col_facet`,  the stars object must have 2 dimensions, x and y, and multiple named attribute layers with the usual convention of lower case and underscores. Use `select`, `slice`, `c` and `split`to get the `stars` object into the appropriate format.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_stars_col(example_stars_nz_no3n, 
+ggplot_stars_col(example_stars, 
                  boundary = nz,
                  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "River modelled median nitrate-nitrogen concentrations, 2013\u201317",
@@ -274,10 +274,10 @@ ggplot_stars_col(example_stars_nz_no3n,
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-map_data1 <- example_stars_nz_no3n %>%
+map_data1 <- example_stars %>%
   rlang::set_names("NO3N")
 
-map_data2 <- example_stars_nz_drp %>%
+map_data2 <- example_stars_2 %>%
   rlang::set_names("DRP")
 
 map_data <- c(map_data1, map_data2)
@@ -300,11 +300,11 @@ These work in the same way as the `ggplot` map functions, but with no boundary a
 Outputs are hidden to keep the size of the vignette manageable. 
 
 ```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-leaflet_sf(data = example_sf_nz_livestock)
+leaflet_sf(data = example_sf_polygon)
 ```
 
 ```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-map_data <- example_sf_nz_livestock %>%
+map_data <- example_sf_polygon %>%
   mutate(dairydens = round(dairydens, 2))
 
 leaflet_sf_col(map_data, dairydens, 
@@ -315,7 +315,7 @@ leaflet_sf_col(map_data, dairydens,
 ```
 
 ```{r, echo = TRUE, results = 'hide', fig.height = 4, fig.width = 7}
-leaflet_stars_col(example_stars_nz_no3n,
+leaflet_stars_col(example_stars,
   col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317")
 ```

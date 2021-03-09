@@ -49,10 +49,10 @@ A ggplot object.
 Map of an array in ggplot that is facetted, but not coloured.
 }
 \examples{
-map_data1 <- example_stars_nz_no3n \%>\%
+map_data1 <- example_stars \%>\%
   rlang::set_names("nitrate_nitrogen")
 
-map_data2 <- example_stars_nz_drp \%>\%
+map_data2 <- example_stars_2 \%>\%
   rlang::set_names("dissolved_reactive_phosphorus")
 
 map_data <- c(map_data1, map_data2)

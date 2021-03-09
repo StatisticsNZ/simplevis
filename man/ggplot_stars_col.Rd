@@ -67,7 +67,7 @@ A ggplot object.
 Map of an array in ggplot that is coloured, but not facetted.
 }
 \examples{
-ggplot_stars_col(data = example_stars_nz_no3n, boundary = nz,
+ggplot_stars_col(data = example_stars, boundary = nz,
    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
 }

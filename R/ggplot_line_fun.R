@@ -366,7 +366,7 @@ ggplot_line <- function(data,
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
 #' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -418,7 +418,7 @@ ggplot_line_col <-
            lines = TRUE,
            size = 0.5,
            pal = NULL,
-           rev_pal = FALSE,
+           pal_rev = FALSE,
            legend_ncol = 3,
            title = "[Title]",
            subtitle = NULL,
@@ -499,7 +499,7 @@ ggplot_line_col <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
-    if (rev_pal == TRUE) pal <- rev(pal)
+    if (pal_rev == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -852,7 +852,7 @@ ggplot_line_facet <-
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param rev_pal Reverses the palette. Defaults to FALSE.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -906,7 +906,7 @@ ggplot_line_col_facet <-
            lines = TRUE,
            size = 0.5,
            pal = NULL,
-           rev_pal = FALSE,
+           pal_rev = FALSE,
            legend_ncol = 3,
            title = "[Title]",
            subtitle = NULL,
@@ -980,7 +980,7 @@ ggplot_line_col_facet <-
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
                  size = point_size, alpha = alpha)
     
-    if (rev_pal == TRUE) pal <- rev(pal)
+    if (pal_rev == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     

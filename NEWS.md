@@ -1,3 +1,7 @@
+# simplevis 2.3.7
+
+* For line, renamed rev_pal to pal_rev for consistency. 
+
 # simplevis 2.3.6
 
 * For hbar & vbar, renamed arguments to x_na_bar and y_na_bar.

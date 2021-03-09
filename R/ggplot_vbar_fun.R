@@ -391,6 +391,7 @@ ggplot_vbar <- function(data,
 #' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -441,6 +442,7 @@ ggplot_vbar_col <-
            y_na_bar = FALSE,
            position = "stack",
            pal = NULL,
+           pal_rev = FALSE,
            legend_ncol = 3,
            width = 0.75, 
            title = "[Title]",
@@ -502,6 +504,8 @@ ggplot_vbar_col <-
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
     if (is.null(pal)) pal <- pal_snz
+    if (pal_rev == TRUE) pal <- rev(pal)
+    
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
     else bar_unit <- 1
     bar_width <- bar_unit * width
@@ -976,6 +980,7 @@ ggplot_vbar_facet <-
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -1031,6 +1036,7 @@ ggplot_vbar_col_facet <-
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
+           pal_rev = FALSE,
            legend_ncol = 3,
            width = 0.75, 
            title = "[Title]",
@@ -1087,6 +1093,8 @@ ggplot_vbar_col_facet <-
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
     if (is.null(pal)) pal <- pal_snz
+    if (pal_rev == TRUE) pal <- rev(pal)
+    
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
     else bar_unit <- 1
     bar_width <- bar_unit * width

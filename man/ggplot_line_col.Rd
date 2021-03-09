@@ -9,7 +9,7 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
   y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
   y_balance = FALSE, points = TRUE, point_size = 1, lines = TRUE,
-  size = 0.5, pal = NULL, rev_pal = FALSE, legend_ncol = 3,
+  size = 0.5, pal = NULL, pal_rev = FALSE, legend_ncol = 3,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", col_title = "", caption = NULL,
   legend_labels = NULL, font_family = "Helvetica",
@@ -58,7 +58,7 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
-\item{rev_pal}{Reverses the palette. Defaults to FALSE.}
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 

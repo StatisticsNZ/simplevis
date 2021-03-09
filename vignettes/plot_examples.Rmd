@@ -324,18 +324,6 @@ ggplot_vbar(plot_data, year, wind,
 
 ```
 
-Manually adjust the legend labels for the colour variable.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot_data <- storms %>%
-  group_by(year, status) %>%
-  summarise(wind = round(mean(wind), 2)) 
-
-ggplot_vbar_col(plot_data, year, wind, status,
-                legend_labels = c("A", "B", "C"))
-
-```
-
 Make the bar width narrower.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}

@@ -8,7 +8,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
   y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
   y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
-  y_balance = FALSE, na_bar = FALSE, facet_scales = "fixed",
+  y_balance = FALSE, y_na_bar = FALSE, facet_scales = "fixed",
   facet_nrow = NULL, pal = NULL, width = 0.75, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
@@ -46,7 +46,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".}
 
-\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
+\item{y_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

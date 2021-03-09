@@ -8,7 +8,7 @@ ggplot_vbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
   y_zero_line = NULL, y_trans = "identity", y_labels = waiver(),
   y_pretty_n = 5, y_expand = NULL, y_balance = FALSE,
-  na_bar = FALSE, pal = NULL, width = 0.75, title = "[Title]",
+  y_na_bar = FALSE, pal = NULL, width = 0.75, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
@@ -44,7 +44,7 @@ ggplot_vbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
 
-\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
+\item{y_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

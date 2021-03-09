@@ -126,7 +126,7 @@ theme_vbar <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
+#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
@@ -171,7 +171,7 @@ ggplot_vbar <- function(data,
                         y_pretty_n = 5,
                         y_expand = NULL,
                         y_balance = FALSE,
-                        na_bar = FALSE,
+                        y_na_bar = FALSE,
                         pal = NULL,
                         width = 0.75, 
                         title = "[Title]",
@@ -309,7 +309,7 @@ ggplot_vbar <- function(data,
       )
   })
   
-  if(na_bar == TRUE) {
+  if(y_na_bar == TRUE) {
     na_data <- dplyr::filter(data, is.na(!!y_var))
     
     if(nrow(na_data) != 0) {
@@ -388,8 +388,8 @@ ggplot_vbar <- function(data,
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
+#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
-#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param legend_ncol The number of columns in the legend.
 #' @param width Width of bars. Defaults to 0.75.
@@ -438,8 +438,8 @@ ggplot_vbar_col <-
            y_pretty_n = 5,
            y_expand = NULL,
            y_balance = FALSE,
+           y_na_bar = FALSE,
            position = "stack",
-           na_bar = FALSE,
            pal = NULL,
            legend_ncol = 3,
            width = 0.75, 
@@ -602,14 +602,14 @@ ggplot_vbar_col <-
         )
     })
     
-    if(na_bar == FALSE) {
+    if(y_na_bar == FALSE) {
       plot <- plot +
         geom_col(aes(
           x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
           width = width, 
           position = position2)
     }
-    else if(na_bar == TRUE) {
+    else if(y_na_bar == TRUE) {
       data <- data %>% 
         dplyr::mutate(col_var2 = ifelse(is.na(!!y_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
@@ -727,7 +727,7 @@ ggplot_vbar_col <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
+#' @param y_na_bar TRUE or FALSE of whether to provide wide grey bars for NA y_var values. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
@@ -773,7 +773,7 @@ ggplot_vbar_facet <-
            y_pretty_n = 5,
            y_expand = NULL,
            y_balance = FALSE,
-           na_bar = FALSE, 
+           y_na_bar = FALSE, 
            facet_scales = "fixed",
            facet_nrow = NULL,
            pal = NULL,
@@ -894,7 +894,7 @@ ggplot_vbar_facet <-
           oob = scales::rescale_none
         )
       
-      if(na_bar == TRUE) {
+      if(y_na_bar == TRUE) {
         na_data <- dplyr::filter(data, is.na(!!y_var))
         
         if(nrow(na_data) != 0) {

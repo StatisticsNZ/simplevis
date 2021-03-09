@@ -1,3 +1,7 @@
+# simplevis 2.3.6
+
+* For hbar & vbar, renamed arguments to x_na_bar and y_na_bar.
+
 # simplevis 2.3.5
 
 * Add na_bar argument to vbar_col.

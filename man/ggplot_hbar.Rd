@@ -7,10 +7,10 @@
 ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
   x_zero = TRUE, x_zero_line = NULL, x_trans = "identity",
   x_pretty_n = 6, x_expand = NULL, x_balance = FALSE,
-  y_rev = FALSE, y_labels = NULL, y_expand = NULL, na_bar = FALSE,
-  pal = NULL, width = 0.75, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
+  x_na_bar = FALSE, y_rev = FALSE, y_labels = NULL,
+  y_expand = NULL, pal = NULL, width = 0.75, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   x_title_wrap = 50, y_title_wrap = 50, caption_wrap = 80,
   isMobile = FALSE)
@@ -38,13 +38,13 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
+\item{x_na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.}
+
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{na_bar}{TRUE or FALSE of whether to provide wide grey bars for NA x_var values. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

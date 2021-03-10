@@ -1,7 +1,7 @@
 # shapes
 
 #' @title New Zealand coastline.
-#' @description New Zealand coastline, excluding the Chathams, that is simplified for ggplot.
+#' @description Simplified New Zealand coastline boundary, excluding the Chatham Islands.
 #' @format An \code{sf} object.
 #' @examples
 #' nz
@@ -11,8 +11,18 @@
 #' ggplot_sf(dplyr::slice(nz, 2, 4))
 #'
 #' ggplot_sf(dplyr::slice(nz, 1, 3, 5:7))
-#' @source \url{https://data.linz.govt.nz/layer/51153-nz-coastlines-and-islands-polygons-topo-150k/}
 "nz"
+
+#' @title New Zealand clipped regional boundaries
+#' @description Simplified New Zealand regional boundaries, excluding the Chatham Islands.
+#' @format An \code{sf} object.
+#' @examples
+#' nz_region
+#'
+#' ggplot_sf(nz_region)
+#'
+#' ggplot_sf(dplyr::filter(nz_region, region == "Wellington"))
+"nz_region"
 
 #' @title Example sf polygon object.
 #' @description Example sf polygon object.

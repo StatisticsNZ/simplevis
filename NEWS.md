@@ -1,3 +1,9 @@
+# simplevis 2.3.9
+
+* Updated help for boundary_behind arguments to specify correct default.
+* For ggplot_sf and stars functions, added boundary_size argument in.
+* Added nz_region as a helpful example boundary.
+
 # simplevis 2.3.8
 
 * Renamed example objects to focus on their object class.

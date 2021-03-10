@@ -94,9 +94,10 @@ theme_stars <-
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with 2 dimensions x and y. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
 #' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -115,7 +116,8 @@ ggplot_stars <- function(data,
                          pal = NULL,
                          boundary = NULL,
                          boundary_behind = FALSE,
-                         boundary_pal = "black",
+                         boundary_pal = "#7f7f7f",
+                         boundary_size = 0.2,
                          title = "[Title]",
                          subtitle = NULL,
                          caption = NULL,
@@ -152,7 +154,7 @@ ggplot_stars <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -181,7 +183,7 @@ ggplot_stars <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -217,9 +219,10 @@ ggplot_stars <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
 #' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
@@ -247,8 +250,9 @@ ggplot_stars_col <- function(data,
                              pal = NULL,
                              pal_rev = FALSE,
                              boundary = NULL,
-                             boundary_behind = TRUE,
+                             boundary_behind = FALSE,
                              boundary_pal = "#7f7f7f",
+                             boundary_size = 0.2,
                              legend_ncol = 3,
                              legend_digits = 1,
                              title = "[Title]",
@@ -295,7 +299,7 @@ ggplot_stars_col <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -392,7 +396,7 @@ ggplot_stars_col <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -428,9 +432,10 @@ ggplot_stars_col <- function(data,
 #' @description Map of an array in ggplot that is facetted, but not coloured. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
 #' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -458,6 +463,7 @@ ggplot_stars_facet <- function(data,
                                boundary = NULL,
                                boundary_behind = FALSE,
                                boundary_pal = "black",
+                               boundary_size = 0.2,
                                facet_nrow = NULL,
                                title = "[Title]",
                                subtitle = NULL,
@@ -488,7 +494,7 @@ ggplot_stars_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -518,7 +524,7 @@ ggplot_stars_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -555,9 +561,10 @@ ggplot_stars_facet <- function(data,
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
 #' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -594,8 +601,9 @@ ggplot_stars_col_facet <- function(data,
                                    pal = NULL,
                                    pal_rev = FALSE,
                                    boundary = NULL,
-                                   boundary_behind = TRUE,
+                                   boundary_behind = FALSE,
                                    boundary_pal = "#7f7f7f",
+                                   boundary_size = 0.2,
                                    facet_nrow = NULL,
                                    legend_ncol = 3,
                                    legend_digits = 1,
@@ -631,7 +639,7 @@ ggplot_stars_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -742,7 +750,7 @@ ggplot_stars_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )

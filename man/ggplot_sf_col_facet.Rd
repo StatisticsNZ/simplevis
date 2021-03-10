@@ -9,10 +9,11 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   pal_rev = FALSE, size = 0.5, alpha = 0.9, facet_nrow = NULL,
   legend_ncol = 3, legend_digits = 1, boundary = NULL,
   boundary_behind = TRUE, boundary_pal = "#7f7f7f",
-  title = "[Title]", subtitle = NULL, col_title = "",
-  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, wrap_col_title = 25, caption_wrap = 80)
+  boundary_size = 0.2, title = "[Title]", subtitle = NULL,
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  wrap_col_title = 25, caption_wrap = 80)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -41,11 +42,13 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
+\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
 
-\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.}
 
 \item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
+
+\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

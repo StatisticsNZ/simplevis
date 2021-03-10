@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>New Zealand coastline with regions. — nz_region • simplevis</title>
+<title>New Zealand clipped regional boundaries — nz_region • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -43,12 +45,10 @@
 
 
 
-<meta property="og:title" content="New Zealand coastline with regions. — nz_region" />
 
-<meta property="og:description" content="New Zealand coastline, excluding the Chathams, with regional boundaries simplified for ggplot." />
-
+<meta property="og:title" content="New Zealand clipped regional boundaries — nz_region" />
+<meta property="og:description" content="Simplified New Zealand regional boundaries, excluding the Chatham Islands." />
 <meta property="og:image" content="/logo.png" />
-
 
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.8</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,15 +98,26 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/plot_examples.html">Plot examples</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/statisticsNZ/simplevis/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -123,57 +134,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>New Zealand coastline with regions.</h1>
+    <h1>New Zealand clipped regional boundaries</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/data.R'><code>R/data.R</code></a></small>
     <div class="hidden name"><code>nz_region.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>New Zealand coastline, excluding the Chathams, with regional boundaries simplified for ggplot.</p>
-    
+    <p>Simplified New Zealand regional boundaries, excluding the Chatham Islands.</p>
     </div>
 
     <pre class="usage"><span class='no'>nz_region</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>An <code>sf</code> object.</p>
-    
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p><a href='https://datafinder.stats.govt.nz/layer/98765-regional-council-2019-clipped-generalised/'>https://datafinder.stats.govt.nz/layer/98765-regional-council-2019-clipped-generalised/</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>nz_region</span></div><div class='output co'>#&gt; Simple feature collection with 16 features and 2 fields
+    <pre class="examples"><div class='input'><span class='no'>nz_region</span></div><div class='output co'>#&gt; Simple feature collection with 16 features and 3 fields
 #&gt; geometry type:  MULTIPOLYGON
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: 166.4261 ymin: -47.28981 xmax: 178.5504 ymax: -34.39263
 #&gt; CRS:            EPSG:4326
-#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   region_code [16]</span><span>
-#&gt;    region_code region_name                                              geometry
-#&gt;  </span><span style='color: #555555;'>*</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                                          </span><span style='color: #555555;font-style: italic;'>&lt;MULTIPOLYGON [°]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 01          Northland Region  (((173.2475 -35.34802, 173.2494 -35.35006, 173…
-#&gt; </span><span style='color: #555555;'> 2</span><span> 02          Auckland Region   (((175.44 -36.26242, 175.4375 -36.25857, 175.4…
-#&gt; </span><span style='color: #555555;'> 3</span><span> 03          Waikato Region    (((174.7847 -38.13349, 174.7865 -38.13396, 174…
-#&gt; </span><span style='color: #555555;'> 4</span><span> 04          Bay of Plenty Re… (((176.1715 -37.68738, 176.1707 -37.68717, 176…
-#&gt; </span><span style='color: #555555;'> 5</span><span> 05          Gisborne Region   (((177.876 -38.0767, 177.9723 -37.84501, 178.0…
-#&gt; </span><span style='color: #555555;'> 6</span><span> 06          Hawke's Bay Regi… (((177.9018 -39.07296, 177.908 -39.07566, 177.…
-#&gt; </span><span style='color: #555555;'> 7</span><span> 07          Taranaki Region   (((174.2067 -39.59022, 174.2015 -39.58808, 174…
-#&gt; </span><span style='color: #555555;'> 8</span><span> 08          Manawatu-Wanganu… (((175.5606 -38.49023, 175.5655 -38.49453, 175…
-#&gt; </span><span style='color: #555555;'> 9</span><span> 09          Wellington Region (((174.8099 -41.34305, 174.8109 -41.34476, 174…
-#&gt; </span><span style='color: #555555;'>10</span><span> 12          West Coast Region (((170.3303 -43.09979, 170.3268 -43.10285, 170…
-#&gt; </span><span style='color: #555555;'>11</span><span> 13          Canterbury Region (((172.6917 -42.10662, 172.7017 -42.1013, 172.…
-#&gt; </span><span style='color: #555555;'>12</span><span> 14          Otago Region      (((169.7051 -46.47425, 169.7035 -46.47368, 169…
-#&gt; </span><span style='color: #555555;'>13</span><span> 15          Southland Region  (((167.7202 -47.04975, 167.7135 -47.04868, 167…
-#&gt; </span><span style='color: #555555;'>14</span><span> 16          Tasman Region     (((172.4941 -41.04557, 172.4961 -41.04071, 172…
-#&gt; </span><span style='color: #555555;'>15</span><span> 17          Nelson Region     (((173.3167 -41.24106, 173.3154 -41.23618, 173…
-#&gt; </span><span style='color: #555555;'>16</span><span> 18          Marlborough Regi… (((173.3044 -41.507, 173.2889 -41.49327, 173.2…</div><div class='input'>
+#&gt; <span style='color: #949494;'># A tibble: 16 x 4</span><span>
+#&gt;    region_code region     region_macron                                 geometry
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                               </span><span style='color: #949494;font-style: italic;'>&lt;MULTIPOLYGON [°]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 01          Northland  Northland      (((173.2475 -35.34802, 173.2494 -35.35…
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 02          Auckland   Auckland       (((175.44 -36.26242, 175.4375 -36.2585…
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 03          Waikato    Waikato        (((174.7847 -38.13349, 174.7865 -38.13…
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 04          Bay of Pl… Bay of Plenty  (((176.1715 -37.68738, 176.1707 -37.68…
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 05          Gisborne   Gisborne       (((177.876 -38.0767, 177.9723 -37.8450…
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 06          Hawke's B… Hawke's Bay    (((177.9018 -39.07296, 177.908 -39.075…
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 07          Taranaki   Taranaki       (((174.2067 -39.59022, 174.2015 -39.58…
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 08          Manawatu-… Manawatū-Whan… (((175.5606 -38.49023, 175.5655 -38.49…
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 09          Wellington Wellington     (((174.8099 -41.34305, 174.8109 -41.34…
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 12          West Coast West Coast     (((170.3303 -43.09979, 170.3268 -43.10…
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> 13          Canterbury Canterbury     (((172.6917 -42.10662, 172.7017 -42.10…
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> 14          Otago      Otago          (((169.7051 -46.47425, 169.7035 -46.47…
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> 15          Southland  Southland      (((167.7202 -47.04975, 167.7135 -47.04…
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> 16          Tasman     Tasman         (((172.4941 -41.04557, 172.4961 -41.04…
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> 17          Nelson     Nelson         (((173.3167 -41.24106, 173.3154 -41.23…
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> 18          Marlborou… Marlborough    (((173.3044 -41.507, 173.2889 -41.4932…</div><div class='input'>
 <span class='fu'><a href='ggplot_sf.html'>ggplot_sf</a></span>(<span class='no'>nz_region</span>)</div><div class='img'><img src='nz_region-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot_sf.html'>ggplot_sf</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>nz_region</span>, <span class='no'>region_code</span> <span class='kw'>==</span> <span class='st'>"09"</span>))</div><div class='img'><img src='nz_region-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></span></pre>
+<span class='fu'><a href='ggplot_sf.html'>ggplot_sf</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>nz_region</span>, <span class='no'>region</span> <span class='kw'>==</span> <span class='st'>"Wellington"</span>))</div><div class='img'><img src='nz_region-2.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -189,7 +192,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>

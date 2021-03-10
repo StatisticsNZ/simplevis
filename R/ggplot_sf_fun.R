@@ -96,7 +96,10 @@ theme_sf <-
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
+#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -119,6 +122,9 @@ ggplot_sf <- function(data,
                       alpha = 0.1,
                       pal = NULL,
                       boundary = NULL,
+                      boundary_behind = TRUE,
+                      boundary_pal = "#7f7f7f",
+                      boundary_size = 0.2,
                       title = "[Title]",
                       subtitle = NULL,
                       caption = NULL,
@@ -152,18 +158,18 @@ ggplot_sf <- function(data,
     )
   
   if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE)
-      boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    
-    plot <- plot +
-      geom_sf(
-        data = boundary,
-        size = 0.2,
-        colour = "#7f7f7f",
-        fill = "transparent"
-      )
+    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
+    if (boundary_behind == TRUE) {
+      plot <- plot +
+        geom_sf(
+          data = boundary,
+          size = boundary_size, 
+          colour = boundary_pal,
+          fill = "transparent"
+        )
+    }
   }
-  
+
   if (is.null(pal)) pal <- pal_snz
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
@@ -180,6 +186,18 @@ ggplot_sf <- function(data,
       )
   }
   
+  if (!is.null(boundary)) {
+    if (boundary_behind == FALSE) {
+      plot <- plot +
+        geom_sf(
+          data = boundary,
+          size = boundary_size, 
+          colour = boundary_pal,
+          fill = "transparent"
+        )
+    }
+  }
+
   if (isMobile == FALSE) {
     plot <- plot +
       labs(
@@ -212,9 +230,10 @@ ggplot_sf <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
@@ -260,6 +279,7 @@ ggplot_sf_col <- function(data,
                           boundary = NULL,
                           boundary_behind = TRUE,
                           boundary_pal = "#7f7f7f",
+                          boundary_size = 0.2,
                           legend_ncol = 3,
                           legend_digits = 1,
                           title = "[Title]",
@@ -309,7 +329,7 @@ ggplot_sf_col <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -402,7 +422,7 @@ ggplot_sf_col <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -444,9 +464,10 @@ ggplot_sf_col <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_nrow The number of rows of facetted plots. 
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -473,6 +494,7 @@ ggplot_sf_facet <- function(data,
                             boundary = NULL,
                             boundary_behind = TRUE,
                             boundary_pal = "#7f7f7f",
+                            boundary_size = 0.2,
                             title = "[Title]",
                             subtitle = NULL,
                             caption = NULL,
@@ -511,7 +533,7 @@ ggplot_sf_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -546,7 +568,7 @@ ggplot_sf_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -579,9 +601,10 @@ ggplot_sf_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param boundary Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
+#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -625,6 +648,7 @@ ggplot_sf_col_facet <- function(data,
                                 boundary = NULL,
                                 boundary_behind = TRUE,
                                 boundary_pal = "#7f7f7f",
+                                boundary_size = 0.2, 
                                 title = "[Title]",
                                 subtitle = NULL,
                                 col_title = "",
@@ -667,7 +691,7 @@ ggplot_sf_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )
@@ -773,7 +797,7 @@ ggplot_sf_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = boundary,
-          size = 0.2,
+          size = boundary_size, 
           colour = boundary_pal,
           fill = "transparent"
         )

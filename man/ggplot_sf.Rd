@@ -5,7 +5,8 @@
 \title{Map of simple features in ggplot.}
 \usage{
 ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
-  boundary = NULL, title = "[Title]", subtitle = NULL,
+  boundary = NULL, boundary_behind = TRUE, boundary_pal = "#7f7f7f",
+  boundary_size = 0.2, title = "[Title]", subtitle = NULL,
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   caption_wrap = 80, isMobile = FALSE)
@@ -19,7 +20,13 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
-\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
+\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
+
+\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.}
+
+\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
+
+\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

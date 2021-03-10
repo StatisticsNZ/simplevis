@@ -7,9 +7,9 @@
 ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
   pal = NULL, pal_rev = FALSE, size = 0.5, alpha = 0.9,
   boundary = NULL, boundary_behind = TRUE, boundary_pal = "#7f7f7f",
-  legend_ncol = 3, legend_digits = 1, title = "[Title]",
-  subtitle = NULL, col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
+  boundary_size = 0.2, legend_ncol = 3, legend_digits = 1,
+  title = "[Title]", subtitle = NULL, col_title = "",
+  caption = NULL, legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
   subtitle_wrap = 80, wrap_col_title = 25, caption_wrap = 80,
   isMobile = FALSE)
@@ -31,11 +31,13 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 
-\item{boundary}{Add a sf object as administrative boundaries (or coastlines). Defaults to NULL. Use nz (or nz_region) to add a new zealand boundary. Or add a custom sf object.}
+\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
 
-\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to FALSE.}
+\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.}
 
 \item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
+
+\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 

@@ -11,3 +11,5 @@
 ^vignettes/map_examples\.Rmd$
 ^vignettes/map_examples_array\.Rmd$
 ^vignettes/map_sf_examples\.Rmd$
+^vignettes/a1_plot_examples\.Rmd$
+^vignettes/a2_map_sf_examples\.Rmd$

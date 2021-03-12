@@ -1,5 +1,5 @@
 ---
-title: "Map sf examples"
+title: "Map examples: sf"
 author: "David Hodge"
 date: "`r Sys.Date()`"
 ---

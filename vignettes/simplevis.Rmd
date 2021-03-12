@@ -252,7 +252,7 @@ These functions work in the same way as the `ggplot` `sf` map functions, but wit
 * They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
 * Data must be provided in the format of a `stars` object. For, `ggplot_sf_col`, the `stars` object must have 2 dimensions x and y, and only 1 attribute layer. Required input. For, `ggplot_sf_col_facet`,  the stars object must have 2 dimensions, x and y, and multiple named attribute layers with the usual convention of lower case and underscores. Use `select`, `slice`, `c` and `split`to get the `stars` object into the appropriate format.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7, eval=F}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_stars_col(example_stars, 
                  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "Site medians, 2013-2017",
@@ -260,7 +260,7 @@ ggplot_stars_col(example_stars,
                  legend_digits = 1)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7, eval=F}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 map_data1 <- example_stars %>% rlang::set_names("A")
 
 map_data2 <- example_stars_2 %>% rlang::set_names("B")

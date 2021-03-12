@@ -118,7 +118,7 @@ ggplot_sf_col(example_sf_point, trend_category,
 
 Make a non-facetted plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile within a shiny app. 
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_col(example_sf_point, trend_category,
               boundary = nz, isMobile = TRUE)
 ```
@@ -131,7 +131,7 @@ leaflet_sf(example_sf_point)
 
 Instead of a `boundary` argument, users have a `basemap` argument that defaults to "light" but has other options.
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_sf(example_sf_point, basemap = "dark")
 ```
 
@@ -141,7 +141,7 @@ Some of the arguments are different between the leaflet and ggplot2 wrapper func
 
 Note the default popups will wrap all variable names and values from the sf object. 
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 pal <- c("#0D94A3", "#C4C4C7", "#AE4E51")
 
 leaflet_sf_col(example_sf_point, col_var = trend_category, 

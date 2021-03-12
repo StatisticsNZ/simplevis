@@ -251,8 +251,8 @@
 <span class="kw pkg">plotly</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">ggplotly</a></span>(<span class="no">plot</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plotly_camera.html">plotly_camera</a></span>()</pre></body></html></div>
 <p>The variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-2508d2957a74454a6576" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2508d2957a74454a6576">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-63c3870b369a9a824c5f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-63c3870b369a9a824c5f">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="simplevis-ggplot-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -324,6 +324,7 @@
                  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site medians, 2013-2017"</span>,
                  <span class="kw">title_wrap</span> <span class="kw">=</span> <span class="fl">40</span>,
                  <span class="kw">legend_digits</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">map_data1</span> <span class="kw">&lt;-</span> <span class="no">example_stars</span> <span class="kw">%&gt;%</span> <span class="kw pkg">rlang</span><span class="kw ns">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span>(<span class="st">"A"</span>)
 
 <span class="no">map_data2</span> <span class="kw">&lt;-</span> <span class="no">example_stars_2</span> <span class="kw">%&gt;%</span> <span class="kw pkg">rlang</span><span class="kw ns">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span>(<span class="st">"B"</span>)
@@ -333,6 +334,7 @@
 <span class="fu"><a href="../reference/ggplot_stars_col_facet.html">ggplot_stars_col_facet</a></span>(<span class="no">map_data</span>,
                        <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>, <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
                        <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site medians, 2013-2017"</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
 </div>
 <div id="simplevis-leaflet-maps" class="section level3">
 <h3 class="hasAnchor">

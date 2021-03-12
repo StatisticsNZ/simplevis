@@ -208,12 +208,12 @@ ggplot_hbar <- function(data,
   x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
   
   if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
+  
   if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
+    if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
+    else(x_zero_line <- FALSE)
   }
-
+  
   if(is.null(font_size_title)){
     if (isMobile == FALSE) font_size_title <- 11
     else if (isMobile == TRUE) font_size_title <- 15
@@ -228,8 +228,8 @@ ggplot_hbar <- function(data,
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
   }
   else if (is.character(y_var_vctr)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
   }
   
   if (is.null(pal)) pal <- pal_snz
@@ -245,7 +245,7 @@ ggplot_hbar <- function(data,
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
-
+  
   if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
@@ -336,7 +336,7 @@ ggplot_hbar <- function(data,
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
-
+  
   if (isMobile == FALSE){
     plot <- plot +
       labs(
@@ -492,7 +492,7 @@ ggplot_hbar_col <-
       if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
       else(x_zero_line <- FALSE)
     }
-
+    
     if(is.null(font_size_title)){
       if (isMobile == FALSE) font_size_title <- 11
       else if (isMobile == TRUE) font_size_title <- 15
@@ -544,7 +544,7 @@ ggplot_hbar_col <-
       
       pal <- c(pal, "Not available" = "#f5f5f5")
     }
-
+    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(!!y_var)) %>%
@@ -682,7 +682,7 @@ ggplot_hbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       )
-
+    
     if (isMobile == FALSE){
       plot <- plot +
         labs(

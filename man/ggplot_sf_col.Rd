@@ -76,20 +76,17 @@ A ggplot object.
 Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
-ggplot_sf_col(data = example_sf_polygon, col_var = dairydens, boundary = nz,
+ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
-     title = "Dairy density in count per km\\u00b2, 2017")
+     title = "Density, 2017")
 
-ggplot_sf_col(data = example_sf_polygon, col_var = dairydens, boundary = nz,
+ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
-     title = "Dairy density in count per km\\u00b2, 2017")
+     title = "Density, 2017")
 
-map_data <- example_sf_point \%>\%
-  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-  
  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
-ggplot_sf_col(data = map_data, col_var = trend_category, boundary = nz, 
+ggplot_sf_col(data = example_sf_point, col_var = trend_category, boundary = nz, 
    pal = pal, col_method = "category",
    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 }

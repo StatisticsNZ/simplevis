@@ -4,9 +4,7 @@
 \alias{ggplot_stars}
 \title{Map of an array in ggplot.}
 \usage{
-ggplot_stars(data, pal = NULL, boundary = NULL,
-  boundary_behind = FALSE, boundary_pal = "#7f7f7f",
-  boundary_size = 0.2, title = "[Title]", subtitle = NULL,
+ggplot_stars(data, pal = NULL, title = "[Title]", subtitle = NULL,
   caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   caption_wrap = 80, isMobile = FALSE)
@@ -15,14 +13,6 @@ ggplot_stars(data, pal = NULL, boundary = NULL,
 \item{data}{A stars object with 2 dimensions x and y. Required input.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
-
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
-
-\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
-
-\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
-
-\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -51,5 +41,5 @@ A ggplot object.
 Map of an array in ggplot that is not coloured and not facetted.
 }
 \examples{
-ggplot_stars(data = example_stars, boundary = nz)
+ggplot_stars(data = example_stars)
 }

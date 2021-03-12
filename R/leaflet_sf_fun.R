@@ -17,10 +17,7 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
-#' map_data <- example_sf_point %>%
-#'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-#'
-#' leaflet_sf(map_data)
+#' leaflet_sf(example_sf_point)
 leaflet_sf <- function(data,
                        pal = NULL,
                        popup = NULL,
@@ -221,20 +218,17 @@ leaflet_sf <- function(data,
 #' @return A leaflet object.
 #' @export
 #' @examples
-#' leaflet_sf_col(example_sf_polygon, dairydens,
+#' leaflet_sf_col(example_sf_polygon, density,
 #'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
-#'      title = "Dairy density in count per km\u00b2, 2017")
+#'      title = "Modelled density, 2017")
 #'
-#' leaflet_sf_col(example_sf_polygon, dairydens,
+#' leaflet_sf_col(example_sf_polygon, density,
 #'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
-#'      title = "Dairy density in count per km\u00b2, 2017")
-#'
-#' map_data <- example_sf_point %>%
-#'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
+#'      title = "Modelled density, 2017")
 #'
 #' pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' leaflet_sf_col(map_data, trend_category, pal = pal, col_method = "category",
+#' leaflet_sf_col(example_sf_point, trend_category, pal = pal, col_method = "category",
 #'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
 leaflet_sf_col <- function(data,
                            col_var,

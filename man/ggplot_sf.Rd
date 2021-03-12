@@ -55,8 +55,5 @@ A ggplot object.
 Map of simple features in ggplot that is not coloured and not facetted.
 }
 \examples{
-map_data <- example_sf_point \%>\%
-  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-
-ggplot_sf(data = map_data, boundary = nz)
+ggplot_sf(data = example_sf_point, boundary = nz)
 }

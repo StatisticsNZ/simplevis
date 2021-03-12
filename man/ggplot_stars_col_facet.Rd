@@ -6,13 +6,12 @@
 \usage{
 ggplot_stars_col_facet(data, col_method = "quantile",
   col_quantile_by_facet = TRUE, col_cuts = NULL, pal = NULL,
-  pal_rev = FALSE, boundary = NULL, boundary_behind = FALSE,
-  boundary_pal = "#7f7f7f", boundary_size = 0.2, facet_nrow = NULL,
-  legend_ncol = 3, legend_digits = 1, title = "[Title]",
-  subtitle = NULL, col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, wrap_col_title = 25, caption_wrap = 80)
+  pal_rev = FALSE, facet_nrow = NULL, legend_ncol = 3,
+  legend_digits = 1, title = "[Title]", subtitle = NULL,
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  wrap_col_title = 25, caption_wrap = 80)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.}
@@ -26,14 +25,6 @@ ggplot_stars_col_facet(data, col_method = "quantile",
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
-
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
-
-\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
-
-\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
-
-\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
@@ -73,14 +64,14 @@ Map of an array in ggplot that is coloured and facetted.
 }
 \examples{
 map_data1 <- example_stars \%>\%
-  rlang::set_names("Nitrate nitrogen")
+  rlang::set_names("Variable A")
 
 map_data2 <- example_stars_2 \%>\%
-  rlang::set_names("Dissolved reactive phosphorus")
+  rlang::set_names("Variable B")
 
 map_data <- c(map_data1, map_data2)
 
-ggplot_stars_col_facet(data = map_data, boundary = nz,
+ggplot_stars_col_facet(data = map_data, 
    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-   title = "River modelled nutrient concentrations, 2013-17")
+   title = "Site medians, 2013-17")
 }

@@ -1,3 +1,9 @@
+# simplevis 2.4.0
+
+* Reduce the size of sf example objects.
+* Add vignette for making maps of sf objects.
+* Removed support for boundary arguments in ggplot_stars, as it was not working.
+
 # simplevis 2.3.9
 
 * Updated help for boundary_behind arguments to specify correct default.

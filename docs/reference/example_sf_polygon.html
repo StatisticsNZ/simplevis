@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -105,6 +105,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/map_examples_sf.html">Map examples: sf</a>
+    </li>
     <li>
       <a href="../articles/plot_examples.html">Plot examples</a>
     </li>
@@ -151,34 +154,23 @@
     <p>An <code>sf</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>example_sf_polygon</span></div><div class='output co'>#&gt; Simple feature collection with 963 features and 7 fields
+    <pre class="examples"><div class='input'><span class='no'>example_sf_polygon</span></div><div class='output co'>#&gt; Simple feature collection with 963 features and 2 fields
 #&gt; geometry type:  MULTIPOLYGON
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: 1090000 ymin: 4748153 xmax: 2089541 ymax: 6194182
 #&gt; CRS:            EPSG:2193
 #&gt; First 10 features:
-#&gt;    grid_id year cattledens dairydens beefdens sheepdens deerdens
-#&gt; 1       12 2017      0.000     0.000    0.000     0.000    0.000
-#&gt; 2       14 2017      0.000     0.000    0.000     0.000    0.000
-#&gt; 3       28 2017    121.530   110.454   11.076   248.259    2.694
-#&gt; 4       88 2017     71.646    58.405   13.241   267.276    5.935
-#&gt; 5       89 2017     74.171    62.744   11.427   286.443   18.073
-#&gt; 6       90 2017    106.128    89.362   16.766   331.749   29.182
-#&gt; 7       91 2017     30.000     6.112   23.888   416.736    9.206
-#&gt; 8      135 2017      0.000     0.000    0.000     0.000    0.000
-#&gt; 9      151 2017      0.000     0.000    0.000     0.000    0.000
-#&gt; 10     167 2017      0.000     0.000    0.000     0.000    0.000
-#&gt;                          geometry
-#&gt; 1  MULTIPOLYGON (((1199950 481...
-#&gt; 2  MULTIPOLYGON (((1249363 482...
-#&gt; 3  MULTIPOLYGON (((1259922 485...
-#&gt; 4  MULTIPOLYGON (((1219940 492...
-#&gt; 5  MULTIPOLYGON (((1239931 492...
-#&gt; 6  MULTIPOLYGON (((1259922 492...
-#&gt; 7  MULTIPOLYGON (((1279913 492...
-#&gt; 8  MULTIPOLYGON (((1149972 497...
-#&gt; 9  MULTIPOLYGON (((1139977 499...
-#&gt; 10 MULTIPOLYGON (((1149972 501...</div></pre>
+#&gt;    grid_id density                       geometry
+#&gt; 1       12   0.000 MULTIPOLYGON (((1199950 481...
+#&gt; 2       14   0.000 MULTIPOLYGON (((1249363 482...
+#&gt; 3       28 110.454 MULTIPOLYGON (((1259922 485...
+#&gt; 4       88  58.405 MULTIPOLYGON (((1219940 492...
+#&gt; 5       89  62.744 MULTIPOLYGON (((1239931 492...
+#&gt; 6       90  89.362 MULTIPOLYGON (((1259922 492...
+#&gt; 7       91   6.112 MULTIPOLYGON (((1279913 492...
+#&gt; 8      135   0.000 MULTIPOLYGON (((1149972 497...
+#&gt; 9      151   0.000 MULTIPOLYGON (((1139977 499...
+#&gt; 10     167   0.000 MULTIPOLYGON (((1149972 501...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

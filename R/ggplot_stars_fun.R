@@ -94,10 +94,6 @@ theme_stars <-
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with 2 dimensions x and y. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
-#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -111,13 +107,9 @@ theme_stars <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_stars(data = example_stars, boundary = nz)
+#' ggplot_stars(data = example_stars)
 ggplot_stars <- function(data,
                          pal = NULL,
-                         boundary = NULL,
-                         boundary_behind = FALSE,
-                         boundary_pal = "#7f7f7f",
-                         boundary_size = 0.2,
                          title = "[Title]",
                          subtitle = NULL,
                          caption = NULL,
@@ -146,25 +138,9 @@ ggplot_stars <- function(data,
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
-    )
-  
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
-  else if (is.null(boundary)) {
-    plot <- plot +
-      coord_equal()
-  }
-  
+    ) +
+    coord_equal() #this is applicable only when no boundary
+
   data <- data %>%
     tibble::as_tibble()
   
@@ -177,18 +153,6 @@ ggplot_stars <- function(data,
                 data = data) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
-  
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
   
   if (isMobile == FALSE) {
     plot <- plot +
@@ -219,10 +183,6 @@ ggplot_stars <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
-#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
@@ -241,18 +201,14 @@ ggplot_stars <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_stars_col(data = example_stars, boundary = nz,
+#' ggplot_stars_col(data = example_stars, 
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-#'    title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
+#'    title = "Site medians, 2013-17")
 ggplot_stars_col <- function(data,
                              col_method = "quantile",
                              col_cuts = NULL,
                              pal = NULL,
                              pal_rev = FALSE,
-                             boundary = NULL,
-                             boundary_behind = FALSE,
-                             boundary_pal = "#7f7f7f",
-                             boundary_size = 0.2,
                              legend_ncol = 3,
                              legend_digits = 1,
                              title = "[Title]",
@@ -292,23 +248,6 @@ ggplot_stars_col <- function(data,
     dplyr::select(col_var = 1)
   
   col_var_vctr <- dplyr::pull(data, .data$col_var)
-  
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
-  else if (is.null(boundary)) {
-    plot <- plot +
-      coord_equal()
-  }
   
   if (col_method == "category") {
     data <- data %>%
@@ -389,19 +328,8 @@ ggplot_stars_col <- function(data,
       na.translate = FALSE
     ) +
     scale_x_continuous(expand = c(0, 0)) +
-    scale_y_continuous(expand = c(0, 0))
-  
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
+    scale_y_continuous(expand = c(0, 0)) +
+    coord_equal() #this is applicable only when no boundary
   
   if (isMobile == FALSE) {
     plot <- plot +
@@ -432,10 +360,6 @@ ggplot_stars_col <- function(data,
 #' @description Map of an array in ggplot that is facetted, but not coloured. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
-#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -450,20 +374,16 @@ ggplot_stars_col <- function(data,
 #' @export
 #' @examples
 #' map_data1 <- example_stars %>%
-#'   rlang::set_names("nitrate_nitrogen")
+#'   rlang::set_names("Variable A")
 #'
 #' map_data2 <- example_stars_2 %>%
-#'   rlang::set_names("dissolved_reactive_phosphorus")
+#'   rlang::set_names("Variable B")
 #'
 #' map_data <- c(map_data1, map_data2)
 #'
-#' ggplot_stars_facet(data = map_data, boundary = nz)
+#' ggplot_stars_facet(data = map_data)
 ggplot_stars_facet <- function(data,
                                pal = NULL,
-                               boundary = NULL,
-                               boundary_behind = FALSE,
-                               boundary_pal = "black",
-                               boundary_size = 0.2,
                                facet_nrow = NULL,
                                title = "[Title]",
                                subtitle = NULL,
@@ -486,25 +406,9 @@ ggplot_stars_facet <- function(data,
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
-    )
-  
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
-  else if (is.null(boundary)) {
-    plot <- plot +
-      coord_equal()
-  }
-  
+    ) +
+    coord_equal() #this is applicable only when no boundary
+
   data <- data %>%
     tibble::as_tibble() %>%
     tidyr::pivot_longer(c(-.data$x,-.data$y), names_to = "facet_var", values_to = "col_var")
@@ -518,18 +422,6 @@ ggplot_stars_facet <- function(data,
                 data = data) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
-  
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
   
   if (is.null(facet_nrow) & length(unique(data$facet_var)) <= 3) facet_nrow <- 1
   if (is.null(facet_nrow) & length(unique(data$facet_var)) > 3) facet_nrow <- 2
@@ -561,10 +453,6 @@ ggplot_stars_facet <- function(data,
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.
-#' @param boundary_behind TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -584,26 +472,22 @@ ggplot_stars_facet <- function(data,
 #' @export
 #' @examples
 #' map_data1 <- example_stars %>%
-#'   rlang::set_names("Nitrate nitrogen")
+#'   rlang::set_names("Variable A")
 #'
 #' map_data2 <- example_stars_2 %>%
-#'   rlang::set_names("Dissolved reactive phosphorus")
+#'   rlang::set_names("Variable B")
 #'
 #' map_data <- c(map_data1, map_data2)
 #'
-#' ggplot_stars_col_facet(data = map_data, boundary = nz,
+#' ggplot_stars_col_facet(data = map_data, 
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-#'    title = "River modelled nutrient concentrations, 2013-17")
+#'    title = "Site medians, 2013-17")
 ggplot_stars_col_facet <- function(data,
                                    col_method = "quantile",
                                    col_quantile_by_facet = TRUE,
                                    col_cuts = NULL,
                                    pal = NULL,
                                    pal_rev = FALSE,
-                                   boundary = NULL,
-                                   boundary_behind = FALSE,
-                                   boundary_pal = "#7f7f7f",
-                                   boundary_size = 0.2,
                                    facet_nrow = NULL,
                                    legend_ncol = 3,
                                    legend_digits = 1,
@@ -631,25 +515,9 @@ ggplot_stars_col_facet <- function(data,
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
-    )
-  
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
-  else if (is.null(boundary)) {
-    plot <- plot +
-      coord_equal()
-  }
-  
+    ) +
+    coord_equal() #this is applicable only when no boundary
+
   if (col_method == "category") {
     data <- data %>%
       tibble::as_tibble() %>%
@@ -744,18 +612,6 @@ ggplot_stars_col_facet <- function(data,
     ) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
-  
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
-      plot <- plot +
-        geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
-          fill = "transparent"
-        )
-    }
-  }
   
   if (is.null(facet_nrow) & length(unique(data$facet_var)) <= 3) facet_nrow <- 1
   if (is.null(facet_nrow) & length(unique(data$facet_var)) > 3) facet_nrow <- 2

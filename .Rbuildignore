@@ -8,3 +8,6 @@
 ^Meta$
 ^data-raw$
 ^vignettes/plot_examples\.Rmd$
+^vignettes/map_examples\.Rmd$
+^vignettes/map_examples_array\.Rmd$
+^vignettes/map_sf_examples\.Rmd$

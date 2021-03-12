@@ -5,9 +5,7 @@
 \title{Map of an array in ggplot that is coloured.}
 \usage{
 ggplot_stars_col(data, col_method = "quantile", col_cuts = NULL,
-  pal = NULL, pal_rev = FALSE, boundary = NULL,
-  boundary_behind = FALSE, boundary_pal = "#7f7f7f",
-  boundary_size = 0.2, legend_ncol = 3, legend_digits = 1,
+  pal = NULL, pal_rev = FALSE, legend_ncol = 3, legend_digits = 1,
   title = "[Title]", subtitle = NULL, col_title = "",
   caption = NULL, legend_labels = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
@@ -24,14 +22,6 @@ ggplot_stars_col(data, col_method = "quantile", col_cuts = NULL,
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
-
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
-
-\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
-
-\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
-
-\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{legend_ncol}{The number of columns in the legend.}
 
@@ -70,7 +60,7 @@ A ggplot object.
 Map of an array in ggplot that is coloured, but not facetted.
 }
 \examples{
-ggplot_stars_col(data = example_stars, boundary = nz,
+ggplot_stars_col(data = example_stars, 
    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-   title = "River modelled median nitrate-nitrogen concentrations, 2013-17")
+   title = "Site medians, 2013-17")
 }

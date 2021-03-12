@@ -4,25 +4,16 @@
 \alias{ggplot_stars_facet}
 \title{Map of an array in ggplot that is facetted.}
 \usage{
-ggplot_stars_facet(data, pal = NULL, boundary = NULL,
-  boundary_behind = FALSE, boundary_pal = "black",
-  boundary_size = 0.2, facet_nrow = NULL, title = "[Title]",
-  subtitle = NULL, caption = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, caption_wrap = 80)
+ggplot_stars_facet(data, pal = NULL, facet_nrow = NULL,
+  title = "[Title]", subtitle = NULL, caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  caption_wrap = 80)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.}
 
 \item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
-
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
-
-\item{boundary_behind}{TRUE or FALSE as to whether the boundary is to be behind the stars object defined in the data argument. Defaults to FALSE.}
-
-\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
-
-\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
@@ -52,12 +43,12 @@ Map of an array in ggplot that is facetted, but not coloured.
 }
 \examples{
 map_data1 <- example_stars \%>\%
-  rlang::set_names("nitrate_nitrogen")
+  rlang::set_names("Variable A")
 
 map_data2 <- example_stars_2 \%>\%
-  rlang::set_names("dissolved_reactive_phosphorus")
+  rlang::set_names("Variable B")
 
 map_data <- c(map_data1, map_data2)
 
-ggplot_stars_facet(data = map_data, boundary = nz)
+ggplot_stars_facet(data = map_data)
 }

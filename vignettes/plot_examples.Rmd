@@ -20,7 +20,6 @@ library(simplevis)
 iris <- iris %>% as_tibble() 
 
 iris 
-
 ```
 
 Create a point plot of iris sepal width and length.
@@ -31,6 +30,7 @@ ggplot_point(iris, Sepal.Width, Sepal.Length)
 ```
 
 Or pipe it in, if you prefer.
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 iris %>% 
   ggplot_point(Sepal.Width, Sepal.Length)
@@ -401,7 +401,7 @@ ggplot_hbar(plot_data, !!sym("price"), !!sym("cut"),
 
 ```
 
-Make a non-facetted plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile.
+Make a non-facetted plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile within a shiny app.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 4}
 plot_data <- ggplot2::diamonds %>%

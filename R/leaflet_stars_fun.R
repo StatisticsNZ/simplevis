@@ -31,8 +31,8 @@ leaflet_stars <- function(data,
   data <- methods::as(data, "Raster")
   data <- projectRasterForLeaflet(data, method = "ngb")
   
-  if (is.null(pal))
-    pal <- pal_snz[1]
+  if (is.null(pal)) pal <- pal_snz[1]
+  
   pal_fun <-
     colorBin(
       palette = pal,

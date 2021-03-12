@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -105,6 +105,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/map_examples_sf.html">Map examples: sf</a>
+    </li>
     <li>
       <a href="../articles/plot_examples.html">Plot examples</a>
     </li>
@@ -151,45 +154,23 @@
     <p>An <code>sf</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>example_sf_point</span></div><div class='output co'>#&gt; Simple feature collection with 9021 features and 9 fields
+    <pre class="examples"><div class='input'><span class='no'>example_sf_point</span></div><div class='output co'>#&gt; Simple feature collection with 112 features and 3 fields
 #&gt; geometry type:  POINT
 #&gt; dimension:      XY
-#&gt; bbox:           xmin: 1175003 ymin: 4828130 xmax: 2078090 ymax: 6122361
+#&gt; bbox:           xmin: 1175354 ymin: 4853914 xmax: 2025939 ymax: 6096100
 #&gt; CRS:            EPSG:2193
 #&gt; First 10 features:
-#&gt;       period   site_id                     indicator landcover    median
-#&gt; 1  2008-2017 ARC-00001 Dissolved reactive phosphorus    Native   0.01800
-#&gt; 2  2008-2017 ARC-00001                       E. coli    Native  37.00000
-#&gt; 3  2008-2017 ARC-00001           Ammoniacal nitrogen    Native   0.00500
-#&gt; 4  2008-2017 ARC-00001              Nitrate-nitrogen    Native   0.00995
-#&gt; 5  2008-2017 ARC-00001                Total nitrogen    Native   0.06350
-#&gt; 6  2008-2017 ARC-00001              Total phosphorus    Native   0.02500
-#&gt; 7  2008-2017 ARC-00001                     Turbidity    Native   2.39500
-#&gt; 8  2008-2017 ARC-00003 Dissolved reactive phosphorus  Pastoral   0.01550
-#&gt; 9  2008-2017 ARC-00003                       E. coli  Pastoral 375.00000
-#&gt; 10 2008-2017 ARC-00003           Ammoniacal nitrogen  Pastoral   0.02400
-#&gt;    annual_sen_slope     units      trend_likelihood trend_category
-#&gt; 1          0.001137      g/m3 Very likely worsening      Worsening
-#&gt; 2         -2.727732 cfu/100mL Very likely improving  Indeterminate
-#&gt; 3          0.000000      g/m3      Likely improving  Indeterminate
-#&gt; 4         -0.000629      g/m3 Very likely improving  Indeterminate
-#&gt; 5         -0.005003      g/m3 Very likely improving      Improving
-#&gt; 6          0.000732      g/m3 Very likely worsening  Indeterminate
-#&gt; 7         -0.131874       NTU Very likely improving      Improving
-#&gt; 8         -0.000283      g/m3      Likely improving  Indeterminate
-#&gt; 9        -19.021681 cfu/100mL      Likely improving  Indeterminate
-#&gt; 10        -0.001048      g/m3 Very likely improving      Improving
-#&gt;                   geometry
-#&gt; 1  POINT (1735609 5916179)
-#&gt; 2  POINT (1735609 5916179)
-#&gt; 3  POINT (1735609 5916179)
-#&gt; 4  POINT (1735609 5916179)
-#&gt; 5  POINT (1735609 5916179)
-#&gt; 6  POINT (1735609 5916179)
-#&gt; 7  POINT (1735609 5916179)
-#&gt; 8  POINT (1739232 5928581)
-#&gt; 9  POINT (1739232 5928581)
-#&gt; 10 POINT (1739232 5928581)</div></pre>
+#&gt;      site_id median trend_category                geometry
+#&gt; 1  ARC-00001 0.0140      Improving POINT (1735609 5916179)
+#&gt; 2  ARC-00008 0.0610      Improving POINT (1753479 5976281)
+#&gt; 3  ARC-00013 0.1310      Improving POINT (1742066 5915382)
+#&gt; 4  ARC-00014 0.9900      Improving POINT (1764285 5907017)
+#&gt; 5  ARC-00015 1.0300      Improving POINT (1767401 5907336)
+#&gt; 6  ARC-00016 0.2980      Improving POINT (1768314 5908177)
+#&gt; 7  ARC-00017 0.3550      Improving POINT (1751305 5933319)
+#&gt; 8  ARC-00018 0.7350  Indeterminate POINT (1769952 5912814)
+#&gt; 9  ARC-00019 0.5000      Improving POINT (1769452 5910614)
+#&gt; 10 ARC-00026 0.1295      Improving POINT (1748608 5953465)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

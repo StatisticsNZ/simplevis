@@ -41,8 +41,5 @@ A leaflet object.
 Map of simple features in leaflet that is not coloured.
 }
 \examples{
-map_data <- example_sf_point \%>\%
-  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-
-leaflet_sf(map_data)
+leaflet_sf(example_sf_point)
 }

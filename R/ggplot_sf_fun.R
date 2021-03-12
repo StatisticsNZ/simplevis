@@ -113,10 +113,7 @@ theme_sf <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data <- example_sf_point %>%
-#'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-#'
-#' ggplot_sf(data = map_data, boundary = nz)
+#' ggplot_sf(data = example_sf_point, boundary = nz)
 ggplot_sf <- function(data,
                       size = 0.5,
                       alpha = 0.1,
@@ -252,20 +249,17 @@ ggplot_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_sf_col(data = example_sf_polygon, col_var = dairydens, boundary = nz,
+#' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
 #'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
-#'      title = "Dairy density in count per km\u00b2, 2017")
+#'      title = "Density, 2017")
 #'
-#' ggplot_sf_col(data = example_sf_polygon, col_var = dairydens, boundary = nz,
+#' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
 #'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
-#'      title = "Dairy density in count per km\u00b2, 2017")
+#'      title = "Density, 2017")
 #'
-#' map_data <- example_sf_point %>%
-#'   dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-#'   
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' ggplot_sf_col(data = map_data, col_var = trend_category, boundary = nz, 
+#' ggplot_sf_col(data = example_sf_point, col_var = trend_category, boundary = nz, 
 #'    pal = pal, col_method = "category",
 #'    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col <- function(data,
@@ -480,11 +474,9 @@ ggplot_sf_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data <- example_sf_point %>%
-#'  dplyr::filter(period == "1998-2017", indicator == "Nitrate-nitrogen")
-#'
-#' ggplot_sf_facet(data = map_data, facet_var = trend_category, boundary = nz,
-#'   title = "Monitored river nitrate-nitrogen trends, 2008-17")
+#' ggplot_sf_facet(data = example_sf_point, facet_var = trend_category, 
+#'   boundary = nz,
+#'   title = "Trends, 1990-2017")
 ggplot_sf_facet <- function(data,
                             facet_var,
                             size = 0.5,
@@ -575,9 +567,9 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-    
+  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
+  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
+  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -585,7 +577,7 @@ ggplot_sf_facet <- function(data,
       caption = stringr::str_wrap(caption, 50)
     ) +
     facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
-
+  
   return(plot)
 }
 
@@ -623,15 +615,11 @@ ggplot_sf_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' map_data <- example_sf_point %>%
-#'  dplyr::filter(period == "1998-2017",
-#'  indicator %in% c("Nitrate-nitrogen", "Dissolved reactive phosphorus"))
-#'  
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' ggplot_sf_col_facet(data = map_data, col_var = trend_category, facet_var = indicator,
+#' ggplot_sf_col_facet(data = example_sf_point, col_var = trend_category, facet_var = trend_category,
 #'  boundary = nz, pal = pal,
-#'  title = "Monitored river nitrate-nitrogen trends, 2008-17")
+#'  title = "Trends, 1990-2017")
 ggplot_sf_col_facet <- function(data,
                                 col_var,
                                 facet_var,

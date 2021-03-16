@@ -16,24 +16,7 @@ library(dplyr)
 library(simplevis)
 ```
 
-Spatial data can include simple features (e.g. points, lines or polygons) or arrays (e.g. raster).
-
-This article will provide examples of how to create maps of `sf` (simple feature) objects using the `simplevis` package.
-
-Example sf objects for learning are provided: `example_sf_point` and `example_sf_polygon`. However, if you want to use your own sf objects, download a small shapefile from somewhere. For example `https://data.mfe.govt.nz/layer/53494-benthic-protection-areas-2016-report/data/`.
-
-Shapesfiles can be read in using the `sf::st_read` function. Point vector data is often provided as a `csv`. In this situation, the data.frame can be read in using `readr::read_csv` by converting the `data.frame` to a `sf` object by identifying the `x` and `y` geometry column names and the Coordinate Reference System (CRS) epsg code that these relate to. For longs and lats, the CRS is 4326. There are multiple other CRS' available (e.g. 2193 for the `New Zealand Transverse Mercator`).
-
-```{r, eval=F}
-sf::st_read("shapefile_name.shp")
-
-readr::read_csv("point_data.csv") %>% 
-  sf::st_as_sf(coords = c("nztme", "nztmn"), crs = 2193)
-```
-
-The `simplevis` sf functions can plot a `sf` object with any CRS, but the CRS must be specified. An error will come up in your console if you try to plot an `sf` object that does not have a CRS specified. 
-
-The `simplevis` sf functions are wrappers for the `ggplot2` and `leaflet` packages and therefore produce output of these. They work in similar ways.
+Spatial data can include simple features (e.g. points, lines or polygons) or arrays (e.g. raster). This article will provide examples of how to create maps of `sf` (simple feature) objects using the `simplevis` package. Example sf objects for learning are provided: `example_sf_point` and `example_sf_polygon`. The `simplevis` sf functions can plot a `sf` object with any CRS, but the CRS must be specified. An error will come up in your console if you try to plot an `sf` object that does not have a CRS specified. The `simplevis` sf functions are wrappers for the `ggplot2` and `leaflet` packages and therefore produce output of these. They work in similar ways.
 
 The location of features can be plotted using `ggplot_sf`.
 
@@ -193,5 +176,14 @@ sf <- rnaturalearth::ne_countries(scale = "large", country = "New Zealand", retu
 ggplot_sf(sf)
 
 ggplot_sf(sf::st_shift_longitude(sf))
+```
+
+Shapesfiles can be read in using the `sf::st_read` function. Point vector data is often provided as a `csv`. In this situation, the data.frame can be read in using `readr::read_csv` by converting the `data.frame` to a `sf` object by identifying the `x` and `y` geometry column names and the Coordinate Reference System (CRS) epsg code that these relate to. For longs and lats, the CRS is 4326. There are multiple other CRS' available (e.g. 2193 for the `New Zealand Transverse Mercator`). A small example shapefile is available for download at `https://data.mfe.govt.nz/layer/53494-benthic-protection-areas-2016-report/data/`.
+
+```{r, eval=F}
+sf::st_read("shapefile_name.shp")
+
+readr::read_csv("point_data.csv") %>% 
+  sf::st_as_sf(coords = c("nztme", "nztmn"), crs = 2193)
 ```
 

@@ -1,6 +1,6 @@
 # simplevis 2.4.2 
 
-* Removed rnaturalearth wrapper functions, and in.
+* Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.
 
 # simplevis 2.4.1
 

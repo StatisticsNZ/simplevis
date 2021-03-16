@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot_point_fun.R
 \name{ggplot_point}
 \alias{ggplot_point}
-\title{point ggplot.}
+\title{Point ggplot.}
 \usage{
 ggplot_point(data, x_var, y_var, tip_var = NULL, size = 1,
   pal = NULL, x_zero = TRUE, x_zero_line = NULL,
@@ -85,7 +85,7 @@ ggplot_point(data, x_var, y_var, tip_var = NULL, size = 1,
 A ggplot object.
 }
 \description{
-point ggplot that is not coloured and not facetted.
+Point ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

@@ -1,3 +1,8 @@
+# simplevis 2.4.1
+
+* Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.
+* Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.
+
 # simplevis 2.4.0
 
 * Reduce the size of sf example objects.

@@ -110,8 +110,8 @@ theme_point <-
     )
   }
 
-#' @title point ggplot.
-#' @description point ggplot that is not coloured and not facetted.
+#' @title Point ggplot.
+#' @description Point ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -334,8 +334,8 @@ ggplot_point <- function(data,
   return(plot)
 }
 
-#' @title point ggplot that is coloured.
-#' @description point ggplot that is coloured, but not facetted.
+#' @title Point ggplot that is coloured.
+#' @description Point ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -615,8 +615,8 @@ ggplot_point_col <-
     return(plot)
   }
 
-#' @title point ggplot that is facetted.
-#' @description point ggplot that is facetted, but not coloured.
+#' @title Point ggplot that is facetted.
+#' @description Point ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
@@ -841,8 +841,8 @@ ggplot_point_facet <-
     return(plot)
   }
 
-#' @title point ggplot that is coloured and facetted.
-#' @description point ggplot that is coloured and facetted.
+#' @title Point ggplot that is coloured and facetted.
+#' @description Point ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.

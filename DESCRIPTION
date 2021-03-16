@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple Visualisation with 'ggplot2' and 'leaflet' Wrappers
-Version: 2.4.0
+Version: 2.4.1
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 
@@ -18,9 +18,9 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 2.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
-         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, plotly, readr, rgdal, 
-         rlang (>= 0.4.0), rmarkdown, scales, sf, shiny, shinycssloaders, stars, stats, stringr, 
-         tibble, tidyr (>= 1.0.0), viridis
+         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, plotly, readr, rgdal, rgeos, 
+         rlang (>= 0.4.0), rmarkdown, rnaturalearth, rnaturalearthdata, rnaturalearthhires, scales, 
+         sf, shiny, shinycssloaders, stars, stats, stringr, tibble, tidyr (>= 1.0.0), viridis
 Suggests: 
     knitr,
     testthat

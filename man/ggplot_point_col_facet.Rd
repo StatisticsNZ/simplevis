@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot_point_fun.R
 \name{ggplot_point_col_facet}
 \alias{ggplot_point_col_facet}
-\title{point ggplot that is coloured and facetted.}
+\title{Point ggplot that is coloured and facetted.}
 \usage{
 ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, col_method = NULL, col_cuts = NULL,
@@ -112,7 +112,7 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
 A ggplot object.
 }
 \description{
-point ggplot that is coloured and facetted.
+Point ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -146,7 +146,8 @@
     <p>Make a stack of leaflet baselayers for use in shiny apps.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_basemap</span>(<span class='kw'>top_layer</span> <span class='kw'>=</span> <span class='st'>"light"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_basemap</span>(<span class='kw'>top_layer</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>continent</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,6 +156,18 @@
       <th>top_layer</th>
       <td><p>The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".</p></td>
     </tr>
+    <tr>
+      <th>country</th>
+      <td><p>A country .data$name from Natural Earth.</p></td>
+    </tr>
+    <tr>
+      <th>state</th>
+      <td><p>A state or region .data$name within a country from Natural Earth. Must be used in combination with the applicable country specified.</p></td>
+    </tr>
+    <tr>
+      <th>continent</th>
+      <td><p>A continent .data$name from Natural Earth.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -162,7 +175,8 @@
     <p>A leaflet object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>leaflet_basemap</span>(<span class='st'>"dark"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>leaflet_basemap</span>(<span class='st'>"dark"</span>)
+<span class='fu'>leaflet_basemap</span>(<span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Papua New Guinea"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

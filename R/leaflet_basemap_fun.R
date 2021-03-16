@@ -1,14 +1,24 @@
 # leaflet basemap stack functions
 
 #' @title Basemap stack in leaflet.
+#' 
 #' @description Make a stack of leaflet baselayers for use in shiny apps.
 #' @param top_layer The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".
+#' @param country A country .data$name from Natural Earth.
+#' @param state A state or region .data$name within a country from Natural Earth. Must be used in combination with the applicable country specified.
+#' @param continent A continent .data$name from Natural Earth.
+
 #' @return A leaflet object.
 #' @export
+#' 
 #' @examples
 #' leaflet_basemap("dark")
+#' leaflet_basemap(country = "Papua New Guinea")
 
-leaflet_basemap <- function(top_layer = "light"){
+leaflet_basemap <- function(top_layer = "light", 
+                            country = NULL, 
+                            state = NULL,
+                            continent = NULL){
   
   if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
   else if(top_layer == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")
@@ -19,9 +29,27 @@ leaflet_basemap <- function(top_layer = "light"){
   
   providers <- leaflet::providers
   
-  leaflet() %>%
-    # leaflet.extras::addFullscreenControl() %>%
-    leaflet.extras::addResetMapButton() %>%
+  if(is.null(country) & is.null(continent) & is.null(state)) {
+    map <- leaflet() %>%
+      leaflet.extras::addResetMapButton()
+  }
+  else({
+    if(!is.null(country)) {
+      if(is.null(state)) {
+        bounds <- as.vector(sf::st_bbox(rnaturalearth::ne_countries(country = country, returnclass = "sf")))
+      }
+      else if(!is.null(state)) {
+        bounds <- as.vector(sf::st_bbox(rnaturalearth::ne_states(country = country, returnclass = "sf") %>% filter(.data$name == state)))
+      }
+    }
+    if(!is.null(continent)) bounds <- as.vector(sf::st_bbox(rnaturalearth::ne_countries(continent = continent, returnclass = "sf")))
+    
+    map <- leaflet() %>%
+      fitBounds(bounds[1], bounds[2], bounds[3], bounds[4]) %>%
+      leaflet.extras::addResetMapButton()
+  })
+  
+  map <- map %>% 
     addProviderTiles(
       providers$CartoDB.PositronNoLabels,
       group = "Light",
@@ -53,6 +81,7 @@ leaflet_basemap <- function(top_layer = "light"){
       options = layersControlOptions(autoZIndex = FALSE)
     )
   
+  return(map)
 }
 
 #' @title Basemap stack in leaflet for New Zealand.

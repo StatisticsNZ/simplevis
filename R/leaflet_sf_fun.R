@@ -65,7 +65,7 @@ leaflet_sf <- function(data,
         row.numbers = FALSE, feature.id = FALSE)
     })
   })
-
+  
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     
     if (shiny == FALSE) {
@@ -257,7 +257,7 @@ leaflet_sf_col <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
-
+  
   col_var <- rlang::enquo(col_var)
   label_var <- rlang::enquo(label_var)
   if(is.null(rlang::get_expr(label_var))) label_var <- col_var

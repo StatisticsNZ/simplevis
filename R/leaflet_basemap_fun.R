@@ -29,10 +29,7 @@ leaflet_basemap <- function(top_layer = "light", bounds = NULL){
   else if(top_layer == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
   
-  bounds <- as.vector(bounds)
-  
-  leaflet() %>%
-    fitBounds(bounds[1], bounds[2], bounds[3], bounds[4]) %>%
+  map <- leaflet() %>%
     leaflet.extras::addResetMapButton() %>% 
     addProviderTiles(
       leaflet::providers$CartoDB.PositronNoLabels,
@@ -64,6 +61,15 @@ leaflet_basemap <- function(top_layer = "light", bounds = NULL){
       position = "topleft",
       options = layersControlOptions(autoZIndex = FALSE)
     )
+  
+  if(!is.null(bounds)){
+    bounds <- as.vector(bounds)
+    
+    map <- map %>%
+      fitBounds(bounds[1], bounds[2], bounds[3], bounds[4]) 
+  }
+  
+  return(map)
 }
 
 #' @title Basemap stack in leaflet for New Zealand.

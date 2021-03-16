@@ -85,12 +85,12 @@ ggplot_sf_col(example_sf_point, median,
 
 Faccetting works in a similar way to the plot functions. Note only one boundary can be added in. This may not work with all use cases.
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_facet(example_sf_point, facet_var = trend_category, 
                 boundary = nz)
 ```
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_col_facet(example_sf_point, trend_category, trend_category, 
                 boundary = nz)
 ```
@@ -147,3 +147,51 @@ pal <- c("#0D94A3", "#C4C4C7", "#AE4E51")
 leaflet_sf_col(example_sf_point, col_var = trend_category, 
               pal = pal, title = "Site trends in New Zealand, 2021")
 ```
+
+The `rnaturalearth` package is a great source of country and state boundaries.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
+
+ggplot_sf(sf, alpha = 0, pal = "#232323")
+```
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+sf <- rnaturalearth::ne_states(country = "India", returnclass = "sf")
+
+ggplot_sf(sf, alpha = 0, pal = "#232323")
+```
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+sf <- rnaturalearth::ne_states(country = "Australia", returnclass = "sf") %>% filter(.data$name == "Tasmania")
+
+ggplot_sf(sf, alpha = 0, pal = "#232323")
+```
+
+A leaflet basemap is available for use in shiny apps. It defaults to the top layer being "light".
+
+```{r}
+simplevis::leaflet_basemap() 
+```
+
+You can set the bounds by adding a `leaflet::fitBounds` layer.
+
+```{r}
+bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 
+   sf::st_bbox() %>% 
+   as.vector()
+ 
+simplevis::leaflet_basemap("satellite") %>% 
+ leaflet::fitBounds(bb[1], bb[2], bb[3], bb[4])
+```
+
+Note if you are mapping across the dateline, use `sf::st_shift_longitude`.
+
+```{r}
+sf <- rnaturalearth::ne_countries(scale = "large", country = "New Zealand", returnclass = "sf")
+
+ggplot_sf(sf)
+
+ggplot_sf(sf::st_shift_longitude(sf))
+```
+

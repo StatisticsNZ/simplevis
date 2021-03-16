@@ -24,7 +24,7 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
+\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
 \item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.}
 

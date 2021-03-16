@@ -4,17 +4,10 @@
 \alias{leaflet_basemap}
 \title{Basemap stack in leaflet.}
 \usage{
-leaflet_basemap(top_layer = "light", country = NULL, state = NULL,
-  continent = NULL)
+leaflet_basemap(top_layer = "light")
 }
 \arguments{
 \item{top_layer}{The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".}
-
-\item{country}{A country .data$name from Natural Earth.}
-
-\item{state}{A state or region .data$name within a country from Natural Earth. Must be used in combination with the applicable country specified.}
-
-\item{continent}{A continent .data$name from Natural Earth.}
 }
 \value{
 A leaflet object.
@@ -24,5 +17,12 @@ Make a stack of leaflet baselayers for use in shiny apps.
 }
 \examples{
 leaflet_basemap("dark")
-leaflet_basemap(country = "Papua New Guinea")
+
+bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") \%>\% 
+sf::st_bbox() \%>\% 
+  as.vector()
+
+simplevis::leaflet_basemap("satellite") \%>\% 
+  leaflet::fitBounds(bb[1], bb[2], bb[3], bb[4])
+  
 }

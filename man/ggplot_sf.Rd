@@ -20,7 +20,7 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added.}
+\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
 \item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.}
 
@@ -56,4 +56,8 @@ Map of simple features in ggplot that is not coloured and not facetted.
 }
 \examples{
 ggplot_sf(data = example_sf_point, boundary = nz)
+
+sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
+
+ggplot_sf(sf, alpha = 0, pal = "#232323")
 }

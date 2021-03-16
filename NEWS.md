@@ -1,3 +1,7 @@
+# simplevis 2.4.2 
+
+* Removed rnaturalearth wrapper functions, and in.
+
 # simplevis 2.4.1
 
 * Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.

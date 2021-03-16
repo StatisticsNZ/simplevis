@@ -96,7 +96,7 @@ theme_sf <-
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
@@ -114,6 +114,10 @@ theme_sf <-
 #' @export
 #' @examples
 #' ggplot_sf(data = example_sf_point, boundary = nz)
+#' 
+#' sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
+#' 
+#' ggplot_sf(sf, alpha = 0, pal = "#232323")
 ggplot_sf <- function(data,
                       size = 0.5,
                       alpha = 0.1,
@@ -227,7 +231,7 @@ ggplot_sf <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
@@ -458,7 +462,7 @@ ggplot_sf_col <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_nrow The number of rows of facetted plots. 
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
@@ -593,7 +597,7 @@ ggplot_sf_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. 
+#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.

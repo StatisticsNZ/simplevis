@@ -4,10 +4,12 @@
 \alias{leaflet_basemap}
 \title{Basemap stack in leaflet.}
 \usage{
-leaflet_basemap(top_layer = "light")
+leaflet_basemap(top_layer = "light", bounds = NULL)
 }
 \arguments{
 \item{top_layer}{The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".}
+
+\item{bounds}{A bbox object or numeric vector of length four, with xmin, ymin, xmax and ymax values in WGS84 (epsg 4326).}
 }
 \value{
 A leaflet object.
@@ -18,11 +20,12 @@ Make a stack of leaflet baselayers for use in shiny apps.
 \examples{
 leaflet_basemap("dark")
 
-bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") \%>\% 
-sf::st_bbox() \%>\% 
-  as.vector()
+leaflet_basemap("satellite", bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 
-simplevis::leaflet_basemap("satellite") \%>\% 
-  leaflet::fitBounds(bb[1], bb[2], bb[3], bb[4])
-  
+bb <- rnaturalearth::ne_countries(scale = "small", 
+           country = "Papua New Guinea", 
+           returnclass = "sf") \%>\% 
+     sf::st_bbox() 
+
+leaflet_basemap("satellite", bounds = bb)  
 }

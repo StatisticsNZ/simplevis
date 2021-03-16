@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.3</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
     <p>Make a stack of leaflet baselayers for use in shiny apps.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_basemap</span>(<span class='kw'>top_layer</span> <span class='kw'>=</span> <span class='st'>"light"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_basemap</span>(<span class='kw'>top_layer</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>bounds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,6 +154,10 @@
     <tr>
       <th>top_layer</th>
       <td><p>The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".</p></td>
+    </tr>
+    <tr>
+      <th>bounds</th>
+      <td><p>A bbox object or numeric vector of length four, with xmin, ymin, xmax and ymax values in WGS84 (epsg 4326).</p></td>
     </tr>
     </table>
 
@@ -164,12 +168,14 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>leaflet_basemap</span>(<span class='st'>"dark"</span>)
 
-<span class='no'>bb</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"small"</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Indonesia"</span>, <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>) <span class='kw'>%&gt;%</span>
-<span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_bbox.html'>st_bbox</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>()
+<span class='fu'>leaflet_basemap</span>(<span class='st'>"satellite"</span>, <span class='kw'>bounds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>166.70047</span>,-<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>))
 
-<span class='kw pkg'>simplevis</span><span class='kw ns'>::</span><span class='fu'>leaflet_basemap</span>(<span class='st'>"satellite"</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='no'>bb</span>[<span class='fl'>1</span>], <span class='no'>bb</span>[<span class='fl'>2</span>], <span class='no'>bb</span>[<span class='fl'>3</span>], <span class='no'>bb</span>[<span class='fl'>4</span>])</div></pre>
+<span class='no'>bb</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"small"</span>,
+           <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Papua New Guinea"</span>,
+           <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>) <span class='kw'>%&gt;%</span>
+     <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_bbox.html'>st_bbox</a></span>()
+
+<span class='fu'>leaflet_basemap</span>(<span class='st'>"satellite"</span>, <span class='kw'>bounds</span> <span class='kw'>=</span> <span class='no'>bb</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

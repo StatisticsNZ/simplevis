@@ -1,3 +1,7 @@
+# simplevis 2.4.3
+
+* Updated leaflet_basemap to include an argument for bounds.
+
 # simplevis 2.4.2 
 
 * Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.

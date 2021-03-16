@@ -157,15 +157,15 @@ A leaflet basemap is available for use in shiny apps. It defaults to the top lay
 simplevis::leaflet_basemap() 
 ```
 
-You can set the bounds by adding a `leaflet::fitBounds` layer.
+You can set the bounds by adding a vector or bbox of bounds.
 
 ```{r}
+leaflet_basemap("satellite", bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
+
 bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 
-   sf::st_bbox() %>% 
-   as.vector()
+   sf::st_bbox() 
  
-simplevis::leaflet_basemap("satellite") %>% 
- leaflet::fitBounds(bb[1], bb[2], bb[3], bb[4])
+simplevis::leaflet_basemap("satellite", bounds = bb) 
 ```
 
 Note if you are mapping across the dateline, use `sf::st_shift_longitude`.

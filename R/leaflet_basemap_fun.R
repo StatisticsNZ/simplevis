@@ -4,6 +4,7 @@
 #' 
 #' @description Make a stack of leaflet baselayers for use in shiny apps.
 #' @param top_layer The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".
+#' @param bounds A bbox object or numeric vector of length four, with xmin, ymin, xmax and ymax values in WGS84 (epsg 4326).
 
 #' @return A leaflet object.
 #' @export
@@ -11,14 +12,15 @@
 #' @examples
 #' leaflet_basemap("dark")
 #' 
-#' bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 
-#' sf::st_bbox() %>% 
-#'   as.vector()
+#' leaflet_basemap("satellite", bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 #' 
-#' simplevis::leaflet_basemap("satellite") %>% 
-#'   leaflet::fitBounds(bb[1], bb[2], bb[3], bb[4])
-#'   
-leaflet_basemap <- function(top_layer = "light"){
+#' bb <- rnaturalearth::ne_countries(scale = "small", 
+#'            country = "Papua New Guinea", 
+#'            returnclass = "sf") %>% 
+#'      sf::st_bbox() 
+#' 
+#' leaflet_basemap("satellite", bounds = bb)  
+leaflet_basemap <- function(top_layer = "light", bounds = NULL){
   
   if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
   else if(top_layer == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")
@@ -27,7 +29,10 @@ leaflet_basemap <- function(top_layer = "light"){
   else if(top_layer == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
   
+  bounds <- as.vector(bounds)
+  
   leaflet() %>%
+    fitBounds(bounds[1], bounds[2], bounds[3], bounds[4]) %>%
     leaflet.extras::addResetMapButton() %>% 
     addProviderTiles(
       leaflet::providers$CartoDB.PositronNoLabels,

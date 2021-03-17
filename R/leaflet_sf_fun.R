@@ -296,7 +296,7 @@ leaflet_sf_col <- function(data,
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
       
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
@@ -318,7 +318,7 @@ leaflet_sf_col <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)

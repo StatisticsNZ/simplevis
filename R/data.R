@@ -13,17 +13,6 @@
 #' ggplot_sf(dplyr::slice(nz, 1, 3, 5:7))
 "nz"
 
-#' @title New Zealand clipped regional boundaries
-#' @description Simplified New Zealand regional boundaries, excluding the Chatham Islands.
-#' @format An \code{sf} object.
-#' @examples
-#' nz_region
-#'
-#' ggplot_sf(nz_region)
-#'
-#' ggplot_sf(dplyr::filter(nz_region, region == "Wellington"))
-"nz_region"
-
 #' @title Example sf polygon object.
 #' @description Example sf polygon object.
 #' @format An \code{sf} object.

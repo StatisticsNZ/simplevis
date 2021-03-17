@@ -1,3 +1,8 @@
+# simplevis 2.4.4
+
+* Remove leaflet_basemap_nz.
+* Remove viridis dependency and add in pals instead.
+
 # simplevis 2.4.3
 
 * Updated leaflet_basemap to include an argument for bounds.

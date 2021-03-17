@@ -485,14 +485,14 @@ ggplot_point_col <-
       col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
       data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
@@ -1000,7 +1000,7 @@ ggplot_point_col_facet <-
           dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         
-        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+        if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
         if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "%")
         if (!is.null(legend_labels)) labels <- legend_labels
       }
@@ -1008,7 +1008,7 @@ ggplot_point_col_facet <-
         col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
         if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
         data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+        if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
         if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
         if (!is.null(legend_labels)) labels <- legend_labels
       }
@@ -1016,7 +1016,7 @@ ggplot_point_col_facet <-
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }

@@ -352,7 +352,7 @@ ggplot_sf_col <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -368,7 +368,7 @@ ggplot_sf_col <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -708,7 +708,7 @@ ggplot_sf_col_facet <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -724,7 +724,7 @@ ggplot_sf_col_facet <- function(data,
         dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
       
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
@@ -736,7 +736,7 @@ ggplot_sf_col_facet <- function(data,
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, 2)
       if (!is.null(legend_labels)) labels <- legend_labels
     }

@@ -160,7 +160,7 @@ simplevis::leaflet_basemap()
 You can set the bounds by adding a vector or bbox of bounds.
 
 ```{r}
-leaflet_basemap("satellite", bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
+leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 
 bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 
    sf::st_bbox() 

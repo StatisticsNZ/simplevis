@@ -163,7 +163,7 @@ leaflet_stars_col <- function(data,
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
     
-    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -190,7 +190,7 @@ leaflet_stars_col <- function(data,
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     } 
     
-    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)

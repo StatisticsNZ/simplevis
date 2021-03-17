@@ -116,6 +116,9 @@ theme_vbar <-
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param width Width of bars. Defaults to 0.75.
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -127,8 +130,6 @@ theme_vbar <-
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -161,6 +162,9 @@ ggplot_vbar <- function(data,
                         x_var,
                         y_var,
                         tip_var = NULL,
+                        pal = NULL,
+                        width = 0.75, 
+                        alpha = 1,
                         x_labels = waiver(),
                         x_pretty_n = 6,
                         x_expand = NULL,
@@ -172,8 +176,6 @@ ggplot_vbar <- function(data,
                         y_expand = NULL,
                         y_balance = FALSE,
                         y_na_bar = FALSE,
-                        pal = NULL,
-                        width = 0.75, 
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -233,7 +235,7 @@ ggplot_vbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), fill = pal[1], width = bar_width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], width = bar_width)
   
   if(is.null(x_expand))  {
     if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
@@ -316,13 +318,13 @@ ggplot_vbar <- function(data,
       if(y_limits[1] >= 0 & y_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                   fill = "#F5F5F5", width = width, 
+                   fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                   fill = "#F5F5F5", width = width, 
+                   fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data)        
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -330,10 +332,10 @@ ggplot_vbar <- function(data,
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                   fill = "#F5F5F5", width = width, 
+                   fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data) +
           geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                   fill = "#F5F5F5", width = width, 
+                   fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data)
       }
     }
@@ -378,6 +380,11 @@ ggplot_vbar <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param width Width of bars. Defaults to 0.75.
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -389,11 +396,6 @@ ggplot_vbar <- function(data,
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
-#' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param legend_ncol The number of columns in the legend.
-#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -401,6 +403,7 @@ ggplot_vbar <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param legend_ncol The number of columns in the legend.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -445,6 +448,7 @@ ggplot_vbar_col <-
            pal_rev = FALSE,
            legend_ncol = 3,
            width = 0.75, 
+           alpha = 1,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -517,7 +521,7 @@ ggplot_vbar_col <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
+      geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
                width = bar_width, position = position2)
     
     if(is.null(x_expand))  {
@@ -609,8 +613,8 @@ ggplot_vbar_col <-
     if(y_na_bar == FALSE) {
       plot <- plot +
         geom_col(aes(
-          x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
-          width = width, 
+          x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
+          alpha = alpha, width = width, 
           position = position2)
     }
     else if(y_na_bar == TRUE) {
@@ -636,16 +640,16 @@ ggplot_vbar_col <-
           dplyr::mutate(y_var2 = ifelse(is.na(!!y_var), y_limits[2], !!y_var))
         
         plot <- plot +
-          geom_col(aes(x = !!x_var, y = .data$y_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   width = width, position = position2, data = data)
+          geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   alpha = alpha, width = width, position = position2, data = data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         data <- data %>%
           dplyr::mutate(y_var2 = ifelse(is.na(!!y_var), y_limits[1], !!y_var))
         
         plot <- plot +
-          geom_col(aes(x = !!x_var, y = .data$y_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   width = width, position = position2, data = data)
+          geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   alpha = alpha, width = width, position = position2, data = data)
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
         data <- data %>%
@@ -654,10 +658,10 @@ ggplot_vbar_col <-
           dplyr::mutate(y_var3 = ifelse(is.na(!!y_var), y_limits[2], !!y_var))
         
         plot <- plot +
-          geom_col(aes(x = !!x_var, y = .data$y_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   width = width, position = position2, data = data) +
-          geom_col(aes(x = !!x_var, y = .data$y_var3, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   width = width, position = position2, data = data)
+          geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   alpha = alpha, width = width, position = position2, data = data) +
+          geom_col(aes(x = !!x_var, y = .data$y_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+                   alpha = alpha, width = width, position = position2, data = data)
       }
     }
     
@@ -721,6 +725,11 @@ ggplot_vbar_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param width Width of bars. Defaults to 0.75.
+#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -732,10 +741,6 @@ ggplot_vbar_col <-
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. Not applicable to where isMobile is TRUE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -767,6 +772,11 @@ ggplot_vbar_facet <-
            y_var,
            facet_var,
            tip_var = NULL,
+           pal = NULL,
+           width = 0.75, 
+           alpha = 1,
+           facet_scales = "fixed",
+           facet_nrow = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            x_expand = NULL,
@@ -778,10 +788,6 @@ ggplot_vbar_facet <-
            y_expand = NULL,
            y_balance = FALSE,
            y_na_bar = FALSE, 
-           facet_scales = "fixed",
-           facet_nrow = NULL,
-           pal = NULL,
-           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -836,7 +842,7 @@ ggplot_vbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), fill = pal[1], width = bar_width)
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], width = bar_width)
     
     if(is.null(x_expand))  {
       if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
@@ -905,13 +911,13 @@ ggplot_vbar_facet <-
           if(y_limits[1] >= 0 & y_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                       fill = "#F5F5F5", width = width, 
+                       fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data)
           }
           else if(y_limits[1] < 0 & y_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                       fill = "#F5F5F5", width = width, 
+                       fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data)        
           }
           else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -919,10 +925,10 @@ ggplot_vbar_facet <-
             
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                       fill = "#F5F5F5", width = width, 
+                       fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data) +
               geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                       fill = "#F5F5F5", width = width, 
+                       fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data)
           }
         }
@@ -966,6 +972,13 @@ ggplot_vbar_facet <-
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param width Width of bars. Defaults to 0.75.
+#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -976,13 +989,6 @@ ggplot_vbar_facet <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param legend_ncol The number of columns in the legend.
-#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. Defaults to [Title].
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param x_title X axis title string. Defaults to [X title].
@@ -990,6 +996,7 @@ ggplot_vbar_facet <-
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param legend_ncol The number of columns in the legend.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -1022,6 +1029,14 @@ ggplot_vbar_col_facet <-
            col_var,
            facet_var,
            tip_var = NULL,
+           position = "stack",
+           pal = NULL,
+           pal_rev = FALSE,
+           legend_ncol = 3,
+           width = 0.75, 
+           alpha = 1,
+           facet_scales = "fixed",
+           facet_nrow = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            x_expand = NULL,
@@ -1032,13 +1047,6 @@ ggplot_vbar_col_facet <-
            y_pretty_n = 5,
            y_expand = NULL,
            y_balance = FALSE,
-           position = "stack",
-           facet_scales = "fixed",
-           facet_nrow = NULL,
-           pal = NULL,
-           pal_rev = FALSE,
-           legend_ncol = 3,
-           width = 0.75, 
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -1106,7 +1114,7 @@ ggplot_vbar_col_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!tip_var), 
+      geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
                width = bar_width, position = position2)
     
     if(is.null(x_expand))  {

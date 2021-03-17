@@ -5,11 +5,11 @@
 \title{Point ggplot that is facetted.}
 \usage{
 ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
-  size = 1, pal = NULL, x_zero = TRUE, x_zero_line = NULL,
-  x_trans = "identity", x_labels = waiver(), x_expand = NULL,
-  x_pretty_n = 5, y_zero = TRUE, y_zero_line = NULL,
-  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, facet_scales = "fixed", facet_nrow = NULL,
+  size = 1, pal = NULL, facet_scales = "fixed", facet_nrow = NULL,
+  x_zero = TRUE, x_zero_line = NULL, x_trans = "identity",
+  x_labels = waiver(), x_expand = NULL, x_pretty_n = 5,
+  y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
@@ -30,6 +30,10 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 \item{size}{Size of points. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+
+\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
@@ -54,10 +58,6 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
-
-\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

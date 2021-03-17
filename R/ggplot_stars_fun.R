@@ -277,7 +277,7 @@ ggplot_stars_col <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
       
@@ -290,7 +290,7 @@ ggplot_stars_col <- function(data,
         tibble::as_tibble() %>%
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
@@ -311,7 +311,7 @@ ggplot_stars_col <- function(data,
     data <- data %>%
       dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -450,7 +450,7 @@ ggplot_stars_facet <- function(data,
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
+#' @param col_col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -484,7 +484,7 @@ ggplot_stars_facet <- function(data,
 #'    title = "Site medians, 2013-17")
 ggplot_stars_col_facet <- function(data,
                                    col_method = "quantile",
-                                   col_quantile_by_facet = TRUE,
+                                   col_col_quantile_by_facet = TRUE,
                                    col_cuts = NULL,
                                    pal = NULL,
                                    pal_rev = FALSE,
@@ -548,7 +548,7 @@ ggplot_stars_col_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
       
@@ -562,7 +562,7 @@ ggplot_stars_col_facet <- function(data,
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
@@ -573,7 +573,7 @@ ggplot_stars_col_facet <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    if (col_quantile_by_facet == TRUE) {
+    if (col_col_quantile_by_facet == TRUE) {
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
@@ -581,18 +581,18 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
     }
-    else if (col_quantile_by_facet == FALSE) {
+    else if (col_col_quantile_by_facet == FALSE) {
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ percent_rank(.))) %>%
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
     }

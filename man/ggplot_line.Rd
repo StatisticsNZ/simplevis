@@ -4,12 +4,12 @@
 \alias{ggplot_line}
 \title{Line ggplot.}
 \usage{
-ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
-  x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
-  y_zero_line = NULL, y_trans = "identity", y_labels = waiver(),
-  y_pretty_n = 5, y_expand = NULL, y_balance = FALSE,
+ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL,
   points = TRUE, point_size = 1, lines = TRUE, size = 0.5,
-  pal = NULL, title = "[Title]", subtitle = NULL,
+  x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
+  y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
+  y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
+  y_balance = FALSE, title = "[Title]", subtitle = NULL,
   x_title = "[X title]", y_title = "[Y title]", caption = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
@@ -24,6 +24,16 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+
+\item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
+
+\item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
+
+\item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
+
+\item{size}{Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -44,16 +54,6 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
-
-\item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
-
-\item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
-
-\item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
-
-\item{size}{Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.}
-
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

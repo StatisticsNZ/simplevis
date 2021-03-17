@@ -352,7 +352,7 @@ ggplot_sf_col <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -368,7 +368,7 @@ ggplot_sf_col <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -592,7 +592,7 @@ ggplot_sf_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
+#' @param col_col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of features (or shape outlines if polygon). Defaults to 0.5.
@@ -629,7 +629,7 @@ ggplot_sf_col_facet <- function(data,
                                 facet_var,
                                 col_method = NULL,
                                 col_cuts = NULL,
-                                col_quantile_by_facet = TRUE,
+                                col_col_quantile_by_facet = TRUE,
                                 pal = NULL,
                                 pal_rev = FALSE,
                                 size = 0.5,
@@ -708,7 +708,7 @@ ggplot_sf_col_facet <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
     if (!is.null(legend_labels)) labels <- legend_labels
   }
@@ -718,25 +718,25 @@ ggplot_sf_col_facet <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    if (col_quantile_by_facet == TRUE) {
+    if (col_col_quantile_by_facet == TRUE) {
       data <- data %>%
         dplyr::group_by(dplyr::across(!!facet_var)) %>%
         dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
     }
-    else if (col_quantile_by_facet == FALSE) {
+    else if (col_col_quantile_by_facet == FALSE) {
       col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
       
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, 2)
       if (!is.null(legend_labels)) labels <- legend_labels
     }

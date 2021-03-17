@@ -5,7 +5,7 @@
 \title{Map of simple features in ggplot that is coloured and facetted.}
 \usage{
 ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
-  col_cuts = NULL, col_quantile_by_facet = TRUE, pal = NULL,
+  col_cuts = NULL, col_col_quantile_by_facet = TRUE, pal = NULL,
   pal_rev = FALSE, size = 0.5, alpha = 0.9, facet_nrow = NULL,
   legend_ncol = 3, legend_digits = 1, boundary = NULL,
   boundary_behind = TRUE, boundary_pal = "#7f7f7f",
@@ -26,7 +26,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_quantile_by_facet}{TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
+\item{col_col_quantile_by_facet}{TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 

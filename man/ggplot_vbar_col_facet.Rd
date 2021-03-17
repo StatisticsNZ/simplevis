@@ -5,18 +5,18 @@
 \title{Vertical bar ggplot that is coloured and facetted.}
 \usage{
 ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
-  tip_var = NULL, x_labels = waiver(), x_pretty_n = 5,
+  tip_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
+  legend_ncol = 3, width = 0.75, alpha = 1, facet_scales = "fixed",
+  facet_nrow = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
   y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, y_balance = FALSE, position = "stack",
-  facet_scales = "fixed", facet_nrow = NULL, pal = NULL,
-  pal_rev = FALSE, legend_ncol = 3, width = 0.75,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", col_title = "", caption = NULL,
-  legend_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
-  wrap_col_title = 25, caption_wrap = 80)
+  y_expand = NULL, y_balance = FALSE, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  col_title = "", caption = NULL, legend_labels = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
+  x_title_wrap = 50, y_title_wrap = 50, wrap_col_title = 25,
+  caption_wrap = 80)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -30,6 +30,22 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+
+\item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
+
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
+
+\item{legend_ncol}{The number of columns in the legend.}
+
+\item{width}{Width of bars. Defaults to 0.75.}
+
+\item{alpha}{The alpha of the fill. Defaults to 1.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+
+\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -50,20 +66,6 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".}
-
-\item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
-
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
-
-\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
-
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
-
-\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
-
-\item{legend_ncol}{The number of columns in the legend.}
-
-\item{width}{Width of bars. Defaults to 0.75.}
 
 \item{title}{Title string. Defaults to [Title].}
 

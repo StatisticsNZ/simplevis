@@ -341,11 +341,11 @@ ggplot_point <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -358,8 +358,6 @@ ggplot_point <- function(data,
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param legend_ncol The number of columns in the legend.
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title  Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -367,6 +365,8 @@ ggplot_point <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param legend_ncol The number of columns in the legend.
+#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -392,11 +392,11 @@ ggplot_point_col <-
            y_var,
            col_var,
            tip_var = NULL,
-           col_method = NULL,
-           col_cuts = NULL,
            size = 1,
            pal = NULL,
            pal_rev = FALSE,
+           col_method = NULL,
+           col_cuts = NULL,
            x_zero = TRUE,
            x_zero_line = NULL,
            x_trans = "identity",
@@ -409,8 +409,6 @@ ggplot_point_col <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           legend_ncol = 3,
-           legend_digits = 1,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -418,6 +416,8 @@ ggplot_point_col <-
            col_title = "",
            caption = NULL,
            legend_labels = NULL,
+           legend_ncol = 3,
+           legend_digits = 1,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -485,14 +485,14 @@ ggplot_point_col <-
       col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
       data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }
@@ -620,10 +620,12 @@ ggplot_point_col <-
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -636,8 +638,6 @@ ggplot_point_col <-
 #' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param title  Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -668,6 +668,8 @@ ggplot_point_facet <-
            tip_var = NULL,
            size = 1,
            pal = NULL,
+           facet_scales = "fixed",
+           facet_nrow = NULL,
            x_zero = TRUE,
            x_zero_line = NULL,
            x_trans = "identity",
@@ -680,8 +682,6 @@ ggplot_point_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           facet_scales = "fixed",
-           facet_nrow = NULL,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -849,12 +849,12 @@ ggplot_point_facet <-
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -869,8 +869,6 @@ ggplot_point_facet <-
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param legend_ncol The number of columns in the legend.
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title  Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -878,6 +876,8 @@ ggplot_point_facet <-
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param legend_ncol The number of columns in the legend.
+#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -905,12 +905,14 @@ ggplot_point_col_facet <-
            col_var,
            facet_var,
            tip_var = NULL,
-           col_method = NULL,
-           col_cuts = NULL,
-           quantile_by_facet = TRUE,
            size = 1,
            pal = NULL,
            pal_rev = FALSE,
+           col_method = NULL,
+           col_cuts = NULL,
+           col_quantile_by_facet = TRUE,
+           facet_scales = "fixed",
+           facet_nrow = NULL,
            x_zero = TRUE,
            x_zero_line = NULL,
            x_trans = "identity",
@@ -923,10 +925,6 @@ ggplot_point_col_facet <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_expand = NULL,
-           facet_scales = "fixed",
-           facet_nrow = NULL,
-           legend_ncol = 3,
-           legend_digits = 1,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -934,6 +932,8 @@ ggplot_point_col_facet <-
            col_title = "",
            caption = NULL,
            legend_labels = NULL,
+           legend_ncol = 3,
+           legend_digits = 1,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -994,21 +994,21 @@ ggplot_point_col_facet <-
     
     if (col_method == "quantile") {
       if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
-      if (quantile_by_facet == TRUE) {
+      if (col_quantile_by_facet == TRUE) {
         data <- data %>%
           dplyr::group_by(!!facet_var) %>%
           dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         
-        if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
         if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "%")
         if (!is.null(legend_labels)) labels <- legend_labels
       }
-      else if (quantile_by_facet == FALSE) {
+      else if (col_quantile_by_facet == FALSE) {
         col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
         if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
         data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-        if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
         if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
         if (!is.null(legend_labels)) labels <- legend_labels
       }
@@ -1016,7 +1016,7 @@ ggplot_point_col_facet <-
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- pals::viridis(length(col_cuts) - 1)
+      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
       if (!is.null(legend_labels)) labels <- legend_labels
     }

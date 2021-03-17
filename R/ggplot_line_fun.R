@@ -116,6 +116,11 @@ theme_line <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -126,11 +131,6 @@ theme_line <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -163,6 +163,11 @@ ggplot_line <- function(data,
                         x_var,
                         y_var,
                         tip_var = NULL,
+                        pal = NULL,
+                        points = TRUE,
+                        point_size = 1,
+                        lines = TRUE,
+                        size = 0.5,
                         x_labels = waiver(),
                         x_pretty_n = 6,
                         x_expand = NULL,
@@ -173,11 +178,6 @@ ggplot_line <- function(data,
                         y_pretty_n = 5,
                         y_expand = NULL,
                         y_balance = FALSE,
-                        points = TRUE,
-                        point_size = 1,
-                        lines = TRUE,
-                        size = 0.5,
-                        pal = NULL,
                         title = "[Title]",
                         subtitle = NULL,
                         x_title = "[X title]",
@@ -351,6 +351,12 @@ ggplot_line <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -361,13 +367,6 @@ ggplot_line <- function(data,
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param legend_ncol The number of columns in the legend.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -375,6 +374,7 @@ ggplot_line <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param legend_ncol The number of columns in the legend.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -403,6 +403,12 @@ ggplot_line_col <-
            y_var,
            col_var,
            tip_var = NULL,
+           pal = NULL,
+           pal_rev = FALSE,
+           points = TRUE,
+           point_size = 1,
+           lines = TRUE,
+           size = 0.5,
            x_labels = waiver(),
            x_pretty_n = 6,
            x_expand = NULL,
@@ -413,13 +419,6 @@ ggplot_line_col <-
            y_pretty_n = 5,
            y_expand = NULL,
            y_balance = FALSE,
-           points = TRUE,
-           point_size = 1,
-           lines = TRUE,
-           size = 0.5,
-           pal = NULL,
-           pal_rev = FALSE,
-           legend_ncol = 3,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -427,6 +426,7 @@ ggplot_line_col <-
            col_title = "",
            caption = NULL,
            legend_labels = NULL,
+           legend_ncol = 3,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -617,6 +617,13 @@ ggplot_line_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -627,13 +634,6 @@ ggplot_line_col <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -665,6 +665,13 @@ ggplot_line_facet <-
            y_var,
            facet_var,
            tip_var = NULL,
+           pal = NULL,
+           points = TRUE,
+           point_size = 1,
+           lines = TRUE,
+           size = 0.5,
+           facet_scales = "fixed",
+           facet_nrow = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            x_expand = NULL,
@@ -675,13 +682,6 @@ ggplot_line_facet <-
            y_pretty_n = 5,
            y_expand = NULL,
            y_balance = FALSE,
-           facet_scales = "fixed",
-           facet_nrow = NULL,
-           points = TRUE,
-           point_size = 1,
-           lines = TRUE,
-           size = 0.5,
-           pal = NULL,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -835,6 +835,14 @@ ggplot_line_facet <-
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
+#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -845,15 +853,6 @@ ggplot_line_facet <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param legend_ncol The number of columns in the legend.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -861,6 +860,7 @@ ggplot_line_facet <-
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param legend_ncol The number of columns in the legend.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -889,6 +889,14 @@ ggplot_line_col_facet <-
            col_var,
            facet_var,
            tip_var = NULL,
+           pal = NULL,
+           pal_rev = FALSE,
+           points = TRUE,
+           point_size = 1,
+           lines = TRUE,
+           size = 0.5,
+           facet_scales = "fixed",
+           facet_nrow = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            x_expand = NULL,
@@ -899,15 +907,6 @@ ggplot_line_col_facet <-
            y_pretty_n = 5,
            y_expand = NULL,
            y_balance = FALSE,
-           facet_scales = "fixed",
-           facet_nrow = NULL,
-           points = TRUE,
-           point_size = 1,
-           lines = TRUE,
-           size = 0.5,
-           pal = NULL,
-           pal_rev = FALSE,
-           legend_ncol = 3,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -915,6 +914,7 @@ ggplot_line_col_facet <-
            col_title = "",
            caption = NULL,
            legend_labels = NULL,
+           legend_ncol = 3,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,

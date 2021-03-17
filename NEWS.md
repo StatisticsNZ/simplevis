@@ -1,7 +1,11 @@
+# simplevis 2.4.5
+
+* Add alpha argument into hbar and vbar.
+* Changed quantile_by_facet argument to col_quantile_by_facet for consistency.
+
 # simplevis 2.4.4
 
 * Remove leaflet_basemap_nz.
-* Remove viridis dependency and add in pals instead.
 
 # simplevis 2.4.3
 

@@ -4,16 +4,16 @@
 \alias{ggplot_hbar}
 \title{Horizontal bar ggplot.}
 \usage{
-ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
-  x_zero = TRUE, x_zero_line = NULL, x_trans = "identity",
-  x_pretty_n = 6, x_expand = NULL, x_balance = FALSE,
-  x_na_bar = FALSE, y_rev = FALSE, y_labels = NULL,
-  y_expand = NULL, pal = NULL, width = 0.75, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  x_title_wrap = 50, y_title_wrap = 50, caption_wrap = 80,
-  isMobile = FALSE)
+ggplot_hbar(data, x_var, y_var, tip_var = NULL, pal = NULL,
+  width = 0.75, alpha = 1, x_labels = waiver(), x_zero = TRUE,
+  x_zero_line = NULL, x_trans = "identity", x_pretty_n = 6,
+  x_expand = NULL, x_balance = FALSE, x_na_bar = FALSE,
+  y_rev = FALSE, y_labels = NULL, y_expand = NULL,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
+  subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
+  caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -23,6 +23,12 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 \item{y_var}{Unquoted categorical variable to be on the y axis. Required input.}
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+
+\item{width}{Width of bars. Defaults to 0.75.}
+
+\item{alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -45,10 +51,6 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, x_labels = waiver(),
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
-
-\item{width}{Width of bars. Defaults to 0.75.}
 
 \item{title}{Title string. Defaults to [Title].}
 

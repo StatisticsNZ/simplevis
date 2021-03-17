@@ -23,5 +23,4 @@ color_vector <- sort(unique(data1$color))
 metric_vector <- sort(unique(data2$indicator))
 
 # choose a basemap (if required)
-basemap <- leaflet_basemap_nz()
-
+basemap <- leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))

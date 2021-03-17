@@ -136,16 +136,4 @@ shinyServer(function(input, output, session) {
     contentType = "application/zip"
   )
   
-  ### download code ###
-  
-  output$download_code <- downloadHandler(
-    filename <- function() {
-      "template2.zip"
-    },
-    content <- function(file) {
-      file.copy("data/template2.zip", file)
-    },
-    contentType = "application/zip"
-  )
-  
 })

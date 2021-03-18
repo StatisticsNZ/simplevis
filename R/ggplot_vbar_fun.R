@@ -235,7 +235,7 @@ ggplot_vbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], width = bar_width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], alpha = alpha, width = bar_width)
   
   if(is.null(x_expand))  {
     if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
@@ -318,13 +318,13 @@ ggplot_vbar <- function(data,
       if(y_limits[1] >= 0 & y_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                   fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                   fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data)        
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -332,10 +332,10 @@ ggplot_vbar <- function(data,
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                   fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data) +
           geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                   fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                    data = na_data)
       }
     }
@@ -522,7 +522,7 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
-               width = bar_width, position = position2)
+               alpha = alpha, width = bar_width, position = position2)
     
     if(is.null(x_expand))  {
       if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
@@ -842,7 +842,7 @@ ggplot_vbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], width = bar_width)
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], alpha = alpha, width = bar_width)
     
     if(is.null(x_expand))  {
       if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
@@ -911,13 +911,13 @@ ggplot_vbar_facet <-
           if(y_limits[1] >= 0 & y_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                       fill = "#F5F5F5", alpha = alpha, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data)
           }
           else if(y_limits[1] < 0 & y_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                       fill = "#F5F5F5", alpha = alpha, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data)        
           }
           else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -925,7 +925,7 @@ ggplot_vbar_facet <-
             
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                       fill = "#F5F5F5", alpha = alpha, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
                        data = na_data) +
               geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
                        fill = "#F5F5F5", alpha = alpha, width = width, 
@@ -1115,7 +1115,7 @@ ggplot_vbar_col_facet <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
-               width = bar_width, position = position2)
+               alpha = alpha, width = bar_width, position = position2)
     
     if(is.null(x_expand))  {
       if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()

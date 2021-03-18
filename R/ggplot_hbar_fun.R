@@ -685,6 +685,12 @@ ggplot_hbar_col <-
         drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
+      ) +
+      scale_colour_manual(
+        values = pal,
+        drop = FALSE,
+        labels = labels,
+        na.value = "#A8A8A8"
       )
     
     if (isMobile == FALSE){
@@ -697,6 +703,12 @@ ggplot_hbar_col <-
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
+          ncol = legend_ncol,
+          byrow = TRUE,
+          reverse = TRUE,
+          title = stringr::str_wrap(col_title, wrap_col_title)
+        ), 
+        col = guide_legend(
           ncol = legend_ncol,
           byrow = TRUE,
           reverse = TRUE,
@@ -717,6 +729,12 @@ ggplot_hbar_col <-
         ) +
         theme(axis.text.x = element_text(hjust = 0.75)) +
         guides(fill = guide_legend(
+          ncol = 1,
+          byrow = TRUE,
+          reverse = TRUE,
+          title = stringr::str_wrap(col_title, 15)
+        ), 
+        col = guide_legend(
           ncol = 1,
           byrow = TRUE,
           reverse = TRUE,
@@ -1194,6 +1212,12 @@ ggplot_hbar_col_facet <-
         drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
+      ) +
+      scale_colour_manual(
+        values = pal,
+        drop = FALSE,
+        labels = labels,
+        na.value = "#A8A8A8"
       ) 
 
     if(x_zero_line == TRUE) {
@@ -1214,6 +1238,12 @@ ggplot_hbar_col_facet <-
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
       guides(fill = guide_legend(
+        ncol = legend_ncol,
+        byrow = TRUE,
+        reverse = TRUE,
+        title = stringr::str_wrap(col_title, wrap_col_title)
+      ), 
+      col = guide_legend(
         ncol = legend_ncol,
         byrow = TRUE,
         reverse = TRUE,

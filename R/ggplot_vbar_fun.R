@@ -676,7 +676,14 @@ ggplot_vbar_col <-
         drop = FALSE,
         labels = labels,
         na.value = "#A8A8A8"
+      ) +
+      scale_colour_manual(
+        values = pal,
+        drop = FALSE,
+        labels = labels,
+        na.value = "#A8A8A8"
       ) 
+    
     
     if (isMobile == FALSE) {
       plot <- plot +
@@ -688,6 +695,12 @@ ggplot_vbar_col <-
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
+          ncol = legend_ncol,
+          byrow = TRUE,
+          reverse = TRUE,
+          title = stringr::str_wrap(col_title, wrap_col_title)
+        ), 
+        col = guide_legend(
           ncol = legend_ncol,
           byrow = TRUE,
           reverse = TRUE,
@@ -707,6 +720,12 @@ ggplot_vbar_col <-
           caption = stringr::str_wrap(caption, 50)
         ) +
         guides(fill = guide_legend(
+          ncol = 1,
+          byrow = TRUE,
+          reverse = TRUE,
+          title = stringr::str_wrap(col_title, 15)
+        ), 
+        col = guide_legend(
           ncol = 1,
           byrow = TRUE,
           reverse = TRUE,
@@ -1199,6 +1218,12 @@ ggplot_vbar_col_facet <-
     
     plot <- plot +
       scale_fill_manual(
+        values = pal,
+        drop = FALSE,
+        labels = labels,
+        na.value = "#A8A8A8"
+      ) +
+      scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = labels,

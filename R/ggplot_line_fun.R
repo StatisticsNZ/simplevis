@@ -117,10 +117,9 @@ theme_line <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -164,10 +163,9 @@ ggplot_line <- function(data,
                         y_var,
                         tip_var = NULL,
                         pal = NULL,
+                        size = 1,
                         points = TRUE,
-                        point_size = 1,
                         lines = TRUE,
-                        size = 0.5,
                         x_labels = waiver(),
                         x_pretty_n = 6,
                         x_expand = NULL,
@@ -239,10 +237,10 @@ ggplot_line <- function(data,
     )
   
   if (lines == TRUE) plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1], size = size)
+    geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1])
 
   plot <- plot +
-    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = size, alpha = alpha)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -353,10 +351,9 @@ ggplot_line <- function(data,
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -405,10 +402,9 @@ ggplot_line_col <-
            tip_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
+           size = 1,
            points = TRUE,
-           point_size = 1,
            lines = TRUE,
-           size = 0.5,
            x_labels = waiver(),
            x_pretty_n = 6,
            x_expand = NULL,
@@ -490,11 +486,11 @@ ggplot_line_col <-
       ) 
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size)
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
     
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
-                 size = point_size, alpha = alpha)
+                 size = size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -618,10 +614,9 @@ ggplot_line_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
@@ -666,10 +661,9 @@ ggplot_line_facet <-
            facet_var,
            tip_var = NULL,
            pal = NULL,
+           size = 1,
            points = TRUE,
-           point_size = 1,
            lines = TRUE,
-           size = 0.5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            x_labels = waiver(),
@@ -739,10 +733,10 @@ ggplot_line_facet <-
       )
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1], size = size) 
+      geom_line(aes(!!x_var, !!y_var, group = 1), col = pal[1]) 
     
     plot <- plot +
-      geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+      geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -837,10 +831,9 @@ ggplot_line_facet <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param size Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
@@ -891,10 +884,9 @@ ggplot_line_col_facet <-
            tip_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
+           size = 1,
            points = TRUE,
-           point_size = 1,
            lines = TRUE,
-           size = 0.5,
            facet_scales = "fixed",
            facet_nrow = NULL,
            x_labels = waiver(),
@@ -974,11 +966,11 @@ ggplot_line_col_facet <-
       ) 
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size)
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var))
     
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
-                 size = point_size, alpha = alpha)
+                 size = size, alpha = alpha)
     
     if (pal_rev == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels

@@ -1,3 +1,8 @@
+# simplevis 2.4.6
+
+* Removed size argument in line functions.
+* Renamed point_size as size in line functions.
+
 # simplevis 2.4.5
 
 * Add alpha argument into hbar and vbar.

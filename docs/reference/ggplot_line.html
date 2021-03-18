@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.6</span>
       </span>
     </div>
 
@@ -146,14 +146,13 @@
     <p>Line ggplot that is not coloured and not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_line</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>ggplot_line</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -182,20 +181,16 @@
       <td><p>Character vector of hex codes. Defaults to NULL, which selects a default palette.</p></td>
     </tr>
     <tr>
+      <th>size</th>
+      <td><p>Size of points. Defaults to 1. Only applicable to where points equals TRUE.</p></td>
+    </tr>
+    <tr>
       <th>points</th>
       <td><p>TRUE or FALSE of whether to include points. Defaults to TRUE.</p></td>
     </tr>
     <tr>
-      <th>point_size</th>
-      <td><p>Size of points. Defaults to 1. Only applicable to where points equals TRUE.</p></td>
-    </tr>
-    <tr>
       <th>lines</th>
       <td><p>TRUE or FALSE of whether to include lines. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>size</th>
-      <td><p>Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.</p></td>
     </tr>
     <tr>
       <th>x_labels</th>

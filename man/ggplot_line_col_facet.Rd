@@ -5,8 +5,8 @@
 \title{Line ggplot that is coloured and facetted.}
 \usage{
 ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
-  tip_var = NULL, pal = NULL, pal_rev = FALSE, points = TRUE,
-  point_size = 1, lines = TRUE, size = 0.5, facet_scales = "fixed",
+  tip_var = NULL, pal = NULL, pal_rev = FALSE, size = 1,
+  points = TRUE, lines = TRUE, facet_scales = "fixed",
   facet_nrow = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
   y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
@@ -35,13 +35,11 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
+\item{size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
+
 \item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
 
-\item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
-
 \item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
-
-\item{size}{Size of lines. Defaults to 0.5. Only applicable to where lines equals TRUE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

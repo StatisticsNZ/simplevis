@@ -5,7 +5,7 @@
 \title{Map of an array in ggplot that is coloured and facetted.}
 \usage{
 ggplot_stars_col_facet(data, col_method = "quantile",
-  col_col_quantile_by_facet = TRUE, col_cuts = NULL, pal = NULL,
+  col_quantile_by_facet = TRUE, col_cuts = NULL, pal = NULL,
   pal_rev = FALSE, facet_nrow = NULL, legend_ncol = 3,
   legend_digits = 1, title = "[Title]", subtitle = NULL,
   col_title = "", caption = NULL, legend_labels = NULL,
@@ -18,11 +18,11 @@ ggplot_stars_col_facet(data, col_method = "quantile",
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
-\item{col_col_quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
+\item{col_quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

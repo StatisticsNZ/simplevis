@@ -24,7 +24,7 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, pal = NULL,
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{width}{Width of bars. Defaults to 0.75.}
 

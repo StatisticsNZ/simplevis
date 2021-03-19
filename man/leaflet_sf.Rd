@@ -12,7 +12,7 @@ leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{popup}{HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.}
 

@@ -33,7 +33,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{TRUE or FALSE of whether to reverse the pal.}
 

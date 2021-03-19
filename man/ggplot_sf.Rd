@@ -14,7 +14,7 @@ ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
 
-\item{size}{Size of features (or shape outlines if polygon). Defaults to 0.5.}
+\item{size}{Size of points or line features (or non-boundary polygon features). Defaults to 0.5.}
 
 \item{alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
 

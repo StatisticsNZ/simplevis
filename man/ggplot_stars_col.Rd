@@ -19,7 +19,7 @@ ggplot_stars_col(data, col_method = "quantile", col_cuts = NULL,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

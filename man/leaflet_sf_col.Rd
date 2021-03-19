@@ -26,7 +26,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

@@ -5,10 +5,10 @@
 \title{Map of simple features in ggplot that is coloured and facetted.}
 \usage{
 ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
-  col_cuts = NULL, col_col_quantile_by_facet = TRUE, pal = NULL,
-  pal_rev = FALSE, size = 0.5, alpha = 0.9, facet_nrow = NULL,
-  legend_ncol = 3, legend_digits = 1, boundary = NULL,
-  boundary_behind = TRUE, boundary_pal = "#7f7f7f",
+  col_cuts = NULL, col_quantile_by_facet = TRUE, col_na = TRUE,
+  pal = NULL, pal_rev = FALSE, size = 0.5, alpha = 0.9,
+  facet_nrow = NULL, legend_ncol = 3, legend_digits = 1,
+  boundary = NULL, boundary_behind = TRUE, boundary_pal = "#7f7f7f",
   boundary_size = 0.2, title = "[Title]", subtitle = NULL,
   col_title = "", caption = NULL, legend_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
@@ -26,13 +26,15 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_col_quantile_by_facet}{TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
+\item{col_quantile_by_facet}{TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
+
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{size}{Size of features (or shape outlines if polygon). Defaults to 0.5.}
+\item{size}{Size of points or line features (or non-boundary polygon features). Defaults to 0.5.}
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 

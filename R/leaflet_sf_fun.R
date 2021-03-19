@@ -3,7 +3,7 @@
 #' @title Map of simple features in leaflet.
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param popup HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object. 
 #' @param radius Radius of points. Defaults to 2.
 #' @param weight Stroke border size. Defaults to 2.
@@ -41,8 +41,9 @@ leaflet_sf <- function(data,
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  if (is.null(pal)) pal <- pal_snz
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+
   legend_id <- paste0(map_id, "_legend")
   
   if (shiny == FALSE) {
@@ -203,7 +204,7 @@ leaflet_sf <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
 #' @param col_na_remove TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param popup HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.  
 #' @param radius Radius of points. Defaults to 2.
@@ -280,8 +281,9 @@ leaflet_sf_col <- function(data,
     
     n_col_var_values <- length(labels)
     
-    if (is.null(pal)) pal <- pal_point_set1[1:n_col_var_values]
+    if (is.null(pal)) pal <- viridis::viridis(n_col_var_values)
     else if (!is.null(pal)) pal <- pal[1:n_col_var_values]
+    
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
     

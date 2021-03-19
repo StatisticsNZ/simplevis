@@ -12,7 +12,7 @@ ggplot_stars(data, pal = NULL, title = "[Title]", subtitle = NULL,
 \arguments{
 \item{data}{A stars object with 2 dimensions x and y. Required input.}
 
-\item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

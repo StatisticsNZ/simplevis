@@ -116,7 +116,7 @@ theme_line <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -223,7 +223,8 @@ ggplot_line <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
   
-  if (is.null(pal)) pal <- pal_snz
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
   
   if (points == TRUE) alpha <- 1
   else if (points == FALSE) alpha <- 0
@@ -349,7 +350,7 @@ ggplot_line <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
@@ -472,7 +473,15 @@ ggplot_line_col <-
       else if (isMobile == TRUE) font_size_body <- 14
     }
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
+    if (pal_rev == TRUE) pal <- rev(pal)
     
     if (points == TRUE) alpha <- 1
     else if (points == FALSE) alpha <- 0
@@ -495,7 +504,6 @@ ggplot_line_col <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
-    if (pal_rev == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     
@@ -613,7 +621,7 @@ ggplot_line_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
@@ -719,7 +727,8 @@ ggplot_line_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    else pal <- pal[1]
     
     if (points == TRUE) alpha <- 1
     else if (points == FALSE) alpha <- 0
@@ -829,7 +838,7 @@ ggplot_line_facet <-
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
@@ -952,7 +961,15 @@ ggplot_line_col_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
+    if (pal_rev == TRUE) pal <- rev(pal)
     
     if (points == TRUE) alpha <- 1
     else if (points == FALSE) alpha <- 0
@@ -972,7 +989,6 @@ ggplot_line_col_facet <-
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
                  size = size, alpha = alpha)
     
-    if (pal_rev == TRUE) pal <- rev(pal)
     if (!is.null(legend_labels)) labels <- legend_labels
     if (is.null(legend_labels)) labels <- waiver()
     

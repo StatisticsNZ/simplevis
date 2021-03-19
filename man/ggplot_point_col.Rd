@@ -6,17 +6,17 @@
 \usage{
 ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL, size = 1,
   pal = NULL, pal_rev = FALSE, col_method = NULL, col_cuts = NULL,
-  x_zero = TRUE, x_zero_line = NULL, x_trans = "identity",
-  x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
-  y_zero = TRUE, y_zero_line = NULL, y_trans = "identity",
-  y_labels = waiver(), y_pretty_n = 5, y_expand = NULL,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", col_title = "", caption = NULL,
-  legend_labels = NULL, legend_ncol = 3, legend_digits = 1,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  x_title_wrap = 50, y_title_wrap = 50, wrap_col_title = 25,
-  caption_wrap = 80, isMobile = FALSE)
+  col_na = TRUE, x_zero = TRUE, x_zero_line = NULL,
+  x_trans = "identity", x_labels = waiver(), x_pretty_n = 6,
+  x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
+  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
+  y_expand = NULL, title = "[Title]", subtitle = NULL,
+  x_title = "[X title]", y_title = "[Y title]", col_title = "",
+  caption = NULL, legend_labels = NULL, legend_ncol = 3,
+  legend_digits = 1, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
+  subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
+  wrap_col_title = 25, caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -31,13 +31,15 @@ ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL, size = 1,
 
 \item{size}{Size of points. Defaults to 1.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 

@@ -3,7 +3,7 @@
 #' @title Map of an array in leaflet.
 #' @description Map of an array in leaflet. 
 #' @param data A stars object with dimensions x and y with crs. Required input.
-#' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -31,8 +31,9 @@ leaflet_stars <- function(data,
   data <- methods::as(data, "Raster")
   data <- projectRasterForLeaflet(data, method = "ngb")
   
-  if (is.null(pal)) pal <- pal_snz[1]
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+
   pal_fun <-
     colorBin(
       palette = pal,
@@ -96,7 +97,7 @@ leaflet_stars <- function(data,
 #' @param data A stars object with dimensions x and y, and 1 attribute layer with crs. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.9.
 #' @param legend_digits Select the appropriate number of decimal places for the auto legend. Defaults to 1.
@@ -132,16 +133,16 @@ leaflet_stars_col <- function(data,
   col_var_vctr <- data %>% dplyr::pull()
   
   if (col_method == "category") {
-    no_bins <-
-      max(col_var_vctr, na.rm = TRUE) - min(col_var_vctr, na.rm = TRUE) + 1
+    no_bins <- max(col_var_vctr, na.rm = TRUE) - min(col_var_vctr, na.rm = TRUE) + 1
+    
     max_bin_cut <- max(col_var_vctr, na.rm = TRUE) + 1
     col_cuts <- seq(min(col_var_vctr, na.rm = TRUE), max_bin_cut, 1)
-    if (is.null(pal))
-      pal <- pal_point_set1[1:(length(col_cuts) - 1)]
-    else if (!is.null(pal))
-      pal <- pal[1:(length(col_cuts) - 1)]
-    if (pal_rev == TRUE)
-      pal <- rev(pal)
+    
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
+    
+    if (pal_rev == TRUE) pal <- rev(pal)
+    
     pal_fun <-
       colorBin(
         palette = pal,

@@ -1,3 +1,10 @@
+# simplevis 2.4.7
+
+* Defaulted colours to viridis for all functions.
+* Improved ggplot_point and ggplot_sf colouring code.
+* Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.  
+* Added alpha argument for the fill of hbar and vbar.
+
 # simplevis 2.4.6
 
 * Removed size argument in line functions.

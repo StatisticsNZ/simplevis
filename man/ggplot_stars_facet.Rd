@@ -13,7 +13,7 @@ ggplot_stars_facet(data, pal = NULL, facet_nrow = NULL,
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.}
 
-\item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 

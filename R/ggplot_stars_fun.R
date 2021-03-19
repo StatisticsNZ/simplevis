@@ -93,7 +93,7 @@ theme_stars <-
 #' @title Map of an array in ggplot.
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with 2 dimensions x and y. Required input.
-#' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -144,7 +144,8 @@ ggplot_stars <- function(data,
   data <- data %>%
     tibble::as_tibble()
   
-  if (is.null(pal)) pal <- pal_snz[1]
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
   
   plot <- plot +
     geom_raster(aes(x = .data$x, y = .data$y),
@@ -181,7 +182,7 @@ ggplot_stars <- function(data,
 #' @param data A stars object with 2 dimensions x and y, and 1 attribute layer that will be coloured. Required input.
 #' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param legend_ncol The number of columns in the legend.
 #' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -359,7 +360,7 @@ ggplot_stars_col <- function(data,
 #' @title Map of an array in ggplot that is facetted.
 #' @description Map of an array in ggplot that is facetted, but not coloured. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.
-#' @param pal Character vector of hex codes, or provided objects with pal_ prefixes.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -413,8 +414,9 @@ ggplot_stars_facet <- function(data,
     tibble::as_tibble() %>%
     tidyr::pivot_longer(c(-.data$x,-.data$y), names_to = "facet_var", values_to = "col_var")
   
-  if (is.null(pal)) pal <- pal_snz[1]
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+
   plot <- plot +
     geom_raster(aes(x = .data$x, y = .data$y),
                 fill = pal,
@@ -450,8 +452,8 @@ ggplot_stars_facet <- function(data,
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
-#' @param pal Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.
+#' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param legend_ncol The number of columns in the legend.
@@ -484,7 +486,7 @@ ggplot_stars_facet <- function(data,
 #'    title = "Site medians, 2013-17")
 ggplot_stars_col_facet <- function(data,
                                    col_method = "quantile",
-                                   col_col_quantile_by_facet = TRUE,
+                                   col_quantile_by_facet = TRUE,
                                    col_cuts = NULL,
                                    pal = NULL,
                                    pal_rev = FALSE,
@@ -573,7 +575,7 @@ ggplot_stars_col_facet <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    if (col_col_quantile_by_facet == TRUE) {
+    if (col_quantile_by_facet == TRUE) {
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%
@@ -585,7 +587,7 @@ ggplot_stars_col_facet <- function(data,
       if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(legend_labels)) labels <- legend_labels
     }
-    else if (col_col_quantile_by_facet == FALSE) {
+    else if (col_quantile_by_facet == FALSE) {
       data <- data %>%
         tibble::as_tibble() %>%
         tidyr::pivot_longer(cols = c(-.data$x, -.data$y), names_to = "facet_var", values_to = "col_var") %>%

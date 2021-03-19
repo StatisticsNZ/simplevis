@@ -116,7 +116,7 @@ theme_hbar <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
@@ -234,8 +234,9 @@ ggplot_hbar <- function(data,
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
   }
   
-  if (is.null(pal)) pal <- pal_snz
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+
   plot <- ggplot(data) +
     coord_flip() +
     theme_hbar(
@@ -243,7 +244,7 @@ ggplot_hbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), col = pal[1], fill = pal[1], alpha = alpha, width = width)
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, width = width)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
@@ -374,7 +375,7 @@ ggplot_hbar <- function(data,
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -520,7 +521,15 @@ ggplot_hbar_col <-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
+    if (pal_rev == FALSE) pal <- rev(pal)
     
     plot <- ggplot(data) +
       coord_flip() +
@@ -532,13 +541,6 @@ ggplot_hbar_col <-
     
     if (!is.null(legend_labels)) labels <- rev(legend_labels)
     if (is.null(legend_labels)) labels <- waiver()
-    
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      pal <- pal[1:length(levels(col_var_vctr))]
-    }
-    else pal <- pal[1:length(unique(col_var_vctr))]
-    
-    if(pal_rev == FALSE) pal <- rev(pal)
     
     if (!is.null(pal) & x_na_bar == TRUE) { 
       if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
@@ -752,7 +754,7 @@ ggplot_hbar_col <-
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
@@ -873,8 +875,9 @@ ggplot_hbar_facet <-
       }
     }
     
-    if (is.null(pal)) pal <- pal_snz
-    
+    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    else pal <- pal[1]
+
     plot <- ggplot(data) +
       coord_flip() +
       theme_hbar(
@@ -882,7 +885,7 @@ ggplot_hbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), col = pal[1], fill = pal[1], alpha = alpha, width = width)
+      geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, width = width)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -990,7 +993,7 @@ ggplot_hbar_facet <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -1131,7 +1134,15 @@ ggplot_hbar_col_facet <-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
+    if (pal_rev == FALSE) pal <- rev(pal)
     
     plot <- ggplot(data) +
       coord_flip() +
@@ -1148,13 +1159,6 @@ ggplot_hbar_col_facet <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
 
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      pal <- pal[1:length(levels(col_var_vctr))]
-    }
-    else pal <- pal[1:length(unique(col_var_vctr))]
-    
-    if(pal_rev == FALSE) pal <- rev(pal)
-    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var))) %>%

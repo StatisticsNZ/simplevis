@@ -117,6 +117,8 @@ theme_box <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
+#' @param width Width of the box. Defaults to 0.5.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -127,8 +129,6 @@ theme_box <-
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
-#' @param width Width of the box. Defaults to 0.5.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -170,6 +170,8 @@ ggplot_box <- function(data,
                        y_var = NULL,
                        group_var = NULL,
                        stat = "boxplot",
+                       pal = NULL,
+                       width = 0.5,
                        x_labels = waiver(),
                        x_pretty_n = 6,
                        x_expand = NULL,
@@ -180,8 +182,6 @@ ggplot_box <- function(data,
                        y_pretty_n = 5,
                        y_expand = NULL,
                        y_balance = FALSE,
-                       pal = NULL,
-                       width = 0.5,
                        title = "[Title]",
                        subtitle = NULL,
                        x_title = "[X title]",
@@ -229,8 +229,9 @@ ggplot_box <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
   
-  if (is.null(pal)) pal <- pal_snz
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+    
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_box(
@@ -245,7 +246,7 @@ ggplot_box <- function(data,
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var),
           stat = stat,
-          fill = pal[1],
+          fill = pal,
           width = width,
           alpha = 0.9
         )
@@ -255,7 +256,7 @@ ggplot_box <- function(data,
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var, group = !!group_var),
           stat = stat,
-          fill = pal[1],
+          fill = pal,
           width = width,
           alpha = 0.9
         )
@@ -273,7 +274,7 @@ ggplot_box <- function(data,
           ymax = .data$ymax
         ),
         stat = stat,
-        fill = pal[1],
+        fill = pal,
         width = width,
         alpha = 0.9
       )
@@ -410,6 +411,10 @@ ggplot_box <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
+#' @param width Width of the box. Defaults to 0.5.
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Only applicable to a x variable that is categorical or date.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
@@ -420,10 +425,6 @@ ggplot_box <- function(data,
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.
-#' @param width Width of the box. Defaults to 0.5.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -512,8 +513,9 @@ ggplot_box_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
 
-    if (is.null(pal)) pal <- pal_snz
-    
+    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    else pal <- pal[1]
+
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_box(
@@ -528,7 +530,7 @@ ggplot_box_facet <-
           geom_boxplot(
             aes(x = !!x_var, y = !!y_var),
             stat = stat,
-            fill = pal[1],
+            fill = pal,
             width = width,
             alpha = 0.9
           )
@@ -538,7 +540,7 @@ ggplot_box_facet <-
           geom_boxplot(
             aes(x = !!x_var, y = !!y_var, group = !!group_var),
             stat = stat,
-            fill = pal[1],
+            fill = pal,
             width = width,
             alpha = 0.9
           )
@@ -562,7 +564,7 @@ ggplot_box_facet <-
             ymax = .data$ymax
           ),
           stat = stat,
-          fill = pal[1],
+          fill = pal,
           width = width,
           alpha = 0.9
         )

@@ -53,7 +53,7 @@ ggplot_box_facet(data, x_var, y_var = NULL, facet_var,
 
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{width}{Width of the box. Defaults to 0.5.}
 

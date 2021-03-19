@@ -5,10 +5,10 @@
 \title{Boxplot ggplot.}
 \usage{
 ggplot_box(data, x_var, y_var = NULL, group_var = NULL,
-  stat = "boxplot", x_labels = waiver(), x_pretty_n = 6,
-  x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
-  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, y_balance = FALSE, pal = NULL, width = 0.5,
+  stat = "boxplot", pal = NULL, width = 0.5, x_labels = waiver(),
+  x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
+  y_zero_line = NULL, y_trans = "identity", y_labels = waiver(),
+  y_pretty_n = 5, y_expand = NULL, y_balance = FALSE,
   title = "[Title]", subtitle = NULL, x_title = "[X title]",
   y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
@@ -25,6 +25,10 @@ ggplot_box(data, x_var, y_var = NULL, group_var = NULL,
 \item{group_var}{Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
+
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+
+\item{width}{Width of the box. Defaults to 0.5.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -45,10 +49,6 @@ ggplot_box(data, x_var, y_var = NULL, group_var = NULL,
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
-
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette.}
-
-\item{width}{Width of the box. Defaults to 0.5.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

@@ -117,7 +117,7 @@ theme_point <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.     
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -233,8 +233,9 @@ ggplot_point <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
   
-  if (is.null(pal)) pal <- pal_snz
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+
   plot <- ggplot(data) +
     theme_point(
       font_family = font_family,
@@ -342,10 +343,11 @@ ggplot_point <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -397,6 +399,7 @@ ggplot_point_col <-
            pal_rev = FALSE,
            col_method = NULL,
            col_cuts = NULL,
+           col_na = TRUE,
            x_zero = TRUE,
            x_zero_line = NULL,
            x_trans = "identity",
@@ -480,27 +483,53 @@ ggplot_point_col <-
       else if (is.numeric(col_var_vctr)) col_method <- "quantile"
     }
     
-    if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
-      col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-      if (!is.null(legend_labels)) labels <- legend_labels
-    }
-    else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-      data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-      if (!is.null(legend_labels)) labels <- legend_labels
+    if(col_method %in% c("quantile", "bin")) {
+      if (col_method == "quantile") {
+        if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+        else {
+          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+        }  
+        col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+        
+        data <- data %>% 
+          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+        
+        if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
+        else labels <- legend_labels
+      }
+      else if (col_method == "bin") {
+        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+        else({
+          if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+        })
+        
+        data <- data %>% 
+          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+        
+        if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
+        else labels <- legend_labels
+      }
+      n_col <- length(col_cuts) - 1
+      if (is.null(pal)) pal <- viridis::viridis(n_col)
+      else pal <- pal[1:n_col]
     }
     else if (col_method == "category") {
-      if (is.null(pal)) pal <- pal_point_set1
-      if (!is.null(legend_labels)) labels <- legend_labels
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        n_col <- length(levels(col_var_vctr))
+      }
+      else n_col <- length(unique(col_var_vctr))
+      
+      if (is.null(pal)) pal <- viridis::viridis(n_col)
+      else pal <- pal[1:n_col]
+      
       if (is.null(legend_labels)) labels <- waiver()
+      else labels <- legend_labels
     }
+    
+    if (pal_rev == TRUE) pal <- rev(pal)
     
     plot <- ggplot(data) +
       theme_point(
@@ -513,7 +542,6 @@ ggplot_point_col <-
     plot <- plot +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
     
-    if (pal_rev == TRUE) pal <- rev(pal)
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
     
@@ -557,6 +585,7 @@ ggplot_point_col <-
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_x_continuous(
@@ -623,7 +652,7 @@ ggplot_point_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
@@ -737,8 +766,9 @@ ggplot_point_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
     
-    if (is.null(pal)) pal <- pal_snz
-    
+    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    else pal <- pal[1]
+
     plot <- ggplot(data) +
       theme_point(
         font_family = font_family,
@@ -850,11 +880,12 @@ ggplot_point_facet <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. Defaults to NULL, which selects the Stats NZ palette or viridis.
+#' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -911,6 +942,7 @@ ggplot_point_col_facet <-
            col_method = NULL,
            col_cuts = NULL,
            col_quantile_by_facet = TRUE,
+           col_na = TRUE,
            facet_scales = "fixed",
            facet_nrow = NULL,
            x_zero = TRUE,
@@ -992,39 +1024,64 @@ ggplot_point_col_facet <-
       if (is.numeric(col_var_vctr)) col_method <- "quantile"      
     }
     
-    if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- c(0, 0.25, 0.5, 0.75, 1)
-      if (col_quantile_by_facet == TRUE) {
-        data <- data %>%
-          dplyr::group_by(!!facet_var) %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
+    if(col_method %in% c("quantile", "bin")) {
+      if (col_method == "quantile") {
+        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+        else {
+          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+        }  
         
-        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-        if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "%")
-        if (!is.null(legend_labels)) labels <- legend_labels
+        if (col_quantile_by_facet == TRUE) {
+          data <- data %>%
+            dplyr::group_by(!!facet_var) %>%
+            dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
+            dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
+          
+          if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "%")
+          else labels <- legend_labels
+        }
+        else if (col_quantile_by_facet == FALSE) { 
+          col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+          if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+          
+          data <- data %>% 
+            dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+          
+          if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
+          else labels <- legend_labels
+        }
       }
-      else if (col_quantile_by_facet == FALSE) {
-        col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      else if (col_method == "bin") {
+        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+        else({
+          if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+        })
+        
         data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-        if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+        
         if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-        if (!is.null(legend_labels)) labels <- legend_labels
+        else labels <- legend_labels
       }
-    }
-    else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-      data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-      if (!is.null(legend_labels)) labels <- legend_labels
-    }
+      n_col <- length(col_cuts) - 1
+      if (is.null(pal)) pal <- viridis::viridis(n_col)
+      else pal <- pal[1:n_col]
+    } 
     else if (col_method == "category") {
-      if (is.null(pal)) pal <- pal_point_set1
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        n_col <- length(levels(col_var_vctr))
+      }
+      else n_col <- length(unique(col_var_vctr))
+      
+      if (is.null(pal)) pal <- viridis::viridis(n_col)
+      else pal <- pal[1:n_col]
+      
       if (!is.null(legend_labels)) labels <- legend_labels
-      if (is.null(legend_labels)) labels <- waiver()
+      else labels <- waiver()
     }
+    
+    if (pal_rev == TRUE) pal <- rev(pal)
     
     plot <- ggplot(data) +
       theme_point(
@@ -1035,13 +1092,12 @@ ggplot_point_col_facet <-
       coord_cartesian(clip = "off") +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = size)
     
-    if (pal_rev == TRUE) pal <- rev(pal)
-    
     plot <- plot +
       scale_color_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       )
     

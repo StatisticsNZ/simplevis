@@ -28,7 +28,7 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

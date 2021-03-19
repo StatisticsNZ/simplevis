@@ -47,7 +47,7 @@ ggplot(data) +
 We can modify the design with `ggplot2`. However, there is a lot of code. 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot(data) +
-  geom_col(aes(pet, count), fill = "#085C75", width = 0.75) +
+  geom_col(aes(pet, count), fill = "#31688EFF", width = 0.75) +
   labs(title = "Wellington pets, 2020", x = "Pet", y = "Count") +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 600)) + #hardcoded = bad!
   theme_minimal() +

@@ -29,7 +29,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{size}{Size of points. Defaults to 1.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

@@ -11,7 +11,7 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
 \arguments{
 \item{data}{A stars object with dimensions x and y with crs. Required input.}
 
-\item{pal}{Character vector of hex codes, or provided objects with pal_ prefixes.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.1.}
 

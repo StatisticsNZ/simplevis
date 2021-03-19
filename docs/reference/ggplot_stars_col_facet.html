@@ -147,7 +147,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_stars_col_facet</span>(<span class='no'>data</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
-  <span class='kw'>col_col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>legend_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -167,7 +167,7 @@
       <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
     </tr>
     <tr>
-      <th>col_col_quantile_by_facet</th>
+      <th>col_quantile_by_facet</th>
       <td><p>TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.</p></td>
     </tr>
     <tr>
@@ -176,7 +176,7 @@
     </tr>
     <tr>
       <th>pal</th>
-      <td><p>Character vector of hex codes, or provided objects with pal_ prefixes. Defaults to viridis.</p></td>
+      <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
     </tr>
     <tr>
       <th>pal_rev</th>

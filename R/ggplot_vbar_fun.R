@@ -222,10 +222,12 @@ ggplot_vbar <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
 
-  if (is.null(pal)) pal <- pal_snz
-  
+  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  else pal <- pal[1]
+
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
   else bar_unit <- 1
+  
   bar_width <- bar_unit * width
 
   plot <- ggplot(data) +
@@ -507,11 +509,19 @@ ggplot_vbar_col <-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
     if (pal_rev == TRUE) pal <- rev(pal)
     
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
     else bar_unit <- 1
+    
     bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
@@ -849,9 +859,12 @@ ggplot_vbar_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    else pal <- pal[1]
+
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
     else bar_unit <- 1
+    
     bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
@@ -1119,11 +1132,19 @@ ggplot_vbar_col_facet <-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
-    if (is.null(pal)) pal <- pal_snz
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
     if (pal_rev == TRUE) pal <- rev(pal)
     
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
     else bar_unit <- 1
+    
     bar_width <- bar_unit * width
     
     plot <- ggplot(data) +

@@ -1,3 +1,10 @@
+# simplevis 2.4.8
+
+* In line functions, rename size argument to size_point.
+* In line functions, add size_line argument.
+* Rename all legend_ arguments to col_ arguments.
+* Rename wrap_col_title to col_title_wrap.
+
 # simplevis 2.4.7
 
 * Defaulted colours to viridis for all functions.

@@ -8,7 +8,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
   col_cuts = NULL, col_drop = FALSE, col_na_remove = FALSE,
   pal = NULL, pal_rev = FALSE, popup = NULL, radius = 1,
   weight = 2, opacity = 0.9, stroke = TRUE, title = "[Title]",
-  legend_digits = 1, legend_labels = NULL, basemap = "light",
+  col_digits = 1, col_labels = NULL, basemap = "light",
   map_id = "map")
 }
 \arguments{
@@ -42,9 +42,9 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 
-\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
@@ -62,7 +62,7 @@ leaflet_sf_col(example_sf_polygon, density,
      title = "Modelled density, 2017")
 
 leaflet_sf_col(example_sf_polygon, density,
-     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
      title = "Modelled density, 2017")
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")

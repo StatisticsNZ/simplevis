@@ -7,12 +7,12 @@
 ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
   col_na = TRUE, pal = NULL, pal_rev = FALSE, size = 0.5,
   alpha = 0.9, boundary = NULL, boundary_behind = TRUE,
-  boundary_pal = "#7f7f7f", boundary_size = 0.2, legend_ncol = 3,
-  legend_digits = 1, title = "[Title]", subtitle = NULL,
-  col_title = "", caption = NULL, legend_labels = NULL,
+  boundary_pal = "#7f7f7f", boundary_size = 0.2, col_ncol = 3,
+  col_digits = 1, title = "[Title]", subtitle = NULL,
+  col_title = "", caption = NULL, col_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  wrap_col_title = 25, caption_wrap = 80, isMobile = FALSE)
+  col_title_wrap = 25, caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -41,9 +41,9 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
-\item{legend_ncol}{The number of columns in the legend.}
+\item{col_ncol}{The number of columns in the legend.}
 
-\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -53,7 +53,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
@@ -65,7 +65,7 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
-\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
@@ -79,7 +79,7 @@ Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
 ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
-     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
      title = "Density, 2017")
 
 ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,

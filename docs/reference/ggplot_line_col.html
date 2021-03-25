@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.8</span>
       </span>
     </div>
 
@@ -147,17 +147,17 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_line_col</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
-  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>legend_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>wrap_col_title</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,8 +191,12 @@
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>size</th>
+      <th>size_point</th>
       <td><p>Size of points. Defaults to 1. Only applicable to where points equals TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>size_line</th>
+      <td><p>Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.</p></td>
     </tr>
     <tr>
       <th>points</th>
@@ -203,6 +207,26 @@
       <td><p>TRUE or FALSE of whether to include lines. Defaults to TRUE.</p></td>
     </tr>
     <tr>
+      <th>title</th>
+      <td><p>Title string. Defaults to "[Title]".</p></td>
+    </tr>
+    <tr>
+      <th>title_wrap</th>
+      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>subtitle</th>
+      <td><p>Subtitle string. Defaults to "[Subtitle]".</p></td>
+    </tr>
+    <tr>
+      <th>subtitle_wrap</th>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>x_expand</th>
+      <td><p>A vector of range expansion constants used to add some padding on the x scale.</p></td>
+    </tr>
+    <tr>
       <th>x_labels</th>
       <td><p>Argument to adjust the format of the x scale labels.</p></td>
     </tr>
@@ -211,20 +235,20 @@
       <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
-      <th>x_expand</th>
-      <td><p>A vector of range expansion constants used to add some padding on the x scale.</p></td>
+      <th>x_title</th>
+      <td><p>X axis title string. Defaults to "[X title]".</p></td>
     </tr>
     <tr>
-      <th>y_zero</th>
-      <td><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+      <th>x_title_wrap</th>
+      <td><p>Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
-      <th>y_zero_line</th>
-      <td><p>TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.</p></td>
+      <th>y_balance</th>
+      <td><p>Add balance to the y axis so that zero is in the centre of the y scale.</p></td>
     </tr>
     <tr>
-      <th>y_trans</th>
-      <td><p>A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+      <th>y_expand</th>
+      <td><p>A vector of range expansion constants used to add some padding on the y scale.</p></td>
     </tr>
     <tr>
       <th>y_labels</th>
@@ -235,44 +259,48 @@
       <td><p>The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.</p></td>
     </tr>
     <tr>
-      <th>y_expand</th>
-      <td><p>A vector of range expansion constants used to add some padding on the y scale.</p></td>
-    </tr>
-    <tr>
-      <th>y_balance</th>
-      <td><p>Add balance to the y axis so that zero is in the centre of the y scale.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title string. Defaults to "[Title]".</p></td>
-    </tr>
-    <tr>
-      <th>subtitle</th>
-      <td><p>Subtitle string. Defaults to "[Subtitle]".</p></td>
-    </tr>
-    <tr>
-      <th>x_title</th>
-      <td><p>X axis title string. Defaults to "[X title]".</p></td>
-    </tr>
-    <tr>
       <th>y_title</th>
       <td><p>Y axis title string. Defaults to "[Y title]".</p></td>
+    </tr>
+    <tr>
+      <th>y_title_wrap</th>
+      <td><p>Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>y_trans</th>
+      <td><p>A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+    </tr>
+    <tr>
+      <th>y_zero</th>
+      <td><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>y_zero_line</th>
+      <td><p>TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>col_labels</th>
+      <td><p>A vector of manual legend label values. Defaults to NULL, which results in automatic labels.</p></td>
+    </tr>
+    <tr>
+      <th>col_ncol</th>
+      <td><p>The number of columns in the legend.</p></td>
     </tr>
     <tr>
       <th>col_title</th>
       <td><p>Colour title string for the legend. Defaults to NULL.</p></td>
     </tr>
     <tr>
+      <th>col_title_wrap</th>
+      <td><p>Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.</p></td>
+    </tr>
+    <tr>
       <th>caption</th>
       <td><p>Caption title string. Defaults to NULL.</p></td>
     </tr>
     <tr>
-      <th>legend_labels</th>
-      <td><p>A vector of manual legend label values. Defaults to NULL, which results in automatic labels.</p></td>
-    </tr>
-    <tr>
-      <th>legend_ncol</th>
-      <td><p>The number of columns in the legend.</p></td>
+      <th>caption_wrap</th>
+      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>font_family</th>
@@ -285,30 +313,6 @@
     <tr>
       <th>font_size_body</th>
       <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
-    </tr>
-    <tr>
-      <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>x_title_wrap</th>
-      <td><p>Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>y_title_wrap</th>
-      <td><p>Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>wrap_col_title</th>
-      <td><p>Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>caption_wrap</th>
-      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>isMobile</th>

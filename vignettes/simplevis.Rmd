@@ -108,7 +108,7 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price = round(average_price / 1000, 1))
 
 ggplot_hbar_col(plot_data, average_price, cut, clarity, 
-                legend_ncol = 4,
+                col_ncol = 4,
                 title = "Average diamond price by cut and clarity", 
                 x_title = "Average price ($US thousands)", 
                 y_title = "Cut")
@@ -139,7 +139,7 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price = round(average_price / 1000, 1))
 
 ggplot_hbar_col_facet(plot_data, average_price, color, clarity, cut,
-                      legend_ncol = 4, 
+                      col_ncol = 4, 
                       title = "Average diamond price by colour, clarity and cut", 
                       x_title = "Average price ($US thousands)", 
                       y_title = "Colour")
@@ -257,7 +257,7 @@ ggplot_stars_col(example_stars,
                  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "Site medians, 2013-2017",
                  title_wrap = 40, 
-                 legend_digits = 1)
+                 col_digits = 1)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
@@ -291,7 +291,7 @@ leaflet_sf(data = example_sf_polygon)
 leaflet_sf_col(example_sf_polygon, density, 
                col_method = "bin", 
                col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
-               legend_digits = 0,
+               col_digits = 0,
                title = "Modelled density, 2013-2017")
 ```
 

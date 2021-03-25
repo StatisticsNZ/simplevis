@@ -6,8 +6,8 @@
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param legend_labels A vector of legend label values. Defaults to "[Array]".
+#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels A vector of legend label values. Defaults to "[Array]".
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param map_id This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -18,8 +18,8 @@ leaflet_stars <- function(data,
                           pal = NULL,
                           opacity = 0.5,
                           title = "[Title]",
-                          legend_digits = 1,
-                          legend_labels = "[Array]",
+                          col_digits = 1,
+                          col_labels = "[Array]",
                           basemap = "light",
                           map_id = "map") {
   
@@ -62,16 +62,16 @@ leaflet_stars <- function(data,
       ) %>%
       addLegend(
         colors = pal,
-        labels = legend_labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = opacity,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
   else if (shiny == TRUE) {
-    legend_id <- paste0(map_id, "_legend")
-    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+    col_id <- paste0(map_id, "_legend")
+    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
     
     leafletProxy(map_id) %>%
       addRasterImage(
@@ -81,13 +81,13 @@ leaflet_stars <- function(data,
         project = FALSE
       ) %>%
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal,
-        labels = legend_labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = opacity,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
 }
@@ -100,9 +100,9 @@ leaflet_stars <- function(data,
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param opacity Sets the opacity of the grid cells. Defaults to 0.9.
-#' @param legend_digits Select the appropriate number of decimal places for the auto legend. Defaults to 1.
+#' @param col_digits Select the appropriate number of decimal places for the auto legend. Defaults to 1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
-#' @param legend_labels A vector of legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of legend label values. Defaults to NULL, which results in automatic labels.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param map_id This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -117,9 +117,9 @@ leaflet_stars_col <- function(data,
                               pal = NULL,
                               pal_rev = FALSE,
                               opacity = 1,
-                              legend_digits = 1,
+                              col_digits = 1,
                               title = "[Title]",
-                              legend_labels = NULL,
+                              col_labels = NULL,
                               basemap = "light",
                               map_id = "map") {
   
@@ -152,10 +152,10 @@ leaflet_stars_col <- function(data,
         na.color = "transparent"
       )
     pal <- stringr::str_sub(pal, 1, 7)
-    if (is.null(legend_labels))
+    if (is.null(col_labels))
       labels <- LETTERS[1:length(col_cuts) - 1]
-    else if (!is.null(legend_labels))
-      labels <- legend_labels
+    else if (!is.null(col_labels))
+      labels <- col_labels
   }
   else if (col_method == "bin") {
     if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -181,8 +181,8 @@ leaflet_stars_col <- function(data,
     
     pal <- stringr::str_sub(pal, 1, 7)
     
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    else if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    else if (!is.null(col_labels)) labels <- col_labels
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -206,8 +206,8 @@ leaflet_stars_col <- function(data,
       )
     
     pal <- stringr::str_sub(pal, 1, 7)
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    else if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    else if (!is.null(col_labels)) labels <- col_labels
   }
   
   data <- methods::as(data, "Raster")
@@ -239,12 +239,12 @@ leaflet_stars_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = opacity,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
   else if (shiny == TRUE) {
-    legend_id <- paste0(map_id, "_legend")
-    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+    col_id <- paste0(map_id, "_legend")
+    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
     
     leafletProxy(map_id) %>%
       addRasterImage(
@@ -254,13 +254,13 @@ leaflet_stars_col <- function(data,
         project = FALSE
       ) %>%
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = opacity,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
 }

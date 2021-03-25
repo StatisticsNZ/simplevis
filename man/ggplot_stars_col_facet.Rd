@@ -6,12 +6,11 @@
 \usage{
 ggplot_stars_col_facet(data, col_method = "quantile",
   col_quantile_by_facet = TRUE, col_cuts = NULL, pal = NULL,
-  pal_rev = FALSE, facet_nrow = NULL, legend_ncol = 3,
-  legend_digits = 1, title = "[Title]", subtitle = NULL,
-  col_title = "", caption = NULL, legend_labels = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  wrap_col_title = 25, caption_wrap = 80)
+  pal_rev = FALSE, facet_nrow = NULL, col_ncol = 3, col_digits = 1,
+  title = "[Title]", subtitle = NULL, col_title = "",
+  caption = NULL, col_labels = NULL, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
+  subtitle_wrap = 80, col_title_wrap = 25, caption_wrap = 80)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.}
@@ -28,9 +27,9 @@ ggplot_stars_col_facet(data, col_method = "quantile",
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
-\item{legend_ncol}{The number of columns in the legend.}
+\item{col_ncol}{The number of columns in the legend.}
 
-\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -40,7 +39,7 @@ ggplot_stars_col_facet(data, col_method = "quantile",
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
@@ -52,7 +51,7 @@ ggplot_stars_col_facet(data, col_method = "quantile",
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }

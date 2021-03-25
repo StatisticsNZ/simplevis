@@ -7,13 +7,13 @@
 ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
   col_cuts = NULL, col_quantile_by_facet = TRUE, col_na = TRUE,
   pal = NULL, pal_rev = FALSE, size = 0.5, alpha = 0.9,
-  facet_nrow = NULL, legend_ncol = 3, legend_digits = 1,
-  boundary = NULL, boundary_behind = TRUE, boundary_pal = "#7f7f7f",
+  facet_nrow = NULL, col_ncol = 3, col_digits = 1, boundary = NULL,
+  boundary_behind = TRUE, boundary_pal = "#7f7f7f",
   boundary_size = 0.2, title = "[Title]", subtitle = NULL,
-  col_title = "", caption = NULL, legend_labels = NULL,
+  col_title = "", caption = NULL, col_labels = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  wrap_col_title = 25, caption_wrap = 80)
+  col_title_wrap = 25, caption_wrap = 80)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -40,9 +40,9 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
-\item{legend_ncol}{The number of columns in the legend.}
+\item{col_ncol}{The number of columns in the legend.}
 
-\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
@@ -60,7 +60,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
@@ -72,7 +72,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, col_method = NULL,
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }

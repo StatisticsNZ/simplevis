@@ -37,7 +37,7 @@ plotly_camera <- function(plotly, logo = FALSE){
 #'                        x_var = average_price_thousands, 
 #'                        y_var = cut, 
 #'                        col_var = clarity, 
-#'                        legend_ncol = 4,
+#'                        col_ncol = 4,
 #'                        title = "Average diamond price by cut and clarity", 
 #'                        x_title = "Average price ($US thousands)", 
 #'                        y_title = "Cut")
@@ -45,8 +45,8 @@ plotly_camera <- function(plotly, logo = FALSE){
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_legend_rev()
-plotly_legend_rev <- function(plotly) {
+#'    plotly_col_rev()
+plotly_col_rev <- function(plotly) {
   n_labels <- length(plotly$x$data)
   plotly$x$data[1:n_labels] <- plotly$x$data[n_labels:1]
   plotly
@@ -69,7 +69,7 @@ plotly_legend_rev <- function(plotly) {
 #'                        x_var = average_price_thousands, 
 #'                        y_var = cut, 
 #'                        col_var = clarity, 
-#'                        legend_ncol = 4,
+#'                        col_ncol = 4,
 #'                        title = "Average diamond price by cut and clarity", 
 #'                        x_title = "Average price ($US thousands)", 
 #'                        y_title = "Cut")
@@ -77,8 +77,8 @@ plotly_legend_rev <- function(plotly) {
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_legend_order(c(4, 1:3, 5:8))
-plotly_legend_order <- function(plotly, numeric_order = NULL) {
+#'    plotly_col_order(c(4, 1:3, 5:8))
+plotly_col_order <- function(plotly, numeric_order = NULL) {
   if(is.null(numeric_order)) stop("A numeric order vector must be provided")
   n_labels <- length(plotly$x$data)
   plotly$x$data[1:n_labels] <- plotly$x$data[numeric_order]

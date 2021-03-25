@@ -5,8 +5,8 @@
 \title{Map of an array in leaflet that is coloured.}
 \usage{
 leaflet_stars_col(data, col_method = "quantile", col_cuts = NULL,
-  pal = NULL, pal_rev = FALSE, opacity = 1, legend_digits = 1,
-  title = "[Title]", legend_labels = NULL, basemap = "light",
+  pal = NULL, pal_rev = FALSE, opacity = 1, col_digits = 1,
+  title = "[Title]", col_labels = NULL, basemap = "light",
   map_id = "map")
 }
 \arguments{
@@ -22,11 +22,11 @@ leaflet_stars_col(data, col_method = "quantile", col_cuts = NULL,
 
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.9.}
 
-\item{legend_digits}{Select the appropriate number of decimal places for the auto legend. Defaults to 1.}
+\item{col_digits}{Select the appropriate number of decimal places for the auto legend. Defaults to 1.}
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 
-\item{legend_labels}{A vector of legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{A vector of legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

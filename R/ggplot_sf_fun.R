@@ -237,26 +237,26 @@ ggplot_sf <- function(data,
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
-#' @param legend_ncol The number of columns in the legend.
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
 #' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
-#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
+#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
 #'      title = "Density, 2017")
 #'
 #' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
@@ -281,19 +281,19 @@ ggplot_sf_col <- function(data,
                           boundary_behind = TRUE,
                           boundary_pal = "#7f7f7f",
                           boundary_size = 0.2,
-                          legend_ncol = 3,
-                          legend_digits = 1,
+                          col_ncol = 3,
+                          col_digits = 1,
                           title = "[Title]",
                           subtitle = NULL,
                           col_title = "",
                           caption = NULL,
-                          legend_labels = NULL,
+                          col_labels = NULL,
                           font_family = "Helvetica",
                           font_size_title = NULL,
                           font_size_body = NULL,
                           title_wrap = 70,
                           subtitle_wrap = 80,
-                          wrap_col_title = 25,
+                          col_title_wrap = 25,
                           caption_wrap = 80,
                           isMobile = FALSE) {
   
@@ -356,8 +356,8 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- viridis::viridis(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    else labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    else labels <- col_labels
   }
   else if (col_method == "bin") {
     if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -373,8 +373,8 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- viridis::viridis(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    else labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    else labels <- col_labels
   }
   else if (col_method == "category") {
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
@@ -385,8 +385,8 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- viridis::viridis(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(legend_labels)) labels <- waiver()
-    else labels <- legend_labels
+    if (is.null(col_labels)) labels <- waiver()
+    else labels <- col_labels
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -452,8 +452,8 @@ ggplot_sf_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
-      guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title)))
+      guides(col = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+      guides(fill = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
   }
   else if (isMobile == TRUE) {
     plot <- plot +
@@ -622,19 +622,19 @@ ggplot_sf_facet <- function(data,
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param facet_nrow The number of rows of facetted plots. 
-#' @param legend_ncol The number of columns in the legend.
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
@@ -656,8 +656,8 @@ ggplot_sf_col_facet <- function(data,
                                 size = 0.5,
                                 alpha = 0.9,
                                 facet_nrow = NULL,
-                                legend_ncol = 3,
-                                legend_digits = 1,
+                                col_ncol = 3,
+                                col_digits = 1,
                                 boundary = NULL,
                                 boundary_behind = TRUE,
                                 boundary_pal = "#7f7f7f",
@@ -666,13 +666,13 @@ ggplot_sf_col_facet <- function(data,
                                 subtitle = NULL,
                                 col_title = "",
                                 caption = NULL,
-                                legend_labels = NULL,
+                                col_labels = NULL,
                                 font_family = "Helvetica",
                                 font_size_title = NULL,
                                 font_size_body = NULL,
                                 title_wrap = 70,
                                 subtitle_wrap = 80,
-                                wrap_col_title = 25,
+                                col_title_wrap = 25,
                                 caption_wrap = 80) {
   
   data <- dplyr::ungroup(data)
@@ -716,8 +716,8 @@ ggplot_sf_col_facet <- function(data,
   
   if (col_method == "category") {
     if (is.null(pal)) pal <- pal_point_set1
-    if (!is.null(legend_labels)) labels <- legend_labels
-    if (is.null(legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- col_labels
+    if (is.null(col_labels)) labels <- waiver()
   }
   else if (col_method == "bin") {
     if (!is.null(col_cuts)) {
@@ -730,8 +730,8 @@ ggplot_sf_col_facet <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    if (!is.null(col_labels)) labels <- col_labels
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -747,8 +747,8 @@ ggplot_sf_col_facet <- function(data,
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       
-      if (is.null(legend_labels)) labels <- paste0(numeric_legend_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
-      if (!is.null(legend_labels)) labels <- legend_labels
+      if (is.null(col_labels)) labels <- paste0(numeric_col_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (!is.null(col_labels)) labels <- col_labels
     }
     else if (col_quantile_by_facet == FALSE) {
       col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
@@ -758,8 +758,8 @@ ggplot_sf_col_facet <- function(data,
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, 2)
-      if (!is.null(legend_labels)) labels <- legend_labels
+      if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, 2)
+      if (!is.null(col_labels)) labels <- col_labels
     }
   }
   
@@ -828,8 +828,8 @@ ggplot_sf_col_facet <- function(data,
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(col = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
-    guides(fill = guide_legend(ncol = legend_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, wrap_col_title))) +
+    guides(col = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+    guides(fill = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
 
   return(plot)

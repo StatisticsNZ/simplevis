@@ -6,17 +6,17 @@
 \usage{
 ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
-  legend_ncol = 3, width = 0.75, alpha = 1, facet_scales = "fixed",
-  facet_nrow = NULL, x_labels = waiver(), x_pretty_n = 5,
-  x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
-  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, y_balance = FALSE, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, legend_labels = NULL,
+  width = 0.75, alpha = 1, title = "[Title]", title_wrap = 70,
+  subtitle = NULL, subtitle_wrap = 80, x_labels = waiver(),
+  x_pretty_n = 5, x_expand = NULL, x_title = "[X title]",
+  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
+  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
+  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
+  y_zero_line = NULL, col_labels = NULL, col_ncol = 3,
+  col_title = "", col_title_wrap = 25, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
   font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  x_title_wrap = 50, y_title_wrap = 50, wrap_col_title = 25,
-  caption_wrap = 80)
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -37,15 +37,17 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{legend_ncol}{The number of columns in the legend.}
-
 \item{width}{Width of bars. Defaults to 0.75.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+\item{title}{Title string. Defaults to [Title].}
 
-\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
+
+\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
+
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -53,51 +55,49 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{x_title}{X axis title string. Defaults to [X title].}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
+\item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".}
-
-\item{title}{Title string. Defaults to [Title].}
-
-\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
-
-\item{x_title}{X axis title string. Defaults to [X title].}
-
 \item{y_title}{Y axis title string. Defaults to [Y title].}
+
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+
+\item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
+
+\item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
+
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+
+\item{col_ncol}{The number of columns in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+
+\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
-
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
-
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
-
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
-
-\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25.}
-
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }
 \value{
 A ggplot object.

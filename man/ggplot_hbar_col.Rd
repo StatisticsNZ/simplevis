@@ -6,17 +6,16 @@
 \usage{
 ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   position = "stack", pal = NULL, pal_rev = FALSE, width = 0.75,
-  alpha = 1, x_labels = waiver(), x_zero = TRUE,
-  x_zero_line = NULL, x_trans = "identity", x_pretty_n = 6,
-  x_expand = NULL, x_balance = FALSE, x_na_bar = FALSE,
-  y_rev = FALSE, y_labels = waiver(), y_expand = NULL,
-  col_rev = FALSE, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", col_title = "",
-  caption = NULL, legend_labels = NULL, legend_ncol = 3,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  x_title_wrap = 50, y_title_wrap = 50, wrap_col_title = 25,
-  caption_wrap = 80, isMobile = FALSE)
+  alpha = 1, title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
+  x_labels = waiver(), x_na_bar = FALSE, x_pretty_n = 6,
+  x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
+  x_zero = TRUE, x_zero_line = NULL, y_expand = NULL,
+  y_labels = waiver(), y_rev = FALSE, y_title = "[Y title]",
+  y_title_wrap = 50, col_labels = NULL, col_ncol = 3,
+  col_rev = FALSE, col_title = "", col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -39,63 +38,63 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
+\item{title}{Title string. Defaults to [Title].}
+
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+
+\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
+
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
+
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
+
+\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
+
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
+
+\item{x_title}{X axis title string. Defaults to [X title].}
+
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+
+\item{x_trans}{A string specifying a transformation for the x axis scale. Defaults to "identity".}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
 \item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
 
-\item{x_trans}{A string specifying a transformation for the x axis scale. Defaults to "identity".}
-
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
-
-\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
-
-\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
-
-\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
-
-\item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
-
-\item{title}{Title string. Defaults to [Title].}
-
-\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
-
-\item{x_title}{X axis title string. Defaults to [X title].}
+\item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 
 \item{y_title}{Y axis title string. Defaults to [Y title].}
 
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+
+\item{col_ncol}{The number of columns in the legend.}
+
+\item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
+
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
-
-\item{legend_ncol}{The number of columns in the legend.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
-
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
-
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
-
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
-
-\item{wrap_col_title}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
-
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }

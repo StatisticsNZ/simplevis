@@ -5,16 +5,16 @@
 \title{Horizontal bar ggplot that is facetted.}
 \usage{
 ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
-  pal = NULL, width = 0.75, alpha = 1, x_labels = waiver(),
-  x_zero = TRUE, x_zero_line = NULL, x_trans = "identity",
-  x_pretty_n = 5, x_expand = NULL, x_balance = FALSE,
-  x_na_bar = FALSE, y_rev = FALSE, y_labels = waiver(),
-  y_expand = NULL, facet_scales = "fixed", facet_nrow = NULL,
-  title = "[Title]", subtitle = NULL, x_title = "[X title]",
-  y_title = "[Y title]", caption = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
-  caption_wrap = 80)
+  pal = NULL, width = 0.75, alpha = 1, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
+  x_na_bar = FALSE, x_pretty_n = 5, x_title = "[X title]",
+  x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
+  x_zero_line = NULL, y_rev = FALSE, y_labels = waiver(),
+  y_expand = NULL, y_title = "[Y title]", y_title_wrap = 50,
+  facet_scales = "fixed", facet_nrow = NULL, caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, caption_wrap = 80)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -33,21 +33,33 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
+\item{title}{Title string. Defaults to [Title].}
+
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
+
+\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
+
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
+
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".}
+
+\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
+
+\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
+
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{x_title}{X axis title string. Defaults to [X title].}
+
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
+
+\item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
 \item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
-
-\item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
-
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
-
-\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
-
-\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".}
-
-\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 
@@ -55,17 +67,13 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
+\item{y_title}{Y axis title string. Defaults to [Y title].}
+
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
-
-\item{title}{Title string. Defaults to [Title].}
-
-\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
-
-\item{x_title}{X axis title string. Defaults to [X title].}
-
-\item{y_title}{Y axis title string. Defaults to [Y title].}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
@@ -74,14 +82,6 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
-
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
-
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
-
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }

@@ -5,9 +5,8 @@
 \title{Map of simple features in leaflet.}
 \usage{
 leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
-  opacity = 0.1, stroke = TRUE, title = "[Title]",
-  legend_digits = 1, legend_labels = "[Feature]", basemap = "light",
-  map_id = "map")
+  opacity = 0.1, stroke = TRUE, title = "[Title]", col_digits = 1,
+  col_labels = "[Feature]", basemap = "light", map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -26,9 +25,9 @@ leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title"}
 
-\item{legend_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{legend_labels}{A vector of legend label values. Defaults to "Feature".}
+\item{col_labels}{A vector of legend label values. Defaults to "Feature".}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

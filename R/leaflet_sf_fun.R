@@ -10,8 +10,8 @@
 #' @param opacity The opacity of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title"
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param legend_labels A vector of legend label values. Defaults to "Feature".
+#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels A vector of legend label values. Defaults to "Feature".
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -26,8 +26,8 @@ leaflet_sf <- function(data,
                        opacity = 0.1,
                        stroke = TRUE,
                        title = "[Title]",
-                       legend_digits = 1,
-                       legend_labels = "[Feature]",
+                       col_digits = 1,
+                       col_labels = "[Feature]",
                        basemap = "light",
                        map_id = "map") {
   
@@ -44,7 +44,7 @@ leaflet_sf <- function(data,
   if (is.null(pal)) pal <- viridis::viridis(4)[2]
   else pal <- pal[1]
 
-  legend_id <- paste0(map_id, "_legend")
+  col_id <- paste0(map_id, "_legend")
   
   if (shiny == FALSE) {
     
@@ -86,7 +86,7 @@ leaflet_sf <- function(data,
     }
     else if (shiny == TRUE) {
       
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
       
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
@@ -103,13 +103,13 @@ leaflet_sf <- function(data,
     
     map %>% 
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal[1],
-        labels = legend_labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
@@ -129,7 +129,7 @@ leaflet_sf <- function(data,
     }
     else if (shiny == TRUE) {
       
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
       
       map <- leafletProxy(map_id) %>%
         addPolylines(
@@ -144,13 +144,13 @@ leaflet_sf <- function(data,
     
     map %>% 
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal[1],
-        labels = legend_labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
@@ -168,7 +168,7 @@ leaflet_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
       
       map <- leafletProxy(map_id) %>%
         addPolygons(
@@ -182,13 +182,13 @@ leaflet_sf <- function(data,
     
     map %>% 
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal[1],
-        labels = legend_labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = opacity,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
     
   }
@@ -211,9 +211,9 @@ leaflet_sf <- function(data,
 #' @param weight Stroke border size. Defaults to 2.
 #' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
 #' @param opacity The opacity of polygons. Defaults to 0.9.
-#' @param legend_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
-#' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -224,7 +224,7 @@ leaflet_sf <- function(data,
 #'      title = "Modelled density, 2017")
 #'
 #' leaflet_sf_col(example_sf_polygon, density,
-#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), legend_digits = 0,
+#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
 #'      title = "Modelled density, 2017")
 #'
 #' pal <- c("#4575B4", "#D3D3D3", "#D73027")
@@ -246,8 +246,8 @@ leaflet_sf_col <- function(data,
                            opacity = 0.9,
                            stroke = TRUE,
                            title = "[Title]",
-                           legend_digits = 1,
-                           legend_labels = NULL,
+                           col_digits = 1,
+                           col_labels = NULL,
                            basemap = "light",
                            map_id = "map") {
   
@@ -273,11 +273,11 @@ leaflet_sf_col <- function(data,
   if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
   
   if (col_method == "category") {
-    if (is.null(legend_labels)){
+    if (is.null(col_labels)){
       if (is.factor(col_var_vctr) &  col_drop == FALSE) labels <- levels(col_var_vctr)
       else if (is.character(col_var_vctr) | col_drop == TRUE) labels <- sort(unique(col_var_vctr))
     }
-    else if (!is.null(legend_labels)) labels <- legend_labels
+    else if (!is.null(col_labels)) labels <- col_labels
     
     n_col_var_values <- length(labels)
     
@@ -311,8 +311,8 @@ leaflet_sf_col <- function(data,
       right = FALSE,
       na.color = "#A8A8A8"
     )
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    else if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    else if (!is.null(col_labels)) labels <- col_labels
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -336,13 +336,13 @@ leaflet_sf_col <- function(data,
       na.color = "#A8A8A8"
     )
     
-    if (is.null(legend_labels)) labels <- numeric_legend_labels(col_cuts, legend_digits)
-    else if (!is.null(legend_labels)) labels <- legend_labels
+    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    else if (!is.null(col_labels)) labels <- col_labels
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  legend_id <- paste0(map_id, "_legend")
+  col_id <- paste0(map_id, "_legend")
   
   if (shiny == FALSE) {
     
@@ -383,7 +383,7 @@ leaflet_sf_col <- function(data,
         )
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
       
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
@@ -401,13 +401,13 @@ leaflet_sf_col <- function(data,
     
     map %>% 
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
     
   }
@@ -427,7 +427,7 @@ leaflet_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
       
       map <- leafletProxy(map_id) %>%
         addPolylines(
@@ -443,13 +443,13 @@ leaflet_sf_col <- function(data,
     
     map %>% 
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
     
   }
@@ -467,7 +467,7 @@ leaflet_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(legend_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
       
       map <- leafletProxy(map_id) %>%
         addPolygons(
@@ -482,13 +482,13 @@ leaflet_sf_col <- function(data,
     
     map %>% 
       addLegend(
-        layerId = legend_id,
+        layerId = col_id,
         colors = pal,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = opacity,
-        labFormat = labelFormat(between = "&ndash;", digits = legend_digits)
+        labFormat = labelFormat(between = "&ndash;", digits = col_digits)
       )
   }
 }

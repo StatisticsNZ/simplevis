@@ -119,30 +119,30 @@ theme_hbar <-
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param title Title string. Defaults to [Title].
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle Subtitle string. Defaults to [Subtitle].
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_title X axis title string. Defaults to [X title].
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.  
-#' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
-#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param title Title string. Defaults to [Title].
-#' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param x_title X axis title string. Defaults to [X title].
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -167,30 +167,30 @@ ggplot_hbar <- function(data,
                         pal = NULL,
                         width = 0.75, 
                         alpha = 1,
+                        title = "[Title]",
+                        title_wrap = 70,
+                        subtitle = NULL,
+                        subtitle_wrap = 80,
+                        x_balance = FALSE,
+                        x_expand = NULL,
                         x_labels = waiver(),
+                        x_na_bar = FALSE,
+                        x_pretty_n = 6,
+                        x_title = "[X title]",
+                        x_title_wrap = 50,
+                        x_trans = "identity",
                         x_zero = TRUE,
                         x_zero_line = NULL,
-                        x_trans = "identity",
-                        x_pretty_n = 6,
-                        x_expand = NULL,
-                        x_balance = FALSE,
-                        x_na_bar = FALSE,
-                        y_rev = FALSE,
-                        y_labels = NULL,
                         y_expand = NULL,
-                        title = "[Title]",
-                        subtitle = NULL,
-                        x_title = "[X title]",
+                        y_labels = NULL,
+                        y_rev = FALSE,
                         y_title = "[Y title]",
+                        y_title_wrap = 50,
                         caption = NULL,
+                        caption_wrap = 80,
                         font_family = "Helvetica",
                         font_size_title = NULL,
                         font_size_body = NULL,
-                        title_wrap = 70,
-                        subtitle_wrap = 80,
-                        x_title_wrap = 50,
-                        y_title_wrap = 50,
-                        caption_wrap = 80,
                         isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
@@ -379,35 +379,35 @@ ggplot_hbar <- function(data,
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param title Title string. Defaults to [Title].
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param subtitle Subtitle string. Defaults to [Subtitle].
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
+#' @param x_title X axis title string. Defaults to [X title].
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
-#' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
-#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
-#' @param title Title string. Defaults to [Title].
-#' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param x_title X axis title string. Defaults to [X title].
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param legend_ncol The number of columns in the legend.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -437,35 +437,35 @@ ggplot_hbar_col <-
            pal_rev = FALSE,
            width = 0.75, 
            alpha = 1,
+           title = "[Title]",
+           title_wrap = 70,
+           subtitle = NULL,
+           subtitle_wrap = 80,
+           x_balance = FALSE,
+           x_expand = NULL,
            x_labels = waiver(),
+           x_na_bar = FALSE,
+           x_pretty_n = 6,
+           x_title = "[X title]",
+           x_title_wrap = 50,
+           x_trans = "identity",
            x_zero = TRUE,
            x_zero_line = NULL,
-           x_trans = "identity",
-           x_pretty_n = 6,
-           x_expand = NULL,
-           x_balance = FALSE,
-           x_na_bar = FALSE,
-           y_rev = FALSE,
-           y_labels = waiver(),
            y_expand = NULL,
-           col_rev = FALSE,
-           title = "[Title]",
-           subtitle = NULL,
-           x_title = "[X title]",
+           y_labels = waiver(),
+           y_rev = FALSE,
            y_title = "[Y title]",
+           y_title_wrap = 50,
+           col_labels = NULL,
+           col_ncol = 3,
+           col_rev = FALSE,
            col_title = "",
+           col_title_wrap = 25,
            caption = NULL,
-           legend_labels = NULL,
-           legend_ncol = 3,
+           caption_wrap = 80,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
-           title_wrap = 70,
-           subtitle_wrap = 80,
-           x_title_wrap = 50,
-           y_title_wrap = 50,
-           wrap_col_title = 25,
-           caption_wrap = 80,
            isMobile = FALSE) {
     
     data <- dplyr::ungroup(data)
@@ -539,8 +539,8 @@ ggplot_hbar_col <-
         font_size_title = font_size_title
       ) 
     
-    if (!is.null(legend_labels)) labels <- rev(legend_labels)
-    if (is.null(legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- rev(col_labels)
+    if (is.null(col_labels)) labels <- waiver()
     
     if (!is.null(pal) & x_na_bar == TRUE) { 
       if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
@@ -705,16 +705,16 @@ ggplot_hbar_col <-
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
-          ncol = legend_ncol,
+          ncol = col_ncol,
           byrow = TRUE,
           reverse = TRUE,
-          title = stringr::str_wrap(col_title, wrap_col_title)
+          title = stringr::str_wrap(col_title, col_title_wrap)
         ), 
         col = guide_legend(
-          ncol = legend_ncol,
+          ncol = col_ncol,
           byrow = TRUE,
           reverse = TRUE,
-          title = stringr::str_wrap(col_title, wrap_col_title)
+          title = stringr::str_wrap(col_title, col_title_wrap)
         ))
     }
     else if (isMobile == TRUE){
@@ -756,33 +756,33 @@ ggplot_hbar_col <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 1.
+#' @param title Title string. Defaults to [Title].
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle Subtitle string. Defaults to [Subtitle].
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_title X axis title string. Defaults to [X title].
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
-#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
-#' @param title Title string. Defaults to [Title].
-#' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param x_title X axis title string. Defaults to [X title].
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults NULL.
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -808,31 +808,31 @@ ggplot_hbar_facet <-
            pal = NULL,
            width = 0.75, 
            alpha = 1,
+           title = "[Title]",
+           title_wrap = 70,
+           subtitle = NULL,
+           subtitle_wrap = 80,
+           x_balance = FALSE,
+           x_expand = NULL,
            x_labels = waiver(),
+           x_na_bar = FALSE,
+           x_pretty_n = 5,
+           x_title = "[X title]",
+           x_title_wrap = 50,
+           x_trans = "identity",
            x_zero = TRUE,
            x_zero_line = NULL,
-           x_trans = "identity",
-           x_pretty_n = 5,
-           x_expand = NULL,
-           x_balance = FALSE,
-           x_na_bar = FALSE,
            y_rev = FALSE,
            y_labels = waiver(),
            y_expand = NULL,
+           y_title = "[Y title]",
+           y_title_wrap = 50,
            facet_scales = "fixed",
            facet_nrow = NULL,
-           title = "[Title]",
-           subtitle = NULL,
-           x_title = "[X title]",
-           y_title = "[Y title]",
            caption = NULL,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
-           title_wrap = 70,
-           subtitle_wrap = 80,
-           x_title_wrap = 50,
-           y_title_wrap = 50,
            caption_wrap = 80) { 
     
     data <- dplyr::ungroup(data)
@@ -997,36 +997,36 @@ ggplot_hbar_facet <-
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param title Title string. Defaults to [Title].
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param subtitle Subtitle string. Defaults to [Subtitle].
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
+#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_title X axis title string. Defaults to [X title].
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
-#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
-#' @param y_labels Argument to adjust the format of the y scale labels.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
-#' @param title Title string. Defaults to [Title].
-#' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param x_title X axis title string. Defaults to [X title].
+#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
-#' @param legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param legend_ncol The number of columns in the legend.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param wrap_col_title Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -1057,34 +1057,34 @@ ggplot_hbar_col_facet <-
            alpha = 1,
            facet_scales = "fixed",
            facet_nrow = NULL,
+           title = "[Title]",
+           title_wrap = 70,
+           subtitle = NULL,
+           subtitle_wrap = 80,
+           x_balance = FALSE,
+           x_expand = NULL,
            x_labels = waiver(),
+           x_pretty_n = 5,
+           x_title = "[X title]",
+           x_title_wrap = 50,
+           x_trans = "identity",
            x_zero = TRUE,
            x_zero_line = NULL,
-           x_trans = "identity",
-           x_pretty_n = 5,
-           x_expand = NULL,
-           x_balance = FALSE,
-           y_rev = FALSE,
-           y_labels = waiver(),
            y_expand = NULL,
-           col_rev = FALSE,
-           title = "[Title]",
-           subtitle = NULL,
-           x_title = "[X title]",
+           y_labels = waiver(),
+           y_rev = FALSE,
            y_title = "[Y title]",
+           y_title_wrap = 50,
+           col_labels = NULL,
+           col_ncol = 3,
+           col_rev = FALSE,
            col_title = "",
+           caption_wrap = 80,
+           col_title_wrap = 25,
            caption = NULL,
-           legend_labels = NULL,
-           legend_ncol = 3,
            font_family = "Helvetica",
            font_size_title = NULL,
-           font_size_body = NULL,
-           title_wrap = 70,
-           subtitle_wrap = 80,
-           x_title_wrap = 50,
-           y_title_wrap = 50,
-           wrap_col_title = 25,
-           caption_wrap = 80) {
+           font_size_body = NULL) {
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #categorical var
@@ -1153,8 +1153,8 @@ ggplot_hbar_col_facet <-
       ) +
       geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!tip_var), alpha = alpha, width = width, position = position2)
 
-    if (!is.null(legend_labels)) labels <- rev(legend_labels)
-    if (is.null(legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- rev(col_labels)
+    if (is.null(col_labels)) labels <- waiver()
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -1242,16 +1242,16 @@ ggplot_hbar_col_facet <-
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
       guides(fill = guide_legend(
-        ncol = legend_ncol,
+        ncol = col_ncol,
         byrow = TRUE,
         reverse = TRUE,
-        title = stringr::str_wrap(col_title, wrap_col_title)
+        title = stringr::str_wrap(col_title, col_title_wrap)
       ), 
       col = guide_legend(
-        ncol = legend_ncol,
+        ncol = col_ncol,
         byrow = TRUE,
         reverse = TRUE,
-        title = stringr::str_wrap(col_title, wrap_col_title)
+        title = stringr::str_wrap(col_title, col_title_wrap)
       ))
 
     return(plot)

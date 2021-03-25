@@ -4,16 +4,16 @@
 \alias{ggplot_line}
 \title{Line ggplot.}
 \usage{
-ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL, size = 1,
-  points = TRUE, lines = TRUE, x_labels = waiver(), x_pretty_n = 6,
-  x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
-  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, y_balance = FALSE, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  x_title_wrap = 50, y_title_wrap = 50, caption_wrap = 80,
-  isMobile = FALSE)
+ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL,
+  size_point = 1, size_line = 0.5, points = TRUE, lines = TRUE,
+  title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, x_labels = waiver(), x_pretty_n = 6,
+  x_expand = NULL, x_title = "[X title]", x_title_wrap = 50,
+  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -26,11 +26,21 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL, size = 1,
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
-\item{size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
+\item{size_point}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
+
+\item{size_line}{Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.}
 
 \item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
 
 \item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
+
+\item{title}{Title string. Defaults to "[Title]".}
+
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+
+\item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
+
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
@@ -38,45 +48,37 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL, size = 1,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{x_title}{X axis title string. Defaults to "[X title]".}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
 
-\item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
+\item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
+
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
-
-\item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
-
-\item{title}{Title string. Defaults to "[Title]".}
-
-\item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
-
-\item{x_title}{X axis title string. Defaults to "[X title]".}
-
 \item{y_title}{Y axis title string. Defaults to "[Y title]".}
 
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+
+\item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
+
+\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
+
 \item{caption}{Caption title string. Defaults to NULL.}
+
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
-
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
-
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
-
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
-
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }

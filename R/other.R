@@ -89,15 +89,15 @@ add_tip <- function(data, vars_vctr = NULL, comma = FALSE) {
 #' @title Numeric legend labels.
 #' @description Pretty numeric legend labels.
 #' @param bin_cuts A numeric vector of bin cuts from which to create a vector of legend labels.
-#' @param legend_digits The number of digits to round the legend labels.
+#' @param col_digits The number of digits to round the legend labels.
 #' @return A vector of labels.
 #' @keywords internal
-numeric_legend_labels <- function(bin_cuts, legend_digits = 1) {
+numeric_col_labels <- function(bin_cuts, col_digits = 1) {
   labels <- vector("character", 0)
   bin_cuts_no <- length(bin_cuts)
   bin_cuts <-
-    sprintf(paste0("%.", legend_digits, "f"),
-            round(bin_cuts, legend_digits))
+    sprintf(paste0("%.", col_digits, "f"),
+            round(bin_cuts, col_digits))
   
   if (bin_cuts_no == 2) {
     labels <- c("Feature")

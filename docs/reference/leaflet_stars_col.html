@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.9</span>
       </span>
     </div>
 
@@ -146,9 +146,9 @@
     <p>Map of an array in leaflet that is coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -157,14 +157,6 @@
     <tr>
       <th>data</th>
       <td><p>A stars object with dimensions x and y, and 1 attribute layer with crs. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
-    </tr>
-    <tr>
-      <th>col_cuts</th>
-      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -179,16 +171,24 @@
       <td><p>Sets the opacity of the grid cells. Defaults to 0.9.</p></td>
     </tr>
     <tr>
-      <th>col_digits</th>
-      <td><p>Select the appropriate number of decimal places for the auto legend. Defaults to 1.</p></td>
-    </tr>
-    <tr>
       <th>title</th>
       <td><p>A title string that will be wrapped into the legend. Defaults to "Title".</p></td>
     </tr>
     <tr>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
+    </tr>
+    <tr>
+      <th>col_label_digits</th>
+      <td><p>Select the appropriate number of decimal places for the auto legend. Defaults to 1.</p></td>
+    </tr>
+    <tr>
       <th>col_labels</th>
       <td><p>A vector of legend label values. Defaults to NULL, which results in automatic labels.</p></td>
+    </tr>
+    <tr>
+      <th>col_method</th>
+      <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
     </tr>
     <tr>
       <th>basemap</th>

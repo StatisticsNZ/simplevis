@@ -88,48 +88,35 @@ add_tip <- function(data, vars_vctr = NULL, comma = FALSE) {
 
 #' @title Numeric legend labels.
 #' @description Pretty numeric legend labels.
-#' @param bin_cuts A numeric vector of bin cuts from which to create a vector of legend labels.
+#' @param cuts_vctr A numeric vector of bin cuts from which to create a vector of legend labels.
 #' @param col_digits The number of digits to round the legend labels.
 #' @return A vector of labels.
 #' @keywords internal
-numeric_col_labels <- function(bin_cuts, col_digits = 1) {
-  labels <- vector("character", 0)
-  bin_cuts_no <- length(bin_cuts)
-  bin_cuts <-
-    sprintf(paste0("%.", col_digits, "f"),
-            round(bin_cuts, col_digits))
+legend_labels_from_cuts <- function(cuts_vctr, col_digits = 1) {
   
-  if (bin_cuts_no == 2) {
+  labels <- vector("character", 0)
+  cuts_vctr_no <- length(cuts_vctr)
+  cuts_vctr <-
+    sprintf(paste0("%.", col_digits, "f"),
+            round(cuts_vctr, col_digits))
+  
+  if (cuts_vctr_no == 2) {
     labels <- c("Feature")
   }
-  else if (bin_cuts_no == 3) {
-    labels <- c(paste0("<", bin_cuts[2]), paste0("\u2265", bin_cuts[2]))
+  else if (cuts_vctr_no == 3) {
+    labels <- c(paste0("<", cuts_vctr[2]), paste0("\u2265", cuts_vctr[2]))
   }
-  else if (bin_cuts_no > 3) {
-    for (i in 2:(length(bin_cuts) - 2)) {
-      temp <- paste0(bin_cuts[i], "\u2013", bin_cuts[i + 1])
+  else if (cuts_vctr_no > 3) {
+    for (i in 2:(length(cuts_vctr) - 2)) {
+      temp <- paste0(cuts_vctr[i], "\u2013", cuts_vctr[i + 1])
       labels <- c(labels, temp)
     }
     labels <-
-      c(paste0("<", bin_cuts[2]),
+      c(paste0("<", cuts_vctr[2]),
         labels,
-        paste0("\u2265", bin_cuts[length(bin_cuts) - 1]))
+        paste0("\u2265", cuts_vctr[length(cuts_vctr) - 1]))
   }
 }
-
-#' @title Colour palette for a graph with a nominal categorical variable.
-#' @description  Colour palette for a graph with a nominal categorical variable.
-#' @return A vector of hex codes.
-#' @keywords internal
-#' scales::show_col(pal_snz)
-pal_snz <- c("#085c75", "#d2ac2f", "#ae4e51", "#35345d", "#76a93f", "#6f2e38", "#0d94a3", "#dd6829", "#1a6e5b")
-
-#' @title Colour palette for categorical variables for points on a map etc.
-#' @description Colour palette for categorical variables.
-#' @return A vector of hex codes.
-#' @keywords internal
-#' scales::show_col(pal_point_set1)
-pal_point_set1 <- c("#377EB8", "#A65628", "#F781BF", "#4DAF4A", "#FF7F00", "#984EA3", "#FFFF33", "#E41A1C", "#999999") #from Set1, 9col
 
 #' @title Convert column names to sentence case.
 #' @description A function to convert colnames to snakecase and then to sentence case to be used in functions for making hover values.

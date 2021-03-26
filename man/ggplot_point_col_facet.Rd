@@ -13,7 +13,7 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
   y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
   y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
   y_zero = TRUE, y_zero_line = NULL, col_cuts = NULL,
-  col_digits = 1, col_labels = NULL, col_method = NULL,
+  col_label_digits = 1, col_labels = NULL, col_method = NULL,
   col_na = TRUE, col_quantile_by_facet = TRUE, col_ncol = 3,
   col_title = "", col_title_wrap = 25, facet_nrow = NULL,
   facet_scales = "fixed", caption = NULL, caption_wrap = 80,
@@ -81,7 +81,7 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 

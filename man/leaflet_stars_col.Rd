@@ -4,17 +4,13 @@
 \alias{leaflet_stars_col}
 \title{Map of an array in leaflet that is coloured.}
 \usage{
-leaflet_stars_col(data, col_method = "quantile", col_cuts = NULL,
-  pal = NULL, pal_rev = FALSE, opacity = 1, col_digits = 1,
-  title = "[Title]", col_labels = NULL, basemap = "light",
+leaflet_stars_col(data, pal = NULL, pal_rev = FALSE, opacity = 1,
+  title = "[Title]", col_cuts = NULL, col_label_digits = 1,
+  col_labels = NULL, col_method = "quantile", basemap = "light",
   map_id = "map")
 }
 \arguments{
 \item{data}{A stars object with dimensions x and y, and 1 attribute layer with crs. Required input.}
-
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
-
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
@@ -22,11 +18,15 @@ leaflet_stars_col(data, col_method = "quantile", col_cuts = NULL,
 
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.9.}
 
-\item{col_digits}{Select the appropriate number of decimal places for the auto legend. Defaults to 1.}
-
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{Select the appropriate number of decimal places for the auto legend. Defaults to 1.}
+
 \item{col_labels}{A vector of legend label values. Defaults to NULL, which results in automatic labels.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

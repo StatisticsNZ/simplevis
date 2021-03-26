@@ -4,56 +4,57 @@
 \alias{ggplot_stars_col_facet}
 \title{Map of an array in ggplot that is coloured and facetted.}
 \usage{
-ggplot_stars_col_facet(data, col_method = "quantile",
-  col_quantile_by_facet = TRUE, col_cuts = NULL, pal = NULL,
-  pal_rev = FALSE, facet_nrow = NULL, col_ncol = 3, col_digits = 1,
-  title = "[Title]", subtitle = NULL, col_title = "",
-  caption = NULL, col_labels = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
-  subtitle_wrap = 80, col_title_wrap = 25, caption_wrap = 80)
+ggplot_stars_col_facet(data, pal = NULL, pal_rev = FALSE,
+  title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, col_cuts = NULL, col_label_digits = 1,
+  col_labels = NULL, col_method = "quantile", col_ncol = 3,
+  col_quantile_by_facet = TRUE, col_title = "", col_title_wrap = 25,
+  facet_nrow = NULL, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.}
-
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
-
-\item{col_quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
-
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{facet_nrow}{The number of rows of facetted plots.}
-
-\item{col_ncol}{The number of columns in the legend.}
-
-\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
-
 \item{title}{Title string. Defaults to "[Title]".}
+
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
 \item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
 
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
+
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+
+\item{col_ncol}{The number of columns in the legend.}
+
+\item{col_quantile_by_facet}{TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
+
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+
+\item{facet_nrow}{The number of rows of facetted plots.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
-
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
-
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
-
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 }
 \value{
 A ggplot object.

@@ -257,7 +257,7 @@ ggplot_stars_col(example_stars,
                  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
                  title = "Site medians, 2013-2017",
                  title_wrap = 40, 
-                 col_digits = 1)
+                 col_label_digits = 1)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
@@ -291,7 +291,7 @@ leaflet_sf(data = example_sf_polygon)
 leaflet_sf_col(example_sf_polygon, density, 
                col_method = "bin", 
                col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
-               col_digits = 0,
+               col_label_digits = 0,
                title = "Modelled density, 2013-2017")
 ```
 

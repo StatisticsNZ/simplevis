@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.9</span>
       </span>
     </div>
 
@@ -146,13 +146,14 @@
     <p>Map of an array in ggplot that is coloured and facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_stars_col_facet</span>(<span class='no'>data</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
-  <span class='kw'>col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>col_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_stars_col_facet</span>(<span class='no'>data</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,18 +161,6 @@
     <tr>
       <th>data</th>
       <td><p>A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
-    </tr>
-    <tr>
-      <th>col_quantile_by_facet</th>
-      <td><p>TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>col_cuts</th>
-      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -182,36 +171,64 @@
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>facet_nrow</th>
-      <td><p>The number of rows of facetted plots.</p></td>
-    </tr>
-    <tr>
-      <th>col_ncol</th>
-      <td><p>The number of columns in the legend.</p></td>
-    </tr>
-    <tr>
-      <th>col_digits</th>
-      <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
-    </tr>
-    <tr>
       <th>title</th>
       <td><p>Title string. Defaults to "[Title]".</p></td>
+    </tr>
+    <tr>
+      <th>title_wrap</th>
+      <td><p>Number of characters to wrap the title to. Defaults to 70.</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
       <td><p>Subtitle string. Defaults to "[Subtitle]".</p></td>
     </tr>
     <tr>
+      <th>subtitle_wrap</th>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 80.</p></td>
+    </tr>
+    <tr>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
+    </tr>
+    <tr>
+      <th>col_label_digits</th>
+      <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>col_labels</th>
+      <td><p>A vector of manual legend label values. Defaults to NULL, which results in automatic labels.</p></td>
+    </tr>
+    <tr>
+      <th>col_method</th>
+      <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
+    </tr>
+    <tr>
+      <th>col_ncol</th>
+      <td><p>The number of columns in the legend.</p></td>
+    </tr>
+    <tr>
+      <th>col_quantile_by_facet</th>
+      <td><p>TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
       <th>col_title</th>
       <td><p>Colour title string for the legend. Defaults to NULL.</p></td>
+    </tr>
+    <tr>
+      <th>col_title_wrap</th>
+      <td><p>Number of characters to wrap the colour title to. Defaults to 25.</p></td>
+    </tr>
+    <tr>
+      <th>facet_nrow</th>
+      <td><p>The number of rows of facetted plots.</p></td>
     </tr>
     <tr>
       <th>caption</th>
       <td><p>Caption title string. Defaults to NULL.</p></td>
     </tr>
     <tr>
-      <th>col_labels</th>
-      <td><p>A vector of manual legend label values. Defaults to NULL, which results in automatic labels.</p></td>
+      <th>caption_wrap</th>
+      <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     <tr>
       <th>font_family</th>
@@ -224,22 +241,6 @@
     <tr>
       <th>font_size_body</th>
       <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
-    </tr>
-    <tr>
-      <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70.</p></td>
-    </tr>
-    <tr>
-      <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80.</p></td>
-    </tr>
-    <tr>
-      <th>col_title_wrap</th>
-      <td><p>Number of characters to wrap the colour title to. Defaults to 25.</p></td>
-    </tr>
-    <tr>
-      <th>caption_wrap</th>
-      <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     </table>
 

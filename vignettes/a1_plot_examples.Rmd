@@ -476,7 +476,7 @@ You can change the default order based on a vector of elements.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plotly::ggplotly(plot) %>% 
-  plotly_col_order(c(1, 3, 4, 5, 6, 7, 8, 2))
+  plotly_legend_order(c(1, 3, 4, 5, 6, 7, 8, 2))
 
 ```
 
@@ -484,6 +484,6 @@ Or you can reverse the order of legend elements.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plotly::ggplotly(plot) %>% 
-  plotly_col_rev()
+  plotly_legend_rev()
 
 ```

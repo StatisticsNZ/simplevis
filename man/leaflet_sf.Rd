@@ -4,16 +4,17 @@
 \alias{leaflet_sf}
 \title{Map of simple features in leaflet.}
 \usage{
-leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
-  opacity = 0.1, stroke = TRUE, title = "[Title]", col_digits = 1,
-  col_labels = "[Feature]", basemap = "light", map_id = "map")
+leaflet_sf(data, popup_var = NULL, pal = NULL, radius = 1,
+  weight = 2, opacity = 0.1, stroke = TRUE, basemap = "light",
+  title = "[Title]", col_label_digits = 1, col_labels = "[Feature]",
+  map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
 
-\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+\item{popup_var}{Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
-\item{popup}{HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.}
+\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{radius}{Radius of points. Defaults to 2.}
 
@@ -23,13 +24,13 @@ leaflet_sf(data, pal = NULL, popup = NULL, radius = 1, weight = 2,
 
 \item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.}
 
+\item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
+
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title"}
 
-\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_labels}{A vector of legend label values. Defaults to "Feature".}
-
-\item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

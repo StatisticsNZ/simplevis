@@ -4,12 +4,12 @@
 \alias{leaflet_sf_col}
 \title{Map of simple features in leaflet that is coloured.}
 \usage{
-leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
-  col_cuts = NULL, col_drop = FALSE, col_na_remove = FALSE,
-  pal = NULL, pal_rev = FALSE, popup = NULL, radius = 1,
-  weight = 2, opacity = 0.9, stroke = TRUE, title = "[Title]",
-  col_digits = 1, col_labels = NULL, basemap = "light",
-  map_id = "map")
+leaflet_sf_col(data, col_var, label_var = NULL, popup_var = NULL,
+  pal = NULL, pal_rev = FALSE, radius = 1, weight = 2,
+  opacity = 0.9, stroke = TRUE, basemap = "light",
+  title = "[Title]", col_cuts = NULL, col_label_digits = 1,
+  col_drop = FALSE, col_labels = NULL, col_method = NULL,
+  col_na = TRUE, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -18,19 +18,11 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{label_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
-
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
-
-\item{col_na_remove}{TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.}
+\item{popup_var}{Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
-
-\item{popup}{HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.}
 
 \item{radius}{Radius of points. Defaults to 2.}
 
@@ -40,13 +32,21 @@ leaflet_sf_col(data, col_var, label_var = NULL, col_method = NULL,
 
 \item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.}
 
+\item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
+
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 
-\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+
+\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+
+\item{col_na}{TRUE or FALSE  of whether to include NAs of the colour variable. Defaults to TRUE.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }
@@ -62,7 +62,7 @@ leaflet_sf_col(example_sf_polygon, density,
      title = "Modelled density, 2017")
 
 leaflet_sf_col(example_sf_polygon, density,
-     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf),  col_label_digits = 0,
      title = "Modelled density, 2017")
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")

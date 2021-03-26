@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.9</span>
       </span>
     </div>
 
@@ -146,12 +146,12 @@
     <p>Map of simple features in leaflet that is coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>label_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_na_remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>popup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>stroke</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>col_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>label_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>stroke</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,20 +169,8 @@
       <td><p>Unquoted variable to label the features by. If NULL, defaults to using the colour variable.</p></td>
     </tr>
     <tr>
-      <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
-    </tr>
-    <tr>
-      <th>col_cuts</th>
-      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>col_na_remove</th>
-      <td><p>TRUE or FALSE  of whether to remove NAs of the colour variable. Defaults to FALSE.</p></td>
+      <th>popup_var</th>
+      <td><p>Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -191,10 +179,6 @@
     <tr>
       <th>pal_rev</th>
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>popup</th>
-      <td><p>HTML strings for use in popup through a character vector. If NULL, defaults to making a leafpop::popupTable of all columns in the sf object.</p></td>
     </tr>
     <tr>
       <th>radius</th>
@@ -213,20 +197,36 @@
       <td><p>TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.</p></td>
     </tr>
     <tr>
+      <th>basemap</th>
+      <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
+    </tr>
+    <tr>
       <th>title</th>
       <td><p>A title string that will be wrapped into the legend. Defaults to "Title".</p></td>
     </tr>
     <tr>
-      <th>col_digits</th>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
+    </tr>
+    <tr>
+      <th>col_label_digits</th>
       <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>col_drop</th>
+      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>
       <td><p>A vector of manual legend label values. Defaults to NULL, which results in automatic labels.</p></td>
     </tr>
     <tr>
-      <th>basemap</th>
-      <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
+      <th>col_method</th>
+      <td><p>The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
+    </tr>
+    <tr>
+      <th>col_na</th>
+      <td><p>TRUE or FALSE  of whether to include NAs of the colour variable. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>map_id</th>
@@ -244,7 +244,7 @@
      <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Modelled density, 2017"</span>)
 
 <span class='fu'>leaflet_sf_col</span>(<span class='no'>example_sf_polygon</span>, <span class='no'>density</span>,
-     <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>), <span class='kw'>col_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+     <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>),  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
      <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Modelled density, 2017"</span>)
 
 <span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#4575B4"</span>, <span class='st'>"#D3D3D3"</span>, <span class='st'>"#D73027"</span>)

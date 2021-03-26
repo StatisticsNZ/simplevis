@@ -101,14 +101,14 @@ theme_sf <-
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -127,14 +127,14 @@ ggplot_sf <- function(data,
                       boundary_pal = "#7f7f7f",
                       boundary_size = 0.2,
                       title = "[Title]",
+                      title_wrap = 70,
                       subtitle = NULL,
+                      subtitle_wrap = 80,
                       caption = NULL,
+                      caption_wrap = 80,
                       font_family = "Helvetica",
                       font_size_title = NULL,
                       font_size_body = NULL,
-                      title_wrap = 70,
-                      subtitle_wrap = 80,
-                      caption_wrap = 80,
                       isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
@@ -226,9 +226,6 @@ ggplot_sf <- function(data,
 #' @description Map of simple features in ggplot that is coloured, but not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
@@ -237,26 +234,29 @@ ggplot_sf <- function(data,
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
-#' @param col_ncol The number of columns in the legend.
-#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param caption Caption title string. Defaults to NULL.
-#' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_ncol The number of columns in the legend.
+#' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
+#' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
 #' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
-#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
+#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_label_digits = 0,
 #'      title = "Density, 2017")
 #'
 #' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
@@ -270,9 +270,6 @@ ggplot_sf <- function(data,
 #'    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col <- function(data,
                           col_var,
-                          col_method = NULL,
-                          col_cuts = NULL,
-                          col_na = TRUE,
                           pal = NULL,
                           pal_rev = FALSE,
                           size = 0.5,
@@ -281,20 +278,23 @@ ggplot_sf_col <- function(data,
                           boundary_behind = TRUE,
                           boundary_pal = "#7f7f7f",
                           boundary_size = 0.2,
-                          col_ncol = 3,
-                          col_digits = 1,
                           title = "[Title]",
+                          title_wrap = 70,
                           subtitle = NULL,
-                          col_title = "",
-                          caption = NULL,
+                          subtitle_wrap = 80,
+                          col_cuts = NULL,
+                          col_label_digits = 1,
                           col_labels = NULL,
+                          col_method = NULL,
+                          col_na = TRUE,
+                          col_ncol = 3,
+                          col_title = "",
+                          col_title_wrap = 25,
+                          caption = NULL,
+                          caption_wrap = 80,
                           font_family = "Helvetica",
                           font_size_title = NULL,
                           font_size_body = NULL,
-                          title_wrap = 70,
-                          subtitle_wrap = 80,
-                          col_title_wrap = 25,
-                          caption_wrap = 80,
                           isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
@@ -356,7 +356,7 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- viridis::viridis(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
     else labels <- col_labels
   }
   else if (col_method == "bin") {
@@ -373,7 +373,7 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- viridis::viridis(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
     else labels <- col_labels
   }
   else if (col_method == "category") {
@@ -510,14 +510,14 @@ ggplot_sf_facet <- function(data,
                             boundary_pal = "#7f7f7f",
                             boundary_size = 0.2,
                             title = "[Title]",
+                            title_wrap = 70,
                             subtitle = NULL,
+                            subtitle_wrap = 80,
                             caption = NULL,
+                            caption_wrap = 80,
                             font_family = "Helvetica",
                             font_size_title = NULL,
-                            font_size_body = NULL,
-                            title_wrap = 70,
-                            subtitle_wrap = 80,
-                            caption_wrap = 80) {
+                            font_size_body = NULL) {
   
   data <- dplyr::ungroup(data)
   
@@ -609,10 +609,7 @@ ggplot_sf_facet <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
+
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
@@ -621,21 +618,25 @@ ggplot_sf_facet <- function(data,
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
 #' @param boundary_size Size of the boundary. Defaults to 0.2.
-#' @param facet_nrow The number of rows of facetted plots. 
-#' @param col_ncol The number of columns in the legend.
-#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param caption Caption title string. Defaults to NULL.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
+#' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_nrow The number of rows of facetted plots. 
+#' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -647,33 +648,33 @@ ggplot_sf_facet <- function(data,
 ggplot_sf_col_facet <- function(data,
                                 col_var,
                                 facet_var,
-                                col_method = NULL,
-                                col_cuts = NULL,
-                                col_quantile_by_facet = TRUE,
-                                col_na = TRUE,
                                 pal = NULL,
                                 pal_rev = FALSE,
                                 size = 0.5,
                                 alpha = 0.9,
-                                facet_nrow = NULL,
-                                col_ncol = 3,
-                                col_digits = 1,
                                 boundary = NULL,
                                 boundary_behind = TRUE,
                                 boundary_pal = "#7f7f7f",
                                 boundary_size = 0.2, 
                                 title = "[Title]",
+                                title_wrap = 70,
                                 subtitle = NULL,
-                                col_title = "",
-                                caption = NULL,
+                                subtitle_wrap = 80,
+                                col_cuts = NULL,
+                                col_label_digits = 1,
                                 col_labels = NULL,
+                                col_method = NULL,
+                                col_na = TRUE,
+                                col_ncol = 3,
+                                col_quantile_by_facet = TRUE,
+                                col_title = "",
+                                col_title_wrap = 25,
+                                facet_nrow = NULL,
+                                caption = NULL,
+                                caption_wrap = 80,
                                 font_family = "Helvetica",
                                 font_size_title = NULL,
-                                font_size_body = NULL,
-                                title_wrap = 70,
-                                subtitle_wrap = 80,
-                                col_title_wrap = 25,
-                                caption_wrap = 80) {
+                                font_size_body = NULL) {
   
   data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
@@ -715,9 +716,16 @@ ggplot_sf_col_facet <- function(data,
   if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
   
   if (col_method == "category") {
-    if (is.null(pal)) pal <- pal_point_set1
-    if (!is.null(col_labels)) labels <- col_labels
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
     if (is.null(col_labels)) labels <- waiver()
+    else labels <- col_labels
   }
   else if (col_method == "bin") {
     if (!is.null(col_cuts)) {
@@ -730,7 +738,7 @@ ggplot_sf_col_facet <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
     if (!is.null(col_labels)) labels <- col_labels
   }
   else if (col_method == "quantile") {
@@ -747,7 +755,7 @@ ggplot_sf_col_facet <- function(data,
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
       
-      if (is.null(col_labels)) labels <- paste0(numeric_col_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (is.null(col_labels)) labels <- paste0( legend_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(col_labels)) labels <- col_labels
     }
     else if (col_quantile_by_facet == FALSE) {
@@ -758,7 +766,7 @@ ggplot_sf_col_facet <- function(data,
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, 2)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, 2)
       if (!is.null(col_labels)) labels <- col_labels
     }
   }

@@ -4,8 +4,8 @@
 \alias{leaflet_stars}
 \title{Map of an array in leaflet.}
 \usage{
-leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
-  col_digits = 1, col_labels = "[Array]", basemap = "light",
+leaflet_stars(data, pal = NULL, opacity = 0.5, basemap = "light",
+  title = "[Title]", col_label_digits = 1, col_labels = "[Array]",
   map_id = "map")
 }
 \arguments{
@@ -15,13 +15,13 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, title = "[Title]",
 
 \item{opacity}{Sets the opacity of the grid cells. Defaults to 0.1.}
 
+\item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
+
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 
-\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_labels}{A vector of legend label values. Defaults to "[Array]".}
-
-\item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
 \item{map_id}{This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

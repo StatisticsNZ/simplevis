@@ -4,26 +4,20 @@
 \alias{ggplot_sf_col}
 \title{Map of simple features in ggplot that is coloured.}
 \usage{
-ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
-  col_na = TRUE, pal = NULL, pal_rev = FALSE, size = 0.5,
+ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
   alpha = 0.9, boundary = NULL, boundary_behind = TRUE,
-  boundary_pal = "#7f7f7f", boundary_size = 0.2, col_ncol = 3,
-  col_digits = 1, title = "[Title]", subtitle = NULL,
-  col_title = "", caption = NULL, col_labels = NULL,
+  boundary_pal = "#7f7f7f", boundary_size = 0.2, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  col_cuts = NULL, col_label_digits = 1, col_labels = NULL,
+  col_method = NULL, col_na = TRUE, col_ncol = 3, col_title = "",
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
   font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  col_title_wrap = 25, caption_wrap = 80, isMobile = FALSE)
+  font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
-
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
-
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
@@ -41,33 +35,39 @@ ggplot_sf_col(data, col_var, col_method = NULL, col_cuts = NULL,
 
 \item{boundary_size}{Size of the boundary. Defaults to 0.2.}
 
-\item{col_ncol}{The number of columns in the legend.}
-
-\item{col_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
-
 \item{title}{Title string. Defaults to "[Title]".}
+
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
 
 \item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
 
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
+
+\item{col_ncol}{The number of columns in the legend.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
+
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
-
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
-
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
-
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
 
 \item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
 }
@@ -79,7 +79,7 @@ Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
 ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
-     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_label_digits = 0,
      title = "Density, 2017")
 
 ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,

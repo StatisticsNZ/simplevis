@@ -95,14 +95,14 @@ theme_stars <-
 #' @param data A stars object with 2 dimensions x and y. Required input.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile. 
 #' @return A ggplot object.
 #' @export
@@ -111,14 +111,14 @@ theme_stars <-
 ggplot_stars <- function(data,
                          pal = NULL,
                          title = "[Title]",
+                         title_wrap = 70,
                          subtitle = NULL,
+                         subtitle_wrap = 80,
                          caption = NULL,
+                         caption_wrap = 80,
                          font_family = "Helvetica",
                          font_size_title = NULL,
                          font_size_body = NULL,
-                         title_wrap = 70,
-                         subtitle_wrap = 80,
-                         caption_wrap = 80,
                          isMobile = FALSE) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
@@ -180,24 +180,24 @@ ggplot_stars <- function(data,
 #' @title Map of an array in ggplot that is coloured.
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
 #' @param data A stars object with 2 dimensions x and y, and 1 attribute layer that will be coloured. Required input.
-#' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param col_ncol The number of columns in the legend.
-#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param caption Caption title string. Defaults to NULL.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
+#' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile. 
 #' @return A ggplot object.
 #' @export
@@ -206,24 +206,24 @@ ggplot_stars <- function(data,
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "Site medians, 2013-17")
 ggplot_stars_col <- function(data,
-                             col_method = "quantile",
-                             col_cuts = NULL,
                              pal = NULL,
                              pal_rev = FALSE,
-                             col_ncol = 3,
-                             col_digits = 1,
                              title = "[Title]",
+                             title_wrap = 70,
                              subtitle = NULL,
-                             col_title = "",
-                             caption = NULL,
+                             subtitle_wrap = 80,
+                             col_cuts = NULL,
+                             col_label_digits = 1,
                              col_labels = NULL,
+                             col_method = "quantile",
+                             col_ncol = 3,
+                             col_title = "",
+                             col_title_wrap = 25,
+                             caption = NULL,
+                             caption_wrap = 80,
                              font_family = "Helvetica",
                              font_size_title = NULL,
                              font_size_body = NULL,
-                             title_wrap = 70,
-                             subtitle_wrap = 80,
-                             col_title_wrap = 25,
-                             caption_wrap = 80,
                              isMobile = FALSE) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
@@ -263,8 +263,10 @@ ggplot_stars_col <- function(data,
     data <- data %>%
       dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
-    if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
+    n_col <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
     if (is.null(col_labels)) labels <- LETTERS[1:length(col_cuts) - 1]
     if (!is.null(col_labels)) labels <- col_labels
   }
@@ -279,7 +281,7 @@ ggplot_stars_col <- function(data,
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
       if (!is.null(col_labels)) labels <- col_labels
       
     }
@@ -292,7 +294,7 @@ ggplot_stars_col <- function(data,
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
       if (!is.null(col_labels)) labels <- col_labels
     }
   }
@@ -313,7 +315,7 @@ ggplot_stars_col <- function(data,
       dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
     if (!is.null(col_labels)) labels <- col_labels
   }
   
@@ -361,16 +363,16 @@ ggplot_stars_col <- function(data,
 #' @description Map of an array in ggplot that is facetted, but not coloured. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param facet_nrow The number of rows of facetted plots. 
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -387,14 +389,14 @@ ggplot_stars_facet <- function(data,
                                pal = NULL,
                                facet_nrow = NULL,
                                title = "[Title]",
+                               title_wrap = 70,
                                subtitle = NULL,
+                               subtitle_wrap = 80,
                                caption = NULL,
+                               caption_wrap = 80,
                                font_family = "Helvetica",
                                font_size_title = NULL,
-                               font_size_body = NULL,
-                               title_wrap = 70,
-                               subtitle_wrap = 80,
-                               caption_wrap = 80) {
+                               font_size_body = NULL) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -450,26 +452,26 @@ ggplot_stars_facet <- function(data,
 #' @title Map of an array in ggplot that is coloured and facetted.
 #' @description Map of an array in ggplot that is coloured and facetted. 
 #' @param data A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. Each attribute layer will be a facet. Required input.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param facet_nrow The number of rows of facetted plots. 
-#' @param col_ncol The number of columns in the legend.
-#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param caption Caption title string. Defaults to NULL.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_ncol The number of columns in the legend.
+#' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
+#' @param col_title Colour title string for the legend. Defaults to NULL.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_nrow The number of rows of facetted plots. 
+#' @param caption Caption title string. Defaults to NULL.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -485,26 +487,26 @@ ggplot_stars_facet <- function(data,
 #'    col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'    title = "Site medians, 2013-17")
 ggplot_stars_col_facet <- function(data,
-                                   col_method = "quantile",
-                                   col_quantile_by_facet = TRUE,
-                                   col_cuts = NULL,
                                    pal = NULL,
                                    pal_rev = FALSE,
-                                   facet_nrow = NULL,
-                                   col_ncol = 3,
-                                   col_digits = 1,
                                    title = "[Title]",
+                                   title_wrap = 70,
                                    subtitle = NULL,
-                                   col_title = "",
-                                   caption = NULL,
+                                   subtitle_wrap = 80,
+                                   col_cuts = NULL,
+                                   col_label_digits = 1,
                                    col_labels = NULL,
+                                   col_method = "quantile",
+                                   col_ncol = 3,
+                                   col_quantile_by_facet = TRUE,
+                                   col_title = "",
+                                   col_title_wrap = 25,
+                                   facet_nrow = NULL,
+                                   caption = NULL,
+                                   caption_wrap = 80,
                                    font_family = "Helvetica",
                                    font_size_title = NULL,
-                                   font_size_body = NULL,
-                                   title_wrap = 70,
-                                   subtitle_wrap = 80,
-                                   col_title_wrap = 25,
-                                   caption_wrap = 80) {
+                                   font_size_body = NULL) {
   
   if (class(data)[1] != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -534,8 +536,10 @@ ggplot_stars_col_facet <- function(data,
     data <- data %>%
       dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if (is.null(pal)) pal <- pal_point_set1[1:(length(col_cuts) - 1)]
-    if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
+    n_col <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    else pal <- pal[1:n_col]
+    
     if (is.null(col_labels)) labels <- LETTERS[1:length(col_cuts) - 1]
     if (!is.null(col_labels)) labels <- col_labels
   }
@@ -551,7 +555,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
       if (!is.null(col_labels)) labels <- col_labels
       
     }
@@ -565,7 +569,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
       if (!is.null(col_labels)) labels <- col_labels
     }
   }
@@ -584,7 +588,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- paste0(numeric_col_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (is.null(col_labels)) labels <- paste0( legend_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(col_labels)) labels <- col_labels
     }
     else if (col_quantile_by_facet == FALSE) {
@@ -595,7 +599,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <- paste0(numeric_col_labels(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+      if (is.null(col_labels)) labels <- paste0( legend_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
       if (!is.null(col_labels)) labels <- col_labels
     }
   }

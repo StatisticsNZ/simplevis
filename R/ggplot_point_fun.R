@@ -368,7 +368,7 @@ ggplot_point <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
-#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -420,7 +420,7 @@ ggplot_point_col <-
            caption = NULL,
            col_labels = NULL,
            col_ncol = 3,
-           col_digits = 1,
+           col_label_digits = 1,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -496,7 +496,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
         else labels <- col_labels
       }
       else if (col_method == "bin") {
@@ -509,7 +509,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1
@@ -903,7 +903,7 @@ ggplot_point_facet <-
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_ncol The number of columns in the legend.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
@@ -960,7 +960,7 @@ ggplot_point_col_facet <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_cuts = NULL,
-           col_digits = 1,
+           col_label_digits = 1,
            col_labels = NULL,
            col_method = NULL,
            col_na = TRUE,
@@ -1038,7 +1038,7 @@ ggplot_point_col_facet <-
             dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
             dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
           
-          if (is.null(col_labels)) labels <- paste0(numeric_col_labels(col_cuts * 100, 0), "%")
+          if (is.null(col_labels)) labels <- paste0(legend_labels_from_cuts(col_cuts * 100, 0), "%")
           else labels <- col_labels
         }
         else if (col_quantile_by_facet == FALSE) { 
@@ -1048,7 +1048,7 @@ ggplot_point_col_facet <-
           data <- data %>% 
             dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
           
-          if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+          if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
           else labels <- col_labels
         }
       }
@@ -1061,7 +1061,7 @@ ggplot_point_col_facet <-
         
         data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         
-        if (is.null(col_labels)) labels <- numeric_col_labels(col_cuts, col_digits)
+        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1

@@ -54,7 +54,7 @@ The `quantile` method defaults to quartiles cut using the `quantile` algorithm. 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_col(example_sf_point, median,
               col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.9, 1),
-              col_digits = 2, boundary = nz)
+              col_label_digits = 2, boundary = nz)
 ```
 
 The `bin` method defaults to pretty breaks cut using the `pretty` algorithm. But you can customise it by providing a vector to the `col_cuts` argument from 0 to Inf (or from -Inf to Inf if the colour variable includes negative values). 
@@ -63,7 +63,7 @@ The `bin` method defaults to pretty breaks cut using the `pretty` algorithm. But
 ggplot_sf_col(example_sf_point, median,
               col_method = "bin", 
               col_cuts = c(0, 0.25, 1, Inf),
-              col_digits = 2, boundary = nz)
+              col_label_digits = 2, boundary = nz)
 ```
 
 Faccetting works in a similar way to the plot functions. Note only one boundary can be added in. This may not work with all use cases.

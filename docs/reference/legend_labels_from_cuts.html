@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example stars object. — example_stars • simplevis</title>
+<title>Numeric legend labels. — legend_labels_from_cuts • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Example stars object. — example_stars" />
-<meta property="og:description" content="Example stars object." />
+<meta property="og:title" content="Numeric legend labels. — legend_labels_from_cuts" />
+<meta property="og:description" content="Pretty numeric legend labels." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -137,37 +137,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example stars object.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>example_stars.Rd</code></div>
+    <h1>Numeric legend labels.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/other.R'><code>R/other.R</code></a></small>
+    <div class="hidden name"><code>legend_labels_from_cuts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Example stars object.</p>
+    <p>Pretty numeric legend labels.</p>
     </div>
 
-    <pre class="usage"><span class='no'>example_stars</span></pre>
+    <pre class="usage"><span class='fu'>legend_labels_from_cuts</span>(<span class='no'>cuts_vctr</span>, <span class='kw'>col_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>cuts_vctr</th>
+      <td><p>A numeric vector of bin cuts from which to create a vector of legend labels.</p></td>
+    </tr>
+    <tr>
+      <th>col_digits</th>
+      <td><p>The number of digits to round the legend labels.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>stars</code> object.</p>
+    <p>A vector of labels.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>example_stars</span></div><div class='output co'>#&gt; stars object with 2 dimensions and 1 attribute
-#&gt; attribute(s):
-#&gt;  NO3N_p50.tif    
-#&gt;  Min.   :   6.4  
-#&gt;  1st Qu.:  25.6  
-#&gt;  Median :  75.5  
-#&gt;  Mean   : 213.6  
-#&gt;  3rd Qu.: 256.6  
-#&gt;  Max.   :3974.5  
-#&gt;  NA's   :355767  
-#&gt; dimension(s):
-#&gt;   from  to  offset    delta                       refsys point values x/y
-#&gt; x    1 567  983458     2000 +proj=tmerc +lat_0=0 +lon... FALSE   NULL [x]
-#&gt; y    1 748 6223677 -1998.66 +proj=tmerc +lat_0=0 +lon... FALSE   NULL [y]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

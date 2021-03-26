@@ -1,3 +1,9 @@
+# simplevis 2.4.9
+
+* In leaflet_sf, rename col_na_remove for consistency.
+* In leaflet_sf functions, rename popup as popup_var and improve help.
+* Rename col_digits argument to col_label_digits.
+
 # simplevis 2.4.8
 
 * In line functions, rename size argument to size_point.

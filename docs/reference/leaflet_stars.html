@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.9</span>
       </span>
     </div>
 
@@ -146,8 +146,8 @@
     <p>Map of an array in leaflet.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_stars</span>(<span class='no'>data</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>col_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='st'>"[Array]"</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+    <pre class="usage"><span class='fu'>leaflet_stars</span>(<span class='no'>data</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='st'>"[Array]"</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -166,20 +166,20 @@
       <td><p>Sets the opacity of the grid cells. Defaults to 0.1.</p></td>
     </tr>
     <tr>
+      <th>basemap</th>
+      <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
+    </tr>
+    <tr>
       <th>title</th>
       <td><p>A title string that will be wrapped into the legend. Defaults to "Title".</p></td>
     </tr>
     <tr>
-      <th>col_digits</th>
+      <th>col_label_digits</th>
       <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>
       <td><p>A vector of legend label values. Defaults to "[Array]".</p></td>
-    </tr>
-    <tr>
-      <th>basemap</th>
-      <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
     </tr>
     <tr>
       <th>map_id</th>

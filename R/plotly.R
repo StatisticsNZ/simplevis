@@ -45,8 +45,8 @@ plotly_camera <- function(plotly, logo = FALSE){
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_col_rev()
-plotly_col_rev <- function(plotly) {
+#'    plotly_legend_rev()
+plotly_legend_rev <- function(plotly) {
   n_labels <- length(plotly$x$data)
   plotly$x$data[1:n_labels] <- plotly$x$data[n_labels:1]
   plotly
@@ -55,7 +55,7 @@ plotly_col_rev <- function(plotly) {
 #' @title Order plotly legend elements.
 #' @description Order plotly legend elements.
 #' @param plotly A plotly object.
-#' @param numeric_order A vector specifying the numeric order of elements. Required input.
+#' @param order A vector specifying the numeric order of elements. Required input.
 #' @export
 #' @examples
 #' plot_data <- ggplot2::diamonds %>%
@@ -77,10 +77,10 @@ plotly_col_rev <- function(plotly) {
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text") %>% 
-#'    plotly_col_order(c(4, 1:3, 5:8))
-plotly_col_order <- function(plotly, numeric_order = NULL) {
-  if(is.null(numeric_order)) stop("A numeric order vector must be provided")
+#'    plotly_legend_order(c(4, 1:3, 5:8))
+plotly_legend_order <- function(plotly, order = NULL) {
+  if(is.null(order)) stop("A numeric order vector must be provided")
   n_labels <- length(plotly$x$data)
-  plotly$x$data[1:n_labels] <- plotly$x$data[numeric_order]
+  plotly$x$data[1:n_labels] <- plotly$x$data[order]
   plotly
 }

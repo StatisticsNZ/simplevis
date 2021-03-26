@@ -13,7 +13,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
   x_zero = TRUE, x_zero_line = NULL, y_expand = NULL,
   y_labels = waiver(), y_rev = FALSE, y_title = "[Y title]",
-  y_title_wrap = 50, col_legend_labels = NULL, col_ncol = 3,
+  y_title_wrap = 50, col_labels = NULL, col_ncol = 3,
   col_rev = FALSE, col_title = "", caption_wrap = 80,
   col_title_wrap = 25, caption = NULL, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL)
@@ -81,7 +81,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
-\item{col_legend_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
 \item{col_ncol}{The number of columns in the legend.}
 

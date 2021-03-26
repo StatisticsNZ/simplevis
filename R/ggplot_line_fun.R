@@ -376,7 +376,7 @@ ggplot_line <- function(data,
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param col_legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
@@ -428,7 +428,7 @@ ggplot_line_col <-
            y_trans = "identity",
            y_zero = TRUE,
            y_zero_line = NULL,
-           col_legend_labels = NULL,
+           col_labels = NULL,
            col_ncol = 3,
            col_title = "",
            col_title_wrap = 25,
@@ -508,8 +508,8 @@ ggplot_line_col <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
-    if (!is.null(col_legend_labels)) labels <- col_legend_labels
-    if (is.null(col_legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- col_labels
+    if (is.null(col_labels)) labels <- waiver()
     
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
@@ -868,7 +868,7 @@ ggplot_line_facet <-
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
-#' @param col_legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -926,7 +926,7 @@ ggplot_line_col_facet <-
            facet_nrow = NULL,
            col_title = "",
            col_title_wrap = 25,
-           col_legend_labels = NULL,
+           col_labels = NULL,
            col_ncol = 3,
            caption = NULL,
            caption_wrap = 80,
@@ -997,8 +997,8 @@ ggplot_line_col_facet <-
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
                  size = size_point, alpha = alpha)
     
-    if (!is.null(col_legend_labels)) labels <- col_legend_labels
-    if (is.null(col_legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- col_labels
+    if (is.null(col_labels)) labels <- waiver()
     
     plot <- plot +
       scale_color_manual(

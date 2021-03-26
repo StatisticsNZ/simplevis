@@ -398,7 +398,7 @@ ggplot_hbar <- function(data,
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param col_legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_ncol The number of columns in the legend.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -456,7 +456,7 @@ ggplot_hbar_col <-
            y_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
-           col_legend_labels = NULL,
+           col_labels = NULL,
            col_ncol = 3,
            col_rev = FALSE,
            col_title = "",
@@ -539,8 +539,8 @@ ggplot_hbar_col <-
         font_size_title = font_size_title
       ) 
     
-    if (!is.null(col_legend_labels)) labels <- rev(col_legend_labels)
-    if (is.null(col_legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- rev(col_labels)
+    if (is.null(col_labels)) labels <- waiver()
     
     if (!is.null(pal) & x_na_bar == TRUE) { 
       if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
@@ -1015,7 +1015,7 @@ ggplot_hbar_facet <-
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param col_legend_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_ncol The number of columns in the legend.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -1075,7 +1075,7 @@ ggplot_hbar_col_facet <-
            y_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
-           col_legend_labels = NULL,
+           col_labels = NULL,
            col_ncol = 3,
            col_rev = FALSE,
            col_title = "",
@@ -1153,8 +1153,8 @@ ggplot_hbar_col_facet <-
       ) +
       geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!tip_var), alpha = alpha, width = width, position = position2)
 
-    if (!is.null(col_legend_labels)) labels <- rev(col_legend_labels)
-    if (is.null(col_legend_labels)) labels <- waiver()
+    if (!is.null(col_labels)) labels <- rev(col_labels)
+    if (is.null(col_labels)) labels <- waiver()
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()

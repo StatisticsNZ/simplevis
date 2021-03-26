@@ -4,16 +4,16 @@
 \alias{ggplot_point_col}
 \title{Point ggplot that is coloured.}
 \usage{
-ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL, size = 1,
-  pal = NULL, pal_rev = FALSE, col_method = NULL, col_cuts = NULL,
-  col_na = TRUE, x_zero = TRUE, x_zero_line = NULL,
-  x_trans = "identity", x_labels = waiver(), x_pretty_n = 6,
-  x_expand = NULL, y_zero = TRUE, y_zero_line = NULL,
-  y_trans = "identity", y_labels = waiver(), y_pretty_n = 5,
-  y_expand = NULL, title = "[Title]", subtitle = NULL,
-  x_title = "[X title]", y_title = "[Y title]", col_title = "",
-  caption = NULL, col_labels = NULL, col_labels_ncol = 3,
-  col_labels_dp = 1, font_family = "Helvetica",
+ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL,
+  point_size = 1, pal = NULL, pal_rev = FALSE, col_method = NULL,
+  col_cuts = NULL, col_na = TRUE, x_zero = TRUE,
+  x_zero_line = NULL, x_trans = "identity", x_labels = waiver(),
+  x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
+  y_zero_line = NULL, y_trans = "identity", y_labels = waiver(),
+  y_pretty_n = 5, y_expand = NULL, title = "[Title]",
+  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
+  col_title = "", caption = NULL, col_labels = NULL,
+  col_labels_ncol = 3, col_labels_dp = 1, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
   subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
   col_title_wrap = 25, caption_wrap = 80, isMobile = FALSE)
@@ -29,7 +29,7 @@ ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL, size = 1,
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{size}{Size of points. Defaults to 1.}
+\item{point_size}{Size of points. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

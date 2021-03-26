@@ -147,7 +147,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_line</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -181,20 +181,20 @@
       <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
     </tr>
     <tr>
-      <th>size_point</th>
-      <td><p>Size of points. Defaults to 1. Only applicable to where points equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>size_line</th>
-      <td><p>Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.</p></td>
-    </tr>
-    <tr>
       <th>points</th>
       <td><p>TRUE or FALSE of whether to include points. Defaults to TRUE.</p></td>
     </tr>
     <tr>
+      <th>point_size</th>
+      <td><p>Size of points. Defaults to 1. Only applicable to where points equals TRUE.</p></td>
+    </tr>
+    <tr>
       <th>lines</th>
       <td><p>TRUE or FALSE of whether to include lines. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>line_size</th>
+      <td><p>Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.</p></td>
     </tr>
     <tr>
       <th>title</th>

@@ -117,10 +117,10 @@ theme_line <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param size_line Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -164,10 +164,10 @@ ggplot_line <- function(data,
                         y_var,
                         tip_var = NULL,
                         pal = NULL,
-                        size_point = 1,
-                        size_line = 0.5,
                         points = TRUE,
+                        point_size = 1,
                         lines = TRUE,
+                        line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
                         subtitle = NULL,
@@ -240,10 +240,10 @@ ggplot_line <- function(data,
     )
   
   if (lines == TRUE) plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1])
+    geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1])
 
   plot <- plot +
-    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = size_point, alpha = alpha)
+    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -354,10 +354,10 @@ ggplot_line <- function(data,
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param size_line Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -406,10 +406,10 @@ ggplot_line_col <-
            tip_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           size_point = 1,
-           size_line = 0.5,
            points = TRUE,
+           point_size = 1,
            lines = TRUE,
+           line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -499,11 +499,11 @@ ggplot_line_col <-
       ) 
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line)
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size)
     
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
-                 size = size_point, alpha = alpha)
+                 size = point_size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -626,10 +626,10 @@ ggplot_line_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param size_line Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -674,10 +674,10 @@ ggplot_line_facet <-
            facet_var,
            tip_var = NULL,
            pal = NULL,
-           size_point = 1,
-           size_line = 0.5,
            points = TRUE,
+           point_size = 1,
            lines = TRUE,
+           line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -748,10 +748,10 @@ ggplot_line_facet <-
       )
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) 
+      geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) 
     
     plot <- plot +
-      geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = size_point, alpha = alpha)
+      geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -846,10 +846,10 @@ ggplot_line_facet <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param size_line Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
+#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -900,10 +900,10 @@ ggplot_line_col_facet <-
            tip_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           size_point = 1,
-           size_line = 0.5,
            points = TRUE,
+           point_size = 1,
            lines = TRUE,
+           line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -991,11 +991,11 @@ ggplot_line_col_facet <-
       ) 
     
     if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line)
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size)
     
     plot <- plot +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
-                 size = size_point, alpha = alpha)
+                 size = point_size, alpha = alpha)
     
     if (!is.null(col_labels)) labels <- col_labels
     if (is.null(col_labels)) labels <- waiver()

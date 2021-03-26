@@ -5,7 +5,7 @@
 \title{Line ggplot.}
 \usage{
 ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL,
-  size_point = 1, size_line = 0.5, points = TRUE, lines = TRUE,
+  points = TRUE, point_size = 1, lines = TRUE, line_size = 0.5,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_labels = waiver(), x_pretty_n = 6,
   x_expand = NULL, x_title = "[X title]", x_title_wrap = 50,
@@ -26,13 +26,13 @@ ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
-\item{size_point}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
-
-\item{size_line}{Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.}
-
 \item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
 
+\item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
+
 \item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
+
+\item{line_size}{Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

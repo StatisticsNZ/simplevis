@@ -2,6 +2,8 @@
 
 * Rename col_label_digits argument to col_labels_dp.
 * Rename leaflet_sf label_var to tip_var to avoid confusion.
+* Rename size arguments in ggplot_point and ggplot_line functions.
+* Fixed vbar legend elements being reversed. 
 
 # simplevis 2.4.9
 

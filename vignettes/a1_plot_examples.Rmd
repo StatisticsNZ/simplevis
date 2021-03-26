@@ -92,7 +92,7 @@ Use a specified colour palette, and increase the size of the dots.
 pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
 
 ggplot_point(iris, Sepal.Width, Sepal.Length,
-               size = 2, pal = pal)
+               point_size = 2, pal = pal)
 
 ```
 
@@ -159,7 +159,6 @@ plot_data <- ggplot2::diamonds %>%
   summarise(average_price = mean(price)) 
   
 ggplot_hbar(plot_data, average_price, cut)
-
 
 ```
 

@@ -707,13 +707,11 @@ ggplot_vbar_col <-
         guides(fill = guide_legend(
           ncol = col_labels_ncol,
           byrow = TRUE,
-          reverse = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
         ), 
         col = guide_legend(
           ncol = col_labels_ncol,
           byrow = TRUE,
-          reverse = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
         ))
     }
@@ -732,13 +730,11 @@ ggplot_vbar_col <-
         guides(fill = guide_legend(
           ncol = 1,
           byrow = TRUE,
-          reverse = TRUE,
           title = stringr::str_wrap(col_title, 15)
         ), 
         col = guide_legend(
           ncol = 1,
           byrow = TRUE,
-          reverse = TRUE,
           title = stringr::str_wrap(col_title, 15)
         )) +
         theme(axis.text.x = element_text(hjust = 0.75))
@@ -1271,7 +1267,6 @@ ggplot_vbar_col_facet <-
       guides(fill = guide_legend(
         ncol = col_labels_ncol,
         byrow = TRUE,
-        reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) 
 

@@ -4,7 +4,7 @@
 \alias{ggplot_point}
 \title{Point ggplot.}
 \usage{
-ggplot_point(data, x_var, y_var, tip_var = NULL, size = 1,
+ggplot_point(data, x_var, y_var, tip_var = NULL, point_size = 1,
   pal = NULL, title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 6, x_title = "[X title]", x_title_wrap = 50,
@@ -24,7 +24,7 @@ ggplot_point(data, x_var, y_var, tip_var = NULL, size = 1,
 
 \item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{size}{Size of points. Defaults to 1.}
+\item{point_size}{Size of points. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

@@ -115,7 +115,7 @@ theme_point <-
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
@@ -341,7 +341,7 @@ ggplot_point <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -368,9 +368,9 @@ ggplot_point <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
-#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -419,8 +419,8 @@ ggplot_point_col <-
            col_title = "",
            caption = NULL,
            col_labels = NULL,
-           col_ncol = 3,
-           col_label_digits = 1,
+           col_labels_ncol = 3,
+           col_labels_dp = 1,
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
@@ -496,7 +496,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
+        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
         else labels <- col_labels
       }
       else if (col_method == "bin") {
@@ -509,7 +509,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
+        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1
@@ -624,7 +624,7 @@ ggplot_point_col <-
           y = stringr::str_wrap(y_title, y_title_wrap),
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
-        guides(col = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+        guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
     }
     else if (isMobile == TRUE) {
       plot <- plot +
@@ -650,7 +650,7 @@ ggplot_point_col <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
@@ -878,7 +878,7 @@ ggplot_point_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -903,8 +903,8 @@ ggplot_point_facet <-
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
@@ -960,12 +960,12 @@ ggplot_point_col_facet <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_cuts = NULL,
-           col_label_digits = 1,
+           col_labels_dp = 1,
            col_labels = NULL,
            col_method = NULL,
            col_na = TRUE,
            col_quantile_by_facet = TRUE,
-           col_ncol = 3,
+           col_labels_ncol = 3,
            col_title = "",
            col_title_wrap = 25,
            facet_nrow = NULL,
@@ -1048,7 +1048,7 @@ ggplot_point_col_facet <-
           data <- data %>% 
             dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
           
-          if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
+          if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
           else labels <- col_labels
         }
       }
@@ -1061,7 +1061,7 @@ ggplot_point_col_facet <-
         
         data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         
-        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_label_digits)
+        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1
@@ -1189,7 +1189,7 @@ ggplot_point_col_facet <-
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(col = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+      guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
 
     

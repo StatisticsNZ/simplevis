@@ -12,7 +12,7 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
   y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
   y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, col_labels = NULL, col_ncol = 3,
+  y_zero_line = NULL, col_labels = NULL, col_labels_ncol = 3,
   col_title = "", col_title_wrap = 25, facet_nrow = NULL,
   facet_scales = "fixed", caption = NULL, caption_wrap = 80,
   font_family = "Helvetica", font_size_title = NULL,
@@ -29,7 +29,7 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 
@@ -79,7 +79,7 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{col_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

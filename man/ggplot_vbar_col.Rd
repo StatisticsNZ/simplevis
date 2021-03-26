@@ -12,7 +12,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
   y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
   y_na_bar = FALSE, y_pretty_n = 5, y_title = "[Y title]",
   y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, col_labels = NULL, col_ncol = 3,
+  y_zero_line = NULL, col_labels = NULL, col_labels_ncol = 3,
   col_title = "", col_title_wrap = 25, caption = NULL,
   caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
@@ -26,7 +26,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 
@@ -78,7 +78,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{col_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

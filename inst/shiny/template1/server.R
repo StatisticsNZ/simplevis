@@ -41,7 +41,7 @@ shinyServer(function(input, output, session) {
                             y_var = cut, 
                             col_var = clarity,
                             tip_var = tip_text,
-                            col_ncol = 4,
+                            col_labels_ncol = 4,
                             title = title, 
                             x_title = x_title, 
                             y_title = y_title,

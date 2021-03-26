@@ -8,11 +8,11 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
   alpha = 0.9, boundary = NULL, boundary_behind = TRUE,
   boundary_pal = "#7f7f7f", boundary_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  col_cuts = NULL, col_label_digits = 1, col_labels = NULL,
-  col_method = NULL, col_na = TRUE, col_ncol = 3, col_title = "",
-  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, isMobile = FALSE)
+  col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
+  col_method = NULL, col_na = TRUE, col_labels_ncol = 3,
+  col_title = "", col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -45,7 +45,7 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
@@ -53,7 +53,7 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
 
 \item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
 
-\item{col_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 
@@ -79,7 +79,7 @@ Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
 ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
-     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_label_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_labels_dp = 0,
      title = "Density, 2017")
 
 ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,

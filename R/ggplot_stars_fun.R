@@ -187,10 +187,10 @@ ggplot_stars <- function(data,
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -213,10 +213,10 @@ ggplot_stars_col <- function(data,
                              subtitle = NULL,
                              subtitle_wrap = 80,
                              col_cuts = NULL,
-                             col_label_digits = 1,
+                             col_labels_dp = 1,
                              col_labels = NULL,
                              col_method = "quantile",
-                             col_ncol = 3,
+                             col_labels_ncol = 3,
                              col_title = "",
                              col_title_wrap = 25,
                              caption = NULL,
@@ -281,7 +281,7 @@ ggplot_stars_col <- function(data,
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
       if (!is.null(col_labels)) labels <- col_labels
       
     }
@@ -294,7 +294,7 @@ ggplot_stars_col <- function(data,
         dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
       if (!is.null(col_labels)) labels <- col_labels
     }
   }
@@ -315,7 +315,7 @@ ggplot_stars_col <- function(data,
       dplyr::mutate(dplyr::across(c(-.data$x, -.data$y), ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
+    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
     if (!is.null(col_labels)) labels <- col_labels
   }
   
@@ -341,7 +341,7 @@ ggplot_stars_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(fill = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+      guides(fill = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
   }
   else if (isMobile == TRUE) {
     plot <- plot +
@@ -459,10 +459,10 @@ ggplot_stars_facet <- function(data,
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -494,10 +494,10 @@ ggplot_stars_col_facet <- function(data,
                                    subtitle = NULL,
                                    subtitle_wrap = 80,
                                    col_cuts = NULL,
-                                   col_label_digits = 1,
+                                   col_labels_dp = 1,
                                    col_labels = NULL,
                                    col_method = "quantile",
-                                   col_ncol = 3,
+                                   col_labels_ncol = 3,
                                    col_quantile_by_facet = TRUE,
                                    col_title = "",
                                    col_title_wrap = 25,
@@ -555,7 +555,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
       if (!is.null(col_labels)) labels <- col_labels
       
     }
@@ -569,7 +569,7 @@ ggplot_stars_col_facet <- function(data,
         dplyr::mutate(dplyr::across(.data$col_var, ~ cut(., col_cuts, right = FALSE, include.lowest = TRUE)))
       
       if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_label_digits)
+      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
       if (!is.null(col_labels)) labels <- col_labels
     }
   }
@@ -628,7 +628,7 @@ ggplot_stars_col_facet <- function(data,
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(fill = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+    guides(fill = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     facet_wrap(
       ~ .data$facet_var,
       scales = "fixed",

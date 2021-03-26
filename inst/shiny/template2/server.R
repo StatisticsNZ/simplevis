@@ -41,7 +41,7 @@ shinyServer(function(input, output, session) {
                             y_var = cut, 
                             col_var = clarity, 
                             tip_var = tip_text,
-                            col_ncol = 4,
+                            col_labels_ncol = 4,
                             title = title, 
                             x_title = x_title, 
                             y_title = y_title,
@@ -67,11 +67,7 @@ shinyServer(function(input, output, session) {
   
   map_data <- reactive({ # create a reactive map_data object
     
-    selected_metric <- input$map_metric
-    
-    map_data <- data2 %>%
-      filter(period == "2008-2017") %>% 
-      filter(indicator == selected_metric)
+    map_data <- data2 
     
     return(map_data)
   })

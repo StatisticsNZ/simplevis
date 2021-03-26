@@ -115,7 +115,7 @@ theme_vbar <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -381,7 +381,7 @@ ggplot_vbar <- function(data,
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -407,7 +407,7 @@ ggplot_vbar <- function(data,
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -459,7 +459,7 @@ ggplot_vbar_col <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_labels = NULL,
-           col_ncol = 3,
+           col_labels_ncol = 3,
            col_title = "",
            col_title_wrap = 25,
            caption = NULL,
@@ -705,13 +705,13 @@ ggplot_vbar_col <-
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
-          ncol = col_ncol,
+          ncol = col_labels_ncol,
           byrow = TRUE,
           reverse = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
         ), 
         col = guide_legend(
-          ncol = col_ncol,
+          ncol = col_labels_ncol,
           byrow = TRUE,
           reverse = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
@@ -753,7 +753,7 @@ ggplot_vbar_col <-
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -1003,7 +1003,7 @@ ggplot_vbar_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -1028,7 +1028,7 @@ ggplot_vbar_facet <-
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
@@ -1085,7 +1085,7 @@ ggplot_vbar_col_facet <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_labels = NULL,
-           col_ncol = 3,
+           col_labels_ncol = 3,
            col_title = "",
            col_title_wrap = 25,
            facet_nrow = NULL,
@@ -1269,7 +1269,7 @@ ggplot_vbar_col_facet <-
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
       guides(fill = guide_legend(
-        ncol = col_ncol,
+        ncol = col_labels_ncol,
         byrow = TRUE,
         reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)

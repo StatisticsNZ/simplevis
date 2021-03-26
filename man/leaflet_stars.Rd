@@ -5,7 +5,7 @@
 \title{Map of an array in leaflet.}
 \usage{
 leaflet_stars(data, pal = NULL, opacity = 0.5, basemap = "light",
-  title = "[Title]", col_label_digits = 1, col_labels = "[Array]",
+  title = "[Title]", col_label_dp = 1, col_labels = "[Array]",
   map_id = "map")
 }
 \arguments{
@@ -19,7 +19,7 @@ leaflet_stars(data, pal = NULL, opacity = 0.5, basemap = "light",
 
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
 
-\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_label_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_labels}{A vector of legend label values. Defaults to "[Array]".}
 

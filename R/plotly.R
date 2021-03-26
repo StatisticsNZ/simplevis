@@ -37,7 +37,7 @@ plotly_camera <- function(plotly, logo = FALSE){
 #'                        x_var = average_price_thousands, 
 #'                        y_var = cut, 
 #'                        col_var = clarity, 
-#'                        col_ncol = 4,
+#'                        col_labels_ncol = 4,
 #'                        title = "Average diamond price by cut and clarity", 
 #'                        x_title = "Average price ($US thousands)", 
 #'                        y_title = "Cut")
@@ -69,7 +69,7 @@ plotly_legend_rev <- function(plotly) {
 #'                        x_var = average_price_thousands, 
 #'                        y_var = cut, 
 #'                        col_var = clarity, 
-#'                        col_ncol = 4,
+#'                        col_labels_ncol = 4,
 #'                        title = "Average diamond price by cut and clarity", 
 #'                        x_title = "Average price ($US thousands)", 
 #'                        y_title = "Cut")

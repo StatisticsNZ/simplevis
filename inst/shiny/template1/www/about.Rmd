@@ -3,9 +3,5 @@ output: html_document
 ---
 Data was provided by [Source]. 
 
-This work was developed as part of the environmental reporting programme of <a href="https://www.stats.govt.nz/topics/environment" target="_blank">Stats NZ</a> and the <a href="http://www.mfe.govt.nz/more/environmental-reporting" target="_blank">Ministry for the Environment</a>.
-
-This interactive tool is optimised for desktop, but is functional on a mobile device.
-
 ![](cc_compact.png)
 This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.

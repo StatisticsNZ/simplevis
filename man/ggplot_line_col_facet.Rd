@@ -14,7 +14,7 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
   y_trans = "identity", y_title = "[Y title]", y_title_wrap = 50,
   y_zero = TRUE, y_zero_line = NULL, facet_scales = "fixed",
   facet_nrow = NULL, col_title = "", col_title_wrap = 25,
-  col_labels = NULL, col_ncol = 3, caption = NULL,
+  col_labels = NULL, col_labels_ncol = 3, caption = NULL,
   caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL)
 }
@@ -29,7 +29,7 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
@@ -89,7 +89,7 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{col_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.0</span>
       </span>
     </div>
 
@@ -148,8 +148,8 @@
 
     <pre class="usage"><span class='fu'>ggplot_stars_col_facet</span>(<span class='no'>data</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_labels_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -191,7 +191,7 @@
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
-      <th>col_label_digits</th>
+      <th>col_labels_dp</th>
       <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
     </tr>
     <tr>
@@ -203,7 +203,7 @@
       <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
     </tr>
     <tr>
-      <th>col_ncol</th>
+      <th>col_labels_ncol</th>
       <td><p>The number of columns in the legend.</p></td>
     </tr>
     <tr>

@@ -4,10 +4,10 @@
 \alias{leaflet_sf_col}
 \title{Map of simple features in leaflet that is coloured.}
 \usage{
-leaflet_sf_col(data, col_var, label_var = NULL, popup_var = NULL,
+leaflet_sf_col(data, col_var, tip_var = NULL, popup_var = NULL,
   pal = NULL, pal_rev = FALSE, radius = 1, weight = 2,
   opacity = 0.9, stroke = TRUE, basemap = "light",
-  title = "[Title]", col_cuts = NULL, col_label_digits = 1,
+  title = "[Title]", col_cuts = NULL, col_labels_dp = 1,
   col_drop = FALSE, col_labels = NULL, col_method = NULL,
   col_na = TRUE, map_id = "map")
 }
@@ -16,7 +16,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, popup_var = NULL,
 
 \item{col_var}{Unquoted variable to colour the features by. Required input.}
 
-\item{label_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
+\item{tip_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
 
 \item{popup_var}{Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
@@ -38,7 +38,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, popup_var = NULL,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_label_digits}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
@@ -62,7 +62,7 @@ leaflet_sf_col(example_sf_polygon, density,
      title = "Modelled density, 2017")
 
 leaflet_sf_col(example_sf_polygon, density,
-     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf),  col_label_digits = 0,
+     col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf),  col_labels_dp = 0,
      title = "Modelled density, 2017")
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")

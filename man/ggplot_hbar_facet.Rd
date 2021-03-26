@@ -25,7 +25,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

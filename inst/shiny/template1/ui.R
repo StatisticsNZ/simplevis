@@ -75,12 +75,12 @@ shinyUI(
         "Download",
         icon = icon("download", lib = "font-awesome"),
         fluidRow(downloadButton("download", "Download all data"))
-      ),
-      tabPanel(
-        "About",
-        icon = icon("info-circle", lib = "font-awesome"),
-        fluidRow(includeMarkdown("www/about.Rmd"))
       )
+      # tabPanel(
+      #   "About",
+      #   icon = icon("info-circle", lib = "font-awesome"),
+      #   fluidRow(includeMarkdown("www/about.Rmd"))
+      # )
     )
   )
 )

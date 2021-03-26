@@ -5,7 +5,7 @@
 \title{Map of an array in leaflet that is coloured.}
 \usage{
 leaflet_stars_col(data, pal = NULL, pal_rev = FALSE, opacity = 1,
-  title = "[Title]", col_cuts = NULL, col_label_digits = 1,
+  title = "[Title]", col_cuts = NULL, col_label_dp = 1,
   col_labels = NULL, col_method = "quantile", basemap = "light",
   map_id = "map")
 }
@@ -22,7 +22,7 @@ leaflet_stars_col(data, pal = NULL, pal_rev = FALSE, opacity = 1,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_label_digits}{Select the appropriate number of decimal places for the auto legend. Defaults to 1.}
+\item{col_label_dp}{Select the appropriate number of decimal places for the auto legend. Defaults to 1.}
 
 \item{col_labels}{A vector of legend label values. Defaults to NULL, which results in automatic labels.}
 

@@ -1,3 +1,8 @@
+# simplevis 2.5.0
+
+* Rename col_label_digits argument to col_labels_dp.
+* Rename leaflet_sf label_var to tip_var to avoid confusion.
+
 # simplevis 2.4.9
 
 * In leaflet_sf, rename col_na_remove for consistency.

@@ -13,14 +13,10 @@ library(simplevis)
 data1 <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.1)
 
-data2 <- simplevis::example_sf_point %>% 
-  filter(indicator %in% c("Nitrate-nitrogen", "Total nitrogen", "Ammoniacal nitrogen")) %>% 
-  slice_sample(prop = 0.1)
+data2 <- simplevis::example_sf_point
 
 # add helper vectors (if required)
 color_vector <- sort(unique(data1$color))
-
-metric_vector <- sort(unique(data2$indicator))
 
 # choose a basemap (if required)
 basemap <- leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))

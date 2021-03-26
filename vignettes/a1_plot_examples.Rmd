@@ -246,7 +246,7 @@ Adjust the x labels, and change legend columns to 1.
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
                 x_labels = scales::number_format(scale = 1/1000, accuracy = 1),
                 x_title = "Average price ($US thousands)",
-                col_ncol = 1)
+                col_labels_ncol = 1)
 
 ```
 
@@ -467,7 +467,7 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price_thousands = round(average_price / 1000, 1))
 
 plot <- ggplot_hbar_col(plot_data, average_price_thousands, cut, clarity, 
-                        col_ncol = 4)
+                        col_labels_ncol = 4)
 
 plotly::ggplotly(plot)
 ```

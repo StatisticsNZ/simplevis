@@ -22,7 +22,7 @@ ggplot_hbar(data, x_var, y_var, tip_var = NULL, pal = NULL,
 
 \item{y_var}{Unquoted categorical variable to be on the y axis. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.}
+\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.0</span>
       </span>
     </div>
 
@@ -146,10 +146,10 @@
     <p>Map of simple features in leaflet that is coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>label_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>tip_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>stroke</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
@@ -165,7 +165,7 @@
       <td><p>Unquoted variable to colour the features by. Required input.</p></td>
     </tr>
     <tr>
-      <th>label_var</th>
+      <th>tip_var</th>
       <td><p>Unquoted variable to label the features by. If NULL, defaults to using the colour variable.</p></td>
     </tr>
     <tr>
@@ -209,7 +209,7 @@
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
-      <th>col_label_digits</th>
+      <th>col_labels_dp</th>
       <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
     </tr>
     <tr>
@@ -244,7 +244,7 @@
      <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Modelled density, 2017"</span>)
 
 <span class='fu'>leaflet_sf_col</span>(<span class='no'>example_sf_polygon</span>, <span class='no'>density</span>,
-     <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>),  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+     <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>),  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>0</span>,
      <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Modelled density, 2017"</span>)
 
 <span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#4575B4"</span>, <span class='st'>"#D3D3D3"</span>, <span class='st'>"#D73027"</span>)

@@ -115,7 +115,7 @@ theme_line <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param size_line Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
@@ -351,7 +351,7 @@ ggplot_line <- function(data,
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -377,7 +377,7 @@ ggplot_line <- function(data,
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -429,7 +429,7 @@ ggplot_line_col <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_labels = NULL,
-           col_ncol = 3,
+           col_labels_ncol = 3,
            col_title = "",
            col_title_wrap = 25,
            caption = NULL,
@@ -597,7 +597,7 @@ ggplot_line_col <-
           y = stringr::str_wrap(y_title, y_title_wrap),
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
-        guides(col = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+        guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
     }
     else if (isMobile == TRUE) {
       plot <- plot +
@@ -624,7 +624,7 @@ ggplot_line_col <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
 #' @param size_line Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
@@ -843,7 +843,7 @@ ggplot_line_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot). Defaults to NULL.
+#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -869,7 +869,7 @@ ggplot_line_facet <-
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -927,7 +927,7 @@ ggplot_line_col_facet <-
            col_title = "",
            col_title_wrap = 25,
            col_labels = NULL,
-           col_ncol = 3,
+           col_labels_ncol = 3,
            caption = NULL,
            caption_wrap = 80,
            font_family = "Helvetica",
@@ -1095,7 +1095,7 @@ ggplot_line_col_facet <-
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
-      guides(col = guide_legend(ncol = col_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) 
+      guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) 
 
     return(plot)
   }

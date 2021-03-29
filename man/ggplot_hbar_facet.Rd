@@ -12,8 +12,8 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
   x_zero_line = NULL, y_rev = FALSE, y_labels = waiver(),
   y_expand = NULL, y_title = "[Y title]", y_title_wrap = 50,
-  facet_scales = "fixed", facet_nrow = NULL, caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
+  facet_scales = "fixed", facet_ncol = NULL, facet_nrow = NULL,
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, caption_wrap = 80)
 }
 \arguments{
@@ -73,7 +73,9 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
-\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
+\item{facet_ncol}{The number of columns of facetted plots.}
+
+\item{facet_nrow}{The number of rows of facetted plots.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 

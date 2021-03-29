@@ -12,8 +12,8 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
   x_zero_line = NULL, y_expand = NULL, y_labels = waiver(),
   y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
   y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
-  facet_nrow = NULL, facet_scales = "fixed", caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
+  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
@@ -71,7 +71,9 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
-\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
+\item{facet_ncol}{The number of columns of facetted plots.}
+
+\item{facet_nrow}{The number of rows of facetted plots.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

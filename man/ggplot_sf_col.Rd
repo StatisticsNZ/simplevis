@@ -9,9 +9,9 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
   boundary_pal = "#7f7f7f", boundary_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
-  col_method = NULL, col_na = TRUE, col_labels_ncol = 3,
-  col_title = "", col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
+  col_method = NULL, col_na = TRUE, col_labels_ncol = NULL,
+  col_labels_nrow = NULL, col_title = "", col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
@@ -53,7 +53,9 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
 
 \item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
 
-\item{col_labels_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
+
+\item{col_labels_nrow}{The number of rows in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

@@ -101,7 +101,6 @@ theme_point <-
           size = font_size_body,
           margin = margin(r = 20)
         ),
-        legend.position = "bottom",
         legend.margin = margin(t = 20, b = 20),
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
@@ -370,7 +369,8 @@ ggplot_point <- function(data,
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -419,7 +419,8 @@ ggplot_point_col <-
            col_title = "",
            caption = NULL,
            col_labels = NULL,
-           col_labels_ncol = 3,
+           col_labels_ncol = NULL,
+           col_labels_nrow = NULL,
            col_labels_dp = 1,
            font_family = "Helvetica",
            font_size_title = NULL,
@@ -624,12 +625,13 @@ ggplot_point_col <-
           y = stringr::str_wrap(y_title, y_title_wrap),
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
-        guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+        guides(col = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
     }
     else if (isMobile == TRUE) {
       plot <- plot +
         theme(plot.title.position = "plot") +
         theme(plot.caption.position = "plot") +
+        theme(legend.position = "bottom") +
         theme(legend.justification = "left") +
         labs(
           title = stringr::str_wrap(title, 40),
@@ -673,7 +675,8 @@ ggplot_point_col <-
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_ncol The number of columns of facetted plots. 
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -717,6 +720,7 @@ ggplot_point_facet <-
            y_trans = "identity",
            y_zero = TRUE,
            y_zero_line = NULL,
+           facet_ncol = NULL,
            facet_nrow = NULL,
            facet_scales = "fixed",
            caption = NULL,
@@ -855,9 +859,6 @@ ggplot_point_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -866,7 +867,7 @@ ggplot_point_facet <-
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+      facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
 
     return(plot)
   }
@@ -904,14 +905,16 @@ ggplot_point_facet <-
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_ncol The number of columns of facetted plots. 
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -962,12 +965,14 @@ ggplot_point_col_facet <-
            col_cuts = NULL,
            col_labels_dp = 1,
            col_labels = NULL,
+           col_labels_ncol = NULL,
+           col_labels_nrow = NULL,
            col_method = NULL,
            col_na = TRUE,
            col_quantile_by_facet = TRUE,
-           col_labels_ncol = 3,
            col_title = "",
            col_title_wrap = 25,
+           facet_ncol = NULL,
            facet_nrow = NULL,
            facet_scales = "fixed",
            caption = NULL,
@@ -1178,9 +1183,6 @@ ggplot_point_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -1189,8 +1191,8 @@ ggplot_point_col_facet <-
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+      guides(col = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+      facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
 
     
     return(plot)

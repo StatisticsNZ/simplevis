@@ -82,7 +82,6 @@ theme_sf <-
           size = font_size_body,
           margin = margin(r = 20)
         ),
-        legend.position = "bottom",
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm")
@@ -243,7 +242,8 @@ ggplot_sf <- function(data,
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -287,7 +287,8 @@ ggplot_sf_col <- function(data,
                           col_labels = NULL,
                           col_method = NULL,
                           col_na = TRUE,
-                          col_labels_ncol = 3,
+                          col_labels_ncol = NULL,
+                          col_labels_nrow = NULL,
                           col_title = "",
                           col_title_wrap = 25,
                           caption = NULL,
@@ -452,13 +453,14 @@ ggplot_sf_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
-      guides(fill = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+      guides(col = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+      guides(fill = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
   }
   else if (isMobile == TRUE) {
     plot <- plot +
       theme(plot.title.position = "plot") +
       theme(plot.caption.position = "plot") +
+      theme(legend.position = "bottom") +
       theme(legend.justification = "left") +
       labs(
         title = stringr::str_wrap(title, 40),
@@ -466,7 +468,7 @@ ggplot_sf_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       )  +
       guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
-      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15)))
+      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15)))  
   }
   
   return(plot)
@@ -479,6 +481,7 @@ ggplot_sf_col <- function(data,
 #' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
@@ -504,6 +507,7 @@ ggplot_sf_facet <- function(data,
                             size = 0.5,
                             alpha = 0.1,
                             pal = NULL,
+                            facet_ncol = NULL,
                             facet_nrow = NULL,
                             boundary = NULL,
                             boundary_behind = TRUE,
@@ -590,16 +594,13 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, 50)
     ) +
-    facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
+    facet_wrap(vars(!!facet_var), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
   
   return(plot)
 }
@@ -609,7 +610,6 @@ ggplot_sf_facet <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
@@ -627,11 +627,13 @@ ggplot_sf_facet <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_ncol The number of columns of facetted plots. 
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -665,10 +667,12 @@ ggplot_sf_col_facet <- function(data,
                                 col_labels = NULL,
                                 col_method = NULL,
                                 col_na = TRUE,
-                                col_labels_ncol = 3,
+                                col_labels_ncol = NULL,
+                                col_labels_nrow = NULL,
                                 col_quantile_by_facet = TRUE,
                                 col_title = "",
                                 col_title_wrap = 25,
+                                facet_ncol = NULL,
                                 facet_nrow = NULL,
                                 caption = NULL,
                                 caption_wrap = 80,
@@ -827,18 +831,15 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-  if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(col = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
-    guides(fill = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
-    facet_wrap(vars(!!facet_var), scales = "fixed", nrow = facet_nrow)
+    guides(col = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+    guides(fill = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+    facet_wrap(vars(!!facet_var), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow) 
 
   return(plot)
 }

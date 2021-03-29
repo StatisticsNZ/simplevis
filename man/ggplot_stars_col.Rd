@@ -7,9 +7,9 @@
 ggplot_stars_col(data, pal = NULL, pal_rev = FALSE,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, col_cuts = NULL, col_labels_dp = 1,
-  col_labels = NULL, col_method = "quantile", col_labels_ncol = 3,
-  col_title = "", col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
+  col_labels = NULL, col_method = "quantile", col_labels_ncol = NULL,
+  col_labels_nrow = NULL, col_title = "", col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
@@ -35,7 +35,9 @@ ggplot_stars_col(data, pal = NULL, pal_rev = FALSE,
 
 \item{col_method}{The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".}
 
-\item{col_labels_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
+
+\item{col_labels_nrow}{The number of rows in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

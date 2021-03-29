@@ -4,16 +4,18 @@
 \alias{ggplot_stars_facet}
 \title{Map of an array in ggplot that is facetted.}
 \usage{
-ggplot_stars_facet(data, pal = NULL, facet_nrow = NULL,
-  title = "[Title]", title_wrap = 70, subtitle = NULL,
-  subtitle_wrap = 80, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL)
+ggplot_stars_facet(data, pal = NULL, facet_ncol = NULL,
+  facet_nrow = NULL, title = "[Title]", title_wrap = 70,
+  subtitle = NULL, subtitle_wrap = 80, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A stars object with 2 dimensions, x and y, and multiple named attribute layers with usual convention of lower case and underscores. These attribute layers will be facetted. Required input.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+
+\item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 

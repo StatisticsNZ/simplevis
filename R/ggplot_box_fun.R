@@ -102,7 +102,6 @@ theme_box <-
           size = font_size_body,
           margin = margin(r = 20)
         ),
-        legend.position = "bottom",
         legend.margin = margin(t = 20, b = 20),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm")
@@ -336,7 +335,7 @@ ggplot_box <- function(data,
       y_var_vctr <- abs(y_var_vctr)
       y_var_vctr <- c(-y_var_vctr, y_var_vctr)
     }
-    if (y_zero == TRUE) {
+    if (y_zero == TRUE) { 
       if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
       if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
       
@@ -431,7 +430,8 @@ ggplot_box <- function(data,
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_ncol The number of columns of facetted plots. 
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -476,8 +476,9 @@ ggplot_box_facet <-
            y_trans = "identity",
            y_zero = TRUE,
            y_zero_line = NULL,
-           facet_scales = "fixed",
+           facet_ncol = NULL,
            facet_nrow = NULL,
+           facet_scales = "fixed",
            caption = NULL,
            caption_wrap = 80,
            font_family = "Helvetica",
@@ -647,9 +648,6 @@ ggplot_box_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -658,7 +656,7 @@ ggplot_box_facet <-
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow, ncol = facet_ncol)
 
     return(plot)
   }

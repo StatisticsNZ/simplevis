@@ -82,7 +82,6 @@ theme_stars <-
           size = font_size_body,
           margin = margin(r = 20)
         ),
-        legend.position = "bottom",
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm")
@@ -190,7 +189,8 @@ ggplot_stars <- function(data,
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring grid, either "bin", "quantile" or "category." Defaults to "quantile".
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -216,7 +216,8 @@ ggplot_stars_col <- function(data,
                              col_labels_dp = 1,
                              col_labels = NULL,
                              col_method = "quantile",
-                             col_labels_ncol = 3,
+                             col_labels_ncol = NULL,
+                             col_labels_nrow = NULL,
                              col_title = "",
                              col_title_wrap = 25,
                              caption = NULL,
@@ -341,12 +342,13 @@ ggplot_stars_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(fill = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+      guides(fill = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
   }
   else if (isMobile == TRUE) {
     plot <- plot +
       theme(plot.title.position = "plot") +
       theme(plot.caption.position = "plot") +
+      theme(legend.position = "bottom") +
       theme(legend.justification = "left") +
       labs(
         title = stringr::str_wrap(title, 40),
@@ -354,6 +356,7 @@ ggplot_stars_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       )  +
       guides(fill = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15)))
+      
   }
   
   return(plot)
@@ -367,7 +370,8 @@ ggplot_stars_col <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_ncol The number of columns of facetted plots. 
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -387,6 +391,7 @@ ggplot_stars_col <- function(data,
 #' ggplot_stars_facet(data = map_data)
 ggplot_stars_facet <- function(data,
                                pal = NULL,
+                               facet_ncol = NULL,
                                facet_nrow = NULL,
                                title = "[Title]",
                                title_wrap = 70,
@@ -427,9 +432,6 @@ ggplot_stars_facet <- function(data,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   
-  if (is.null(facet_nrow) & length(unique(data$facet_var)) <= 3) facet_nrow <- 1
-  if (is.null(facet_nrow) & length(unique(data$facet_var)) > 3) facet_nrow <- 2
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -439,7 +441,8 @@ ggplot_stars_facet <- function(data,
     facet_wrap(
       ~ .data$facet_var,
       scales = "fixed",
-      nrow = facet_nrow,
+      ncol = facet_ncol,
+      nrow = facet_nrow, 
       labeller = labeller(
         facet_var = function(x)
           stringr::str_to_sentence(stringr::str_replace_all(x, "\\.", " "))
@@ -462,10 +465,12 @@ ggplot_stars_facet <- function(data,
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -497,10 +502,12 @@ ggplot_stars_col_facet <- function(data,
                                    col_labels_dp = 1,
                                    col_labels = NULL,
                                    col_method = "quantile",
-                                   col_labels_ncol = 3,
+                                   col_labels_ncol = NULL,
+                                   col_labels_nrow = NULL,
                                    col_quantile_by_facet = TRUE,
                                    col_title = "",
                                    col_title_wrap = 25,
+                                   facet_ncol = NULL, 
                                    facet_nrow = NULL,
                                    caption = NULL,
                                    caption_wrap = 80,
@@ -619,20 +626,18 @@ ggplot_stars_col_facet <- function(data,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0))
   
-  if (is.null(facet_nrow) & length(unique(data$facet_var)) <= 3) facet_nrow <- 1
-  if (is.null(facet_nrow) & length(unique(data$facet_var)) > 3) facet_nrow <- 2
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(fill = guide_legend(ncol = col_labels_ncol, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
+    guides(fill = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     facet_wrap(
       ~ .data$facet_var,
       scales = "fixed",
-      nrow = facet_nrow,
+      ncol = facet_ncol,
+      nrow = facet_nrow, 
       labeller = labeller(
         facet_var = function(x)
           stringr::str_to_sentence(stringr::str_replace_all(x, "\\.", " "))

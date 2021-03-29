@@ -102,7 +102,6 @@ theme_hbar <-
           size = font_size_body,
           margin = margin(r = 20)
         ),
-        legend.position = "bottom",
         legend.margin = margin(t = 20, b = 20),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm")
@@ -399,7 +398,8 @@ ggplot_hbar <- function(data,
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
@@ -457,7 +457,8 @@ ggplot_hbar_col <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            col_labels = NULL,
-           col_labels_ncol = 3,
+           col_labels_ncol = NULL,
+           col_labels_nrow = NULL,
            col_rev = FALSE,
            col_title = "",
            col_title_wrap = 25,
@@ -705,13 +706,13 @@ ggplot_hbar_col <-
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
-          ncol = col_labels_ncol,
+          ncol = col_labels_ncol, nrow = col_labels_nrow, 
           byrow = TRUE,
           reverse = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
         ), 
         col = guide_legend(
-          ncol = col_labels_ncol,
+          ncol = col_labels_ncol, nrow = col_labels_nrow, 
           byrow = TRUE,
           reverse = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
@@ -721,6 +722,7 @@ ggplot_hbar_col <-
       plot <- plot +
         theme(plot.title.position = "plot") +
         theme(plot.caption.position = "plot") +
+        theme(legend.position = "bottom") +
         theme(legend.justification = "left") +
         labs(
           title = stringr::str_wrap(title, 40),
@@ -776,7 +778,8 @@ ggplot_hbar_col <-
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_ncol The number of columns of facetted plots. 
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -828,6 +831,7 @@ ggplot_hbar_facet <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            facet_scales = "fixed",
+           facet_ncol = NULL,
            facet_nrow = NULL,
            caption = NULL,
            font_family = "Helvetica",
@@ -968,9 +972,6 @@ ggplot_hbar_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1 
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-      
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -979,7 +980,7 @@ ggplot_hbar_facet <-
         x = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow)
+      facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
 
     return(plot)
   }
@@ -1016,11 +1017,13 @@ ggplot_hbar_facet <-
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
-#' @param col_labels_ncol The number of columns in the legend.
+#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_nrow The number of rows in the legend.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param facet_nrow The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows. 
+#' @param facet_ncol The number of columns of facetted plots.
+#' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -1055,8 +1058,6 @@ ggplot_hbar_col_facet <-
            pal_rev = FALSE,
            width = 0.75, 
            alpha = 1,
-           facet_scales = "fixed",
-           facet_nrow = NULL,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -1076,9 +1077,13 @@ ggplot_hbar_col_facet <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            col_labels = NULL,
-           col_labels_ncol = 3,
+           col_labels_ncol = NULL,
+           col_labels_nrow = NULL,
            col_rev = FALSE,
            col_title = "",
+           facet_ncol = NULL,
+           facet_nrow = NULL,
+           facet_scales = "fixed",
            caption_wrap = 80,
            col_title_wrap = 25,
            caption = NULL,
@@ -1229,9 +1234,6 @@ ggplot_hbar_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
 
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) <= 3) facet_nrow <- 1
-    if (is.null(facet_nrow) & length(unique(facet_var_vctr)) > 3) facet_nrow <- 2
-    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -1240,19 +1242,19 @@ ggplot_hbar_col_facet <-
         x = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow) +
+      facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
       guides(fill = guide_legend(
-        ncol = col_labels_ncol,
+        ncol = col_labels_ncol, nrow = col_labels_nrow, 
         byrow = TRUE,
         reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       ), 
       col = guide_legend(
-        ncol = col_labels_ncol,
+        ncol = col_labels_ncol, nrow = col_labels_nrow, 
         byrow = TRUE,
         reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
-      ))
+      )) 
 
     return(plot)
   }

@@ -5,10 +5,11 @@
 \title{Map of simple features in ggplot that is facetted.}
 \usage{
 ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
-  facet_nrow = NULL, boundary = NULL, boundary_behind = TRUE,
-  boundary_pal = "#7f7f7f", boundary_size = 0.2, title = "[Title]",
-  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+  facet_ncol = NULL, facet_nrow = NULL, boundary = NULL,
+  boundary_behind = TRUE, boundary_pal = "#7f7f7f",
+  boundary_size = 0.2, title = "[Title]", title_wrap = 70,
+  subtitle = NULL, subtitle_wrap = 80, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
@@ -21,6 +22,8 @@ ggplot_sf_facet(data, facet_var, size = 0.5, alpha = 0.1, pal = NULL,
 \item{alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+
+\item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 

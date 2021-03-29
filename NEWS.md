@@ -1,3 +1,9 @@
+# simplevis 2.5.1 
+
+* Change default of ggplots to legend on right with 1 column.
+* Add facet_ncol argument.
+* Add col_labels_ncol argument.
+
 # simplevis 2.5.0
 
 * Rename col_label_digits argument to col_labels_dp.

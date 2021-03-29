@@ -6,17 +6,18 @@
 \usage{
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
-  width = 0.75, alpha = 1, facet_scales = "fixed",
-  facet_nrow = NULL, title = "[Title]", title_wrap = 70,
+  width = 0.75, alpha = 1, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
   x_zero = TRUE, x_zero_line = NULL, y_expand = NULL,
   y_labels = waiver(), y_rev = FALSE, y_title = "[Y title]",
-  y_title_wrap = 50, col_labels = NULL, col_labels_ncol = 3,
-  col_rev = FALSE, col_title = "", caption_wrap = 80,
-  col_title_wrap = 25, caption = NULL, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  y_title_wrap = 50, col_labels = NULL, col_labels_ncol = NULL,
+  col_labels_nrow = NULL, col_rev = FALSE, col_title = "",
+  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
+  caption_wrap = 80, col_title_wrap = 25, caption = NULL,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -40,10 +41,6 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{width}{Width of bars. Defaults to 0.75.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
-
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
-
-\item{facet_nrow}{The number of rows of facetted plots. Defaults to NULL, which generally chooses 2 rows.}
 
 \item{title}{Title string. Defaults to [Title].}
 
@@ -83,11 +80,19 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{col_labels_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
+
+\item{col_labels_nrow}{The number of rows in the legend.}
 
 \item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
+
+\item{facet_ncol}{The number of columns of facetted plots.}
+
+\item{facet_nrow}{The number of rows of facetted plots.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 

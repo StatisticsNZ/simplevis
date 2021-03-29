@@ -13,9 +13,10 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
   y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
   y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
   y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
-  col_labels_ncol = 3, col_title = "", col_title_wrap = 25,
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
+  col_labels_ncol = NULL, col_labels_nrow = NULL, col_title = "",
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -78,7 +79,9 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
 
-\item{col_labels_ncol}{The number of columns in the legend.}
+\item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
+
+\item{col_labels_nrow}{The number of rows in the legend.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

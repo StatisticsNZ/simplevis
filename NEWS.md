@@ -1,3 +1,7 @@
+# simplevis 2.5.2
+
+* sRebuild ggplot_vbar function x scales, so that they are pretty where max or min equals the x limit.
+
 # simplevis 2.5.1 
 
 * Change default of ggplots to legend on right with 1 column.

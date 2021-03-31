@@ -230,43 +230,40 @@ ggplot_vbar <- function(data,
   bar_width <- bar_unit * width
 
   plot <- ggplot(data) +
-    coord_cartesian() +
     theme_vbar(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], alpha = alpha, width = bar_width)
-  
-  if(is.null(x_expand))  {
-    if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
-    else x_expand <- c(0, 0)
-  }
-  if(is.null(y_expand)) y_expand <- c(0, 0)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, width = bar_width)
   
   if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-    if(isMobile == FALSE) x_n <- x_pretty_n
-    else if(isMobile == TRUE) x_n <- 4
-    
-    x_breaks <- pretty(x_var_vctr, n = x_n)
+    x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
     x_limits <- c(min(x_breaks), max(x_breaks))
+    
+    if(is.null(x_expand))  {
+      if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) x_expand <- c(0.5 / length(x_var_vctr), 0) * width
+      else x_expand <- c(0, 0)
+    }
     
     if(isMobile == TRUE) {
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
     }
   }
+
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
+      coord_cartesian(xlim = x_limits) +
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
-        limits = x_limits,
         labels = x_labels
       )
   }
   else if (is.numeric(x_var_vctr)) {
     plot <- plot +
+      coord_cartesian() +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          limits = x_limits,
@@ -274,9 +271,14 @@ ggplot_vbar <- function(data,
                          oob = scales::rescale_none)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    
     plot <- plot +
+      coord_cartesian() +
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
+  
+  if(is.null(y_expand)) y_expand <- c(0, 0)
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -510,6 +512,11 @@ ggplot_vbar_col <-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
+    if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
+    else bar_unit <- 1
+    
+    bar_width <- bar_unit * width
+    
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
       n_col <- length(levels(col_var_vctr))
     }
@@ -520,13 +527,10 @@ ggplot_vbar_col <-
     
     if (pal_rev == TRUE) pal <- rev(pal)
     
-    if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
-    else bar_unit <- 1
-    
-    bar_width <- bar_unit * width
+    if (!is.null(col_labels)) labels <- rev(col_labels)
+    if (is.null(col_labels)) labels <- waiver()
     
     plot <- ggplot(data) +
-      coord_cartesian() +
       theme_vbar(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -535,38 +539,36 @@ ggplot_vbar_col <-
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
                alpha = alpha, width = bar_width, position = position2)
     
-    if(is.null(x_expand))  {
-      if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
-      else x_expand <- c(0, 0)
-    }
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
-    
     if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-      if(isMobile == FALSE) x_n <- x_pretty_n
-      else if(isMobile == TRUE) x_n <- 4
-      
-      x_breaks <- pretty(x_var_vctr, n = x_n)
+      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
+      if(is.null(x_expand))  {
+        if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) {
+          if(position == "stack") x_expand <- c(width * 0.5 / length(unique(x_var_vctr)), 0) 
+          if(position == "dodge") x_expand <- c(width * 0.5 / length(x_var_vctr) * n_col, 0) 
+        }
+        else x_expand <- c(0, 0)
+      }
+
       if(isMobile == TRUE) {
         x_breaks <- x_limits
         if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
     }
+
     if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
+        coord_cartesian(xlim = x_limits) +
         scale_x_date(
           expand = x_expand,
           breaks = x_breaks,
-          limits = x_limits,
           labels = x_labels
         )
     }
     else if (is.numeric(x_var_vctr)) {
       plot <- plot +
+        coord_cartesian() +
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
                            limits = x_limits,
@@ -574,7 +576,10 @@ ggplot_vbar_col <-
                            oob = scales::rescale_none)
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if(is.null(x_expand)) x_expand <- c(0, 0)
+      
       plot <- plot +
+        coord_cartesian() +
         scale_x_discrete(expand = x_expand, labels = x_labels)
     }
     
@@ -586,6 +591,8 @@ ggplot_vbar_col <-
       
       y_var_vctr <- dplyr::pull(data_sum, !!y_var)
     }
+    
+    if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
@@ -868,26 +875,27 @@ ggplot_vbar_facet <-
     bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
-      coord_cartesian() +
       theme_vbar(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], fill = pal[1], alpha = alpha, width = bar_width)
-    
-    if(is.null(x_expand))  {
-      if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
-      else x_expand <- c(0, 0)
-    }
-    if(is.null(y_expand)) y_expand <- c(0, 0)
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, width = bar_width)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
         x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        
+        if(is.null(x_expand))  {
+          if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) x_expand <- c(0.5 / length(x_var_vctr), 0) * width
+          else x_expand <- c(0, 0)
+        }
       }
+      
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = x_limits) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
@@ -896,18 +904,26 @@ ggplot_vbar_facet <-
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian() +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
+                             limits = x_limits,
                              labels = x_labels,
                              oob = scales::rescale_none)
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        if(is.null(x_expand)) x_expand <- c(0, 0)
+        
         plot <- plot +
+          coord_cartesian() +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
     
+    if(is.null(y_expand)) y_expand <- c(0, 0)
+
     if (facet_scales %in% c("fixed", "free_x")) {
+      
       if (y_balance == TRUE) {
         y_var_vctr <- abs(y_var_vctr)
         y_var_vctr <- c(-y_var_vctr, y_var_vctr)
@@ -1133,20 +1149,23 @@ ggplot_vbar_col_facet <-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
+    if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
+    else bar_unit <- 1
+    
+    bar_width <- bar_unit * width
+    
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
       n_col <- length(levels(col_var_vctr))
     }
     else n_col <- length(unique(col_var_vctr))
     
+    if (!is.null(col_labels)) labels <- rev(col_labels)
+    if (is.null(col_labels)) labels <- waiver()
+    
     if (is.null(pal)) pal <- viridis::viridis(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
-    
-    if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
-    else bar_unit <- 1
-    
-    bar_width <- bar_unit * width
     
     plot <- ggplot(data) +
       coord_cartesian() +
@@ -1157,15 +1176,6 @@ ggplot_vbar_col_facet <-
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
                alpha = alpha, width = bar_width, position = position2)
-    
-    if(is.null(x_expand))  {
-      if(is.character(x_var_vctr) | is.factor(x_var_vctr)) x_expand <- waiver()
-      else x_expand <- c(0, 0)
-    }
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -1179,6 +1189,15 @@ ggplot_vbar_col_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
         x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+
+        if(is.null(x_expand))  {
+          if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) {
+            if(position == "stack") x_expand <- c(width * 0.5 / length(unique(x_var_vctr)), 0) 
+            if(position == "dodge") x_expand <- c(width * 0.5 / length(x_var_vctr) * n_col, 0) 
+          }
+          else x_expand <- c(0, 0)
+        }
       }
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
@@ -1196,10 +1215,14 @@ ggplot_vbar_col_facet <-
                              oob = scales::rescale_none)
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        if(is.null(x_expand)) x_expand <- c(0, 0)
+          
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
+    
+    if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (y_balance == TRUE) {

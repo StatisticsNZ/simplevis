@@ -108,7 +108,6 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price = round(average_price / 1000, 1))
 
 ggplot_hbar_col(plot_data, average_price, cut, clarity, 
-                col_labels_ncol = 4,
                 title = "Average diamond price by cut and clarity", 
                 x_title = "Average price ($US thousands)", 
                 y_title = "Cut")
@@ -139,7 +138,6 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price = round(average_price / 1000, 1))
 
 ggplot_hbar_col_facet(plot_data, average_price, color, clarity, cut,
-                      col_labels_ncol = 4, 
                       title = "Average diamond price by colour, clarity and cut", 
                       x_title = "Average price ($US thousands)", 
                       y_title = "Colour")

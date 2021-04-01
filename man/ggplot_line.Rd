@@ -5,7 +5,7 @@
 \title{Line ggplot.}
 \usage{
 ggplot_line(data, x_var, y_var, tip_var = NULL, pal = NULL,
-  points = TRUE, point_size = 1, lines = TRUE, line_size = 0.5,
+  points = TRUE, point_size = 1.5, lines = TRUE, line_size = 0.5,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_labels = waiver(), x_pretty_n = 6,
   x_expand = NULL, x_title = "[X title]", x_title_wrap = 50,

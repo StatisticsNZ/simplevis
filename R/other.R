@@ -39,8 +39,8 @@ add_tip <- function(data, vars_vctr = NULL, comma = FALSE) {
   class <- class(data)[1]
   
   if(is.null(vars_vctr)) {
-    if(class == "sf") vars_vctr <- names(data)[names(data) != "geometry"]
-    else if(class != "sf") vars_vctr <- names(data)
+    if(class == "sf") vars_vctr <- colnames(data)[colnames(data) != "geometry"]
+    else if(class != "sf") vars_vctr <- colnames(data)
   }
   
   tip_text <- vector("character", 0)

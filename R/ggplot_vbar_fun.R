@@ -118,6 +118,7 @@ theme_vbar <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -164,6 +165,7 @@ ggplot_vbar <- function(data,
                         pal = NULL,
                         width = 0.75, 
                         alpha = 1,
+                        line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
                         subtitle = NULL,
@@ -235,17 +237,14 @@ ggplot_vbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, width = bar_width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, size = line_size, width = bar_width)
   
   if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+    
     x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-    x_limits <- c(min(x_breaks), max(x_breaks))
-    
-    if(is.null(x_expand))  {
-      if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) x_expand <- c(0.5 / length(x_var_vctr), 0) * width
-      else x_expand <- c(0, 0)
-    }
-    
+    x_limits <- c(min(x_var_vctr), max(x_var_vctr))
+    if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
+
     if(isMobile == TRUE) {
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
@@ -254,27 +253,26 @@ ggplot_vbar <- function(data,
 
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = x_limits) +
+      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
-        labels = x_labels
+        labels = x_labels,
+        oob = scales::squish
       )
   }
   else if (is.numeric(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian() +
+      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
-                         limits = x_limits,
                          labels = x_labels,
-                         oob = scales::rescale_none)
+                         oob = scales::squish)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
     plot <- plot +
-      coord_cartesian() +
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
   
@@ -310,7 +308,7 @@ ggplot_vbar <- function(data,
         limits = y_limits,
         trans = y_trans,
         labels = y_labels,
-        oob = scales::rescale_none
+        oob = scales::squish
       )
   })
   
@@ -321,13 +319,13 @@ ggplot_vbar <- function(data,
       if(y_limits[1] >= 0 & y_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                    data = na_data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                    data = na_data)        
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -335,10 +333,10 @@ ggplot_vbar <- function(data,
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                    data = na_data) +
           geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                    data = na_data)
       }
     }
@@ -388,6 +386,7 @@ ggplot_vbar <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -441,6 +440,7 @@ ggplot_vbar_col <-
            pal_rev = FALSE,
            width = 0.75, 
            alpha = 1,
+           line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -537,29 +537,22 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
-               alpha = alpha, width = bar_width, position = position2)
+               alpha = alpha, size = line_size, width = bar_width, position = position2)
     
     if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-      x_limits <- c(min(x_breaks), max(x_breaks))
       
-      if(is.null(x_expand))  {
-        if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) {
-          if(position == "stack") x_expand <- c(width * 0.5 / length(unique(x_var_vctr)), 0) 
-          if(position == "dodge") x_expand <- c(width * 0.5 / length(x_var_vctr) * n_col, 0) 
-        }
-        else x_expand <- c(0, 0)
-      }
+      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+      if(is.null(x_expand)) x_expand <- waiver()
 
       if(isMobile == TRUE) {
+        x_limits <- c(min(x_var_vctr), max(x_var_vctr))
         x_breaks <- x_limits
         if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
     }
-
+    
     if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        coord_cartesian(xlim = x_limits) +
         scale_x_date(
           expand = x_expand,
           breaks = x_breaks,
@@ -568,12 +561,10 @@ ggplot_vbar_col <-
     }
     else if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        coord_cartesian() +
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
-                           limits = x_limits,
                            labels = x_labels,
-                           oob = scales::rescale_none)
+                           oob = scales::squish)
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -624,7 +615,7 @@ ggplot_vbar_col <-
           limits = y_limits,
           trans = y_trans,
           labels = y_labels,
-          oob = scales::rescale_none
+          oob = scales::squish
         )
     })
     
@@ -632,7 +623,7 @@ ggplot_vbar_col <-
       plot <- plot +
         geom_col(aes(
           x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
-          alpha = alpha, width = width, 
+          alpha = alpha, size = line_size, width = width, 
           position = position2)
     }
     else if(y_na_bar == TRUE) {
@@ -659,7 +650,7 @@ ggplot_vbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   alpha = alpha, width = width, position = position2, data = data)
+                   alpha = alpha, size = line_size, width = width, position = position2, data = data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         data <- data %>%
@@ -667,7 +658,7 @@ ggplot_vbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   alpha = alpha, width = width, position = position2, data = data)
+                   alpha = alpha, size = line_size, width = width, position = position2, data = data)
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
         data <- data %>%
@@ -677,9 +668,9 @@ ggplot_vbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   alpha = alpha, width = width, position = position2, data = data) +
+                   alpha = alpha, size = line_size, width = width, position = position2, data = data) +
           geom_col(aes(x = !!x_var, y = .data$y_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
-                   alpha = alpha, width = width, position = position2, data = data)
+                   alpha = alpha, size = line_size, width = width, position = position2, data = data)
       }
     }
     
@@ -701,8 +692,7 @@ ggplot_vbar_col <-
         labels = labels,
         na.value = "#A8A8A8"
       ) 
-    
-    
+
     if (isMobile == FALSE) {
       plot <- plot +
         labs(
@@ -761,7 +751,8 @@ ggplot_vbar_col <-
 #' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 1.
+#' @param line_size The size of the outlines of bars. 
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -810,6 +801,7 @@ ggplot_vbar_facet <-
            pal = NULL,
            width = 0.75, 
            alpha = 1,
+           line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -880,42 +872,38 @@ ggplot_vbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, width = bar_width)
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, size = line_size, width = bar_width)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-        x_limits <- c(min(x_breaks), max(x_breaks))
         
-        if(is.null(x_expand))  {
-          if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) x_expand <- c(0.5 / length(x_var_vctr), 0) * width
-          else x_expand <- c(0, 0)
-        }
+        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+        x_limits <- c(min(x_var_vctr), max(x_var_vctr))
+        if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = x_limits) +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            labels = x_labels
+            labels = x_labels,
+            oob = scales::squish
           )
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian() +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             limits = x_limits,
                              labels = x_labels,
-                             oob = scales::rescale_none)
+                             oob = scales::squish)
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- c(0, 0)
         
         plot <- plot +
-          coord_cartesian() +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
@@ -949,7 +937,7 @@ ggplot_vbar_facet <-
           limits = y_limits,
           trans = y_trans,
           labels = y_labels,
-          oob = scales::rescale_none
+          oob = scales::squish
         )
       
       if(y_na_bar == TRUE) {
@@ -959,13 +947,13 @@ ggplot_vbar_facet <-
           if(y_limits[1] >= 0 & y_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                        data = na_data)
           }
           else if(y_limits[1] < 0 & y_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[1], text = !!tip_var),
-                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                        data = na_data)        
           }
           else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -973,10 +961,10 @@ ggplot_vbar_facet <-
             
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!tip_var),
-                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                        data = na_data) +
               geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!tip_var),
-                       fill = "#F5F5F5", alpha = alpha, width = width, 
+                       fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
                        data = na_data)
           }
         }
@@ -987,7 +975,7 @@ ggplot_vbar_facet <-
         scale_y_continuous(expand = y_expand,
                            trans = y_trans,
                            labels = y_labels,
-                           oob = scales::rescale_none)
+                           oob = scales::squish)
     }
     
     if(y_zero_line == TRUE) {
@@ -1022,6 +1010,7 @@ ggplot_vbar_facet <-
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
@@ -1081,6 +1070,7 @@ ggplot_vbar_col_facet <-
            pal_rev = FALSE,
            width = 0.75, 
            alpha = 1,
+           line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -1175,7 +1165,7 @@ ggplot_vbar_col_facet <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
-               alpha = alpha, width = bar_width, position = position2)
+               alpha = alpha, size = line_size, width = bar_width, position = position2)
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -1189,15 +1179,8 @@ ggplot_vbar_col_facet <-
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
         x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-        x_limits <- c(min(x_breaks), max(x_breaks))
 
-        if(is.null(x_expand))  {
-          if(x_limits[1] == min(x_var_vctr) | x_limits[2] == max(x_var_vctr)) {
-            if(position == "stack") x_expand <- c(width * 0.5 / length(unique(x_var_vctr)), 0) 
-            if(position == "dodge") x_expand <- c(width * 0.5 / length(x_var_vctr) * n_col, 0) 
-          }
-          else x_expand <- c(0, 0)
-        }
+        if(is.null(x_expand)) x_expand <- waiver()
       }
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
@@ -1212,7 +1195,7 @@ ggplot_vbar_col_facet <-
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
                              labels = x_labels,
-                             oob = scales::rescale_none)
+                             oob = scales::squish)
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -1250,7 +1233,7 @@ ggplot_vbar_col_facet <-
           limits = y_limits,
           trans = y_trans,
           labels = y_labels,
-          oob = scales::rescale_none
+          oob = scales::squish
         )
     }
     else if (facet_scales %in% c("free", "free_y")) {
@@ -1258,7 +1241,7 @@ ggplot_vbar_col_facet <-
         scale_y_continuous(expand = y_expand,
                            trans = y_trans,
                            labels = y_labels,
-                           oob = scales::rescale_none)
+                           oob = scales::squish)
     }
     
     plot <- plot +
@@ -1293,7 +1276,12 @@ ggplot_vbar_col_facet <-
         ncol = col_labels_ncol, nrow = col_labels_nrow, 
         byrow = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
-      )) 
+      ), 
+      col = guide_legend(
+        ncol = 1,
+        byrow = TRUE,
+        title = stringr::str_wrap(col_title, 15)
+      ))  
 
     return(plot)
   }

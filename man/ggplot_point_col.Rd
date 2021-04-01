@@ -5,7 +5,7 @@
 \title{Point ggplot that is coloured.}
 \usage{
 ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL,
-  point_size = 1, pal = NULL, pal_rev = FALSE, col_method = NULL,
+  point_size = 1.5, pal = NULL, pal_rev = FALSE, col_method = NULL,
   col_cuts = NULL, col_na = TRUE, x_zero = TRUE,
   x_zero_line = NULL, x_trans = "identity", x_labels = waiver(),
   x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,

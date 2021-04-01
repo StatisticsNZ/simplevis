@@ -5,16 +5,17 @@
 \title{Vertical bar ggplot that is facetted.}
 \usage{
 ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
-  pal = NULL, width = 0.75, alpha = 1, title = "[Title]",
-  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
-  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
-  y_expand = NULL, y_labels = waiver(), y_na_bar = FALSE,
-  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
-  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  pal = NULL, width = 0.75, alpha = 1, line_size = 0.5,
+  title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
+  x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
+  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
+  y_na_bar = FALSE, y_pretty_n = 5, y_title = "[Y title]",
+  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
+  y_zero_line = NULL, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -32,6 +33,8 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 \item{width}{Width of bars. Defaults to 0.75.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
+
+\item{line_size}{The size of the outlines of bars.}
 
 \item{title}{Title string. Defaults to [Title].}
 

@@ -5,7 +5,7 @@
 \title{Point ggplot that is coloured and facetted.}
 \usage{
 ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
-  tip_var = NULL, point_size = 1, pal = NULL, pal_rev = FALSE,
+  tip_var = NULL, point_size = 1.5, pal = NULL, pal_rev = FALSE,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,

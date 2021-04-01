@@ -6,17 +6,17 @@
 \usage{
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
-  width = 0.75, alpha = 1, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
-  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
-  x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
-  x_zero = TRUE, x_zero_line = NULL, y_expand = NULL,
-  y_labels = waiver(), y_rev = FALSE, y_title = "[Y title]",
-  y_title_wrap = 50, col_labels = NULL, col_labels_ncol = NULL,
-  col_labels_nrow = NULL, col_rev = FALSE, col_title = "",
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption_wrap = 80, col_title_wrap = 25, caption = NULL,
-  font_family = "Helvetica", font_size_title = NULL,
+  width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
+  x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
+  x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
+  y_expand = NULL, y_labels = waiver(), y_rev = FALSE,
+  y_title = "[Y title]", y_title_wrap = 50, col_labels = NULL,
+  col_labels_ncol = NULL, col_labels_nrow = NULL, col_rev = FALSE,
+  col_title = "", facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption_wrap = 80, col_title_wrap = 25,
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL)
 }
 \arguments{
@@ -41,6 +41,8 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{width}{Width of bars. Defaults to 0.75.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
+
+\item{line_size}{The size of the outlines of bars.}
 
 \item{title}{Title string. Defaults to [Title].}
 

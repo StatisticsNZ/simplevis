@@ -6,17 +6,18 @@
 \usage{
 ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   tip_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
-  width = 0.75, alpha = 1, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, x_labels = waiver(),
-  x_pretty_n = 5, x_expand = NULL, x_title = "[X title]",
-  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
-  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, col_labels = NULL, col_labels_ncol = NULL,
-  col_labels_nrow = NULL, col_title = "", col_title_wrap = 25,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
+  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
+  y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
+  col_labels_ncol = NULL, col_labels_nrow = NULL, col_title = "",
+  col_title_wrap = 25, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -40,6 +41,8 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{width}{Width of bars. Defaults to 0.75.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
+
+\item{line_size}{The size of the outlines of bars.}
 
 \item{title}{Title string. Defaults to [Title].}
 

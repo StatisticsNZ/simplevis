@@ -1,6 +1,15 @@
+# simplevis 2.5.4
+
+* make ggplot_vbar and vbar_facet scales pretty.
+* Change default point_size to 1.5.
+
+# simplevis 2.5.3
+
+* Add line_size argument to hbar and vbar functions.
+
 # simplevis 2.5.2
 
-* sRebuild ggplot_vbar function x scales, so that they are pretty where max or min equals the x limit.
+* Make ggplot_vbar function x scales pretty, where max or min equals the x limit.
 
 # simplevis 2.5.1 
 

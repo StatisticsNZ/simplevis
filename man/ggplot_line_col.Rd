@@ -5,7 +5,7 @@
 \title{Line ggplot that is coloured.}
 \usage{
 ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
-  pal = NULL, pal_rev = FALSE, points = TRUE, point_size = 1,
+  pal = NULL, pal_rev = FALSE, points = TRUE, point_size = 1.5,
   lines = TRUE, line_size = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,

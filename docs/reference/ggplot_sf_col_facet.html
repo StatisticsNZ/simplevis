@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.5</span>
       </span>
     </div>
 
@@ -147,12 +147,12 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_sf_col_facet</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>boundary_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>boundary_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
-  <span class='kw'>boundary_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_labels_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_labels_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_quantile_by_facet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
@@ -183,27 +183,27 @@
     </tr>
     <tr>
       <th>size</th>
-      <td><p>Size of points or line features (or non-boundary polygon features). Defaults to 0.5.</p></td>
+      <td><p>Size of points or line features (or non-borders polygon features). Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
       <td><p>The opacity of polygons. Defaults to 0.9.</p></td>
     </tr>
     <tr>
-      <th>boundary</th>
+      <th>borders</th>
       <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
     </tr>
     <tr>
-      <th>boundary_behind</th>
-      <td><p>TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.</p></td>
+      <th>borders_behind</th>
+      <td><p>TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.</p></td>
     </tr>
     <tr>
-      <th>boundary_pal</th>
-      <td><p>Colour of the boundary. Defaults to "#7F7F7F".</p></td>
+      <th>borders_pal</th>
+      <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
     </tr>
     <tr>
-      <th>boundary_size</th>
-      <td><p>Size of the boundary. Defaults to 0.2.</p></td>
+      <th>borders_size</th>
+      <td><p>Size of the borders. Defaults to 0.2.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -299,7 +299,7 @@
     <pre class="examples"><div class='input'> <span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#4575B4"</span>, <span class='st'>"#D3D3D3"</span>, <span class='st'>"#D73027"</span>)
 
 <span class='fu'>ggplot_sf_col_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
- <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='no'>nz</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal</span>,
+ <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal</span>,
  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Trends, 1990-2017"</span>)</div><div class='img'><img src='ggplot_sf_col_facet-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

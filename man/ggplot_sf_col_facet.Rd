@@ -5,12 +5,12 @@
 \title{Map of simple features in ggplot that is coloured and facetted.}
 \usage{
 ggplot_sf_col_facet(data, col_var, facet_var, pal = NULL,
-  pal_rev = FALSE, size = 0.5, alpha = 0.9, boundary = NULL,
-  boundary_behind = TRUE, boundary_pal = "#7f7f7f",
-  boundary_size = 0.2, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, col_cuts = NULL,
-  col_labels_dp = 1, col_labels = NULL, col_method = NULL,
-  col_na = TRUE, col_labels_ncol = NULL, col_labels_nrow = NULL,
+  pal_rev = FALSE, size = 0.5, alpha = 0.9, borders = NULL,
+  borders_behind = TRUE, borders_pal = "#7f7f7f", borders_size = 0.2,
+  title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, col_cuts = NULL, col_labels_dp = 1,
+  col_labels = NULL, col_method = NULL, col_na = TRUE,
+  col_labels_ncol = NULL, col_labels_nrow = NULL,
   col_quantile_by_facet = TRUE, col_title = "", col_title_wrap = 25,
   facet_ncol = NULL, facet_nrow = NULL, caption = NULL,
   caption_wrap = 80, font_family = "Helvetica",
@@ -27,17 +27,17 @@ ggplot_sf_col_facet(data, col_var, facet_var, pal = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{size}{Size of points or line features (or non-boundary polygon features). Defaults to 0.5.}
+\item{size}{Size of points or line features (or non-borders polygon features). Defaults to 0.5.}
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 
-\item{boundary}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
+\item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
-\item{boundary_behind}{TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.}
+\item{borders_behind}{TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.}
 
-\item{boundary_pal}{Colour of the boundary. Defaults to "#7F7F7F".}
+\item{borders_pal}{Colour of the borders. Defaults to "#7F7F7F".}
 
-\item{boundary_size}{Size of the boundary. Defaults to 0.2.}
+\item{borders_size}{Size of the borders. Defaults to 0.2.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -91,6 +91,6 @@ Map of simple features in ggplot that is coloured and facetted.
  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col_facet(data = example_sf_point, col_var = trend_category, facet_var = trend_category,
- boundary = nz, pal = pal,
+ borders = nz, pal = pal,
  title = "Trends, 1990-2017")
 }

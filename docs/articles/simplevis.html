@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.5</span>
       </span>
     </div>
 
@@ -102,7 +102,7 @@
       <h1 data-toc-skip>simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-04-01</h4>
+            <h4 class="date">2021-04-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -114,7 +114,7 @@
 <div id="purpose" class="section level3">
 <h3 class="hasAnchor">
 <a href="#purpose" class="anchor"></a>Purpose</h3>
-<p><code>simplevis</code> is a package of <code>ggplot2</code> and <code>leaflet</code> wrapper functions designed to support effortless high quality <code>ggplot2</code> and <code>leaflet</code> visualisations for reports or interactive <code>shiny</code> apps. The intent is that these can be made more consistently with less effort, code and expertise than would otherwise be required.</p>
+<p><code>simplevis</code> is a package of wrapper functions to make ‘ggplot2’ and ‘leaflet’ visualisation easier and prettier.</p>
 </div>
 <div id="example" class="section level3">
 <h3 class="hasAnchor">
@@ -174,7 +174,7 @@
 <li>vertical bar (e.g. <code>ggplot_vbar</code>)</li>
 <li>line plot (e.g. <code>ggplot_line</code>)</li>
 <li>point plot (e.g. <code>ggplot_point</code>)</li>
-<li>boxplot (e.g. <code>ggplot_box</code>)</li>
+<li>boxplot (e.g. <code>ggplot_boxplot</code>)</li>
 </ul>
 <p>For each graph type 4 functions are available.</p>
 <ol style="list-style-type: decimal">
@@ -234,7 +234,7 @@
                       <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
                       <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Colour"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
-<p>These <code>ggplot</code> graphs have been designed that users can convert them easily to html interactive objects by wrapping them in <code><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">plotly::ggplotly(plot)</a></code>. A customised tooltip can be provided using the <code>tip_var</code> argument in <code>simplevis</code> functions with <code>plotly::ggplotly(plot, tooltip = "text)</code>. Automated tip_text columns can be created using the <code>add_tip</code> function.</p>
+<p>These <code>ggplot</code> graphs have been designed that users can convert them easily to html interactive objects by wrapping them in <code><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">plotly::ggplotly(plot)</a></code>. A customised tooltip can be provided using the <code>text_var</code> argument in <code>simplevis</code> functions with <code>plotly::ggplotly(plot, tooltip = "text)</code>. Automated tip_text columns can be created using the <code>mutate_text</code> function.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>), <span class="fl">2</span>))
@@ -249,8 +249,8 @@
 <span class="kw pkg">plotly</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">ggplotly</a></span>(<span class="no">plot</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plotly_camera.html">plotly_camera</a></span>()</pre></body></html></div>
 <p>The variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-cb65eacfa1f4293c1155" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cb65eacfa1f4293c1155">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f3996eb39225a4b16b4f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f3996eb39225a4b16b4f">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","box"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric"],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="simplevis-ggplot-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -274,11 +274,11 @@
 <li>Data must be of <code>POINT</code>/<code>MULTIPOINT</code>, <code>LINESTRING</code>/<code>MULTILINESTRING</code>, or <code>POLYGON</code>/<code>MULTIPOLYGON</code> geometry types</li>
 <li>Data can have any coordinate reference system (CRS), but it must be defined</li>
 <li>No <code>x_var</code> and <code>y_var</code> variables are required</li>
-<li>There is a boundary specification, which allows for a further <code>sf</code> object as a boundary or administrative boundaries to be added to the map. An example New Zealand boundary (<code>nz</code>) has been provided with the package.</li>
+<li>There is a borders specification, which allows for a further <code>sf</code> object as a borders or administrative boundaries to be added to the map. An example New Zealand borders (<code>nz</code>) has been provided with the package.</li>
 <li>They do <em>not</em> support conversion to interactive objects through <code><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">plotly::ggplotly</a></code>.</li>
 </ul>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="no">example_sf_point</span>,
-          <span class="kw">boundary</span> <span class="kw">=</span> <span class="no">nz</span>,
+          <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
           <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
           <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 2008\u201317"</span>,
           <span class="kw">title_wrap</span> <span class="kw">=</span> <span class="fl">40</span>)</pre></body></html></div>
@@ -286,21 +286,21 @@
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">pal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>)
 
 <span class="fu"><a href="../reference/ggplot_sf_col.html">ggplot_sf_col</a></span>(<span class="no">example_sf_point</span>, <span class="no">trend_category</span>,
-              <span class="kw">boundary</span> <span class="kw">=</span> <span class="no">nz</span>,
+              <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
               <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
               <span class="kw">pal</span> <span class="kw">=</span> <span class="no">pal</span>,
               <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 2008\u201317"</span>,
               <span class="kw">title_wrap</span> <span class="kw">=</span> <span class="fl">40</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_sf_facet.html">ggplot_sf_facet</a></span>(<span class="no">example_sf_point</span>, <span class="no">trend_category</span>,
-                <span class="kw">boundary</span> <span class="kw">=</span> <span class="no">nz</span>,
+                <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
                 <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
                 <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 2008\u201317"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">pal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>)
 
 <span class="fu"><a href="../reference/ggplot_sf_col_facet.html">ggplot_sf_col_facet</a></span>(<span class="no">example_sf_point</span>, <span class="no">trend_category</span>, <span class="no">trend_category</span>,
-                    <span class="kw">boundary</span> <span class="kw">=</span> <span class="no">nz</span>,
+                    <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
                     <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
                     <span class="kw">pal</span> <span class="kw">=</span> <span class="no">pal</span>,
                     <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 1990\u201317"</span>)</pre></body></html></div>
@@ -342,7 +342,7 @@
 <li>simple feature (<code>sf</code>) maps</li>
 <li>spatial-temporal array (i.e. <code>stars</code>) maps</li>
 </ul>
-<p>These work in the same way as the <code>ggplot</code> map functions, but with no boundary arguments.</p>
+<p>These work in the same way as the <code>ggplot</code> map functions, but with no borders arguments.</p>
 <p>Outputs are hidden to keep the size of the vignette manageable.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_sf.html">leaflet_sf</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_sf_polygon</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_sf_col.html">leaflet_sf_col</a></span>(<span class="no">example_sf_polygon</span>, <span class="no">density</span>,

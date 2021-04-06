@@ -23,16 +23,16 @@ a4_height_mm <- 257
 #' library(dplyr)
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) %>% 
-#'   add_tip(vars_vctr = c("carat", "price"), comma = TRUE)
+#'   mutate_text(c("carat", "price"), comma = TRUE)
 #' 
 #' plot <- ggplot_point(data = plot_data, x_var = carat, y_var = price,
-#'                        tip_var = tip_text,
+#'                        text_var = tip_text,
 #'                        title = "Diamond price by carat",
 #'                        x_title = "Carat",
 #'                        y_title = "Price ($US thousands)")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text")
-add_tip <- function(data, vars_vctr = NULL, comma = FALSE) {
+mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
   
   data <- data %>% ungroup()
   

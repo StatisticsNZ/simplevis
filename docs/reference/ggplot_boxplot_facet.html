@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Line ggplot. — ggplot_line • simplevis</title>
+<title>Boxplot ggplot that is facetted. — ggplot_boxplot_facet • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Line ggplot. — ggplot_line" />
-<meta property="og:description" content="Line ggplot that is not coloured and not facetted." />
+<meta property="og:title" content="Boxplot ggplot that is facetted. — ggplot_boxplot_facet" />
+<meta property="og:description" content="Boxplot ggplot that is facetted, but not coloured." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -137,64 +137,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Line ggplot.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_line_fun.R'><code>R/ggplot_line_fun.R</code></a></small>
-    <div class="hidden name"><code>ggplot_line.Rd</code></div>
+    <h1>Boxplot ggplot that is facetted.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_box_fun.R'><code>R/ggplot_box_fun.R</code></a></small>
+    <div class="hidden name"><code>ggplot_boxplot_facet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Line ggplot that is not coloured and not facetted.</p>
+    <p>Boxplot ggplot that is facetted, but not coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_line</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>lines</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+    <pre class="usage"><span class='fu'>ggplot_boxplot_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>facet_var</span>,
+  <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A tibble or dataframe. Required input.</p></td>
+      <td><p>An tibble or dataframe. Required input.</p></td>
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted numeric or date variable to be on the x axis. Required input.</p></td>
+      <td><p>Unquoted variable to be on the x axis. Required input.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
-      <td><p>Unquoted numeric variable to be on the y axis. Required input.</p></td>
+      <td><p>Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".</p></td>
     </tr>
     <tr>
-      <th>text_var</th>
-      <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
+      <th>facet_var</th>
+      <td><p>Unquoted categorical variable to facet the data by. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>group_var</th>
+      <td><p>Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".</p></td>
+    </tr>
+    <tr>
+      <th>stat</th>
+      <td><p>String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.</p></td>
     </tr>
     <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
     </tr>
     <tr>
-      <th>points</th>
-      <td><p>TRUE or FALSE of whether to include points. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>point_size</th>
-      <td><p>Size of points. Defaults to 1. Only applicable to where points equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>lines</th>
-      <td><p>TRUE or FALSE of whether to include lines. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>line_size</th>
-      <td><p>Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.</p></td>
+      <th>width</th>
+      <td><p>Width of the box. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -202,7 +199,7 @@
     </tr>
     <tr>
       <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the title to. Defaults to 70.</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
@@ -210,7 +207,11 @@
     </tr>
     <tr>
       <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 80.</p></td>
+    </tr>
+    <tr>
+      <th>x_expand</th>
+      <td><p>A vector of range expansion constants used to add some padding on the x scale.</p></td>
     </tr>
     <tr>
       <th>x_labels</th>
@@ -218,11 +219,7 @@
     </tr>
     <tr>
       <th>x_pretty_n</th>
-      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>x_expand</th>
-      <td><p>A vector of range expansion constants used to add some padding on the x scale.</p></td>
+      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Only applicable to a x variable that is categorical or date.</p></td>
     </tr>
     <tr>
       <th>x_title</th>
@@ -230,11 +227,11 @@
     </tr>
     <tr>
       <th>x_title_wrap</th>
-      <td><p>Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the x title to. Defaults to 50.</p></td>
     </tr>
     <tr>
       <th>y_balance</th>
-      <td><p>Add balance to the y axis so that zero is in the centre of the y scale.</p></td>
+      <td><p>Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".</p></td>
     </tr>
     <tr>
       <th>y_expand</th>
@@ -254,19 +251,31 @@
     </tr>
     <tr>
       <th>y_title_wrap</th>
-      <td><p>Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the y title to. Defaults to 50.</p></td>
     </tr>
     <tr>
       <th>y_trans</th>
-      <td><p>A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+      <td><p>TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.</p></td>
     </tr>
     <tr>
       <th>y_zero</th>
-      <td><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+      <td><p>TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>y_zero_line</th>
       <td><p>TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>facet_ncol</th>
+      <td><p>The number of columns of facetted plots.</p></td>
+    </tr>
+    <tr>
+      <th>facet_nrow</th>
+      <td><p>The number of rows of facetted plots.</p></td>
+    </tr>
+    <tr>
+      <th>facet_scales</th>
+      <td><p>Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".</p></td>
     </tr>
     <tr>
       <th>caption</th>
@@ -274,7 +283,7 @@
     </tr>
     <tr>
       <th>caption_wrap</th>
-      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     <tr>
       <th>font_family</th>
@@ -288,10 +297,6 @@
       <th>font_size_body</th>
       <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
     </tr>
-    <tr>
-      <th>isMobile</th>
-      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -301,14 +306,11 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>storms</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))
+<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>price_thousands</span> <span class='kw'>=</span> (<span class='no'>price</span> / <span class='fl'>1000</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
 
-  <span class='fu'>ggplot_line</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>wind</span>,
-      <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Average wind speed of Atlantic storms, 1975-2015"</span>,
-      <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Year"</span>,
-      <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Average maximum sustained wind speed (knots)"</span>)</div><div class='img'><img src='ggplot_line-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot_boxplot_facet</span>(<span class='no'>plot_data</span>, <span class='no'>cut</span>, <span class='no'>price_thousands</span>, <span class='no'>color</span>)</div><div class='img'><img src='ggplot_boxplot_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

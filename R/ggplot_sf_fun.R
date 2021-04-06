@@ -92,13 +92,13 @@ theme_sf <-
 #' @title Map of simple features in ggplot.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
-#' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
+#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -112,7 +112,7 @@ theme_sf <-
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_sf(data = example_sf_point, boundary = nz)
+#' ggplot_sf(data = example_sf_point, borders = nz)
 #' 
 #' sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
 #' 
@@ -121,10 +121,10 @@ ggplot_sf <- function(data,
                       size = 0.5,
                       alpha = 0.1,
                       pal = NULL,
-                      boundary = NULL,
-                      boundary_behind = TRUE,
-                      boundary_pal = "#7f7f7f",
-                      boundary_size = 0.2,
+                      borders = NULL,
+                      borders_behind = TRUE,
+                      borders_pal = "#7f7f7f",
+                      borders_size = 0.2,
                       title = "[Title]",
                       title_wrap = 70,
                       subtitle = NULL,
@@ -157,14 +157,14 @@ ggplot_sf <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
+  if (!is.null(borders)) {
+    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -187,13 +187,13 @@ ggplot_sf <- function(data,
       )
   }
   
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
+  if (!is.null(borders)) {
+    if (borders_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -227,12 +227,12 @@ ggplot_sf <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
+#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -255,17 +255,17 @@ ggplot_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
+#' ggplot_sf_col(data = example_sf_polygon, col_var = density, borders = nz,
 #'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_labels_dp = 0,
 #'      title = "Density, 2017")
 #'
-#' ggplot_sf_col(data = example_sf_polygon, col_var = density, boundary = nz,
+#' ggplot_sf_col(data = example_sf_polygon, col_var = density, borders = nz,
 #'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
 #'      title = "Density, 2017")
 #'
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
-#' ggplot_sf_col(data = example_sf_point, col_var = trend_category, boundary = nz, 
+#' ggplot_sf_col(data = example_sf_point, col_var = trend_category, borders = nz, 
 #'    pal = pal, col_method = "category",
 #'    title = "Monitored river nitrate-nitrogen trends, 2008-17")
 ggplot_sf_col <- function(data,
@@ -274,10 +274,10 @@ ggplot_sf_col <- function(data,
                           pal_rev = FALSE,
                           size = 0.5,
                           alpha = 0.9,
-                          boundary = NULL,
-                          boundary_behind = TRUE,
-                          boundary_pal = "#7f7f7f",
-                          boundary_size = 0.2,
+                          borders = NULL,
+                          borders_behind = TRUE,
+                          borders_pal = "#7f7f7f",
+                          borders_size = 0.2,
                           title = "[Title]",
                           title_wrap = 70,
                           subtitle = NULL,
@@ -325,14 +325,14 @@ ggplot_sf_col <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
+  if (!is.null(borders)) {
+    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -434,13 +434,13 @@ ggplot_sf_col <- function(data,
       )
   }
   
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
+  if (!is.null(borders)) {
+    if (borders_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -478,15 +478,15 @@ ggplot_sf_col <- function(data,
 #' @description Map of simple features in ggplot that is facetted, but not coloured. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
+#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param caption Caption title string. Defaults to NULL.
@@ -500,7 +500,7 @@ ggplot_sf_col <- function(data,
 #' @export
 #' @examples
 #' ggplot_sf_facet(data = example_sf_point, facet_var = trend_category, 
-#'   boundary = nz,
+#'   borders = nz,
 #'   title = "Trends, 1990-2017")
 ggplot_sf_facet <- function(data,
                             facet_var,
@@ -509,10 +509,10 @@ ggplot_sf_facet <- function(data,
                             pal = NULL,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
-                            boundary = NULL,
-                            boundary_behind = TRUE,
-                            boundary_pal = "#7f7f7f",
-                            boundary_size = 0.2,
+                            borders = NULL,
+                            borders_behind = TRUE,
+                            borders_pal = "#7f7f7f",
+                            borders_size = 0.2,
                             title = "[Title]",
                             title_wrap = 70,
                             subtitle = NULL,
@@ -545,14 +545,14 @@ ggplot_sf_facet <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
+  if (!is.null(borders)) {
+    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -582,13 +582,13 @@ ggplot_sf_facet <- function(data,
       )
   }
   
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
+  if (!is.null(borders)) {
+    if (borders_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -612,12 +612,12 @@ ggplot_sf_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size Size of points or line features (or non-boundary polygon features). Defaults to 0.5.
+#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
-#' @param boundary A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param boundary_behind TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param boundary_pal Colour of the boundary. Defaults to "#7F7F7F".
-#' @param boundary_size Size of the boundary. Defaults to 0.2.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -645,7 +645,7 @@ ggplot_sf_facet <- function(data,
 #'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
 #' ggplot_sf_col_facet(data = example_sf_point, col_var = trend_category, facet_var = trend_category,
-#'  boundary = nz, pal = pal,
+#'  borders = nz, pal = pal,
 #'  title = "Trends, 1990-2017")
 ggplot_sf_col_facet <- function(data,
                                 col_var,
@@ -654,10 +654,10 @@ ggplot_sf_col_facet <- function(data,
                                 pal_rev = FALSE,
                                 size = 0.5,
                                 alpha = 0.9,
-                                boundary = NULL,
-                                boundary_behind = TRUE,
-                                boundary_pal = "#7f7f7f",
-                                boundary_size = 0.2, 
+                                borders = NULL,
+                                borders_behind = TRUE,
+                                borders_pal = "#7f7f7f",
+                                borders_size = 0.2, 
                                 title = "[Title]",
                                 title_wrap = 70,
                                 subtitle = NULL,
@@ -703,14 +703,14 @@ ggplot_sf_col_facet <- function(data,
       font_size_title = font_size_title
     )
   
-  if (!is.null(boundary)) {
-    if (sf::st_is_longlat(data) == FALSE) boundary <- sf::st_transform(boundary, sf::st_crs(data))
-    if (boundary_behind == TRUE) {
+  if (!is.null(borders)) {
+    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_behind == TRUE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -819,13 +819,13 @@ ggplot_sf_col_facet <- function(data,
       )
   }
   
-  if (!is.null(boundary)) {
-    if (boundary_behind == FALSE) {
+  if (!is.null(borders)) {
+    if (borders_behind == FALSE) {
       plot <- plot +
         geom_sf(
-          data = boundary,
-          size = boundary_size, 
-          colour = boundary_pal,
+          data = borders,
+          size = borders_size, 
+          colour = borders_pal,
           fill = "transparent"
         )
     }

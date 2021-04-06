@@ -114,7 +114,7 @@ theme_point <-
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param point_size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
@@ -158,7 +158,7 @@ theme_point <-
 ggplot_point <- function(data,
                          x_var,
                          y_var,
-                         tip_var = NULL,
+                         text_var = NULL,
                          point_size = 1.5,
                          pal = NULL, 
                          title = "[Title]",
@@ -191,7 +191,7 @@ ggplot_point <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-  tip_var <- rlang::enquo(tip_var)
+  text_var <- rlang::enquo(text_var)
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -242,7 +242,7 @@ ggplot_point <- function(data,
       font_size_title = font_size_title
     ) +
     coord_cartesian(clip = "off") +
-    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size)
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size)
 
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
@@ -340,7 +340,7 @@ ggplot_point <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param point_size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -393,7 +393,7 @@ ggplot_point_col <-
            x_var,
            y_var,
            col_var,
-           tip_var = NULL,
+           text_var = NULL,
            point_size = 1.5,
            pal = NULL,
            pal_rev = FALSE,
@@ -437,7 +437,7 @@ ggplot_point_col <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var)
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -541,7 +541,7 @@ ggplot_point_col <-
       coord_cartesian(clip = "off")
     
     plot <- plot +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = point_size)
+      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = point_size)
     
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
@@ -652,7 +652,7 @@ ggplot_point_col <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param point_size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
@@ -697,7 +697,7 @@ ggplot_point_facet <-
            x_var,
            y_var,
            facet_var,
-           tip_var = NULL,
+           text_var = NULL,
            point_size = 1.5,
            pal = NULL,
            title = "[Title]",
@@ -733,7 +733,7 @@ ggplot_point_facet <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -780,7 +780,7 @@ ggplot_point_facet <-
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, text = !!tip_var), col = pal[1], size = point_size)
+      geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = point_size)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       x_n <- x_pretty_n
@@ -879,7 +879,7 @@ ggplot_point_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param point_size Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -938,7 +938,7 @@ ggplot_point_col_facet <-
            y_var,
            col_var,
            facet_var,
-           tip_var = NULL,
+           text_var = NULL,
            point_size = 1.5,
            pal = NULL,
            pal_rev = FALSE,
@@ -986,7 +986,7 @@ ggplot_point_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var)
     facet_var <- rlang::enquo(facet_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -1095,7 +1095,7 @@ ggplot_point_col_facet <-
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!tip_var), size = point_size)
+      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = point_size)
     
     plot <- plot +
       scale_color_manual(

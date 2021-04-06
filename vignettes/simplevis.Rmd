@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ### Purpose 
 
-`simplevis` is a package of `ggplot2` and `leaflet` wrapper functions designed to support effortless high quality `ggplot2` and `leaflet` visualisations  for reports or interactive `shiny` apps. The intent is that these can be made more consistently with less effort, code and expertise than would otherwise be required.
+`simplevis` is a package of wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier and prettier.
 
 ### Example
 
@@ -79,7 +79,7 @@ ggplot_vbar(data, pet, count,
 * vertical bar (e.g. `ggplot_vbar`)
 * line plot (e.g. `ggplot_line`)
 * point plot (e.g. `ggplot_point`)
-* boxplot (e.g. `ggplot_box`)
+* boxplot (e.g. `ggplot_boxplot`)
 
 For each graph type 4 functions are available.
 
@@ -144,7 +144,7 @@ ggplot_hbar_col_facet(plot_data, average_price, color, clarity, cut,
 
 ```
 
-These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::ggplotly(plot)`. A customised tooltip can be provided using the `tip_var` argument in `simplevis` functions with `plotly::ggplotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `add_tip` function.
+These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::ggplotly(plot)`. A customised tooltip can be provided using the `text_var` argument in `simplevis` functions with `plotly::ggplotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `mutate_text` function.
 
 ```{r, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%
@@ -198,12 +198,12 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry types
 * Data can have any coordinate reference system (CRS), but it must be defined
 * No `x_var` and `y_var` variables are required
-* There is a boundary specification, which allows for a further `sf` object as a boundary or administrative boundaries to be added to the map. An example New Zealand boundary (`nz`) has been provided with the package. 
+* There is a borders specification, which allows for a further `sf` object as a borders or administrative boundaries to be added to the map. An example New Zealand borders (`nz`) has been provided with the package. 
 * They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_sf(example_sf_point, 
-          boundary = nz, 
+          borders = nz, 
           size = 0.25,
           title = "Site trends, 2008\u201317",
           title_wrap = 40)
@@ -213,7 +213,7 @@ ggplot_sf(example_sf_point,
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col(example_sf_point, trend_category, 
-              boundary = nz, 
+              borders = nz, 
               size = 0.25, 
               pal = pal, 
               title = "Site trends, 2008\u201317",
@@ -222,7 +222,7 @@ ggplot_sf_col(example_sf_point, trend_category,
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_sf_facet(example_sf_point, trend_category, 
-                boundary = nz, 
+                borders = nz, 
                 size = 0.25,
                 title = "Site trends, 2008\u201317")
 ```
@@ -231,7 +231,7 @@ ggplot_sf_facet(example_sf_point, trend_category,
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col_facet(example_sf_point, trend_category, trend_category,
-                    boundary = nz, 
+                    borders = nz, 
                     size = 0.25, 
                     pal = pal,
                     title = "Site trends, 1990\u201317")
@@ -277,7 +277,7 @@ ggplot_stars_col_facet(map_data,
 * simple feature (`sf`) maps
 * spatial-temporal array (i.e. `stars`) maps 
 
-These work in the same way as the `ggplot` map functions, but with no boundary arguments.
+These work in the same way as the `ggplot` map functions, but with no borders arguments.
 
 Outputs are hidden to keep the size of the vignette manageable. 
 

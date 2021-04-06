@@ -10,9 +10,9 @@
 #' library(ggplot2)
 #' 
 #' ggplot() +
-#'   theme_box("Courier", 9, 7) +
+#'   theme_boxplot("Courier", 9, 7) +
 #'   ggtitle("This is a title of a selected font family and size")
-theme_box <-
+theme_boxplot <-
   function(font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10) {
@@ -151,7 +151,7 @@ theme_box <-
 #' tibble::as_tibble() %>%
 #'   mutate(Species = stringr::str_to_sentence(Species))
 #'
-#' ggplot_box(plot_data, Species, Petal.Length,
+#' ggplot_boxplot(plot_data, Species, Petal.Length,
 #'   title = "Iris petal length by species",
 #'   x_title = "Species",
 #'   y_title = "Petal length (cm)")
@@ -162,9 +162,9 @@ theme_box <-
 #'   c('ymin','lower','middle','upper','ymax')))) %>%
 #'   tidyr::unnest_wider(boxplot_stats)
 #'
-#' ggplot_box(plot_data, Species, Petal.Length, stat = "identity")
+#' ggplot_boxplot(plot_data, Species, Petal.Length, stat = "identity")
 #' 
-ggplot_box <- function(data,
+ggplot_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
                        group_var = NULL,
@@ -233,7 +233,7 @@ ggplot_box <- function(data,
     
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_box(
+    theme_boxplot(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -447,9 +447,9 @@ ggplot_box <- function(data,
 #'   mutate(price_thousands = (price / 1000)) %>%
 #'   slice_sample(prop = 0.05)
 #'
-#' ggplot_box_facet(plot_data, cut, price_thousands, color)
+#' ggplot_boxplot_facet(plot_data, cut, price_thousands, color)
 #'
-ggplot_box_facet <-
+ggplot_boxplot_facet <-
   function(data,
            x_var,
            y_var = NULL,
@@ -519,7 +519,7 @@ ggplot_box_facet <-
 
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme_box(
+      theme_boxplot(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
@@ -550,7 +550,7 @@ ggplot_box_facet <-
     else if (stat == "identity") {
       plot <- ggplot(data) +
         coord_cartesian(clip = "off") +
-        theme_box(
+        theme_boxplot(
           font_family = font_family,
           font_size_body = font_size_body,
           font_size_title = font_size_title

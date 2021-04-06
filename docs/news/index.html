@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.5</span>
       </span>
     </div>
 
@@ -140,13 +140,24 @@
       <small>Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="simplevis-2-5-5" class="section level1">
+<h1 class="page-header" data-toc-text="2.5.5">
+<a href="#simplevis-2-5-5" class="anchor"></a>simplevis 2.5.5<small> Unreleased </small>
+</h1>
+<ul>
+<li>Breaking change: Rename tip_var to text_var to align with ggplot2.</li>
+<li>Breaking change: Rename add_tip to mutate_text to align with ggplot2 and dplyr.</li>
+<li>Breaking change: Rename boundary with borders to align with ggplot2.</li>
+<li>Breaking change: Rename ggplot_box with ggplot_boxplot to align with ggplot2.</li>
+</ul>
+</div>
     <div id="simplevis-2-5-4" class="section level1">
 <h1 class="page-header" data-toc-text="2.5.4">
 <a href="#simplevis-2-5-4" class="anchor"></a>simplevis 2.5.4<small> Unreleased </small>
 </h1>
 <ul>
-<li>make ggplot_vbar and vbar_facet scales pretty.</li>
-<li>Change default point_size to 1.5.</li>
+<li>Bug fix: Make ggplot_vbar and vbar_facet scales pretty.</li>
+<li>New feature: Change default point_size to 1.5.</li>
 </ul>
 </div>
     <div id="simplevis-2-5-3" class="section level1">
@@ -154,7 +165,7 @@
 <a href="#simplevis-2-5-3" class="anchor"></a>simplevis 2.5.3<small> Unreleased </small>
 </h1>
 <ul>
-<li>Add line_size argument to hbar and vbar functions.</li>
+<li>New feature: Add line_size argument to hbar and vbar functions.</li>
 </ul>
 </div>
     <div id="simplevis-2-5-2" class="section level1">
@@ -162,7 +173,7 @@
 <a href="#simplevis-2-5-2" class="anchor"></a>simplevis 2.5.2<small> Unreleased </small>
 </h1>
 <ul>
-<li>Make ggplot_vbar function x scales pretty, where max or min equals the x limit.</li>
+<li>New feature: Make ggplot_vbar function x scales pretty, where max or min equals the x limit.</li>
 </ul>
 </div>
     <div id="simplevis-2-5-1" class="section level1">
@@ -170,9 +181,9 @@
 <a href="#simplevis-2-5-1" class="anchor"></a>simplevis 2.5.1<small> Unreleased </small>
 </h1>
 <ul>
-<li>Change default of ggplots to legend on right with 1 column.</li>
-<li>Add facet_ncol argument.</li>
-<li>Add col_labels_ncol argument.</li>
+<li>New feature: Change default of ggplots to legend on right with 1 column.</li>
+<li>New feature: Add facet_ncol argument.</li>
+<li>New feature: Add col_labels_ncol argument.</li>
 </ul>
 </div>
     <div id="simplevis-2-5-0" class="section level1">
@@ -180,10 +191,10 @@
 <a href="#simplevis-2-5-0" class="anchor"></a>simplevis 2.5.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>Rename col_label_digits argument to col_labels_dp.</li>
-<li>Rename leaflet_sf label_var to tip_var to avoid confusion.</li>
-<li>Rename size arguments in ggplot_point and ggplot_line functions.</li>
-<li>Fixed vbar legend elements being reversed.</li>
+<li>Breaking change: Rename col_label_digits argument to col_labels_dp.</li>
+<li>Breaking change: Rename leaflet_sf label_var to tip_var to avoid confusion.</li>
+<li>Breaking change: Rename size arguments in ggplot_point and ggplot_line functions.</li>
+<li>New feature: Fixed vbar legend elements being reversed.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-9" class="section level1">
@@ -191,9 +202,9 @@
 <a href="#simplevis-2-4-9" class="anchor"></a>simplevis 2.4.9<small> Unreleased </small>
 </h1>
 <ul>
-<li>In leaflet_sf, rename col_na_remove for consistency.</li>
-<li>In leaflet_sf functions, rename popup as popup_var and improve help.</li>
-<li>Rename col_digits argument to col_label_digits.</li>
+<li>Breaking change: In leaflet_sf, rename col_na_remove for consistency.</li>
+<li>Breaking change: In leaflet_sf functions, rename popup as popup_var and improve help.</li>
+<li>Breaking change: Rename col_digits argument to col_label_digits.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-8" class="section level1">
@@ -201,10 +212,10 @@
 <a href="#simplevis-2-4-8" class="anchor"></a>simplevis 2.4.8<small> Unreleased </small>
 </h1>
 <ul>
-<li>In line functions, rename size argument to size_point.</li>
-<li>In line functions, add size_line argument.</li>
-<li>Rename all legend_ arguments to col_ arguments.</li>
-<li>Rename wrap_col_title to col_title_wrap.</li>
+<li>Breaking change: In line functions, rename size argument to size_point for clarity.</li>
+<li>New feature: In line functions, add size_line argument.</li>
+<li>Breaking change: Rename all legend_ arguments to col_ arguments for internal consistency.</li>
+<li>Breaking change: Rename wrap_col_title to col_title_wrap for internal consistency.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-7" class="section level1">
@@ -212,11 +223,11 @@
 <a href="#simplevis-2-4-7" class="anchor"></a>simplevis 2.4.7<small> Unreleased </small>
 </h1>
 <ul>
-<li>Defaulted colours to viridis for all functions.</li>
-<li>Improved ggplot_point and ggplot_sf colouring code.</li>
-<li>Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.<br>
+<li>New feature: Defaulted colours to viridis for all functions.</li>
+<li>New feature: Improved ggplot_point and ggplot_sf colouring code.</li>
+<li>New feature: Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.<br>
 </li>
-<li>Added alpha argument for the fill of hbar and vbar.</li>
+<li>New feature: Added alpha argument for the fill of hbar and vbar.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-6" class="section level1">
@@ -224,8 +235,8 @@
 <a href="#simplevis-2-4-6" class="anchor"></a>simplevis 2.4.6<small> Unreleased </small>
 </h1>
 <ul>
-<li>Removed size argument in line functions.</li>
-<li>Renamed point_size as size in line functions.</li>
+<li>Breaking change: Removed size argument in line functions.</li>
+<li>Breaking change: Renamed point_size as size in line functions.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-5" class="section level1">
@@ -233,8 +244,8 @@
 <a href="#simplevis-2-4-5" class="anchor"></a>simplevis 2.4.5<small> Unreleased </small>
 </h1>
 <ul>
-<li>Add alpha argument into hbar and vbar.</li>
-<li>Changed quantile_by_facet argument to col_quantile_by_facet for consistency.</li>
+<li>New feature: Add alpha argument into hbar and vbar.</li>
+<li>Breaking change: Changed quantile_by_facet argument to col_quantile_by_facet for internal consistency.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-4" class="section level1">
@@ -242,7 +253,7 @@
 <a href="#simplevis-2-4-4" class="anchor"></a>simplevis 2.4.4<small> Unreleased </small>
 </h1>
 <ul>
-<li>Remove leaflet_basemap_nz.</li>
+<li>Breaking change: Remove leaflet_basemap_nz.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-3" class="section level1">
@@ -250,7 +261,7 @@
 <a href="#simplevis-2-4-3" class="anchor"></a>simplevis 2.4.3<small> Unreleased </small>
 </h1>
 <ul>
-<li>Updated leaflet_basemap to include an argument for bounds.</li>
+<li>New feature: Updated leaflet_basemap to include an argument for bounds.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-2" class="section level1">
@@ -258,7 +269,7 @@
 <a href="#simplevis-2-4-2" class="anchor"></a>simplevis 2.4.2<small> Unreleased </small>
 </h1>
 <ul>
-<li>Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.</li>
+<li>Breaking change: Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-1" class="section level1">
@@ -266,8 +277,8 @@
 <a href="#simplevis-2-4-1" class="anchor"></a>simplevis 2.4.1<small> Unreleased </small>
 </h1>
 <ul>
-<li>Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.</li>
-<li>Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.</li>
+<li>New feature: Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.</li>
+<li>New feature: Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.</li>
 </ul>
 </div>
     <div id="simplevis-2-4-0" class="section level1">
@@ -275,9 +286,9 @@
 <a href="#simplevis-2-4-0" class="anchor"></a>simplevis 2.4.0<small> 2021-03-12 </small>
 </h1>
 <ul>
-<li>Reduce the size of sf example objects.</li>
-<li>Add vignette for making maps of sf objects.</li>
-<li>Removed support for boundary arguments in ggplot_stars, as it was not working.</li>
+<li>New feature: Reduce the size of sf example objects.</li>
+<li>New feature: Add vignette for making maps of sf objects.</li>
+<li>New feature: Removed support for boundary arguments in ggplot_stars, as it was not working.</li>
 </ul>
 </div>
     <div id="simplevis-2-3-9" class="section level1">

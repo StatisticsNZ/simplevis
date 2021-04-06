@@ -4,7 +4,7 @@
 \alias{ggplot_line_col}
 \title{Line ggplot that is coloured.}
 \usage{
-ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
+ggplot_line_col(data, x_var, y_var, col_var, text_var = NULL,
   pal = NULL, pal_rev = FALSE, points = TRUE, point_size = 1.5,
   lines = TRUE, line_size = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
@@ -27,7 +27,7 @@ ggplot_line_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{col_var}{Unquoted categorical variable for lines and points to be coloured by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

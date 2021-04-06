@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Theme for vertical bar ggplots. — theme_vbar • simplevis</title>
+<title>Add a quick tooltip text column to data. — mutate_text • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Theme for vertical bar ggplots. — theme_vbar" />
-<meta property="og:description" content="Theme for vertical bar ggplots." />
+<meta property="og:title" content="Add a quick tooltip text column to data. — mutate_text" />
+<meta property="og:description" content="Add a column of tooltip text which is automatically created based on column names and values." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -137,45 +137,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Theme for vertical bar ggplots.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_vbar_fun.R'><code>R/ggplot_vbar_fun.R</code></a></small>
-    <div class="hidden name"><code>theme_vbar.Rd</code></div>
+    <h1>Add a quick tooltip text column to data.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/other.R'><code>R/other.R</code></a></small>
+    <div class="hidden name"><code>mutate_text.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Theme for vertical bar ggplots.</p>
+    <p>Add a column of tooltip text which is automatically created based on column names and values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme_vbar</span>(<span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>mutate_text</span>(<span class='no'>data</span>, <span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>font_family</th>
-      <td><p>Font family to use. Defaults to "Helvetica".</p></td>
+      <th>data</th>
+      <td><p>A tibble or dataframe. Required input.</p></td>
     </tr>
     <tr>
-      <th>font_size_title</th>
-      <td><p>Font size for the title text. Defaults to 11.</p></td>
+      <th>vars_vctr</th>
+      <td><p>A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.</p></td>
     </tr>
     <tr>
-      <th>font_size_body</th>
-      <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
+      <th>comma</th>
+      <td><p>TRUE or FALSE of whether to convert numeric values to character values with comma seperators.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot theme.</p>
+    <p>A vector of labels.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() +
-  <span class='fu'>theme_vbar</span>(<span class='st'>"Courier"</span>, <span class='fl'>9</span>, <span class='fl'>7</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggtitle</a></span>(<span class='st'>"This is a title of a selected font family and size"</span>)</div><div class='img'><img src='theme_vbar-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>mutate_text</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>), <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_point.html'>ggplot_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>, <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>,
+                       <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='no'>tip_text</span>,
+                       <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Diamond price by carat"</span>,
+                       <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Carat"</span>,
+                       <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Price ($US thousands)"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: text</span></div><div class='input'>
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>, <span class='kw'>tooltip</span> <span class='kw'>=</span> <span class='st'>"text"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

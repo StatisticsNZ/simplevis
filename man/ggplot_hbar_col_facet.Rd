@@ -5,7 +5,7 @@
 \title{Horizontal bar ggplot that is coloured and facetted.}
 \usage{
 ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
-  tip_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
+  text_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
   width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
@@ -30,7 +30,7 @@ ggplot_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 

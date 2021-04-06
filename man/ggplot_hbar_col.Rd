@@ -4,7 +4,7 @@
 \alias{ggplot_hbar_col}
 \title{Horizontal bar ggplot that is coloured.}
 \usage{
-ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
+ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
   position = "stack", pal = NULL, pal_rev = FALSE, width = 0.75,
   alpha = 1, line_size = 0.5, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
@@ -27,7 +27,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 

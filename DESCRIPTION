@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple Visualisation with 'ggplot2' and 'leaflet' Wrappers
-Version: 2.5.4
+Version: 2.5.5
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 
@@ -10,7 +10,7 @@ Authors@R:
                comment = c(ORCID = "0000-0002-3868-7501")),
       person("Statistics New Zealand", 
              role = c("cph")))
-Description: Support effortless high quality 'ggplot2' and 'leaflet' visualisations for reports or interactive 'shiny' apps through wrapping functions.
+Description: Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier and prettier.
 License: MIT + file LICENSE
 URL: https://statisticsnz.github.io/simplevis/, https://github.com/statisticsnz/simplevis/
 BugReports: https://github.com/statisticsNZ/simplevis/issues/

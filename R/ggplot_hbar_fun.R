@@ -114,7 +114,7 @@ theme_hbar <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -163,7 +163,7 @@ theme_hbar <-
 ggplot_hbar <- function(data,
                         x_var,
                         y_var,
-                        tip_var = NULL,
+                        text_var = NULL,
                         pal = NULL,
                         width = 0.75, 
                         alpha = 1,
@@ -197,7 +197,7 @@ ggplot_hbar <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
-  tip_var <- rlang::enquo(tip_var)
+  text_var <- rlang::enquo(text_var)
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -245,7 +245,7 @@ ggplot_hbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
@@ -295,13 +295,13 @@ ggplot_hbar <- function(data,
     if(nrow(na_data) != 0) {
       if(x_limits[1] >= 0 & x_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
+          geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data)        
       }
@@ -309,10 +309,10 @@ ggplot_hbar <- function(data,
         ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data) +
-          geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!tip_var),
+          geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data)
       }
@@ -374,7 +374,7 @@ ggplot_hbar <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
@@ -434,7 +434,7 @@ ggplot_hbar_col <-
            x_var,
            y_var,
            col_var,
-           tip_var = NULL,
+           text_var = NULL,
            position = "stack",
            pal = NULL,
            pal_rev = FALSE,
@@ -477,7 +477,7 @@ ggplot_hbar_col <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #categorical var
     col_var <- rlang::enquo(col_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -629,7 +629,7 @@ ggplot_hbar_col <-
     if(x_na_bar == FALSE) {
       plot <- plot +
         geom_col(aes(
-          x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!tip_var), 
+          x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
           alpha = alpha, size = line_size,width = width, 
           position = position2)
     }
@@ -656,7 +656,7 @@ ggplot_hbar_col <-
           dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = line_size,width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
@@ -664,7 +664,7 @@ ggplot_hbar_col <-
           dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[1], !!x_var))
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = line_size,width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] > 0) {
@@ -674,9 +674,9 @@ ggplot_hbar_col <-
           dplyr::mutate(x_var3 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = line_size,width = width, position = position2, data = data) +
-          geom_col(aes(x = !!y_var, y = .data$x_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!tip_var), 
+          geom_col(aes(x = !!y_var, y = .data$x_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = line_size,width = width, position = position2, data = data)
       }
     }
@@ -759,7 +759,7 @@ ggplot_hbar_col <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1.
@@ -812,7 +812,7 @@ ggplot_hbar_facet <-
            x_var,
            y_var,
            facet_var,
-           tip_var = NULL,
+           text_var = NULL,
            pal = NULL,
            width = 0.75, 
            alpha = 1,
@@ -849,7 +849,7 @@ ggplot_hbar_facet <-
     y_var <- rlang::enquo(y_var) #categorical var
     x_var <- rlang::enquo(x_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
     x_var_vctr <- dplyr::pull(data, !!x_var)
@@ -895,7 +895,7 @@ ggplot_hbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, text = !!tip_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
+      geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -935,13 +935,13 @@ ggplot_hbar_facet <-
         if(nrow(na_data) != 0) {
           if(x_limits[1] >= 0 & x_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data)
           }
           else if(x_limits[1] < 0 & x_limits[2] <= 0) {
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[1], text = !!tip_var),
+              geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data)        
           }
@@ -949,10 +949,10 @@ ggplot_hbar_facet <-
             ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
             
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!tip_var),
+              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data) +
-              geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!tip_var),
+              geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data)
           }
@@ -998,7 +998,7 @@ ggplot_hbar_facet <-
 #' @param y_var Unquoted categorical variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
@@ -1059,7 +1059,7 @@ ggplot_hbar_col_facet <-
            y_var,
            col_var,
            facet_var,
-           tip_var = NULL,
+           text_var = NULL,
            position = "stack",
            pal = NULL,
            pal_rev = FALSE,
@@ -1104,7 +1104,7 @@ ggplot_hbar_col_facet <-
     x_var <- rlang::enquo(x_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
     x_var_vctr <- dplyr::pull(data, !!x_var)
@@ -1164,7 +1164,7 @@ ggplot_hbar_col_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!tip_var), alpha = alpha, size = line_size,width = width, position = position2)
+      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = line_size,width = width, position = position2)
 
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()

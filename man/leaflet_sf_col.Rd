@@ -4,7 +4,7 @@
 \alias{leaflet_sf_col}
 \title{Map of simple features in leaflet that is coloured.}
 \usage{
-leaflet_sf_col(data, col_var, tip_var = NULL, popup_var = NULL,
+leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
   pal = NULL, pal_rev = FALSE, radius = 1, weight = 2,
   opacity = 0.9, stroke = TRUE, basemap = "light",
   title = "[Title]", col_cuts = NULL, col_labels_dp = 1,
@@ -16,7 +16,7 @@ leaflet_sf_col(data, col_var, tip_var = NULL, popup_var = NULL,
 
 \item{col_var}{Unquoted variable to colour the features by. Required input.}
 
-\item{tip_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
+\item{text_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
 
 \item{popup_var}{Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 

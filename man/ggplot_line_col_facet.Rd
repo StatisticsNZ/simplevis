@@ -5,7 +5,7 @@
 \title{Line ggplot that is coloured and facetted.}
 \usage{
 ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
-  tip_var = NULL, pal = NULL, pal_rev = FALSE, points = TRUE,
+  text_var = NULL, pal = NULL, pal_rev = FALSE, points = TRUE,
   point_size = 1.5, lines = TRUE, line_size = 0.5,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
@@ -30,7 +30,7 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

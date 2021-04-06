@@ -24,17 +24,17 @@ The location of features can be plotted using `ggplot_sf`.
 ggplot_sf(example_sf_point)
 ```
 
-For the `ggplot2` wrapper function, a boundary (e.g. administrative or coastline) can be added by adding an `sf` object to the boundary argument. A `nz` (and `nz_region`) sf object are provided to illustrate this.
+For the `ggplot2` wrapper function, a borders (e.g. administrative or coastline) can be added by adding an `sf` object to the borders argument. A `nz` (and `nz_region`) sf object are provided to illustrate this.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot_sf(example_sf_point, boundary = nz)
+ggplot_sf(example_sf_point, borders = nz)
 ```
 
 You can add a title through the title argument.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf(example_sf_point, 
-          boundary = nz,
+          borders = nz,
           title = "An informative title, 2021")
 ```
 
@@ -44,7 +44,7 @@ You can colour variables using the `ggplot_sf_col` function.
 pal <- c("#0D94A3", "#C4C4C7", "#AE4E51")
 
 ggplot_sf_col(example_sf_point, col_var = trend_category, 
-              pal = pal, boundary = nz)
+              pal = pal, borders = nz)
 ```
 
 For numeric variables, you have the option of colouring using a method of `quantile` or `bin`, and defaulting to `quantile`. 
@@ -54,7 +54,7 @@ The `quantile` method defaults to quartiles cut using the `quantile` algorithm. 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_col(example_sf_point, median,
               col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.9, 1),
-              col_labels_dp = 2, boundary = nz)
+              col_labels_dp = 2, borders = nz)
 ```
 
 The `bin` method defaults to pretty breaks cut using the `pretty` algorithm. But you can customise it by providing a vector to the `col_cuts` argument from 0 to Inf (or from -Inf to Inf if the colour variable includes negative values). 
@@ -63,19 +63,19 @@ The `bin` method defaults to pretty breaks cut using the `pretty` algorithm. But
 ggplot_sf_col(example_sf_point, median,
               col_method = "bin", 
               col_cuts = c(0, 0.25, 1, Inf),
-              col_labels_dp = 2, boundary = nz)
+              col_labels_dp = 2, borders = nz)
 ```
 
-Faccetting works in a similar way to the plot functions. Note only one boundary can be added in. This may not work with all use cases.
+Faccetting works in a similar way to the plot functions. Note only one borders can be added in. This may not work with all use cases.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_facet(example_sf_point, facet_var = trend_category, 
-                boundary = nz)
+                borders = nz)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_col_facet(example_sf_point, trend_category, trend_category, 
-                boundary = nz)
+                borders = nz)
 ```
 
 Polygons or line geometry types can also be used in these sf functions.
@@ -94,7 +94,7 @@ wgtn <- tibble::tibble(long, lat) %>%
   sf::st_as_sf(coords = c("long", "lat"), crs = 4326)
 
 ggplot_sf_col(example_sf_point, trend_category,
-              boundary = nz) +
+              borders = nz) +
   ggplot2::geom_sf(data = wgtn, size = 5, col = "red") 
 
 ```
@@ -103,7 +103,7 @@ Make a non-facetted plot for a mobile device. Note the template shiny apps provi
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_sf_col(example_sf_point, trend_category,
-              boundary = nz, isMobile = TRUE)
+              borders = nz, isMobile = TRUE)
 ```
 
 The leaflet functions work in a similar way to the `ggplot2` wrapper functions. 
@@ -112,7 +112,7 @@ The leaflet functions work in a similar way to the `ggplot2` wrapper functions.
 leaflet_sf(example_sf_point)
 ```
 
-Instead of a `boundary` argument, users have a `basemap` argument that defaults to "light" but has other options.
+Instead of a `borders` argument, users have a `basemap` argument that defaults to "light" but has other options.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_sf(example_sf_point, basemap = "dark")
@@ -131,7 +131,7 @@ leaflet_sf_col(example_sf_point, col_var = trend_category,
               pal = pal, title = "Site trends in New Zealand, 2021")
 ```
 
-The `rnaturalearth` package is a great source of country and state boundaries.
+The `rnaturalearth` package is a great source of country and state borders.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")

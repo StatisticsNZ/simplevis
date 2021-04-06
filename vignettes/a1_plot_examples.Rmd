@@ -363,7 +363,7 @@ ggplot_hbar(plot_data, average_price, cut, x_na_bar = TRUE)
 Make a boxplot.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-ggplot_box(iris, Species, Petal.Length)
+ggplot_boxplot(iris, Species, Petal.Length)
 
 ```
 
@@ -381,7 +381,7 @@ plot_data <- iris %>%
 
 plot_data
 
-ggplot_box(plot_data, Species, Petal.Length, stat = "identity")
+ggplot_boxplot(plot_data, Species, Petal.Length, stat = "identity")
 
 ```
 
@@ -436,21 +436,21 @@ plotly::ggplotly(plot) %>%
 Make a ggplotly interactive plot with a different variable.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-plot <- ggplot_point(iris, Sepal.Width, Sepal.Length, tip_var = Petal.Width)
+plot <- ggplot_point(iris, Sepal.Width, Sepal.Length, text_var = Petal.Width)
 
 plotly::ggplotly(plot, tooltip = "text")
 
 ```
 
-Make a ggplotly interactive plot with custom tooltip that can be created with the add_tip function. Note that this function will convert snakecase column names to sentence case with underscores changed to spaces. The ggplotly argument tooltip = "text" is required to implement this in combination with the tip_var argument in the simplevis function. 
+Make a ggplotly interactive plot with custom tooltip that can be created with the mutate_text function. Note that this function will convert snakecase column names to sentence case with underscores changed to spaces. The ggplotly argument tooltip = "text" is required to implement this in combination with the text_var argument in the simplevis function. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <- iris %>% 
-  add_tip(c("Species", "Sepal.Width", "Sepal.Length", "Petal.Width"))
+  mutate_text(c("Species", "Sepal.Width", "Sepal.Length", "Petal.Width"))
 
 plot_data
 
-plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, tip_var = tip_text)
+plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, text_var = tip_text)
 
 plotly::ggplotly(plot, tooltip = "text") 
 

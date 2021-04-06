@@ -138,7 +138,7 @@ ggplot_stars <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    coord_equal() #this is applicable only when no boundary
+    coord_equal() #this is applicable only when no borders
 
   data <- data %>%
     tibble::as_tibble()
@@ -333,7 +333,7 @@ ggplot_stars_col <- function(data,
     ) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
-    coord_equal() #this is applicable only when no boundary
+    coord_equal() #this is applicable only when no borders
   
   if (isMobile == FALSE) {
     plot <- plot +
@@ -415,7 +415,7 @@ ggplot_stars_facet <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    coord_equal() #this is applicable only when no boundary
+    coord_equal() #this is applicable only when no borders
 
   data <- data %>%
     tibble::as_tibble() %>%
@@ -527,7 +527,7 @@ ggplot_stars_col_facet <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    coord_equal() #this is applicable only when no boundary
+    coord_equal() #this is applicable only when no borders
 
   if (col_method == "category") {
     data <- data %>%

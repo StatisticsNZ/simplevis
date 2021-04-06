@@ -4,7 +4,7 @@
 \alias{ggplot_point_facet}
 \title{Point ggplot that is facetted.}
 \usage{
-ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
+ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
   point_size = 1.5, pal = NULL, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
   x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
@@ -25,7 +25,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, tip_var = NULL,
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{point_size}{Size of points. Defaults to 1.}
 

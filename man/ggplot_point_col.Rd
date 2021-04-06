@@ -4,7 +4,7 @@
 \alias{ggplot_point_col}
 \title{Point ggplot that is coloured.}
 \usage{
-ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL,
+ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
   point_size = 1.5, pal = NULL, pal_rev = FALSE, col_method = NULL,
   col_cuts = NULL, col_na = TRUE, x_zero = TRUE,
   x_zero_line = NULL, x_trans = "identity", x_labels = waiver(),
@@ -28,7 +28,7 @@ ggplot_point_col(data, x_var, y_var, col_var, tip_var = NULL,
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{point_size}{Size of points. Defaults to 1.}
 

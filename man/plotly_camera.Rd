@@ -15,7 +15,8 @@ plotly_camera(plotly, logo = FALSE)
 Remove plotly buttons from the mode bar, other than the camera and plotly logo.
 }
 \examples{
-plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
+plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05) \%>\% 
+   mutate_text()
 
 plot <- ggplot_point(data = plot_data, x_var = carat, y_var = price)
 

@@ -4,7 +4,7 @@
 \alias{ggplot_vbar}
 \title{Vertical bar ggplot.}
 \usage{
-ggplot_vbar(data, x_var, y_var, tip_var = NULL, pal = NULL,
+ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
   width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
@@ -22,7 +22,7 @@ ggplot_vbar(data, x_var, y_var, tip_var = NULL, pal = NULL,
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 
-\item{tip_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.5</span>
       </span>
     </div>
 
@@ -147,8 +147,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_sf</span>(<span class='no'>data</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>boundary_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
-  <span class='kw'>boundary_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
+  <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
   <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -162,7 +162,7 @@
     </tr>
     <tr>
       <th>size</th>
-      <td><p>Size of points or line features (or non-boundary polygon features). Defaults to 0.5.</p></td>
+      <td><p>Size of points or line features (or non-borders polygon features). Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -173,20 +173,20 @@
       <td><p>Character vector of hex codes. Defaults to NULL, which selects a default palette.</p></td>
     </tr>
     <tr>
-      <th>boundary</th>
+      <th>borders</th>
       <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
     </tr>
     <tr>
-      <th>boundary_behind</th>
-      <td><p>TRUE or FALSE  as to whether the boundary is to be behind the sf object defined in the data argument. Defaults to TRUE.</p></td>
+      <th>borders_behind</th>
+      <td><p>TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.</p></td>
     </tr>
     <tr>
-      <th>boundary_pal</th>
-      <td><p>Colour of the boundary. Defaults to "#7F7F7F".</p></td>
+      <th>borders_pal</th>
+      <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
     </tr>
     <tr>
-      <th>boundary_size</th>
-      <td><p>Size of the boundary. Defaults to 0.2.</p></td>
+      <th>borders_size</th>
+      <td><p>Size of the borders. Defaults to 0.2.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -235,7 +235,7 @@
     <p>A ggplot object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='ggplot_sf-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>ggplot_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='ggplot_sf-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>sf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"medium"</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Indonesia"</span>, <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>)
 
 <span class='fu'>ggplot_sf</span>(<span class='no'>sf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='st'>"#232323"</span>)</div><div class='img'><img src='ggplot_sf-2.png' alt='' width='700' height='433' /></div></pre>

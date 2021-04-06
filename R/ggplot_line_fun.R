@@ -114,7 +114,7 @@ theme_line <-
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -161,7 +161,7 @@ theme_line <-
 ggplot_line <- function(data,
                         x_var,
                         y_var,
-                        tip_var = NULL,
+                        text_var = NULL,
                         pal = NULL,
                         points = TRUE,
                         point_size = 1.5,
@@ -195,7 +195,7 @@ ggplot_line <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-  tip_var <- rlang::enquo(tip_var)
+  text_var <- rlang::enquo(text_var)
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -242,7 +242,7 @@ ggplot_line <- function(data,
     geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1])
 
   plot <- plot +
-    geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = alpha)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -350,7 +350,7 @@ ggplot_line <- function(data,
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
@@ -403,7 +403,7 @@ ggplot_line_col <-
            x_var,
            y_var,
            col_var,
-           tip_var = NULL,
+           text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
            points = TRUE,
@@ -443,7 +443,7 @@ ggplot_line_col <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     data <- data %>% 
       dplyr::ungroup() %>%
@@ -503,7 +503,7 @@ ggplot_line_col <-
       geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size)
     
     plot <- plot +
-      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
+      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
                  size = point_size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -626,7 +626,7 @@ ggplot_line_col <-
 #' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
 #' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
@@ -675,7 +675,7 @@ ggplot_line_facet <-
            x_var,
            y_var,
            facet_var,
-           tip_var = NULL,
+           text_var = NULL,
            pal = NULL,
            points = TRUE,
            point_size = 1.5,
@@ -712,7 +712,7 @@ ggplot_line_facet <-
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -755,7 +755,7 @@ ggplot_line_facet <-
       geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) 
     
     plot <- plot +
-      geom_point(aes(!!x_var, !!y_var, text = !!tip_var), col = pal[1], size = point_size, alpha = alpha)
+      geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = alpha)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -844,7 +844,7 @@ ggplot_line_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param tip_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
@@ -900,7 +900,7 @@ ggplot_line_col_facet <-
            y_var,
            col_var,
            facet_var,
-           tip_var = NULL,
+           text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
            points = TRUE,
@@ -943,7 +943,7 @@ ggplot_line_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    tip_var <- rlang::enquo(tip_var)
+    text_var <- rlang::enquo(text_var)
     
     data <- data %>% 
       dplyr::ungroup() %>%
@@ -999,7 +999,7 @@ ggplot_line_col_facet <-
       geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size)
     
     plot <- plot +
-      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!tip_var),
+      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
                  size = point_size, alpha = alpha)
     
     if (!is.null(col_labels)) labels <- col_labels

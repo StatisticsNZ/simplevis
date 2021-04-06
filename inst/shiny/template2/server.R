@@ -19,7 +19,7 @@ shinyServer(function(input, output, session) {
       summarise(average_price = round(mean(price), 0)) %>%
       mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
       mutate(average_price = paste0("US$", prettyNum(average_price,  big.mark = ","))) %>% 
-      add_tip(c("cut", "clarity", "average_price"))
+      mutate_text(c("cut", "clarity", "average_price"))
     
     return(plot_data)
   })
@@ -40,7 +40,7 @@ shinyServer(function(input, output, session) {
                             x_var = average_price_thousands, 
                             y_var = cut, 
                             col_var = clarity, 
-                            tip_var = tip_text,
+                            text_var = tip_text,
                             col_labels_ncol = 4,
                             title = title, 
                             x_title = x_title, 

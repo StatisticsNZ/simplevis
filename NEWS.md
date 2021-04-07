@@ -1,3 +1,9 @@
+# simplevis 2.5.7
+
+* New feature: For boxplot, added line_size argument and alpha. 
+* New feature: Default colour changed for where 2 values. 
+* Breaking change: Changed x_na_bar/y_na_bar to x_na_inf/y_na_inf. 
+
 # simplevis 2.5.6
 
 * Breaking change: changed output of mutate_text to name the new column text.

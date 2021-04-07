@@ -170,7 +170,7 @@ ggplot_sf <- function(data,
     }
   }
 
-  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
@@ -354,7 +354,7 @@ ggplot_sf_col <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
@@ -371,7 +371,7 @@ ggplot_sf_col <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
@@ -383,7 +383,7 @@ ggplot_sf_col <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <- waiver()
@@ -558,7 +558,7 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
 
   if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
@@ -725,7 +725,7 @@ ggplot_sf_col_facet <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <- waiver()

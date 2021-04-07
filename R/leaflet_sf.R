@@ -41,9 +41,9 @@ leaflet_sf <- function(data,
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
-
+  
   col_id <- paste0(map_id, "_legend")
   
   if (shiny == FALSE) {
@@ -60,7 +60,7 @@ leaflet_sf <- function(data,
     if(ncol(data) == 1) popup <- NULL
     else ({
       popup <- leafpop::popupTable(
-        sentence_spaced_colnames(
+        colnames_to_snake_to_sentence(
           sf::st_drop_geometry(data)
         ),
         row.numbers = FALSE, feature.id = FALSE)
@@ -279,10 +279,10 @@ leaflet_sf_col <- function(data,
     }
     else if (!is.null( col_labels)) labels <-  col_labels
     
-    n_col_var_values <- length(labels)
+    n_col <- length(labels)
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col_var_values)
-    else if (!is.null(pal)) pal <- pal[1:n_col_var_values]
+    if (is.null(pal)) pal <- pal_default(n_col)
+    else if (!is.null(pal)) pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
@@ -297,7 +297,7 @@ leaflet_sf_col <- function(data,
       if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
-      
+    
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -358,7 +358,7 @@ leaflet_sf_col <- function(data,
     if(ncol(data) == 1) popup <- NULL
     else ({
       popup <- leafpop::popupTable(
-        sentence_spaced_colnames(
+        colnames_to_snake_to_sentence(
           sf::st_drop_geometry(data)
         ),
         row.numbers = FALSE, feature.id = FALSE)

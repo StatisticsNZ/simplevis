@@ -125,7 +125,7 @@ theme_hbar <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_labels Argument to adjust the format of the x scale labels.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to [X title].
@@ -175,7 +175,7 @@ ggplot_hbar <- function(data,
                         x_balance = FALSE,
                         x_expand = NULL,
                         x_labels = waiver(),
-                        x_na_bar = FALSE,
+                        x_na_inf = FALSE,
                         x_pretty_n = 6,
                         x_title = "[X title]",
                         x_title_wrap = 50,
@@ -235,7 +235,7 @@ ggplot_hbar <- function(data,
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
   }
   
-  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
 
   plot <- ggplot(data) +
@@ -289,7 +289,7 @@ ggplot_hbar <- function(data,
       )
   })
   
-  if(x_na_bar == TRUE) {
+  if(x_na_inf == TRUE) {
     na_data <- dplyr::filter(data, is.na(!!x_var))
     
     if(nrow(na_data) != 0) {
@@ -388,7 +388,7 @@ ggplot_hbar <- function(data,
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
-#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -448,7 +448,7 @@ ggplot_hbar_col <-
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
-           x_na_bar = FALSE,
+           x_na_inf = FALSE,
            x_pretty_n = 6,
            x_title = "[X title]",
            x_title_wrap = 50,
@@ -486,7 +486,7 @@ ggplot_hbar_col <-
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
     if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
-    if (x_na_bar == TRUE & position == "stack") stop("Please use a position of dodge for where x_na_bar equals TRUE")
+    if (x_na_inf == TRUE & position == "stack") stop("Please use a position of dodge for where x_na_inf equals TRUE")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
@@ -531,7 +531,7 @@ ggplot_hbar_col <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == FALSE) pal <- rev(pal)
@@ -547,7 +547,7 @@ ggplot_hbar_col <-
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
     
-    if (!is.null(pal) & x_na_bar == TRUE) { 
+    if (!is.null(pal) & x_na_inf == TRUE) { 
       if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
         names(pal) <- levels(col_var_vctr)
       }
@@ -626,14 +626,14 @@ ggplot_hbar_col <-
         )
     })
     
-    if(x_na_bar == FALSE) {
+    if(x_na_inf == FALSE) {
       plot <- plot +
         geom_col(aes(
           x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
           alpha = alpha, size = line_size,width = width, 
           position = position2)
     }
-    else if(x_na_bar == TRUE) {
+    else if(x_na_inf == TRUE) {
       data <- data %>% 
         dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
@@ -771,7 +771,7 @@ ggplot_hbar_col <-
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Argument to adjust the format of the x scale labels.
-#' @param x_na_bar TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -824,7 +824,7 @@ ggplot_hbar_facet <-
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
-           x_na_bar = FALSE,
+           x_na_inf = FALSE,
            x_pretty_n = 5,
            x_title = "[X title]",
            x_title_wrap = 50,
@@ -885,7 +885,7 @@ ggplot_hbar_facet <-
       }
     }
     
-    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    if (is.null(pal)) pal <- pal_default(1)
     else pal <- pal[1]
 
     plot <- ggplot(data) +
@@ -929,7 +929,7 @@ ggplot_hbar_facet <-
           oob = scales::rescale_none
         )
       
-      if(x_na_bar == TRUE) {
+      if(x_na_inf == TRUE) {
         na_data <- dplyr::filter(data, is.na(!!x_var))
         
         if(nrow(na_data) != 0) {
@@ -1152,7 +1152,7 @@ ggplot_hbar_col_facet <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == FALSE) pal <- rev(pal)

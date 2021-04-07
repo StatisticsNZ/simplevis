@@ -8,7 +8,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
   pal = NULL, width = 0.75, alpha = 1, line_size = 0.5,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
-  x_labels = waiver(), x_na_bar = FALSE, x_pretty_n = 5,
+  x_labels = waiver(), x_na_inf = FALSE, x_pretty_n = 5,
   x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
   x_zero = TRUE, x_zero_line = NULL, y_rev = FALSE,
   y_labels = waiver(), y_expand = NULL, y_title = "[Y title]",
@@ -49,7 +49,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
+\item{x_na_inf}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
 

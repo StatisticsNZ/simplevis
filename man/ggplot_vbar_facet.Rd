@@ -10,7 +10,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
   y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
-  y_na_bar = FALSE, y_pretty_n = 5, y_title = "[Y title]",
+  y_na_inf = FALSE, y_pretty_n = 5, y_title = "[Y title]",
   y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
   y_zero_line = NULL, facet_ncol = NULL, facet_nrow = NULL,
   facet_scales = "fixed", caption = NULL, caption_wrap = 80,
@@ -60,7 +60,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{y_labels}{Argument to adjust the format of the y scale labels.}
 
-\item{y_na_bar}{TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
+\item{y_na_inf}{TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x".}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

@@ -224,7 +224,7 @@ ggplot_line <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
   
-  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
   
   if (points == TRUE) alpha <- 1
@@ -483,7 +483,7 @@ ggplot_line_col <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -737,7 +737,7 @@ ggplot_line_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
     
-    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    if (is.null(pal)) pal <- pal_default(1)
     else pal <- pal[1]
     
     if (points == TRUE) alpha <- 1
@@ -979,7 +979,7 @@ ggplot_line_col_facet <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)

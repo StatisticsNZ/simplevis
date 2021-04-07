@@ -8,7 +8,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
   position = "stack", pal = NULL, pal_rev = FALSE, width = 0.75,
   alpha = 1, line_size = 0.5, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
-  x_expand = NULL, x_labels = waiver(), x_na_bar = FALSE,
+  x_expand = NULL, x_labels = waiver(), x_na_inf = FALSE,
   x_pretty_n = 6, x_title = "[X title]", x_title_wrap = 50,
   x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
   y_expand = NULL, y_labels = waiver(), y_rev = FALSE,
@@ -55,7 +55,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_labels}{Argument to adjust the format of the x scale labels.}
 
-\item{x_na_bar}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
+\item{x_na_inf}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 

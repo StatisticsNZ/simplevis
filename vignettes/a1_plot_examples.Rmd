@@ -356,7 +356,7 @@ plot_data <- ggplot2::diamonds %>%
   add_row(cut = "Very Good", average_price = NA) %>% # make an NA value for the example
   mutate(cut = factor(cut, levels = c("Fair", "Good", "Very Good", "Premium", "Ideal"))) 
 
-ggplot_hbar(plot_data, average_price, cut, x_na_bar = TRUE)
+ggplot_hbar(plot_data, average_price, cut, x_na_inf = TRUE)
 ```
 
 

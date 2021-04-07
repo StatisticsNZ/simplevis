@@ -131,7 +131,7 @@ theme_vbar <-
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Argument to adjust the format of the y scale labels.
-#' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -178,7 +178,7 @@ ggplot_vbar <- function(data,
                         y_balance = FALSE,
                         y_expand = NULL,
                         y_labels = waiver(),
-                        y_na_bar = FALSE,
+                        y_na_inf = FALSE,
                         y_pretty_n = 5,
                         y_title = "[Y title]",
                         y_title_wrap = 50,
@@ -223,7 +223,7 @@ ggplot_vbar <- function(data,
     else if (isMobile == TRUE) font_size_body <- 14
   }
 
-  if (is.null(pal)) pal <- viridis::viridis(4)[2]
+  if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
 
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
@@ -312,7 +312,7 @@ ggplot_vbar <- function(data,
       )
   })
   
-  if(y_na_bar == TRUE) {
+  if(y_na_inf == TRUE) {
     na_data <- dplyr::filter(data, is.na(!!y_var))
     
     if(nrow(na_data) != 0) {
@@ -399,7 +399,7 @@ ggplot_vbar <- function(data,
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Argument to adjust the format of the y scale labels.
-#' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -453,7 +453,7 @@ ggplot_vbar_col <-
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
-           y_na_bar = FALSE,
+           y_na_inf = FALSE,
            y_pretty_n = 5,
            y_title = "[Y title]",
            y_title_wrap = 50,
@@ -522,7 +522,7 @@ ggplot_vbar_col <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -619,14 +619,14 @@ ggplot_vbar_col <-
         )
     })
     
-    if(y_na_bar == FALSE) {
+    if(y_na_inf == FALSE) {
       plot <- plot +
         geom_col(aes(
           x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
           alpha = alpha, size = line_size, width = width, 
           position = position2)
     }
-    else if(y_na_bar == TRUE) {
+    else if(y_na_inf == TRUE) {
       data <- data %>% 
         dplyr::mutate(col_var2 = ifelse(is.na(!!y_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
@@ -765,7 +765,7 @@ ggplot_vbar_col <-
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Argument to adjust the format of the y scale labels.
-#' @param y_na_bar TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
+#' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -814,7 +814,7 @@ ggplot_vbar_facet <-
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
-           y_na_bar = FALSE, 
+           y_na_inf = FALSE, 
            y_pretty_n = 5,
            y_title = "[Y title]",
            y_title_wrap = 50,
@@ -858,7 +858,7 @@ ggplot_vbar_facet <-
     if(is.null(font_size_title)) font_size_title <- 11
     if(is.null(font_size_body)) font_size_body <- 10
     
-    if (is.null(pal)) pal <- viridis::viridis(4)[2]
+    if (is.null(pal)) pal <- pal_default(1)
     else pal <- pal[1]
 
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
@@ -940,7 +940,7 @@ ggplot_vbar_facet <-
           oob = scales::squish
         )
       
-      if(y_na_bar == TRUE) {
+      if(y_na_inf == TRUE) {
         na_data <- dplyr::filter(data, is.na(!!y_var))
         
         if(nrow(na_data) != 0) {
@@ -1152,7 +1152,7 @@ ggplot_vbar_col_facet <-
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
     
-    if (is.null(pal)) pal <- viridis::viridis(n_col)
+    if (is.null(pal)) pal <- pal_default(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)

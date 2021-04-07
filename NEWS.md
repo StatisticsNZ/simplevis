@@ -1,3 +1,8 @@
+# simplevis 2.5.6
+
+* Breaking change: changed output of mutate_text to name the new column text.
+* Breaking change: removed all stars functions, as these need more development work.
+
 # simplevis 2.5.5 
 
 * Breaking change: Rename tip_var to text_var to align with ggplot2.

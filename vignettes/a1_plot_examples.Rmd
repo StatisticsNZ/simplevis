@@ -450,7 +450,7 @@ plot_data <- iris %>%
 
 plot_data
 
-plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, text_var = tip_text)
+plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text") 
 

@@ -26,7 +26,7 @@ a4_height_mm <- 257
 #'   mutate_text(c("carat", "price"), comma = TRUE)
 #' 
 #' plot <- ggplot_point(data = plot_data, x_var = carat, y_var = price,
-#'                        text_var = tip_text,
+#'                        text_var = text,
 #'                        title = "Diamond price by carat",
 #'                        x_title = "Carat",
 #'                        y_title = "Price ($US thousands)")
@@ -43,7 +43,7 @@ mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
     else if(class != "sf") vars_vctr <- colnames(data)
   }
   
-  tip_text <- vector("character", 0)
+  text <- vector("character", 0)
   
   if(comma == TRUE) {
     for (i in length(vars_vctr):1) {
@@ -59,7 +59,7 @@ mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
         ": ", 
         format(dplyr::pull(temp, 1), big.mark = ","))
       
-      tip_text <- paste(temp, tip_text, sep = "<br>")
+      text <- paste(temp, text, sep = "<br>")
     }
   }
   else if (comma == FALSE) {
@@ -76,12 +76,12 @@ mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
         ": ", 
         dplyr::pull(temp, 1))
       
-      tip_text <- paste(temp, tip_text, sep = "<br>")
+      text <- paste(temp, text, sep = "<br>")
     }
   }
   
   data <- data %>%
-    dplyr::mutate(tip_text = stringr::str_replace_all(tip_text, "NA", "Not available"))
+    dplyr::mutate(text = stringr::str_replace_all(text, "NA", "Not available"))
   
   return(data)
 }

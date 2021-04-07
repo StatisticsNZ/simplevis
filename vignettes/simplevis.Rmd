@@ -144,7 +144,7 @@ ggplot_hbar_col_facet(plot_data, average_price, color, clarity, cut,
 
 ```
 
-These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::ggplotly(plot)`. A customised tooltip can be provided using the `text_var` argument in `simplevis` functions with `plotly::ggplotly(plot, tooltip = "text)`. Automated tip_text columns can be created using the `mutate_text` function.
+These `ggplot` graphs have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::ggplotly(plot)`. A customised tooltip can be provided using the `text_var` argument in `simplevis` functions with `plotly::ggplotly(plot, tooltip = "text")`. Automated `text` columns can be created using the `mutate_text` function.
 
 ```{r, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 plot_data <- storms %>%
@@ -178,12 +178,9 @@ tibble::tribble(
 
 ### simplevis ggplot maps
 
-`simplevis` provides the following types of `ggplot` map:
+`simplevis` provides simple feature (`sf`) maps (i.e. maps with point, line or polygon features). 
 
-* simple feature (`sf`) maps
-* spatial-temporal array (i.e. `stars`) maps 
-
-Simple feature (`sf`) maps are maps of points, lines or polygons.  
+Spatial-temporal array (i.e. `stars`) maps may be supported in future. 
 
 The following functions are available:
 
@@ -237,49 +234,13 @@ ggplot_sf_col_facet(example_sf_point, trend_category, trend_category,
                     title = "Site trends, 1990\u201317")
 ```
 
-`simplevis` provides `ggplot` maps made for spatial temporal arrays (`stars`). 
-
-The following functions are available:
-
-* `ggplot_sf_col`
-* `ggplot_sf_col_facet`
-
-These functions work in the same way as the `ggplot` `sf` map functions, but with the following key differences:
-
-* No non-colouring functions have been made, as it is assumed that this functionality is not required
-* They do _not_ support conversion to interactive objects through `plotly::ggplotly`.
-* Data must be provided in the format of a `stars` object. For, `ggplot_sf_col`, the `stars` object must have 2 dimensions x and y, and only 1 attribute layer. Required input. For, `ggplot_sf_col_facet`,  the stars object must have 2 dimensions, x and y, and multiple named attribute layers with the usual convention of lower case and underscores. Use `select`, `slice`, `c` and `split`to get the `stars` object into the appropriate format.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_stars_col(example_stars, 
-                 col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-                 title = "Site medians, 2013-2017",
-                 title_wrap = 40, 
-                 col_labels_dp = 1)
-```
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-map_data1 <- example_stars %>% rlang::set_names("A")
-
-map_data2 <- example_stars_2 %>% rlang::set_names("B")
-
-map_data <- c(map_data1, map_data2)
-
-ggplot_stars_col_facet(map_data, 
-                       col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-                       title = "Site medians, 2013-2017")
-```
-
 ### simplevis leaflet maps
 
-`simplevis` provides the following types of `leaflet` map:
-
-* simple feature (`sf`) maps
-* spatial-temporal array (i.e. `stars`) maps 
+`simplevis` provides `sf` `leaflet` maps.
 
 These work in the same way as the `ggplot` map functions, but with no borders arguments.
 
-Outputs are hidden to keep the size of the vignette manageable. 
+Spatial-temporal array (i.e. `stars`) maps may be supported in future. 
 
 ```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf(data = example_sf_polygon)
@@ -291,12 +252,6 @@ leaflet_sf_col(example_sf_polygon, density,
                col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
                col_labels_dp = 0,
                title = "Modelled density, 2013-2017")
-```
-
-```{r, echo = TRUE, results = 'hide', fig.height = 4, fig.width = 7}
-leaflet_stars_col(example_stars,
-  col_method = "quantile", col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-   title = "Modelled density, 2013-2017")
 ```
 
 ### shiny apps with simplevis

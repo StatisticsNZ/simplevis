@@ -6,17 +6,17 @@
 \usage{
 ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
   position = "stack", pal = NULL, pal_rev = FALSE, width = 0.75,
-  alpha = 1, line_size = 0.5, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
-  x_labels = waiver(), x_pretty_n = 6, x_title = "[X title]",
-  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_na_inf = FALSE, y_pretty_n = 5,
-  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
-  y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
-  col_labels_ncol = NULL, col_labels_nrow = NULL, col_title = "",
-  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, isMobile = FALSE)
+  fill_alpha = 1, line_size = 0.5, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
+  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_na_inf = FALSE,
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  col_labels = NULL, col_labels_ncol = NULL, col_labels_nrow = NULL,
+  col_title = "", col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -37,7 +37,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{width}{Width of bars. Defaults to 0.75.}
 
-\item{alpha}{The alpha of the fill. Defaults to 1.}
+\item{fill_alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{line_size}{The size of the outlines of bars.}
 
@@ -51,7 +51,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
@@ -63,7 +63,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_na_inf}{TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
@@ -79,7 +79,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
-\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{Adjust the  x scale labels through a vector.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 

@@ -5,8 +5,8 @@
 \title{Map of simple features in leaflet that is coloured.}
 \usage{
 leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
-  pal = NULL, pal_rev = FALSE, radius = 1, weight = 2,
-  opacity = 0.9, stroke = TRUE, basemap = "light",
+  pal = NULL, pal_rev = FALSE, point_size = 1, line_size = 2,
+  fill_alpha = 0.9, line_alpha = 1, basemap = "light",
   title = "[Title]", col_cuts = NULL, col_labels_dp = 1,
   col_drop = FALSE, col_labels = NULL, col_method = NULL,
   col_na = TRUE, map_id = "map")
@@ -24,13 +24,13 @@ leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{radius}{Radius of points. Defaults to 2.}
+\item{point_size}{Size of points. Defaults to 1.}
 
-\item{weight}{Stroke border size. Defaults to 2.}
+\item{line_size}{Size of lines around features. Defaults to 2.}
 
-\item{opacity}{The opacity of polygons. Defaults to 0.9.}
+\item{fill_alpha}{The opacity of the fill within features. Defaults to 0.1.}
 
-\item{stroke}{TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.}
+\item{line_alpha}{The opacity of the lines around features. Defaults to 1.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
@@ -42,7 +42,7 @@ leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
 
 \item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
-\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{Adjust the  x scale labels through a vector.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
@@ -68,5 +68,5 @@ leaflet_sf_col(example_sf_polygon, density,
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 leaflet_sf_col(example_sf_point, trend_category, pal = pal, col_method = "category",
-   title = "Monitored river nitrate-nitrogen trends, 2008\\u201317")
+   title = "Monitored trends, 2008\\u201317")
 }

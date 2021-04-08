@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.8</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_vbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>fill_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -185,7 +185,7 @@
       <td><p>Width of bars. Defaults to 0.75.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
+      <th>fill_alpha</th>
       <td><p>The alpha of the fill. Defaults to 1.</p></td>
     </tr>
     <tr>
@@ -214,7 +214,7 @@
     </tr>
     <tr>
       <th>x_labels</th>
-      <td><p>Argument to adjust the format of the x scale labels.</p></td>
+      <td><p>Adjust the  x scale labels through a function or vector.</p></td>
     </tr>
     <tr>
       <th>x_pretty_n</th>
@@ -238,7 +238,7 @@
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>Argument to adjust the format of the y scale labels.</p></td>
+      <td><p>Adjust the  y scale labels through a function or vector.</p></td>
     </tr>
     <tr>
       <th>y_na_inf</th>

@@ -442,7 +442,21 @@ plotly::ggplotly(plot, tooltip = "text")
 
 ```
 
-Make a ggplotly interactive plot with custom tooltip that can be created with the mutate_text function. Note that this function will convert snakecase column names to sentence case with underscores changed to spaces. The ggplotly argument tooltip = "text" is required to implement this in combination with the text_var argument in the simplevis function. 
+Make a ggplotly interactive plot with custom tooltip that can be created with the mutate_text function. Note that this function will convert snakecase column names to sentence case with underscores changed to spaces. The ggplotly argument tooltip = "text" is required to implement this in combination with the text_var argument in the simplevis function. If the mutate_text function is empty, it will include all columns in the tooltip.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+plot_data <- iris %>% 
+  mutate_text()
+
+plot_data
+
+plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, text_var = text)
+
+plotly::ggplotly(plot, tooltip = "text") 
+
+```
+
+Otherwise specify a vector of quoted variables, if you would like a subset of variables in the tooltip. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 plot_data <- iris %>% 
@@ -455,7 +469,6 @@ plot <- ggplot_point(plot_data, Sepal.Width, Sepal.Length, text_var = text)
 plotly::ggplotly(plot, tooltip = "text") 
 
 ```
-
 The plotly default legend can sometimes not be in the ideal order.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}

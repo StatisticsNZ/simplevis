@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.8</span>
       </span>
     </div>
 
@@ -146,10 +146,10 @@
     <p>Map of simple features in leaflet that is not coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_sf</span>(<span class='no'>data</span>, <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>stroke</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='st'>"[Feature]"</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_sf</span>(<span class='no'>data</span>, <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fill_alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='st'>"[Feature]"</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,20 +167,20 @@
       <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
     </tr>
     <tr>
-      <th>radius</th>
-      <td><p>Radius of points. Defaults to 2.</p></td>
+      <th>point_size</th>
+      <td><p>Size of points. Defaults to 1.</p></td>
     </tr>
     <tr>
-      <th>weight</th>
-      <td><p>Stroke border size. Defaults to 2.</p></td>
+      <th>line_size</th>
+      <td><p>Size of lines around features. Defaults to 2.</p></td>
     </tr>
     <tr>
-      <th>opacity</th>
-      <td><p>The opacity of the fill. Defaults to 0.1. Only applicable to polygons.</p></td>
+      <th>fill_alpha</th>
+      <td><p>The opacity of the fill within features. Defaults to 0.1.</p></td>
     </tr>
     <tr>
-      <th>stroke</th>
-      <td><p>TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.</p></td>
+      <th>line_alpha</th>
+      <td><p>The opacity of the lines around features. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>basemap</th>
@@ -196,7 +196,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A vector of legend label values. Defaults to "Feature".</p></td>
+      <td><p>A vector of legend label values. Defaults to "[Feature]".</p></td>
     </tr>
     <tr>
       <th>map_id</th>

@@ -122,7 +122,7 @@ theme_point <-
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -130,7 +130,7 @@ theme_point <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.     
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -352,7 +352,7 @@ ggplot_point <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to "[X title]".
@@ -360,7 +360,7 @@ ggplot_point <- function(data,
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
@@ -368,7 +368,7 @@ ggplot_point <- function(data,
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -660,7 +660,7 @@ ggplot_point_col <-
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -668,7 +668,7 @@ ggplot_point_col <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -888,7 +888,7 @@ ggplot_point_facet <-
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -896,7 +896,7 @@ ggplot_point_facet <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -907,7 +907,7 @@ ggplot_point_facet <-
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_quantile_by_facet TRUE of FALSE whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.

@@ -117,7 +117,7 @@ theme_hbar <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
@@ -126,7 +126,7 @@ theme_hbar <-
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -134,7 +134,7 @@ theme_hbar <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.  
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -166,7 +166,7 @@ ggplot_hbar <- function(data,
                         text_var = NULL,
                         pal = NULL,
                         width = 0.75, 
-                        alpha = 1,
+                        fill_alpha = 1,
                         line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
@@ -245,7 +245,7 @@ ggplot_hbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = fill_alpha, size = line_size,width = width)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
@@ -296,13 +296,13 @@ ggplot_hbar <- function(data,
       if(x_limits[1] >= 0 & x_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                    data = na_data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                    data = na_data)        
       }
       else if(x_limits[1] < 0 & x_limits[2] > 0) {
@@ -310,10 +310,10 @@ ggplot_hbar <- function(data,
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                    data = na_data) +
           geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                    data = na_data)
       }
     }
@@ -379,7 +379,7 @@ ggplot_hbar <- function(data,
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
@@ -387,7 +387,7 @@ ggplot_hbar <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
@@ -396,11 +396,11 @@ ggplot_hbar <- function(data,
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
@@ -439,7 +439,7 @@ ggplot_hbar_col <-
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
-           alpha = 1,
+           fill_alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -630,7 +630,7 @@ ggplot_hbar_col <-
       plot <- plot +
         geom_col(aes(
           x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-          alpha = alpha, size = line_size,width = width, 
+          alpha = fill_alpha, size = line_size,width = width, 
           position = position2)
     }
     else if(x_na_inf == TRUE) {
@@ -657,7 +657,7 @@ ggplot_hbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size,width = width, position = position2, data = data)
+                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
         data <- data %>%
@@ -665,7 +665,7 @@ ggplot_hbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size,width = width, position = position2, data = data)
+                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] > 0) {
         data <- data %>%
@@ -675,9 +675,9 @@ ggplot_hbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size,width = width, position = position2, data = data) +
+                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data) +
           geom_col(aes(x = !!y_var, y = .data$x_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size,width = width, position = position2, data = data)
+                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data)
       }
     }
     
@@ -762,7 +762,7 @@ ggplot_hbar_col <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1.
+#' @param fill_alpha The alpha of the fill. Defaults to 1.
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
@@ -770,7 +770,7 @@ ggplot_hbar_col <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
@@ -779,7 +779,7 @@ ggplot_hbar_col <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -815,7 +815,7 @@ ggplot_hbar_facet <-
            text_var = NULL,
            pal = NULL,
            width = 0.75, 
-           alpha = 1,
+           fill_alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -895,7 +895,7 @@ ggplot_hbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
+      geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = fill_alpha, size = line_size,width = width)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -936,13 +936,13 @@ ggplot_hbar_facet <-
           if(x_limits[1] >= 0 & x_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                        data = na_data)
           }
           else if(x_limits[1] < 0 & x_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                        data = na_data)        
           }
           else if(x_limits[1] < 0 & x_limits[2] > 0) {
@@ -950,10 +950,10 @@ ggplot_hbar_facet <-
             
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                        data = na_data) +
               geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
                        data = na_data)
           }
         }
@@ -1003,7 +1003,7 @@ ggplot_hbar_facet <-
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
@@ -1011,7 +1011,7 @@ ggplot_hbar_facet <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -1019,11 +1019,11 @@ ggplot_hbar_facet <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
@@ -1064,7 +1064,7 @@ ggplot_hbar_col_facet <-
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
-           alpha = 1,
+           fill_alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -1164,7 +1164,7 @@ ggplot_hbar_col_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = line_size,width = width, position = position2)
+      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = fill_alpha, size = line_size,width = width, position = position2)
 
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()

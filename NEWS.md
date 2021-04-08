@@ -1,3 +1,11 @@
+# simplevis 2.5.8
+
+* Breaking change: In leaflet_sf functions, changed opacity to fill_alpha.
+* Breaking change: In leaflet_sf functions, changed weight to line_size.
+* Breaking change: In leaflet_sf functions, changed radius to point_size.
+* Breaking change: In ggplot_line functions, removed points and lines argument. 
+* Breaking change: In ggplot_sf functions, changed size argument to point_size and line_size for consistency.
+
 # simplevis 2.5.7
 
 * New feature: For boxplot, added line_size argument and alpha. 

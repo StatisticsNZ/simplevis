@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.8</span>
       </span>
     </div>
 
@@ -146,13 +146,13 @@
     <p>Map of simple features in ggplot that is facetted, but not coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_sf_facet</span>(<span class='no'>data</span>, <span class='no'>facet_var</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_sf_facet</span>(<span class='no'>data</span>, <span class='no'>facet_var</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>fill_alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,11 +166,15 @@
       <td><p>Unquoted categorical variable to facet the data by. Required input.</p></td>
     </tr>
     <tr>
-      <th>size</th>
-      <td><p>Size of points or line features (or non-borders polygon features). Defaults to 0.5.</p></td>
+      <th>point_size</th>
+      <td><p>Size of points. Defaults to 0.5.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
+      <th>line_size</th>
+      <td><p>Size of lines. Defaults to 0.5.</p></td>
+    </tr>
+    <tr>
+      <th>fill_alpha</th>
       <td><p>The alpha of the fill. Defaults to 0.1. Only applicable to polygons.</p></td>
     </tr>
     <tr>

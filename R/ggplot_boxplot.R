@@ -118,20 +118,21 @@ theme_boxplot <-
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 0.1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 0.1. 
+#' @param point_size The size of the outliers. Defaults to 1.
 #' @param line_size The size of the outlines of boxplots. Defaults to 0.5.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -173,8 +174,9 @@ ggplot_boxplot <- function(data,
                        stat = "boxplot",
                        pal = NULL,
                        width = 0.5,
-                       alpha = 0.1,
+                       fill_alpha = 0.1,
                        line_size = 0.5,
+                       point_size = 1, 
                        title = "[Title]",
                        title_wrap = 70,
                        subtitle = NULL,
@@ -253,9 +255,9 @@ ggplot_boxplot <- function(data,
           fill = pal,
           width = width,
           size = line_size, 
-          alpha = alpha,
+          alpha = fill_alpha,
           outlier.alpha = 1, 
-          outlier.size = 1
+          outlier.size = point_size 
         )
     }
     else if(!rlang::quo_is_null(group_var)) {
@@ -267,9 +269,9 @@ ggplot_boxplot <- function(data,
           fill = pal,
           width = width,
           size = line_size, 
-          alpha = alpha,
+          alpha = fill_alpha,
           outlier.alpha = 1, 
-          outlier.size = 1
+          outlier.size = point_size
         )
     }
   }
@@ -289,9 +291,9 @@ ggplot_boxplot <- function(data,
         fill = pal,
         width = width,
         size = line_size, 
-        alpha = alpha,
+        alpha = fill_alpha,
         outlier.alpha = 1, 
-        outlier.size = 1
+        outlier.size = point_size
       )
   }
 
@@ -428,20 +430,21 @@ ggplot_boxplot <- function(data,
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 0.1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 0.1. 
 #' @param line_size The size of the outlines of boxplots. Defaults to 0.5.
+#' @param point_size The size of the outliers. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Only applicable to a x variable that is categorical or date.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -476,8 +479,9 @@ ggplot_boxplot_facet <-
            stat = "boxplot",
            pal = NULL,
            width = 0.5,
-           alpha = 0.1,
+           fill_alpha = 0.1,
            line_size = 0.5,
+           point_size = 1,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -555,7 +559,7 @@ ggplot_boxplot_facet <-
             fill = pal,
             width = width,
             size = line_size, 
-            alpha = alpha,
+            alpha = fill_alpha,
             outlier.alpha = 1
           )
       }
@@ -568,9 +572,9 @@ ggplot_boxplot_facet <-
             fill = pal,
             width = width,
             size = line_size, 
-            alpha = alpha,
+            alpha = fill_alpha,
             outlier.alpha = 1, 
-            outlier.size = 1
+            outlier.size = point_size
           )
       }
     }
@@ -596,9 +600,9 @@ ggplot_boxplot_facet <-
           fill = pal,
           width = width,
           size = line_size, 
-          alpha = alpha,
+          alpha = fill_alpha,
           outlier.alpha = 1, 
-          outlier.size = 1
+          outlier.size = point_size
         )
     }
     

@@ -4,14 +4,15 @@
 \alias{ggplot_sf_col}
 \title{Map of simple features in ggplot that is coloured.}
 \usage{
-ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
-  alpha = 0.9, borders = NULL, borders_behind = TRUE,
-  borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
-  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
-  col_method = NULL, col_na = TRUE, col_labels_ncol = NULL,
-  col_labels_nrow = NULL, col_title = "", col_title_wrap = 25,
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE,
+  point_size = 0.5, line_size = 0.5, fill_alpha = 0.9,
+  borders = NULL, borders_behind = TRUE, borders_pal = "#7f7f7f",
+  borders_size = 0.2, title = "[Title]", title_wrap = 70,
+  subtitle = NULL, subtitle_wrap = 80, col_cuts = NULL,
+  col_labels_dp = 1, col_labels = NULL, col_method = NULL,
+  col_na = TRUE, col_labels_ncol = NULL, col_labels_nrow = NULL,
+  col_title = "", col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
@@ -23,9 +24,11 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{size}{Size of points or line features (or non-borders polygon features). Defaults to 0.5.}
+\item{point_size}{Size of points. Defaults to 0.5.}
 
-\item{alpha}{The opacity of polygons. Defaults to 0.9.}
+\item{line_size}{Size of lines. Defaults to 0.5.}
+
+\item{fill_alpha}{The opacity of polygons. Defaults to 0.9.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
@@ -47,7 +50,7 @@ ggplot_sf_col(data, col_var, pal = NULL, pal_rev = FALSE, size = 0.5,
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{Adjust the  x scale labels through a vector.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
@@ -92,5 +95,5 @@ ggplot_sf_col(data = example_sf_polygon, col_var = density, borders = nz,
 
 ggplot_sf_col(data = example_sf_point, col_var = trend_category, borders = nz, 
    pal = pal, col_method = "category",
-   title = "Monitored river nitrate-nitrogen trends, 2008-17")
+   title = "Monitored trends, 2008-17")
 }

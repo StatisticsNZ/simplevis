@@ -91,8 +91,7 @@ shinyServer(function(input, output, session) {
                    trend_category, 
                    pal = pal, 
                    col_method = "category",
-                   title = title,
-                   radius = 2)
+                   title = title)
   }
   
   observe({

@@ -116,22 +116,20 @@ theme_line <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
+#' @param point_size Size of points. Defaults to 1. 
+#' @param line_size Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -163,9 +161,7 @@ ggplot_line <- function(data,
                         y_var,
                         text_var = NULL,
                         pal = NULL,
-                        points = TRUE,
                         point_size = 1.5,
-                        lines = TRUE,
                         line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
@@ -227,9 +223,6 @@ ggplot_line <- function(data,
   if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
   
-  if (points == TRUE) alpha <- 1
-  else if (points == FALSE) alpha <- 0
-  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_line(
@@ -238,11 +231,9 @@ ggplot_line <- function(data,
       font_size_title = font_size_title
     )
   
-  if (lines == TRUE) plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1])
-
   plot <- plot +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = alpha)
+    geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) +
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = 1)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -353,29 +344,27 @@ ggplot_line <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
+#' @param point_size Size of points. Defaults to 1. 
+#' @param line_size Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend. 
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -406,9 +395,7 @@ ggplot_line_col <-
            text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           points = TRUE,
            point_size = 1.5,
-           lines = TRUE,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -488,9 +475,6 @@ ggplot_line_col <-
     
     if (pal_rev == TRUE) pal <- rev(pal)
     
-    if (points == TRUE) alpha <- 1
-    else if (points == FALSE) alpha <- 0
-    
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_line(
@@ -499,12 +483,10 @@ ggplot_line_col <-
         font_size_title = font_size_title
       ) 
     
-    if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size)
-    
     plot <- plot +
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size) +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-                 size = point_size, alpha = alpha)
+                 size = point_size, alpha = 1)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -628,22 +610,20 @@ ggplot_line_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
+#' @param point_size Size of points. Defaults to 1. 
+#' @param line_size Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -677,9 +657,7 @@ ggplot_line_facet <-
            facet_var,
            text_var = NULL,
            pal = NULL,
-           points = TRUE,
            point_size = 1.5,
-           lines = TRUE,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -740,9 +718,6 @@ ggplot_line_facet <-
     if (is.null(pal)) pal <- pal_default(1)
     else pal <- pal[1]
     
-    if (points == TRUE) alpha <- 1
-    else if (points == FALSE) alpha <- 0
-    
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_line(
@@ -751,11 +726,9 @@ ggplot_line_facet <-
         font_size_title = font_size_title
       )
     
-    if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) 
-    
     plot <- plot +
-      geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = alpha)
+      geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) + 
+      geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = 1)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -847,29 +820,27 @@ ggplot_line_facet <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param points TRUE or FALSE of whether to include points. Defaults to TRUE.
-#' @param point_size Size of points. Defaults to 1. Only applicable to where points equals TRUE.
-#' @param lines TRUE or FALSE of whether to include lines. Defaults to TRUE.
-#' @param line_size Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.
+#' @param point_size Size of points. Defaults to 1. 
+#' @param line_size Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -903,9 +874,7 @@ ggplot_line_col_facet <-
            text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           points = TRUE,
            point_size = 1.5,
-           lines = TRUE,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -984,9 +953,6 @@ ggplot_line_col_facet <-
     
     if (pal_rev == TRUE) pal <- rev(pal)
     
-    if (points == TRUE) alpha <- 1
-    else if (points == FALSE) alpha <- 0
-    
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_line(
@@ -995,12 +961,10 @@ ggplot_line_col_facet <-
         font_size_title = font_size_title
       ) 
     
-    if (lines == TRUE) plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size)
-    
     plot <- plot +
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size) +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-                 size = point_size, alpha = alpha)
+                 size = point_size, alpha = 1)
     
     if (!is.null(col_labels)) labels <- col_labels
     if (is.null(col_labels)) labels <- waiver()

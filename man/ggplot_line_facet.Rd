@@ -5,17 +5,16 @@
 \title{Line ggplot that is facetted.}
 \usage{
 ggplot_line_facet(data, x_var, y_var, facet_var, text_var = NULL,
-  pal = NULL, points = TRUE, point_size = 1.5, lines = TRUE,
-  line_size = 0.5, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
-  x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
-  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
-  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, facet_ncol = NULL, facet_nrow = NULL,
-  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL)
+  pal = NULL, point_size = 1.5, line_size = 0.5, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
+  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
+  y_zero = TRUE, y_zero_line = NULL, facet_ncol = NULL,
+  facet_nrow = NULL, facet_scales = "fixed", caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -30,13 +29,9 @@ ggplot_line_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
-\item{points}{TRUE or FALSE of whether to include points. Defaults to TRUE.}
+\item{point_size}{Size of points. Defaults to 1.}
 
-\item{point_size}{Size of points. Defaults to 1. Only applicable to where points equals TRUE.}
-
-\item{lines}{TRUE or FALSE of whether to include lines. Defaults to TRUE.}
-
-\item{line_size}{Size of lines. Defaults to 0.5. Only applicable to where points equals TRUE.}
+\item{line_size}{Size of lines. Defaults to 0.5.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -48,7 +43,7 @@ ggplot_line_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -60,7 +55,7 @@ ggplot_line_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

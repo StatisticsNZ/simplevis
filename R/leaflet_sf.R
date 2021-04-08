@@ -5,14 +5,14 @@
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param popup_var Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param radius Radius of points. Defaults to 2.
-#' @param weight Stroke border size. Defaults to 2.
-#' @param opacity The opacity of the fill. Defaults to 0.1. Only applicable to polygons.
-#' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
+#' @param point_size Size of points. Defaults to 1.
+#' @param line_size Size of lines around features. Defaults to 2.
+#' @param fill_alpha The opacity of the fill within features. Defaults to 0.1. 
+#' @param line_alpha The opacity of the lines around features. Defaults to 1. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title"
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels A vector of legend label values. Defaults to "Feature".
+#' @param col_labels A vector of legend label values. Defaults to "[Feature]".
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -21,10 +21,10 @@
 leaflet_sf <- function(data,
                        popup_var = NULL,
                        pal = NULL,
-                       radius = 1,
-                       weight = 2,
-                       opacity = 0.1,
-                       stroke = TRUE,
+                       point_size = 1,
+                       line_size = 2,
+                       fill_alpha = 0.1,
+                       line_alpha = 1,
                        basemap = "light",
                        title = "[Title]",
                        col_labels_dp = 1,
@@ -77,11 +77,10 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          radius = radius,
-          stroke = stroke,
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          radius = point_size,
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     else if (shiny == TRUE) {
@@ -93,11 +92,10 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          radius = radius,
-          stroke = stroke,
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          radius = point_size,
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     
@@ -105,10 +103,10 @@ leaflet_sf <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal[1],
-        labels =  col_labels,
+        labels =  col_labels, 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
+        opacity = line_alpha,
         labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
       )
   }
@@ -122,9 +120,9 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     else if (shiny == TRUE) {
@@ -136,9 +134,9 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     
@@ -146,10 +144,10 @@ leaflet_sf <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal[1],
-        labels =  col_labels,
+        labels =  col_labels, 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
+        opacity = line_alpha,
         labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
       )
   }
@@ -163,8 +161,9 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = opacity, opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha, 
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     else if (shiny == TRUE) {
@@ -175,8 +174,9 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = opacity, opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha, 
+          opacity = line_alpha,
+          weight = line_size
         )
     }
     
@@ -184,10 +184,10 @@ leaflet_sf <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal[1],
-        labels =  col_labels,
+        labels =  col_labels, 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = opacity,
+        opacity = line_alpha,
         labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
       )
     
@@ -203,16 +203,16 @@ leaflet_sf <- function(data,
 #' @param popup_var Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param radius Radius of points. Defaults to 2.
-#' @param weight Stroke border size. Defaults to 2.
-#' @param stroke TRUE or FALSE of whether to draw a border around the features. Defaults to TRUE.
-#' @param opacity The opacity of polygons. Defaults to 0.9.
+#' @param point_size Size of points. Defaults to 1.
+#' @param line_size Size of lines around features. Defaults to 2.
+#' @param fill_alpha The opacity of the fill within features. Defaults to 0.1. 
+#' @param line_alpha The opacity of the lines around features. Defaults to 1. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_drop TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_na TRUE or FALSE  of whether to include NAs of the colour variable. Defaults to TRUE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
@@ -230,17 +230,17 @@ leaflet_sf <- function(data,
 #' pal <- c("#4575B4", "#D3D3D3", "#D73027")
 #'
 #' leaflet_sf_col(example_sf_point, trend_category, pal = pal, col_method = "category",
-#'    title = "Monitored river nitrate-nitrogen trends, 2008\u201317")
+#'    title = "Monitored trends, 2008\u201317")
 leaflet_sf_col <- function(data,
                            col_var,
                            text_var = NULL,
                            popup_var = NULL,
                            pal = NULL,
                            pal_rev = FALSE,
-                           radius = 1,
-                           weight = 2,
-                           opacity = 0.9,
-                           stroke = TRUE,
+                           point_size = 1,
+                           line_size = 2,
+                           fill_alpha = 0.9,
+                           line_alpha = 1,
                            basemap = "light",
                            title = "[Title]",
                            col_cuts = NULL,
@@ -376,11 +376,10 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           label = ~ htmltools::htmlEscape(text_var_vctr),
           popup = ~ popup,
-          radius = radius,
-          stroke = stroke,
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          radius = point_size,
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         )
     }
     else if (shiny == TRUE) {
@@ -392,11 +391,10 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           label = ~ htmltools::htmlEscape(text_var_vctr),
           popup = ~ popup,
-          radius = radius,
-          stroke = stroke,
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          radius = point_size,
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     
@@ -407,7 +405,7 @@ leaflet_sf_col <- function(data,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
+        opacity = line_alpha,
         labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
       )
     
@@ -422,9 +420,9 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ htmltools::htmlEscape(text_var_vctr),
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     else if (shiny == TRUE) {
@@ -436,9 +434,9 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ htmltools::htmlEscape(text_var_vctr),
-          fillOpacity = 1,
-          opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha,
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     
@@ -449,7 +447,7 @@ leaflet_sf_col <- function(data,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
+        opacity = line_alpha,
         labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
       )
     
@@ -463,8 +461,9 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ htmltools::htmlEscape(text_var_vctr),
-          fillOpacity = opacity, opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha, 
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     else if (shiny == TRUE) {
@@ -476,8 +475,9 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ htmltools::htmlEscape(text_var_vctr),
-          fillOpacity = opacity, opacity = 1,
-          weight = weight
+          fillOpacity = fill_alpha, 
+          opacity = line_alpha,
+          weight = line_size
         ) 
     }
     
@@ -488,7 +488,7 @@ leaflet_sf_col <- function(data,
         labels = labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = opacity,
+        opacity = line_alpha,
         labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
       )
   }

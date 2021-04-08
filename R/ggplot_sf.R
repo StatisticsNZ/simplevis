@@ -92,8 +92,9 @@ theme_sf <-
 #' @title Map of simple features in ggplot.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
-#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
+#' @param point_size Size of points. Defaults to 0.5.
+#' @param line_size Size of lines. Defaults to 0.5.
+#' @param fill_alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
@@ -116,10 +117,11 @@ theme_sf <-
 #' 
 #' sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
 #' 
-#' ggplot_sf(sf, alpha = 0, pal = "#232323")
+#' ggplot_sf(sf, fill_alpha = 0, pal = "#232323")
 ggplot_sf <- function(data,
-                      size = 0.5,
-                      alpha = 0.1,
+                      point_size = 0.5,
+                      line_size = 0.5,
+                      fill_alpha = 0.1,
                       pal = NULL,
                       borders = NULL,
                       borders_behind = TRUE,
@@ -173,17 +175,21 @@ ggplot_sf <- function(data,
   if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
   
-  if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+  if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
-      geom_sf(size = size, col = pal)
+      geom_sf(size = point_size, col = pal)
+  }
+  else if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
+    plot <- plot +
+      geom_sf(size = line_size, col = pal)
   }
   else if (unique(sf::st_geometry_type(data)) %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(
-        size = size,
+        size = line_size,
         col = pal,
         fill = pal,
-        alpha = alpha
+        alpha = fill_alpha
       )
   }
   
@@ -227,8 +233,9 @@ ggplot_sf <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
-#' @param alpha The opacity of polygons. Defaults to 0.9.
+#' @param point_size Size of points. Defaults to 0.5.
+#' @param line_size Size of lines. Defaults to 0.5.
+#' @param fill_alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -239,7 +246,7 @@ ggplot_sf <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
@@ -267,13 +274,14 @@ ggplot_sf <- function(data,
 #'
 #' ggplot_sf_col(data = example_sf_point, col_var = trend_category, borders = nz, 
 #'    pal = pal, col_method = "category",
-#'    title = "Monitored river nitrate-nitrogen trends, 2008-17")
+#'    title = "Monitored trends, 2008-17")
 ggplot_sf_col <- function(data,
                           col_var,
                           pal = NULL,
                           pal_rev = FALSE,
-                          size = 0.5,
-                          alpha = 0.9,
+                          point_size = 0.5,
+                          line_size = 0.5,
+                          fill_alpha = 0.9,
                           borders = NULL,
                           borders_behind = TRUE,
                           borders_pal = "#7f7f7f",
@@ -392,11 +400,20 @@ ggplot_sf_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+  if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
       geom_sf(
         aes(col = !!col_var),
-        size = size,
+        size = point_size,
+        key_glyph = draw_key_rect,
+        data = data
+      )
+  }
+  else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+    plot <- plot +
+      geom_sf(
+        aes(col = !!col_var),
+        size = line_size,
         key_glyph = draw_key_rect,
         data = data
       )
@@ -405,10 +422,10 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       geom_sf(
         aes(fill = !!col_var),
-        size = size,
+        size = line_size,
         col = NA,
         key_glyph = draw_key_rect,
-        alpha = alpha,
+        alpha = fill_alpha,
         data = data
       )
   }
@@ -478,8 +495,9 @@ ggplot_sf_col <- function(data,
 #' @description Map of simple features in ggplot that is facetted, but not coloured. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
+#' @param point_size Size of points. Defaults to 0.5.
+#' @param line_size Size of lines. Defaults to 0.5.
+#' @param fill_alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -504,8 +522,9 @@ ggplot_sf_col <- function(data,
 #'   title = "Trends, 1990-2017")
 ggplot_sf_facet <- function(data,
                             facet_var,
-                            size = 0.5,
-                            alpha = 0.1,
+                            point_size = 0.5,
+                            line_size = 0.5,
+                            fill_alpha = 0.1,
                             pal = NULL,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
@@ -561,11 +580,20 @@ ggplot_sf_facet <- function(data,
   if (is.null(pal)) pal <- pal_default(1)
   else pal <- pal[1]
 
-  if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+  if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
       geom_sf(
         col = pal,
-        size = size,
+        size = point_size,
+        key_glyph = draw_key_rect,
+        data = data
+      )
+  }
+  else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+    plot <- plot +
+      geom_sf(
+        col = pal,
+        size = line_size,
         key_glyph = draw_key_rect,
         data = data
       )
@@ -574,10 +602,10 @@ ggplot_sf_facet <- function(data,
     plot <- plot +
       geom_sf(
         fill = pal,
-        size = size,
+        size = line_size,
         col = NA,
         key_glyph = draw_key_rect,
-        alpha = alpha,
+        alpha = fill_alpha,
         data = data
       )
   }
@@ -612,8 +640,9 @@ ggplot_sf_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size Size of points or line features (or non-borders polygon features). Defaults to 0.5.
-#' @param alpha The opacity of polygons. Defaults to 0.9.
+#' @param point_size Size of points. Defaults to 0.5.
+#' @param line_size Size of lines. Defaults to 0.5.
+#' @param fill_alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -625,7 +654,7 @@ ggplot_sf_facet <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
@@ -652,8 +681,9 @@ ggplot_sf_col_facet <- function(data,
                                 facet_var,
                                 pal = NULL,
                                 pal_rev = FALSE,
-                                size = 0.5,
-                                alpha = 0.9,
+                                point_size = 0.5,
+                                line_size = 0.5,
+                                fill_alpha = 0.9,
                                 borders = NULL,
                                 borders_behind = TRUE,
                                 borders_pal = "#7f7f7f",
@@ -777,11 +807,20 @@ ggplot_sf_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+  if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
       geom_sf(
         aes(col = !!col_var),
-        size = size,
+        size = point_size,
+        key_glyph = draw_key_rect,
+        data = data
+      )
+  }
+  else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+    plot <- plot +
+      geom_sf(
+        aes(col = !!col_var),
+        size = line_size,
         key_glyph = draw_key_rect,
         data = data
       )
@@ -790,10 +829,10 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       geom_sf(
         aes(fill = !!col_var),
-        size = size,
+        size = point_size,
         col = NA,
         key_glyph = draw_key_rect,
-        alpha = alpha,
+        alpha = fill_alpha,
         data = data
       )
   }

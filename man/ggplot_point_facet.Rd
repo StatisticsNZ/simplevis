@@ -41,7 +41,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -57,7 +57,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

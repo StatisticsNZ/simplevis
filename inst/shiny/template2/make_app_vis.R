@@ -60,6 +60,5 @@ leaflet_sf_col(map_data,
                trend_category, 
                pal = pal, 
                col_method = "category",
-               title = title,
-               radius = 2)
+               title = title)
 

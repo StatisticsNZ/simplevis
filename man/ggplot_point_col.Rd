@@ -48,7 +48,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
-\item{x_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 
@@ -60,7 +60,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 
-\item{y_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -78,7 +78,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{col_labels}{A vector of manual legend label values. Defaults to NULL, which results in automatic labels.}
+\item{col_labels}{Adjust the  x scale labels through a vector.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 

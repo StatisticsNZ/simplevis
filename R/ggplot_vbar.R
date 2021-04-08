@@ -117,20 +117,20 @@ theme_vbar <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
@@ -164,7 +164,7 @@ ggplot_vbar <- function(data,
                         text_var = NULL,
                         pal = NULL,
                         width = 0.75, 
-                        alpha = 1,
+                        fill_alpha = 1,
                         line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
@@ -237,7 +237,7 @@ ggplot_vbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size, width = bar_width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = fill_alpha, size = line_size, width = bar_width)
   
   if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
     
@@ -319,13 +319,13 @@ ggplot_vbar <- function(data,
       if(y_limits[1] >= 0 & y_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                    data = na_data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[1], text = !!text_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                    data = na_data)        
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -333,10 +333,10 @@ ggplot_vbar <- function(data,
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                    data = na_data) +
           geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!text_var),
-                   col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                   col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                    data = na_data)
       }
     }
@@ -385,20 +385,20 @@ ggplot_vbar <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
@@ -406,7 +406,7 @@ ggplot_vbar <- function(data,
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -439,7 +439,7 @@ ggplot_vbar_col <-
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
-           alpha = 1,
+           fill_alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -537,7 +537,7 @@ ggplot_vbar_col <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-               alpha = alpha, size = line_size, width = bar_width, position = position2)
+               alpha = fill_alpha, size = line_size, width = bar_width, position = position2)
     
     if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
       
@@ -623,7 +623,7 @@ ggplot_vbar_col <-
       plot <- plot +
         geom_col(aes(
           x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-          alpha = alpha, size = line_size, width = width, 
+          alpha = fill_alpha, size = line_size, width = width, 
           position = position2)
     }
     else if(y_na_inf == TRUE) {
@@ -650,7 +650,7 @@ ggplot_vbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size, width = width, position = position2, data = data)
+                   alpha = fill_alpha, size = line_size, width = width, position = position2, data = data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         data <- data %>%
@@ -658,7 +658,7 @@ ggplot_vbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size, width = width, position = position2, data = data)
+                   alpha = fill_alpha, size = line_size, width = width, position = position2, data = data)
       }
       else if(y_limits[1] < 0 & y_limits[2] > 0) {
         data <- data %>%
@@ -668,9 +668,9 @@ ggplot_vbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!x_var, y = .data$y_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size, width = width, position = position2, data = data) +
+                   alpha = fill_alpha, size = line_size, width = width, position = position2, data = data) +
           geom_col(aes(x = !!x_var, y = .data$y_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = line_size, width = width, position = position2, data = data)
+                   alpha = fill_alpha, size = line_size, width = width, position = position2, data = data)
       }
     }
     
@@ -751,20 +751,20 @@ ggplot_vbar_col <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1.
+#' @param fill_alpha The alpha of the fill. Defaults to 1.
 #' @param line_size The size of the outlines of bars. 
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
@@ -800,7 +800,7 @@ ggplot_vbar_facet <-
            text_var = NULL,
            pal = NULL,
            width = 0.75, 
-           alpha = 1,
+           fill_alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -872,7 +872,7 @@ ggplot_vbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size, width = bar_width)
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = fill_alpha, size = line_size, width = bar_width)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
@@ -947,13 +947,13 @@ ggplot_vbar_facet <-
           if(y_limits[1] >= 0 & y_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
-                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                        data = na_data)
           }
           else if(y_limits[1] < 0 & y_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[1], text = !!text_var),
-                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                        data = na_data)        
           }
           else if(y_limits[1] < 0 & y_limits[2] > 0) {
@@ -961,10 +961,10 @@ ggplot_vbar_facet <-
             
             plot <- plot +
               geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
-                       col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                       col = "#F5F5F5", fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                        data = na_data) +
               geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = line_size, width = width, 
+                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size, width = width, 
                        data = na_data)
           }
         }
@@ -1009,27 +1009,27 @@ ggplot_vbar_facet <-
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param fill_alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Argument to adjust the format of the x scale labels.
+#' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Argument to adjust the format of the y scale labels.
+#' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
-#' @param col_labels A vector of manual legend label values. Defaults to NULL, which results in automatic labels.
+#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -1069,7 +1069,7 @@ ggplot_vbar_col_facet <-
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
-           alpha = 1,
+           fill_alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -1165,7 +1165,7 @@ ggplot_vbar_col_facet <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-               alpha = alpha, size = line_size, width = bar_width, position = position2)
+               alpha = fill_alpha, size = line_size, width = bar_width, position = position2)
     
     if (position == "stack") {
       data_sum <- data %>%

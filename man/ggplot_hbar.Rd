@@ -5,7 +5,7 @@
 \title{Horizontal bar ggplot.}
 \usage{
 ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
-  width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
+  width = 0.75, fill_alpha = 1, line_size = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
   x_na_inf = FALSE, x_pretty_n = 6, x_title = "[X title]",
@@ -28,7 +28,7 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{width}{Width of bars. Defaults to 0.75.}
 
-\item{alpha}{The alpha of the fill. Defaults to 1.}
+\item{fill_alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{line_size}{The size of the outlines of bars.}
 
@@ -44,7 +44,7 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
 \item{x_na_inf}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
@@ -62,7 +62,7 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 

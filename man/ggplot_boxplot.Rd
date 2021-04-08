@@ -5,16 +5,16 @@
 \title{Boxplot ggplot.}
 \usage{
 ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
-  stat = "boxplot", pal = NULL, width = 0.5, alpha = 0.1,
-  line_size = 0.5, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
-  x_labels = waiver(), x_pretty_n = 6, x_title = "[X title]",
-  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
-  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, isMobile = FALSE)
+  stat = "boxplot", pal = NULL, width = 0.5, fill_alpha = 0.1,
+  line_size = 0.5, point_size = 1, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
+  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
+  y_zero = TRUE, y_zero_line = NULL, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -31,9 +31,11 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 
 \item{width}{Width of the box. Defaults to 0.5.}
 
-\item{alpha}{The alpha of the fill. Defaults to 0.1.}
+\item{fill_alpha}{The alpha of the fill. Defaults to 0.1.}
 
 \item{line_size}{The size of the outlines of boxplots. Defaults to 0.5.}
+
+\item{point_size}{The size of the outliers. Defaults to 1.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 
@@ -45,7 +47,7 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Argument to adjust the format of the x scale labels.}
+\item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.}
 
@@ -57,7 +59,7 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Argument to adjust the format of the y scale labels.}
+\item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

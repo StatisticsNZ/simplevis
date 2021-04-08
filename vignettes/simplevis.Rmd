@@ -201,7 +201,7 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_sf(example_sf_point, 
           borders = nz, 
-          size = 0.25,
+          point_size = 0.25,
           title = "Site trends, 2008\u201317",
           title_wrap = 40)
 ```
@@ -211,7 +211,7 @@ pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col(example_sf_point, trend_category, 
               borders = nz, 
-              size = 0.25, 
+              point_size = 0.25, 
               pal = pal, 
               title = "Site trends, 2008\u201317",
               title_wrap = 40)
@@ -220,7 +220,7 @@ ggplot_sf_col(example_sf_point, trend_category,
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_sf_facet(example_sf_point, trend_category, 
                 borders = nz, 
-                size = 0.25,
+                point_size = 0.25,
                 title = "Site trends, 2008\u201317")
 ```
 
@@ -229,7 +229,7 @@ pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 ggplot_sf_col_facet(example_sf_point, trend_category, trend_category,
                     borders = nz, 
-                    size = 0.25, 
+                    point_size = 0.25, 
                     pal = pal,
                     title = "Site trends, 1990\u201317")
 ```

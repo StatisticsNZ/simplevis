@@ -4,19 +4,21 @@
 \alias{ggplot_sf}
 \title{Map of simple features in ggplot.}
 \usage{
-ggplot_sf(data, size = 0.5, alpha = 0.1, pal = NULL,
-  borders = NULL, borders_behind = TRUE, borders_pal = "#7f7f7f",
-  borders_size = 0.2, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
+ggplot_sf(data, point_size = 0.5, line_size = 0.5, fill_alpha = 0.1,
+  pal = NULL, borders = NULL, borders_behind = TRUE,
+  borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
 
-\item{size}{Size of points or line features (or non-borders polygon features). Defaults to 0.5.}
+\item{point_size}{Size of points. Defaults to 0.5.}
 
-\item{alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
+\item{line_size}{Size of lines. Defaults to 0.5.}
+
+\item{fill_alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
@@ -59,5 +61,5 @@ ggplot_sf(data = example_sf_point, borders = nz)
 
 sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
 
-ggplot_sf(sf, alpha = 0, pal = "#232323")
+ggplot_sf(sf, fill_alpha = 0, pal = "#232323")
 }

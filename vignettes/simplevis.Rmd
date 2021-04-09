@@ -16,74 +16,29 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(simplevis)
+library(patchwork)
+```
+
 ### Purpose 
 
 `simplevis` is a package of wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier and prettier.
 
-### Example
-
-Below is a simple example dataset.
-```{r, message = FALSE, warning = FALSE}
-library(simplevis)
-library(dplyr)
-library(ggplot2)
-
-data <- tibble::tribble(
-  ~pet, ~count,
-  "Cat", 567,
-  "Dog", 443,
-  "Horse", 11)  
-
-data
-```
-
-We can make a `ggplot2` plot quickly. However, it does not look ready for a report or app.
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-ggplot(data) +
-  geom_col(aes(pet, count)) +
-  labs(title = "Wellington pets, 2020", x = "Pet", y = "Count")
-```
-
-We can modify the design with `ggplot2`. However, there is a lot of code. 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-ggplot(data) +
-  geom_col(aes(pet, count), fill = "#31688EFF", width = 0.75) +
-  labs(title = "Wellington pets, 2020", x = "Pet", y = "Count") +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 600)) + #hardcoded = bad!
-  theme_minimal() +
-  theme(plot.title = element_text(family = "Helvetica", hjust = 0.5, size = 11, face = "bold", colour = "#000000")) +
-  theme(axis.title = element_text(family = "Helvetica", hjust = 0.5, size = 10, face = "plain", colour = "#323232")) +
-  theme(axis.text = element_text(family = "Helvetica", hjust = 0.5, size = 10, face = "plain", colour = "#323232")) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(panel.grid.minor.y = element_blank()) +
-  theme(axis.line = element_line(colour = "#323232", size = 0.3)) +
-  theme(axis.ticks = element_line(colour = "#323232", size = 0.3)) +
-  theme(axis.title.x = element_text(margin = margin(t = 10))) +
-  theme(axis.title.y = element_text(margin = margin(r = 10)))
-```
-
-`simplevis` wraps these defaults into the functions, but allows the user to modify as required.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-ggplot_vbar(data, pet, count, 
-            title = "Wellington pets, 2020", 
-            x_title = "Pet", 
-            y_title = "Count")
-```
-
 ### simplevis ggplot graph types
 
-`simplevis` provides the following types of `ggplot` graph:
+`simplevis` provides the following types of `ggplot`:
 
-* horizontal bar (e.g. `ggplot_hbar`)
-* vertical bar (e.g. `ggplot_vbar`)
-* line plot (e.g. `ggplot_line`)
-* point plot (e.g. `ggplot_point`)
-* boxplot (e.g. `ggplot_boxplot`)
+* horizontal bar
+* vertical bar
+* line plot 
+* point plot
+* boxplot
 
-For each graph type 4 functions are available.
+For each ggplot type, 4 functions are available.
 
-1. A `ggplot` not coloured or faceted (e.g. `ggplot_hbar`)
+1. A `ggplot` <i>not</i> coloured or faceted (e.g. `ggplot_hbar`)
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
@@ -123,6 +78,7 @@ plot_data <- ggplot2::diamonds %>%
   mutate(average_price = round(average_price / 1000, 1))
 
 ggplot_hbar_facet(plot_data, average_price, cut, clarity,
+                  facet_ncol = 4,
                   title = "Average diamond price by cut and clarity", 
                   x_title = "Average price ($US thousands)", 
                   y_title = "Cut")

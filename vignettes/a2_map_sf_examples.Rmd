@@ -171,7 +171,7 @@ simplevis::leaflet_basemap("satellite", bounds = bb)
 Note if you are mapping across the dateline, use `sf::st_shift_longitude`.
 
 ```{r}
-sf <- rnaturalearth::ne_countries(scale = "large", country = "New Zealand", returnclass = "sf")
+sf <- rnaturalearth::ne_countries(scale = "medium", country = "New Zealand", returnclass = "sf")
 
 ggplot_sf(sf)
 

@@ -1,3 +1,7 @@
+# simplevis 2.6.0
+
+* Added template zip files.
+
 # simplevis 2.5.9
 
 * Breaking change: changed point_size to default to 1 for all functions.

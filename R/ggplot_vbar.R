@@ -257,8 +257,7 @@ ggplot_vbar <- function(data,
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
-        labels = x_labels,
-        oob = scales::squish
+        labels = x_labels
       )
   }
   else if (is.numeric(x_var_vctr)) {
@@ -888,8 +887,7 @@ ggplot_vbar_facet <-
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            labels = x_labels,
-            oob = scales::squish
+            labels = x_labels
           )
       }
       else if (is.numeric(x_var_vctr)) {

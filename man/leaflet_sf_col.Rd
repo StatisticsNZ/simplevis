@@ -6,10 +6,9 @@
 \usage{
 leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
   pal = NULL, pal_rev = FALSE, point_size = 1, line_size = 2,
-  fill_alpha = 0.9, line_alpha = 1, basemap = "light",
-  title = "[Title]", col_cuts = NULL, col_labels_dp = 1,
-  col_drop = FALSE, col_labels = NULL, col_method = NULL,
-  col_na = TRUE, map_id = "map")
+  alpha = 0.9, basemap = "light", title = "[Title]",
+  col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
+  col_method = NULL, col_na = TRUE, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -24,13 +23,11 @@ leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{point_size}{Size of points. Defaults to 1.}
+\item{point_size}{Size of points (i.e. radius). Defaults to 1.}
 
-\item{line_size}{Size of lines around features. Defaults to 2.}
+\item{line_size}{Size of lines around features (i.e. weight). Defaults to 2.}
 
-\item{fill_alpha}{The opacity of the fill within features. Defaults to 0.1.}
-
-\item{line_alpha}{The opacity of the lines around features. Defaults to 1.}
+\item{alpha}{The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.1.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
@@ -39,8 +36,6 @@ leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
-
-\item{col_drop}{TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.}
 
 \item{col_labels}{Adjust the  x scale labels through a vector.}
 

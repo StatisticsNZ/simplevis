@@ -5,7 +5,7 @@
 \title{Point ggplot that is facetted.}
 \usage{
 ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
-  point_size = 1.5, pal = NULL, title = "[Title]", title_wrap = 70,
+  point_size = 1, pal = NULL, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
   x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
   x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,

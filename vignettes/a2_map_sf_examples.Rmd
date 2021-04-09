@@ -136,19 +136,19 @@ The `rnaturalearth` package is a great source of country and state borders.
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
 
-ggplot_sf(sf, fill_alpha = 0, line_size = 0.3, pal = "#232323")
+ggplot_sf(sf, alpha = 0, line_size = 0.3, pal = "#232323")
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 sf <- rnaturalearth::ne_states(country = "India", returnclass = "sf")
 
-ggplot_sf(sf, fill_alpha = 0, line_size = 0.3, pal = "#232323")
+ggplot_sf(sf, alpha = 0, line_size = 0.3, pal = "#232323")
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 sf <- rnaturalearth::ne_states(country = "Australia", returnclass = "sf") %>% filter(.data$name == "Tasmania")
 
-ggplot_sf(sf, fill_alpha = 0, pal = "#232323")
+ggplot_sf(sf, alpha = 0, pal = "#232323")
 ```
 
 A leaflet basemap is available for use in shiny apps. It defaults to the top layer being "light".

@@ -5,7 +5,7 @@
 \title{Boxplot ggplot.}
 \usage{
 ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
-  stat = "boxplot", pal = NULL, width = 0.5, fill_alpha = 0.1,
+  stat = "boxplot", pal = NULL, width = 0.5, alpha = 0.1,
   line_size = 0.5, point_size = 1, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
@@ -31,7 +31,7 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 
 \item{width}{Width of the box. Defaults to 0.5.}
 
-\item{fill_alpha}{The alpha of the fill. Defaults to 0.1.}
+\item{alpha}{The alpha of the fill. Defaults to 0.1.}
 
 \item{line_size}{The size of the outlines of boxplots. Defaults to 0.5.}
 

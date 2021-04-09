@@ -5,7 +5,7 @@
 \title{Point ggplot that is coloured and facetted.}
 \usage{
 ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
-  text_var = NULL, point_size = 1.5, pal = NULL, pal_rev = FALSE,
+  text_var = NULL, point_size = 1, pal = NULL, pal_rev = FALSE,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
@@ -83,7 +83,7 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{col_labels}{Adjust the  x scale labels through a vector.}
+\item{col_labels}{Adjust the colour scale labels through a vector.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 

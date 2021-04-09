@@ -5,7 +5,7 @@
 \title{Line ggplot that is coloured and facetted.}
 \usage{
 ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
-  text_var = NULL, pal = NULL, pal_rev = FALSE, point_size = 1.5,
+  text_var = NULL, pal = NULL, pal_rev = FALSE, point_size = 1,
   line_size = 0.5, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
   x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
@@ -79,7 +79,7 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
 
-\item{col_labels}{Adjust the  x scale labels through a vector.}
+\item{col_labels}{Adjust the  colour scale labels through a vector.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 

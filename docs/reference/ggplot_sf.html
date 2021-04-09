@@ -146,7 +146,7 @@
     <p>Map of simple features in ggplot that is not coloured and not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_sf</span>(<span class='no'>data</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fill_alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+    <pre class="usage"><span class='fu'>ggplot_sf</span>(<span class='no'>data</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -169,8 +169,8 @@
       <td><p>Size of lines. Defaults to 0.5.</p></td>
     </tr>
     <tr>
-      <th>fill_alpha</th>
-      <td><p>The alpha of the fill. Defaults to 0.1. Only applicable to polygons.</p></td>
+      <th>alpha</th>
+      <td><p>The alpha of the fill. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -242,7 +242,7 @@
     <pre class="examples"><div class='input'><span class='fu'>ggplot_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='ggplot_sf-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>sf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"medium"</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Indonesia"</span>, <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>)
 
-<span class='fu'>ggplot_sf</span>(<span class='no'>sf</span>, <span class='kw'>fill_alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='st'>"#232323"</span>)</div><div class='img'><img src='ggplot_sf-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot_sf</span>(<span class='no'>sf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='st'>"#232323"</span>)</div><div class='img'><img src='ggplot_sf-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

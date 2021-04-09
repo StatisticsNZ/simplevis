@@ -94,7 +94,7 @@ theme_sf <-
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param point_size Size of points. Defaults to 0.5.
 #' @param line_size Size of lines. Defaults to 0.5.
-#' @param fill_alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
@@ -117,11 +117,11 @@ theme_sf <-
 #' 
 #' sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
 #' 
-#' ggplot_sf(sf, fill_alpha = 0, pal = "#232323")
+#' ggplot_sf(sf, alpha = 0, pal = "#232323")
 ggplot_sf <- function(data,
-                      point_size = 0.5,
+                      point_size = 1,
                       line_size = 0.5,
-                      fill_alpha = 0.1,
+                      alpha = 1,
                       pal = NULL,
                       borders = NULL,
                       borders_behind = TRUE,
@@ -189,7 +189,7 @@ ggplot_sf <- function(data,
         size = line_size,
         col = pal,
         fill = pal,
-        alpha = fill_alpha
+        alpha = alpha
       )
   }
   
@@ -235,7 +235,7 @@ ggplot_sf <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param point_size Size of points. Defaults to 0.5.
 #' @param line_size Size of lines. Defaults to 0.5.
-#' @param fill_alpha The opacity of polygons. Defaults to 0.9.
+#' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -246,11 +246,11 @@ ggplot_sf <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels Adjust the  x scale labels through a vector.
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -279,9 +279,9 @@ ggplot_sf_col <- function(data,
                           col_var,
                           pal = NULL,
                           pal_rev = FALSE,
-                          point_size = 0.5,
+                          point_size = 1,
                           line_size = 0.5,
-                          fill_alpha = 0.9,
+                          alpha = 1,
                           borders = NULL,
                           borders_behind = TRUE,
                           borders_pal = "#7f7f7f",
@@ -291,12 +291,12 @@ ggplot_sf_col <- function(data,
                           subtitle = NULL,
                           subtitle_wrap = 80,
                           col_cuts = NULL,
-                          col_labels_dp = 1,
                           col_labels = NULL,
-                          col_method = NULL,
-                          col_na = TRUE,
+                          col_labels_dp = 1,
                           col_labels_ncol = NULL,
                           col_labels_nrow = NULL,
+                          col_method = NULL,
+                          col_na = TRUE,
                           col_title = "",
                           col_title_wrap = 25,
                           caption = NULL,
@@ -425,7 +425,7 @@ ggplot_sf_col <- function(data,
         size = line_size,
         col = NA,
         key_glyph = draw_key_rect,
-        alpha = fill_alpha,
+        alpha = alpha,
         data = data
       )
   }
@@ -497,7 +497,7 @@ ggplot_sf_col <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param point_size Size of points. Defaults to 0.5.
 #' @param line_size Size of lines. Defaults to 0.5.
-#' @param fill_alpha The alpha of the fill. Defaults to 0.1. Only applicable to polygons.
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -522,9 +522,9 @@ ggplot_sf_col <- function(data,
 #'   title = "Trends, 1990-2017")
 ggplot_sf_facet <- function(data,
                             facet_var,
-                            point_size = 0.5,
+                            point_size = 1,
                             line_size = 0.5,
-                            fill_alpha = 0.1,
+                            alpha = 1,
                             pal = NULL,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
@@ -605,7 +605,7 @@ ggplot_sf_facet <- function(data,
         size = line_size,
         col = NA,
         key_glyph = draw_key_rect,
-        alpha = fill_alpha,
+        alpha = alpha,
         data = data
       )
   }
@@ -642,7 +642,7 @@ ggplot_sf_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param point_size Size of points. Defaults to 0.5.
 #' @param line_size Size of lines. Defaults to 0.5.
-#' @param fill_alpha The opacity of polygons. Defaults to 0.9.
+#' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -654,11 +654,10 @@ ggplot_sf_facet <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_labels Adjust the  x scale labels through a vector.
+#' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
-#' @param col_quantile_by_facet TRUE of FALSE  whether quantiles should be calculated for each group of the facet variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_nrow The number of rows of facetted plots.
@@ -681,9 +680,9 @@ ggplot_sf_col_facet <- function(data,
                                 facet_var,
                                 pal = NULL,
                                 pal_rev = FALSE,
-                                point_size = 0.5,
+                                point_size = 1,
                                 line_size = 0.5,
-                                fill_alpha = 0.9,
+                                alpha = 1,
                                 borders = NULL,
                                 borders_behind = TRUE,
                                 borders_pal = "#7f7f7f",
@@ -699,7 +698,6 @@ ggplot_sf_col_facet <- function(data,
                                 col_na = TRUE,
                                 col_labels_ncol = NULL,
                                 col_labels_nrow = NULL,
-                                col_quantile_by_facet = TRUE,
                                 col_title = "",
                                 col_title_wrap = 25,
                                 facet_ncol = NULL,
@@ -781,28 +779,15 @@ ggplot_sf_col_facet <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    if (col_quantile_by_facet == TRUE) {
-      data <- data %>%
-        dplyr::group_by(dplyr::across(!!facet_var)) %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      
-      if (is.null(col_labels)) labels <- paste0( legend_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
-      if (!is.null(col_labels)) labels <- col_labels
-    }
-    else if (col_quantile_by_facet == FALSE) {
-      col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-      if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, 2)
-      if (!is.null(col_labels)) labels <- col_labels
-    }
+    data <- data %>%
+      dplyr::group_by(dplyr::across(!!facet_var)) %>%
+      dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    
+    if (is.null(col_labels)) labels <- paste0( legend_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+    if (!is.null(col_labels)) labels <- col_labels
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -832,7 +817,7 @@ ggplot_sf_col_facet <- function(data,
         size = point_size,
         col = NA,
         key_glyph = draw_key_rect,
-        alpha = fill_alpha,
+        alpha = alpha,
         data = data
       )
   }

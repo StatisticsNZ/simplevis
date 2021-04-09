@@ -4,7 +4,7 @@
 \alias{ggplot_point}
 \title{Point ggplot.}
 \usage{
-ggplot_point(data, x_var, y_var, text_var = NULL, point_size = 1.5,
+ggplot_point(data, x_var, y_var, text_var = NULL, point_size = 1,
   pal = NULL, title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 6, x_title = "[X title]", x_title_wrap = 50,

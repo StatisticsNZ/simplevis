@@ -148,10 +148,9 @@
 
     <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>fill_alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>col_drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,19 +181,15 @@
     </tr>
     <tr>
       <th>point_size</th>
-      <td><p>Size of points. Defaults to 1.</p></td>
+      <td><p>Size of points (i.e. radius). Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>line_size</th>
-      <td><p>Size of lines around features. Defaults to 2.</p></td>
+      <td><p>Size of lines around features (i.e. weight). Defaults to 2.</p></td>
     </tr>
     <tr>
-      <th>fill_alpha</th>
-      <td><p>The opacity of the fill within features. Defaults to 0.1.</p></td>
-    </tr>
-    <tr>
-      <th>line_alpha</th>
-      <td><p>The opacity of the lines around features. Defaults to 1.</p></td>
+      <th>alpha</th>
+      <td><p>The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.1.</p></td>
     </tr>
     <tr>
       <th>basemap</th>
@@ -211,10 +206,6 @@
     <tr>
       <th>col_labels_dp</th>
       <td><p>Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.</p></td>
-    </tr>
-    <tr>
-      <th>col_drop</th>
-      <td><p>TRUE or FALSE of whether to drop unused levels from the legend. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>

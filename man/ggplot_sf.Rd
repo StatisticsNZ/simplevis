@@ -4,7 +4,7 @@
 \alias{ggplot_sf}
 \title{Map of simple features in ggplot.}
 \usage{
-ggplot_sf(data, point_size = 0.5, line_size = 0.5, fill_alpha = 0.1,
+ggplot_sf(data, point_size = 1, line_size = 0.5, alpha = 1,
   pal = NULL, borders = NULL, borders_behind = TRUE,
   borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
@@ -18,7 +18,7 @@ ggplot_sf(data, point_size = 0.5, line_size = 0.5, fill_alpha = 0.1,
 
 \item{line_size}{Size of lines. Defaults to 0.5.}
 
-\item{fill_alpha}{The alpha of the fill. Defaults to 0.1. Only applicable to polygons.}
+\item{alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
@@ -61,5 +61,5 @@ ggplot_sf(data = example_sf_point, borders = nz)
 
 sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
 
-ggplot_sf(sf, fill_alpha = 0, pal = "#232323")
+ggplot_sf(sf, alpha = 0, pal = "#232323")
 }

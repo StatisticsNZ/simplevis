@@ -1,3 +1,10 @@
+# simplevis 2.5.9
+
+* Breaking change: changed point_size to default to 1 for all functions.
+* Breaking change: removed line_alpha from leaflet functions, as not required.
+* Breaking change: removed col_drop from leaflet function.
+* Breaking change: removed col_quantile_by_facet function from ggplot_sf_col_facet.
+
 # simplevis 2.5.8
 
 * Breaking change: In leaflet_sf functions, changed opacity to fill_alpha.

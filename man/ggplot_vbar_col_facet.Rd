@@ -6,7 +6,7 @@
 \usage{
 ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   text_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
-  width = 0.75, fill_alpha = 1, line_size = 0.5, title = "[Title]",
+  width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
   x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
@@ -40,7 +40,7 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{width}{Width of bars. Defaults to 0.75.}
 
-\item{fill_alpha}{The alpha of the fill. Defaults to 1.}
+\item{alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{line_size}{The size of the outlines of bars.}
 
@@ -80,7 +80,7 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
-\item{col_labels}{Adjust the  x scale labels through a vector.}
+\item{col_labels}{Adjust the  colour scale labels through a vector.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 

@@ -117,7 +117,7 @@ theme_hbar <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param fill_alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
@@ -166,7 +166,7 @@ ggplot_hbar <- function(data,
                         text_var = NULL,
                         pal = NULL,
                         width = 0.75, 
-                        fill_alpha = 1,
+                        alpha = 1,
                         line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
@@ -245,7 +245,7 @@ ggplot_hbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = fill_alpha, size = line_size,width = width)
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
@@ -296,13 +296,13 @@ ggplot_hbar <- function(data,
       if(x_limits[1] >= 0 & x_limits[2] > 0){
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
-                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data)        
       }
       else if(x_limits[1] < 0 & x_limits[2] > 0) {
@@ -310,10 +310,10 @@ ggplot_hbar <- function(data,
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data) +
           geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
-                   fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                   fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                    data = na_data)
       }
     }
@@ -379,7 +379,7 @@ ggplot_hbar <- function(data,
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param fill_alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
@@ -439,7 +439,7 @@ ggplot_hbar_col <-
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
-           fill_alpha = 1,
+           alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -630,7 +630,7 @@ ggplot_hbar_col <-
       plot <- plot +
         geom_col(aes(
           x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-          alpha = fill_alpha, size = line_size,width = width, 
+          alpha = alpha, size = line_size,width = width, 
           position = position2)
     }
     else if(x_na_inf == TRUE) {
@@ -657,7 +657,7 @@ ggplot_hbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data)
+                   alpha = alpha, size = line_size,width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
         data <- data %>%
@@ -665,7 +665,7 @@ ggplot_hbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data)
+                   alpha = alpha, size = line_size,width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] > 0) {
         data <- data %>%
@@ -675,9 +675,9 @@ ggplot_hbar_col <-
         
         plot <- plot +
           geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data) +
+                   alpha = alpha, size = line_size,width = width, position = position2, data = data) +
           geom_col(aes(x = !!y_var, y = .data$x_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = fill_alpha, size = line_size,width = width, position = position2, data = data)
+                   alpha = alpha, size = line_size,width = width, position = position2, data = data)
       }
     }
     
@@ -762,7 +762,7 @@ ggplot_hbar_col <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param fill_alpha The alpha of the fill. Defaults to 1.
+#' @param alpha The alpha of the fill. Defaults to 1.
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
@@ -815,7 +815,7 @@ ggplot_hbar_facet <-
            text_var = NULL,
            pal = NULL,
            width = 0.75, 
-           fill_alpha = 1,
+           alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -895,7 +895,7 @@ ggplot_hbar_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = fill_alpha, size = line_size,width = width)
+      geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = line_size,width = width)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -936,13 +936,13 @@ ggplot_hbar_facet <-
           if(x_limits[1] >= 0 & x_limits[2] > 0){
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data)
           }
           else if(x_limits[1] < 0 & x_limits[2] <= 0) {
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
-                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data)        
           }
           else if(x_limits[1] < 0 & x_limits[2] > 0) {
@@ -950,10 +950,10 @@ ggplot_hbar_facet <-
             
             plot <- plot +
               geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
-                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data) +
               geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
-                       fill = "#F5F5F5", alpha = fill_alpha, size = line_size,width = width, 
+                       fill = "#F5F5F5", alpha = alpha, size = line_size,width = width, 
                        data = na_data)
           }
         }
@@ -1003,7 +1003,7 @@ ggplot_hbar_facet <-
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
-#' @param fill_alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param line_size The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
@@ -1064,7 +1064,7 @@ ggplot_hbar_col_facet <-
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
-           fill_alpha = 1,
+           alpha = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -1164,7 +1164,7 @@ ggplot_hbar_col_facet <-
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = fill_alpha, size = line_size,width = width, position = position2)
+      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = line_size,width = width, position = position2)
 
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()

@@ -161,7 +161,7 @@ ggplot_line <- function(data,
                         y_var,
                         text_var = NULL,
                         pal = NULL,
-                        point_size = 1.5,
+                        point_size = 1,
                         line_size = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
@@ -364,7 +364,7 @@ ggplot_line <- function(data,
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param col_labels Adjust the  x scale labels through a vector.
+#' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend. 
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -395,7 +395,7 @@ ggplot_line_col <-
            text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           point_size = 1.5,
+           point_size = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -657,7 +657,7 @@ ggplot_line_facet <-
            facet_var,
            text_var = NULL,
            pal = NULL,
-           point_size = 1.5,
+           point_size = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,
@@ -840,7 +840,7 @@ ggplot_line_facet <-
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
-#' @param col_labels Adjust the  x scale labels through a vector.
+#' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -874,7 +874,7 @@ ggplot_line_col_facet <-
            text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           point_size = 1.5,
+           point_size = 1,
            line_size = 0.5,
            title = "[Title]",
            title_wrap = 70,

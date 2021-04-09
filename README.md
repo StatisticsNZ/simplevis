@@ -2,10 +2,9 @@
 
 <!-- badges: start -->
   [![CRAN status](https://www.r-pkg.org/badges/version/simplevis)](https://CRAN.R-project.org/package=simplevis)
-  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/simplevis?color=green)](https://r-pkg.org/pkg/simplevis)
-  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/simplevis?color=green)](https://r-pkg.org/pkg/simplevis)
-  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-week/simplevis?color=green)](https://r-pkg.org/pkg/simplevis)
-  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-day/simplevis?color=green)](https://r-pkg.org/pkg/simplevis)
+  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
+  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
+  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-week/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
   <!-- badges: end -->
 
 # simplevis

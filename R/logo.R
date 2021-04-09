@@ -7,25 +7,25 @@
 #   sf::st_as_sf()
 # 
 # plot <- ggplot_sf_col(nz, dummy, title = "",
-#                       pal = "transparent",
+#                       pal = "#f8fafb",
 #                       col_labels = "") +
 #   theme(panel.background = element_rect(fill = "#EAEFF3")) +
 #   theme(panel.grid = element_blank())
 # 
 # plot
 # 
-# sticker(plot, 
+# sticker(plot,
 #         package="simplevis",
 #         p_color = simplevis:::pal_default(1),
 #         h_color = simplevis:::pal_default(1),
 #         h_fill = "#C1D1DD",
-#         p_size=25, 
-#         p_family = "Helvetica", 
+#         p_size=25,
+#         p_family = "Helvetica",
 #         p_y = 1.0,
 #         p_x = 1.0,
-#         s_x=0.44, 
-#         s_y=0.9, 
-#         s_width = 10, 
+#         s_x=0.3,
+#         s_y=0.74,
+#         s_width = 10,
 #         s_height= 15,
-#         filename="logo.png", 
+#         filename="logo.png",
 #         white_around_sticker = TRUE)

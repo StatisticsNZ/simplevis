@@ -5,6 +5,7 @@
   [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
   [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
   [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-week/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
+  [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-day/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)
   <!-- badges: end -->
 
 # simplevis

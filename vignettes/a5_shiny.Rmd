@@ -1,0 +1,49 @@
+---
+title: "Shiny"
+author: "David Hodge"
+date: "`r Sys.Date()`"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidyverse)
+library(simplevis)
+```
+
+### shiny apps with simplevis
+
+`simplevis` provides two template `shiny` apps called `template1` and `template2`. Users can access these functions by using the `run_template` functions for the applicable app, and then clicking on the `download_code` button to access a zip file of the code. 
+
+```{r, eval=F}
+run_template("template1") # a graph and table
+run_template("template2") # a leaflet map, as well as graph and table
+
+```
+
+For a simple app, the basic method to create an app is:
+
+* run `run_template("template1")` or  `run_template("template2")` and download the code to use as a template
+* In `get_data.R`, extract, process and save your data into the `data` subfolder, including a zip file for download
+* In `make_app_vis.R`, draft your visualisations with dummy character inputs
+* In `global.R`, read your data in, and create any vectors required
+* In `ui.R`, add a app title
+* In `ui.R`. add `radioButtons` and other widgets
+* In `server.R`, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a `isMobile = input$isMobile` specification to any simplevis graphs if you are looking to support mobile users as well as desktop
+* In `server.R`, add code for map and table components, as applicable
+* In `www/About.Rmd`, update as necessary
+* If using google tag-manager, obtain a tag and replace `GTM-XXXXXXX` with it in the `www/js/tag-manager-js` file. 
+
+### Iframing apps
+
+Iframing apps can provide a great experience for users.
+
+Template apps are build to be compatible with one of two approaches to iframing:
+
+* if your website has ability for height responsive iframes, then follow the instructions described in the method developed by <a href="https://www.cultureofinsight.com/post/responsive-iframes-for-shiny-apps" target="_blank">Paul Campbell</a>. 
+* if your website does not support responsive iframes, then templates apps have css that supports a iframe of 750px for desktop users. The app developer can then code the iframe height to be bigger if a mobile user is detected. If this is not possible, a hyperlink to the app url can be provided to mobile users. Note if you are trying to support mobile users, it is not recommended to facet graphs.

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
       </span>
     </div>
 
@@ -106,10 +106,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a1_plot_examples.html">Plot examples</a>
+      <a href="../articles/a1_colouring.html">Colouring</a>
     </li>
     <li>
-      <a href="../articles/a2_map_sf_examples.html">Map examples: sf</a>
+      <a href="../articles/a2_interactive_graphs.html">Interactive graphs</a>
+    </li>
+    <li>
+      <a href="../articles/a3_more_plot_examples.html">More plot examples</a>
+    </li>
+    <li>
+      <a href="../articles/a4_more_sf_map_examples.html">More sf map examples</a>
+    </li>
+    <li>
+      <a href="../articles/a5_shiny.html">Shiny</a>
     </li>
   </ul>
 </li>
@@ -240,7 +249,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>ggplot_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='ggplot_sf-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>sf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"medium"</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Indonesia"</span>, <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>)
+<span class='no'>sf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rnaturalearth/man/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"medium"</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Indonesia"</span>, <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>)
 
 <span class='fu'>ggplot_sf</span>(<span class='no'>sf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='st'>"#232323"</span>)</div><div class='img'><img src='ggplot_sf-2.png' alt='' width='700' height='433' /></div></pre>
   </div>

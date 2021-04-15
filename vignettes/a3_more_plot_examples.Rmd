@@ -1,5 +1,5 @@
 ---
-title: "Plot examples"
+title: "More plot examples"
 author: "David Hodge"
 date: "`r Sys.Date()`"
 ---
@@ -40,14 +40,11 @@ iris %>%
 Add titles and adjust the font family and sizes.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
-
 ggplot_point(iris, Sepal.Width, Sepal.Length,
                title = "Iris sepal length by width, 2020",
                x_title = "Sepal width (cm)",
                y_title = "Sepal length (cm)",
                caption = "Fisher, 1936",
-               pal = pal,
                font_family = "Lato",
                font_size_title = 9,
                font_size_body = 7)
@@ -86,13 +83,11 @@ ggplot_point(iris, Sepal.Width, Sepal.Length,
 
 ```
 
-Use a specified colour palette, and increase the size of the dots.
+Increase the size of the points.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
-pal <- c("#172a45", "#00b2c3", "#c04124", "#005c75", "#a2c62b", "#702e01", "#ff590d", "#c4c4c7", "#007f39")
-
 ggplot_point(iris, Sepal.Width, Sepal.Length,
-               point_size = 2, pal = pal)
+               point_size = 3)
 
 ```
 
@@ -147,7 +142,7 @@ Add another ggplot2 layer. It will use your data as default. All other aesthetic
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_point(iris, Sepal.Width, Sepal.Length) +
-  ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length))
+  ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length), col = viridis::viridis(4)[2])
 ```
 
 Create a hbar graph.
@@ -178,8 +173,6 @@ plot_data <- plot_data %>%
  mutate(cut = factor(cut, levels = cut_levels)) 
 
 ggplot_hbar(plot_data, average_price, cut)
-
-
 ```
 
 Add a $ prefix to y labels and a comma.
@@ -206,7 +199,7 @@ ggplot_hbar(plot_data, average_price, cut, x_balance = T)
 
 Make a coloured hbar plot.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
@@ -217,7 +210,7 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity)
 
 Reverse the colouring of the col var bar pieces.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
                 pal_rev = TRUE)
 
@@ -225,7 +218,7 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity,
 
 Change the ordering of the coloured bar pieces.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
                 col_rev = TRUE)
 
@@ -233,7 +226,7 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity,
 
 Put the coloured bars in a "dodge" position instead of "stack".
 
-```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
                 position = "dodge")
 
@@ -241,7 +234,7 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity,
 
 Adjust the x labels.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_hbar_col(plot_data, average_price, cut, clarity,
                 x_labels = scales::number_format(scale = 1/1000, accuracy = 1),
                 x_title = "Average price ($US thousands)")
@@ -250,7 +243,7 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity,
 
 Make a coloured and facetted plot.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity, color) %>%
@@ -324,7 +317,7 @@ ggplot_vbar(plot_data, year, wind,
 
 Make the bar width narrower.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = round(mean(wind), 2)) 
@@ -336,7 +329,7 @@ ggplot_vbar(plot_data, year, average_wind,
 
 Add some space between the x axis and the lower break.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = round(mean(wind), 2)) 
@@ -347,7 +340,7 @@ ggplot_vbar(plot_data, year, average_wind,
 
 Sometimes you may want to include a category that is NA in a bar graph, and show that it is NA rather than zero.
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(average_price = mean(price)) %>%
@@ -387,7 +380,7 @@ ggplot_boxplot(plot_data, Species, Petal.Length, stat = "identity")
 
 Use quoted variables.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <-  ggplot2::diamonds %>%
   group_by(across("cut")) %>%
   summarise(across("price", ~mean(.))) 
@@ -401,7 +394,7 @@ ggplot_hbar(plot_data, !!sym("price"), !!sym("cut"),
 
 Make a non-facetted plot for a mobile device. Note the template shiny apps provide a function to detect what device the user is on and returns a TRUE or FALSE value that you can draw on with isMobile = input$isMobile within a shiny app.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 4}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 4}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut) %>%
@@ -416,7 +409,7 @@ ggplot_hbar(plot_data, average_price, cut,
 
 Make a ggplotly interactive plot with default tooltip.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot <- ggplot_point(iris, Sepal.Width, Sepal.Length)
 
 plotly::ggplotly(plot)
@@ -425,7 +418,7 @@ plotly::ggplotly(plot)
 
 Turn off all plotly buttons other than the camera.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot <- ggplot_point(iris, Sepal.Width, Sepal.Length)
 
 plotly::ggplotly(plot) %>% 
@@ -435,7 +428,7 @@ plotly::ggplotly(plot) %>%
 
 Make a ggplotly interactive plot with a different variable.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot <- ggplot_point(iris, Sepal.Width, Sepal.Length, text_var = Petal.Width)
 
 plotly::ggplotly(plot, tooltip = "text")
@@ -444,7 +437,7 @@ plotly::ggplotly(plot, tooltip = "text")
 
 Make a ggplotly interactive plot with custom tooltip that can be created with the mutate_text function. Note that this function will convert snakecase column names to sentence case with underscores changed to spaces. The ggplotly argument tooltip = "text" is required to implement this in combination with the text_var argument in the simplevis function. If the mutate_text function is empty, it will include all columns in the tooltip.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- iris %>% 
   mutate_text()
 
@@ -458,7 +451,7 @@ plotly::ggplotly(plot, tooltip = "text")
 
 Otherwise specify a vector of quoted variables, if you would like a subset of variables in the tooltip. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- iris %>% 
   mutate_text(c("Species", "Sepal.Width", "Sepal.Length", "Petal.Width"))
 
@@ -471,7 +464,7 @@ plotly::ggplotly(plot, tooltip = "text")
 ```
 The plotly default legend can sometimes not be in the ideal order.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price)) %>%
@@ -484,7 +477,7 @@ plotly::ggplotly(plot)
 
 You can change the default order based on a vector of elements.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plotly::ggplotly(plot) %>% 
   plotly_legend_order(c(1, 3, 4, 5, 6, 7, 8, 2))
 
@@ -492,7 +485,7 @@ plotly::ggplotly(plot) %>%
 
 Or you can reverse the order of legend elements.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plotly::ggplotly(plot) %>% 
   plotly_legend_rev()
 

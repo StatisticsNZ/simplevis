@@ -13,3 +13,11 @@
 ^vignettes/map_sf_examples\.Rmd$
 ^vignettes/a1_plot_examples\.Rmd$
 ^vignettes/a2_map_sf_examples\.Rmd$
+^vignettes/colouring\.Rmd$
+^vignettes/interactive_graphs\.Rmd$
+^vignettes/shiny\.Rmd$
+^vignettes/a1_colouring\.Rmd$
+^vignettes/a2_interactive_graphs\.Rmd$
+^vignettes/a3_more_plot_examples\.Rmd$
+^vignettes/a4_more_sf_map_examples\.Rmd$
+^vignettes/a5_shiny\.Rmd$

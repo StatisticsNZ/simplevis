@@ -1,3 +1,7 @@
+# simplevis 2.6.1
+
+* Updated pkgdown website.
+
 # simplevis 2.6.0
 
 * Added template zip files.

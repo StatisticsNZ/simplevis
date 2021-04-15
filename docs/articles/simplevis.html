@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>simplevis • simplevis</title>
+<title>Getting started • simplevis</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="simplevis">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Getting started">
 <meta property="og:description" content="simplevis">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
       </span>
     </div>
 
@@ -64,10 +64,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/a1_plot_examples.html">Plot examples</a>
+      <a href="../articles/a1_colouring.html">Colouring</a>
     </li>
     <li>
-      <a href="../articles/a2_map_sf_examples.html">Map examples: sf</a>
+      <a href="../articles/a2_interactive_graphs.html">Interactive graphs</a>
+    </li>
+    <li>
+      <a href="../articles/a3_more_plot_examples.html">More plot examples</a>
+    </li>
+    <li>
+      <a href="../articles/a4_more_sf_map_examples.html">More sf map examples</a>
+    </li>
+    <li>
+      <a href="../articles/a5_shiny.html">Shiny</a>
     </li>
   </ul>
 </li>
@@ -99,10 +108,10 @@
 <script src="simplevis_files/crosstalk-1.1.1/js/crosstalk.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>simplevis</h1>
+      <h1 data-toc-skip>Getting started</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-04-12</h4>
+            <h4 class="date">2021-04-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -118,97 +127,311 @@
 <a href="#purpose" class="anchor"></a>Purpose</h3>
 <p><code>simplevis</code> is a package of wrapper functions to make ‘ggplot2’ and ‘leaflet’ visualisation easier and prettier.</p>
 </div>
-<div id="simplevis-ggplot-graph-types" class="section level3">
+<div id="overview" class="section level3">
 <h3 class="hasAnchor">
-<a href="#simplevis-ggplot-graph-types" class="anchor"></a>simplevis ggplot graph types</h3>
-<p><code>simplevis</code> provides the following types of <code>ggplot</code>:</p>
+<a href="#overview" class="anchor"></a>Overview</h3>
+<p><code>simplevis</code> provides the following types of <code>ggplot</code> visualisation:</p>
+<p>Graph:</p>
 <ul>
-<li>horizontal bar</li>
-<li>vertical bar</li>
-<li>line plot</li>
-<li>point plot</li>
-<li>boxplot</li>
+<li>horizontal bar (<code>hbar</code>)</li>
+<li>vertical bar (<code>vbar</code>)</li>
+<li>line plot (<code>line</code>)</li>
+<li>point plot (<code>point</code>)</li>
+<li>boxplot (<code>boxplot</code>)</li>
 </ul>
-<p>For each ggplot type, 4 functions are available.</p>
-<ol style="list-style-type: decimal">
-<li>A <code>ggplot</code> <i>not</i> coloured or faceted (e.g. <code>ggplot_hbar</code>)</li>
-</ol>
+<p>Map:</p>
+<ul>
+<li>sf (<code>sf</code>)</li>
+</ul>
+<p>Each visualisation type has a family of generally 4 functions.</p>
+<p>The function name specifies whether or not a ggplot is to be coloured by a variable, facetted by a variable, or neither or both of these. Colouring by a variable means that different values of a selected variable are to have different colours. Facetting means different values of a selected variable are to have there own mini-graph, and these are to be placed alongside each other.</p>
+<p>These 4 functions follow the same structure as the <code>hbar</code> functions listed below:</p>
+<ul>
+<li>
+<code><a href="../reference/ggplot_hbar.html">ggplot_hbar()</a></code>: a horizontal bar graph.</li>
+<li>
+<code><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col()</a></code>: a horizontal bar graph that is coloured by a variable.</li>
+<li>
+<code><a href="../reference/ggplot_hbar_facet.html">ggplot_hbar_facet()</a></code>: a facetted horizontal bar graph.</li>
+<li>
+<code><a href="../reference/ggplot_hbar_col_facet.html">ggplot_hbar_col_facet()</a></code>a facetted horizontal bar graph that is coloured by a variable.</li>
+</ul>
+<p>For different types of graph, just replace <code>hbar</code> with <code>line</code>, <code>point</code>, <code>vbar</code>, <code>boxplot</code> or <code>sf</code>.</p>
+<p>In general, required arguments (i.e. specifications) to functions are:</p>
+<ul>
+<li><code>data</code></li>
+<li><code>x_var</code></li>
+<li><code>y_var</code></li>
+</ul>
+<p>If you are using a <code>_col</code> or <code>_col_facet</code> function:</p>
+<ul>
+<li><code>col_var</code></li>
+</ul>
+<p>If you are using a <code>_facet</code> or <code>_col_facet</code> function:</p>
+<ul>
+<li><code>facet_var</code></li>
+</ul>
+<p>It is always recommended to add a <code>title</code>, <code>x_title</code> and <code>y_title</code> too.</p>
+</div>
+<div id="ggplot-graphs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ggplot-graphs" class="anchor"></a>Ggplot graphs</h3>
+<div id="graphs-that-are-not-coloured-by-a-variable-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#graphs-that-are-not-coloured-by-a-variable-" class="anchor"></a>Graphs that are <i>not</i> coloured by a variable.</h4>
+<p>Identify the function that you need, then provide the data (aggregated, if necessary) and an x_var and a y_var.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.05</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 2,697 x 10</span>
+<span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  0.92 Premium   H     SI2      60.4  59    3174  6.36  6.33  3.83</span>
+<span class="co">#&gt;  2  0.4  Premium   F     VS1      61.9  59     982  4.67  4.7   2.9 </span>
+<span class="co">#&gt;  3  0.72 Premium   H     SI1      59.9  58    2334  5.85  5.81  3.49</span>
+<span class="co">#&gt;  4  1.52 Very Good F     VS1      63.4  60   16670  7.3   7.25  4.61</span>
+<span class="co">#&gt;  5  0.9  Ideal     F     SI1      60.7  57    4324  6.25  6.21  3.78</span>
+<span class="co">#&gt;  6  0.74 Premium   G     SI2      62.5  56    2398  5.81  5.75  3.61</span>
+<span class="co">#&gt;  7  1    Premium   E     SI2      62    59    4077  6.43  6.3   3.95</span>
+<span class="co">#&gt;  8  0.31 Ideal     D     SI1      60.8  56     732  4.37  4.32  2.64</span>
+<span class="co">#&gt;  9  1.21 Good      J     SI2      61.1  60.8  4824  6.83  6.89  4.18</span>
+<span class="co">#&gt; 10  0.9  Good      E     SI2      64.1  58    3595  6.04  6.09  3.89</span>
+<span class="co">#&gt; # … with 2,687 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">plot_data</span>, <span class="no">carat</span>, <span class="no">price</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>)))
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="no">average_price</span> / <span class="fl">1000</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
 
-<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 5 x 2</span>
+<span class="co">#&gt;   cut       average_price</span>
+<span class="co">#&gt;   &lt;chr&gt;             &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Fair               4.36</span>
+<span class="co">#&gt; 2 Good               3.93</span>
+<span class="co">#&gt; 3 Very good          3.98</span>
+<span class="co">#&gt; 4 Premium            4.58</span>
+<span class="co">#&gt; 5 Ideal              3.46</span>
+
+<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>,
+            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
+            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
-<ol start="2" style="list-style-type: decimal">
-<li>A <code>ggplot</code> coloured, but not faceted (e.g. <code>ggplot_hbar_col</code>)</li>
-</ol>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
-
-<span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
-                <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-                <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-<ol start="3" style="list-style-type: decimal">
-<li>A <code>ggplot</code> facetted, but not coloured (e.g. <code>ggplot_hbar_facet</code>)</li>
-</ol>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 41 x 2</span>
+<span class="co">#&gt;     year average_wind</span>
+<span class="co">#&gt;    &lt;dbl&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  1975         50.9</span>
+<span class="co">#&gt;  2  1976         59.9</span>
+<span class="co">#&gt;  3  1977         54.0</span>
+<span class="co">#&gt;  4  1978         40.5</span>
+<span class="co">#&gt;  5  1979         48.7</span>
+<span class="co">#&gt;  6  1980         53.7</span>
+<span class="co">#&gt;  7  1981         56.6</span>
+<span class="co">#&gt;  8  1982         49.5</span>
+<span class="co">#&gt;  9  1983         47.0</span>
+<span class="co">#&gt; 10  1984         51.4</span>
+<span class="co">#&gt; # … with 31 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_vbar.html">ggplot_vbar</a></span>(<span class="no">plot_data</span>,
+            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">year</span>,
+            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">average_wind</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 41 x 2</span>
+<span class="co">#&gt;     year  wind</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  1975  50.9</span>
+<span class="co">#&gt;  2  1976  59.9</span>
+<span class="co">#&gt;  3  1977  54.0</span>
+<span class="co">#&gt;  4  1978  40.5</span>
+<span class="co">#&gt;  5  1979  48.7</span>
+<span class="co">#&gt;  6  1980  53.7</span>
+<span class="co">#&gt;  7  1981  56.6</span>
+<span class="co">#&gt;  8  1982  49.5</span>
+<span class="co">#&gt;  9  1983  47.0</span>
+<span class="co">#&gt; 10  1984  51.4</span>
+<span class="co">#&gt; # … with 31 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_line.html">ggplot_line</a></span>(<span class="no">plot_data</span>,
+            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">year</span>,
+            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">wind</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<p>Note the <code>boxplot</code> functions transform the data to boxplot statistics by default.</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">iris</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">Species</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">Species</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 150 x 5</span>
+<span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
+<span class="co">#&gt;           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  </span>
+<span class="co">#&gt;  1          5.1         3.5          1.4         0.2 Setosa </span>
+<span class="co">#&gt;  2          4.9         3            1.4         0.2 Setosa </span>
+<span class="co">#&gt;  3          4.7         3.2          1.3         0.2 Setosa </span>
+<span class="co">#&gt;  4          4.6         3.1          1.5         0.2 Setosa </span>
+<span class="co">#&gt;  5          5           3.6          1.4         0.2 Setosa </span>
+<span class="co">#&gt;  6          5.4         3.9          1.7         0.4 Setosa </span>
+<span class="co">#&gt;  7          4.6         3.4          1.4         0.3 Setosa </span>
+<span class="co">#&gt;  8          5           3.4          1.5         0.2 Setosa </span>
+<span class="co">#&gt;  9          4.4         2.9          1.4         0.2 Setosa </span>
+<span class="co">#&gt; 10          4.9         3.1          1.5         0.1 Setosa </span>
+<span class="co">#&gt; # … with 140 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_boxplot.html">ggplot_boxplot</a></span>(<span class="no">plot_data</span>,
+               <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">Species</span>,
+               <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">Petal.Length</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+</div>
+<div id="graphs-that-are-coloured-by-a-variable" class="section level4">
+<h4 class="hasAnchor">
+<a href="#graphs-that-are-coloured-by-a-variable" class="anchor"></a>Graphs that are coloured by a variable</h4>
+<p>To colour by a variable, use a <code>_col</code> function</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.05</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 2,697 x 10</span>
+<span class="co">#&gt;    carat cut     color clarity depth table price     x     y     z</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  0.36 Ideal   G     SI1      61.1    55   571  4.58  4.62  2.81</span>
+<span class="co">#&gt;  2  1.45 Premium D     SI1      62.2    58 10800  7.12  7.03  4.4 </span>
+<span class="co">#&gt;  3  1.21 Ideal   H     VS1      62.7    56  6784  6.79  6.84  4.27</span>
+<span class="co">#&gt;  4  0.31 Good    F     VS2      63.4    56   625  4.31  4.34  2.74</span>
+<span class="co">#&gt;  5  0.81 Premium D     SI1      60.7    58  3135  6.07  5.99  3.66</span>
+<span class="co">#&gt;  6  1    Premium D     SI1      62.1    61  5488  6.32  6.3   3.92</span>
+<span class="co">#&gt;  7  0.74 Ideal   H     VS1      61.8    58  2797  5.77  5.81  3.58</span>
+<span class="co">#&gt;  8  0.3  Ideal   H     VVS2     61.5    56   581  4.34  4.38  2.68</span>
+<span class="co">#&gt;  9  0.52 Ideal   D     VS2      60.3    56  1677  5.24  5.27  3.17</span>
+<span class="co">#&gt; 10  0.5  Ideal   H     SI1      62.2    57  1140  5.07  5.09  3.16</span>
+<span class="co">#&gt; # … with 2,687 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_point_col.html">ggplot_point_col</a></span>(<span class="no">plot_data</span>,
+                 <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
+                 <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
+                 <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">color</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">status</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">status</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>, <span class="no">status</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="fu"><a href="../reference/ggplot_line_col.html">ggplot_line_col</a></span>(<span class="no">plot_data</span>,
+                <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">year</span>,
+                <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">wind</span>,
+                <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">status</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="no">average_price</span> / <span class="fl">1000</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
+
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 40 x 3</span>
+<span class="co">#&gt;    cut   clarity average_price</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;ord&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Fair  I1               3.70</span>
+<span class="co">#&gt;  2 Fair  SI2              5.17</span>
+<span class="co">#&gt;  3 Fair  SI1              4.21</span>
+<span class="co">#&gt;  4 Fair  VS2              4.17</span>
+<span class="co">#&gt;  5 Fair  VS1              4.17</span>
+<span class="co">#&gt;  6 Fair  VVS2             3.35</span>
+<span class="co">#&gt;  7 Fair  VVS1             3.87</span>
+<span class="co">#&gt;  8 Fair  IF               1.91</span>
+<span class="co">#&gt;  9 Good  I1               3.60</span>
+<span class="co">#&gt; 10 Good  SI2              4.58</span>
+<span class="co">#&gt; # … with 30 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>,
+                <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
+                <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
+                <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+</div>
+<div id="graphs-that-are-facetted-by-a-variable" class="section level4">
+<h4 class="hasAnchor">
+<a href="#graphs-that-are-facetted-by-a-variable" class="anchor"></a>Graphs that are facetted by a variable</h4>
+<p>To facet by a variable, use a <code>_facet</code> function.</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="no">average_price</span> / <span class="fl">1000</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()
 
-<span class="fu"><a href="../reference/ggplot_hbar_facet.html">ggplot_hbar_facet</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
-                  <span class="kw">facet_ncol</span> <span class="kw">=</span> <span class="fl">4</span>,
-                  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-                  <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                  <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
-<ol start="4" style="list-style-type: decimal">
-<li>A <code>ggplot</code> coloured and facetted (e.g. <code>ggplot_hbar_col_facet</code>)</li>
-</ol>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+<span class="no">plot_data</span>
+<span class="co">#&gt; # A tibble: 40 x 3</span>
+<span class="co">#&gt;    cut   clarity average_price</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;ord&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Fair  I1               3.70</span>
+<span class="co">#&gt;  2 Fair  SI2              5.17</span>
+<span class="co">#&gt;  3 Fair  SI1              4.21</span>
+<span class="co">#&gt;  4 Fair  VS2              4.17</span>
+<span class="co">#&gt;  5 Fair  VS1              4.17</span>
+<span class="co">#&gt;  6 Fair  VVS2             3.35</span>
+<span class="co">#&gt;  7 Fair  VVS1             3.87</span>
+<span class="co">#&gt;  8 Fair  IF               1.91</span>
+<span class="co">#&gt;  9 Good  I1               3.60</span>
+<span class="co">#&gt; 10 Good  SI2              4.58</span>
+<span class="co">#&gt; # … with 30 more rows</span>
+
+<span class="fu"><a href="../reference/ggplot_hbar_facet.html">ggplot_hbar_facet</a></span>(<span class="no">plot_data</span>,
+                  <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
+                  <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
+                  <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">clarity</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+</div>
+<div id="graphs-that-are-coloured-by-a-variable-and-facetted-by-a-variable-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#graphs-that-are-coloured-by-a-variable-and-facetted-by-a-variable-" class="anchor"></a>Graphs that are coloured by a variable and facetted by a variable.</h4>
+<p>facet by a variable, use a <code>_col_facet</code> function.</p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>, <span class="no">color</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
 
-<span class="fu"><a href="../reference/ggplot_hbar_col_facet.html">ggplot_hbar_col_facet</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">color</span>, <span class="no">clarity</span>, <span class="no">cut</span>,
-                      <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by colour, clarity and cut"</span>,
-                      <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                      <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Colour"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
-<p>These <code>ggplot</code> graphs have been designed that users can convert them easily to html interactive objects by wrapping them in <code><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">plotly::ggplotly(plot)</a></code>. A customised tooltip can be provided using the <code>text_var</code> argument in <code>simplevis</code> functions with <code><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">plotly::ggplotly(plot, tooltip = "text")</a></code>. Automated <code>text</code> columns can be created using the <code>mutate_text</code> function.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>), <span class="fl">2</span>))
-
-<span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggplot_vbar.html">ggplot_vbar</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">plot_data</span>,
-                    <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">year</span>,
-                    <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">average_wind</span>,
-                    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average wind speed of Atlantic storms, 1975\u20132015"</span>,
-                    <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Year"</span>,
-                    <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Average maximum sustained wind speed (knots)"</span>)
-
-<span class="kw pkg">plotly</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">ggplotly</a></span>(<span class="no">plot</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/plotly_camera.html">plotly_camera</a></span>()</pre></body></html></div>
-<p>The variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-6cd4deccd5e132c60a27" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6cd4deccd5e132c60a27">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","boxplot"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric",null],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<span class="fu"><a href="../reference/ggplot_hbar_col_facet.html">ggplot_hbar_col_facet</a></span>(<span class="no">plot_data</span>,
+                      <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
+                      <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">color</span>,
+                      <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
+                      <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">cut</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 </div>
-<div id="simplevis-ggplot-maps" class="section level3">
+<div id="supported-variable-classes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#supported-variable-classes" class="anchor"></a>Supported variable classes</h4>
+<p>variable types supported by the different groups of functions are outlined below.</p>
+<div id="htmlwidget-fa05a39d4ac36549c223" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fa05a39d4ac36549c223">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","boxplot"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric",null],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="ggplot-maps" class="section level3">
 <h3 class="hasAnchor">
-<a href="#simplevis-ggplot-maps" class="anchor"></a>simplevis ggplot maps</h3>
+<a href="#ggplot-maps" class="anchor"></a>ggplot maps</h3>
 <p><code>simplevis</code> provides simple feature (<code>sf</code>) maps (i.e. maps with point, line or polygon features).</p>
 <p>Spatial-temporal array (i.e. <code>stars</code>) maps may be supported in future.</p>
 <p>The following functions are available:</p>
@@ -223,81 +446,97 @@
 <li>Data must be provided in the format of an <code>sf</code> object.</li>
 <li>Data must be of <code>POINT</code>/<code>MULTIPOINT</code>, <code>LINESTRING</code>/<code>MULTILINESTRING</code>, or <code>POLYGON</code>/<code>MULTIPOLYGON</code> geometry types</li>
 <li>Data can have any coordinate reference system (CRS), but it must be defined</li>
-<li>No <code>x_var</code> and <code>y_var</code> variables are required</li>
-<li>There is a borders specification, which allows for a further <code>sf</code> object as a borders or administrative boundaries to be added to the map. An example New Zealand borders (<code>nz</code>) has been provided with the package.</li>
-<li>They do <em>not</em> support conversion to interactive objects through <code><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">plotly::ggplotly</a></code>.</li>
+<li>No <code>x_var</code> and <code>y_var</code> variables are required, because x_var and y_var are already implicity within the geometry column of an sf object</li>
+<li>There is a <code>borders</code> specification, which allows for borders (i.e. country/state/region/coastline) to be added to the map. An example New Zealand sf object (<code>nz</code>) has been provided with the package to demonstrate this.</li>
 </ul>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="no">example_sf_point</span>,
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">example_sf_point</span>
+<span class="co">#&gt; Simple feature collection with 112 features and 3 fields</span>
+<span class="co">#&gt; Geometry type: POINT</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: 1175354 ymin: 4853914 xmax: 2025939 ymax: 6096100</span>
+<span class="co">#&gt; CRS:           EPSG:2193</span>
+<span class="co">#&gt; First 10 features:</span>
+<span class="co">#&gt;      site_id median trend_category                geometry</span>
+<span class="co">#&gt; 1  ARC-00001 0.0140      Improving POINT (1735609 5916179)</span>
+<span class="co">#&gt; 2  ARC-00008 0.0610      Improving POINT (1753479 5976281)</span>
+<span class="co">#&gt; 3  ARC-00013 0.1310      Improving POINT (1742066 5915382)</span>
+<span class="co">#&gt; 4  ARC-00014 0.9900      Improving POINT (1764285 5907017)</span>
+<span class="co">#&gt; 5  ARC-00015 1.0300      Improving POINT (1767401 5907336)</span>
+<span class="co">#&gt; 6  ARC-00016 0.2980      Improving POINT (1768314 5908177)</span>
+<span class="co">#&gt; 7  ARC-00017 0.3550      Improving POINT (1751305 5933319)</span>
+<span class="co">#&gt; 8  ARC-00018 0.7350  Indeterminate POINT (1769952 5912814)</span>
+<span class="co">#&gt; 9  ARC-00019 0.5000      Improving POINT (1769452 5910614)</span>
+<span class="co">#&gt; 10 ARC-00026 0.1295      Improving POINT (1748608 5953465)</span>
+
+<span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="no">example_sf_point</span>,
+          <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.25</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">nz</span>
+<span class="co">#&gt; Simple feature collection with 7 features and 1 field</span>
+<span class="co">#&gt; Geometry type: MULTIPOLYGON</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: 166.4262 ymin: -47.28988 xmax: 178.5505 ymax: -34.39357</span>
+<span class="co">#&gt; CRS:           EPSG:4326</span>
+<span class="co">#&gt;                                       name                       geometry</span>
+<span class="co">#&gt; 1            South Island or Te Waipounamu MULTIPOLYGON (((166.5461 -4...</span>
+<span class="co">#&gt; 2            North Island or Te Ika-a-Maui MULTIPOLYGON (((173.014 -34...</span>
+<span class="co">#&gt; 3                   Stewart Island/Rakiura MULTIPOLYGON (((167.8694 -4...</span>
+<span class="co">#&gt; 4      Great Barrier Island (Aotea Island) MULTIPOLYGON (((175.3966 -3...</span>
+<span class="co">#&gt; 5                        Resolution Island MULTIPOLYGON (((166.6788 -4...</span>
+<span class="co">#&gt; 6 Rangitoto ke te tonga (D'Urville Island) MULTIPOLYGON (((173.9532 -4...</span>
+<span class="co">#&gt; 7                         Secretary Island MULTIPOLYGON (((166.9634 -4...</span>
+
+<span class="fu"><a href="../reference/ggplot_sf.html">ggplot_sf</a></span>(<span class="no">example_sf_point</span>,
           <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
-          <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
-          <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 2008\u201317"</span>,
-          <span class="kw">title_wrap</span> <span class="kw">=</span> <span class="fl">40</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">pal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>)
+          <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.25</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">example_sf_polygon</span>
+<span class="co">#&gt; Simple feature collection with 963 features and 2 fields</span>
+<span class="co">#&gt; Geometry type: MULTIPOLYGON</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: 1090000 ymin: 4748153 xmax: 2089541 ymax: 6194182</span>
+<span class="co">#&gt; CRS:           EPSG:2193</span>
+<span class="co">#&gt; First 10 features:</span>
+<span class="co">#&gt;    grid_id density                       geometry</span>
+<span class="co">#&gt; 1       12   0.000 MULTIPOLYGON (((1199950 481...</span>
+<span class="co">#&gt; 2       14   0.000 MULTIPOLYGON (((1249363 482...</span>
+<span class="co">#&gt; 3       28 110.454 MULTIPOLYGON (((1259922 485...</span>
+<span class="co">#&gt; 4       88  58.405 MULTIPOLYGON (((1219940 492...</span>
+<span class="co">#&gt; 5       89  62.744 MULTIPOLYGON (((1239931 492...</span>
+<span class="co">#&gt; 6       90  89.362 MULTIPOLYGON (((1259922 492...</span>
+<span class="co">#&gt; 7       91   6.112 MULTIPOLYGON (((1279913 492...</span>
+<span class="co">#&gt; 8      135   0.000 MULTIPOLYGON (((1149972 497...</span>
+<span class="co">#&gt; 9      151   0.000 MULTIPOLYGON (((1139977 499...</span>
+<span class="co">#&gt; 10     167   0.000 MULTIPOLYGON (((1149972 501...</span>
 
-<span class="fu"><a href="../reference/ggplot_sf_col.html">ggplot_sf_col</a></span>(<span class="no">example_sf_point</span>, <span class="no">trend_category</span>,
-              <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
-              <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
-              <span class="kw">pal</span> <span class="kw">=</span> <span class="no">pal</span>,
-              <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 2008\u201317"</span>,
-              <span class="kw">title_wrap</span> <span class="kw">=</span> <span class="fl">40</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_sf_facet.html">ggplot_sf_facet</a></span>(<span class="no">example_sf_point</span>, <span class="no">trend_category</span>,
+<span class="fu"><a href="../reference/ggplot_sf_col.html">ggplot_sf_col</a></span>(<span class="no">example_sf_polygon</span>,
+              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">density</span>,
+              <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_sf_facet.html">ggplot_sf_facet</a></span>(<span class="no">example_sf_point</span>,
+                <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
                 <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
-                <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
-                <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 2008\u201317"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">pal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>)
-
-<span class="fu"><a href="../reference/ggplot_sf_col_facet.html">ggplot_sf_col_facet</a></span>(<span class="no">example_sf_point</span>, <span class="no">trend_category</span>, <span class="no">trend_category</span>,
+                <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_sf_col_facet.html">ggplot_sf_col_facet</a></span>(<span class="no">example_sf_point</span>,
+                    <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
+                    <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
                     <span class="kw">borders</span> <span class="kw">=</span> <span class="no">nz</span>,
-                    <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.25</span>,
-                    <span class="kw">pal</span> <span class="kw">=</span> <span class="no">pal</span>,
+                    <span class="kw">point_size</span> <span class="kw">=</span> <span class="fl">0.5</span>,
+                    <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#4575B4"</span>, <span class="st">"#D3D3D3"</span>, <span class="st">"#D73027"</span>),
                     <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Site trends, 1990\u201317"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
 </div>
-<div id="simplevis-leaflet-maps" class="section level3">
+<div id="leaflet-maps" class="section level3">
 <h3 class="hasAnchor">
-<a href="#simplevis-leaflet-maps" class="anchor"></a>simplevis leaflet maps</h3>
-<p><code>simplevis</code> provides <code>sf</code> <code>leaflet</code> maps.</p>
+<a href="#leaflet-maps" class="anchor"></a>leaflet maps</h3>
+<p><code>simplevis</code> also provides <code>sf</code> <code>leaflet</code> maps.</p>
 <p>These work in the same way as the <code>ggplot</code> map functions, but with no borders arguments.</p>
+<p>Arguments have been aligned with simplevis ggplot wrapping functions (e.g. point_size = radius, line_size = weight, alpha = fillOpacity)</p>
 <p>Spatial-temporal array (i.e. <code>stars</code>) maps may be supported in future.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_sf.html">leaflet_sf</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_sf_polygon</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_sf_col.html">leaflet_sf_col</a></span>(<span class="no">example_sf_polygon</span>, <span class="no">density</span>,
-               <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
-               <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">Inf</span>),
-               <span class="kw">col_labels_dp</span> <span class="kw">=</span> <span class="fl">0</span>,
-               <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Modelled density, 2013-2017"</span>)</pre></body></html></div>
-</div>
-<div id="shiny-apps-with-simplevis" class="section level3">
-<h3 class="hasAnchor">
-<a href="#shiny-apps-with-simplevis" class="anchor"></a>shiny apps with simplevis</h3>
-<p><code>simplevis</code> provides two template <code>shiny</code> apps called <code>template1</code> and <code>template2</code>. Users can access these functions by using the <code>run_template</code> functions for the applicable app, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template1"</span>) <span class="co"># a graph and table</span>
-<span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template2"</span>) <span class="co"># a leaflet map, as well as graph and table</span></pre></body></html></div>
-<p>For a simple app, the basic method to create an app is:</p>
-<ul>
-<li>run <code><a href="../reference/run_template.html">run_template("template1")</a></code> or <code><a href="../reference/run_template.html">run_template("template2")</a></code> and download the code to use as a template</li>
-<li>In <code>get_data.R</code>, extract, process and save your data into the <code>data</code> subfolder, including a zip file for download</li>
-<li>In <code>make_app_vis.R</code>, draft your visualisations with dummy character inputs</li>
-<li>In <code>global.R</code>, read your data in, and create any vectors required</li>
-<li>In <code>ui.R</code>, add a app title</li>
-<li>In <code>ui.R</code>. add <code>radioButtons</code> and other widgets</li>
-<li>In <code>server.R</code>, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a <code>isMobile = input$isMobile</code> specification to any simplevis graphs if you are looking to support mobile users as well as desktop</li>
-<li>In <code>server.R</code>, add code for map and table components, as applicable</li>
-<li>In <code>www/About.Rmd</code>, update as necessary</li>
-<li>If using google tag-manager, obtain a tag and replace <code>GTM-XXXXXXX</code> with it in the <code>www/js/tag-manager-js</code> file.</li>
-</ul>
-</div>
-<div id="iframing-apps" class="section level3">
-<h3 class="hasAnchor">
-<a href="#iframing-apps" class="anchor"></a>Iframing apps</h3>
-<p>Iframing apps can provide a great experience for users.</p>
-<p>Template apps are build to be compatible with one of two approaches to iframing:</p>
-<ul>
-<li>if your website has ability for height responsive iframes, then follow the instructions described in the method developed by <a href="https://www.cultureofinsight.com/post/responsive-iframes-for-shiny-apps" target="_blank">Paul Campbell</a>.</li>
-<li>if your website does not support responsive iframes, then templates apps have css that supports a iframe of 750px for desktop users. The app developer can then code the iframe height to be bigger if a mobile user is detected. If this is not possible, a hyperlink to the app url can be provided to mobile users. Note if you are trying to support mobile users, it is not recommended to facet graphs.</li>
-</ul>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_sf.html">leaflet_sf</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">example_sf_polygon</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/leaflet_sf_col.html">leaflet_sf_col</a></span>(<span class="no">example_sf_polygon</span>,
+               <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">density</span>)</pre></body></html></div>
 </div>
   </div>
 

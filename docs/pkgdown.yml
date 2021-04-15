@@ -2,8 +2,11 @@ pandoc: 2.3.1
 pkgdown: 1.5.0
 pkgdown_sha: ~
 articles:
-  a1_plot_examples: a1_plot_examples.html
-  a2_map_sf_examples: a2_map_sf_examples.html
+  a1_colouring: a1_colouring.html
+  a2_interactive_graphs: a2_interactive_graphs.html
+  a3_more_plot_examples: a3_more_plot_examples.html
+  a4_more_sf_map_examples: a4_more_sf_map_examples.html
+  a5_shiny: a5_shiny.html
   simplevis: simplevis.html
-last_built: 2021-04-12T00:57Z
+last_built: 2021-04-15T04:36Z
 

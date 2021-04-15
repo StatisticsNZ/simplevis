@@ -1,0 +1,95 @@
+---
+title: "Colouring"
+author: "David Hodge"
+date: "`r Sys.Date()`"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(simplevis)
+```
+
+`simplevis` unites two concepts into one to make things simpler for users:
+
+* the colouring of lines (including outlines)
+* the colouring of the fill of polygons
+
+The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the `pal` argument.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price = round(average_price / 1000, 1)) 
+
+plot_data
+
+ggplot_hbar(plot_data, average_price, cut, pal = "#00b2c3")
+```
+
+As described above, use a `_col` function to colour by a variable and provide a `col_var`.
+
+Emphasis can be given to the outline of polygons by using an `alpha` argument to add opacity to the fill of polygons.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price = round(average_price / 1000, 1)) 
+
+plot_data
+
+ggplot_hbar(plot_data, average_price, cut, alpha = 0.25)
+```
+
+Alternatively, for boxplot, hbar or vbar, there is a `line_black == TRUE` argument from simplevis version 2.6.2 onwards. This is a unique situation where all lines (including outlines) are coloured black (even if colouring by a variable), but the fill remains coloured normally in accordance with the pal. 
+
+Otherwise, colour will be equivalent for the colouring of lines (including outlines) and the colouring of the fill of polygons.
+
+The point (and sf) ggplot functions allow for colouring by a numeric or categorical variable. If the col_var is numeric, the user can specify whether they want to colour using a vector of bins () or by using a vector of quantiles.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.05)
+
+plot_data
+
+ggplot_point_col(plot_data, 
+                 x_var = carat, 
+                 y_var = price, 
+                 col_var = z,
+                 col_method = "quantile",
+                 col_cuts = c(0, 0.25, 0.5, 0.75, 1))
+
+ggplot_point_col(plot_data, 
+                 x_var = carat, 
+                 y_var = price, 
+                 col_var = z,
+                 col_method = "bin",
+                 col_cuts = c(0, 1, 2, 3, 4, 5, Inf))
+```
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+ggplot_sf_col(example_sf_polygon, 
+               col_var = density, 
+               col_method = "bin", 
+               col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
+               col_labels_dp = 0)
+```
+
+```{r, eval=FALSE}
+leaflet_sf_col(example_sf_polygon, 
+               col_var = density, 
+               col_method = "bin", 
+               col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
+               col_labels_dp = 0)
+```

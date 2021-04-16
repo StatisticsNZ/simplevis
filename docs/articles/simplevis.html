@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@
       <h1 data-toc-skip>Getting started</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-04-15</h4>
+            <h4 class="date">2021-04-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -188,16 +188,16 @@
 <span class="co">#&gt; # A tibble: 2,697 x 10</span>
 <span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  0.92 Premium   H     SI2      60.4  59    3174  6.36  6.33  3.83</span>
-<span class="co">#&gt;  2  0.4  Premium   F     VS1      61.9  59     982  4.67  4.7   2.9 </span>
-<span class="co">#&gt;  3  0.72 Premium   H     SI1      59.9  58    2334  5.85  5.81  3.49</span>
-<span class="co">#&gt;  4  1.52 Very Good F     VS1      63.4  60   16670  7.3   7.25  4.61</span>
-<span class="co">#&gt;  5  0.9  Ideal     F     SI1      60.7  57    4324  6.25  6.21  3.78</span>
-<span class="co">#&gt;  6  0.74 Premium   G     SI2      62.5  56    2398  5.81  5.75  3.61</span>
-<span class="co">#&gt;  7  1    Premium   E     SI2      62    59    4077  6.43  6.3   3.95</span>
-<span class="co">#&gt;  8  0.31 Ideal     D     SI1      60.8  56     732  4.37  4.32  2.64</span>
-<span class="co">#&gt;  9  1.21 Good      J     SI2      61.1  60.8  4824  6.83  6.89  4.18</span>
-<span class="co">#&gt; 10  0.9  Good      E     SI2      64.1  58    3595  6.04  6.09  3.89</span>
+<span class="co">#&gt;  1  0.32 Ideal     G     VVS2     61.7    57   730  4.41  4.44  2.73</span>
+<span class="co">#&gt;  2  2.01 Very Good I     VS1      59.8    63 16914  8.11  8.14  4.86</span>
+<span class="co">#&gt;  3  0.32 Ideal     E     VVS1     61.7    55   954  4.39  4.42  2.72</span>
+<span class="co">#&gt;  4  0.55 Ideal     G     VVS2     62.3    53  1799  5.27  5.29  3.29</span>
+<span class="co">#&gt;  5  0.36 Very Good H     SI2      61.2    55   475  4.59  4.62  2.81</span>
+<span class="co">#&gt;  6  1.55 Premium   H     VS2      60.7    59 11846  7.5   7.46  4.54</span>
+<span class="co">#&gt;  7  1.13 Ideal     G     VS2      61.6    57  7159  6.68  6.7   4.12</span>
+<span class="co">#&gt;  8  0.76 Premium   E     SI1      61.6    59  2644  5.83  5.79  3.58</span>
+<span class="co">#&gt;  9  1.51 Good      E     SI2      63.1    58  9343  7.28  7.31  4.6 </span>
+<span class="co">#&gt; 10  0.53 Good      H     IF       61.2    65  1440  5.16  5.27  3.19</span>
 <span class="co">#&gt; # … with 2,687 more rows</span>
 
 <span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">plot_data</span>, <span class="no">carat</span>, <span class="no">price</span>)</pre></body></html></div>
@@ -312,18 +312,18 @@
 
 <span class="no">plot_data</span>
 <span class="co">#&gt; # A tibble: 2,697 x 10</span>
-<span class="co">#&gt;    carat cut     color clarity depth table price     x     y     z</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  0.36 Ideal   G     SI1      61.1    55   571  4.58  4.62  2.81</span>
-<span class="co">#&gt;  2  1.45 Premium D     SI1      62.2    58 10800  7.12  7.03  4.4 </span>
-<span class="co">#&gt;  3  1.21 Ideal   H     VS1      62.7    56  6784  6.79  6.84  4.27</span>
-<span class="co">#&gt;  4  0.31 Good    F     VS2      63.4    56   625  4.31  4.34  2.74</span>
-<span class="co">#&gt;  5  0.81 Premium D     SI1      60.7    58  3135  6.07  5.99  3.66</span>
-<span class="co">#&gt;  6  1    Premium D     SI1      62.1    61  5488  6.32  6.3   3.92</span>
-<span class="co">#&gt;  7  0.74 Ideal   H     VS1      61.8    58  2797  5.77  5.81  3.58</span>
-<span class="co">#&gt;  8  0.3  Ideal   H     VVS2     61.5    56   581  4.34  4.38  2.68</span>
-<span class="co">#&gt;  9  0.52 Ideal   D     VS2      60.3    56  1677  5.24  5.27  3.17</span>
-<span class="co">#&gt; 10  0.5  Ideal   H     SI1      62.2    57  1140  5.07  5.09  3.16</span>
+<span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  1.01 Ideal     F     SI2      62.7    57  3945  6.37  6.43  4.01</span>
+<span class="co">#&gt;  2  2.16 Very Good G     SI2      62.6    55 15166  8.2   8.25  5.14</span>
+<span class="co">#&gt;  3  0.71 Good      F     SI1      63.9    57  2352  5.61  5.57  3.57</span>
+<span class="co">#&gt;  4  1.51 Premium   G     VVS2     62.9    60 13828  7.3   7.21  4.56</span>
+<span class="co">#&gt;  5  1.54 Ideal     G     SI2      61.9    55  9193  7.47  7.39  4.6 </span>
+<span class="co">#&gt;  6  0.56 Premium   E     SI2      62.6    59  1297  5.24  5.2   3.27</span>
+<span class="co">#&gt;  7  1.05 Very Good G     SI2      61.6    60  4241  6.49  6.56  4.02</span>
+<span class="co">#&gt;  8  1.04 Ideal     H     VS2      62.2    57  6133  6.46  6.49  4.03</span>
+<span class="co">#&gt;  9  0.63 Ideal     D     VS2      61.5    54  2013  5.54  5.58  3.42</span>
+<span class="co">#&gt; 10  1.52 Premium   E     SI2      61      59 10214  7.39  7.33  4.49</span>
 <span class="co">#&gt; # … with 2,687 more rows</span>
 
 <span class="fu"><a href="../reference/ggplot_point_col.html">ggplot_point_col</a></span>(<span class="no">plot_data</span>,
@@ -425,8 +425,8 @@
 <h4 class="hasAnchor">
 <a href="#supported-variable-classes" class="anchor"></a>Supported variable classes</h4>
 <p>variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-fa05a39d4ac36549c223" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa05a39d4ac36549c223">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","boxplot"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric",null],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-03cf411e72999592f083" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-03cf411e72999592f083">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","boxplot"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric",null],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="ggplot-maps" class="section level3">

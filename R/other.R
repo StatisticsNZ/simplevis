@@ -81,7 +81,7 @@ mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
   }
   
   data <- data %>%
-    dplyr::mutate(text = stringr::str_replace_all(text, "NA", "Not available"))
+    dplyr::mutate(text = stringr::str_replace_all(text, " NA<br>", " Not available<br>"))
   
   return(data)
 }

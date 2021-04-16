@@ -405,7 +405,7 @@ ggplot_sf_col <- function(data,
       geom_sf(
         aes(col = !!col_var),
         size = point_size,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -414,33 +414,31 @@ ggplot_sf_col <- function(data,
       geom_sf(
         aes(col = !!col_var),
         size = line_size,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         data = data
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(
-        aes(fill = !!col_var),
+        aes(col = !!col_var, fill = !!col_var),
         size = line_size,
-        col = NA,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
       )
   }
   
-  if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
-    plot <- plot +
-      scale_color_manual(
-        values = pal,
-        drop = FALSE,
-        labels = labels,
-        na.translate = col_na, 
-        na.value = "#A8A8A8"
-      )
-  }
-  else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+  plot <- plot +
+    scale_color_manual(
+      values = pal,
+      drop = FALSE,
+      labels = labels,
+      na.translate = col_na, 
+      na.value = "#A8A8A8"
+    )
+  
+    if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -585,7 +583,7 @@ ggplot_sf_facet <- function(data,
       geom_sf(
         col = pal,
         size = point_size,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -594,17 +592,17 @@ ggplot_sf_facet <- function(data,
       geom_sf(
         col = pal,
         size = line_size,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         data = data
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(
+        col = pal,
         fill = pal,
         size = line_size,
-        col = NA,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
       )
@@ -797,7 +795,7 @@ ggplot_sf_col_facet <- function(data,
       geom_sf(
         aes(col = !!col_var),
         size = point_size,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -806,33 +804,31 @@ ggplot_sf_col_facet <- function(data,
       geom_sf(
         aes(col = !!col_var),
         size = line_size,
-        key_glyph = draw_key_rect,
+        # key_glyph = draw_key_polygon,
         data = data
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(
-        aes(fill = !!col_var),
-        size = point_size,
-        col = NA,
-        key_glyph = draw_key_rect,
+        aes(col = !!col_var, fill = !!col_var),
+        size = line_size,
+        # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
       )
   }
   
-  if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
-    plot <- plot +
-      scale_color_manual(
-        values = pal,
-        drop = FALSE,
-        labels = labels,
-        na.translate = col_na, 
-        na.value = "#A8A8A8"
-      )
-  }
-  else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+  plot <- plot +
+    scale_color_manual(
+      values = pal,
+      drop = FALSE,
+      labels = labels,
+      na.translate = col_na, 
+      na.value = "#A8A8A8"
+    )
+  
+  if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       scale_fill_manual(
         values = pal,

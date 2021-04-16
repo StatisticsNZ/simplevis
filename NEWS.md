@@ -1,3 +1,9 @@
+# simplevis 2.6.2
+
+* Bug fix: Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them. 
+* New feature: Make ggplot sf functions not adjust alpha of outlines.
+* New feature: Remove key_glyph, as it is not implemented in ggplotly.  
+
 # simplevis 2.6.1
 
 * Updated pkgdown website.

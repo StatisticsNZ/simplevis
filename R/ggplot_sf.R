@@ -91,6 +91,7 @@ theme_sf <-
 
 #' @title Map of simple features in ggplot.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param point_size Size of points. Defaults to 0.5.
 #' @param line_size Size of lines. Defaults to 0.5.
@@ -119,6 +120,7 @@ theme_sf <-
 #' 
 #' ggplot_sf(sf, alpha = 0, pal = "#232323")
 ggplot_sf <- function(data,
+                      text_var = NULL,
                       point_size = 1,
                       line_size = 0.5,
                       alpha = 1,
@@ -139,6 +141,7 @@ ggplot_sf <- function(data,
                       isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
+  text_var <- rlang::enquo(text_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
@@ -177,15 +180,15 @@ ggplot_sf <- function(data,
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
-      geom_sf(size = point_size, col = pal)
+      geom_sf(aes(text = !!text_var), size = point_size, col = pal)
   }
   else if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
-      geom_sf(size = line_size, col = pal)
+      geom_sf(aes(text = !!text_var), size = line_size, col = pal)
   }
   else if (unique(sf::st_geometry_type(data)) %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
-      geom_sf(
+      geom_sf(aes(text = !!text_var), 
         size = line_size,
         col = pal,
         fill = pal,
@@ -231,6 +234,7 @@ ggplot_sf <- function(data,
 #' @description Map of simple features in ggplot that is coloured, but not facetted. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param point_size Size of points. Defaults to 0.5.
@@ -277,6 +281,7 @@ ggplot_sf <- function(data,
 #'    title = "Monitored trends, 2008-17")
 ggplot_sf_col <- function(data,
                           col_var,
+                          text_var = NULL,
                           pal = NULL,
                           pal_rev = FALSE,
                           point_size = 1,
@@ -307,8 +312,8 @@ ggplot_sf_col <- function(data,
                           isMobile = FALSE) {
   
   data <- dplyr::ungroup(data)
-  
   col_var <- rlang::enquo(col_var)
+  text_var <- rlang::enquo(text_var)
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
@@ -402,8 +407,8 @@ ggplot_sf_col <- function(data,
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
-      geom_sf(
-        aes(col = !!col_var),
+      geom_sf( 
+        aes(col = !!col_var, text = !!text_var),
         size = point_size,
         # key_glyph = draw_key_polygon,
         data = data
@@ -411,8 +416,8 @@ ggplot_sf_col <- function(data,
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
-      geom_sf(
-        aes(col = !!col_var),
+      geom_sf( 
+        aes(col = !!col_var, text = !!text_var),
         size = line_size,
         # key_glyph = draw_key_polygon,
         data = data
@@ -420,8 +425,8 @@ ggplot_sf_col <- function(data,
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
-      geom_sf(
-        aes(col = !!col_var, fill = !!col_var),
+      geom_sf( 
+        aes(col = !!col_var, fill = !!col_var, text = !!text_var),
         size = line_size,
         # key_glyph = draw_key_polygon,
         alpha = alpha,
@@ -493,6 +498,7 @@ ggplot_sf_col <- function(data,
 #' @description Map of simple features in ggplot that is facetted, but not coloured. 
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param point_size Size of points. Defaults to 0.5.
 #' @param line_size Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -520,6 +526,7 @@ ggplot_sf_col <- function(data,
 #'   title = "Trends, 1990-2017")
 ggplot_sf_facet <- function(data,
                             facet_var,
+                            text_var = NULL,
                             point_size = 1,
                             line_size = 0.5,
                             alpha = 1,
@@ -541,8 +548,8 @@ ggplot_sf_facet <- function(data,
                             font_size_body = NULL) {
   
   data <- dplyr::ungroup(data)
-  
   facet_var <- rlang::enquo(facet_var) #categorical var
+  text_var <- rlang::enquo(text_var)
   
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
@@ -581,6 +588,7 @@ ggplot_sf_facet <- function(data,
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
       geom_sf(
+        aes(text = !!text_var), 
         col = pal,
         size = point_size,
         # key_glyph = draw_key_polygon,
@@ -590,6 +598,7 @@ ggplot_sf_facet <- function(data,
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
       geom_sf(
+        aes(text = !!text_var), 
         col = pal,
         size = line_size,
         # key_glyph = draw_key_polygon,
@@ -599,6 +608,7 @@ ggplot_sf_facet <- function(data,
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(
+        aes(text = !!text_var), 
         col = pal,
         fill = pal,
         size = line_size,
@@ -636,6 +646,7 @@ ggplot_sf_facet <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param point_size Size of points. Defaults to 0.5.
@@ -676,6 +687,7 @@ ggplot_sf_facet <- function(data,
 ggplot_sf_col_facet <- function(data,
                                 col_var,
                                 facet_var,
+                                text_var = NULL,
                                 pal = NULL,
                                 pal_rev = FALSE,
                                 point_size = 1,
@@ -709,6 +721,7 @@ ggplot_sf_col_facet <- function(data,
   data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
+  text_var <- rlang::enquo(text_var)
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
@@ -793,7 +806,7 @@ ggplot_sf_col_facet <- function(data,
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
       geom_sf(
-        aes(col = !!col_var),
+        aes(col = !!col_var, text = !!text_var),
         size = point_size,
         # key_glyph = draw_key_polygon,
         data = data
@@ -801,8 +814,8 @@ ggplot_sf_col_facet <- function(data,
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     plot <- plot +
-      geom_sf(
-        aes(col = !!col_var),
+      geom_sf( 
+        aes(col = !!col_var, text = !!text_var),
         size = line_size,
         # key_glyph = draw_key_polygon,
         data = data
@@ -811,7 +824,7 @@ ggplot_sf_col_facet <- function(data,
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(
-        aes(col = !!col_var, fill = !!col_var),
+        aes(col = !!col_var, fill = !!col_var, text = !!text_var),
         size = line_size,
         # key_glyph = draw_key_polygon,
         alpha = alpha,

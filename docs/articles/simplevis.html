@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Getting started • simplevis</title>
+<title>Simplevis • simplevis</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Getting started">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Simplevis">
 <meta property="og:description" content="simplevis">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.3</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@
       <a href="../articles/a1_colouring.html">Colouring</a>
     </li>
     <li>
-      <a href="../articles/a2_interactive_graphs.html">Interactive graphs</a>
+      <a href="../articles/a2_interactivity.html">Interactivity</a>
     </li>
     <li>
       <a href="../articles/a3_more_plot_examples.html">More plot examples</a>
@@ -108,10 +108,8 @@
 <script src="simplevis_files/crosstalk-1.1.1/js/crosstalk.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Getting started</h1>
-                        <h4 class="author">David Hodge</h4>
+      <h1 data-toc-skip>Simplevis</h1>
             
-            <h4 class="date">2021-04-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -188,16 +186,16 @@
 <span class="co">#&gt; # A tibble: 2,697 x 10</span>
 <span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  0.32 Ideal     G     VVS2     61.7    57   730  4.41  4.44  2.73</span>
-<span class="co">#&gt;  2  2.01 Very Good I     VS1      59.8    63 16914  8.11  8.14  4.86</span>
-<span class="co">#&gt;  3  0.32 Ideal     E     VVS1     61.7    55   954  4.39  4.42  2.72</span>
-<span class="co">#&gt;  4  0.55 Ideal     G     VVS2     62.3    53  1799  5.27  5.29  3.29</span>
-<span class="co">#&gt;  5  0.36 Very Good H     SI2      61.2    55   475  4.59  4.62  2.81</span>
-<span class="co">#&gt;  6  1.55 Premium   H     VS2      60.7    59 11846  7.5   7.46  4.54</span>
-<span class="co">#&gt;  7  1.13 Ideal     G     VS2      61.6    57  7159  6.68  6.7   4.12</span>
-<span class="co">#&gt;  8  0.76 Premium   E     SI1      61.6    59  2644  5.83  5.79  3.58</span>
-<span class="co">#&gt;  9  1.51 Good      E     SI2      63.1    58  9343  7.28  7.31  4.6 </span>
-<span class="co">#&gt; 10  0.53 Good      H     IF       61.2    65  1440  5.16  5.27  3.19</span>
+<span class="co">#&gt;  1  0.33 Premium   H     VVS2     61.6  58     854  4.45  4.42  2.73</span>
+<span class="co">#&gt;  2  0.46 Ideal     J     VS1      62.6  53.9   851  4.92  4.95  3.09</span>
+<span class="co">#&gt;  3  0.7  Very Good E     SI1      62.9  57    2349  5.6   5.66  3.54</span>
+<span class="co">#&gt;  4  0.31 Very Good G     VS2      61    56     544  4.35  4.37  2.66</span>
+<span class="co">#&gt;  5  0.28 Ideal     G     IF       60.9  57     650  4.24  4.27  2.59</span>
+<span class="co">#&gt;  6  0.31 Very Good E     SI1      62.8  57     544  4.32  4.34  2.72</span>
+<span class="co">#&gt;  7  1    Ideal     D     SI2      61.5  56    4956  6.45  6.41  3.95</span>
+<span class="co">#&gt;  8  1.82 Premium   I     VS1      61.4  60   13813  7.8   7.83  4.8 </span>
+<span class="co">#&gt;  9  0.23 Very Good D     VVS2     59.6  61     499  3.99  4.03  2.39</span>
+<span class="co">#&gt; 10  1.01 Good      G     VS2      63.7  56    5701  6.4   6.32  4.05</span>
 <span class="co">#&gt; # … with 2,687 more rows</span>
 
 <span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">plot_data</span>, <span class="no">carat</span>, <span class="no">price</span>)</pre></body></html></div>
@@ -314,16 +312,16 @@
 <span class="co">#&gt; # A tibble: 2,697 x 10</span>
 <span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  1.01 Ideal     F     SI2      62.7    57  3945  6.37  6.43  4.01</span>
-<span class="co">#&gt;  2  2.16 Very Good G     SI2      62.6    55 15166  8.2   8.25  5.14</span>
-<span class="co">#&gt;  3  0.71 Good      F     SI1      63.9    57  2352  5.61  5.57  3.57</span>
-<span class="co">#&gt;  4  1.51 Premium   G     VVS2     62.9    60 13828  7.3   7.21  4.56</span>
-<span class="co">#&gt;  5  1.54 Ideal     G     SI2      61.9    55  9193  7.47  7.39  4.6 </span>
-<span class="co">#&gt;  6  0.56 Premium   E     SI2      62.6    59  1297  5.24  5.2   3.27</span>
-<span class="co">#&gt;  7  1.05 Very Good G     SI2      61.6    60  4241  6.49  6.56  4.02</span>
-<span class="co">#&gt;  8  1.04 Ideal     H     VS2      62.2    57  6133  6.46  6.49  4.03</span>
-<span class="co">#&gt;  9  0.63 Ideal     D     VS2      61.5    54  2013  5.54  5.58  3.42</span>
-<span class="co">#&gt; 10  1.52 Premium   E     SI2      61      59 10214  7.39  7.33  4.49</span>
+<span class="co">#&gt;  1 2.23  Premium   J     SI1      62.4  59   14258  8.36  8.33  5.21</span>
+<span class="co">#&gt;  2 0.580 Ideal     F     VVS1     61.6  57    2728  5.33  5.38  3.3 </span>
+<span class="co">#&gt;  3 0.72  Premium   D     VS2      61.1  60    2721  5.74  5.69  3.49</span>
+<span class="co">#&gt;  4 0.32  Ideal     J     VS1      62    54.7   442  4.39  4.42  2.73</span>
+<span class="co">#&gt;  5 1.01  Good      G     VS2      63.6  60    5599  6.3   6.35  4.02</span>
+<span class="co">#&gt;  6 1.21  Ideal     E     IF       61.8  56   17353  6.81  6.88  4.23</span>
+<span class="co">#&gt;  7 1.2   Premium   F     SI1      60.2  58    6604  6.9   6.86  4.14</span>
+<span class="co">#&gt;  8 1.5   Very Good I     VVS2     59.7  60   10551  7.46  7.62  4.5 </span>
+<span class="co">#&gt;  9 1.26  Ideal     H     VS1      61.5  59    7845  6.94  6.91  4.26</span>
+<span class="co">#&gt; 10 0.49  Premium   G     SI2      59.4  60    1084  5.17  5.14  3.06</span>
 <span class="co">#&gt; # … with 2,687 more rows</span>
 
 <span class="fu"><a href="../reference/ggplot_point_col.html">ggplot_point_col</a></span>(<span class="no">plot_data</span>,
@@ -425,8 +423,8 @@
 <h4 class="hasAnchor">
 <a href="#supported-variable-classes" class="anchor"></a>Supported variable classes</h4>
 <p>variable types supported by the different groups of functions are outlined below.</p>
-<div id="htmlwidget-03cf411e72999592f083" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-03cf411e72999592f083">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","boxplot"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric",null],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6fe81ad5b7345b663069" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6fe81ad5b7345b663069">{"x":{"filter":"none","data":[["1","2","3","4","5"],["vbar","hbar","line","point","boxplot"],["numeric, date or categorical","numeric","numeric or date","numeric","categorical"],["numeric","categorical","numeric","numeric","numeric"],["categorical or numeric","categorical or numeric","categorical or numeric","categorical or numeric",null],["categorical","categorical","categorical","categorical","categorical"],["identity","identity","identity","identity","boxplot or identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="ggplot-maps" class="section level3">

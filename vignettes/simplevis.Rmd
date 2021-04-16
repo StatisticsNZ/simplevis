@@ -1,10 +1,8 @@
 ---
-title: "Getting started"
-author: "David Hodge"
-date: "`r Sys.Date()`"
+title: "Simplevis"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started}
+  %\VignetteIndexEntry{Simplevis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -108,13 +108,13 @@ ggplot_sf_col(example_sf_point, trend_category,
 
 The leaflet functions work in a similar way to the `ggplot2` wrapper functions. 
 
-```{r, eval=FALSE}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_sf(example_sf_point)
 ```
 
 Instead of a `borders` argument, users have a `basemap` argument that defaults to "light" but has other options.
 
-```{r, eval=FALSE}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_sf(example_sf_point, basemap = "dark")
 ```
 
@@ -124,7 +124,7 @@ Some of the arguments are different between the leaflet and ggplot2 wrapper func
 
 Note the default popups will wrap all variable names and values from the sf object. 
 
-```{r, eval=FALSE}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_sf_col(example_sf_point, col_var = trend_category, 
               pal = c("#0D94A3", "#C4C4C7", "#AE4E51"))
 ```
@@ -152,13 +152,13 @@ ggplot_sf(sf, alpha = 0, pal = "#232323")
 
 A leaflet basemap is available for use in shiny apps. It defaults to the top layer being "light".
 
-```{r, eval=FALSE}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 simplevis::leaflet_basemap() 
 ```
 
 You can set the bounds by adding a vector or bbox of bounds.
 
-```{r, eval=FALSE}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 
 bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 

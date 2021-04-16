@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.3</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <a href="../articles/a1_colouring.html">Colouring</a>
     </li>
     <li>
-      <a href="../articles/a2_interactive_graphs.html">Interactive graphs</a>
+      <a href="../articles/a2_interactivity.html">Interactivity</a>
     </li>
     <li>
       <a href="../articles/a3_more_plot_examples.html">More plot examples</a>
@@ -155,16 +155,16 @@
     <p>Map of simple features in ggplot that is coloured, but not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
+  <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,6 +176,10 @@
     <tr>
       <th>col_var</th>
       <td><p>Unquoted variable for points to be coloured by. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>text_var</th>
+      <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>pal</th>

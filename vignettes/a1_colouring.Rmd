@@ -86,7 +86,7 @@ ggplot_sf_col(example_sf_polygon,
                col_labels_dp = 0)
 ```
 
-```{r, eval=FALSE}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
 leaflet_sf_col(example_sf_polygon, 
                col_var = density, 
                col_method = "bin", 

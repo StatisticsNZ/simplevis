@@ -3,10 +3,10 @@ pkgdown: 1.5.0
 pkgdown_sha: ~
 articles:
   a1_colouring: a1_colouring.html
-  a2_interactive_graphs: a2_interactive_graphs.html
+  a2_interactivity: a2_interactivity.html
   a3_more_plot_examples: a3_more_plot_examples.html
   a4_more_sf_map_examples: a4_more_sf_map_examples.html
   a5_shiny: a5_shiny.html
   simplevis: simplevis.html
-last_built: 2021-04-16T02:08Z
+last_built: 2021-04-16T04:19Z
 

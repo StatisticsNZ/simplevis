@@ -4,8 +4,8 @@
 \alias{ggplot_sf}
 \title{Map of simple features in ggplot.}
 \usage{
-ggplot_sf(data, point_size = 1, line_size = 0.5, alpha = 1,
-  pal = NULL, borders = NULL, borders_behind = TRUE,
+ggplot_sf(data, text_var = NULL, point_size = 1, line_size = 0.5,
+  alpha = 1, pal = NULL, borders = NULL, borders_behind = TRUE,
   borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   caption = NULL, caption_wrap = 80, font_family = "Helvetica",
@@ -13,6 +13,8 @@ ggplot_sf(data, point_size = 1, line_size = 0.5, alpha = 1,
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
+
+\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{point_size}{Size of points. Defaults to 0.5.}
 

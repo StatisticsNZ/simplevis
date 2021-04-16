@@ -1,0 +1,162 @@
+---
+title: "Interactivity"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Interactivity}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(simplevis)
+library(dplyr)
+```
+
+These `ggplot` graph and maps have been designed that users can convert them easily to html interactive objects by wrapping them in `plotly::ggplotly(plot)`. The `plotly_camera` function turns off all widgets other than the camera to make a cleaner graph.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(average_wind = mean(wind))
+
+plot <- ggplot_vbar(data = plot_data, 
+                    x_var = year, 
+                    y_var = average_wind)
+
+plotly::ggplotly(plot) %>% 
+  plotly_camera() 
+```
+
+The `plotly::ggplotly` function provides the ability to convert the ggplot to an interactive object. 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.05)
+
+plot_data
+
+plot <- ggplot_point(plot_data, 
+                 x_var = carat, 
+                 y_var = price)
+
+plotly::ggplotly(plot) %>% 
+  plotly_camera()
+```
+
+A customised tooltip can be provided using the `text_var` argument in `simplevis` functions with `plotly::ggplotly(plot, tooltip = "text")`. The `tooltip = text` argument specifies that the tooltip should be built using the text variable (i.e. `text_var`) instead of by default.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.05)
+
+plot_data
+
+plot <- ggplot_point(plot_data, 
+                 x_var = carat, 
+                 y_var = price,
+                 text_var = z)
+
+plotly::ggplotly(plot, tooltip = "text") %>% 
+   plotly_camera()
+```
+
+A column called `text` of all (or predefined) variables in the data can be built using the `mutate_text` function. Note that the column name is converted to sentence case with underscores converted to spaces.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.05) %>% 
+  mutate_text()
+
+plot_data
+
+plot <- ggplot_point(plot_data, 
+                 x_var = carat, 
+                 y_var = price,
+                 text_var = text)
+
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
+```
+
+A column called `text` of all (or predefined) variables in the data can be built using the `mutate_text` function. 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.05) %>% 
+  mutate_text(c("carat", "cut", "color", "clarity", "depth"))
+
+plot_data
+
+plot <- ggplot_point(plot_data, 
+                 x_var = carat, 
+                 y_var = price,
+                 text_var = text)
+
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
+```
+
+The `leaflet` functions allow for beautiful zoomable maps. Note the hover labels default to the `col_var` and the popup defaults to all of the variables in the dataset.
+
+```{r, eval=FALSE}
+leaflet_sf_col(data = example_sf_point, 
+              col_var = median, 
+              col_method = "quantile",
+              col_cuts = seq(0, 1, 0.25),
+              title = "Monitored medians, 2008-17")
+```
+
+From version 2.6.3 of simplevis, the ggplot_sf family of functions can be converted to interactive ggplotly objects using the same method, as already described for other ggplot objects.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+plot_data <- example_sf_point %>% 
+  mutate_text()
+
+plot_data
+
+plot <- ggplot_sf_col(data = plot_data, 
+              col_var = trend_category, 
+              text_var = text,
+              borders = nz, 
+              pal = c("#4575B4", "#D3D3D3", "#D73027"), 
+              title = "Monitored trends, 2008-17")
+
+plot
+
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
+```
+
+The main advantage of this is going to be for displaying a lot of information in facetting graphs.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 7}
+col_cuts <- as.vector(quantile(example_sf_point$median, probs = c(0, 0.25, 0.5, 0.75, 1)))
+
+plot_data <- example_sf_point %>% 
+  mutate(quartile = case_when(median < col_cuts[2] ~ "Q1", 
+                              median < col_cuts[3] ~ "Q2",
+                              median < col_cuts[4] ~ "Q3",
+                              TRUE ~ "Q4")) %>% 
+  mutate_text()
+
+plot <- ggplot_sf_col_facet(data = plot_data, 
+                      col_var = trend_category, 
+                      facet_var = quartile,
+                      text_var = text,
+                      borders = nz,
+                      pal = c("#4575B4", "#D3D3D3", "#D73027"), 
+                      title = "Trends by median quartile, 2017")
+
+plot
+
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
+```
+

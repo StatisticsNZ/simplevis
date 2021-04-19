@@ -12,3 +12,7 @@
 ^vignettes/a3_more_plot_examples\.Rmd$
 ^vignettes/a4_more_sf_map_examples\.Rmd$
 ^vignettes/a5_shiny\.Rmd$
+^vignettes/colour\.Rmd$
+^vignettes/ggplotly\.Rmd$
+^vignettes/leaflet\.Rmd$
+^vignettes/shiny\.Rmd$

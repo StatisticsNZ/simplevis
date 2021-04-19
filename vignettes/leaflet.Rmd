@@ -1,0 +1,93 @@
+---
+title: "Leaflet"
+author: "David Hodge"
+date: "`r Sys.Date()`"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(simplevis)
+```
+
+### Overview
+
+`leaflet` is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. `simplevis` provides `leaflet_sf` and `leaflet_sf_col` wrapper functions to map sf objects. Arguments in these have been aligned to ggplot terminology to make things simple for the user.
+
+As per the ggplot sf functions:
+
+* Data must be an `sf` object 
+* Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type
+* Data must have a coordinate reference system (CRS) defined
+* No `x_var` and `y_var` variables are required
+
+There is no facetting functionality provided for leaflet.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+leaflet_sf_col(data = example_sf_point, 
+              col_var = median, 
+              col_method = "quantile",
+              col_cuts = seq(0, 1, 0.25),
+              title = "Monitored medians, 2008-17")
+```
+
+
+```{r}
+leaflet_sf_col(example_sf_polygon, density,
+     col_method = "bin", 
+     col_cuts = c(0, 10, 50, 100, 150, 200, Inf),
+     col_labels_dp = 0,
+     title = "Modelled density, 2017")
+```
+
+### Basemaps
+
+Users have a `basemap` argument that defaults to "light" but has other options.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+leaflet_sf(example_sf_point, basemap = "dark")
+```
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+leaflet_sf(example_sf_point, basemap = "satellite")
+```
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+leaflet_sf(example_sf_point, basemap = "street")
+```
+
+### shiny
+
+A leaflet basemap is available for use in shiny apps. It defaults to the top layer being "light".
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+simplevis::leaflet_basemap() 
+```
+
+You can set the bounds by adding a vector or bbox of bounds.
+
+```{r}
+leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
+
+bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 
+   sf::st_bbox() 
+ 
+simplevis::leaflet_basemap(bounds = bb) 
+```
+
+### Adding additional layers
+
+As a leaflet object is produced, you can add additional layers with leaflet.
+
+```{r}
+leaflet_sf_col(example_sf_point, 
+               col_var = trend_category, 
+               pal = c("#0D94A3", "#C4C4C7", "#AE4E51")) %>% 
+  leaflet::addPolygons(data = nz, color = "black", weight = 1, fillOpacity = 0, opacity = 1)
+```

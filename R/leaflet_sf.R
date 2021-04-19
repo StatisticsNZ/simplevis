@@ -5,7 +5,7 @@
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param popup_var Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param point_size Size of points (i.e. radius). Defaults to 1.
+#' @param point_size Size of points (i.e. radius). Defaults to 2.
 #' @param line_size Size of lines around features (i.e. weight). Defaults to 2.
 #' @param alpha The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.1. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
@@ -20,7 +20,7 @@
 leaflet_sf <- function(data,
                        popup_var = NULL,
                        pal = NULL,
-                       point_size = 1,
+                       point_size = 2,
                        line_size = 2,
                        alpha = 0.1,
                        basemap = "light",
@@ -201,7 +201,7 @@ leaflet_sf <- function(data,
 #' @param popup_var Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param point_size Size of points (i.e. radius). Defaults to 1.
+#' @param point_size Size of points (i.e. radius). Defaults to 2.
 #' @param line_size Size of lines around features (i.e. weight). Defaults to 2.
 #' @param alpha The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.1. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
@@ -233,7 +233,7 @@ leaflet_sf_col <- function(data,
                            popup_var = NULL,
                            pal = NULL,
                            pal_rev = FALSE,
-                           point_size = 1,
+                           point_size = 2,
                            line_size = 2,
                            alpha = 0.9,
                            basemap = "light",

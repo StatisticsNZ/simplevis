@@ -5,7 +5,7 @@
 \title{Map of simple features in leaflet that is coloured.}
 \usage{
 leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
-  pal = NULL, pal_rev = FALSE, point_size = 1, line_size = 2,
+  pal = NULL, pal_rev = FALSE, point_size = 2, line_size = 2,
   alpha = 0.9, basemap = "light", title = "[Title]",
   col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
   col_method = NULL, col_na = TRUE, map_id = "map")
@@ -23,7 +23,7 @@ leaflet_sf_col(data, col_var, text_var = NULL, popup_var = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{point_size}{Size of points (i.e. radius). Defaults to 1.}
+\item{point_size}{Size of points (i.e. radius). Defaults to 2.}
 
 \item{line_size}{Size of lines around features (i.e. weight). Defaults to 2.}
 

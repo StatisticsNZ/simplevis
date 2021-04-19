@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.4</span>
       </span>
     </div>
 
@@ -106,19 +106,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a1_colouring.html">Colouring</a>
+      <a href="../articles/colour.html">Colour</a>
     </li>
     <li>
-      <a href="../articles/a2_interactivity.html">Interactivity</a>
+      <a href="../articles/ggplotly.html">Ggplotly</a>
     </li>
     <li>
-      <a href="../articles/a3_more_plot_examples.html">More plot examples</a>
+      <a href="../articles/leaflet.html">Leaflet</a>
     </li>
     <li>
-      <a href="../articles/a4_more_sf_map_examples.html">More sf map examples</a>
-    </li>
-    <li>
-      <a href="../articles/a5_shiny.html">Shiny</a>
+      <a href="../articles/shiny.html">Shiny</a>
     </li>
   </ul>
 </li>
@@ -179,7 +176,7 @@
 
 <span class='fu'>leaflet_basemap</span>(<span class='kw'>bounds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>166.70047</span>,-<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>))
 
-<span class='no'>bb</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rnaturalearth/man/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"small"</span>,
+<span class='no'>bb</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rnaturalearth</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html'>ne_countries</a></span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"small"</span>,
            <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Papua New Guinea"</span>,
            <span class='kw'>returnclass</span> <span class='kw'>=</span> <span class='st'>"sf"</span>) <span class='kw'>%&gt;%</span>
      <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_bbox.html'>st_bbox</a></span>()

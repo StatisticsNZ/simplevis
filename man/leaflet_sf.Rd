@@ -4,7 +4,7 @@
 \alias{leaflet_sf}
 \title{Map of simple features in leaflet.}
 \usage{
-leaflet_sf(data, popup_var = NULL, pal = NULL, point_size = 1,
+leaflet_sf(data, popup_var = NULL, pal = NULL, point_size = 2,
   line_size = 2, alpha = 0.1, basemap = "light", title = "[Title]",
   col_labels_dp = 1, col_labels = "[Feature]", map_id = "map")
 }
@@ -15,7 +15,7 @@ leaflet_sf(data, popup_var = NULL, pal = NULL, point_size = 1,
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
-\item{point_size}{Size of points (i.e. radius). Defaults to 1.}
+\item{point_size}{Size of points (i.e. radius). Defaults to 2.}
 
 \item{line_size}{Size of lines around features (i.e. weight). Defaults to 2.}
 

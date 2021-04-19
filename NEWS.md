@@ -1,3 +1,7 @@
+# simplevis 2.6.4
+
+* Changed leaflet_sf default point_size to 2.
+
 # simplevis 2.6.3
 
 * New feature: added text_var arguments to ggplot sf functions to fully support plotly interactive maps. 

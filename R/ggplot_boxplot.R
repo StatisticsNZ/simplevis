@@ -118,9 +118,9 @@ theme_boxplot <-
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 0.1. 
-#' @param point_size The size of the outliers. Defaults to 1.
-#' @param line_size The size of the outlines of boxplots. Defaults to 0.5.
+#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -174,9 +174,9 @@ ggplot_boxplot <- function(data,
                        stat = "boxplot",
                        pal = NULL,
                        width = 0.5,
-                       alpha = 0.1,
-                       line_size = 0.5,
-                       point_size = 1, 
+                       alpha = 1,
+                       size_line = 0.5,
+                       size_point = 1, 
                        title = "[Title]",
                        title_wrap = 70,
                        subtitle = NULL,
@@ -251,13 +251,13 @@ ggplot_boxplot <- function(data,
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var),
           stat = stat,
-          col = pal, 
+          col = "#323232", 
           fill = pal,
           width = width,
-          size = line_size, 
+          size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
-          outlier.size = point_size 
+          outlier.size = size_point 
         )
     }
     else if(!rlang::quo_is_null(group_var)) {
@@ -265,13 +265,13 @@ ggplot_boxplot <- function(data,
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var, group = !!group_var),
           stat = stat,
-          col = pal, 
+          col = "#323232", 
           fill = pal,
           width = width,
-          size = line_size, 
+          size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
-          outlier.size = point_size
+          outlier.size = size_point
         )
     }
   }
@@ -287,13 +287,13 @@ ggplot_boxplot <- function(data,
           ymax = .data$ymax
         ),
         stat = stat,
-        col = pal, 
+        col = "#323232", 
         fill = pal,
         width = width,
-        size = line_size, 
+        size = size_line, 
         alpha = alpha,
         outlier.alpha = 1, 
-        outlier.size = point_size
+        outlier.size = size_point
       )
   }
 
@@ -430,9 +430,9 @@ ggplot_boxplot <- function(data,
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 0.1. 
-#' @param line_size The size of the outlines of boxplots. Defaults to 0.5.
-#' @param point_size The size of the outliers. Defaults to 1.
+#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
+#' @param size_point The size of the outliers. Defaults to 1.
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -479,9 +479,9 @@ ggplot_boxplot_facet <-
            stat = "boxplot",
            pal = NULL,
            width = 0.5,
-           alpha = 0.1,
-           line_size = 0.5,
-           point_size = 1,
+           alpha = 1,
+           size_line = 0.5,
+           size_point = 1,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -555,10 +555,10 @@ ggplot_boxplot_facet <-
           geom_boxplot(
             aes(x = !!x_var, y = !!y_var),
             stat = stat,
-            col = pal, 
+            col = "#323232", 
             fill = pal,
             width = width,
-            size = line_size, 
+            size = size_line, 
             alpha = alpha,
             outlier.alpha = 1
           )
@@ -568,13 +568,13 @@ ggplot_boxplot_facet <-
           geom_boxplot(
             aes(x = !!x_var, y = !!y_var, group = !!group_var),
             stat = stat,
-            col = pal, 
+            col = "#323232", 
             fill = pal,
             width = width,
-            size = line_size, 
+            size = size_line, 
             alpha = alpha,
             outlier.alpha = 1, 
-            outlier.size = point_size
+            outlier.size = size_point
           )
       }
     }
@@ -596,13 +596,13 @@ ggplot_boxplot_facet <-
             ymax = .data$ymax
           ),
           stat = stat,
-          col = pal, 
+          col = "#323232", 
           fill = pal,
           width = width,
-          size = line_size, 
+          size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
-          outlier.size = point_size
+          outlier.size = size_point
         )
     }
     

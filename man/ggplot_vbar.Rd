@@ -5,7 +5,7 @@
 \title{Vertical bar ggplot.}
 \usage{
 ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
-  width = 0.75, alpha = 1, line_size = 0.5, title = "[Title]",
+  width = 0.75, alpha = 1, size_line = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
   x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
@@ -30,7 +30,7 @@ ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
-\item{line_size}{The size of the outlines of bars.}
+\item{size_line}{The size of the outlines of bars.}
 
 \item{title}{Title string. Defaults to [Title].}
 

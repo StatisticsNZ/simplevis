@@ -93,8 +93,8 @@ theme_sf <-
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param data A sf object with defined coordinate reference system. Required input.
-#' @param point_size Size of points. Defaults to 0.5.
-#' @param line_size Size of lines. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
@@ -121,8 +121,8 @@ theme_sf <-
 #' ggplot_sf(sf, alpha = 0, pal = "#232323")
 ggplot_sf <- function(data,
                       text_var = NULL,
-                      point_size = 1,
-                      line_size = 0.5,
+                      size_point = 1,
+                      size_line = 0.5,
                       alpha = 1,
                       pal = NULL,
                       borders = NULL,
@@ -180,16 +180,16 @@ ggplot_sf <- function(data,
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
-      geom_sf(aes(text = !!text_var), size = point_size, col = pal)
+      geom_sf(aes(text = !!text_var), size = size_point, col = pal)
   }
   else if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
-      geom_sf(aes(text = !!text_var), size = line_size, col = pal)
+      geom_sf(aes(text = !!text_var), size = size_line, col = pal)
   }
   else if (unique(sf::st_geometry_type(data)) %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       geom_sf(aes(text = !!text_var), 
-        size = line_size,
+        size = size_line,
         col = pal,
         fill = pal,
         alpha = alpha
@@ -237,8 +237,8 @@ ggplot_sf <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param point_size Size of points. Defaults to 0.5.
-#' @param line_size Size of lines. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
@@ -284,8 +284,8 @@ ggplot_sf_col <- function(data,
                           text_var = NULL,
                           pal = NULL,
                           pal_rev = FALSE,
-                          point_size = 1,
-                          line_size = 0.5,
+                          size_point = 1,
+                          size_line = 0.5,
                           alpha = 1,
                           borders = NULL,
                           borders_behind = TRUE,
@@ -409,7 +409,7 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        size = point_size,
+        size = size_point,
         # key_glyph = draw_key_polygon,
         data = data
       )
@@ -418,7 +418,7 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        size = line_size,
+        size = size_line,
         # key_glyph = draw_key_polygon,
         data = data
       )
@@ -427,7 +427,7 @@ ggplot_sf_col <- function(data,
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
-        size = line_size,
+        size = size_line,
         # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
@@ -499,8 +499,8 @@ ggplot_sf_col <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param point_size Size of points. Defaults to 0.5.
-#' @param line_size Size of lines. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param facet_ncol The number of columns of facetted plots. 
@@ -527,8 +527,8 @@ ggplot_sf_col <- function(data,
 ggplot_sf_facet <- function(data,
                             facet_var,
                             text_var = NULL,
-                            point_size = 1,
-                            line_size = 0.5,
+                            size_point = 1,
+                            size_line = 0.5,
                             alpha = 1,
                             pal = NULL,
                             facet_ncol = NULL,
@@ -590,7 +590,7 @@ ggplot_sf_facet <- function(data,
       geom_sf(
         aes(text = !!text_var), 
         col = pal,
-        size = point_size,
+        size = size_point,
         # key_glyph = draw_key_polygon,
         data = data
       )
@@ -600,7 +600,7 @@ ggplot_sf_facet <- function(data,
       geom_sf(
         aes(text = !!text_var), 
         col = pal,
-        size = line_size,
+        size = size_line,
         # key_glyph = draw_key_polygon,
         data = data
       )
@@ -611,7 +611,7 @@ ggplot_sf_facet <- function(data,
         aes(text = !!text_var), 
         col = pal,
         fill = pal,
-        size = line_size,
+        size = size_line,
         # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
@@ -649,8 +649,8 @@ ggplot_sf_facet <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param point_size Size of points. Defaults to 0.5.
-#' @param line_size Size of lines. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
@@ -690,8 +690,8 @@ ggplot_sf_col_facet <- function(data,
                                 text_var = NULL,
                                 pal = NULL,
                                 pal_rev = FALSE,
-                                point_size = 1,
-                                line_size = 0.5,
+                                size_point = 1,
+                                size_line = 0.5,
                                 alpha = 1,
                                 borders = NULL,
                                 borders_behind = TRUE,
@@ -807,7 +807,7 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       geom_sf(
         aes(col = !!col_var, text = !!text_var),
-        size = point_size,
+        size = size_point,
         # key_glyph = draw_key_polygon,
         data = data
       )
@@ -816,7 +816,7 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        size = line_size,
+        size = size_line,
         # key_glyph = draw_key_polygon,
         data = data
       )
@@ -825,7 +825,7 @@ ggplot_sf_col_facet <- function(data,
     plot <- plot +
       geom_sf(
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
-        size = line_size,
+        size = size_line,
         # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data

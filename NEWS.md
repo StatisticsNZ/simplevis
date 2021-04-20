@@ -1,6 +1,11 @@
+# simplevis 2.6.5
+
+* New feature: Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1. 
+* Breaking change: Changed point_size and line_size to size_point and size_line.
+
 # simplevis 2.6.4
 
-* Changed leaflet_sf default point_size to 2.
+* New feature: Changed leaflet_sf default point_size to 2.
 
 # simplevis 2.6.3
 

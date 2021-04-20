@@ -116,8 +116,8 @@ theme_line <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param point_size Size of points. Defaults to 1. 
-#' @param line_size Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -161,8 +161,8 @@ ggplot_line <- function(data,
                         y_var,
                         text_var = NULL,
                         pal = NULL,
-                        point_size = 1,
-                        line_size = 0.5,
+                        size_point = 1,
+                        size_line = 0.5,
                         title = "[Title]",
                         title_wrap = 70,
                         subtitle = NULL,
@@ -232,8 +232,8 @@ ggplot_line <- function(data,
     )
   
   plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = 1)
+    geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) +
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -344,8 +344,8 @@ ggplot_line <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param point_size Size of points. Defaults to 1. 
-#' @param line_size Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -395,8 +395,8 @@ ggplot_line_col <-
            text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           point_size = 1,
-           line_size = 0.5,
+           size_point = 1,
+           size_line = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -484,9 +484,9 @@ ggplot_line_col <-
       ) 
     
     plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size) +
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-                 size = point_size, alpha = 1)
+                 size = size_point, alpha = 1)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -610,8 +610,8 @@ ggplot_line_col <-
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
-#' @param point_size Size of points. Defaults to 1. 
-#' @param line_size Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -657,8 +657,8 @@ ggplot_line_facet <-
            facet_var,
            text_var = NULL,
            pal = NULL,
-           point_size = 1,
-           line_size = 0.5,
+           size_point = 1,
+           size_line = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -727,8 +727,8 @@ ggplot_line_facet <-
       )
     
     plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, group = 1), size = line_size, col = pal[1]) + 
-      geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size, alpha = 1)
+      geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) + 
+      geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -820,8 +820,8 @@ ggplot_line_facet <-
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param point_size Size of points. Defaults to 1. 
-#' @param line_size Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
@@ -874,8 +874,8 @@ ggplot_line_col_facet <-
            text_var = NULL,
            pal = NULL,
            pal_rev = FALSE,
-           point_size = 1,
-           line_size = 0.5,
+           size_point = 1,
+           size_line = 0.5,
            title = "[Title]",
            title_wrap = 70,
            subtitle = NULL,
@@ -962,9 +962,9 @@ ggplot_line_col_facet <-
       ) 
     
     plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = line_size) +
+      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-                 size = point_size, alpha = 1)
+                 size = size_point, alpha = 1)
     
     if (!is.null(col_labels)) labels <- col_labels
     if (is.null(col_labels)) labels <- waiver()

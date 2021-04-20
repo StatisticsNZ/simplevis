@@ -6,7 +6,7 @@
 \usage{
 ggplot_boxplot_facet(data, x_var, y_var = NULL, facet_var,
   group_var = NULL, stat = "boxplot", pal = NULL, width = 0.5,
-  alpha = 0.1, line_size = 0.5, point_size = 1, title = "[Title]",
+  alpha = 1, size_line = 0.5, size_point = 1, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
@@ -34,11 +34,11 @@ ggplot_boxplot_facet(data, x_var, y_var = NULL, facet_var,
 
 \item{width}{Width of the box. Defaults to 0.5.}
 
-\item{alpha}{The alpha of the fill. Defaults to 0.1.}
+\item{alpha}{The alpha of the fill. Defaults to 1.}
 
-\item{line_size}{The size of the outlines of boxplots. Defaults to 0.5.}
+\item{size_line}{The size of the outlines of boxplots. Defaults to 0.5.}
 
-\item{point_size}{The size of the outliers. Defaults to 1.}
+\item{size_point}{The size of the outliers. Defaults to 1.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

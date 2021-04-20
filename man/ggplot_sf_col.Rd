@@ -5,7 +5,7 @@
 \title{Map of simple features in ggplot that is coloured.}
 \usage{
 ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
-  pal_rev = FALSE, point_size = 1, line_size = 0.5, alpha = 1,
+  pal_rev = FALSE, size_point = 1, size_line = 0.5, alpha = 1,
   borders = NULL, borders_behind = TRUE, borders_pal = "#7f7f7f",
   borders_size = 0.2, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, col_cuts = NULL,
@@ -26,9 +26,9 @@ ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{point_size}{Size of points. Defaults to 0.5.}
+\item{size_point}{Size of points. Defaults to 0.5.}
 
-\item{line_size}{Size of lines. Defaults to 0.5.}
+\item{size_line}{Size of lines. Defaults to 0.5.}
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 

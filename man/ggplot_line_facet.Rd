@@ -5,7 +5,7 @@
 \title{Line ggplot that is facetted.}
 \usage{
 ggplot_line_facet(data, x_var, y_var, facet_var, text_var = NULL,
-  pal = NULL, point_size = 1, line_size = 0.5, title = "[Title]",
+  pal = NULL, size_point = 1, size_line = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
@@ -29,9 +29,9 @@ ggplot_line_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
-\item{point_size}{Size of points. Defaults to 1.}
+\item{size_point}{Size of points. Defaults to 1.}
 
-\item{line_size}{Size of lines. Defaults to 0.5.}
+\item{size_line}{Size of lines. Defaults to 0.5.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

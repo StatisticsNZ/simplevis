@@ -215,7 +215,7 @@ These functions work in the same way as the `ggplot` graph functions, but with t
 example_sf_point
 
 ggplot_sf(example_sf_point, 
-          point_size = 0.25)
+          size_point = 0.25)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
@@ -223,7 +223,7 @@ nz
 
 ggplot_sf(example_sf_point, 
           borders = nz, 
-          point_size = 0.25)
+          size_point = 0.25)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
@@ -238,7 +238,7 @@ ggplot_sf_col(example_sf_polygon,
 ggplot_sf_facet(example_sf_point, 
                 facet_var = trend_category, 
                 borders = nz, 
-                point_size = 0.5)
+                size_point = 0.5)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
@@ -246,7 +246,7 @@ ggplot_sf_col_facet(example_sf_point,
                     col_var = trend_category, 
                     facet_var = trend_category,
                     borders = nz, 
-                    point_size = 0.5, 
+                    size_point = 0.5, 
                     pal = c("#4575B4", "#D3D3D3", "#D73027"),
                     title = "Site trends, 1990\u201317")
 ```
@@ -284,7 +284,7 @@ These differ from `ggplotly` interactive plots in that they provide basemaps and
 
 A `leaflet_sf` and `leaflet_sf_col` function are provided. 
 
-They work in essentially the same way as the `ggplot` non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. point_size = radius, line_size = weight, alpha = fillOpacity).
+They work in essentially the same way as the `ggplot` non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf_col(example_sf_point, 
@@ -298,7 +298,7 @@ leaflet_sf_col(example_sf_point,
 
 Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length, x_zero = F) +
   ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length), col = viridis::viridis(4)[2])
 ```

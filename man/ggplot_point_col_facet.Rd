@@ -5,7 +5,7 @@
 \title{Point ggplot that is coloured and facetted.}
 \usage{
 ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
-  text_var = NULL, point_size = 1, pal = NULL, pal_rev = FALSE,
+  text_var = NULL, size_point = 1, pal = NULL, pal_rev = FALSE,
   title = "[Title]", title_wrap = 70, subtitle = NULL,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
@@ -33,7 +33,7 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{point_size}{Size of points. Defaults to 1.}
+\item{size_point}{Size of points. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

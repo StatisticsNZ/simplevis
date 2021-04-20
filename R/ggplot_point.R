@@ -115,7 +115,7 @@ theme_point <-
 #' @param x_var Unquoted numeric variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param point_size Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
@@ -159,7 +159,7 @@ ggplot_point <- function(data,
                          x_var,
                          y_var,
                          text_var = NULL,
-                         point_size = 1,
+                         size_point = 1,
                          pal = NULL, 
                          title = "[Title]",
                          title_wrap = 70,
@@ -242,7 +242,7 @@ ggplot_point <- function(data,
       font_size_title = font_size_title
     ) +
     coord_cartesian(clip = "off") +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = point_size)
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point)
 
   if(isMobile == FALSE) x_n <- x_pretty_n
   else if(isMobile == TRUE) x_n <- 4
@@ -341,7 +341,7 @@ ggplot_point <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param point_size Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param title  Title string. Defaults to "[Title]".
@@ -394,7 +394,7 @@ ggplot_point_col <-
            y_var,
            col_var,
            text_var = NULL,
-           point_size = 1,
+           size_point = 1,
            pal = NULL,
            pal_rev = FALSE,
            col_method = NULL,
@@ -541,7 +541,7 @@ ggplot_point_col <-
       coord_cartesian(clip = "off")
     
     plot <- plot +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = point_size)
+      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
     
     if(isMobile == FALSE) x_n <- x_pretty_n
     else if(isMobile == TRUE) x_n <- 4
@@ -653,7 +653,7 @@ ggplot_point_col <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param point_size Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
@@ -698,7 +698,7 @@ ggplot_point_facet <-
            y_var,
            facet_var,
            text_var = NULL,
-           point_size = 1,
+           size_point = 1,
            pal = NULL,
            title = "[Title]",
            title_wrap = 70,
@@ -780,7 +780,7 @@ ggplot_point_facet <-
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = point_size)
+      geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       x_n <- x_pretty_n
@@ -880,7 +880,7 @@ ggplot_point_facet <-
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param point_size Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param title  Title string. Defaults to "[Title]".
@@ -939,7 +939,7 @@ ggplot_point_col_facet <-
            col_var,
            facet_var,
            text_var = NULL,
-           point_size = 1,
+           size_point = 1,
            pal = NULL,
            pal_rev = FALSE,
            title = "[Title]",
@@ -1095,7 +1095,7 @@ ggplot_point_col_facet <-
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = point_size)
+      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
     
     plot <- plot +
       scale_color_manual(

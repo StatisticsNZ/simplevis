@@ -5,7 +5,7 @@
 \title{Map of simple features in ggplot that is coloured and facetted.}
 \usage{
 ggplot_sf_col_facet(data, col_var, facet_var, text_var = NULL,
-  pal = NULL, pal_rev = FALSE, point_size = 1, line_size = 0.5,
+  pal = NULL, pal_rev = FALSE, size_point = 1, size_line = 0.5,
   alpha = 1, borders = NULL, borders_behind = TRUE,
   borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
@@ -29,9 +29,9 @@ ggplot_sf_col_facet(data, col_var, facet_var, text_var = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{point_size}{Size of points. Defaults to 0.5.}
+\item{size_point}{Size of points. Defaults to 0.5.}
 
-\item{line_size}{Size of lines. Defaults to 0.5.}
+\item{size_line}{Size of lines. Defaults to 0.5.}
 
 \item{alpha}{The opacity of polygons. Defaults to 0.9.}
 

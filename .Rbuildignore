@@ -16,3 +16,4 @@
 ^vignettes/ggplotly\.Rmd$
 ^vignettes/leaflet\.Rmd$
 ^vignettes/shiny\.Rmd$
+^vignettes/scales\.Rmd$

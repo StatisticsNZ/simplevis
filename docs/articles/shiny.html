@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
     </li>
     <li>
       <a href="../articles/leaflet.html">Leaflet</a>
+    </li>
+    <li>
+      <a href="../articles/scales.html">Scales</a>
     </li>
     <li>
       <a href="../articles/shiny.html">Shiny</a>
@@ -142,6 +145,34 @@
 <li>In <code>www/About.Rmd</code>, update as necessary</li>
 <li>If using google tag-manager, obtain a tag and replace <code>GTM-XXXXXXX</code> with it in the <code>www/js/tag-manager-js</code> file.</li>
 </ul>
+</div>
+<div id="making-mobile-compliant-ggplots" class="section level3">
+<h3 class="hasAnchor">
+<a href="#making-mobile-compliant-ggplots" class="anchor"></a>Making mobile compliant ggplots</h3>
+<p><code>simplevis</code> supports non-facetted mobile compliant ggplot visualisation by providing an argument called <code>isMobile</code>.</p>
+<p>To incorporate this into an app, you need in your app:</p>
+<ul>
+<li>the <code>mobileDetect</code> function in the <code>ui.R</code> in the app templates</li>
+<li>the <code>www/js/mobile.js</code> script</li>
+<li>simplevis ggplot functions with argument <code>isMobile = input$isMobile</code>
+</li>
+</ul>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
+
+<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="kw">isMobile</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<p><img src="shiny_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">average_price</span> / <span class="fl">1000</span>, <span class="fl">1</span>))
+
+<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="kw">isMobile</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="shiny_files/figure-html/unnamed-chunk-4-1.png" width="336"></p>
 </div>
 <div id="iframing" class="section level3">
 <h3 class="hasAnchor">

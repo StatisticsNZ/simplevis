@@ -1,0 +1,131 @@
+---
+title: "Scales"
+author: "David Hodge"
+date: "`r Sys.Date()`"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(simplevis)
+```
+
+### Overview
+
+`simplevis` has been built to take advantage of the auto-complete. 
+
+Arguments that relate to the x scale start with `x_`, those that relate to the y scales start with `y_` and those that relate to the colour scale start with `col_`.
+
+Likewise, arguments that relate to facetting start with `facet_`.
+
+### Numeric scales
+
+`simplevis` graphs default to including zero in numeric scales. 
+
+Use `x_zero` and `y_zero` to change this.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot_point(iris, Sepal.Width, Sepal.Length,
+               x_zero = FALSE, y_zero = FALSE)
+
+```
+
+Adjust the number of breaks for numeric x and/or y scales.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot_point(iris, Sepal.Width, Sepal.Length, 
+               y_pretty_n = 10,
+               x_pretty_n = 3)
+```
+
+Transform numeric x and y scales.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot_point(iris, Sepal.Width, Sepal.Length,
+               x_trans = "sqrt", 
+               y_trans = "log10")
+```
+
+You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+ggplot_point(iris, Sepal.Width, Sepal.Length,
+               y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
+               y_title = "Sepal length (m)")
+```
+
+Or you can use a vector of labels. Note the difference between a `x_title` and `the x_labels`
+
+```{r}
+ggplot_point(iris, Sepal.Width, Sepal.Length,
+             x_labels = c("Zero", "One", "Two", "Three", "Four", "Five"), 
+             x_title = "Sepal width (cm)")
+```
+
+### Discrete scales
+
+`simplevis` automatically orders hbar graphs of character variables from biggest to smallest.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = as.character(cut)) %>% 
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) 
+  
+ggplot_hbar(plot_data, average_price, cut)
+
+```
+
+Discrete scales can be reversed easily using the relevant `y_rev` or `x_rev` argument. 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+ggplot_hbar(plot_data, average_price, cut,
+            y_rev = TRUE)
+```
+
+If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor. 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
+
+plot_data <- plot_data %>% 
+ mutate(cut = factor(cut, levels = cut_levels)) 
+
+ggplot_hbar(plot_data, average_price, cut)
+```
+
+### Colour scales
+
+Add a colour title.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+plot_data <- ggplot2::diamonds %>%
+  group_by(cut, clarity) %>%
+  summarise(average_price = mean(price))
+
+ggplot_hbar_col(plot_data, average_price, cut, clarity, col_title = "Clarity")
+
+```
+
+Reverse the palette.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+ggplot_hbar_col(plot_data, average_price, cut, clarity,
+                pal_rev = TRUE)
+
+```
+
+Reverse the order of coloured bar pieces.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+ggplot_hbar_col(plot_data, average_price, cut, clarity,
+                col_rev = TRUE)
+
+```
+

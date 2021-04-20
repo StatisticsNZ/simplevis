@@ -7,7 +7,7 @@
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
-#' @param alpha The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.1. 
+#' @param alpha The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.9. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title"
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -22,7 +22,7 @@ leaflet_sf <- function(data,
                        pal = NULL,
                        size_point = 2,
                        size_line = 2,
-                       alpha = 0.1,
+                       alpha = 0.9,
                        basemap = "light",
                        title = "[Title]",
                        col_labels_dp = 1,

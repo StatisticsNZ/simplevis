@@ -53,7 +53,8 @@ plot_data <- ggplot2::diamonds %>%
   slice_sample(prop = 0.01) %>% 
   mutate_text()
 
-plot_data
+plot_data %>% 
+  select(text)
 
 plot <- ggplot_point(plot_data, 
                  x_var = carat, 
@@ -70,7 +71,8 @@ plot_data <- ggplot2::diamonds %>%
   slice_sample(prop = 0.01) %>% 
   mutate_text(c("color", "clarity", "depth"))
 
-plot_data
+plot_data %>% 
+  select(text)
 
 plot <- ggplot_point(plot_data, 
                  x_var = carat, 

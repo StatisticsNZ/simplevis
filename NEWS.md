@@ -1,3 +1,8 @@
+# simplevis 2.6.6
+
+* New feature: Changed leaflet default alpha to 0.9.
+* Documentation: added scales article.
+
 # simplevis 2.6.5
 
 * New feature: Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1. 

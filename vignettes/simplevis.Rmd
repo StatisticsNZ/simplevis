@@ -286,6 +286,8 @@ A `leaflet_sf` and `leaflet_sf_col` function are provided.
 
 They work in essentially the same way as the `ggplot` non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
 
+
+
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf_col(example_sf_point, 
                col_var = trend_category, 

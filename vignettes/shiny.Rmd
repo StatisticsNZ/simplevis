@@ -39,6 +39,37 @@ For a simple app, the basic method to create an app is:
 * In `www/About.Rmd`, update as necessary
 * If using google tag-manager, obtain a tag and replace `GTM-XXXXXXX` with it in the `www/js/tag-manager-js` file. 
 
+### Making mobile compliant ggplots
+
+`simplevis` supports non-facetted mobile compliant ggplot visualisation by providing an argument called `isMobile`. 
+
+To incorporate this into an app, you need in your app: 
+
+* the `mobileDetect` function in the `ui.R` in the app templates
+* the `www/js/mobile.js` script
+* simplevis ggplot functions with argument `isMobile = input$isMobile`
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price = round(average_price / 1000, 1)) 
+
+ggplot_hbar(plot_data, average_price, cut, isMobile = FALSE)
+```
+
+```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 3.5}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = stringr::str_to_sentence(cut)) %>%
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) %>%
+  mutate(average_price = round(average_price / 1000, 1)) 
+
+ggplot_hbar(plot_data, average_price, cut, isMobile = TRUE)
+```
+
+
 ### Iframing
 
 Iframing apps can provide a great experience for users.

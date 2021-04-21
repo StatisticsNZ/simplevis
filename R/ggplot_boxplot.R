@@ -203,6 +203,12 @@ ggplot_boxplot <- function(data,
                        font_size_body = NULL,
                        isMobile = FALSE) {
   
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  
+  if (is.null(pal)) pal <- sv_pal(1)
+  else pal <- pal[1]
+  
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
@@ -226,18 +232,6 @@ ggplot_boxplot <- function(data,
     else(y_zero_line <- FALSE)
   }
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
-  
-  if (is.null(pal)) pal <- pal_default(1)
-  else pal <- pal[1]
-    
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_boxplot(
@@ -350,25 +344,8 @@ ggplot_boxplot <- function(data,
       scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    if (y_balance == TRUE) {
-      y_var_vctr <- abs(y_var_vctr)
-      y_var_vctr <- c(-y_var_vctr, y_var_vctr)
-    }
-    if (y_zero == TRUE) { 
-      if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-      if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
-      
-      if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-      y_limits <- c(min(y_breaks), max(y_breaks))
-    }
-    else if (y_zero == FALSE) {
-      if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-      if(y_trans == "log10") {
-        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-        y_breaks <- c(1, y_breaks[y_breaks > 1])
-      }
-      y_limits <- c(min(y_breaks), max(y_breaks))
-    }
+    y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_limits <- c(min(y_breaks), max(y_breaks))
     
     if(isMobile == TRUE) {
       y_breaks <- y_limits
@@ -535,12 +512,12 @@ ggplot_boxplot_facet <-
       else(y_zero_line <- FALSE)
     }
     
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
-
-    if (is.null(pal)) pal <- pal_default(1)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    
+    if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
-
+    
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_boxplot(
@@ -640,26 +617,9 @@ ggplot_boxplot_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_balance == TRUE) {
-        y_var_vctr <- abs(y_var_vctr)
-        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
-      }
-      if (y_zero == TRUE) {
-        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
-        
-        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-        if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-          y_breaks <- c(1, y_breaks[y_breaks > 1])
-        }
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      
+      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
+
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,

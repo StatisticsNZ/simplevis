@@ -1,3 +1,7 @@
+# simplevis 2.6.8
+
+* Modularlised default font size code.
+
 # simplevis 2.6.7
 
 * New feature: Added to all themes legend.direction = "vertical" to make titles always be above legends.

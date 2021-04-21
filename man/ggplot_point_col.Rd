@@ -8,16 +8,16 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
   size_point = 1, pal = NULL, pal_rev = FALSE, col_method = NULL,
   col_cuts = NULL, col_na = TRUE, x_zero = TRUE,
   x_zero_line = NULL, x_trans = "identity", x_labels = waiver(),
-  x_pretty_n = 6, x_expand = NULL, y_zero = TRUE,
-  y_zero_line = NULL, y_trans = "identity", y_labels = waiver(),
-  y_pretty_n = 5, y_expand = NULL, title = "[Title]",
-  subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, col_labels = NULL,
-  col_labels_ncol = NULL, col_labels_nrow = NULL, col_labels_dp = 1,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
-  x_title_wrap = 50, y_title_wrap = 50, col_title_wrap = 25,
-  caption_wrap = 80, isMobile = FALSE)
+  x_pretty_n = 6, x_expand = NULL, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  title = "[Title]", subtitle = NULL, x_title = "[X title]",
+  y_title = "[Y title]", col_title = "", caption = NULL,
+  col_labels = NULL, col_labels_ncol = NULL, col_labels_nrow = NULL,
+  col_labels_dp = 1, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, title_wrap = 70,
+  subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
+  col_title_wrap = 25, caption_wrap = 80, isMobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -54,17 +54,19 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
-
-\item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
+\item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
+
+\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 
 \item{title}{Title string. Defaults to "[Title]".}
 

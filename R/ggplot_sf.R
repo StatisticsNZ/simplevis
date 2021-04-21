@@ -147,15 +147,9 @@ ggplot_sf <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
-
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  
   plot <- ggplot(data) +
     theme_sf(
       font_family = font_family,
@@ -176,7 +170,7 @@ ggplot_sf <- function(data,
     }
   }
 
-  if (is.null(pal)) pal <- pal_default(1)
+  if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
@@ -320,14 +314,8 @@ ggplot_sf_col <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -367,7 +355,7 @@ ggplot_sf_col <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
@@ -384,7 +372,7 @@ ggplot_sf_col <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
@@ -396,7 +384,7 @@ ggplot_sf_col <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <- waiver()
@@ -554,8 +542,8 @@ ggplot_sf_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
-  if(is.null(font_size_title)) font_size_title <- 11
-  if(is.null(font_size_body)) font_size_body <- 10
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -579,7 +567,7 @@ ggplot_sf_facet <- function(data,
     }
   }
   
-  if (is.null(pal)) pal <- pal_default(1)
+  if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
 
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
@@ -727,8 +715,8 @@ ggplot_sf_col_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
-  if(is.null(font_size_title)) font_size_title <- 11
-  if(is.null(font_size_body)) font_size_body <- 10
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -761,7 +749,7 @@ ggplot_sf_col_facet <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (is.null(col_labels)) labels <- waiver()

@@ -218,14 +218,8 @@ ggplot_hbar <- function(data,
     else(x_zero_line <- FALSE)
   }
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
   if (is.factor(y_var_vctr) & y_rev == FALSE){
     data <- data %>%
@@ -236,7 +230,7 @@ ggplot_hbar <- function(data,
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
   }
   
-  if (is.null(pal)) pal <- pal_default(1)
+  if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
 
   plot <- ggplot(data) +
@@ -502,14 +496,8 @@ ggplot_hbar_col <-
       else(x_zero_line <- FALSE)
     }
     
-    if(is.null(font_size_title)){
-      if (isMobile == FALSE) font_size_title <- 11
-      else if (isMobile == TRUE) font_size_title <- 15
-    }
-    if(is.null(font_size_body)){
-      if (isMobile == FALSE) font_size_body <- 10
-      else if (isMobile == TRUE) font_size_body <- 14
-    }
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
     if(!is.logical(col_var_vctr)){
       if (y_rev == FALSE){
@@ -530,7 +518,7 @@ ggplot_hbar_col <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == FALSE) pal <- rev(pal)
@@ -858,9 +846,9 @@ ggplot_hbar_facet <-
       else(x_zero_line <- FALSE)
     }
 
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
-
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    
     if (is.factor(y_var_vctr) & y_rev == FALSE){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
@@ -872,7 +860,7 @@ ggplot_hbar_facet <-
       }
     }
     
-    if (is.null(pal)) pal <- pal_default(1)
+    if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
 
     plot <- ggplot(data) +
@@ -1117,9 +1105,9 @@ ggplot_hbar_col_facet <-
       else(x_zero_line <- FALSE)
     }
 
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
-
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    
     if (!is.logical(col_var_vctr)){
       if (y_rev == FALSE){
         data <- data %>%
@@ -1139,7 +1127,7 @@ ggplot_hbar_col_facet <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == FALSE) pal <- rev(pal)

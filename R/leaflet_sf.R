@@ -39,7 +39,7 @@ leaflet_sf <- function(data,
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  if (is.null(pal)) pal <- pal_default(1)
+  if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
   
   col_id <- paste0(map_id, "_legend")
@@ -275,7 +275,7 @@ leaflet_sf_col <- function(data,
     
     n_col <- length(labels)
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else if (!is.null(pal)) pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)

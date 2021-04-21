@@ -1,15 +1,3 @@
-#' @title Get default palette.
-#' @description A function to for making hover values.
-#' @param data The number of digits to round the legend labels.
-#' @return A numeric value.
-#' @keywords internal
-pal_default <- function(n_col) {
-  
-  if(n_col == 1) viridis::viridis(4)[2]
-  else if(n_col == 2) viridis::viridis(4)[c(2, 3)]
-  else if(n_col > 2) viridis::viridis(n_col)
-}
-
 #' @title Convert column names to snake case and then to sentence case.
 #' @description Convert colnames to snakecase and then to sentence case to present colnames visually.
 #' @param data The number of digits to round the legend labels.

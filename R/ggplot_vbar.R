@@ -215,16 +215,10 @@ ggplot_vbar <- function(data,
     else(y_zero_line <- FALSE)
   }
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
-
-  if (is.null(pal)) pal <- pal_default(1)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  
+  if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
 
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
@@ -233,12 +227,13 @@ ggplot_vbar <- function(data,
   bar_width <- bar_unit * width
 
   plot <- ggplot(data) +
-    theme_vbar(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = bar_width)
+    theme_vbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
+             col = pal, 
+             fill = pal, 
+             alpha = alpha, 
+             size = size_line, 
+             width = bar_width)
   
   if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
     
@@ -283,24 +278,9 @@ ggplot_vbar <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    if (y_balance == TRUE) {
-      y_var_vctr <- abs(y_var_vctr)
-      y_var_vctr <- c(-y_var_vctr, y_var_vctr)
-    }
-    if (y_zero == TRUE) {
-      y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-      if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-      y_limits <- c(min(y_breaks), max(y_breaks))
-    }
-    else if (y_zero == FALSE) {
-      if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-      if(y_trans == "log10") {
-        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-        y_breaks <- c(1, y_breaks[y_breaks > 1])
-      }
-      y_limits <- c(min(y_breaks), max(y_breaks))
-    }
-    
+    y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_limits <- c(min(y_breaks), max(y_breaks))
+
     plot <- plot +
       scale_y_continuous(
         expand = y_expand,
@@ -483,14 +463,8 @@ ggplot_vbar_col <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
     
-    if(is.null(font_size_title)){
-      if (isMobile == FALSE) font_size_title <- 11
-      else if (isMobile == TRUE) font_size_title <- 15
-    }
-    if(is.null(font_size_body)){
-      if (isMobile == FALSE) font_size_body <- 10
-      else if (isMobile == TRUE) font_size_body <- 14
-    }
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
@@ -520,7 +494,7 @@ ggplot_vbar_col <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -529,13 +503,12 @@ ggplot_vbar_col <-
     if (is.null(col_labels)) labels <- waiver()
     
     plot <- ggplot(data) +
-      theme_vbar(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
+      theme_vbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-               alpha = alpha, size = size_line, width = bar_width, position = position2)
+               alpha = alpha, 
+               size = size_line, 
+               width = bar_width, 
+               position = position2)
     
     if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
       
@@ -588,24 +561,9 @@ ggplot_vbar_col <-
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      if (y_balance == TRUE) {
-        y_var_vctr <- abs(y_var_vctr)
-        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
-      }
-      if (y_zero == TRUE) {
-        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-        if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-          y_breaks <- c(1, y_breaks[y_breaks > 1])
-        }
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      
+      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
+
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,
@@ -843,10 +801,10 @@ ggplot_vbar_facet <-
       else(y_zero_line <- FALSE)
     }
     
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
-    if (is.null(pal)) pal <- pal_default(1)
+    if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
 
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
@@ -898,25 +856,9 @@ ggplot_vbar_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (facet_scales %in% c("fixed", "free_x")) {
-      
-      if (y_balance == TRUE) {
-        y_var_vctr <- abs(y_var_vctr)
-        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
-      }
-      if (y_zero == TRUE) {
-        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-        if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-          y_breaks <- c(1, y_breaks[y_breaks > 1])
-        }
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      
+      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
+
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,
@@ -1105,8 +1047,8 @@ ggplot_vbar_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
@@ -1139,20 +1081,19 @@ ggplot_vbar_col_facet <-
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
     
-    if (is.null(pal)) pal <- pal_default(n_col)
+    if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
     
     plot <- ggplot(data) +
       coord_cartesian() +
-      theme_vbar(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
+      theme_vbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-               alpha = alpha, size = size_line, width = bar_width, position = position2)
+               alpha = alpha, 
+               size = size_line, 
+               width = bar_width, 
+               position = position2)
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -1195,23 +1136,8 @@ ggplot_vbar_col_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_balance == TRUE) {
-        y_var_vctr <- abs(y_var_vctr)
-        y_var_vctr <- c(-y_var_vctr, y_var_vctr)
-      }
-      if (y_zero == TRUE) {
-        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-        if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-          y_breaks <- c(1, y_breaks[y_breaks > 1])
-        }
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
+      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
         scale_y_continuous(

@@ -10,15 +10,16 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
   subtitle_wrap = 80, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
   x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
-  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
-  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
-  y_zero = TRUE, y_zero_line = NULL, col_cuts = NULL,
-  col_labels_dp = 1, col_labels = NULL, col_labels_ncol = NULL,
-  col_labels_nrow = NULL, col_method = NULL, col_na = TRUE,
-  col_quantile_by_facet = TRUE, col_title = "", col_title_wrap = 25,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
+  col_labels_ncol = NULL, col_labels_nrow = NULL, col_method = NULL,
+  col_na = TRUE, col_quantile_by_facet = TRUE, col_title = "",
+  col_title_wrap = 25, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -62,6 +63,8 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
 \item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
+
+\item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 

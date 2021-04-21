@@ -130,6 +130,7 @@ theme_point <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.     
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -174,12 +175,13 @@ ggplot_point <- function(data,
                          x_trans = "identity",
                          x_zero = TRUE,
                          x_zero_line = NULL,
-                         y_trans = "identity",
+                         y_balance = FALSE, 
+                         y_expand = NULL,
                          y_labels = waiver(),
                          y_pretty_n = 5,
-                         y_expand = NULL,
                          y_title = "[Y title]",
                          y_title_wrap = 50,
+                         y_trans = "identity",
                          y_zero = TRUE,
                          y_zero_line = NULL,
                          caption = NULL,
@@ -224,16 +226,10 @@ ggplot_point <- function(data,
     else(y_zero_line <- FALSE)
   }
   
-  if(is.null(font_size_title)){
-    if (isMobile == FALSE) font_size_title <- 11
-    else if (isMobile == TRUE) font_size_title <- 15
-  }
-  if(is.null(font_size_body)){
-    if (isMobile == FALSE) font_size_body <- 10
-    else if (isMobile == TRUE) font_size_body <- 14
-  }
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
-  if (is.null(pal)) pal <- pal_default(1)
+  if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
 
   plot <- ggplot(data) +
@@ -264,19 +260,8 @@ ggplot_point <- function(data,
     x_limits <- c(min(x_breaks), max(x_breaks))
   }
   
-  if (y_zero == TRUE) {
-    y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-    if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-    y_limits <- c(min(y_breaks), max(y_breaks))
-  }
-  else if (y_zero == FALSE) {
-    if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-    if(y_trans == "log10") {
-      y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-      y_breaks <- c(1, y_breaks[y_breaks > 1])
-    }
-    y_limits <- c(min(y_breaks), max(y_breaks))
-  }
+  y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+  y_limits <- c(min(y_breaks), max(y_breaks))
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -359,6 +344,7 @@ ggplot_point <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -406,12 +392,13 @@ ggplot_point_col <-
            x_labels = waiver(),
            x_pretty_n = 6,
            x_expand = NULL,
-           y_zero = TRUE,
-           y_zero_line = NULL,
-           y_trans = "identity",
+           y_balance = FALSE, 
+           y_expand = NULL,
            y_labels = waiver(),
            y_pretty_n = 5,
-           y_expand = NULL,
+           y_trans = "identity",
+           y_zero = TRUE,
+           y_zero_line = NULL,
            title = "[Title]",
            subtitle = NULL,
            x_title = "[X title]",
@@ -470,14 +457,8 @@ ggplot_point_col <-
       else(y_zero_line <- FALSE)
     }
     
-    if(is.null(font_size_title)){
-      if (isMobile == FALSE) font_size_title <- 11
-      else if (isMobile == TRUE) font_size_title <- 15
-    }
-    if(is.null(font_size_body)){
-      if (isMobile == FALSE) font_size_body <- 10
-      else if (isMobile == TRUE) font_size_body <- 14
-    }
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -514,7 +495,7 @@ ggplot_point_col <-
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_default(n_col)
+      if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
     }
     else if (col_method == "category") {
@@ -523,7 +504,7 @@ ggplot_point_col <-
       }
       else n_col <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_default(n_col)
+      if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
       
       if (is.null(col_labels)) labels <- waiver()
@@ -562,21 +543,8 @@ ggplot_point_col <-
       x_limits <- c(min(x_breaks), max(x_breaks))
     }
     
-    if (y_zero == TRUE) {
-      if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-      if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
-      
-      if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-      y_limits <- c(min(y_breaks), max(y_breaks))
-    }
-    else if (y_zero == FALSE) {
-      if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-      if(y_trans == "log10") {
-        y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-        y_breaks <- c(1, y_breaks[y_breaks > 1])
-      }
-      y_limits <- c(min(y_breaks), max(y_breaks))
-    }
+    y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_limits <- c(min(y_breaks), max(y_breaks))
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -664,6 +632,7 @@ ggplot_point_col <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -709,6 +678,7 @@ ggplot_point_facet <-
            x_trans = "identity",
            x_zero = TRUE,
            x_zero_line = NULL,
+           y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -764,10 +734,10 @@ ggplot_point_facet <-
       else(y_zero_line <- FALSE)
     }
     
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
-    if (is.null(pal)) pal <- pal_default(1)
+    if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
 
     plot <- ggplot(data) +
@@ -812,21 +782,8 @@ ggplot_point_facet <-
         )
     }
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_zero == TRUE) {
-        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
-        
-        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-        if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-          y_breaks <- c(1, y_breaks[y_breaks > 1])
-        }
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
+      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
         scale_y_continuous(
@@ -892,6 +849,7 @@ ggplot_point_facet <-
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
+#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -951,6 +909,7 @@ ggplot_point_col_facet <-
            x_trans = "identity",
            x_zero = TRUE,
            x_zero_line = NULL,
+           y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
            y_pretty_n = 5,
@@ -1018,8 +977,8 @@ ggplot_point_col_facet <-
       else(y_zero_line <- FALSE)
     }
     
-    if(is.null(font_size_title)) font_size_title <- 11
-    if(is.null(font_size_body)) font_size_body <- 10
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -1067,7 +1026,7 @@ ggplot_point_col_facet <-
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_default(n_col)
+      if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
     } 
     else if (col_method == "category") {
@@ -1076,7 +1035,7 @@ ggplot_point_col_facet <-
       }
       else n_col <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_default(n_col)
+      if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
       
       if (!is.null(col_labels)) labels <- col_labels
@@ -1136,21 +1095,8 @@ ggplot_point_col_facet <-
         )
     }
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (y_zero == TRUE) {
-        if(max_y_var_vctr > 0) y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n)
-        if(min_y_var_vctr < 0) y_breaks <- pretty(c(y_var_vctr, 0), n = y_pretty_n)
-        
-        if(y_trans == "log10") y_breaks <- c(1, y_breaks[y_breaks > 1])
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
-      else if (y_zero == FALSE) {
-        if(y_trans != "log10") y_breaks <- pretty(y_var_vctr, n = y_pretty_n)
-        if(y_trans == "log10") {
-          y_breaks <- pretty(c(0, y_var_vctr), n = y_pretty_n) 
-          y_breaks <- c(1, y_breaks[y_breaks > 1])
-        }
-        y_limits <- c(min(y_breaks), max(y_breaks))
-      }
+      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
         scale_y_continuous(

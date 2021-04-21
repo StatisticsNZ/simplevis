@@ -104,7 +104,8 @@ theme_boxplot <-
         ),
         legend.margin = margin(t = 20, b = 20),
         legend.key.height = unit(5, "mm"),
-        legend.key.width = unit(5, "mm")
+        legend.key.width = unit(5, "mm"),
+        legend.direction = "vertical" 
       )
     )
   }
@@ -402,19 +403,18 @@ ggplot_boxplot <- function(data,
   }
   else if (isMobile == TRUE){
     plot <- plot +
-      theme(plot.title.position = "plot") +
-      theme(plot.caption.position = "plot") +
+      theme_mobile_graph() +
+      coord_flip() +
+      theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
+      theme(panel.grid.major.y = element_blank()) +
+      theme(axis.text.x = element_text(hjust = 1)) +  
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
         x = stringr::str_wrap(x_title, 20),
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
-      ) +
-      coord_flip() +
-      theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
-      theme(panel.grid.major.y = element_blank()) +
-      theme(axis.text.x = element_text(hjust = 1))  
+      ) 
   }
   
   return(plot)

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.7</span>
       </span>
     </div>
 
@@ -76,7 +76,7 @@
       <a href="../articles/scales.html">Scales</a>
     </li>
     <li>
-      <a href="../articles/shiny.html">Shiny</a>
+      <a href="../articles/shiny_on_mobile.html">Shiny on mobile</a>
     </li>
   </ul>
 </li>
@@ -107,7 +107,7 @@
       <h1 data-toc-skip>Colour</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-04-20</h4>
+            <h4 class="date">2021-04-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/colour.Rmd"><code>vignettes/colour.Rmd</code></a></small>
       <div class="hidden name"><code>colour.Rmd</code></div>
@@ -229,16 +229,16 @@
 <span class="co">#&gt; # A tibble: 539 x 10</span>
 <span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  1.19 Good      J     SI1      59.8    64  4498  6.94  6.9   4.14</span>
-<span class="co">#&gt;  2  0.31 Fair      E     VS2      55.9    62   581  4.6   4.56  2.56</span>
-<span class="co">#&gt;  3  1.74 Premium   H     SI2      62.1    59 10270  7.78  7.65  4.79</span>
-<span class="co">#&gt;  4  0.78 Premium   F     SI2      62.8    56  2200  5.9   5.86  3.69</span>
-<span class="co">#&gt;  5  0.34 Ideal     F     VS2      62.1    56   880  4.51  4.47  2.79</span>
-<span class="co">#&gt;  6  1.07 Ideal     E     VVS2     61.7    57 10104  6.55  6.61  4.06</span>
-<span class="co">#&gt;  7  0.78 Ideal     D     VS2      61.9    56  3811  5.89  5.91  3.65</span>
-<span class="co">#&gt;  8  0.41 Very Good E     SI1      63.3    57   969  4.75  4.73  3   </span>
-<span class="co">#&gt;  9  0.43 Good      F     SI1      60.7    61   706  4.86  4.89  2.96</span>
-<span class="co">#&gt; 10  1.7  Premium   I     VS2      62      59 10929  7.6   7.55  4.7 </span>
+<span class="co">#&gt;  1  0.9  Very Good E     SI1      62.6  61    4315  6.06  6.11  3.81</span>
+<span class="co">#&gt;  2  0.77 Good      E     SI2      64.1  56    2005  5.84  5.77  3.72</span>
+<span class="co">#&gt;  3  1    Ideal     E     SI2      61.9  56    4760  6.43  6.4   3.97</span>
+<span class="co">#&gt;  4  0.41 Premium   G     SI1      62.6  59     923  4.77  4.72  2.97</span>
+<span class="co">#&gt;  5  3    Good      E     I1       64.2  65   11548  9.08  8.96  5.79</span>
+<span class="co">#&gt;  6  0.53 Ideal     I     VS1      61.6  57    1383  5.21  5.18  3.2 </span>
+<span class="co">#&gt;  7  0.5  Premium   F     VVS2     61.8  56    2160  5.15  5.11  3.17</span>
+<span class="co">#&gt;  8  0.3  Ideal     F     VS2      61.7  58     573  4.28  4.31  2.65</span>
+<span class="co">#&gt;  9  0.55 Ideal     F     VS2      61.1  56    1692  5.27  5.31  3.23</span>
+<span class="co">#&gt; 10  0.32 Ideal     I     VS1      61.7  55.6   529  4.41  4.43  2.73</span>
 <span class="co">#&gt; # … with 529 more rows</span>
 
 <span class="fu"><a href="../reference/ggplot_point_col.html">ggplot_point_col</a></span>(<span class="no">plot_data</span>,
@@ -302,7 +302,7 @@
 <span class="co">#&gt; 5 Ideal               3.5</span>
 
 <span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
-            <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/reexports.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">2</span>], <span class="co"># in simplevis, pal is always a vector of colours</span>
+            <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">2</span>], <span class="co"># in simplevis, pal is always a vector of colours</span>
             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
@@ -311,7 +311,7 @@
 <span class="fu">ggplot</span>(<span class="no">plot_data</span>) +
   <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">average_price</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu">fct_rev</span>(<span class="no">cut</span>)),
            <span class="kw">stat</span> <span class="kw">=</span> <span class="st">"identity"</span>,
-           <span class="kw">fill</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/reexports.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">2</span>], <span class="co"># in ggplot2, fill is a vector of colours when outside of aes</span>
+           <span class="kw">fill</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">2</span>], <span class="co"># in ggplot2, fill is a vector of colours when outside of aes</span>
            <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.75</span>) +
    <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">5</span>)) +
    <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
@@ -343,7 +343,7 @@
 <span class="co">#&gt; # … with 30 more rows</span>
 
 <span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>, <span class="co"># in simplevis, the col_var is the same as the fill/col within an aes in ggplot2</span>
-                <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/reexports.html">viridis</a></span>(<span class="fl">8</span>), <span class="co"># in simplevis, pal is always a vector of colours</span>
+                <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">8</span>), <span class="co"># in simplevis, pal is always a vector of colours</span>
                 <span class="kw">position</span> <span class="kw">=</span> <span class="st">"dodge"</span>,
                 <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
                 <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
@@ -356,7 +356,7 @@
            <span class="kw">position</span> <span class="kw">=</span> <span class="st">"dodge"</span>,
            <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.75</span>) +
   <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">6</span>)) +
-  <span class="fu">scale_fill_manual</span>(<span class="kw">values</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/reexports.html">viridis</a></span>(<span class="fl">8</span>)) + <span class="co"># in ggplot2, the colours when fill is inside an aes are specified as a vector in scale_fill_manual</span>
+  <span class="fu">scale_fill_manual</span>(<span class="kw">values</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">8</span>)) + <span class="co"># in ggplot2, the colours when fill is inside an aes are specified as a vector in scale_fill_manual</span>
   <span class="fu">guides</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="fu">guide_legend</span>(<span class="kw">rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) +
   <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
        <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,

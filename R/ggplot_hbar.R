@@ -104,7 +104,8 @@ theme_hbar <-
         ),
         legend.margin = margin(t = 20, b = 20),
         legend.key.height = unit(5, "mm"),
-        legend.key.width = unit(5, "mm")
+        legend.key.width = unit(5, "mm"),
+        legend.direction = "vertical" 
       )
     )
   }
@@ -353,16 +354,14 @@ ggplot_hbar <- function(data,
   }
   else if (isMobile == TRUE){
     plot <- plot +
-      theme(plot.title.position = "plot") +
-      theme(plot.caption.position = "plot") +
+      theme_mobile_graph() +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
         y = stringr::str_wrap(x_title, 20),
         x = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 50)
-      ) +
-      theme(axis.text.x = element_text(hjust = 0.75))
+      ) 
   }
   
   return(plot)
@@ -724,10 +723,6 @@ ggplot_hbar_col <-
     }
     else if (isMobile == TRUE){
       plot <- plot +
-        theme(plot.title.position = "plot") +
-        theme(plot.caption.position = "plot") +
-        theme(legend.position = "bottom") +
-        theme(legend.justification = "left") +
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
@@ -735,19 +730,11 @@ ggplot_hbar_col <-
           x = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
-        theme(axis.text.x = element_text(hjust = 0.75)) +
-        guides(fill = guide_legend(
-          ncol = 1,
-          byrow = TRUE,
-          reverse = TRUE,
-          title = stringr::str_wrap(col_title, 15)
-        ), 
-        col = guide_legend(
-          ncol = 1,
-          byrow = TRUE,
-          reverse = TRUE,
-          title = stringr::str_wrap(col_title, 15)
-        )) 
+        guides(
+          fill = guide_legend(ncol = 1, reverse = TRUE, title = stringr::str_wrap(col_title, 15)),
+          col = guide_legend(ncol = 1, reverse = TRUE, title = stringr::str_wrap(col_title, 15))
+        ) +
+        theme_mobile_graph()
     }
     
     return(plot)

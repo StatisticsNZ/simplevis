@@ -7,13 +7,8 @@
 ^doc$
 ^Meta$
 ^data-raw$
-^vignettes/a1_colouring\.Rmd$
-^vignettes/a2_interactivity\.Rmd$
-^vignettes/a3_more_plot_examples\.Rmd$
-^vignettes/a4_more_sf_map_examples\.Rmd$
-^vignettes/a5_shiny\.Rmd$
 ^vignettes/colour\.Rmd$
 ^vignettes/ggplotly\.Rmd$
 ^vignettes/leaflet\.Rmd$
-^vignettes/shiny\.Rmd$
 ^vignettes/scales\.Rmd$
+^vignettes/shiny_on_mobile\.Rmd$

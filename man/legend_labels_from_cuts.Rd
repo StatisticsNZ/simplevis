@@ -4,12 +4,12 @@
 \alias{legend_labels_from_cuts}
 \title{Numeric legend labels.}
 \usage{
-legend_labels_from_cuts(cuts_vctr, col_digits = 1)
+legend_labels_from_cuts(cuts_vctr, col_labels_dp = 1)
 }
 \arguments{
 \item{cuts_vctr}{A numeric vector of bin cuts from which to create a vector of legend labels.}
 
-\item{col_digits}{The number of digits to round the legend labels.}
+\item{col_labels_dp}{The number of digits to round the legend labels.}
 }
 \value{
 A vector of labels.

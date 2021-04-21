@@ -1,3 +1,8 @@
+# simplevis 2.6.7
+
+* New feature: Added to all themes legend.direction = "vertical" to make titles always be above legends.
+* Documentation: added shiny for mobile article.
+
 # simplevis 2.6.6
 
 * New feature: Changed leaflet default alpha to 0.9.

@@ -18,9 +18,7 @@ library(simplevis)
 
 ### Overview
 
-If you are intending to publish a `shiny` app with `ggplot` based graphs in it that are viewed by users on mobile devices, this will present challenges.
-
-`simplevis` offers methods to support making ggplot objects that work on either non-mobile or mobile device throught the `isMobile` argument.
+It can be challenging to build a `shiny` app with `ggplot` based graphs that works when viewed on mobile devices. `simplevis` offer methods to make ggplot based objects that work on either non-mobile or mobile devices.
 
 ### Graphs that work in apps on mobile devices
 

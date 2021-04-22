@@ -6,7 +6,7 @@
 \usage{
 ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
   size_point = 1, pal = NULL, pal_rev = FALSE, col_method = NULL,
-  col_cuts = NULL, col_na = TRUE, x_zero = TRUE,
+  col_cuts = NULL, col_na = TRUE, x_balance = FALSE, x_zero = TRUE,
   x_zero_line = NULL, x_trans = "identity", x_labels = waiver(),
   x_pretty_n = 6, x_expand = NULL, y_balance = FALSE,
   y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
@@ -41,6 +41,8 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
+
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 

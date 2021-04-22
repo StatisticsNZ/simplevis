@@ -6,16 +6,16 @@
 \usage{
 ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
   size_point = 1, pal = NULL, title = "[Title]", title_wrap = 70,
-  subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
-  x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
-  x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
-  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
-  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, facet_ncol = NULL, facet_nrow = NULL,
-  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL)
+  subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
+  x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
+  x_zero = TRUE, x_zero_line = NULL, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
+  y_zero = TRUE, y_zero_line = NULL, facet_ncol = NULL,
+  facet_nrow = NULL, facet_scales = "fixed", caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -39,6 +39,8 @@ ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
 \item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
+
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 

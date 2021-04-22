@@ -122,6 +122,7 @@ theme_point <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
@@ -167,6 +168,7 @@ ggplot_point <- function(data,
                          title_wrap = 70,
                          subtitle = NULL,
                          subtitle_wrap = 80,
+                         x_balance = FALSE,
                          x_expand = NULL,
                          x_labels = waiver(),
                          x_pretty_n = 6,
@@ -241,25 +243,9 @@ ggplot_point <- function(data,
     coord_cartesian(clip = "off") +
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point)
 
-  if(isMobile == FALSE) x_n <- x_pretty_n
-  else if(isMobile == TRUE) x_n <- 4
-  
-  if (x_zero == TRUE) {
-    if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
-    if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
+  x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+  x_limits <- c(min(x_breaks), max(x_breaks))
 
-    if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-    x_limits <- c(min(x_breaks), max(x_breaks))
-  }
-  else if (x_zero == FALSE) {
-    if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_n)
-    if(x_trans == "log10") {
-      x_breaks <- pretty(c(0, x_var_vctr), n = x_n) 
-      x_breaks <- c(1, x_breaks[x_breaks > 1])
-    }
-    x_limits <- c(min(x_breaks), max(x_breaks))
-  }
-  
   y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
   y_limits <- c(min(y_breaks), max(y_breaks))
   
@@ -336,6 +322,7 @@ ggplot_point <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
@@ -386,6 +373,7 @@ ggplot_point_col <-
            col_method = NULL,
            col_cuts = NULL,
            col_na = TRUE,
+           x_balance = FALSE,
            x_zero = TRUE,
            x_zero_line = NULL,
            x_trans = "identity",
@@ -524,24 +512,8 @@ ggplot_point_col <-
     plot <- plot +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
     
-    if(isMobile == FALSE) x_n <- x_pretty_n
-    else if(isMobile == TRUE) x_n <- 4
-    
-    if (x_zero == TRUE) {
-      if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
-      if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
-      
-      if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-      x_limits <- c(min(x_breaks), max(x_breaks))
-    }
-    else if (x_zero == FALSE) {
-      if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_n)
-      if(x_trans == "log10") {
-        x_breaks <- pretty(c(0, x_var_vctr), n = x_n) 
-        x_breaks <- c(1, x_breaks[x_breaks > 1])
-      }
-      x_limits <- c(min(x_breaks), max(x_breaks))
-    }
+    x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+    x_limits <- c(min(x_breaks), max(x_breaks))
     
     y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
@@ -624,6 +596,7 @@ ggplot_point_col <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -670,6 +643,7 @@ ggplot_point_facet <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
@@ -749,28 +723,13 @@ ggplot_point_facet <-
       coord_cartesian(clip = "off") +
       geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point)
     
-    if (facet_scales %in% c("fixed", "free_y")) {
-      x_n <- x_pretty_n
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- c(0, 0)
 
-      if (x_zero == TRUE) {
-        if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
-        if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
-        
-        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr)
-        if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vctr)) 
-          x_breaks <- c(1, x_breaks[x_breaks > 1])
-        }
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      
-      if(is.null(x_expand)) x_expand <- c(0, 0)
-      if(is.null(y_expand)) y_expand <- c(0, 0)
-      
+    if (facet_scales %in% c("fixed", "free_y")) {
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+
       plot <- plot +
         scale_x_continuous(
           expand = x_expand,
@@ -797,7 +756,7 @@ ggplot_point_facet <-
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = c(0, 0),
+        scale_y_continuous(expand = y_expand,
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
@@ -841,6 +800,7 @@ ggplot_point_facet <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
@@ -901,6 +861,7 @@ ggplot_point_col_facet <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
@@ -1066,23 +1027,8 @@ ggplot_point_col_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      x_n <- x_pretty_n
-
-      if (x_zero == TRUE) {
-        if(max_x_var_vctr > 0) x_breaks <- pretty(c(0, x_var_vctr), n = x_n)
-        if(min_x_var_vctr < 0) x_breaks <- pretty(c(x_var_vctr, 0), n = x_n)
-        
-        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_n)
-        if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vctr), n = x_n) 
-          x_breaks <- c(1, x_breaks[x_breaks > 1])
-        }
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
         scale_x_continuous(

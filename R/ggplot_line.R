@@ -123,11 +123,14 @@ theme_line <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -135,7 +138,7 @@ theme_line <-
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
@@ -168,11 +171,14 @@ ggplot_line <- function(data,
                         title_wrap = 70,
                         subtitle = NULL,
                         subtitle_wrap = 80,
+                        x_balance = FALSE,
                         x_labels = waiver(),
                         x_pretty_n = 6,
                         x_expand = NULL,
                         x_title = "[X title]",
+                        x_trans = "identity", 
                         x_title_wrap = 50,
+                        x_zero = FALSE,
                         y_balance = FALSE,
                         y_expand = NULL,
                         y_labels = waiver(),
@@ -180,7 +186,7 @@ ggplot_line <- function(data,
                         y_title = "[Y title]",
                         y_title_wrap = 50,
                         y_trans = "identity",
-                        y_zero = TRUE,
+                        y_zero = FALSE,
                         y_zero_line = NULL,
                         caption = NULL,
                         caption_wrap = 80,
@@ -199,6 +205,9 @@ ggplot_line <- function(data,
   
   if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+  if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
+    stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
+  }
   
   min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
   max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
@@ -233,16 +242,8 @@ ggplot_line <- function(data,
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
 
-  if(isMobile == FALSE) x_n <- x_pretty_n
-  else if(isMobile == TRUE) x_n <- 4
-
-  x_breaks <- pretty(x_var_vctr, n = x_n)
+  x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
-  
-  if(isMobile == TRUE) {
-    x_breaks <- x_limits
-    if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-  }
 
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
@@ -250,7 +251,8 @@ ggplot_line <- function(data,
         expand = x_expand,
         breaks = x_breaks,
         limits = x_limits,
-        labels = x_labels
+        labels = x_labels,
+        oob = scales::rescale_none
       )
   }
   else if (is.numeric(x_var_vctr)) {
@@ -258,6 +260,7 @@ ggplot_line <- function(data,
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          limits = x_limits,
+                         trans = x_trans,
                          labels = x_labels,
                          oob = scales::rescale_none)
   }
@@ -327,18 +330,21 @@ ggplot_line <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param col_labels Adjust the  colour scale labels through a vector.
@@ -378,11 +384,14 @@ ggplot_line_col <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 6,
            x_title = "[X title]",
            x_title_wrap = 50,
+           x_trans = "identity",
+           x_zero = FALSE,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -390,7 +399,7 @@ ggplot_line_col <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            col_labels = NULL,
            col_labels_ncol = NULL,
@@ -420,6 +429,9 @@ ggplot_line_col <-
     if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
+    if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
+      stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
+    }
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
@@ -465,16 +477,8 @@ ggplot_line_col <-
     if (!is.null(col_labels)) labels <- col_labels
     if (is.null(col_labels)) labels <- waiver()
     
-    if(isMobile == FALSE) x_n <- x_pretty_n
-    else if(isMobile == TRUE) x_n <- 4
-    
-    x_breaks <- pretty(x_var_vctr, n = x_n)
+    x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    
-    if(isMobile == TRUE) {
-      x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-    }
     
     if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
@@ -482,7 +486,8 @@ ggplot_line_col <-
           expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
-          labels = x_labels
+          labels = x_labels,
+          oob = scales::rescale_none
         )
     }
     else if (is.numeric(x_var_vctr)) {
@@ -490,7 +495,9 @@ ggplot_line_col <-
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
                            limits = x_limits,
-                           labels = x_labels)
+                           trans = x_trans,
+                           labels = x_labels,
+                           oob = scales::rescale_none)
     }
     
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
@@ -566,11 +573,14 @@ ggplot_line_col <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -578,7 +588,7 @@ ggplot_line_col <-
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -613,11 +623,14 @@ ggplot_line_facet <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            x_title = "[X title]",
            x_title_wrap = 50,
+           x_trans = "identity",
+           x_zero = FALSE,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -625,7 +638,7 @@ ggplot_line_facet <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            facet_ncol = NULL,
            facet_nrow = NULL,
@@ -649,6 +662,9 @@ ggplot_line_facet <-
     if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
+    if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
+      stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
+    }
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
@@ -685,21 +701,27 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+      
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            labels = x_labels
+            limits = x_limits,
+            labels = x_labels,
+            oob = scales::rescale_none
           )
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             labels = x_labels)
+                             limits = x_limits,
+                             trans = x_trans,
+                             labels = x_labels,
+                             oob = scales::rescale_none)
       }
     }
     
@@ -759,11 +781,14 @@ ggplot_line_facet <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -771,7 +796,7 @@ ggplot_line_facet <-
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
@@ -813,11 +838,14 @@ ggplot_line_col_facet <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
            x_title = "[X title]",
            x_title_wrap = 50,
+           x_trans = "identity",
+           x_zero = FALSE,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -825,7 +853,7 @@ ggplot_line_col_facet <-
            y_trans = "identity",
            y_title = "[Y title]",
            y_title_wrap = 50,
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            col_title = "",
            col_title_wrap = 25,
@@ -860,6 +888,9 @@ ggplot_line_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
+    if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
+      stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
+    }
     
     min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
     max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
@@ -914,13 +945,15 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+      
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
+            limits = x_limits,
             labels = x_labels
           )
       }
@@ -928,9 +961,11 @@ ggplot_line_col_facet <-
         plot <- plot +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             labels = x_labels)
+                             limits = x_limits,
+                             trans = x_trans,
+                             labels = x_labels,
+                             oob = scales::rescale_none)
       }
-      
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {

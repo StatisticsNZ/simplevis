@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
       </span>
     </div>
 
@@ -128,10 +128,15 @@
 <div id="numeric-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#numeric-scales" class="anchor"></a>Numeric scales</h3>
-<p><code>simplevis</code> graphs default to including zero in numeric scales.</p>
-<p>Use <code>x_zero</code> and <code>y_zero</code> to change this.</p>
+<p><code>simplevis</code> graphs numeric scales default to:</p>
+<ul>
+<li>starting from zero for numeric scales on bar graphs.</li>
+<li>
+<i>not</i> starting from zero for numeric scales on all other graphs.</li>
+</ul>
+<p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments to change the defaults.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
-               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <p>Adjust the number of breaks for numeric x and/or y scales.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,

@@ -358,7 +358,7 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
+    if (is.null(col_labels)) labels <-  sv_labels_from_cuts(col_cuts, col_labels_dp)
     else labels <- col_labels
   }
   else if (col_method == "bin") {
@@ -375,7 +375,7 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
+    if (is.null(col_labels)) labels <-  sv_labels_from_cuts(col_cuts, col_labels_dp)
     else labels <- col_labels
   }
   else if (col_method == "category") {
@@ -766,7 +766,7 @@ ggplot_sf_col_facet <- function(data,
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    if (is.null(col_labels)) labels <-  legend_labels_from_cuts(col_cuts, col_labels_dp)
+    if (is.null(col_labels)) labels <-  sv_labels_from_cuts(col_cuts, col_labels_dp)
     if (!is.null(col_labels)) labels <- col_labels
   }
   else if (col_method == "quantile") {
@@ -782,7 +782,7 @@ ggplot_sf_col_facet <- function(data,
     
     if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
     
-    if (is.null(col_labels)) labels <- paste0( legend_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
+    if (is.null(col_labels)) labels <- paste0( sv_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
     if (!is.null(col_labels)) labels <- col_labels
   }
   

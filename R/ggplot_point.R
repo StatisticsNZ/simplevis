@@ -129,7 +129,7 @@ theme_point <-
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.     
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -175,7 +175,7 @@ ggplot_point <- function(data,
                          x_title = "[X title]",
                          x_title_wrap = 50,
                          x_trans = "identity",
-                         x_zero = TRUE,
+                         x_zero = FALSE,
                          x_zero_line = NULL,
                          y_balance = FALSE, 
                          y_expand = NULL,
@@ -184,7 +184,7 @@ ggplot_point <- function(data,
                          y_title = "[Y title]",
                          y_title_wrap = 50,
                          y_trans = "identity",
-                         y_zero = TRUE,
+                         y_zero = FALSE,
                          y_zero_line = NULL,
                          caption = NULL,
                          caption_wrap = 80,
@@ -329,7 +329,7 @@ ggplot_point <- function(data,
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
@@ -374,7 +374,7 @@ ggplot_point_col <-
            col_cuts = NULL,
            col_na = TRUE,
            x_balance = FALSE,
-           x_zero = TRUE,
+           x_zero = FALSE,
            x_zero_line = NULL,
            x_trans = "identity",
            x_labels = waiver(),
@@ -385,7 +385,7 @@ ggplot_point_col <-
            y_labels = waiver(),
            y_pretty_n = 5,
            y_trans = "identity",
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            title = "[Title]",
            subtitle = NULL,
@@ -466,7 +466,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
+        if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
         else labels <- col_labels
       }
       else if (col_method == "bin") {
@@ -479,7 +479,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
+        if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1
@@ -603,7 +603,7 @@ ggplot_point_col <-
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -650,7 +650,7 @@ ggplot_point_facet <-
            x_title = "[X title]",
            x_title_wrap = 50,
            x_trans = "identity",
-           x_zero = TRUE,
+           x_zero = FALSE,
            x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
@@ -659,7 +659,7 @@ ggplot_point_facet <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            facet_ncol = NULL,
            facet_nrow = NULL,
@@ -807,7 +807,7 @@ ggplot_point_facet <-
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
@@ -868,7 +868,7 @@ ggplot_point_col_facet <-
            x_title = "[X title]",
            x_title_wrap = 50,
            x_trans = "identity",
-           x_zero = TRUE,
+           x_zero = FALSE,
            x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
@@ -877,7 +877,7 @@ ggplot_point_col_facet <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            col_cuts = NULL,
            col_labels_dp = 1,
@@ -960,7 +960,7 @@ ggplot_point_col_facet <-
             dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
             dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
           
-          if (is.null(col_labels)) labels <- paste0(legend_labels_from_cuts(col_cuts * 100, 0), "%")
+          if (is.null(col_labels)) labels <- paste0(sv_labels_from_cuts(col_cuts * 100, 0), "%")
           else labels <- col_labels
         }
         else if (col_quantile_by_facet == FALSE) { 
@@ -970,7 +970,7 @@ ggplot_point_col_facet <-
           data <- data %>% 
             dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
           
-          if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
+          if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
           else labels <- col_labels
         }
       }
@@ -983,7 +983,7 @@ ggplot_point_col_facet <-
         
         data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
         
-        if (is.null(col_labels)) labels <- legend_labels_from_cuts(col_cuts, col_labels_dp)
+        if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
         else labels <- col_labels
       }
       n_col <- length(col_cuts) - 1

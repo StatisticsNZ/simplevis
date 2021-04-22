@@ -26,13 +26,16 @@ Likewise, arguments that relate to facetting start with `facet_`.
 
 ### Numeric scales
 
-`simplevis` graphs default to including zero in numeric scales. 
+`simplevis` graphs numeric scales default to:
 
-Use `x_zero` and `y_zero` to change this.
+* starting from zero for numeric scales on bar graphs. 
+* <i>not</i> starting from zero for numeric scales on all other graphs. 
+
+You can use the `x_zero` and `y_zero` arguments to change the defaults.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length,
-               x_zero = FALSE, y_zero = FALSE)
+               x_zero = TRUE, y_zero = FALSE)
 
 ```
 

@@ -58,7 +58,7 @@ leaflet_sf <- function(data,
     if(ncol(data) == 1) popup <- NULL
     else ({
       popup <- leafpop::popupTable(
-        colnames_to_snake_to_sentence(
+        sv_colnames_to_present(
           sf::st_drop_geometry(data)
         ),
         row.numbers = FALSE, feature.id = FALSE)
@@ -305,7 +305,7 @@ leaflet_sf_col <- function(data,
       right = FALSE,
       na.color = "#A8A8A8"
     )
-    if (is.null( col_labels)) labels <-  legend_labels_from_cuts(col_cuts,  col_labels_dp)
+    if (is.null( col_labels)) labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
     else if (!is.null( col_labels)) labels <-  col_labels
   }
   else if (col_method == "quantile") {
@@ -330,7 +330,7 @@ leaflet_sf_col <- function(data,
       na.color = "#A8A8A8"
     )
     
-    if (is.null( col_labels)) labels <-  legend_labels_from_cuts(col_cuts,  col_labels_dp)
+    if (is.null( col_labels)) labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
     else if (!is.null( col_labels)) labels <-  col_labels
   }
   
@@ -352,7 +352,7 @@ leaflet_sf_col <- function(data,
     if(ncol(data) == 1) popup <- NULL
     else ({
       popup <- leafpop::popupTable(
-        colnames_to_snake_to_sentence(
+        sv_colnames_to_present(
           sf::st_drop_geometry(data)
         ),
         row.numbers = FALSE, feature.id = FALSE)

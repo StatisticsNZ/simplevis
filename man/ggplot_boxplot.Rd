@@ -12,7 +12,7 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
   x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
   y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
   y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
-  y_zero = TRUE, y_zero_line = NULL, caption = NULL,
+  y_zero = FALSE, y_zero_line = NULL, caption = NULL,
   caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
@@ -69,7 +69,7 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 
 \item{y_trans}{TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.}
 
-\item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
 

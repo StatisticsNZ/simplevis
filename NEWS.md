@@ -1,8 +1,8 @@
 # simplevis 2.7.0
 
-* Modularised x numeric breaks.
-* Updated hbar gridlines.
-* New feature: added x_balance to point.
+* Modularised all x and y numeric breaks.
+* New feature: added balance, trans and zero arguments to all numeric arguments.
+* New feature: Changed x_zero and y_zero defaults for non-bar graph numeric scales to FALSE.
 
 # simplevis 2.6.9
 

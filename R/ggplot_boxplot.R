@@ -138,7 +138,7 @@ theme_boxplot <-
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
@@ -194,7 +194,7 @@ ggplot_boxplot <- function(data,
                        y_title = "[Y title]",
                        y_title_wrap = 50,
                        y_trans = "identity",
-                       y_zero = TRUE,
+                       y_zero = FALSE,
                        y_zero_line = NULL,
                        caption = NULL,
                        caption_wrap = 80,
@@ -426,7 +426,7 @@ ggplot_boxplot <- function(data,
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -475,7 +475,7 @@ ggplot_boxplot_facet <-
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
-           y_zero = TRUE,
+           y_zero = FALSE,
            y_zero_line = NULL,
            facet_ncol = NULL,
            facet_nrow = NULL,
@@ -619,7 +619,7 @@ ggplot_boxplot_facet <-
     if (facet_scales %in% c("fixed", "free_x")) {
       y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
-
+      
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,

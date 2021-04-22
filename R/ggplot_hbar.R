@@ -47,10 +47,10 @@ theme_hbar <-
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
-        panel.grid.major.y = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_blank(),
+        panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2),
         panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
         panel.background = element_rect(colour = "white", fill = "white"),
         strip.background = element_rect(colour = "white", fill = "white"),
         text = element_text(
@@ -64,24 +64,24 @@ theme_hbar <-
           size = font_size_body,
           hjust = 0.425
         ),
-        axis.title.y = element_text(
+        axis.title.x = element_text(
           family = font_family,
           colour = "#323232",
           size = font_size_body,
           margin = margin(t = 10)
         ),
-        axis.title.x = element_text(
+        axis.title.y = element_text(
           family = font_family,
           colour = "#323232",
           size = font_size_body,
           margin = margin(r = 10)
         ),
-        axis.text.y = element_text(
+        axis.text.x = element_text(
           family = font_family,
           colour = "#323232",
           size = font_size_body
         ),
-        axis.text.x = element_text(
+        axis.text.y = element_text(
           family = font_family,
           colour = "#323232",
           hjust = 1,
@@ -249,29 +249,9 @@ ggplot_hbar <- function(data,
       scale_x_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    if (x_balance == TRUE) {
-      x_var_vctr <- abs(x_var_vctr)
-      x_var_vctr <- c(-x_var_vctr, x_var_vctr)
-    }
-    if (x_zero == TRUE) {
-      x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
-      if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-      x_limits <- c(min(x_breaks), max(x_breaks))
-    }
-    else if (x_zero == FALSE) {
-      if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-      if(x_trans == "log10") {
-        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
-        x_breaks <- c(1, x_breaks[x_breaks > 1])
-      }
-      x_limits <- c(min(x_breaks), max(x_breaks))
-    }
-    
-    if(isMobile == TRUE) {
-      x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-    }
-    
+    x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+
     plot <- plot +
       scale_x_continuous(
         expand = x_expand,
@@ -575,31 +555,9 @@ ggplot_hbar_col <-
         scale_x_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      if (x_balance == TRUE) {
-        x_var_vctr <- abs(x_var_vctr)
-        x_var_vctr <- c(-x_var_vctr, x_var_vctr)
-      }
-      if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
-        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-        if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
-          x_breaks <- c(1, x_breaks[x_breaks > 1])
-        }
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      
-      if(position == "stack" & all(dplyr::between(x_var_vctr, 99, 101))) x_limits <- c(0, 100)
-      
-      if(isMobile == TRUE) {
-        x_breaks <- x_limits
-        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-      }
-      
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+
       plot <- plot +
         scale_x_continuous(
           expand = x_expand,
@@ -873,23 +831,8 @@ ggplot_hbar_facet <-
     if(is.null(y_expand)) y_expand <- waiver()
 
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (x_balance == TRUE) {
-        x_var_vctr <- abs(x_var_vctr)
-        x_var_vctr <- c(-x_var_vctr, x_var_vctr)
-      }
-      if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
-        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr)
-        if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vctr)) 
-          x_breaks <- c(1, x_breaks[x_breaks > 1])
-        }
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
         scale_x_continuous(
@@ -1153,23 +1096,8 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (x_balance == TRUE) {
-        x_var_vctr <- abs(x_var_vctr)
-        x_var_vctr <- c(-x_var_vctr, x_var_vctr)
-      }
-      if (x_zero == TRUE) {
-        x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
-        if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
-      else if (x_zero == FALSE) {
-        if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-        if(x_trans == "log10") {
-          x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
-          x_breaks <- c(1, x_breaks[x_breaks > 1])
-        }
-        x_limits <- c(min(x_breaks), max(x_breaks))
-      }
+      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
         scale_x_continuous(

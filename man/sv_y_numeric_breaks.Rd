@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal_default.R
 \name{sv_y_numeric_breaks}
 \alias{sv_y_numeric_breaks}
-\title{Calculate the breaks for a numeric vector.}
+\title{Calculate the breaks for a y axis numeric vector.}
 \usage{
 sv_y_numeric_breaks(y_var_vctr, y_balance = FALSE, y_pretty_n = 5,
   y_trans = "identity", y_zero = TRUE)
@@ -22,6 +22,6 @@ sv_y_numeric_breaks(y_var_vctr, y_balance = FALSE, y_pretty_n = 5,
 A vector of breaks
 }
 \description{
-Calculate the breaks for a numeric vector.
+Calculate the breaks for a y axis numeric vector.
 }
 \keyword{internal}

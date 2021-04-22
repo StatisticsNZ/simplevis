@@ -1,6 +1,12 @@
+# simplevis 2.7.0
+
+* Modularised x numeric breaks.
+* Updated hbar gridlines.
+
 # simplevis 2.6.9
 
 * Underlying code change of hbar to not use `coord_flip`.
+* Modularised y numeric breaks.
 
 # simplevis 2.6.8
 

@@ -2,7 +2,7 @@
 #' 
 #' @return values for font sizes
 #' @keywords internal
-sv_font_size_title <- function(isMobile = NULL) {
+sv_font_size_title <- function(isMobile = FALSE) {
   if (isMobile == FALSE) return(11)
   else if (isMobile == TRUE) return(15)
 }
@@ -11,7 +11,7 @@ sv_font_size_title <- function(isMobile = NULL) {
 #' 
 #' @return values for font sizes
 #' @keywords internal
-sv_font_size_body <- function(isMobile = NULL) {
+sv_font_size_body <- function(isMobile = FALSE) {
   if (isMobile == FALSE) font_size_body <- 10
   else if (isMobile == TRUE) font_size_body <- 14
 }
@@ -74,7 +74,8 @@ sv_x_numeric_breaks <- function(x_var_vctr,
                                 x_balance = FALSE, 
                                 x_pretty_n = 5, 
                                 x_trans = "identity", 
-                                x_zero = TRUE) {
+                                x_zero = TRUE,
+                                isMobile = FALSE) {
   if (x_balance == TRUE) {
     x_var_vctr <- abs(x_var_vctr)
     x_var_vctr <- c(-x_var_vctr, x_var_vctr)
@@ -91,6 +92,11 @@ sv_x_numeric_breaks <- function(x_var_vctr,
       x_breaks <- c(1, x_breaks[x_breaks > 1])
     }
   }
+  if(isMobile == TRUE) {
+    x_breaks <- c(min(x_breaks), max(x_breaks))
+    if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
+  }
+  
   return(x_breaks)
 }
 

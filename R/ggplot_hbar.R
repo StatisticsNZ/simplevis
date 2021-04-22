@@ -47,10 +47,10 @@ theme_hbar <-
         ),
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
-        panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
+        panel.grid.major.y = element_line(colour = "#D3D3D3", size = 0.2),
         panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
         panel.background = element_rect(colour = "white", fill = "white"),
         strip.background = element_rect(colour = "white", fill = "white"),
         text = element_text(
@@ -64,24 +64,24 @@ theme_hbar <-
           size = font_size_body,
           hjust = 0.425
         ),
-        axis.title.x = element_text(
+        axis.title.y = element_text(
           family = font_family,
           colour = "#323232",
           size = font_size_body,
           margin = margin(t = 10)
         ),
-        axis.title.y = element_text(
+        axis.title.x = element_text(
           family = font_family,
           colour = "#323232",
           size = font_size_body,
           margin = margin(r = 10)
         ),
-        axis.text.x = element_text(
+        axis.text.y = element_text(
           family = font_family,
           colour = "#323232",
           size = font_size_body
         ),
-        axis.text.y = element_text(
+        axis.text.x = element_text(
           family = font_family,
           colour = "#323232",
           hjust = 1,
@@ -234,20 +234,19 @@ ggplot_hbar <- function(data,
   else pal <- pal[1]
 
   plot <- ggplot(data) +
-    coord_flip() +
     theme_hbar(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
   
   if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
+      scale_x_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
     if (x_balance == TRUE) {
@@ -274,7 +273,7 @@ ggplot_hbar <- function(data,
     }
     
     plot <- plot +
-      scale_y_continuous(
+      scale_x_continuous(
         expand = x_expand,
         breaks = x_breaks,
         limits = x_limits,
@@ -318,22 +317,22 @@ ggplot_hbar <- function(data,
     if(is.null(y_labels)) y_labels <- waiver()
     
     plot <- plot +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
+      scale_y_discrete(expand = y_expand, labels = y_labels)
   }
   else if (isMobile == TRUE){
     if(is.character(y_labels)) {
       plot <- plot +
-        scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+        scale_y_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
     }
     else {
       plot <- plot +
-        scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
+        scale_y_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
     }
   }
   
   if(x_zero_line == TRUE) {
     plot <- plot +
-      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+      geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
   }
   
   if (isMobile == FALSE){
@@ -341,8 +340,8 @@ ggplot_hbar <- function(data,
       labs(
         title = stringr::str_wrap(title, title_wrap),
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-        y = stringr::str_wrap(x_title, x_title_wrap),
-        x = stringr::str_wrap(y_title, y_title_wrap),
+        x = stringr::str_wrap(x_title, x_title_wrap),
+        y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) 
   }
@@ -352,8 +351,8 @@ ggplot_hbar <- function(data,
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
-        y = stringr::str_wrap(x_title, 20),
-        x = stringr::str_wrap(y_title, 20),
+        x = stringr::str_wrap(x_title, 20),
+        y = stringr::str_wrap(y_title, 20),
         caption = stringr::str_wrap(caption, 50)
       ) 
   }
@@ -524,7 +523,6 @@ ggplot_hbar_col <-
     if (pal_rev == FALSE) pal <- rev(pal)
     
     plot <- ggplot(data) +
-      coord_flip() +
       theme_hbar(
         font_family = font_family,
         font_size_body = font_size_body,
@@ -559,22 +557,22 @@ ggplot_hbar_col <-
       if(is.null(y_labels)) y_labels <- waiver()
       
       plot <- plot +
-        scale_x_discrete(expand = y_expand, labels = y_labels)
+        scale_y_discrete(expand = y_expand, labels = y_labels)
     }
     else if (isMobile == TRUE){
       if(is.character(y_labels)) {
         plot <- plot +
-          scale_x_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
+          scale_y_discrete(expand = y_expand, labels = stringr::str_wrap(y_labels, 20))
       }
       else {
         plot <- plot +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
+          scale_y_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
       }
     }
     
     if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
+        scale_x_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
       if (x_balance == TRUE) {
@@ -603,7 +601,7 @@ ggplot_hbar_col <-
       }
       
       plot <- plot +
-        scale_y_continuous(
+        scale_x_continuous(
           expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
@@ -616,7 +614,7 @@ ggplot_hbar_col <-
     if(x_na_inf == FALSE) {
       plot <- plot +
         geom_col(aes(
-          x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
+          x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
           alpha = alpha, size = size_line, width = width, 
           position = position2)
     }
@@ -670,7 +668,7 @@ ggplot_hbar_col <-
     
     if(x_zero_line == TRUE) {
       plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
     plot <- plot +
@@ -692,8 +690,8 @@ ggplot_hbar_col <-
         labs(
           title = stringr::str_wrap(title, title_wrap),
           subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-          y = stringr::str_wrap(x_title, x_title_wrap),
-          x = stringr::str_wrap(y_title, y_title_wrap),
+          x = stringr::str_wrap(x_title, x_title_wrap),
+          y = stringr::str_wrap(y_title, y_title_wrap),
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
@@ -714,8 +712,8 @@ ggplot_hbar_col <-
         labs(
           title = stringr::str_wrap(title, 40),
           subtitle = stringr::str_wrap(subtitle, 40),
-          y = stringr::str_wrap(x_title, 20),
-          x = stringr::str_wrap(y_title, 20),
+          x = stringr::str_wrap(x_title, 20),
+          y = stringr::str_wrap(y_title, 20),
           caption = stringr::str_wrap(caption, 50)
         ) +
         guides(
@@ -864,13 +862,12 @@ ggplot_hbar_facet <-
     else pal <- pal[1]
 
     plot <- ggplot(data) +
-      coord_flip() +
       theme_hbar(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
+      geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -895,7 +892,7 @@ ggplot_hbar_facet <-
       }
       
       plot <- plot +
-        scale_y_continuous(
+        scale_x_continuous(
           expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
@@ -937,7 +934,7 @@ ggplot_hbar_facet <-
 
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
-        scale_y_continuous(expand = x_expand,
+        scale_x_continuous(expand = x_expand,
                            labels = x_labels,
                            trans = x_trans,
                            oob = scales::rescale_none)
@@ -946,19 +943,19 @@ ggplot_hbar_facet <-
     if(is.null(y_labels)) y_labels <- waiver()
     
     plot <- plot +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
+      scale_y_discrete(expand = y_expand, labels = y_labels)
 
     if(x_zero_line == TRUE) {
       plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-        y = stringr::str_wrap(x_title, x_title_wrap),
-        x = stringr::str_wrap(y_title, y_title_wrap),
+        x = stringr::str_wrap(x_title, x_title_wrap),
+        y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
@@ -1133,13 +1130,12 @@ ggplot_hbar_col_facet <-
     if (pal_rev == FALSE) pal <- rev(pal)
     
     plot <- ggplot(data) +
-      coord_flip() +
       theme_hbar(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
       ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = size_line, width = width, position = position2)
+      geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = size_line, width = width, position = position2)
 
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
@@ -1176,7 +1172,7 @@ ggplot_hbar_col_facet <-
       }
       
       plot <- plot +
-        scale_y_continuous(
+        scale_x_continuous(
           expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
@@ -1187,7 +1183,7 @@ ggplot_hbar_col_facet <-
     }
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
-        scale_y_continuous(expand = y_expand,
+        scale_x_continuous(expand = y_expand,
                            trans = x_trans,
                            labels = x_labels,
                            oob = scales::rescale_none)
@@ -1196,7 +1192,7 @@ ggplot_hbar_col_facet <-
     if(is.null(y_labels)) y_labels <- waiver()
     
     plot <- plot +
-      scale_x_discrete(expand = y_expand, labels = y_labels)
+      scale_y_discrete(expand = y_expand, labels = y_labels)
 
     plot <- plot +
       scale_fill_manual(
@@ -1214,15 +1210,15 @@ ggplot_hbar_col_facet <-
 
     if(x_zero_line == TRUE) {
       plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
 
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-        y = stringr::str_wrap(x_title, x_title_wrap),
-        x = stringr::str_wrap(y_title, y_title_wrap),
+        x = stringr::str_wrap(x_title, x_title_wrap),
+        y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +

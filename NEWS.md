@@ -1,3 +1,7 @@
+# simplevis 2.6.9
+
+* Underlying code change of hbar to not use `coord_flip`.
+
 # simplevis 2.6.8
 
 * Modularlised default font size code.

@@ -2,7 +2,7 @@
 #' 
 #' @return values for font sizes
 #' @keywords internal
-sv_font_size_title <- function(isMobile = FALSE) {
+sv_font_size_title <- function(isMobile = NULL) {
   if (isMobile == FALSE) return(11)
   else if (isMobile == TRUE) return(15)
 }
@@ -11,7 +11,7 @@ sv_font_size_title <- function(isMobile = FALSE) {
 #' 
 #' @return values for font sizes
 #' @keywords internal
-sv_font_size_body <- function(isMobile = FALSE) {
+sv_font_size_body <- function(isMobile = NULL) {
   if (isMobile == FALSE) font_size_body <- 10
   else if (isMobile == TRUE) font_size_body <- 14
 }
@@ -28,7 +28,7 @@ sv_pal <- function(n_col) {
   else if(n_col > 2) viridis::viridis(n_col)
 }
 
-#' Calculate the breaks for a numeric vector.
+#' Calculate the breaks for a y axis numeric vector.
 #' 
 #' @param y_var_vctr A numeric vector for the y scale from which to determine breaks from. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
@@ -59,5 +59,38 @@ sv_y_numeric_breaks <- function(y_var_vctr,
     }
   }
   return(y_breaks)
+}
+
+#' Calculate the breaks for a x axis numeric vector.
+#' 
+#' @param x_var_vctr A numeric vector for the x scale from which to determine breaks from. 
+#' @param x_balance Add balance to the y axis so that zero is in the centre of the x scale.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_trans A string specifying a transformation for the x axis scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param x_zero TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @return A vector of breaks
+#' @keywords internal 
+sv_x_numeric_breaks <- function(x_var_vctr, 
+                                x_balance = FALSE, 
+                                x_pretty_n = 5, 
+                                x_trans = "identity", 
+                                x_zero = TRUE) {
+  if (x_balance == TRUE) {
+    x_var_vctr <- abs(x_var_vctr)
+    x_var_vctr <- c(-x_var_vctr, x_var_vctr)
+  }
+  if (x_zero == TRUE) {
+    x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n)
+    if(x_trans == "log10") x_breaks <- c(1, x_breaks[x_breaks > 1])
+    x_limits <- c(min(x_breaks), max(x_breaks))
+  }
+  else if (x_zero == FALSE) {
+    if(x_trans != "log10") x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+    if(x_trans == "log10") {
+      x_breaks <- pretty(c(0, x_var_vctr), n = x_pretty_n) 
+      x_breaks <- c(1, x_breaks[x_breaks > 1])
+    }
+  }
+  return(x_breaks)
 }
 

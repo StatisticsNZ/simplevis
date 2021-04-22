@@ -52,6 +52,17 @@ ggplot_point(iris, Sepal.Width, Sepal.Length,
                y_trans = "log10")
 ```
 
+Balance a numeric scale so that it has equivalence between positive and negative values.
+
+```{r}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(average_wind = round(mean(wind), 2)) 
+
+ggplot_vbar(plot_data, year, average_wind,
+            y_balance = TRUE)
+```
+
 You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}

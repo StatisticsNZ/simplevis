@@ -130,7 +130,7 @@ theme_point <-
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.     
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.     
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -139,7 +139,7 @@ theme_point <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -204,30 +204,6 @@ ggplot_point <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
   
-  min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-  max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-  
-  x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-  
-  if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-  
-  if(is.null(x_zero_line)) {
-    if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
-    else(x_zero_line <- FALSE)
-  }
-  
-  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-  
-  y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-  
-  if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-  
-  if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
-    else(y_zero_line <- FALSE)
-  }
-  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
@@ -242,13 +218,21 @@ ggplot_point <- function(data,
     ) +
     coord_cartesian(clip = "off") +
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point)
+  
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero <- x_zero_list[[1]]
+  x_zero_line <- x_zero_list[[2]]
 
   x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
-
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
+  
   y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
   y_limits <- c(min(y_breaks), max(y_breaks))
-  
+
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
 
@@ -330,7 +314,7 @@ ggplot_point <- function(data,
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -339,7 +323,7 @@ ggplot_point <- function(data,
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels Adjust the colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
@@ -421,30 +405,6 @@ ggplot_point_col <-
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     
-    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    
-    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-    
-    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
-    if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
-    }
-
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
@@ -512,8 +472,16 @@ ggplot_point_col <-
     plot <- plot +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
     
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
     x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
@@ -604,7 +572,7 @@ ggplot_point_col <-
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -613,7 +581,7 @@ ggplot_point_col <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -684,30 +652,6 @@ ggplot_point_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    
-    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-    
-    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
-    if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
-    }
-    
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -722,6 +666,14 @@ ggplot_point_facet <-
       ) +
       coord_cartesian(clip = "off") +
       geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point)
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -808,7 +760,7 @@ ggplot_point_facet <-
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.    
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -817,7 +769,7 @@ ggplot_point_facet <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
@@ -914,30 +866,6 @@ ggplot_point_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    
-    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-    
-    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
-    if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
-    }
-    
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -1023,6 +951,14 @@ ggplot_point_col_facet <-
         na.value = "#A8A8A8"
       )
     
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
+
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
     

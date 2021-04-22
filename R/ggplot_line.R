@@ -131,6 +131,7 @@ theme_line <-
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -139,7 +140,7 @@ theme_line <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -179,6 +180,7 @@ ggplot_line <- function(data,
                         x_trans = "identity", 
                         x_title_wrap = 50,
                         x_zero = FALSE,
+                        x_zero_line = NULL,
                         y_balance = FALSE,
                         y_expand = NULL,
                         y_labels = waiver(),
@@ -209,18 +211,6 @@ ggplot_line <- function(data,
     stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
   }
   
-  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-  
-  y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-  
-  if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-  
-  if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-    else(y_zero_line <- FALSE)
-  }
-  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
@@ -238,6 +228,14 @@ ggplot_line <- function(data,
   plot <- plot +
     geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) +
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
+  
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero <- x_zero_list[[1]]
+  x_zero_line <- x_zero_list[[2]]
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -283,6 +281,11 @@ ggplot_line <- function(data,
         oob = scales::rescale_none
       )
   })
+  
+  if(x_zero_line == TRUE) {
+    plot <- plot +
+      geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+  }
 
   if(y_zero_line == TRUE) {
     plot <- plot +
@@ -338,6 +341,7 @@ ggplot_line <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -345,7 +349,7 @@ ggplot_line <- function(data,
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
@@ -392,6 +396,7 @@ ggplot_line_col <-
            x_title_wrap = 50,
            x_trans = "identity",
            x_zero = FALSE,
+           x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -433,18 +438,6 @@ ggplot_line_col <-
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
@@ -470,6 +463,14 @@ ggplot_line_col <-
       geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
                  size = size_point, alpha = 1)
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -527,6 +528,11 @@ ggplot_line_col <-
         na.value = "#A8A8A8"
       ) 
     
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+    
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -581,6 +587,7 @@ ggplot_line_col <-
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -589,7 +596,7 @@ ggplot_line_col <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -631,6 +638,7 @@ ggplot_line_facet <-
            x_title_wrap = 50,
            x_trans = "identity",
            x_zero = FALSE,
+           x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -666,18 +674,6 @@ ggplot_line_facet <-
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -695,6 +691,14 @@ ggplot_line_facet <-
     plot <- plot +
       geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) + 
       geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -747,6 +751,11 @@ ggplot_line_facet <-
                            oob = scales::rescale_none)
     }
     
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -789,6 +798,7 @@ ggplot_line_facet <-
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -797,7 +807,7 @@ ggplot_line_facet <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE. 
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
@@ -846,6 +856,7 @@ ggplot_line_col_facet <-
            x_title_wrap = 50,
            x_trans = "identity",
            x_zero = FALSE,
+           x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -892,18 +903,6 @@ ggplot_line_col_facet <-
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -939,6 +938,14 @@ ggplot_line_col_facet <-
         labels = labels,
         na.value = "#A8A8A8"
       )
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -997,6 +1004,11 @@ ggplot_line_col_facet <-
         labels = labels,
         na.value = "#A8A8A8"
       ) 
+    
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
     
     if(y_zero_line == TRUE) {
       plot <- plot +

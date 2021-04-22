@@ -10,14 +10,15 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
   subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
   x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
-  x_zero = FALSE, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_trans = "identity",
-  y_title = "[Y title]", y_title_wrap = 50, y_zero = FALSE,
-  y_zero_line = NULL, col_title = "", col_title_wrap = 25,
-  col_labels = NULL, col_labels_ncol = NULL, col_labels_nrow = NULL,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_trans = "identity", y_title = "[Y title]", y_title_wrap = 50,
+  y_zero = FALSE, y_zero_line = NULL, col_title = "",
+  col_title_wrap = 25, col_labels = NULL, col_labels_ncol = NULL,
+  col_labels_nrow = NULL, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -64,6 +65,8 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.}
 
+\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
+
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
@@ -80,7 +83,7 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

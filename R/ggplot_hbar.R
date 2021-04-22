@@ -206,18 +206,6 @@ ggplot_hbar <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
   
-  min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-  max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-  
-  x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-  
-  if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-  
-  if(is.null(x_zero_line)) {
-    if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
-    else(x_zero_line <- FALSE)
-  }
-  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
@@ -239,7 +227,16 @@ ggplot_hbar <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
+             col = pal, 
+             fill = pal, 
+             alpha = alpha, 
+             size = size_line, 
+             width = width)
+  
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero <- x_zero_list[[1]]
+  x_zero_line <- x_zero_list[[2]]
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- waiver()
@@ -463,18 +460,6 @@ ggplot_hbar_col <-
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    
-    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-    
-    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
-    if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
@@ -530,6 +515,10 @@ ggplot_hbar_col <-
       x_var_vctr <- dplyr::pull(data_sum, !!x_var)
     }
     
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
     
@@ -786,22 +775,10 @@ ggplot_hbar_facet <-
     x_var_vctr <- dplyr::pull(data, !!x_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal bar plot")
-    if (!is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
-    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    
-    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-    
-    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
-    if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
-    }
-
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -826,6 +803,10 @@ ggplot_hbar_facet <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
@@ -1026,25 +1007,13 @@ ggplot_hbar_col_facet <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal bar plot")
-    if (!is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a horizontal bar plot")
+    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    min_x_var_vctr <- min(x_var_vctr, na.rm = TRUE)
-    max_x_var_vctr <- max(x_var_vctr, na.rm = TRUE)
-    
-    x_above_and_below_zero <- ifelse(min_x_var_vctr < 0 & max_x_var_vctr > 0, TRUE, FALSE)
-    
-    if(x_above_and_below_zero == TRUE) x_zero <- FALSE
-    
-    if(is.null(x_zero_line)) {
-      if(x_above_and_below_zero == TRUE | x_balance == TRUE) x_zero_line <- TRUE
-      else(x_zero_line <- FALSE)
-    }
-
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -1082,6 +1051,10 @@ ggplot_hbar_col_facet <-
 
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()

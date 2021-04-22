@@ -4,8 +4,8 @@
 \alias{sv_x_numeric_breaks}
 \title{Calculate the breaks for a x axis numeric vector.}
 \usage{
-sv_x_numeric_breaks(x_var_vctr, x_balance = FALSE, x_pretty_n = 5,
-  x_trans = "identity", x_zero = TRUE, isMobile = FALSE)
+sv_x_numeric_breaks(x_var_vctr, x_balance, x_pretty_n, x_trans, x_zero,
+  isMobile)
 }
 \arguments{
 \item{x_var_vctr}{A numeric vector for the x scale from which to determine breaks from.}

@@ -53,7 +53,7 @@ ggplot_point(data, x_var, y_var, text_var = NULL, size_point = 1,
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.}
 
-\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
+\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale.}
 
@@ -71,7 +71,7 @@ ggplot_point(data, x_var, y_var, text_var = NULL, size_point = 1,
 
 \item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.}
+\item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 

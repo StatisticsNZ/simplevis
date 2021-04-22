@@ -138,7 +138,7 @@ theme_vbar <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -203,18 +203,6 @@ ggplot_vbar <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-  
-  y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-  
-  if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-  
-  if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-    else(y_zero_line <- FALSE)
-  }
-  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
@@ -270,6 +258,10 @@ ggplot_vbar <- function(data,
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
   
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
@@ -383,7 +375,7 @@ ggplot_vbar <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
@@ -469,18 +461,6 @@ ggplot_vbar_col <-
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -553,6 +533,10 @@ ggplot_vbar_col <-
       
       y_var_vctr <- dplyr::pull(data_sum, !!y_var)
     }
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -717,7 +701,7 @@ ggplot_vbar_col <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -789,18 +773,6 @@ ggplot_vbar_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -852,6 +824,10 @@ ggplot_vbar_facet <-
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(y_expand)) y_expand <- c(0, 0)
 
@@ -957,7 +933,7 @@ ggplot_vbar_facet <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
@@ -1053,18 +1029,6 @@ ggplot_vbar_col_facet <-
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -1132,6 +1096,10 @@ ggplot_vbar_col_facet <-
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(y_expand)) y_expand <- c(0, 0)
     

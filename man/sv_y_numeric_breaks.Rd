@@ -4,8 +4,7 @@
 \alias{sv_y_numeric_breaks}
 \title{Calculate the breaks for a y axis numeric vector.}
 \usage{
-sv_y_numeric_breaks(y_var_vctr, y_balance = FALSE, y_pretty_n = 5,
-  y_trans = "identity", y_zero = TRUE)
+sv_y_numeric_breaks(y_var_vctr, y_balance, y_pretty_n, y_trans, y_zero)
 }
 \arguments{
 \item{y_var_vctr}{A numeric vector for the y scale from which to determine breaks from.}

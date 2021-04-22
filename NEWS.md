@@ -1,3 +1,7 @@
+# simplevis 2.7.1
+
+* Modularised all x_zero adjustments and automatic x_zero line components, and likewise the y_ ones.
+
 # simplevis 2.7.0
 
 * Modularised all x and y numeric breaks.

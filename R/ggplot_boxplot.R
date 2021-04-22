@@ -139,7 +139,7 @@ theme_boxplot <-
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -219,19 +219,11 @@ ggplot_boxplot <- function(data,
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
 
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
 
-  min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-  max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-  
-  y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-  
-  if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-  
-  if(is.null(y_zero_line)) {
-    if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-    else(y_zero_line <- FALSE)
-  }
-  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_boxplot(
@@ -427,7 +419,7 @@ ggplot_boxplot <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. Defaults to NULL, which is TRUE if there are positive and negative values in y_var. Otherwise it is FALSE.  
+#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -500,18 +492,6 @@ ggplot_boxplot_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
-    min_y_var_vctr <- min(y_var_vctr, na.rm = TRUE)
-    max_y_var_vctr <- max(y_var_vctr, na.rm = TRUE)
-    
-    y_above_and_below_zero <- ifelse(min_y_var_vctr < 0 & max_y_var_vctr > 0, TRUE, FALSE)
-    
-    if(y_above_and_below_zero == TRUE) y_zero <- FALSE
-    
-    if(is.null(y_zero_line)) {
-      if(y_above_and_below_zero == TRUE | y_balance == TRUE) y_zero_line <- TRUE
-      else(y_zero_line <- FALSE)
-    }
-    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
@@ -582,6 +562,10 @@ ggplot_boxplot_facet <-
           outlier.size = size_point
         )
     }
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
     
     if(is.null(x_expand)) x_expand <- waiver()
     if(is.null(y_expand)) y_expand <- c(0, 0)

@@ -12,7 +12,7 @@
 
 ### Overview
 
-`simplevis` is a package of wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier and prettier.
+Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier.
 
 ### Installation
 

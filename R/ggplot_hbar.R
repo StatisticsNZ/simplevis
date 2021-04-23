@@ -204,20 +204,30 @@ ggplot_hbar <- function(data,
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+  if (is.numeric(y_var_vctr)  | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+
+  if (y_rev == FALSE) {
+    if (is.factor(y_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
+    }
+    else if (is.character(y_var_vctr)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+    }
+  }
+  else if (y_rev == TRUE) {
+    if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+    }
+  }
   
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
-  
-  if (is.factor(y_var_vctr) & y_rev == FALSE){
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-  }
-  else if (is.character(y_var_vctr)) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
-  }
-  
+
   if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
 
@@ -372,6 +382,7 @@ ggplot_hbar <- function(data,
 #' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
@@ -432,6 +443,7 @@ ggplot_hbar_col <-
            col_labels = NULL,
            col_labels_ncol = NULL,
            col_labels_nrow = NULL,
+           col_na = TRUE,
            col_rev = FALSE,
            col_title = "",
            col_title_wrap = 25,
@@ -453,26 +465,39 @@ ggplot_hbar_col <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
-    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)  | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     if (x_na_inf == TRUE & position == "stack") stop("Please use a position of dodge for where x_na_inf equals TRUE")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
-    
-    if(!is.logical(col_var_vctr)){
-      if (y_rev == FALSE){
+    if (y_rev == FALSE) {
+      if (is.factor(y_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       }
-      if (col_rev == FALSE){
+      else if (is.character(y_var_vctr)) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
       }
     }
+    else if (y_rev == TRUE) {
+      if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+      }
+    }
+    if (col_rev == FALSE){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+    }
+
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
@@ -623,12 +648,14 @@ ggplot_hbar_col <-
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       )
     
@@ -776,22 +803,30 @@ ggplot_hbar_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)  | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
-    
-    if (is.factor(y_var_vctr) & y_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-    }
-    else if (is.character(y_var_vctr)) {
-      if (y_rev == FALSE){
+    if (y_rev == FALSE) {
+      if (is.factor(y_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       }
+      else if (is.character(y_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+      }
     }
+    else if (y_rev == TRUE) {
+      if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+      }
+    }
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
     
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
@@ -922,6 +957,7 @@ ggplot_hbar_facet <-
 #' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -983,6 +1019,7 @@ ggplot_hbar_col_facet <-
            col_labels = NULL,
            col_labels_ncol = NULL,
            col_labels_nrow = NULL,
+           col_na = TRUE,
            col_rev = FALSE,
            col_title = "",
            facet_ncol = NULL,
@@ -1008,26 +1045,40 @@ ggplot_hbar_col_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr) | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
-    
-    if (!is.logical(col_var_vctr)){
-      if (y_rev == FALSE){
+    if (y_rev == FALSE) {
+      if (is.factor(y_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       }
-      if (col_rev == FALSE){
+      else if (is.character(y_var_vctr)) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
       }
     }
-
+    else if (y_rev == TRUE) {
+      if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+      }
+    }
+    if (col_rev == FALSE){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+    }
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+    
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
     
@@ -1100,12 +1151,14 @@ ggplot_hbar_col_facet <-
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
 

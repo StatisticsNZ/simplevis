@@ -41,7 +41,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 

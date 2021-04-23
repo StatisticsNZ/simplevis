@@ -59,7 +59,7 @@ ggplot_sf_col_facet(data, col_var, facet_var, text_var = NULL,
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable.}
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 

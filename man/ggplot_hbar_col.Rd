@@ -13,9 +13,9 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
   x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
   y_expand = NULL, y_labels = waiver(), y_rev = FALSE,
   y_title = "[Y title]", y_title_wrap = 50, col_labels = NULL,
-  col_labels_ncol = NULL, col_labels_nrow = NULL, col_rev = FALSE,
-  col_title = "", col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
+  col_labels_ncol = NULL, col_labels_nrow = NULL, col_na = TRUE,
+  col_rev = FALSE, col_title = "", col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
@@ -84,6 +84,8 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 
 \item{col_labels_nrow}{The number of rows in the legend.}
+
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
 

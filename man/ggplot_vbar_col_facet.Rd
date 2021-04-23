@@ -9,11 +9,12 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   width = 0.75, alpha = 1, size_line = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
-  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
-  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
-  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
-  y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
-  col_labels_ncol = NULL, col_labels_nrow = NULL, col_title = "",
+  x_rev = FALSE, x_title = "[X title]", x_title_wrap = 50,
+  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  col_labels = NULL, col_labels_ncol = NULL, col_labels_nrow = NULL,
+  col_na = TRUE, col_rev = FALSE, col_title = "",
   col_title_wrap = 25, facet_ncol = NULL, facet_nrow = NULL,
   facet_scales = "fixed", caption = NULL, caption_wrap = 80,
   font_family = "Helvetica", font_size_title = NULL,
@@ -58,6 +59,8 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
+\item{x_rev}{TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.}
+
 \item{x_title}{X axis title string. Defaults to [X title].}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
@@ -85,6 +88,10 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 
 \item{col_labels_nrow}{The number of rows in the legend.}
+
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
+
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 

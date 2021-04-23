@@ -1,3 +1,8 @@
+# simplevis 2.7.2
+
+* Added col_na argument to all functions lacking it.
+* Added x_rev and col_rev to vbar functions.
+
 # simplevis 2.7.1
 
 * Modularised all x_zero adjustments and automatic x_zero line components, and likewise the y_ ones.

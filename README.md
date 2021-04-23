@@ -12,7 +12,7 @@
 
 ### Overview
 
-Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier.
+Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier through the consistent use of prefixes.
 
 ### Installation
 

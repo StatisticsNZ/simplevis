@@ -354,6 +354,7 @@ ggplot_line <- function(data,
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend. 
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -409,6 +410,7 @@ ggplot_line_col <-
            col_labels = NULL,
            col_labels_ncol = NULL,
            col_labels_nrow = NULL,
+           col_na = TRUE,
            col_title = "",
            col_title_wrap = 25,
            caption = NULL,
@@ -525,6 +527,7 @@ ggplot_line_col <-
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
     
@@ -811,6 +814,7 @@ ggplot_line_facet <-
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_ncol The number of columns of facetted plots.  
@@ -866,11 +870,12 @@ ggplot_line_col_facet <-
            y_title_wrap = 50,
            y_zero = FALSE,
            y_zero_line = NULL,
-           col_title = "",
-           col_title_wrap = 25,
+           col_na = TRUE,
            col_labels = NULL,
            col_labels_ncol = NULL,
            col_labels_nrow = NULL,
+           col_title = "",
+           col_title_wrap = 25,
            facet_ncol = NULL,
            facet_nrow = NULL,
            facet_scales = "fixed",
@@ -935,7 +940,9 @@ ggplot_line_col_facet <-
     plot <- plot +
       scale_color_manual(
         values = pal,
+        drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       )
     
@@ -996,14 +1003,6 @@ ggplot_line_col_facet <-
                            labels = y_labels,
                            oob = scales::rescale_none)
     }
-    
-    plot <- plot +
-      scale_fill_manual(
-        values = pal,
-        drop = FALSE,
-        labels = labels,
-        na.value = "#A8A8A8"
-      ) 
     
     if(x_zero_line == TRUE) {
       plot <- plot +

@@ -13,12 +13,12 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
   x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
   y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
   y_trans = "identity", y_title = "[Y title]", y_title_wrap = 50,
-  y_zero = FALSE, y_zero_line = NULL, col_title = "",
-  col_title_wrap = 25, col_labels = NULL, col_labels_ncol = NULL,
-  col_labels_nrow = NULL, facet_ncol = NULL, facet_nrow = NULL,
-  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL)
+  y_zero = FALSE, y_zero_line = NULL, col_na = TRUE,
+  col_labels = NULL, col_labels_ncol = NULL, col_labels_nrow = NULL,
+  col_title = "", col_title_wrap = 25, facet_ncol = NULL,
+  facet_nrow = NULL, facet_scales = "fixed", caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -85,15 +85,17 @@ ggplot_line_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_title}{Colour title string for the legend. Defaults to NULL.}
-
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_labels}{Adjust the  colour scale labels through a vector.}
 
 \item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
 
 \item{col_labels_nrow}{The number of rows in the legend.}
+
+\item{col_title}{Colour title string for the legend. Defaults to NULL.}
+
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

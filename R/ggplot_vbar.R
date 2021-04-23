@@ -127,6 +127,7 @@ theme_vbar <-
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_rev TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
@@ -174,6 +175,7 @@ ggplot_vbar <- function(data,
                         x_expand = NULL,
                         x_labels = waiver(),
                         x_pretty_n = 6,
+                        x_rev = FALSE,
                         x_title = "[X title]",
                         x_title_wrap = 50,
                         y_balance = FALSE,
@@ -201,8 +203,28 @@ ggplot_vbar <- function(data,
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
+  if (lubridate::is.Date(x_var_vctr)) stop("Please do not use a logical x variable for a vertical bar plot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
+  if (x_rev == FALSE) {
+    if (is.factor(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+    }
+    else if (is.character(x_var_vctr)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+    }
+  }
+  else if (x_rev == TRUE) {
+    if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+    }
+  }
+  
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
@@ -364,6 +386,7 @@ ggplot_vbar <- function(data,
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_rev TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
@@ -379,6 +402,8 @@ ggplot_vbar <- function(data,
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -423,6 +448,7 @@ ggplot_vbar_col <-
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
+           x_rev = FALSE,
            y_na_inf = FALSE,
            y_pretty_n = 5,
            y_title = "[Y title]",
@@ -433,6 +459,8 @@ ggplot_vbar_col <-
            col_labels = NULL,
            col_labels_ncol = NULL,
            col_labels_nrow = NULL,
+           col_na = TRUE,
+           col_rev = FALSE,
            col_title = "",
            col_title_wrap = 25,
            caption = NULL,
@@ -452,11 +480,36 @@ ggplot_vbar_col <-
     x_var_vctr <- dplyr::pull(data, !!x_var)
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
+    if (lubridate::is.Date(x_var_vctr)) stop("Please do not use a logical x variable for a vertical bar plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
+    if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+    
+    if (x_rev == FALSE) {
+      if (is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(x_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+      }
+    }
+    else if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+      }
+    }
+    if (col_rev == FALSE){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+    }
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
@@ -624,12 +677,14 @@ ggplot_vbar_col <-
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
 
@@ -690,6 +745,7 @@ ggplot_vbar_col <-
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_rev TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
@@ -739,6 +795,7 @@ ggplot_vbar_facet <-
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
+           x_rev = FALSE,
            x_title = "[X title]",
            x_title_wrap = 50,
            y_balance = FALSE,
@@ -770,8 +827,28 @@ ggplot_vbar_facet <-
     y_var_vctr <- dplyr::pull(data, !!y_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
+    if (lubridate::is.Date(x_var_vctr)) stop("Please do not use a logical x variable for a vertical bar plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    
+    if (x_rev == FALSE) {
+      if (is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(x_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+      }
+    }
+    else if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+      }
+    }
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
@@ -923,6 +1000,7 @@ ggplot_vbar_facet <-
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_rev TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
@@ -937,6 +1015,8 @@ ggplot_vbar_facet <-
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
+#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_ncol The number of columns of facetted plots.
@@ -983,6 +1063,7 @@ ggplot_vbar_col_facet <-
            x_labels = waiver(),
            x_pretty_n = 5,
            x_expand = NULL,
+           x_rev = FALSE,
            x_title = "[X title]",
            x_title_wrap = 50,
            y_balance = FALSE,
@@ -997,6 +1078,8 @@ ggplot_vbar_col_facet <-
            col_labels = NULL,
            col_labels_ncol = NULL,
            col_labels_nrow = NULL,
+           col_na = TRUE,
+           col_rev = FALSE,
            col_title = "",
            col_title_wrap = 25,
            facet_ncol = NULL,
@@ -1020,8 +1103,34 @@ ggplot_vbar_col_facet <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
+    if (lubridate::is.Date(x_var_vctr)) stop("Please do not use a logical x variable for a vertical bar plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
+    if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    
+    if (x_rev == FALSE) {
+      if (is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(x_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+      }
+    }
+    else if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
+      }
+    }
+    if (col_rev == FALSE){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+    }
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
@@ -1130,12 +1239,14 @@ ggplot_vbar_col_facet <-
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = labels,
+        na.translate = col_na,
         na.value = "#A8A8A8"
       )
     

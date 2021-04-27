@@ -49,7 +49,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
-\item{x_na_inf}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
+\item{x_na_inf}{Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y".}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
 

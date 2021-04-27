@@ -68,7 +68,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_rev}{TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.}
 
-\item{y_na_inf}{TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
+\item{y_na_inf}{Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

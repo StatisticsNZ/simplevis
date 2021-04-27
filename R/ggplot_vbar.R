@@ -133,7 +133,7 @@ theme_vbar <-
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param y_na_inf Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -224,18 +224,18 @@ ggplot_vbar <- function(data,
   }
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
-
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
   
   if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
-
+  
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
   else bar_unit <- 1
   
   bar_width <- bar_unit * width
-
+  
   plot <- ggplot(data) +
     theme_vbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
@@ -250,13 +250,13 @@ ggplot_vbar <- function(data,
     x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
     x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
-
+    
     if(isMobile == TRUE) {
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
     }
   }
-
+  
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
       coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
@@ -294,7 +294,7 @@ ggplot_vbar <- function(data,
   else ({
     y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
-
+    
     plot <- plot +
       scale_y_continuous(
         expand = y_expand,
@@ -335,7 +335,7 @@ ggplot_vbar <- function(data,
       }
     }
   }
-
+  
   if(y_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -392,7 +392,7 @@ ggplot_vbar <- function(data,
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param y_na_inf Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
@@ -547,7 +547,7 @@ ggplot_vbar_col <-
       
       x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
       if(is.null(x_expand)) x_expand <- waiver()
-
+      
       if(isMobile == TRUE) {
         x_limits <- c(min(x_var_vctr), max(x_var_vctr))
         x_breaks <- x_limits
@@ -577,7 +577,7 @@ ggplot_vbar_col <-
         coord_cartesian() +
         scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-
+    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(!!x_var)) %>%
@@ -600,7 +600,7 @@ ggplot_vbar_col <-
     else ({
       y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
-
+      
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,
@@ -758,7 +758,7 @@ ggplot_vbar_col <-
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_na_inf TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
+#' @param y_na_inf Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only functional where facet_scales = "fixed" or "free_x". 
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 

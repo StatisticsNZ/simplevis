@@ -59,7 +59,7 @@ ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
-\item{y_na_inf}{TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
+\item{y_na_inf}{Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

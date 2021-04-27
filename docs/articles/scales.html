@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.3</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
       <h1 data-toc-skip>Scales</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-04-23</h4>
+            <h4 class="date">2021-04-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/scales.Rmd"><code>vignettes/scales.Rmd</code></a></small>
       <div class="hidden name"><code>scales.Rmd</code></div>
@@ -121,9 +121,20 @@
 <div id="overview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h3>
-<p><code>simplevis</code> has been built to take advantage of the auto-complete.</p>
-<p>Arguments that relate to the x scale start with <code>x_</code>, those that relate to the y scales start with <code>y_</code> and those that relate to the colour scale start with <code>col_</code>.</p>
-<p>Likewise, arguments that relate to facetting start with <code>facet_</code>.</p>
+<p><code>simplevis</code> uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.</p>
+<p>In general:</p>
+<ul>
+<li>Arguments that relate to the x scale start with <code>x_</code>
+</li>
+<li>Agruments that relate to the y scale start with <code>y_</code>
+</li>
+<li>Arguments that relate to the colour scale start with <code>col_</code>
+</li>
+<li>Arguments that relate to facetting start with <code>facet_</code>
+</li>
+</ul>
+<p>Therefore, if you know want to adjust the x scale but can’t think how, you can start typing <code>x_</code> within the simplevis function, and you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.</p>
+<p>One deviation from this logic is that colour palette is selected using a <code>pal</code> argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.</p>
 </div>
 <div id="numeric-scales" class="section level3">
 <h3 class="hasAnchor">
@@ -136,7 +147,7 @@
 </ul>
 <p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments to change the defaults.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
-               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <p>Adjust the number of breaks for numeric x and/or y scales.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,

@@ -55,7 +55,7 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
-\item{x_na_inf}{TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
+\item{x_na_inf}{Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
 

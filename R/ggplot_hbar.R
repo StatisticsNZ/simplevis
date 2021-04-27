@@ -126,7 +126,7 @@ theme_hbar <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param x_na_inf Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to [X title].
@@ -367,7 +367,7 @@ ggplot_hbar <- function(data,
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
+#' @param x_na_inf Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -723,7 +723,7 @@ ggplot_hbar_col <-
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_na_inf TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
+#' @param x_na_inf Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -1150,8 +1150,6 @@ ggplot_hbar_col_facet <-
     
     plot <- plot +
       scale_y_discrete(expand = y_expand, labels = y_labels)
-    
-    
 
     plot <- plot +
       scale_fill_manual(

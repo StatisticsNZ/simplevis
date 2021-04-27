@@ -577,15 +577,6 @@ ggplot_vbar_col <-
         coord_cartesian() +
         scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-    
-    if (!is.null(pal) & y_na_inf == TRUE) { 
-      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        names(pal) <- levels(col_var_vctr)
-      }
-      else names(pal) <- unique(col_var_vctr)
-      
-      pal <- c(pal, "Not available" = "#f5f5f5")
-    }
 
     if (position == "stack") {
       data_sum <- data %>%
@@ -629,6 +620,13 @@ ggplot_vbar_col <-
           position = position2)
     }
     else if(y_na_inf == TRUE) {
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        names(pal) <- levels(col_var_vctr)
+      }
+      else names(pal) <- unique(col_var_vctr)
+      
+      pal <- c(pal, "Not available" = "#f5f5f5")
+      
       data <- data %>% 
         dplyr::mutate(col_var2 = ifelse(is.na(!!y_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 

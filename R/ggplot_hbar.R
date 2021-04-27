@@ -503,7 +503,6 @@ ggplot_hbar_col <-
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
 
-
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
     
@@ -529,15 +528,6 @@ ggplot_hbar_col <-
     
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
-    
-    if (!is.null(pal) & x_na_inf == TRUE) { 
-      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        names(pal) <- levels(col_var_vctr)
-      }
-      else names(pal) <- unique(col_var_vctr)
-      
-      pal <- c(pal, "Not available" = "#f5f5f5")
-    }
     
     if (position == "stack") {
       data_sum <- data %>%
@@ -599,6 +589,13 @@ ggplot_hbar_col <-
           position = position2)
     }
     else if(x_na_inf == TRUE) {
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        names(pal) <- levels(col_var_vctr)
+      }
+      else names(pal) <- unique(col_var_vctr)
+      
+      pal <- c(pal, "Not available" = "#f5f5f5")
+      
       data <- data %>% 
         dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, as.character(!!col_var))) %>%
         dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
@@ -1153,6 +1150,8 @@ ggplot_hbar_col_facet <-
     
     plot <- plot +
       scale_y_discrete(expand = y_expand, labels = y_labels)
+    
+    
 
     plot <- plot +
       scale_fill_manual(

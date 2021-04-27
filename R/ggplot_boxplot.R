@@ -138,7 +138,7 @@ theme_boxplot <-
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
@@ -169,39 +169,39 @@ theme_boxplot <-
 #' ggplot_boxplot(plot_data, Species, Petal.Length, stat = "identity")
 #' 
 ggplot_boxplot <- function(data,
-                       x_var,
-                       y_var = NULL,
-                       group_var = NULL,
-                       stat = "boxplot",
-                       pal = NULL,
-                       width = 0.5,
-                       alpha = 1,
-                       size_line = 0.5,
-                       size_point = 1, 
-                       title = "[Title]",
-                       title_wrap = 70,
-                       subtitle = NULL,
-                       subtitle_wrap = 80,
-                       x_expand = NULL,
-                       x_labels = waiver(),
-                       x_pretty_n = 6,
-                       x_title = "[X title]",
-                       x_title_wrap = 50,
-                       y_balance = FALSE,
-                       y_expand = NULL,
-                       y_labels = waiver(),
-                       y_pretty_n = 5,
-                       y_title = "[Y title]",
-                       y_title_wrap = 50,
-                       y_trans = "identity",
-                       y_zero = FALSE,
-                       y_zero_line = NULL,
-                       caption = NULL,
-                       caption_wrap = 80,
-                       font_family = "Helvetica",
-                       font_size_title = NULL,
-                       font_size_body = NULL,
-                       isMobile = FALSE) {
+                           x_var,
+                           y_var = NULL,
+                           group_var = NULL,
+                           stat = "boxplot",
+                           pal = NULL,
+                           width = 0.5,
+                           alpha = 1,
+                           size_line = 0.5,
+                           size_point = 1, 
+                           title = "[Title]",
+                           title_wrap = 70,
+                           subtitle = NULL,
+                           subtitle_wrap = 80,
+                           x_expand = NULL,
+                           x_labels = waiver(),
+                           x_pretty_n = 6,
+                           x_title = "[X title]",
+                           x_title_wrap = 50,
+                           y_balance = FALSE,
+                           y_expand = NULL,
+                           y_labels = waiver(),
+                           y_pretty_n = 5,
+                           y_title = "[Y title]",
+                           y_title_wrap = 50,
+                           y_trans = "identity",
+                           y_zero = FALSE,
+                           y_zero_line = NULL,
+                           caption = NULL,
+                           caption_wrap = 80,
+                           font_family = "Helvetica",
+                           font_size_title = NULL,
+                           font_size_body = NULL,
+                           isMobile = FALSE) {
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
@@ -217,13 +217,9 @@ ggplot_boxplot <- function(data,
   x_var_vctr <- dplyr::pull(data, !!x_var)
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
-
+  
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
   
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-  y_zero <- y_zero_list[[1]]
-  y_zero_line <- y_zero_list[[2]]
-
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_boxplot(
@@ -283,7 +279,11 @@ ggplot_boxplot <- function(data,
         outlier.size = size_point
       )
   }
-
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
+  
   if(is.null(x_expand)) x_expand <- waiver()
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
@@ -336,14 +336,14 @@ ggplot_boxplot <- function(data,
       scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     if(isMobile == TRUE) {
       y_breaks <- y_limits
       if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
     }
-
+    
     plot <- plot +
       scale_y_continuous(
         expand = y_expand,
@@ -354,12 +354,12 @@ ggplot_boxplot <- function(data,
         oob = scales::rescale_none
       )
   })
-
+  
   if(y_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
-
+  
   if (isMobile == FALSE){
     plot <- plot +
       labs(
@@ -418,7 +418,7 @@ ggplot_boxplot <- function(data,
 #' @param y_title Y axis title string. Defaults to "[Y title]".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
+#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -601,7 +601,7 @@ ggplot_boxplot_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +

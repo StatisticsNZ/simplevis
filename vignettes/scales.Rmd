@@ -18,11 +18,18 @@ library(simplevis)
 
 ### Overview
 
-`simplevis` has been built to take advantage of the auto-complete. 
+`simplevis` uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.
 
-Arguments that relate to the x scale start with `x_`, those that relate to the y scales start with `y_` and those that relate to the colour scale start with `col_`.
+In general:
 
-Likewise, arguments that relate to facetting start with `facet_`.
+* Arguments that relate to the x scale start with `x_` 
+* Agruments that relate to the y scale start with `y_` 
+* Arguments that relate to the colour scale start with `col_`
+* Arguments that relate to facetting start with `facet_`
+
+Therefore, if you know want to adjust the x scale but can't think how, you can start typing `x_` within the simplevis function, and you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.
+
+One deviation from this logic is that colour palette is selected using a `pal` argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.
 
 ### Numeric scales
 
@@ -35,7 +42,7 @@ You can use the `x_zero` and `y_zero` arguments to change the defaults.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length,
-               x_zero = TRUE, y_zero = FALSE)
+               x_zero = FALSE, y_zero = FALSE)
 
 ```
 

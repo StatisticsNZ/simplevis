@@ -240,7 +240,7 @@ ggplot_line <- function(data,
   if(is.null(x_expand)) x_expand <- c(0, 0)
   if(is.null(y_expand)) y_expand <- c(0, 0)
 
-  x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+  x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
 
   if (lubridate::is.Date(x_var_vctr)) {
@@ -268,7 +268,7 @@ ggplot_line <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 0))
   }
   else ({
-    y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -480,7 +480,7 @@ ggplot_line_col <-
     if (!is.null(col_labels)) labels <- col_labels
     if (is.null(col_labels)) labels <- waiver()
     
-    x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     if (lubridate::is.Date(x_var_vctr)) {
@@ -508,7 +508,7 @@ ggplot_line_col <-
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
 
       plot <- plot +
@@ -708,7 +708,7 @@ ggplot_line_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       if (lubridate::is.Date(x_var_vctr)) {
@@ -733,7 +733,7 @@ ggplot_line_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
@@ -959,7 +959,7 @@ ggplot_line_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       if (lubridate::is.Date(x_var_vctr)) {
@@ -983,7 +983,7 @@ ggplot_line_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +

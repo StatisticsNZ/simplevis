@@ -292,7 +292,7 @@ ggplot_vbar <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
 
     plot <- plot +
@@ -312,13 +312,13 @@ ggplot_vbar <- function(data,
     if(nrow(na_data) != 0) {
       if(y_limits[1] >= 0 & y_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
+          geom_col(aes(x = !!x_var, y = y_limits[2], text = !!text_var),
                    col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data)
       }
       else if(y_limits[1] < 0 & y_limits[2] <= 0) {
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = y_limits[1], text = !!text_var),
+          geom_col(aes(x = !!x_var, y = y_limits[1], text = !!text_var),
                    col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data)        
       }
@@ -326,10 +326,10 @@ ggplot_vbar <- function(data,
         ggplotly_adjust <- (y_limits[2] - y_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
+          geom_col(aes(x = !!x_var, y = y_limits[2], text = !!text_var),
                    col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data) +
-          geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!text_var),
+          geom_col(aes(x = !!x_var, y = y_limits[1] + ggplotly_adjust, text = !!text_var),
                    col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data)
       }
@@ -578,6 +578,15 @@ ggplot_vbar_col <-
         scale_x_discrete(expand = x_expand, labels = x_labels)
     }
     
+    if (!is.null(pal) & y_na_inf == TRUE) { 
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        names(pal) <- levels(col_var_vctr)
+      }
+      else names(pal) <- unique(col_var_vctr)
+      
+      pal <- c(pal, "Not available" = "#f5f5f5")
+    }
+
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(!!x_var)) %>%
@@ -598,7 +607,7 @@ ggplot_vbar_col <-
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
 
       plot <- plot +
@@ -909,7 +918,7 @@ ggplot_vbar_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
 
       plot <- plot +
@@ -928,13 +937,13 @@ ggplot_vbar_facet <-
         if(nrow(na_data) != 0) {
           if(y_limits[1] >= 0 & y_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
+              geom_col(aes(x = !!x_var, y = y_limits[2], text = !!text_var),
                        col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data)
           }
           else if(y_limits[1] < 0 & y_limits[2] <= 0) {
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = y_limits[1], text = !!text_var),
+              geom_col(aes(x = !!x_var, y = y_limits[1], text = !!text_var),
                        col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data)        
           }
@@ -942,10 +951,10 @@ ggplot_vbar_facet <-
             ggplotly_adjust <- (y_limits[2] - y_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
             
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = y_limits[2], text = !!text_var),
+              geom_col(aes(x = !!x_var, y = y_limits[2], text = !!text_var),
                        col = "#F5F5F5", fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data) +
-              geom_col(aes(x = !!y_var, y = y_limits[1] + ggplotly_adjust, text = !!text_var),
+              geom_col(aes(x = !!x_var, y = y_limits[1] + ggplotly_adjust, text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data)
           }
@@ -1213,7 +1222,7 @@ ggplot_vbar_col_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- sv_y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +

@@ -256,7 +256,7 @@ ggplot_hbar <- function(data,
       scale_x_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
 
     plot <- plot +
@@ -276,13 +276,13 @@ ggplot_hbar <- function(data,
     if(nrow(na_data) != 0) {
       if(x_limits[1] >= 0 & x_limits[2] > 0){
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
+          geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
+          geom_col(aes(x = x_limits[1], y = !!y_var, text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data)        
       }
@@ -290,10 +290,10 @@ ggplot_hbar <- function(data,
         ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
+          geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data) +
-          geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
+          geom_col(aes(x = x_limits[1] + ggplotly_adjust, y = !!y_var, text = !!text_var),
                    fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                    data = na_data)
       }
@@ -472,6 +472,12 @@ ggplot_hbar_col <-
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
+    if(is.logical(x_var_vctr)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~as_factor(.x, levels = c("TRUE", "FALSE"))))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
     if (y_rev == FALSE) {
       if (is.factor(y_var_vctr)){
         data <- data %>%
@@ -481,20 +487,22 @@ ggplot_hbar_col <-
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
       }
+      y_var_vctr <- dplyr::pull(data, !!y_var)
     }
     else if (y_rev == TRUE) {
       if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
       }
+      y_var_vctr <- dplyr::pull(data, !!y_var)
     }
     if (col_rev == FALSE){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
 
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-    col_var_vctr <- dplyr::pull(data, !!col_var)
 
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
@@ -569,7 +577,7 @@ ggplot_hbar_col <-
         scale_x_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
       x_limits <- c(min(x_breaks), max(x_breaks))
 
       plot <- plot +
@@ -613,7 +621,7 @@ ggplot_hbar_col <-
           dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
+          geom_col(aes(x = .data$x_var2, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = size_line, width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] <= 0) {
@@ -621,7 +629,7 @@ ggplot_hbar_col <-
           dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[1], !!x_var))
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
+          geom_col(aes(x = .data$x_var2, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = size_line, width = width, position = position2, data = data)
       }
       else if(x_limits[1] < 0 & x_limits[2] > 0) {
@@ -631,9 +639,9 @@ ggplot_hbar_col <-
           dplyr::mutate(x_var3 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
         
         plot <- plot +
-          geom_col(aes(x = !!y_var, y = .data$x_var2, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
+          geom_col(aes(x = .data$x_var2, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = size_line, width = width, position = position2, data = data) +
-          geom_col(aes(x = !!y_var, y = .data$x_var3, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
+          geom_col(aes(x = .data$x_var3, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
                    alpha = alpha, size = size_line, width = width, position = position2, data = data)
       }
     }
@@ -847,7 +855,7 @@ ggplot_hbar_facet <-
     if(is.null(y_expand)) y_expand <- waiver()
 
     if (facet_scales %in% c("fixed", "free_y")) {
-      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
@@ -866,13 +874,13 @@ ggplot_hbar_facet <-
         if(nrow(na_data) != 0) {
           if(x_limits[1] >= 0 & x_limits[2] > 0){
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
+              geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data)
           }
           else if(x_limits[1] < 0 & x_limits[2] <= 0) {
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[1], text = !!text_var),
+              geom_col(aes(x = x_limits[1], y = !!y_var, text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data)        
           }
@@ -880,10 +888,10 @@ ggplot_hbar_facet <-
             ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
             
             plot <- plot +
-              geom_col(aes(x = !!y_var, y = x_limits[2], text = !!text_var),
+              geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data) +
-              geom_col(aes(x = !!y_var, y = x_limits[1] + ggplotly_adjust, text = !!text_var),
+              geom_col(aes(x = x_limits[1] + ggplotly_adjust, y = !!y_var, text = !!text_var),
                        fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
                        data = na_data)
           }
@@ -1120,7 +1128,7 @@ ggplot_hbar_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      x_breaks <- sv_x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +

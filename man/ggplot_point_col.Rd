@@ -45,7 +45,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
-\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.}
+\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 
 \item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
@@ -67,7 +67,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{y_trans}{A string specifying a transformation for the y scale. Defaults to "identity".}
 
-\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_zero}{TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.}
 
 \item{y_zero_line}{TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 

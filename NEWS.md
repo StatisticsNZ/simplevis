@@ -1,3 +1,8 @@
+# simplevis 2.7.3
+
+* Export breaks functions.
+* Corrected bug fix with x_na_inf and y_na_inf.
+
 # simplevis 2.7.2
 
 * Added col_na argument to all functions lacking it.

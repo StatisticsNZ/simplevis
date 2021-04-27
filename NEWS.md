@@ -1,3 +1,7 @@
+# simplevis 2.7.4
+
+* Removed x_na_inf and y_na_inf arguments.
+
 # simplevis 2.7.3
 
 * Export breaks functions.

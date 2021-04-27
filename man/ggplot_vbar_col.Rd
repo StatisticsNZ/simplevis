@@ -10,14 +10,13 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
   subtitle = NULL, subtitle_wrap = 80, x_expand = NULL,
   x_labels = waiver(), x_pretty_n = 6, x_title = "[X title]",
   x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), x_rev = FALSE, y_na_inf = FALSE,
-  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
-  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
-  col_labels = NULL, col_labels_ncol = NULL, col_labels_nrow = NULL,
-  col_na = TRUE, col_rev = FALSE, col_title = "",
-  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, isMobile = FALSE)
+  y_labels = waiver(), x_rev = FALSE, y_pretty_n = 5,
+  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
+  y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
+  col_labels_ncol = NULL, col_labels_nrow = NULL, col_na = TRUE,
+  col_rev = FALSE, col_title = "", col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -67,8 +66,6 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{y_labels}{Adjust the  y scale labels through a function or vector.}
 
 \item{x_rev}{TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.}
-
-\item{y_na_inf}{Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

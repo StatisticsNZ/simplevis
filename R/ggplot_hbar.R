@@ -126,7 +126,6 @@ theme_hbar <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_na_inf Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_labels Adjust the  x scale labels through a function or vector.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_title X axis title string. Defaults to [X title].
@@ -176,7 +175,6 @@ ggplot_hbar <- function(data,
                         x_balance = FALSE,
                         x_expand = NULL,
                         x_labels = waiver(),
-                        x_na_inf = FALSE,
                         x_pretty_n = 6,
                         x_title = "[X title]",
                         x_title_wrap = 50,
@@ -270,36 +268,6 @@ ggplot_hbar <- function(data,
       )
   })
   
-  if(x_na_inf == TRUE) {
-    na_data <- dplyr::filter(data, is.na(!!x_var))
-    
-    if(nrow(na_data) != 0) {
-      if(x_limits[1] >= 0 & x_limits[2] > 0){
-        plot <- plot +
-          geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                   data = na_data)
-      }
-      else if(x_limits[1] < 0 & x_limits[2] <= 0) {
-        plot <- plot +
-          geom_col(aes(x = x_limits[1], y = !!y_var, text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                   data = na_data)        
-      }
-      else if(x_limits[1] < 0 & x_limits[2] > 0) {
-        ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
-        
-        plot <- plot +
-          geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                   data = na_data) +
-          geom_col(aes(x = x_limits[1] + ggplotly_adjust, y = !!y_var, text = !!text_var),
-                   fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                   data = na_data)
-      }
-    }
-  }
-  
   if (isMobile == FALSE){
     if(is.null(y_labels)) y_labels <- waiver()
     
@@ -367,7 +335,6 @@ ggplot_hbar <- function(data,
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_na_inf Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -428,7 +395,6 @@ ggplot_hbar_col <-
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
-           x_na_inf = FALSE,
            x_pretty_n = 6,
            x_title = "[X title]",
            x_title_wrap = 50,
@@ -467,8 +433,7 @@ ggplot_hbar_col <-
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
     if (is.numeric(y_var_vctr)  | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
-    if (x_na_inf == TRUE & position == "stack") stop("Please use a position of dodge for where x_na_inf equals TRUE")
-    
+
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
@@ -581,68 +546,12 @@ ggplot_hbar_col <-
         )
     })
     
-    if(x_na_inf == FALSE) {
-      plot <- plot +
-        geom_col(aes(
-          x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-          alpha = alpha, size = size_line, width = width, 
-          position = position2)
-    }
-    else if(x_na_inf == TRUE) {
-      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        names(pal) <- levels(col_var_vctr)
-      }
-      else names(pal) <- unique(col_var_vctr)
-      
-      pal <- c(pal, "Not available" = "#f5f5f5")
-      
-      data <- data %>% 
-        dplyr::mutate(col_var2 = ifelse(is.na(!!x_var), NA, as.character(!!col_var))) %>%
-        dplyr::mutate(col_var2 = forcats::fct_rev(forcats::fct_explicit_na(.data$col_var2, "Not available"))) 
-      
-      if(is.character(y_var_vctr)) {
-        all_na <- data %>% 
-          group_by(!!y_var) %>%
-          summarise(all_na = all(is.na(!!x_var))) %>% 
-          filter(all_na == TRUE) %>% 
-          mutate(dplyr::across(!!y_var, ~as.character(.x))) %>% 
-          pull(!!y_var)
-        
-        data <- data %>% 
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .fun = stats::median, na.rm = TRUE)))  %>% 
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_relevel(.x, all_na)))  
-      }
-      
-      if(x_limits[1] >= 0 & x_limits[2] > 0) {
-        data <- data %>%
-          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
-        
-        plot <- plot +
-          geom_col(aes(x = .data$x_var2, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = size_line, width = width, position = position2, data = data)
-      }
-      else if(x_limits[1] < 0 & x_limits[2] <= 0) {
-        data <- data %>%
-          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[1], !!x_var))
-        
-        plot <- plot +
-          geom_col(aes(x = .data$x_var2, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = size_line, width = width, position = position2, data = data)
-      }
-      else if(x_limits[1] < 0 & x_limits[2] > 0) {
-        data <- data %>%
-          dplyr::mutate(col_var3 = .data$col_var2) %>% 
-          dplyr::mutate(x_var2 = ifelse(is.na(!!x_var), x_limits[1], !!x_var)) %>%
-          dplyr::mutate(x_var3 = ifelse(is.na(!!x_var), x_limits[2], !!x_var))
-        
-        plot <- plot +
-          geom_col(aes(x = .data$x_var2, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = size_line, width = width, position = position2, data = data) +
-          geom_col(aes(x = .data$x_var3, y = !!y_var, col = .data$col_var2, fill = .data$col_var2, group = !!col_var, text = !!text_var), 
-                   alpha = alpha, size = size_line, width = width, position = position2, data = data)
-      }
-    }
-    
+    plot <- plot +
+      geom_col(aes(
+        x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
+        alpha = alpha, size = size_line, width = width, 
+        position = position2)
+
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
@@ -723,7 +632,6 @@ ggplot_hbar_col <-
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_na_inf Experimental: TRUE or FALSE of whether to make NA x_var values infinity with a light grey colour to emphasise them. Defaults to FALSE. Only applicable where facet_scales = "fixed" or "free_y". 
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -776,7 +684,6 @@ ggplot_hbar_facet <-
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
-           x_na_inf = FALSE,
            x_pretty_n = 5,
            x_title = "[X title]",
            x_title_wrap = 50,
@@ -864,36 +771,6 @@ ggplot_hbar_facet <-
           trans = x_trans,
           oob = scales::rescale_none
         )
-      
-      if(x_na_inf == TRUE) {
-        na_data <- dplyr::filter(data, is.na(!!x_var))
-        
-        if(nrow(na_data) != 0) {
-          if(x_limits[1] >= 0 & x_limits[2] > 0){
-            plot <- plot +
-              geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                       data = na_data)
-          }
-          else if(x_limits[1] < 0 & x_limits[2] <= 0) {
-            plot <- plot +
-              geom_col(aes(x = x_limits[1], y = !!y_var, text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                       data = na_data)        
-          }
-          else if(x_limits[1] < 0 & x_limits[2] > 0) {
-            ggplotly_adjust <- (x_limits[2] - x_limits[1]) / 1000000 # hack to fix ggplotly bug #1929
-            
-            plot <- plot +
-              geom_col(aes(x = x_limits[2], y = !!y_var, text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                       data = na_data) +
-              geom_col(aes(x = x_limits[1] + ggplotly_adjust, y = !!y_var, text = !!text_var),
-                       fill = "#F5F5F5", alpha = alpha, size = size_line, width = width, 
-                       data = na_data)
-          }
-        }
-      }
     }
 
     if (facet_scales %in% c("free", "free_x")) {

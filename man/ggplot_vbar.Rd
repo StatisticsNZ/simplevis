@@ -10,11 +10,10 @@ ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
   x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
   x_rev = FALSE, x_title = "[X title]", x_title_wrap = 50,
   y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
-  y_na_inf = FALSE, y_pretty_n = 5, y_title = "[Y title]",
-  y_title_wrap = 50, y_trans = "identity", y_zero = TRUE,
-  y_zero_line = NULL, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, isMobile = FALSE)
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -58,8 +57,6 @@ ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Adjust the  y scale labels through a function or vector.}
-
-\item{y_na_inf}{Experimental: TRUE or FALSE of whether to make NA y_var values infinity with a light grey colour to emphasise them. Defaults to FALSE.}
 
 \item{y_pretty_n}{The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5.}
 

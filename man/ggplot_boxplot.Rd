@@ -49,8 +49,6 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.}
-
 \item{x_title}{X axis title string. Defaults to "[X title]".}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.}

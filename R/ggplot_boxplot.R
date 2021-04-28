@@ -16,7 +16,6 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Only applicable to a x variable that is categorical or date.
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
@@ -106,6 +105,7 @@ ggplot_boxplot <- function(data,
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
   
+  if (!(is.character(x_var_vctr) |is.factor(x_var_vctr))) stop("Please use a character or factor x variable for a boxplot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
   
   plot <- ggplot(data) +
@@ -175,44 +175,23 @@ ggplot_boxplot <- function(data,
   if(is.null(x_expand)) x_expand <- waiver()
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
-  if (lubridate::is.Date(x_var_vctr)) {
-    x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
+  if (mobile == FALSE){
+    if(is.null(y_labels)) y_labels <- waiver()
     
     plot <- plot +
-      scale_x_date(
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels
-      )
+      scale_x_discrete(expand = x_expand, labels = x_labels)
   }
-  else if (is.numeric(x_var_vctr)) {
-    x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-    
-    plot <- plot +
-      scale_x_continuous(expand = x_expand,
-                         breaks = x_breaks,
-                         labels = x_labels,
-                         oob = scales::rescale_none)
-  }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if (mobile == FALSE){
-      if(is.null(y_labels)) y_labels <- waiver()
-      
+  else if (mobile == TRUE){
+    if(is.character(x_labels)) {
       plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
+        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
     }
-    else if (mobile == TRUE){
-      if(is.character(x_labels)) {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = stringr::str_wrap(x_labels, 20))
-      }
-      else {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
+    else {
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
     }
   }
-  
+
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -371,6 +350,7 @@ ggplot_boxplot_facet <-
     else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
+    if (!(is.character(x_var_vctr) | is.factor(x_var_vctr))) stop("Please use a character or factor x variable for a boxplot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
@@ -454,34 +434,10 @@ ggplot_boxplot_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       
-      if (lubridate::is.Date(x_var_vctr)) {
-        x_pretty_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-        
-        plot <- plot +
-          scale_x_date(
-            expand = x_expand,
-            breaks = x_breaks,
-            labels = x_labels
-          )
-      }
-      else if (is.numeric(x_var_vctr)) {
-        x_pretty_n <- x_pretty_n
-        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-        
-        plot <- plot +
-          scale_x_continuous(expand = x_expand,
-                             breaks = x_breaks,
-                             labels = x_labels,
-                             oob = scales::rescale_none)
-      }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
-      }
-      
     }
-    
+      
     if (facet_scales %in% c("fixed", "free_x")) {
       y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))

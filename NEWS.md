@@ -1,3 +1,7 @@
+# simplevis 2.7.6
+
+* Updated scale_x_date to remove oob.
+
 # simplevis 2.7.5
 
 * Updated website vignette and articles.

@@ -249,8 +249,7 @@ ggplot_line <- function(data,
         expand = x_expand,
         breaks = x_breaks,
         limits = x_limits,
-        labels = x_labels,
-        oob = scales::rescale_none
+        labels = x_labels
       )
   }
   else if (is.numeric(x_var_vctr)) {
@@ -489,8 +488,7 @@ ggplot_line_col <-
           expand = x_expand,
           breaks = x_breaks,
           limits = x_limits,
-          labels = x_labels,
-          oob = scales::rescale_none
+          labels = x_labels
         )
     }
     else if (is.numeric(x_var_vctr)) {
@@ -717,8 +715,7 @@ ggplot_line_facet <-
             expand = x_expand,
             breaks = x_breaks,
             limits = x_limits,
-            labels = x_labels,
-            oob = scales::rescale_none
+            labels = x_labels
           )
       }
       else if (is.numeric(x_var_vctr)) {

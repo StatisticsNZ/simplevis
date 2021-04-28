@@ -5,7 +5,7 @@ $.extend(isMobileBinding, {
     callback();
   },
   getValue: function(el) {
-    return /((iPhone)|(iPod)|(Android)|(BlackBerry))/.test(navigator.userAgent)
+    return /((iPhone)|(iPod))/.test(navigator.userAgent)
   },
   setValue: function(el, value) {
   },

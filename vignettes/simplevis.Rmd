@@ -28,7 +28,7 @@ The aim is of simplevis is to make the majority of visualisations easier, while 
 
 simplevis makes things easier by:
 
-* minimising visualisation types available to just the common ones 
+* minimising visualisation types available to vbar, hbar, point, line, boxplot or sf 
 * minimising aesthetics available to x, y, colour and facetting
 * using a simpler more unified method of colouring   
 * using consistent prefixes and the Rstudio auto-complete function

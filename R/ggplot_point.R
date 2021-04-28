@@ -1,115 +1,3 @@
-# ggplot point functions
-
-#' @title Theme for point ggplots.
-#' @param font_family Font family to use. Defaults to "Helvetica".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @return A ggplot theme.
-#' @export
-#' @examples
-#' library(ggplot2)
-#' 
-#' ggplot() +
-#'   theme_point("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
-theme_point <-
-  function(font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10) {
-    list(
-      theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
-        panel.border = element_blank(),
-        panel.spacing = unit(2.5, "lines"),
-        panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.title.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(t = 10)
-        ),
-        axis.title.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10)
-        ),
-        axis.text.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.text.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          hjust = 1,
-          size = font_size_body
-        ),
-        axis.line = element_line(colour = "#323232", size = 0.3),
-        axis.ticks = element_line(colour = "#323232", size = 0.3),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
-        legend.margin = margin(t = 20, b = 20),
-        legend.key = element_rect(fill = "white"),
-        legend.key.height = unit(5, "mm"),
-        legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
-      )
-    )
-  }
-
 #' @title Point ggplot.
 #' @description Point ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
@@ -119,15 +7,15 @@ theme_point <-
 #' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param title  Title string. Defaults to "[Title]".
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.     
@@ -136,16 +24,16 @@ theme_point <-
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y scale. Defaults to "identity".
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -191,7 +79,7 @@ ggplot_point <- function(data,
                          font_family = "Helvetica",
                          font_size_title = NULL,
                          font_size_body = NULL,
-                         isMobile = FALSE) {
+                         mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -204,8 +92,8 @@ ggplot_point <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
@@ -223,7 +111,7 @@ ggplot_point <- function(data,
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
 
-  x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+  x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -264,7 +152,7 @@ ggplot_point <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (isMobile == FALSE) {
+  if (mobile == FALSE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -274,7 +162,7 @@ ggplot_point <- function(data,
         caption = stringr::str_wrap(caption, caption_wrap)
       )
   }
-  else if (isMobile == TRUE) {
+  else if (mobile == TRUE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, 40),
@@ -300,19 +188,19 @@ ggplot_point <- function(data,
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param title  Title string. Defaults to "[Title]".
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
@@ -321,7 +209,7 @@ ggplot_point <- function(data,
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
@@ -329,13 +217,13 @@ ggplot_point <- function(data,
 #' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -390,7 +278,7 @@ ggplot_point_col <-
            y_title_wrap = 50,
            col_title_wrap = 25,
            caption_wrap = 80,
-           isMobile = FALSE) {
+           mobile = FALSE) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
@@ -405,8 +293,8 @@ ggplot_point_col <-
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a point plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -476,7 +364,7 @@ ggplot_point_col <-
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
-    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = isMobile)
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -524,7 +412,7 @@ ggplot_point_col <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (isMobile == FALSE) {
+    if (mobile == FALSE) {
       plot <- plot +
         labs(
           title = stringr::str_wrap(title, title_wrap),
@@ -535,7 +423,7 @@ ggplot_point_col <-
         ) +
         guides(col = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
     }
-    else if (isMobile == TRUE) {
+    else if (mobile == TRUE) {
       plot <- plot +
         labs(
           title = stringr::str_wrap(title, 40),
@@ -652,8 +540,8 @@ ggplot_point_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
@@ -679,7 +567,7 @@ ggplot_point_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
 
     if (facet_scales %in% c("fixed", "free_y")) {
-      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
 
       plot <- plot +
@@ -866,8 +754,8 @@ ggplot_point_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -963,7 +851,7 @@ ggplot_point_col_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, isMobile = FALSE)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +

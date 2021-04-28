@@ -34,7 +34,7 @@ y_numeric_breaks <- function(y_var_vctr,
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_trans A string specifying a transformation for the x axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$mobile.
 #' @return A vector of breaks
 #' @export
 x_numeric_breaks <- function(x_var_vctr, 
@@ -42,7 +42,7 @@ x_numeric_breaks <- function(x_var_vctr,
                                 x_pretty_n = 6, 
                                 x_trans = "identity", 
                                 x_zero = TRUE,
-                                isMobile = FALSE) {
+                                mobile = FALSE) {
   if (x_balance == TRUE) {
     x_var_vctr <- abs(x_var_vctr)
     x_var_vctr <- c(-x_var_vctr, x_var_vctr)
@@ -55,7 +55,7 @@ x_numeric_breaks <- function(x_var_vctr,
   else if (x_zero == FALSE) {
     x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
   }
-  if(isMobile == TRUE) {
+  if(mobile == TRUE) {
     x_breaks <- c(min(x_breaks), max(x_breaks))
     if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
   }

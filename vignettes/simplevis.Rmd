@@ -24,12 +24,12 @@ library(simplevis)
 
 simplevis is a package of wrapper functions to make ggplot2 and leaflet visualisation easier.
 
-The aim is to make 95% of visualisations easier, while building understanding of ggplot2 so that users can return to ggplot2 when needed. 
+The aim is of simplevis is to make the majority of visualisations easier, while supporting users to move between ggplot2 and simplevis as needed. 
 
 simplevis makes things easier by:
 
 * minimising visualisation types available to just the common ones 
-* minimising aesthetics available to x, y, colour (and/or fill) and facetting
+* minimising aesthetics available to x, y, colour and facetting
 * using a simpler more unified method of colouring   
 * using consistent prefixes and the Rstudio auto-complete function
 * using ggplot2 based terminology for leaflet visualisation.
@@ -276,8 +276,8 @@ tibble::tribble(
   "hbar", "numeric", "categorical", "categorical or numeric", "categorical", "identity",
   "line", "numeric or date", "numeric", "categorical or numeric", "categorical", "identity",
   "point", "numeric", "numeric", "categorical or numeric", "categorical", "identity",
-    "boxplot", "categorical", "numeric", NA, "categorical", "boxplot or identity",
-    "sf", NA, NA, "categorical or numeric", "categorical", "identity",
+  "boxplot", "numeric, date or categorical", "numeric", NA, "categorical", "boxplot or identity",
+  "sf", NA, NA, "categorical or numeric", "categorical", "identity",
   ) %>% 
   DT::datatable()
 ```

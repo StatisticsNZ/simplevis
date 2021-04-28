@@ -32,7 +32,7 @@ They often look unreadable (in portrait), as:
 * legends need to be on the bottom
 * font sizes need to be appropriate
 
-`simplevis` provides mobile support for  plots through a `isMobile` argument, which makes the above changes. 
+`simplevis` provides mobile support for  plots through a `mobile` argument, which makes the above changes. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 3}
 plot_data <- ggplot2::diamonds %>%
@@ -44,7 +44,7 @@ ggplot_hbar(plot_data, average_price, cut,
             title = "Average diamond price by cut",
             x_title = "Average price ($US)",
             y_title = "Cut", 
-            isMobile = TRUE)
+            mobile = TRUE)
 ```
 
 The default font size scales to look about right when viewed on a mobile device.
@@ -54,7 +54,7 @@ The default font size scales to look about right when viewed on a mobile device.
 Build one app that:
 
 * identifies a `input$isMobile` value of whether a user is on a mobile device or not through a mobileDetect function in the `ui.R` and some javascript in the `www/js/mobile.js`
-* in the `server.R`, generate a `reactive` plot object incorporating an `isMobile = input$isMobile` argument into `simplevis` ggplot function
+* in the `server.R`, generate a `reactive` plot object incorporating an `mobile = input$isMobile` argument into `simplevis` ggplot function
 * in the `server.R`, render a plot object and a plotly object
 * in the ui.R, use conditional panels to provide the rendered plotly object to non-mobile users and the rendered plot object to mobile users
 
@@ -81,7 +81,7 @@ If you use these as templates, the basic method to create an app is:
 * In `global.R`, read your data in, and create any vectors required
 * In `ui.R`, add a app title
 * In `ui.R`. add `radioButtons` and other widgets
-* In `server.R`, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a `isMobile = input$isMobile` specification to any simplevis graphs if you are looking to support mobile users as well as desktop
+* In `server.R`, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a `mobile = input$isMobile` specification to any simplevis graphs if you are looking to support mobile users as well as desktop
 * In `server.R`, add code for map and table components, as applicable
 * In `www/About.Rmd`, update as necessary
 * If using google tag-manager, obtain a tag and replace `GTM-XXXXXXX` with it in the `www/js/tag-manager-js` file. 

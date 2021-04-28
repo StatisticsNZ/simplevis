@@ -4,7 +4,7 @@
 \alias{sv_font_size_body}
 \title{Get default font_size_body}
 \usage{
-sv_font_size_body(isMobile)
+sv_font_size_body(mobile)
 }
 \value{
 values for font sizes

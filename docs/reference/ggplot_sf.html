@@ -160,7 +160,7 @@
   <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isMobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,7 +211,7 @@
     </tr>
     <tr>
       <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
@@ -219,7 +219,7 @@
     </tr>
     <tr>
       <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>caption</th>
@@ -227,7 +227,7 @@
     </tr>
     <tr>
       <th>caption_wrap</th>
-      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>font_family</th>
@@ -242,8 +242,8 @@
       <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
     </tr>
     <tr>
-      <th>isMobile</th>
-      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.</p></td>
+      <th>mobile</th>
+      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.</p></td>
     </tr>
     </table>
 

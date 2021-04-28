@@ -1,95 +1,3 @@
-# ggplot sf functions
-
-#' @title Theme for ggplot maps of simple features.
-#' @param font_family Font family to use. Defaults to "Helvetica".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @return A ggplot theme.
-#' @export
-#' @examples
-#' library(ggplot2)
-#' 
-#' ggplot() +
-#'   theme_sf("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
-theme_sf <-
-  function(font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10) {
-    list(
-      theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
-        panel.border = element_blank(),
-        panel.spacing = unit(2.5, "lines"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.line = element_blank(),
-        axis.ticks = element_blank(),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
-        legend.key = element_rect(fill = "white"),
-        legend.key.height = unit(5, "mm"),
-        legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
-      )
-    )
-  }
-
 #' @title Map of simple features in ggplot.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -103,15 +11,15 @@ theme_sf <-
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -139,7 +47,7 @@ ggplot_sf <- function(data,
                       font_family = "Helvetica",
                       font_size_title = NULL,
                       font_size_body = NULL,
-                      isMobile = FALSE) {
+                      mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   text_var <- rlang::enquo(text_var)
@@ -147,8 +55,8 @@ ggplot_sf <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   plot <- ggplot(data) +
     theme_sf(
@@ -203,7 +111,7 @@ ggplot_sf <- function(data,
     }
   }
 
-  if (isMobile == FALSE) {
+  if (mobile == FALSE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -211,7 +119,7 @@ ggplot_sf <- function(data,
         caption = stringr::str_wrap(caption, caption_wrap)
       )
   }
-  else if (isMobile == TRUE) {
+  else if (mobile == TRUE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, 40),
@@ -239,9 +147,9 @@ ggplot_sf <- function(data,
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to "[Title]".
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels Adjust the  colour scale labels through a vector.
@@ -250,13 +158,13 @@ ggplot_sf <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -303,7 +211,7 @@ ggplot_sf_col <- function(data,
                           font_family = "Helvetica",
                           font_size_title = NULL,
                           font_size_body = NULL,
-                          isMobile = FALSE) {
+                          mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
@@ -314,8 +222,8 @@ ggplot_sf_col <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -454,7 +362,7 @@ ggplot_sf_col <- function(data,
     }
   }
   
-  if (isMobile == FALSE) {
+  if (mobile == FALSE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -464,7 +372,7 @@ ggplot_sf_col <- function(data,
       guides(col = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
       guides(fill = guide_legend(ncol = col_labels_ncol, nrow = col_labels_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
   }
-  else if (isMobile == TRUE) {
+  else if (mobile == TRUE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, 40),
@@ -542,8 +450,8 @@ ggplot_sf_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -715,8 +623,8 @@ ggplot_sf_col_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
   geometry_type <- unique(sf::st_geometry_type(data))
   

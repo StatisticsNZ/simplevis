@@ -135,7 +135,7 @@
 <li>legends need to be on the bottom</li>
 <li>font sizes need to be appropriate</li>
 </ul>
-<p><code>simplevis</code> provides mobile support for plots through a <code>isMobile</code> argument, which makes the above changes.</p>
+<p><code>simplevis</code> provides mobile support for plots through a <code>mobile</code> argument, which makes the above changes.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
@@ -145,7 +145,7 @@
             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US)"</span>,
             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>,
-            <span class="kw">isMobile</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+            <span class="kw">mobile</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="shiny_on_mobile_files/figure-html/unnamed-chunk-2-1.png" width="288"></p>
 <p>The default font size scales to look about right when viewed on a mobile device.</p>
 </div>
@@ -156,7 +156,7 @@
 <ul>
 <li>identifies a <code>input$isMobile</code> value of whether a user is on a mobile device or not through a mobileDetect function in the <code>ui.R</code> and some javascript in the <code>www/js/mobile.js</code>
 </li>
-<li>in the <code>server.R</code>, generate a <code>reactive</code> plot object incorporating an <code>isMobile = input$isMobile</code> argument into <code>simplevis</code> ggplot function</li>
+<li>in the <code>server.R</code>, generate a <code>reactive</code> plot object incorporating an <code>mobile = input$isMobile</code> argument into <code>simplevis</code> ggplot function</li>
 <li>in the <code>server.R</code>, render a plot object and a plotly object</li>
 <li>in the ui.R, use conditional panels to provide the rendered plotly object to non-mobile users and the rendered plot object to mobile users</li>
 </ul>
@@ -178,7 +178,7 @@
 <li>In <code>global.R</code>, read your data in, and create any vectors required</li>
 <li>In <code>ui.R</code>, add a app title</li>
 <li>In <code>ui.R</code>. add <code>radioButtons</code> and other widgets</li>
-<li>In <code>server.R</code>, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a <code>isMobile = input$isMobile</code> specification to any simplevis graphs if you are looking to support mobile users as well as desktop</li>
+<li>In <code>server.R</code>, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a <code>mobile = input$isMobile</code> specification to any simplevis graphs if you are looking to support mobile users as well as desktop</li>
 <li>In <code>server.R</code>, add code for map and table components, as applicable</li>
 <li>In <code>www/About.Rmd</code>, update as necessary</li>
 <li>If using google tag-manager, obtain a tag and replace <code>GTM-XXXXXXX</code> with it in the <code>www/js/tag-manager-js</code> file.</li>

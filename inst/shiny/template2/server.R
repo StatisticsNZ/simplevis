@@ -45,7 +45,7 @@ shinyServer(function(input, output, session) {
                             title = title, 
                             x_title = x_title, 
                             y_title = y_title,
-                            isMobile = input$isMobile)
+                            mobile = input$isMobile)
     
     
     return(plot)

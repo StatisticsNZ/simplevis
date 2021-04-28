@@ -48,18 +48,18 @@ sv_labels_from_cuts <- function(cuts_vctr, col_labels_dp = 1) {
 #' 
 #' @return values for font sizes
 #' @keywords internal
-sv_font_size_title <- function(isMobile) {
-  if (isMobile == FALSE) return(11)
-  else if (isMobile == TRUE) return(15)
+sv_font_size_title <- function(mobile) {
+  if (mobile == FALSE) return(11)
+  else if (mobile == TRUE) return(15)
 }
 
 #' Get default font_size_body
 #' 
 #' @return values for font sizes
 #' @keywords internal
-sv_font_size_body <- function(isMobile) {
-  if (isMobile == FALSE) font_size_body <- 10
-  else if (isMobile == TRUE) font_size_body <- 14
+sv_font_size_body <- function(mobile) {
+  if (mobile == FALSE) font_size_body <- 10
+  else if (mobile == TRUE) font_size_body <- 14
 }
 
 #' Get default palette.

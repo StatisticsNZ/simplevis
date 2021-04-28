@@ -18,7 +18,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   x_title_wrap = 50, y_title_wrap = 50, col_title_wrap = 25,
-  caption_wrap = 80, isMobile = FALSE)
+  caption_wrap = 80, mobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -53,7 +53,7 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.}
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
@@ -97,19 +97,19 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.}
 
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.}
 
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.}
 }
 \value{
 A ggplot object.

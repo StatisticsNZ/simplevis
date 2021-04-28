@@ -1,3 +1,7 @@
+# simplevis 2.7.7
+
+* Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.
+
 # simplevis 2.7.6
 
 * Updated scale_x_date to remove oob.
@@ -8,7 +12,7 @@
 
 # simplevis 2.7.4
 
-* Removed x_na_inf and y_na_inf arguments.
+* Breaking change: Removed x_na_inf and y_na_inf arguments.
 
 # simplevis 2.7.3
 

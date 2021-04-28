@@ -4,7 +4,7 @@
 \alias{sv_font_size_title}
 \title{Get default font_size_title}
 \usage{
-sv_font_size_title(isMobile)
+sv_font_size_title(mobile)
 }
 \value{
 values for font sizes

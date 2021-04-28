@@ -13,7 +13,7 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
   y_expand = NULL, y_labels = NULL, y_rev = FALSE,
   y_title = "[Y title]", y_title_wrap = 50, caption = NULL,
   caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -34,11 +34,11 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{title}{Title string. Defaults to [Title].}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
 
 \item{subtitle}{Subtitle string. Defaults to [Subtitle].}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
 \item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
 
@@ -46,11 +46,11 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.}
 
 \item{x_title}{X axis title string. Defaults to [X title].}
 
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.}
 
 \item{x_trans}{A string specifying a transformation for the x axis scale. Defaults to "identity".}
 
@@ -66,11 +66,11 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{y_title}{Y axis title string. Defaults to [Y title].}
 
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.}
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
@@ -78,7 +78,7 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.}
 }
 \value{
 A ggplot object.

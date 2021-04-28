@@ -1,115 +1,3 @@
-# ggplot vbar functions
-
-#' @title Theme for vertical bar ggplots.
-#' @param font_family Font family to use. Defaults to "Helvetica".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @return A ggplot theme.
-#' @export
-#' @examples
-#' library(ggplot2)
-#' 
-#' ggplot() +
-#'   theme_vbar("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
-theme_vbar <-
-  function(font_family = "Helvetica",
-           font_size_title = 11,
-           font_size_body = 10) {
-    list(
-      theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
-        panel.border = element_blank(),
-        panel.spacing = unit(2.5, "lines"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          hjust = 0.475
-        ),
-        axis.title.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(t = 10)
-        ),
-        axis.title.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10)
-        ),
-        axis.text.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.text.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          hjust = 1,
-          size = font_size_body
-        ),
-        axis.line = element_line(colour = "#323232", size = 0.3),
-        axis.ticks = element_line(colour = "#323232", size = 0.3),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
-        legend.margin = margin(t = 20, b = 20),
-        legend.key.height = unit(5, "mm"),
-        legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
-      )
-    )
-  }
-
 #' @title Vertical bar ggplot.
 #' @description Vertical bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
@@ -121,30 +9,30 @@ theme_vbar <-
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_rev TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.
 #' @param x_title X axis title string. Defaults to [X title].
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -191,7 +79,7 @@ ggplot_vbar <- function(data,
                         font_family = "Helvetica",
                         font_size_title = NULL,
                         font_size_body = NULL,
-                        isMobile = FALSE) {
+                        mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
@@ -223,8 +111,8 @@ ggplot_vbar <- function(data,
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
@@ -249,7 +137,7 @@ ggplot_vbar <- function(data,
     x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
     
-    if(isMobile == TRUE) {
+    if(mobile == TRUE) {
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
     }
@@ -309,7 +197,7 @@ ggplot_vbar <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (isMobile == FALSE) {
+  if (mobile == FALSE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -319,7 +207,7 @@ ggplot_vbar <- function(data,
         caption = stringr::str_wrap(caption, caption_wrap)
       )
   }
-  else if (isMobile == TRUE) {
+  else if (mobile == TRUE) {
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, 40),
@@ -348,21 +236,21 @@ ggplot_vbar <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where isMobile equals TRUE.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_rev TRUE or FALSE of whether the x scale is reversed. Defaults to FALSE. Only applicable to categorical x scales.
 #' @param x_title X axis title string. Defaults to [X title].
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
 #' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y axis title string. Defaults to [Y title].
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where isMobile equals TRUE.
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
@@ -372,13 +260,13 @@ ggplot_vbar <- function(data,
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where isMobile equals TRUE.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param isMobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -434,7 +322,7 @@ ggplot_vbar_col <-
            font_family = "Helvetica",
            font_size_title = NULL,
            font_size_body = NULL,
-           isMobile = FALSE) {
+           mobile = FALSE) {
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #numeric var
@@ -450,8 +338,8 @@ ggplot_vbar_col <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = isMobile)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = isMobile)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
     
     if (x_rev == FALSE) {
       if (is.factor(x_var_vctr)){
@@ -514,7 +402,7 @@ ggplot_vbar_col <-
       x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
       if(is.null(x_expand)) x_expand <- waiver()
       
-      if(isMobile == TRUE) {
+      if(mobile == TRUE) {
         x_limits <- c(min(x_var_vctr), max(x_var_vctr))
         x_breaks <- x_limits
         if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
@@ -605,7 +493,7 @@ ggplot_vbar_col <-
         na.value = "#A8A8A8"
       ) 
 
-    if (isMobile == FALSE) {
+    if (mobile == FALSE) {
       plot <- plot +
         labs(
           title = stringr::str_wrap(title, title_wrap),
@@ -625,7 +513,7 @@ ggplot_vbar_col <-
           title = stringr::str_wrap(col_title, col_title_wrap)
         ))
     }
-    else if (isMobile == TRUE) {
+    else if (mobile == TRUE) {
       plot <- plot +
         labs(
           title = stringr::str_wrap(title, 40),
@@ -765,8 +653,8 @@ ggplot_vbar_facet <-
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
@@ -1017,8 +905,8 @@ ggplot_vbar_col_facet <-
     x_var_vctr <- dplyr::pull(data, !!x_var)
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(isMobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(isMobile = FALSE)
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")

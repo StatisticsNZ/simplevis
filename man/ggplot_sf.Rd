@@ -9,7 +9,7 @@ ggplot_sf(data, text_var = NULL, size_point = 1, size_line = 0.5,
   borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, isMobile = FALSE)
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -34,15 +34,15 @@ ggplot_sf(data, text_var = NULL, size_point = 1, size_line = 0.5,
 
 \item{title}{Title string. Defaults to "[Title]".}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where isMobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
 
 \item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where isMobile equals TRUE.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
@@ -50,7 +50,7 @@ ggplot_sf(data, text_var = NULL, size_point = 1, size_line = 0.5,
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{isMobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use isMobile = input$isMobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.}
 }
 \value{
 A ggplot object.

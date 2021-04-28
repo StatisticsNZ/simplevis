@@ -22,9 +22,9 @@ library(simplevis)
 
 ### Purpose 
 
-`simplevis` is a package of wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier.
+simplevis is a package of wrapper functions to make ggplot2 and leaflet visualisation easier.
 
-The aim is to make 95% of visualisations easier, while building understanding of ggplot2 so that users can return to ggplot when needed. 
+The aim is to make 95% of visualisations easier, while building understanding of ggplot2 so that users can return to ggplot2 when needed. 
 
 The package makes things easier for users by:
 
@@ -38,38 +38,38 @@ The package also supports making mobile-friendly visualisation for mobile device
 
 ### Overview
 
-`simplevis` provides the following types of `ggplot` visualisation:
+`simplevis` provides the following families of ggplot2 visualisation:
 
 Graph:
 
-* horizontal bar (`hbar`)
-* vertical bar (`vbar`)
-* line plot (`line`)
-* point plot (`point`)
-* boxplot (`boxplot`)
+* horizontal bar (`ggplot_hbar`)
+* vertical bar (`ggplot_vbar`)
+* line plot (`ggplot_line`)
+* point plot (`ggplot_point`)
+* boxplot (`ggplot_boxplot`)
 
 Map:
 
-* sf (`sf`)
+* sf (`ggplot_sf`)
 
-Each visualisation type has a family of generally 4 functions.
+Each visualisation family has a family of generally 4 functions.
 
-The function name specifies whether or not a ggplot is to be coloured by a variable, facetted by a variable, or neither or both of these. Colouring by a variable means that different values of a selected variable are to have different colours. Facetting means different values of a selected variable are to have there own mini-graph, and these are to be placed alongside each other.
+The function name specifies whether or not a ggplot is to be coloured by a variable, facetted by a variable, or neither or both of these. Colouring by a variable means that different values of a selected variable are to have different colours. Facetting means different values of a selected variable are to have there own mini-plot, and these are to be placed alongside each other.
 
-These 4 functions follow the same structure as the `hbar` functions listed below:
+Each ggplot2 wrapper family follows the structure as below:
 
 * `ggplot_hbar()`: a horizontal bar graph.
 * `ggplot_hbar_col()`: a horizontal bar graph that is coloured by a variable.
 * `ggplot_hbar_facet()`: a facetted horizontal bar graph.
 * `ggplot_hbar_col_facet()`a facetted horizontal bar graph that is coloured by a variable.
 
-For different types of graph, just replace `hbar` with `line`, `point`, `vbar`, `boxplot` or `sf`. 
+For different types of graph, just replace `ggplot_hbar` with `ggplot_line`, `ggplot_point`, `ggplot_vbar`, `ggplot_boxplot` or `ggplot_sf`. 
 
 In general, required arguments (i.e. specifications) to functions are:
 
 * `data` 
-* `x_var` (except for `sf`)
-* `y_var` (except for `sf`) 
+* `x_var` (not required for `sf`)
+* `y_var` (not required for `sf`) 
 
 If you are using a `_col` or `_col_facet` function:
 
@@ -83,7 +83,7 @@ It is always recommended to add a `title`, `x_title` and `y_title` too.
 
 ### Plots <i>not</i> coloured by a variable.
 
-Identify the function that you need, then provide the data (aggregated, if necessary) and an x_var and a y_var.
+Identify the function that you need, then provide the `data`, an `x_var` and a `y_var` (unless of the `ggplot_sf` family).
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>% 
@@ -139,7 +139,7 @@ ggplot_line(plot_data,
             y_var = wind)
 ```
 
-Note the `boxplot` functions transform the data to boxplot statistics by default. 
+Note the `ggplot_boxplot` functions transform the data to boxplot statistics by default. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- iris %>%
@@ -155,7 +155,7 @@ ggplot_boxplot(plot_data,
 
 ### Plots coloured by a variable
 
-To colour by a variable, use a `_col` function
+To colour by a variable, use a `_col` function (e.g. `ggplot_hbar_col`). Add a `col_var` variable in addition.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
@@ -215,7 +215,7 @@ ggplot_hbar_col_facet(plot_data,
 
 `simplevis` provides simple feature (`sf`) maps (i.e. maps with point, line or polygon features). 
 
-These functions work in the same way as the `ggplot` graph functions, but with the following key differences:
+These functions work in the same way as the ggplot2 graph functions, but with the following key differences:
 
 * Data must be an `sf` object 
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type
@@ -282,13 +282,19 @@ tibble::tribble(
   DT::datatable()
 ```
 
-### `ggplotly` interactive html graphs and maps
+### ggplotly interactive html graphs and maps
 
-All ggplot objects can be converted into interactive html objects using ggplotly.
+All ggplot objects can be converted into interactive html objects using ggplotly. Simply wrap the plot object in `plotly::ggplotly` as follows:
+
+```{r, eval = FALSE}
+plot <- ggplot_point(iris, Sepal.Width, Sepal.Length)
+
+plotly::ggplotly(plot)
+```
 
 For further information on how to use `ggplotly` with `simplevis`, see the [ggplotly article](https://statisticsnz.github.io/simplevis/articles/ggplotly.html) 
 
-### `sf` `leaflet` html interactive maps 
+### `sf` leaflet html interactive maps 
 
 `simplevis` also provides wrapper functions for `sf` leaflet html interactive maps.
 
@@ -296,7 +302,7 @@ These differ from `ggplotly` interactive plots in that they provide basemaps and
 
 A `leaflet_sf` and `leaflet_sf_col` function are provided. 
 
-They work in essentially the same way as the `ggplot` non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
+They work in essentially the same way as the ggplot2 non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf_col(example_sf_point, 
@@ -306,7 +312,7 @@ leaflet_sf_col(example_sf_point,
                title = "Monitored trends, 2008\u201317")
 ```
 
-For further information on how to create `leaflet` html maps, see the [leaflet article](https://statisticsnz.github.io/simplevis/articles/leaflet.html) 
+For further information on how to create leaflet html maps, see the [leaflet article](https://statisticsnz.github.io/simplevis/articles/leaflet.html) 
 
 ### Adding layers
 

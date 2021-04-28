@@ -154,7 +154,7 @@
 <a href="#how-to-incorporate-this-into-a-shiny-app" class="anchor"></a>How to incorporate this into a shiny app</h3>
 <p>Build one app that:</p>
 <ul>
-<li>identifies a input$isMobile value of whether a user is on a mobile device or not through a mobileDetect function in the ui.R and some javascript in the <code>www/js/mobile.js</code>
+<li>identifies a <code>input$isMobile</code> value of whether a user is on a mobile device or not through a mobileDetect function in the <code>ui.R</code> and some javascript in the <code>www/js/mobile.js</code>
 </li>
 <li>in the <code>server.R</code>, generate a <code>reactive</code> plot object incorporating an <code>isMobile = input$isMobile</code> argument into <code>simplevis</code> ggplot function</li>
 <li>in the <code>server.R</code>, render a plot object and a plotly object</li>

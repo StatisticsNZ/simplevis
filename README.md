@@ -10,11 +10,11 @@
 
 # simplevis
 
-### Overview
+### Purpose
 
-Wrapper functions to make ggplot2 and leaflet visualisation easier.
+Wrapper functions to make ggplot2 and `leaflet` visualisation easier.
 
-The aim is to make 95% of visualisations easier, while building understanding of ggplot2 so that users can return to ggplot when needed. 
+The aim is to make 95% of visualisations easier, while building understanding of `ggplot2` so that users can return to `ggplot2` when needed. 
 
 The package makes things easier for users by:
 
@@ -22,7 +22,7 @@ The package makes things easier for users by:
 * minimises aesthetics available to colour(/fill) and facetting
 * creates a new simple method for colouring
 * uses the power of consistent prefixes and the Rstudio auto-complete 
-* using ggplot2 based terminology for leaflet visualisation
+* using `ggplot2` based terminology for leaflet visualisation
 
 The package also supports making mobile-friendly visualisation for mobile devices.
 

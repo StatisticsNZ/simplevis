@@ -53,7 +53,7 @@ The default font size scales to look about right when viewed on a mobile device.
 
 Build one app that:
 
-* identifies a input$isMobile value of whether a user is on a mobile device or not through a mobileDetect function in the ui.R and some javascript in the `www/js/mobile.js`
+* identifies a `input$isMobile` value of whether a user is on a mobile device or not through a mobileDetect function in the `ui.R` and some javascript in the `www/js/mobile.js`
 * in the `server.R`, generate a `reactive` plot object incorporating an `isMobile = input$isMobile` argument into `simplevis` ggplot function
 * in the `server.R`, render a plot object and a plotly object
 * in the ui.R, use conditional panels to provide the rendered plotly object to non-mobile users and the rendered plot object to mobile users

@@ -20,47 +20,29 @@ library(simplevis)
 
 In simplevis, users define the following to adjust colours:
 
-1. a `col_var` argument of which variable is to be mapped to colours 
-2. a `pal` argument of which colours to use 
+1. a `pal` argument of which colours to use 
+2. a `col_var` argument of which variable is to be mapped to colours within an `_col` function
 3. an `alpha` argument of what the opacity of the fill of colours within polygons is to be
 4. If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
-
-### 1. Defining a `col_var` to map a variable to colours
-
-To colour by a variable, use a `_col` function
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 
-  group_by(cut, clarity) %>%
-  summarise(average_price = round(mean(price) / 1000, 1))
-
-plot_data
-
-ggplot_hbar_col(plot_data, 
-                x_var = average_price, 
-                y_var = cut, 
-                col_var = clarity)
-```
 
 ### 2. Defining the `pal` to adjust which colours to use
 
 The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the `pal` argument.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 
-  group_by(cut) %>%
-  summarise(average_price = round(mean(price) / 1000, 1))
-
-plot_data
-
-ggplot_hbar(plot_data, average_price, cut, pal = "#00b2c3")
+ggplot_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
 ```
 
 Users can get access to a large amount of colour palettes through the `pals` package.
+
+### 2. Defining a `col_var` to map a variable to colours within an `_col` function
+
+To colour by a variable, use a `_col` function
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
+                 pal = c("#1B9E77", "#D95F02", "#7570B3"))
+```
 
 ### 3. Defining the `alpha` to adjust the opacity of the fill of polygons.
 
@@ -118,8 +100,7 @@ ggplot_sf_col(example_sf_polygon,
                col_labels_dp = 0)
 ```
 
-### Under the hood
-
+### `simplevis` colouring vs `ggplot2` 
 
 `simplevis` unites two `ggplot2` concepts into one to make things simpler for users:
 
@@ -136,10 +117,7 @@ To map colours to a variable:
 To select colours to use:
 
 * In `simplevis`: use `pal` argument and specify a vector of colours
-* In `ggplot2`: 
-
-- if no variable is <i>not</i> mapped to colours, then provide a vector of colours to fill and/or col arguments within the `geom` layer. 
-- if a variable is mapped to colours, then provide a vector of colours the values argument within `scale_fill_manual` and/or `scale_colour_manual`.
+* In `ggplot2`: if no variable is <i>not</i> mapped to colours, then provide a vector of colours to fill and/or col arguments within the `geom` layer. Otherwise, if a variable is mapped to colours, then provide a vector of colours the values argument within `scale_fill_manual` and/or `scale_colour_manual`.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%

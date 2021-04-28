@@ -22,7 +22,19 @@ library(simplevis)
 
 ### Purpose 
 
-`simplevis` is a package of wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier and prettier.
+`simplevis` is a package of wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier.
+
+The aim is to make 95% of visualisations easier, while building understanding of ggplot2 so that users can return to ggplot when needed. 
+
+The package makes things easier for users by:
+
+* minimises visualisation types available 
+* minimises aesthetics available to x, y, colour and facetting
+* simplifies colouring method for users 
+* uses the power of consistent prefixes and the Rstudio auto-complete 
+* uses ggplot2 based terminology for leaflet visualisation
+
+The package also supports making mobile-friendly visualisation for mobile devices.
 
 ### Overview
 
@@ -274,7 +286,7 @@ tibble::tribble(
 
 All ggplot objects can be converted into interactive html objects using ggplotly.
 
-See article on interactivity for further information.
+For further information on how to use `ggplotly` with `simplevis`, see the [ggplotly article](https://statisticsnz.github.io/simplevis/articles/ggplotly.html) 
 
 ### `sf` `leaflet` html interactive maps 
 
@@ -286,25 +298,49 @@ A `leaflet_sf` and `leaflet_sf_col` function are provided.
 
 They work in essentially the same way as the `ggplot` non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
 
-
-
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 leaflet_sf_col(example_sf_point, 
                col_var = trend_category, 
                basemap = "light",
-               pal = c("#4575B4", "#D3D3D3", "#D73027"), 
+               pal = c("#0D94A3", "#C4C4C7", "#AE4E51"), 
                title = "Monitored trends, 2008\u201317")
 ```
+
+For further information on how to create `leaflet` html maps, see the [leaflet article](https://statisticsnz.github.io/simplevis/articles/leaflet.html) 
 
 ### Adding layers
 
 Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length, x_zero = F) +
+ggplot_point(iris, Sepal.Width, Sepal.Length) +
   ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length), col = viridis::viridis(4)[2])
 ```
 
-### Further documentation 
+### Colour 
 
-See the articles for more information.
+To change the colours, add a `pal` argument with a vector of hex strings.
+
+```{r}
+ggplot_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
+```
+
+```{r}
+ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
+                 pal = c("#1B9E77", "#D95F02", "#7570B3"))
+
+```
+
+Colouring works slightly differently in simplevis to ggplot2. For further information, see the [colour article](https://statisticsnz.github.io/simplevis/articles/colour.html). 
+
+### Working with scales
+
+Working with scales can be one of the most challenging aspects of creating a nice visualisation. 'simplevis` uses the power of consistent prefixes and the Rstudio auto-complete to make this easier for users.
+
+For further information, see the [scales article](https://statisticsnz.github.io/simplevis/articles/scales.html).
+
+### Shiny apps for mobile devices 
+
+`simplevis` provides simple methods for supporting visualisation on apps for mobile device users. 
+
+For further information, see the [shiny_on_mobile article](https://statisticsnz.github.io/simplevis/articles/shiny_on_mobile.html).

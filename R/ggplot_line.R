@@ -152,7 +152,7 @@ ggplot_line <- function(data,
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 0))
+      scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
     y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
@@ -593,43 +593,48 @@ ggplot_line_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      
-      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
-      
-      if (lubridate::is.Date(x_var_vctr)) {
-        plot <- plot +
-          scale_x_date(
-            expand = x_expand,
-            breaks = x_breaks,
-            limits = x_limits,
-            labels = x_labels
-          )
-      }
-      else if (is.numeric(x_var_vctr)) {
-        plot <- plot +
-          scale_x_continuous(expand = x_expand,
-                             breaks = x_breaks,
-                             limits = x_limits,
-                             trans = x_trans,
-                             labels = x_labels,
-                             oob = scales::rescale_none)
-      }
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        
+        if (lubridate::is.Date(x_var_vctr)) {
+          plot <- plot +
+            scale_x_date(
+              expand = x_expand,
+              breaks = x_breaks,
+              limits = x_limits,
+              labels = x_labels
+            )
+        }
+        else if (is.numeric(x_var_vctr)) {
+          plot <- plot +
+            scale_x_continuous(expand = x_expand,
+                               breaks = x_breaks,
+                               limits = x_limits,
+                               trans = x_trans,
+                               labels = x_labels,
+                               oob = scales::rescale_none)
+        }
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
-      y_limits <- c(min(y_breaks), max(y_breaks))
-      
-      plot <- plot +
-        scale_y_continuous(
-          expand = y_expand,
-          breaks = y_breaks,
-          limits = y_limits,
-          trans = y_trans,
-          labels = y_labels,
-          oob = scales::rescale_none
-        )
+      if (all(y_var_vctr == 0, na.rm = TRUE)) {
+        plot <- plot +
+          scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+      }
+      else ({
+        y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+        y_limits <- c(min(y_breaks), max(y_breaks))
+        
+        plot <- plot +
+          scale_y_continuous(
+            expand = y_expand,
+            breaks = y_breaks,
+            limits = y_limits,
+            trans = y_trans,
+            labels = y_labels,
+            oob = scales::rescale_none
+          )
+      })
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
@@ -868,18 +873,24 @@ ggplot_line_col_facet <-
     }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
-      y_limits <- c(min(y_breaks), max(y_breaks))
-      
-      plot <- plot +
-        scale_y_continuous(
-          expand = y_expand,
-          breaks = y_breaks,
-          limits = y_limits,
-          trans = y_trans,
-          labels = y_labels,
-          oob = scales::rescale_none
-        )
+      if (all(y_var_vctr == 0, na.rm = TRUE)) {
+        plot <- plot +
+          scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+      }
+      else ({
+        y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+        y_limits <- c(min(y_breaks), max(y_breaks))
+        
+        plot <- plot +
+          scale_y_continuous(
+            expand = y_expand,
+            breaks = y_breaks,
+            limits = y_limits,
+            trans = y_trans,
+            labels = y_labels,
+            oob = scales::rescale_none
+          )
+      })
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +

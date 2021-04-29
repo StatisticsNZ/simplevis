@@ -1,3 +1,7 @@
+# simplevis 2.7.8
+
+* Make handling of all zero values pretty for all plots other than point.
+
 # simplevis 2.7.7
 
 * Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.

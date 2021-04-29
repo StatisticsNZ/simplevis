@@ -175,8 +175,6 @@ ggplot_boxplot <- function(data,
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
   if (mobile == FALSE){
-    if(is.null(y_labels)) y_labels <- waiver()
-    
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
@@ -456,8 +454,6 @@ ggplot_boxplot_col <- function(data,
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
   if (mobile == FALSE){
-    if(is.null(y_labels)) y_labels <- waiver()
-    
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
@@ -733,24 +729,29 @@ ggplot_boxplot_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
     }
       
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
-      y_limits <- c(min(y_breaks), max(y_breaks))
-      
-      plot <- plot +
-        scale_y_continuous(
-          expand = y_expand,
-          breaks = y_breaks,
-          limits = y_limits,
-          trans = y_trans,
-          labels = y_labels,
-          oob = scales::rescale_none
-        )
+      if (all(y_var_vctr == 0, na.rm = TRUE)) {
+        plot <- plot +
+          scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+      }
+      else ({
+        y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+        y_limits <- c(min(y_breaks), max(y_breaks))
+        
+        plot <- plot +
+          scale_y_continuous(
+            expand = y_expand,
+            breaks = y_breaks,
+            limits = y_limits,
+            trans = y_trans,
+            labels = y_labels,
+            oob = scales::rescale_none
+          )
+      })
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +

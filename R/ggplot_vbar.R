@@ -255,7 +255,7 @@ ggplot_vbar <- function(data,
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend. 
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
@@ -786,7 +786,7 @@ ggplot_vbar_facet <-
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend. 
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.

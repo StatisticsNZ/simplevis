@@ -54,7 +54,7 @@ ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
+\item{col_labels_ncol}{The number of columns in the legend.}
 
 \item{col_labels_nrow}{The number of rows in the legend.}
 

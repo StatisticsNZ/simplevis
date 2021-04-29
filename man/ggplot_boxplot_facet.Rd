@@ -8,14 +8,14 @@ ggplot_boxplot_facet(data, x_var, y_var = NULL, facet_var,
   group_var = NULL, stat = "boxplot", pal = NULL, width = 0.5,
   alpha = 1, size_line = 0.5, size_point = 1, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
-  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
-  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
-  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
-  y_zero = FALSE, y_zero_line = NULL, facet_ncol = NULL,
-  facet_nrow = NULL, facet_scales = "fixed", caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  x_expand = NULL, x_labels = waiver(), x_title = "[X title]",
+  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
+  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
+  y_title_wrap = 50, y_trans = "identity", y_zero = FALSE,
+  y_zero_line = NULL, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{An tibble or dataframe. Required input.}
@@ -51,8 +51,6 @@ ggplot_boxplot_facet(data, x_var, y_var = NULL, facet_var,
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
-
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. Only applicable to a x variable that is categorical or date.}
 
 \item{x_title}{X axis title string. Defaults to "[X title]".}
 

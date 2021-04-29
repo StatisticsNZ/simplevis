@@ -235,7 +235,7 @@ ggplot_hbar <- function(data,
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param col_labels Adjust the  x scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend. 
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.
@@ -725,7 +725,7 @@ ggplot_hbar_facet <-
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels Adjust the  x scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend. 
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.

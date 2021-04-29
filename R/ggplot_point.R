@@ -214,7 +214,7 @@ ggplot_point <- function(data,
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_labels Adjust the colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend. 
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -660,7 +660,7 @@ ggplot_point_facet <-
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_labels_ncol The number of columns in the legend. 
 #' @param col_labels_nrow The number of rows in the legend.
 #' @param col_labels Adjust the colour scale labels through a vector.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".

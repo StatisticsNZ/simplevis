@@ -1,6 +1,8 @@
 # simplevis 2.7.7
 
 * Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.
+* Fixed where trans was equal to log or log10, and zero was selected
+* Added ggplot_boxplot_col
 
 # simplevis 2.7.6
 

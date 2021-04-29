@@ -276,7 +276,7 @@ tibble::tribble(
   "hbar", "numeric", "categorical", "categorical or numeric", "categorical", "identity",
   "line", "numeric or date", "numeric", "categorical or numeric", "categorical", "identity",
   "point", "numeric", "numeric", "categorical or numeric", "categorical", "identity",
-  "boxplot", "Categorical", "numeric", NA, "categorical", "boxplot or identity",
+  "boxplot", "Categorical", "numeric", "categorical", "categorical", "boxplot or identity",
   "sf", NA, NA, "categorical or numeric", "categorical", "identity",
   ) %>% 
   DT::datatable()

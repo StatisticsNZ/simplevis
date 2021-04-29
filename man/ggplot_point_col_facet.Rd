@@ -90,7 +90,7 @@ ggplot_point_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_labels}{Adjust the colour scale labels through a vector.}
 
-\item{col_labels_ncol}{The number of columns in the legend. Defaults to 1.}
+\item{col_labels_ncol}{The number of columns in the legend.}
 
 \item{col_labels_nrow}{The number of rows in the legend.}
 

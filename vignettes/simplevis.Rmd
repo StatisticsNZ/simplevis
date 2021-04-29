@@ -45,7 +45,7 @@ Graph:
 * horizontal bar (`ggplot_hbar`)
 * vertical bar (`ggplot_vbar`)
 * line plot (`ggplot_line`)
-* point plot (`ggplot_point`)
+* scatter graph (`ggplot_point`)
 * boxplot (`ggplot_boxplot`)
 
 Map:

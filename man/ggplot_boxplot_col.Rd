@@ -123,5 +123,6 @@ plot <- ggplot_boxplot_col(plot_data, cut, price, clarity,
 plot
 
 plotly::ggplotly(plot) \%>\% 
-  plotly::layout(boxmode = "group")
+  plotly::layout(boxmode = "group") \%>\% 
+  plotly_camera()
 }

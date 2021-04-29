@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.9</span>
       </span>
     </div>
 
@@ -325,11 +325,9 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>price_thousands</span> <span class='kw'>=</span> (<span class='no'>price</span> / <span class='fl'>1000</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_sample</a></span>(<span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>price_thousands</span> <span class='kw'>=</span> (<span class='no'>price</span> / <span class='fl'>1000</span>))
 
-<span class='fu'>ggplot_boxplot_facet</span>(<span class='no'>plot_data</span>, <span class='no'>cut</span>, <span class='no'>price_thousands</span>, <span class='no'>color</span>)</div><div class='img'><img src='ggplot_boxplot_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot_boxplot_facet</span>(<span class='no'>plot_data</span>, <span class='no'>cut</span>, <span class='no'>price_thousands</span>, <span class='no'>color</span>)</div><div class='img'><img src='ggplot_boxplot_facet-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

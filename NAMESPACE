@@ -3,6 +3,7 @@
 export("%>%")
 export(ggplot_boxplot)
 export(ggplot_boxplot_col)
+export(ggplot_boxplot_col_facet)
 export(ggplot_boxplot_facet)
 export(ggplot_hbar)
 export(ggplot_hbar_col)

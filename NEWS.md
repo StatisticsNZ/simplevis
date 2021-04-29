@@ -1,3 +1,7 @@
+# simplevis 2.7.9
+
+* Added ggplot_boxplot_col_facet function. 
+
 # simplevis 2.7.8
 
 * Make handling of all zero values pretty for all plots other than point.

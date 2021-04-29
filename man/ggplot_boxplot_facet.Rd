@@ -100,9 +100,7 @@ Boxplot ggplot that is facetted, but not coloured.
 library(dplyr)
 
 plot_data <- ggplot2::diamonds \%>\%
-  mutate(price_thousands = (price / 1000)) \%>\%
-  slice_sample(prop = 0.05)
+  mutate(price_thousands = (price / 1000)) 
 
 ggplot_boxplot_facet(plot_data, cut, price_thousands, color)
-
 }

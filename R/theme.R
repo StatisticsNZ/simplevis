@@ -101,6 +101,7 @@ theme_boxplot <-
           margin = margin(r = 20)
         ),
         legend.margin = margin(t = 20, b = 20),
+        legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
         legend.direction = "vertical" 

@@ -1,3 +1,7 @@
+# simplevis 2.8.0
+
+* Update templates.
+
 # simplevis 2.7.9
 
 * Added ggplot_boxplot_col_facet function. 

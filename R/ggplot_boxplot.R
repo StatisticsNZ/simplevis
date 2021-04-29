@@ -298,6 +298,21 @@ ggplot_boxplot <- function(data,
 #' @export
 
 #' @examples
+#' library(dplyr)
+#' 
+#' plot_data <- ggplot2::diamonds %>%
+#'   mutate(cut = stringr::str_to_sentence(cut)) 
+#' 
+#' plot <- ggplot_boxplot_col(plot_data, cut, price, clarity, 
+#'                            title = "Average diamond price by cut and clarity", 
+#'                            x_title = "Average price ($US thousands)", 
+#'                            y_title = "Cut") 
+#' 
+#' plot
+#' 
+#' plotly::ggplotly(plot) %>% 
+#'   plotly::layout(boxmode = "group")
+
 ggplot_boxplot_col <- function(data,
                                x_var,
                                y_var = NULL,

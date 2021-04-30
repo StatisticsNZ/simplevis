@@ -88,7 +88,7 @@ Identify the function that you need, then provide the `data`, an `x_var` and a `
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.05) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data
 
@@ -101,7 +101,7 @@ plot_data <- ggplot2::diamonds %>%
   summarise(average_price = mean(price)) %>%
   mutate(average_price = average_price / 1000) %>%  
   mutate(cut = stringr::str_to_sentence(cut)) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data
 
@@ -117,7 +117,7 @@ ggplot_hbar(plot_data,
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = mean(wind)) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data
 
@@ -130,7 +130,7 @@ ggplot_vbar(plot_data,
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(wind = mean(wind)) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data 
 
@@ -144,7 +144,7 @@ Note the `ggplot_boxplot` functions transform the data to boxplot statistics by 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 plot_data <- iris %>%
   mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data
 
@@ -163,7 +163,7 @@ plot_data <- ggplot2::diamonds %>%
   summarise(average_price = mean(price)) %>% 
   mutate(average_price = average_price / 1000) %>% 
   mutate(cut = stringr::str_to_sentence(cut)) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data
 
@@ -183,7 +183,7 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price)) %>%
   mutate(average_price = average_price / 1000) %>% 
-  as_tibble()
+  tibble::as_tibble()
 
 plot_data
 
@@ -327,11 +327,11 @@ ggplot_point(iris, Sepal.Width, Sepal.Length) +
 
 To change the colours, add a `pal` argument with a vector of hex strings.
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
 ```
 
-```{r}
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
                  pal = c("#1B9E77", "#D95F02", "#7570B3"))
 
@@ -349,4 +349,4 @@ For further information, see the [scales article](https://statisticsnz.github.io
 
 `simplevis` provides simple methods for supporting visualisation on apps for mobile device users. 
 
-For further information, see the [shiny_on_mobile article](https://statisticsnz.github.io/simplevis/articles/shiny.html).
+For further information, see the [shiny article](https://statisticsnz.github.io/simplevis/articles/shiny.html).

@@ -258,7 +258,7 @@ leaflet_sf_col <- function(data,
   if(is.null(rlang::get_expr(text_var))) text_var <- col_var
   
   if (col_na == FALSE) data <- data %>% 
-    filter(!is.na(!!col_var))
+    dplyr::filter(!is.na(!!col_var))
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
   text_var_vctr <- dplyr::pull(data, !!text_var)
@@ -319,7 +319,7 @@ leaflet_sf_col <- function(data,
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
     
-    col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+    col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
     pal_fun <- colorBin(

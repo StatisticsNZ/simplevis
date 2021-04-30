@@ -24,10 +24,6 @@
 #' @export
 #' @examples
 #' ggplot_sf(data = example_sf_point, borders = nz)
-#' 
-#' sf <- rnaturalearth::ne_countries(scale = "medium", country = "Indonesia", returnclass = "sf")
-#' 
-#' ggplot_sf(sf, alpha = 0, pal = "#232323")
 ggplot_sf <- function(data,
                       text_var = NULL,
                       size_point = 1,
@@ -256,7 +252,7 @@ ggplot_sf_col <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+    col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
     data <- data %>% 

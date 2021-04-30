@@ -4,7 +4,9 @@
 \name{example_stars_2}
 \alias{example_stars_2}
 \title{Example stars object 2.}
-\format{An \code{stars} object.}
+\format{
+An \code{stars} object.
+}
 \usage{
 example_stars_2
 }

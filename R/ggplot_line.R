@@ -314,7 +314,7 @@ ggplot_line_col <-
     
     data <- data %>% 
       dplyr::ungroup() %>%
-      arrange(!!x_var) #fix ggplotly legend bug
+      dplyr::arrange(!!x_var) #fix ggplotly legend bug
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -783,7 +783,7 @@ ggplot_line_col_facet <-
     
     data <- data %>% 
       dplyr::ungroup() %>%
-      arrange(!!x_var) #fix ggplotly legend bug
+      dplyr::arrange(!!x_var) #fix ggplotly legend bug
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)

@@ -13,13 +13,6 @@
 #' leaflet_basemap("dark")
 #' 
 #' leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
-#' 
-#' bb <- rnaturalearth::ne_countries(scale = "small", 
-#'            country = "Papua New Guinea", 
-#'            returnclass = "sf") %>% 
-#'      sf::st_bbox() 
-#' 
-#' leaflet_basemap("satellite", bounds = bb)  
 leaflet_basemap <- function(top_layer = "light", bounds = NULL){
   
   if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")

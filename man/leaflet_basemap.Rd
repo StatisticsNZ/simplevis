@@ -21,11 +21,4 @@ Make a stack of leaflet baselayers for use in shiny apps.
 leaflet_basemap("dark")
 
 leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
-
-bb <- rnaturalearth::ne_countries(scale = "small", 
-           country = "Papua New Guinea", 
-           returnclass = "sf") \%>\% 
-     sf::st_bbox() 
-
-leaflet_basemap("satellite", bounds = bb)  
 }

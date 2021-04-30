@@ -20,7 +20,7 @@
 #' plotly::ggplotly(plot, tooltip = "text")
 mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
   
-  data <- data %>% ungroup()
+  data <- data %>% dplyr::ungroup()
   
   class <- class(data)[1]
   

@@ -308,7 +308,7 @@ ggplot_point_col <-
           if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
           if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
         }  
-        col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
         if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
         
         data <- data %>% 
@@ -780,7 +780,7 @@ ggplot_point_col_facet <-
           else labels <- col_labels
         }
         else if (col_quantile_by_facet == FALSE) { 
-          col_cuts <- quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+          col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
           if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
           
           data <- data %>% 

@@ -46,15 +46,6 @@
 #'   title = "Iris petal length by species",
 #'   x_title = "Species",
 #'   y_title = "Petal length (cm)")
-#'
-#' plot_data <- iris %>%
-#'   group_by(Species) %>%
-#'   summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
-#'   c('ymin','lower','middle','upper','ymax')))) %>%
-#'   tidyr::unnest_wider(boxplot_stats)
-#'
-#' ggplot_boxplot(plot_data, Species, Petal.Length, stat = "identity")
-#' 
 ggplot_boxplot <- function(data,
                            x_var,
                            y_var = NULL,

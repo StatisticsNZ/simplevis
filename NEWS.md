@@ -1,6 +1,4 @@
-# simplevis 3.0.0
-
-* Bump version to indicate stability.
+# simplevis 2.8.1
 
 # simplevis 2.8.0
 

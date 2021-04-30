@@ -92,7 +92,7 @@ ggplot_vbar <- function(data,
   if (lubridate::is.Date(x_var_vctr)) stop("Please do not use a logical x variable for a vertical bar plot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if (x_rev == FALSE) {
+  if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -102,7 +102,7 @@ ggplot_vbar <- function(data,
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
     }
   }
-  else if (x_rev == TRUE) {
+  else if (x_rev == FALSE) {
     if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
@@ -341,7 +341,7 @@ ggplot_vbar_col <-
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
     
-    if (x_rev == FALSE) {
+    if (x_rev == TRUE) {
       if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -351,7 +351,7 @@ ggplot_vbar_col <-
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
       }
     }
-    else if (x_rev == TRUE) {
+    else if (x_rev == FALSE) {
       if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
@@ -634,7 +634,7 @@ ggplot_vbar_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if (x_rev == FALSE) {
+    if (x_rev == TRUE) {
       if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -644,7 +644,7 @@ ggplot_vbar_facet <-
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
       }
     }
-    else if (x_rev == TRUE) {
+    else if (x_rev == FALSE) {
       if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
@@ -887,7 +887,7 @@ ggplot_vbar_col_facet <-
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if (x_rev == FALSE) {
+    if (x_rev == TRUE) {
       if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -897,7 +897,7 @@ ggplot_vbar_col_facet <-
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))
       }
     }
-    else if (x_rev == TRUE) {
+    else if (x_rev == FALSE) {
       if (is.character(x_var_vctr) | is.logical(x_var_vctr)) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!x_var, .desc = x_rev)))

@@ -1,5 +1,7 @@
 # simplevis 2.8.1
 
+* Corrected vbar reversing of x_var.
+
 # simplevis 2.8.0
 
 * Update templates.

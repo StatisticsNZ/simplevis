@@ -344,7 +344,7 @@ theme_point <-
   function(font_family = "Helvetica",
            font_size_title = 11,
            font_size_body = 10) {
-    list(
+    suppressWarnings(list(
       theme(
         plot.title = element_text(
           family = font_family,
@@ -435,6 +435,7 @@ theme_point <-
         legend.key.width = unit(5, "mm"),
         legend.direction = "vertical" 
       )
+    )
     )
   }
 

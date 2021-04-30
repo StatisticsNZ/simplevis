@@ -349,4 +349,4 @@ For further information, see the [scales article](https://statisticsnz.github.io
 
 `simplevis` provides simple methods for supporting visualisation on apps for mobile device users. 
 
-For further information, see the [shiny_on_mobile article](https://statisticsnz.github.io/simplevis/articles/shiny_on_mobile.html).
+For further information, see the [shiny_on_mobile article](https://statisticsnz.github.io/simplevis/articles/shiny.html).

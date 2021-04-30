@@ -10,7 +10,8 @@ data_folder <- "inst/shiny/template2/data/"
 
 data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
 
-data2 <-  readRDS(paste0(data_folder, "data2.RDS"))
+data2 <-  readRDS(paste0(data_folder, "data2.RDS")) %>% 
+  mutate(trend_category = factor(trend_category, levels = c("Improving", "Indeterminate", "Worsening")))
 
 # make a plot filtered by a user selected colour
 color_vector <- sort(unique(data1$color))
@@ -44,17 +45,20 @@ plotly::ggplotly(plot, tooltip = "text") %>%
   plotly_camera() 
 
 # make a trend map filtered by a user selected metric
-metric_vector <- sort(unique(data2$indicator))
 
-selected_metric <- "Nitrate-nitrogen"
+map_filter <- "Worsening"
 
-map_data <- data2 %>%
-  filter(period == "2008-2017") %>% 
-  filter(indicator == selected_metric)
+if(map_filter == "None") {
+  map_data <- data2 
+} else if(map_filter != "None") {
+  map_data <- data2 %>% 
+    filter(trend_category == map_filter)
+}
 
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
+names(pal) <- c("Improving", "Indeterminate", "Worsening")
 
-title <- paste0("Monitored river ", selected_metric, " trends, 2008\u201317")
+title <- paste0("Monitored trends, 2008\u201317")
 
 leaflet_sf_col(map_data, 
                trend_category, 

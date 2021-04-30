@@ -1,5 +1,3 @@
-library(zipr) 
-
 zip::zipr(zipfile = "inst/shiny/template1/data/template1.zip", 
           files = c("inst/shiny/template1"))
 

@@ -59,8 +59,8 @@ shinyUI(
         icon = icon("globe-americas", lib = "font-awesome"),
         sidebarLayout(
           sidebarPanel(
-            width = 3
-            # add widgets
+            width = 3,
+            radioButtons("map_filter", "Filter", c("None", "Improving", "Indeterminate", "Worsening"))
           ),
           mainPanel(width = 9,
                     fluidRow(

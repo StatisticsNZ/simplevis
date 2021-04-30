@@ -30,7 +30,7 @@ simplevis makes things easier by:
 
 * minimising visualisation types available to vbar, hbar, point, line, boxplot or sf 
 * minimising aesthetics available to x, y, colour and facetting
-* using a simpler more unified method of colouring   
+* using a simpler method for colouring
 * using consistent prefixes and the Rstudio auto-complete function
 * using ggplot2 based terminology for leaflet visualisation.
 
@@ -344,6 +344,18 @@ Colouring works slightly differently in simplevis to ggplot2. For further inform
 Working with scales can be one of the most challenging aspects of creating a nice visualisation. 'simplevis` uses the power of consistent prefixes and the Rstudio auto-complete to make this easier for users.
 
 For further information, see the [scales article](https://statisticsnz.github.io/simplevis/articles/scales.html).
+
+### Working with quoted inputs
+
+Note, you can also use quoted varaibles in simplevis functions. For ggplot wrapper function, wrap the variables in `!!sym`, as shown below. 
+
+```{r}
+plot_data <- ggplot2::diamonds %>%
+  sample_frac(0.05) %>%
+  mutate(cut = stringr::str_to_sentence(cut))
+
+ggplot_point_col_facet(plot_data, !!sym("carat"), !!sym("price"), !!sym("color"), !!sym("cut"))
+```
 
 ### Shiny apps for mobile devices 
 

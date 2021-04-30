@@ -20,7 +20,7 @@ simplevis makes things easier by:
 
 * minimising visualisation types available to vbar, hbar, point, line, boxplot or sf 
 * minimising aesthetics available to x, y, colour and facetting
-* using a simpler more unified method of colouring   
+* using a simpler method for colouring
 * using consistent prefixes and the Rstudio auto-complete function
 * using ggplot2 based terminology for leaflet visualisation.
 

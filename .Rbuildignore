@@ -11,4 +11,4 @@
 ^vignettes/ggplotly\.Rmd$
 ^vignettes/leaflet\.Rmd$
 ^vignettes/scales\.Rmd$
-^vignettes/shiny_on_mobile\.Rmd$
+^vignettes/shiny\.Rmd$

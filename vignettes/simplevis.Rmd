@@ -345,18 +345,6 @@ Working with scales can be one of the most challenging aspects of creating a nic
 
 For further information, see the [scales article](https://statisticsnz.github.io/simplevis/articles/scales.html).
 
-### Working with quoted inputs
-
-Note, you can also use quoted varaibles in simplevis functions. For ggplot wrapper function, wrap the variables in `!!sym`, as shown below. 
-
-```{r}
-plot_data <- ggplot2::diamonds %>%
-  sample_frac(0.05) %>%
-  mutate(cut = stringr::str_to_sentence(cut))
-
-ggplot_point_col_facet(plot_data, !!sym("carat"), !!sym("price"), !!sym("color"), !!sym("cut"))
-```
-
 ### Shiny apps for mobile devices 
 
 `simplevis` provides simple methods for supporting visualisation on apps for mobile device users. 

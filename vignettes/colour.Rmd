@@ -39,7 +39,7 @@ Users can get access to a large amount of colour palettes through the `pals` pac
 
 To colour by a variable, use a `_col` function
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
 ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
                  pal = c("#1B9E77", "#D95F02", "#7570B3"))
 ```

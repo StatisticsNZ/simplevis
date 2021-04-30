@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier
-Version: 2.8.1
+Version: 3.0.0
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 

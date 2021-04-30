@@ -316,7 +316,7 @@ For further information on how to create leaflet html maps, see the [leaflet art
 
 ### Adding layers
 
-Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. 
+Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. Data is inherited from the simplevis, but aesthetics are not.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length) +

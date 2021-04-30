@@ -1,6 +1,15 @@
+# simplevis 3.0.0
+
+* Bumped version for CRAN release.
+
+# simplevis 2.8.2
+
+* Corrected vbar default reversing of col_var.
+* Removed vbar x_rev argument, as unsure of logic rules.
+
 # simplevis 2.8.1
 
-* Corrected vbar reversing of x_var.
+* Corrected vbar default reversing of x_var.
 
 # simplevis 2.8.0
 

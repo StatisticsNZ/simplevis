@@ -1,5 +1,5 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 2.3.1
+pkgdown: 1.5.0
 pkgdown_sha: ~
 articles:
   colour: colour.html
@@ -8,5 +8,5 @@ articles:
   scales: scales.html
   shiny: shiny.html
   simplevis: simplevis.html
-last_built: 2021-04-30T13:03Z
+last_built: 2021-05-01T21:56Z
 

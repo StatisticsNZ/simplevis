@@ -1,4 +1,4 @@
-# simplevis 3.1.0
+# simplevis 3.0.1
 
 * Breaking change: Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.
 * Breaking change: Added plotly_col_legend function, and removed plotly_legend_rev and plotly_legend_order.

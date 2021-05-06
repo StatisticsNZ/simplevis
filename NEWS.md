@@ -1,3 +1,7 @@
+# simplevis 3.0.2
+
+* Minor change: adjusted theme for hbar.
+
 # simplevis 3.0.1
 
 * Breaking change: Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.

@@ -4,25 +4,11 @@
 \alias{leaflet_sf_col}
 \title{Map of simple features in leaflet that is coloured.}
 \usage{
-leaflet_sf_col(
-  data,
-  col_var,
-  text_var = NULL,
-  popup_var = NULL,
-  pal = NULL,
-  pal_rev = FALSE,
-  size_point = 2,
-  size_line = 2,
-  alpha = 0.9,
-  basemap = "light",
-  title = "[Title]",
-  col_cuts = NULL,
-  col_labels_dp = 1,
-  col_labels = NULL,
-  col_method = NULL,
-  col_na = TRUE,
-  map_id = "map"
-)
+leaflet_sf_col(data, col_var, text_var = NULL, popup_vars_vctr = NULL,
+  pal = NULL, pal_rev = FALSE, size_point = 2, size_line = 2,
+  alpha = 0.9, basemap = "light", title = "[Title]",
+  col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
+  col_method = NULL, col_na = TRUE, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -31,7 +17,7 @@ leaflet_sf_col(
 
 \item{text_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
 
-\item{popup_var}{Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
+\item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
@@ -77,5 +63,5 @@ leaflet_sf_col(example_sf_polygon, density,
 pal <- c("#4575B4", "#D3D3D3", "#D73027")
 
 leaflet_sf_col(example_sf_point, trend_category, pal = pal, col_method = "category",
-   title = "Monitored trends, 2008\u201317")
+   title = "Monitored trends, 2008\\u201317")
 }

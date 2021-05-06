@@ -4,11 +4,8 @@
 \alias{theme_point}
 \title{Theme for point ggplots.}
 \usage{
-theme_point(
-  font_family = "Helvetica",
-  font_size_title = 11,
-  font_size_body = 10
-)
+theme_point(font_family = "Helvetica", font_size_title = 11,
+  font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "Helvetica".}

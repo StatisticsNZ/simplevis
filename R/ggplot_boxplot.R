@@ -270,8 +270,8 @@ ggplot_boxplot <- function(data,
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
-#' @param col_labels_nrow The number of rows in the legend.
+#' @param col_legend_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -332,8 +332,8 @@ ggplot_boxplot_col <- function(data,
                                y_zero = FALSE,
                                y_zero_line = NULL,
                                col_labels = NULL,
-                               col_labels_ncol = NULL,
-                               col_labels_nrow = NULL,
+                               col_legend_ncol = NULL,
+                               col_legend_nrow = NULL,
                                col_na = TRUE,
                                col_rev = FALSE,
                                col_title = "",
@@ -507,8 +507,8 @@ ggplot_boxplot_col <- function(data,
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       guides(fill = guide_legend(
-        ncol = col_labels_ncol,
-        nrow = col_labels_nrow,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow,
         byrow = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) 
@@ -529,8 +529,8 @@ ggplot_boxplot_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       ) +
       guides(fill = guide_legend(
-        ncol = col_labels_ncol, 
-        nrow = col_labels_nrow, 
+        ncol = col_legend_ncol, 
+        nrow = col_legend_nrow, 
         byrow = TRUE,
         reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
@@ -803,8 +803,8 @@ ggplot_boxplot_facet <-
 #' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. Defaults to 1.
-#' @param col_labels_nrow The number of rows in the legend.
+#' @param col_legend_ncol The number of columns in the legend. Defaults to 1.
+#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -870,8 +870,8 @@ ggplot_boxplot_col_facet <-
            y_zero = FALSE,
            y_zero_line = NULL,
            col_labels = NULL,
-           col_labels_ncol = NULL,
-           col_labels_nrow = NULL,
+           col_legend_ncol = NULL,
+           col_legend_nrow = NULL,
            col_na = TRUE,
            col_rev = FALSE,
            col_title = "",
@@ -1044,8 +1044,8 @@ ggplot_boxplot_col_facet <-
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow, ncol = facet_ncol) +
       guides(fill = guide_legend(
-        ncol = col_labels_ncol,
-        nrow = col_labels_nrow,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow,
         byrow = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) 

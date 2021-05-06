@@ -4,43 +4,17 @@
 \alias{ggplot_hbar_facet}
 \title{Horizontal bar ggplot that is facetted.}
 \usage{
-ggplot_hbar_facet(
-  data,
-  x_var,
-  y_var,
-  facet_var,
-  text_var = NULL,
-  pal = NULL,
-  width = 0.75,
-  alpha = 1,
-  size_line = 0.5,
-  title = "[Title]",
-  title_wrap = 70,
-  subtitle = NULL,
-  subtitle_wrap = 80,
-  x_balance = FALSE,
-  x_expand = NULL,
-  x_labels = waiver(),
-  x_pretty_n = 5,
-  x_title = "[X title]",
-  x_title_wrap = 50,
-  x_trans = "identity",
-  x_zero = TRUE,
-  x_zero_line = NULL,
-  y_rev = FALSE,
-  y_labels = waiver(),
-  y_expand = NULL,
-  y_title = "[Y title]",
-  y_title_wrap = 50,
-  facet_scales = "fixed",
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  caption = NULL,
-  font_family = "Helvetica",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  caption_wrap = 80
-)
+ggplot_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
+  pal = NULL, width = 0.75, alpha = 1, size_line = 0.5,
+  title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
+  x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
+  x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
+  x_zero_line = NULL, y_rev = FALSE, y_labels = waiver(),
+  y_expand = NULL, y_title = "[Y title]", y_title_wrap = 50,
+  facet_scales = "fixed", facet_ncol = NULL, facet_nrow = NULL,
+  caption = NULL, font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, caption_wrap = 80)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}

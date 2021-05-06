@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
       </span>
     </div>
 
@@ -155,25 +155,11 @@
     <p>Map of simple features in leaflet that is coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_sf_col</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col_var</span>,
-  <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>popup_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>popup_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,8 +177,8 @@
       <td><p>Unquoted variable to label the features by. If NULL, defaults to using the colour variable.</p></td>
     </tr>
     <tr>
-      <th>popup_var</th>
-      <td><p>Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.</p></td>
+      <th>popup_vars_vctr</th>
+      <td><p>Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.</p></td>
     </tr>
     <tr>
       <th>pal</th>

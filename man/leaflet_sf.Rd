@@ -4,24 +4,14 @@
 \alias{leaflet_sf}
 \title{Map of simple features in leaflet.}
 \usage{
-leaflet_sf(
-  data,
-  popup_var = NULL,
-  pal = NULL,
-  size_point = 2,
-  size_line = 2,
-  alpha = 0.9,
-  basemap = "light",
-  title = "[Title]",
-  col_labels_dp = 1,
-  col_labels = "[Feature]",
-  map_id = "map"
-)
+leaflet_sf(data, popup_vars_vctr = NULL, pal = NULL, size_point = 2,
+  size_line = 2, alpha = 0.9, basemap = "light", title = "[Title]",
+  col_labels_dp = 1, col_labels = "[Feature]", map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
 
-\item{popup_var}{Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
+\item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

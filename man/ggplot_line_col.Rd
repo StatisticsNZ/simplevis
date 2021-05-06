@@ -4,51 +4,20 @@
 \alias{ggplot_line_col}
 \title{Line ggplot that is coloured.}
 \usage{
-ggplot_line_col(
-  data,
-  x_var,
-  y_var,
-  col_var,
-  text_var = NULL,
-  pal = NULL,
-  pal_rev = FALSE,
-  size_point = 1,
-  size_line = 0.5,
-  title = "[Title]",
-  title_wrap = 70,
-  subtitle = NULL,
-  subtitle_wrap = 80,
-  x_balance = FALSE,
-  x_expand = NULL,
-  x_labels = waiver(),
-  x_pretty_n = 6,
-  x_title = "[X title]",
-  x_title_wrap = 50,
-  x_trans = "identity",
-  x_zero = FALSE,
-  x_zero_line = NULL,
-  y_balance = FALSE,
-  y_expand = NULL,
-  y_labels = waiver(),
-  y_pretty_n = 5,
-  y_title = "[Y title]",
-  y_title_wrap = 50,
-  y_trans = "identity",
-  y_zero = FALSE,
-  y_zero_line = NULL,
-  col_labels = NULL,
-  col_labels_ncol = NULL,
-  col_labels_nrow = NULL,
-  col_na = TRUE,
-  col_title = "",
-  col_title_wrap = 25,
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "Helvetica",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
-)
+ggplot_line_col(data, x_var, y_var, col_var, text_var = NULL,
+  pal = NULL, pal_rev = FALSE, size_point = 1, size_line = 0.5,
+  title = "[Title]", title_wrap = 70, subtitle = NULL,
+  subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
+  x_labels = waiver(), x_pretty_n = 6, x_title = "[X title]",
+  x_title_wrap = 50, x_trans = "identity", x_zero = FALSE,
+  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
+  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
+  y_title_wrap = 50, y_trans = "identity", y_zero = FALSE,
+  y_zero_line = NULL, col_labels = NULL, col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_na = TRUE, col_title = "",
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -115,9 +84,9 @@ ggplot_line_col(
 
 \item{col_labels}{Adjust the  colour scale labels through a vector.}
 
-\item{col_labels_ncol}{The number of columns in the legend.}
+\item{col_legend_ncol}{The number of columns in the legend.}
 
-\item{col_labels_nrow}{The number of rows in the legend.}
+\item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 

@@ -4,41 +4,17 @@
 \alias{ggplot_boxplot}
 \title{Boxplot ggplot.}
 \usage{
-ggplot_boxplot(
-  data,
-  x_var,
-  y_var = NULL,
-  group_var = NULL,
-  stat = "boxplot",
-  pal = NULL,
-  width = 0.5,
-  alpha = 1,
-  size_line = 0.5,
-  size_point = 1,
-  title = "[Title]",
-  title_wrap = 70,
-  subtitle = NULL,
-  subtitle_wrap = 80,
-  x_expand = NULL,
-  x_labels = waiver(),
-  x_title = "[X title]",
-  x_title_wrap = 50,
-  y_balance = FALSE,
-  y_expand = NULL,
-  y_labels = waiver(),
-  y_pretty_n = 5,
-  y_title = "[Y title]",
-  y_title_wrap = 50,
-  y_trans = "identity",
-  y_zero = FALSE,
-  y_zero_line = NULL,
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "Helvetica",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
-)
+ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
+  stat = "boxplot", pal = NULL, width = 0.5, alpha = 1,
+  size_line = 0.5, size_point = 1, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_expand = NULL, x_labels = waiver(), x_title = "[X title]",
+  x_title_wrap = 50, y_balance = FALSE, y_expand = NULL,
+  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
+  y_title_wrap = 50, y_trans = "identity", y_zero = FALSE,
+  y_zero_line = NULL, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}

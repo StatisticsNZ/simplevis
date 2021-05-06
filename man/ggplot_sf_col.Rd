@@ -4,39 +4,16 @@
 \alias{ggplot_sf_col}
 \title{Map of simple features in ggplot that is coloured.}
 \usage{
-ggplot_sf_col(
-  data,
-  col_var,
-  text_var = NULL,
-  pal = NULL,
-  pal_rev = FALSE,
-  size_point = 1,
-  size_line = 0.5,
-  alpha = 1,
-  borders = NULL,
-  borders_behind = TRUE,
-  borders_pal = "#7f7f7f",
-  borders_size = 0.2,
-  title = "[Title]",
-  title_wrap = 70,
-  subtitle = NULL,
-  subtitle_wrap = 80,
-  col_cuts = NULL,
-  col_labels = NULL,
-  col_labels_dp = 1,
-  col_labels_ncol = NULL,
-  col_labels_nrow = NULL,
-  col_method = NULL,
-  col_na = TRUE,
-  col_title = "",
-  col_title_wrap = 25,
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "Helvetica",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
-)
+ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
+  pal_rev = FALSE, size_point = 1, size_line = 0.5, alpha = 1,
+  borders = NULL, borders_behind = TRUE, borders_pal = "#7f7f7f",
+  borders_size = 0.2, title = "[Title]", title_wrap = 70,
+  subtitle = NULL, subtitle_wrap = 80, col_cuts = NULL,
+  col_labels = NULL, col_labels_dp = 1, col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_method = NULL, col_na = TRUE,
+  col_title = "", col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -77,9 +54,9 @@ ggplot_sf_col(
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
-\item{col_labels_ncol}{The number of columns in the legend.}
+\item{col_legend_ncol}{The number of columns in the legend.}
 
-\item{col_labels_nrow}{The number of rows in the legend.}
+\item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 

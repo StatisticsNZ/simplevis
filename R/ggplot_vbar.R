@@ -235,8 +235,8 @@ ggplot_vbar <- function(data,
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. 
-#' @param col_labels_nrow The number of rows in the legend.
+#' @param col_legend_ncol The number of columns in the legend. 
+#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -290,8 +290,8 @@ ggplot_vbar_col <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_labels = NULL,
-           col_labels_ncol = NULL,
-           col_labels_nrow = NULL,
+           col_legend_ncol = NULL,
+           col_legend_nrow = NULL,
            col_na = TRUE,
            col_rev = FALSE,
            col_title = "",
@@ -465,12 +465,12 @@ ggplot_vbar_col <-
           caption = stringr::str_wrap(caption, caption_wrap)
         ) +
         guides(fill = guide_legend(
-          ncol = col_labels_ncol,
+          ncol = col_legend_ncol,
           byrow = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
         ), 
         col = guide_legend(
-          ncol = col_labels_ncol, nrow = col_labels_nrow, 
+          ncol = col_legend_ncol, nrow = col_legend_nrow, 
           byrow = TRUE,
           title = stringr::str_wrap(col_title, col_title_wrap)
         ))
@@ -734,8 +734,8 @@ ggplot_vbar_facet <-
 #' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
-#' @param col_labels_ncol The number of columns in the legend. 
-#' @param col_labels_nrow The number of rows in the legend.
+#' @param col_legend_ncol The number of columns in the legend. 
+#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -796,8 +796,8 @@ ggplot_vbar_col_facet <-
            y_zero = TRUE,
            y_zero_line = NULL,
            col_labels = NULL,
-           col_labels_ncol = NULL,
-           col_labels_nrow = NULL,
+           col_legend_ncol = NULL,
+           col_legend_nrow = NULL,
            col_na = TRUE,
            col_rev = FALSE,
            col_title = "",
@@ -974,7 +974,7 @@ ggplot_vbar_col_facet <-
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
       guides(fill = guide_legend(
-        ncol = col_labels_ncol, nrow = col_labels_nrow, 
+        ncol = col_legend_ncol, nrow = col_legend_nrow, 
         byrow = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       ), 

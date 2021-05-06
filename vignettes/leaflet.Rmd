@@ -46,6 +46,18 @@ leaflet_sf_col(example_sf_polygon, density,
      title = "Modelled density, 2017")
 ```
 
+The popup will default to a `leafpop::popupTable` of all variables, but can be adjusted to a subset using the `popup_vars_vctr` argument.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+leaflet_sf_col(example_sf_point, trend_category, popup_vars_vctr = c("site_id", "median"))
+```
+
+The tooltip will default to the colour variable, but can be adjusted using the `text_var` variable.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+leaflet_sf_col(example_sf_point, trend_category, text_var = site_id)
+```
+
 ### Basemaps
 
 Users have a `basemap` argument that defaults to "light" but has other options.

@@ -3,7 +3,7 @@
 #' @title Map of simple features in leaflet.
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
-#' @param popup_var Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
+#' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
@@ -18,7 +18,7 @@
 #' @examples
 #' leaflet_sf(example_sf_point)
 leaflet_sf <- function(data,
-                       popup_var = NULL,
+                       popup_vars_vctr = NULL,
                        pal = NULL,
                        size_point = 2,
                        size_line = 2,
@@ -54,16 +54,19 @@ leaflet_sf <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
-  if(is.null(popup_var)) ({
-    if(ncol(data) == 1) popup <- NULL
-    else ({
-      popup <- leafpop::popupTable(
-        sv_colnames_to_present(
-          sf::st_drop_geometry(data)
-        ),
-        row.numbers = FALSE, feature.id = FALSE)
-    })
-  })
+  if(is_null(popup_vars_vctr)){
+    popup_data <- data %>% 
+      sf::st_drop_geometry() %>% 
+      sv_colnames_to_present()
+  }
+  else {
+    popup_data <- data %>% 
+      dplyr::select(popup_vars_vctr) %>% 
+      sf::st_drop_geometry() %>% 
+      sv_colnames_to_present()
+  }
+  
+  popup <- leafpop::popupTable(popup_data, row.numbers = FALSE, feature.id = FALSE)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     
@@ -198,7 +201,7 @@ leaflet_sf <- function(data,
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param col_var Unquoted variable to colour the features by. Required input.
 #' @param text_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
-#' @param popup_var Quoted variable of a variable to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
+#' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
@@ -230,7 +233,7 @@ leaflet_sf <- function(data,
 leaflet_sf_col <- function(data,
                            col_var,
                            text_var = NULL,
-                           popup_var = NULL,
+                           popup_vars_vctr = NULL,
                            pal = NULL,
                            pal_rev = FALSE,
                            size_point = 2,
@@ -348,17 +351,19 @@ leaflet_sf_col <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
-  if(is.null(popup_var)) ({
-    if(ncol(data) == 1) popup <- NULL
-    else ({
-      popup <- leafpop::popupTable(
-        sv_colnames_to_present(
-          sf::st_drop_geometry(data)
-        ),
-        row.numbers = FALSE, feature.id = FALSE)
-    })
-  })
-  else popup <- dplyr::pull(data, !!rlang::enquo(popup_var))
+  if(is_null(popup_vars_vctr)){
+    popup_data <- data %>% 
+      sf::st_drop_geometry() %>% 
+      sv_colnames_to_present()
+  }
+  else {
+    popup_data <- data %>% 
+      dplyr::select(popup_vars_vctr) %>% 
+      sf::st_drop_geometry() %>% 
+      sv_colnames_to_present()
+  }
+  
+  popup <- leafpop::popupTable(popup_data, row.numbers = FALSE, feature.id = FALSE)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (shiny == FALSE) {

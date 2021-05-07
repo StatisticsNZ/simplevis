@@ -28,5 +28,5 @@ plotly::ggplotly(plot) \%>\%
   plotly_col_legend(rev = TRUE)
 
 plotly::ggplotly(plot) \%>\% 
-  plotly_col_legend(order = c(2, 1, 3:8))
+  plotly_col_legend(order = c(2, 1, 3:7))
 }

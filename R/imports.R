@@ -2,13 +2,9 @@
 #' 
 #' @import ggplot2
 #' @import leaflet
+#' @import sf
 #' @importFrom rlang !!
 #' @importFrom rlang .data
-#' @importFrom sf st_crs
-#' @importFrom sf st_drop_geometry
-#' @importFrom sf st_geometry_type
-#' @importFrom sf st_is_longlat
-#' @importFrom sf st_transform
 
 NULL
 

@@ -20,13 +20,17 @@
 #' plotly::ggplotly(plot, tooltip = "text")
 mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
   
-  data <- data %>% dplyr::ungroup()
+  data <- data %>% 
+    dplyr::ungroup()
   
   class <- class(data)[1]
   
   if(is.null(text_vars_vctr)) {
-    if(class == "sf") text_vars_vctr <- colnames(data)[colnames(data) != "geometry"]
-    else if(class != "sf") text_vars_vctr <- colnames(data)
+    if(class == "sf") {
+      text_vars_vctr <- colnames(data)[colnames(data) != "geometry"]
+    } else if(class != "sf") {
+      text_vars_vctr <- colnames(data)
+    }
   }
   
   text <- vector("character", 0)
@@ -37,7 +41,7 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
       temp <- data %>% 
         dplyr::select(text_vars_vctr[i]) 
       
-      if(class == "sf") temp <- temp %>% 
+      if(class == "sf") temp <- temp %>%
           sf::st_drop_geometry()
       
       temp <- paste0(
@@ -54,7 +58,7 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
       temp <- data %>% 
         dplyr::select(text_vars_vctr[i]) 
       
-      if(class == "sf") temp <- temp %>% 
+      if(class == "sf") temp <- temp %>%
           sf::st_drop_geometry()
       
       temp <- paste0(
@@ -68,6 +72,11 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
   
   data <- data %>%
     dplyr::mutate(text = stringr::str_replace_all(text, " NA<br>", " Not available<br>"))
+
+  if(class == "sf") {
+    data <- data %>%
+      dplyr::relocate(text, .before = "geometry")
+  }
   
   return(data)
 }

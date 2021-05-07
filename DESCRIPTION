@@ -18,10 +18,10 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 2.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
-         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, plotly, readr, rgdal, 
-         rlang (>= 0.4.0), rmarkdown, scales, sf, shiny, shinycssloaders, stars, stats, stringr, 
+         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, plotly, readr, 
+         rlang (>= 0.4.0), rmarkdown, scales, sf, shiny, shinycssloaders, stats, stringr, 
          tibble, tidyr (>= 1.0.0), viridis
 Suggests: 
-    knitr, rgeos 
+    knitr, rgdal, rgeos 
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.2</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@
     <p>Add a column of tooltip text which is automatically created based on column names and values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mutate_text</span>(<span class='no'>data</span>, <span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>mutate_text</span>(<span class='no'>data</span>, <span class='kw'>text_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,7 +165,7 @@
       <td><p>A tibble or dataframe. Required input.</p></td>
     </tr>
     <tr>
-      <th>vars_vctr</th>
+      <th>text_vars_vctr</th>
       <td><p>A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.</p></td>
     </tr>
     <tr>

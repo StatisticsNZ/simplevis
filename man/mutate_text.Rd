@@ -4,12 +4,12 @@
 \alias{mutate_text}
 \title{Add a quick tooltip text column to data.}
 \usage{
-mutate_text(data, vars_vctr = NULL, comma = FALSE)
+mutate_text(data, text_vars_vctr = NULL, comma = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{vars_vctr}{A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.}
+\item{text_vars_vctr}{A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.}
 
 \item{comma}{TRUE or FALSE of whether to convert numeric values to character values with comma seperators.}
 }

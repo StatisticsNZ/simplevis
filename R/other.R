@@ -1,7 +1,7 @@
 #' @title Add a quick tooltip text column to data.
 #' @description Add a column of tooltip text which is automatically created based on column names and values. 
 #' @param data A tibble or dataframe. Required input.
-#' @param vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
+#' @param text_vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
 #' @param comma TRUE or FALSE of whether to convert numeric values to character values with comma seperators.
 #' @return A vector of labels.
 #' @export
@@ -18,24 +18,24 @@
 #'                        y_title = "Price ($US thousands)")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text")
-mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
+mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
   
   data <- data %>% dplyr::ungroup()
   
   class <- class(data)[1]
   
-  if(is.null(vars_vctr)) {
-    if(class == "sf") vars_vctr <- colnames(data)[colnames(data) != "geometry"]
-    else if(class != "sf") vars_vctr <- colnames(data)
+  if(is.null(text_vars_vctr)) {
+    if(class == "sf") text_vars_vctr <- colnames(data)[colnames(data) != "geometry"]
+    else if(class != "sf") text_vars_vctr <- colnames(data)
   }
   
   text <- vector("character", 0)
   
   if(comma == TRUE) {
-    for (i in length(vars_vctr):1) {
+    for (i in length(text_vars_vctr):1) {
       
       temp <- data %>% 
-        dplyr::select(vars_vctr[i]) 
+        dplyr::select(text_vars_vctr[i]) 
       
       if(class == "sf") temp <- temp %>% 
           sf::st_drop_geometry()
@@ -49,10 +49,10 @@ mutate_text <- function(data, vars_vctr = NULL, comma = FALSE) {
     }
   }
   else if (comma == FALSE) {
-    for (i in length(vars_vctr):1) {
+    for (i in length(text_vars_vctr):1) {
       
       temp <- data %>% 
-        dplyr::select(vars_vctr[i]) 
+        dplyr::select(text_vars_vctr[i]) 
       
       if(class == "sf") temp <- temp %>% 
           sf::st_drop_geometry()

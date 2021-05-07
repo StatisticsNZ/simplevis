@@ -54,7 +54,7 @@ leaflet_sf <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
-  if(is_null(popup_vars_vctr)){
+  if(is.null(popup_vars_vctr)){
     popup_data <- data %>% 
       sf::st_drop_geometry() %>% 
       sv_colnames_to_present()
@@ -351,7 +351,7 @@ leaflet_sf_col <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
-  if(is_null(popup_vars_vctr)){
+  if(is.null(popup_vars_vctr)){
     popup_data <- data %>% 
       sf::st_drop_geometry() %>% 
       sv_colnames_to_present()

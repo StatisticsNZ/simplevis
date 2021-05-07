@@ -322,10 +322,10 @@ ggplot_vbar_col <-
     
     if (col_rev == TRUE){
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    
-    col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
@@ -830,10 +830,10 @@ ggplot_vbar_col_facet <-
     
     if (col_rev == TRUE){
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    
-    col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)

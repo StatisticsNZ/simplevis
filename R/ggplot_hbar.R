@@ -99,16 +99,15 @@ ggplot_hbar <- function(data,
     }
     else if (is.character(y_var_vctr)) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
     }
   }
   else if (y_rev == TRUE) {
-    if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
+    if (is.character(y_var_vctr)) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
     }
   }
-  
   y_var_vctr <- dplyr::pull(data, !!y_var)
 
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -319,18 +318,12 @@ ggplot_hbar_col <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(y_var_vctr)  | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
+    if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
 
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
-    if(is.logical(x_var_vctr)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~as_factor(.x, levels = c("TRUE", "FALSE"))))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
     if (y_rev == FALSE) {
       if (is.factor(y_var_vctr)){
         data <- data %>%
@@ -338,20 +331,14 @@ ggplot_hbar_col <-
       }
       else if (is.character(y_var_vctr)) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(factor(.x))))
       }
       y_var_vctr <- dplyr::pull(data, !!y_var)
     }
-    else if (y_rev == TRUE) {
-      if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
-      }
-      y_var_vctr <- dplyr::pull(data, !!y_var)
-    }
+    
     if (col_rev == FALSE){
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
       
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
@@ -613,18 +600,11 @@ ggplot_hbar_facet <-
       }
       else if (is.character(y_var_vctr)) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(factor(.x))))
       }
+      y_var_vctr <- dplyr::pull(data, !!y_var)
     }
-    else if (y_rev == TRUE) {
-      if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
-      }
-    }
-    
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-    
+
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
@@ -835,22 +815,17 @@ ggplot_hbar_col_facet <-
       }
       else if (is.character(y_var_vctr)) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(factor(.x))))
       }
-    }
-    else if (y_rev == TRUE) {
-      if (is.character(y_var_vctr) | is.logical(y_var_vctr)) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = y_rev)))
-      }
-    }
-    if (col_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      y_var_vctr <- dplyr::pull(data, !!y_var)
     }
     
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-    col_var_vctr <- dplyr::pull(data, !!col_var)
+    if (col_rev == FALSE){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)

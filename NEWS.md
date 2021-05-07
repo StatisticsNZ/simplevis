@@ -1,3 +1,9 @@
+# simplevis 3.1.0
+
+* Removed rnaturalearth from suggests.
+* Corrected is_null bug in leaflet_sf.
+* Corrected hbar y_var reversing bug.
+
 # simplevis 3.0.2
 
 * Breaking change: changed mutate_text vars_vctr argument to text_vars_vctr.

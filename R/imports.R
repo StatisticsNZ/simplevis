@@ -2,15 +2,14 @@
 #' 
 #' @import ggplot2
 #' @import leaflet
-#' @import rlang
-#' @import dplyr
-#' @import sf
-#' @import stars
-#' @import rgdal
-#' @importFrom janitor clean_names
-#' @importFrom stats quantile
-#' @importFrom leafpop popupTable
-#' @importFrom htmltools htmlEscape
+#' @importFrom rlang !!
+#' @importFrom rlang .data
+#' @importFrom sf st_crs
+#' @importFrom sf st_drop_geometry
+#' @importFrom sf st_geometry_type
+#' @importFrom sf st_is_longlat
+#' @importFrom sf st_transform
+
 NULL
 
 #' Pipe operator
@@ -23,11 +22,6 @@ NULL
 #' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
-NULL
-
-#' Nse force
-#'
-#' @importFrom rlang !!
 NULL
 
 #' Shiny input

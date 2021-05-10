@@ -337,9 +337,14 @@ ggplot_hbar_col <-
     }
     
     if (col_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-      
+      if (is.factor(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      }
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
 
@@ -821,9 +826,14 @@ ggplot_hbar_col_facet <-
     }
     
     if (col_rev == FALSE){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-      
+      if (is.factor(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      }
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
     

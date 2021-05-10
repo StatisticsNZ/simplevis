@@ -1,3 +1,7 @@
+# simplevis 3.1.1 
+
+* Updated col_rev code to fix colouring of factors where rev = TRUE.
+
 # simplevis 3.1.0
 
 * Removed rnaturalearth from suggests.

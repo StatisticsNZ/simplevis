@@ -321,9 +321,14 @@ ggplot_vbar_col <-
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
     
     if (col_rev == TRUE){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-      
+      if (is.factor(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      }
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
     
@@ -829,9 +834,14 @@ ggplot_vbar_col_facet <-
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
     if (col_rev == TRUE){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-      
+      if (is.factor(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      }
+      else if (is.character(col_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+      }
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
     

@@ -1,3 +1,8 @@
+# simplevis 3.1.3
+
+* New feature: added support for x categorical variables in point.
+* New feature: added support for x categorical and date variables in boxplot.
+
 # simplevis 3.1.2
 
 * New feature: added support for x date variables in vbar.

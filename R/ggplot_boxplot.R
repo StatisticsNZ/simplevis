@@ -14,10 +14,15 @@
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -68,10 +73,15 @@ ggplot_boxplot <- function(data,
                            title_wrap = 70,
                            subtitle = NULL,
                            subtitle_wrap = 80,
+                           x_balance = FALSE,
                            x_expand = NULL,
                            x_labels = waiver(),
+                           x_pretty_n = 5,
                            x_title = "[X title]",
                            x_title_wrap = 50,
+                           x_trans = "identity",
+                           x_zero = FALSE,
+                           x_zero_line = NULL,
                            y_balance = FALSE,
                            y_expand = NULL,
                            y_labels = waiver(),
@@ -103,7 +113,6 @@ ggplot_boxplot <- function(data,
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
   
-  if (!(is.character(x_var_vctr) |is.factor(x_var_vctr))) stop("Please use a categorical x variable for a boxplot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
   
   plot <- ggplot(data) +
@@ -166,40 +175,76 @@ ggplot_boxplot <- function(data,
       )
   }
   
+  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    
+    if(mobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+    }
+  }
+  
+  if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels
+      )
+  }
+  else if (is.numeric(x_var_vctr)) {
+    plot <- plot +
+      scale_x_continuous(expand = x_expand,
+                         breaks = x_breaks,
+                         limits = x_limits,
+                         labels = x_labels,
+                         oob = scales::squish)
+    
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+  }
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if(is.null(x_expand)) x_expand <- waiver()
+    
+    if (mobile == FALSE){
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else if (mobile == TRUE){
+      if(is.character(x_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+    }
+  }
+  
+  if(is.null(y_expand)) y_expand <- c(0, 0)  
+  
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if(is.null(x_expand)) x_expand <- waiver()
-  if(is.null(y_expand)) y_expand <- c(0, 0)
-  
-  if (mobile == FALSE){
-    plot <- plot +
-      scale_x_discrete(expand = x_expand, labels = x_labels)
-  }
-  else if (mobile == TRUE){
-    if(is.character(x_labels)) {
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
-    }
-    else {
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-    }
-  }
-
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
-      scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+      scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
     y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
-    
-    if(mobile == TRUE) {
-      y_breaks <- y_limits
-      if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
-    }
     
     plot <- plot +
       scale_y_continuous(
@@ -216,7 +261,7 @@ ggplot_boxplot <- function(data,
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
-  
+
   if (mobile == FALSE){
     plot <- plot +
       labs(
@@ -264,10 +309,15 @@ ggplot_boxplot <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -326,10 +376,15 @@ ggplot_boxplot_col <- function(data,
                                title_wrap = 70,
                                subtitle = NULL,
                                subtitle_wrap = 80,
+                               x_balance = FALSE,
                                x_expand = NULL,
                                x_labels = waiver(),
+                               x_pretty_n = 5,
                                x_title = "[X title]",
                                x_title_wrap = 50,
+                               x_trans = "identity",
+                               x_zero = FALSE,
+                               x_zero_line = NULL,
                                y_balance = FALSE,
                                y_expand = NULL,
                                y_labels = waiver(),
@@ -366,18 +421,9 @@ ggplot_boxplot_col <- function(data,
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
   col_var_vctr <- dplyr::pull(data, !!col_var)
-  
-  if (!(is.character(x_var_vctr) |is.factor(x_var_vctr))) stop("Please use a categorical x variable for a boxplot")
-  if (!(is.character(col_var_vctr) |is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a boxplot")
+
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
-  
-  plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
-    theme_boxplot(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+  if (!(is.character(col_var_vctr) |is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a boxplot")
   
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     n_col <- length(levels(col_var_vctr))
@@ -389,8 +435,13 @@ ggplot_boxplot_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  if (!is.null(col_labels)) labels <- rev(col_labels)
-  if (is.null(col_labels)) labels <- waiver()
+  plot <- ggplot(data) +
+    coord_cartesian(clip = "off") +
+    theme_boxplot(
+      font_family = font_family,
+      font_size_body = font_size_body,
+      font_size_title = font_size_title
+    )
   
   if (stat == "boxplot") {
     if(rlang::quo_is_null(group_var)) {
@@ -445,40 +496,76 @@ ggplot_boxplot_col <- function(data,
       )
   }
   
+  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    
+    if(mobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+    }
+  }
+  
+  if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels
+      )
+  }
+  else if (is.numeric(x_var_vctr)) {
+    plot <- plot +
+      scale_x_continuous(expand = x_expand,
+                         breaks = x_breaks,
+                         limits = x_limits,
+                         labels = x_labels,
+                         oob = scales::squish)
+    
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+  }
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if(is.null(x_expand)) x_expand <- waiver()
+    
+    if (mobile == FALSE){
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else if (mobile == TRUE){
+      if(is.character(x_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+    }
+  }
+  
+  if(is.null(y_expand)) y_expand <- c(0, 0)
+  
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if(is.null(x_expand)) x_expand <- waiver()
-  if(is.null(y_expand)) y_expand <- c(0, 0)
-  
-  if (mobile == FALSE){
-    plot <- plot +
-      scale_x_discrete(expand = x_expand, labels = x_labels)
-  }
-  else if (mobile == TRUE){
-    if(is.character(x_labels)) {
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
-    }
-    else {
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-    }
-  }
-  
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
-      scale_y_continuous(breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+      scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
     y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
-    
-    if(mobile == TRUE) {
-      y_breaks <- y_limits
-      if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
-    }
     
     plot <- plot +
       scale_y_continuous(
@@ -496,6 +583,9 @@ ggplot_boxplot_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (!is.null(col_labels)) labels <- col_labels
+  if (is.null(col_labels)) labels <- waiver()
+
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -543,7 +633,6 @@ ggplot_boxplot_col <- function(data,
         reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) 
-    
   }
   
   return(plot)
@@ -566,10 +655,15 @@ ggplot_boxplot_col <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -612,10 +706,15 @@ ggplot_boxplot_facet <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
+           x_pretty_n = 5,
            x_title = "[X title]",
            x_title_wrap = 50,
+           x_trans = "identity",
+           x_zero = FALSE,
+           x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -645,7 +744,6 @@ ggplot_boxplot_facet <-
     else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!(is.character(x_var_vctr) | is.factor(x_var_vctr))) stop("Please use a categorical x variable for a boxplot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
@@ -720,18 +818,54 @@ ggplot_boxplot_facet <-
         )
     }
     
+    if (facet_scales %in% c("fixed", "free_y")) {
+      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+        
+        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+        x_zero_line <- x_zero_list[[2]]
+        
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        if(is.null(x_expand)) x_expand <- c(0, 0)
+      }
+      
+      if (lubridate::is.Date(x_var_vctr)) {
+        plot <- plot +
+          scale_x_date(
+            expand = x_expand,
+            breaks = x_breaks,
+            limits = x_limits,
+            labels = x_labels
+          )
+      }
+      else if (is.numeric(x_var_vctr)) {
+        plot <- plot +
+          scale_x_continuous(expand = x_expand,
+                             breaks = x_breaks,
+                             limits = x_limits,
+                             labels = x_labels,
+                             oob = scales::squish)
+        
+        if(x_zero_line == TRUE) {
+          plot <- plot +
+            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        }
+      }
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        if(is.null(x_expand)) x_expand <- waiver()
+        
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = x_labels)
+      }
+    }
+    
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
-    if(is.null(x_expand)) x_expand <- waiver()
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
-    if (facet_scales %in% c("fixed", "free_y")) {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = x_labels)
-    }
-      
     if (facet_scales %in% c("fixed", "free_x")) {
       if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
@@ -758,13 +892,13 @@ ggplot_boxplot_facet <-
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
-    }    
+    }
     
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-    
+
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -797,10 +931,15 @@ ggplot_boxplot_facet <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -864,10 +1003,15 @@ ggplot_boxplot_col_facet <-
            title_wrap = 70,
            subtitle = NULL,
            subtitle_wrap = 80,
+           x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
+           x_pretty_n = 5,
            x_title = "[X title]",
            x_title_wrap = 50,
+           x_trans = "identity",
+           x_zero = FALSE,
+           x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
@@ -906,21 +1050,12 @@ ggplot_boxplot_col_facet <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!(is.character(x_var_vctr) | is.factor(x_var_vctr))) stop("Please use a categorical x variable for a boxplot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
     if (!(is.character(col_var_vctr) |is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a boxplot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-    
-    plot <- ggplot(data) +
-      coord_cartesian(clip = "off") +
-      theme_boxplot(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) 
     
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
       n_col <- length(levels(col_var_vctr))
@@ -932,8 +1067,13 @@ ggplot_boxplot_col_facet <-
     
     if (pal_rev == TRUE) pal <- rev(pal)
     
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme_boxplot(
+        font_family = font_family,
+        font_size_body = font_size_body,
+        font_size_title = font_size_title
+      ) 
     
     if (stat == "boxplot") {
       if(rlang::quo_is_null(group_var)) {
@@ -990,17 +1130,53 @@ ggplot_boxplot_col_facet <-
         )
     }
     
+    if (facet_scales %in% c("fixed", "free_y")) {
+      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+        
+        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+        x_zero_line <- x_zero_list[[2]]
+        
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        if(is.null(x_expand)) x_expand <- c(0, 0)
+      }
+      
+      if (lubridate::is.Date(x_var_vctr)) {
+        plot <- plot +
+          scale_x_date(
+            expand = x_expand,
+            breaks = x_breaks,
+            limits = x_limits,
+            labels = x_labels
+          )
+      }
+      else if (is.numeric(x_var_vctr)) {
+        plot <- plot +
+          scale_x_continuous(expand = x_expand,
+                             breaks = x_breaks,
+                             limits = x_limits,
+                             labels = x_labels,
+                             oob = scales::squish)
+        
+        if(x_zero_line == TRUE) {
+          plot <- plot +
+            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        }
+      }
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        if(is.null(x_expand)) x_expand <- waiver()
+        
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = x_labels)
+      }
+    }
+    
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
-    if(is.null(x_expand)) x_expand <- waiver()
     if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    if (facet_scales %in% c("fixed", "free_y")) {
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
-    }
     
     if (facet_scales %in% c("fixed", "free_x")) {
       if (all(y_var_vctr == 0, na.rm = TRUE)) {
@@ -1028,13 +1204,16 @@ ggplot_boxplot_col_facet <-
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
-    }    
+    }
     
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
+    if (!is.null(col_labels)) labels <- col_labels
+    if (is.null(col_labels)) labels <- waiver()
+
     plot <- plot +
       scale_fill_manual(
         values = pal,

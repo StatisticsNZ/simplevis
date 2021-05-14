@@ -157,8 +157,20 @@ ggplot_line <- function(data,
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
-    plot <- plot +
-      scale_x_discrete(expand = x_expand, labels = x_labels)
+    if (mobile == FALSE){
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else if (mobile == TRUE){
+      if(is.character(x_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+    }
   }
   
   if(is.null(y_expand)) y_expand <- c(0, 0)  
@@ -405,8 +417,20 @@ ggplot_line_col <-
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
       
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
+      if (mobile == FALSE){
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = x_labels)
+      }
+      else if (mobile == TRUE){
+        if(is.character(x_labels)) {
+          plot <- plot +
+            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
+        }
+        else {
+          plot <- plot +
+            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+        }
+      }
     }
     
     if(is.null(y_expand)) y_expand <- c(0, 0)
@@ -434,6 +458,14 @@ ggplot_line_col <-
         )
     })
     
+    if(y_zero_line == TRUE) {
+      plot <- plot +
+        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+    }
+    
+    if (!is.null(col_labels)) labels <- col_labels
+    if (is.null(col_labels)) labels <- waiver()
+    
     plot <- plot +
       scale_color_manual(
         values = pal,
@@ -441,13 +473,8 @@ ggplot_line_col <-
         labels = labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
-      ) 
-    
-    if(y_zero_line == TRUE) {
-      plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
-    }
-    
+      )
+
     if (mobile == FALSE) {
       plot <- plot +
         labs(
@@ -851,18 +878,6 @@ ggplot_line_col_facet <-
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
                  size = size_point, alpha = 1)
     
-    if (!is.null(col_labels)) labels <- col_labels
-    if (is.null(col_labels)) labels <- waiver()
-    
-    plot <- plot +
-      scale_color_manual(
-        values = pal,
-        drop = FALSE,
-        labels = labels,
-        na.translate = col_na,
-        na.value = "#A8A8A8"
-      )
-    
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
         
@@ -944,7 +959,17 @@ ggplot_line_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
+    if (!is.null(col_labels)) labels <- col_labels
+    if (is.null(col_labels)) labels <- waiver()
+    
     plot <- plot +
+      scale_color_manual(
+        values = pal,
+        drop = FALSE,
+        labels = labels,
+        na.translate = col_na,
+        na.value = "#A8A8A8"
+      ) +
       labs(
         title = stringr::str_wrap(title, title_wrap),
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

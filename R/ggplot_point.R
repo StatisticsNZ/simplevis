@@ -1,7 +1,7 @@
 #' @title Point ggplot.
 #' @description Point ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param size_point Size of points. Defaults to 1.
@@ -221,7 +221,7 @@ ggplot_point <- function(data,
 #' @title Point ggplot that is coloured.
 #' @description Point ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -521,7 +521,7 @@ ggplot_point_col <-
 #' @title Point ggplot that is facetted.
 #' @description Point ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -730,7 +730,7 @@ ggplot_point_facet <-
 #' @title Point ggplot that is coloured and facetted.
 #' @description Point ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.

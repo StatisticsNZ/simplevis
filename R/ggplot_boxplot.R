@@ -1,7 +1,7 @@
 #' @title Boxplot ggplot.
 #' @description Boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
@@ -294,7 +294,7 @@ ggplot_boxplot <- function(data,
 #' ggplot boxplot that is coloured
 #'
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
@@ -641,7 +641,7 @@ ggplot_boxplot_col <- function(data,
 #' @title Boxplot ggplot that is facetted.
 #' @description Boxplot ggplot that is facetted, but not coloured.
 #' @param data An tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
@@ -915,7 +915,7 @@ ggplot_boxplot_facet <-
 #' ggplot boxplot that is coloured
 #'
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.

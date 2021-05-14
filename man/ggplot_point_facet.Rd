@@ -20,7 +20,7 @@ ggplot_point_facet(data, x_var, y_var, facet_var, text_var = NULL,
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted numeric variable to be on the x axis. Required input.}
+\item{x_var}{Unquoted numeric, date or categorical variable to be on the x axis. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Required input.}
 

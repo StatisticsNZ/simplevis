@@ -1,7 +1,7 @@
 #' @title Line ggplot.
 #' @description Line ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
@@ -232,7 +232,7 @@ ggplot_line <- function(data,
 #' @title Line ggplot that is coloured.
 #' @description Line ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -505,7 +505,7 @@ ggplot_line_col <-
 #' @title Line ggplot that is facetted.
 #' @description Line ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -725,7 +725,7 @@ ggplot_line_facet <-
 #' @title Line ggplot that is coloured and facetted.
 #' @description Line ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric or date variable to be on the x axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.

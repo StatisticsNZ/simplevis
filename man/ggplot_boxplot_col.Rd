@@ -23,7 +23,7 @@ ggplot_boxplot_col(data, x_var, y_var = NULL, col_var,
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted variable to be on the x axis. Required input.}
+\item{x_var}{Unquoted numeric, date or categorical variable to be on the x axis. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
 

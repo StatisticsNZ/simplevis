@@ -1,12 +1,17 @@
+# simplevis 3.1.2
+
+* New feature: added support for x date variables in vbar.
+* New feature: added support for x categorical variables in line.
+
 # simplevis 3.1.1 
 
-* Updated col_rev code to fix colouring of factors where rev = TRUE.
+* Bug fix: Updated col_rev code to fix colouring of factors where rev = TRUE.
 
 # simplevis 3.1.0
 
-* Removed rnaturalearth from suggests.
-* Corrected is_null bug in leaflet_sf.
-* Corrected hbar y_var reversing bug.
+* Minor change: Removed rnaturalearth from suggests.
+* Bug fix: Corrected is_null bug in leaflet_sf.
+* Bug fix: Corrected hbar y_var reversing bug.
 
 # simplevis 3.0.2
 

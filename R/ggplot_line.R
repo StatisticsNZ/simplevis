@@ -93,7 +93,6 @@ ggplot_line <- function(data,
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
-  if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
   if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
     stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
@@ -117,20 +116,22 @@ ggplot_line <- function(data,
     geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) +
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
   
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-  x_zero <- x_zero_list[[1]]
-  x_zero_line <- x_zero_list[[2]]
-  
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-  y_zero <- y_zero_list[[1]]
-  y_zero_line <- y_zero_list[[2]]
-  
-  if(is.null(x_expand)) x_expand <- c(0, 0)
-  if(is.null(y_expand)) y_expand <- c(0, 0)
+  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
 
-  x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
-  x_limits <- c(min(x_breaks), max(x_breaks))
-
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    
+    if(mobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+    }
+  }
+  
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
       scale_x_date(
@@ -145,10 +146,26 @@ ggplot_line <- function(data,
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          limits = x_limits,
-                         trans = x_trans,
                          labels = x_labels,
-                         oob = scales::rescale_none)
+                         oob = scales::squish)
+    
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
   }
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if(is.null(x_expand)) x_expand <- waiver()
+    
+    plot <- plot +
+      scale_x_discrete(expand = x_expand, labels = x_labels)
+  }
+  
+  if(is.null(y_expand)) y_expand <- c(0, 0)  
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -168,11 +185,6 @@ ggplot_line <- function(data,
         oob = scales::rescale_none
       )
   })
-  
-  if(x_zero_line == TRUE) {
-    plot <- plot +
-      geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-  }
 
   if(y_zero_line == TRUE) {
     plot <- plot +
@@ -320,7 +332,6 @@ ggplot_line_col <-
     y_var_vctr <- dplyr::pull(data, !!y_var)
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
-    if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
@@ -353,22 +364,21 @@ ggplot_line_col <-
       geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
                  size = size_point, alpha = 1)
     
-    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-    x_zero <- x_zero_list[[1]]
-    x_zero_line <- x_zero_list[[2]]
-    
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-    y_zero <- y_zero_list[[1]]
-    y_zero_line <- y_zero_list[[2]]
-    
-    if(is.null(x_expand)) x_expand <- c(0, 0)
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    if (!is.null(col_labels)) labels <- col_labels
-    if (is.null(col_labels)) labels <- waiver()
-    
-    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+      
+      x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+      x_zero <- x_zero_list[[1]]
+      x_zero_line <- x_zero_list[[2]]
+
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+      if(is.null(x_expand)) x_expand <- c(0, 0)
+      
+      if(mobile == TRUE) {
+        x_breaks <- x_limits
+        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+      }
+    }
     
     if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
@@ -384,11 +394,27 @@ ggplot_line_col <-
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
                            limits = x_limits,
-                           trans = x_trans,
                            labels = x_labels,
-                           oob = scales::rescale_none)
+                           oob = scales::squish)
+      
+      if(x_zero_line == TRUE) {
+        plot <- plot +
+          geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+      }
+    }
+    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if(is.null(x_expand)) x_expand <- waiver()
+      
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = x_labels)
     }
     
+    if(is.null(y_expand)) y_expand <- c(0, 0)
+    
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
+
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -416,11 +442,6 @@ ggplot_line_col <-
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
-    
-    if(x_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-    }
     
     if(y_zero_line == TRUE) {
       plot <- plot +
@@ -556,7 +577,6 @@ ggplot_line_facet <-
     y_var_vctr <- dplyr::pull(data, !!y_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
@@ -581,41 +601,54 @@ ggplot_line_facet <-
       geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) + 
       geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
     
-    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
-    x_zero_line <- x_zero_list[[2]]
+    if (facet_scales %in% c("fixed", "free_y")) {
+      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+        
+        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+        x_zero_line <- x_zero_list[[2]]
+        
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        if(is.null(x_expand)) x_expand <- c(0, 0)
+      }
+      
+      if (lubridate::is.Date(x_var_vctr)) {
+        plot <- plot +
+          scale_x_date(
+            expand = x_expand,
+            breaks = x_breaks,
+            limits = x_limits,
+            labels = x_labels
+          )
+      }
+      else if (is.numeric(x_var_vctr)) {
+        plot <- plot +
+          scale_x_continuous(expand = x_expand,
+                             breaks = x_breaks,
+                             limits = x_limits,
+                             labels = x_labels,
+                             oob = scales::squish)
+        
+        if(x_zero_line == TRUE) {
+          plot <- plot +
+            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        }
+      }
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        if(is.null(x_expand)) x_expand <- waiver()
+        
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = x_labels)
+      }
+    }
     
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
-    if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    if (facet_scales %in% c("fixed", "free_y")) {
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
-        x_limits <- c(min(x_breaks), max(x_breaks))
-        
-        if (lubridate::is.Date(x_var_vctr)) {
-          plot <- plot +
-            scale_x_date(
-              expand = x_expand,
-              breaks = x_breaks,
-              limits = x_limits,
-              labels = x_labels
-            )
-        }
-        else if (is.numeric(x_var_vctr)) {
-          plot <- plot +
-            scale_x_continuous(expand = x_expand,
-                               breaks = x_breaks,
-                               limits = x_limits,
-                               trans = x_trans,
-                               labels = x_labels,
-                               oob = scales::rescale_none)
-        }
-    }
-    
+
     if (facet_scales %in% c("fixed", "free_x")) {
       if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
@@ -644,11 +677,6 @@ ggplot_line_facet <-
                            oob = scales::rescale_none)
     }
     
-    if(x_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-    }
-
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -790,7 +818,6 @@ ggplot_line_col_facet <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!(lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr))) stop("Please use a numeric or date x variable for a line plot")
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
@@ -836,21 +863,17 @@ ggplot_line_col_facet <-
         na.value = "#A8A8A8"
       )
     
-    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
-    x_zero_line <- x_zero_list[[2]]
-
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
-    y_zero_line <- y_zero_list[[2]]
-    
-    if(is.null(x_expand)) x_expand <- c(0, 0)
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    
     if (facet_scales %in% c("fixed", "free_y")) {
-      
-      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+        
+        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+        x_zero_line <- x_zero_list[[2]]
+
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero)
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        if(is.null(x_expand)) x_expand <- c(0, 0)
+      }
       
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
@@ -866,12 +889,28 @@ ggplot_line_col_facet <-
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
                              limits = x_limits,
-                             trans = x_trans,
                              labels = x_labels,
-                             oob = scales::rescale_none)
+                             oob = scales::squish)
+        
+        if(x_zero_line == TRUE) {
+          plot <- plot +
+            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        }
+      }
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        if(is.null(x_expand)) x_expand <- waiver()
+        
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
     
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    y_zero_line <- y_zero_list[[2]]
+    
+    if(is.null(y_expand)) y_expand <- c(0, 0)
+
     if (facet_scales %in% c("fixed", "free_x")) {
       if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
@@ -898,11 +937,6 @@ ggplot_line_col_facet <-
                            trans = y_trans,
                            labels = y_labels,
                            oob = scales::rescale_none)
-    }
-    
-    if(x_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
     
     if(y_zero_line == TRUE) {

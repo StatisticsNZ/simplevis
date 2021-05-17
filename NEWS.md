@@ -1,3 +1,7 @@
+# simplevis 3.1.4
+
+* Breaking change: removed group_var argument, and updated grouping code.
+
 # simplevis 3.1.3
 
 * New feature: added support for x categorical variables in point.

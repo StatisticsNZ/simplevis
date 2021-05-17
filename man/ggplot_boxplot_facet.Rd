@@ -5,8 +5,8 @@
 \title{Boxplot ggplot that is facetted.}
 \usage{
 ggplot_boxplot_facet(data, x_var, y_var = NULL, facet_var,
-  group_var = NULL, stat = "boxplot", pal = NULL, width = 0.5,
-  alpha = 1, size_line = 0.5, size_point = 1, title = "[Title]",
+  stat = "boxplot", pal = NULL, width = 0.5, alpha = 1,
+  size_line = 0.5, size_point = 1, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
   x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
@@ -26,8 +26,6 @@ ggplot_boxplot_facet(data, x_var, y_var = NULL, facet_var,
 \item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{group_var}{Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
 

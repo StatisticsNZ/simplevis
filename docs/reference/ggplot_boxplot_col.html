@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.4</span>
       </span>
     </div>
 
@@ -156,20 +156,20 @@
     </div>
 
     <pre class="usage"><span class='fu'>ggplot_boxplot_col</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>col_var</span>,
-  <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
-  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
-  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,10 +189,6 @@
     <tr>
       <th>col_var</th>
       <td><p>Unquoted categorical variable to colour the fill of the boxes. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>group_var</th>
-      <td><p>Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".</p></td>
     </tr>
     <tr>
       <th>stat</th>

@@ -5,20 +5,20 @@
 \title{ggplot boxplot that is coloured}
 \usage{
 ggplot_boxplot_col(data, x_var, y_var = NULL, col_var,
-  group_var = NULL, stat = "boxplot", pal = NULL, pal_rev = FALSE,
-  width = 0.5, alpha = 1, size_line = 0.5, size_point = 1,
-  title = "[Title]", title_wrap = 70, subtitle = NULL,
-  subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
-  x_labels = waiver(), x_pretty_n = 5, x_title = "[X title]",
-  x_title_wrap = 50, x_trans = "identity", x_zero = FALSE,
-  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_title = "[Y title]",
-  y_title_wrap = 50, y_trans = "identity", y_zero = FALSE,
-  y_zero_line = NULL, col_labels = NULL, col_legend_ncol = NULL,
-  col_legend_nrow = NULL, col_na = TRUE, col_rev = FALSE,
-  col_title = "", col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+  stat = "boxplot", pal = NULL, pal_rev = FALSE, width = 0.5,
+  alpha = 1, size_line = 0.5, size_point = 1, title = "[Title]",
+  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
+  x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
+  x_trans = "identity", x_zero = FALSE, x_zero_line = NULL,
+  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
+  col_labels = NULL, col_legend_ncol = NULL, col_legend_nrow = NULL,
+  col_na = TRUE, col_rev = FALSE, col_title = "",
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -28,8 +28,6 @@ ggplot_boxplot_col(data, x_var, y_var = NULL, col_var,
 \item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
 
 \item{col_var}{Unquoted categorical variable to colour the fill of the boxes. Required input.}
-
-\item{group_var}{Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
 

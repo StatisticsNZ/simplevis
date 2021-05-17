@@ -4,17 +4,17 @@
 \alias{ggplot_boxplot}
 \title{Boxplot ggplot.}
 \usage{
-ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
-  stat = "boxplot", pal = NULL, width = 0.5, alpha = 1,
-  size_line = 0.5, size_point = 1, title = "[Title]",
-  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
-  x_pretty_n = 5, x_title = "[X title]", x_title_wrap = 50,
-  x_trans = "identity", x_zero = FALSE, x_zero_line = NULL,
-  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
-  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
-  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
+ggplot_boxplot(data, x_var, y_var = NULL, stat = "boxplot",
+  pal = NULL, width = 0.5, alpha = 1, size_line = 0.5,
+  size_point = 1, title = "[Title]", title_wrap = 70,
+  subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
+  x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
+  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
+  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
+  y_zero = FALSE, y_zero_line = NULL, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
   font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
@@ -23,8 +23,6 @@ ggplot_boxplot(data, x_var, y_var = NULL, group_var = NULL,
 \item{x_var}{Unquoted numeric, date or categorical variable to be on the x axis. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
-
-\item{group_var}{Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
 

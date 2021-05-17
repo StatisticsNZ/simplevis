@@ -3,7 +3,6 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
-#' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
@@ -62,7 +61,6 @@
 ggplot_boxplot <- function(data,
                            x_var,
                            y_var = NULL,
-                           group_var = NULL,
                            stat = "boxplot",
                            pal = NULL,
                            width = 0.5,
@@ -107,8 +105,7 @@ ggplot_boxplot <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
-  group_var <- rlang::enquo(group_var)
-  
+
   x_var_vctr <- dplyr::pull(data, !!x_var)
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -124,10 +121,9 @@ ggplot_boxplot <- function(data,
     )
   
   if (stat == "boxplot") {
-    if(rlang::quo_is_null(group_var)) {
       plot <- plot +
         geom_boxplot(
-          aes(x = !!x_var, y = !!y_var),
+          aes(x = !!x_var, y = !!y_var, group = !!x_var),
           stat = stat,
           col = "#323232", 
           fill = pal,
@@ -137,21 +133,6 @@ ggplot_boxplot <- function(data,
           outlier.alpha = 1, 
           outlier.size = size_point 
         )
-    }
-    else if(!rlang::quo_is_null(group_var)) {
-      plot <- plot +
-        geom_boxplot(
-          aes(x = !!x_var, y = !!y_var, group = !!group_var),
-          stat = stat,
-          col = "#323232", 
-          fill = pal,
-          width = width,
-          size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point
-        )
-    }
   }
   else if (stat == "identity") {
     plot <- plot +
@@ -162,7 +143,8 @@ ggplot_boxplot <- function(data,
           lower = .data$lower,
           middle = .data$middle,
           upper = .data$upper,
-          ymax = .data$ymax
+          ymax = .data$ymax, 
+          group = !!x_var
         ),
         stat = stat,
         col = "#323232", 
@@ -297,7 +279,6 @@ ggplot_boxplot <- function(data,
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
-#' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
@@ -364,7 +345,6 @@ ggplot_boxplot_col <- function(data,
                                x_var,
                                y_var = NULL,
                                col_var,
-                               group_var = NULL,
                                stat = "boxplot",
                                pal = NULL,
                                pal_rev = FALSE,
@@ -415,8 +395,7 @@ ggplot_boxplot_col <- function(data,
   x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var) #categorical var
-  group_var <- rlang::enquo(group_var)
-  
+
   x_var_vctr <- dplyr::pull(data, !!x_var)
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -435,6 +414,9 @@ ggplot_boxplot_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  data <- data %>% 
+    tidyr::unite(col = "group_var",  !!x_var, !!col_var, remove = FALSE)
+    
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_boxplot(
@@ -444,10 +426,9 @@ ggplot_boxplot_col <- function(data,
     )
   
   if (stat == "boxplot") {
-    if(rlang::quo_is_null(group_var)) {
       plot <- plot +
         geom_boxplot(
-          aes(x = !!x_var, y = !!y_var, fill = !!col_var),
+          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
           stat = stat,
           position = position_dodge2(preserve = "single"),
           col = "#323232", 
@@ -457,21 +438,6 @@ ggplot_boxplot_col <- function(data,
           outlier.alpha = 1, 
           outlier.size = size_point 
         )
-    }
-    else if(!rlang::quo_is_null(group_var)) {
-      plot <- plot +
-        geom_boxplot(
-          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = !!group_var),
-          stat = stat,
-          position = position_dodge2(preserve = "single"),
-          col = "#323232", 
-          width = width,
-          size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point
-        )
-    }
   }
   else if (stat == "identity") {
     plot <- plot +
@@ -483,7 +449,8 @@ ggplot_boxplot_col <- function(data,
           middle = .data$middle,
           upper = .data$upper,
           ymax = .data$ymax,
-          fill = !!col_var
+          fill = !!col_var,
+          group = .data$group_var
         ),
         stat = stat,
         position = position_dodge2(preserve = "single"),
@@ -644,7 +611,6 @@ ggplot_boxplot_col <- function(data,
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
@@ -695,7 +661,6 @@ ggplot_boxplot_facet <-
            x_var,
            y_var = NULL,
            facet_var,
-           group_var = NULL, 
            stat = "boxplot",
            pal = NULL,
            width = 0.5,
@@ -737,8 +702,7 @@ ggplot_boxplot_facet <-
     x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    group_var <- rlang::enquo(group_var) 
-    
+
     x_var_vctr <- dplyr::pull(data, !!x_var) 
     if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
     else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -753,6 +717,9 @@ ggplot_boxplot_facet <-
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
     
+    data <- data %>% 
+      tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE)
+
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_boxplot(
@@ -762,10 +729,9 @@ ggplot_boxplot_facet <-
       ) 
     
     if (stat == "boxplot") {
-      if(rlang::quo_is_null(group_var)) {
         plot <- plot +
           geom_boxplot(
-            aes(x = !!x_var, y = !!y_var),
+            aes(x = !!x_var, y = !!y_var, group = .data$group_var),
             stat = stat,
             col = "#323232", 
             fill = pal,
@@ -773,22 +739,7 @@ ggplot_boxplot_facet <-
             size = size_line, 
             alpha = alpha,
             outlier.alpha = 1
-          )
-      }
-      else if(!rlang::quo_is_null(group_var)) {
-        plot <- plot +
-          geom_boxplot(
-            aes(x = !!x_var, y = !!y_var, group = !!group_var),
-            stat = stat,
-            col = "#323232", 
-            fill = pal,
-            width = width,
-            size = size_line, 
-            alpha = alpha,
-            outlier.alpha = 1, 
-            outlier.size = size_point
-          )
-      }
+            )
     }
     else if (stat == "identity") {
       plot <- ggplot(data) +
@@ -805,7 +756,8 @@ ggplot_boxplot_facet <-
             lower = .data$lower,
             middle = .data$middle,
             upper = .data$upper,
-            ymax = .data$ymax
+            ymax = .data$ymax,
+            group = .data$group_var
           ),
           stat = stat,
           col = "#323232", 
@@ -919,7 +871,6 @@ ggplot_boxplot_facet <-
 #' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param group_var Unquoted variable to be the grouping variable Defaults to NULL. Only applicable if stat equals "boxplot".
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
@@ -991,7 +942,6 @@ ggplot_boxplot_col_facet <-
            y_var = NULL,
            col_var,
            facet_var,
-           group_var = NULL, 
            stat = "boxplot",
            pal = NULL,
            pal_rev = FALSE,
@@ -1042,8 +992,7 @@ ggplot_boxplot_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-    group_var <- rlang::enquo(group_var) 
-    
+
     x_var_vctr <- dplyr::pull(data, !!x_var) 
     if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
     else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -1067,6 +1016,9 @@ ggplot_boxplot_col_facet <-
     
     if (pal_rev == TRUE) pal <- rev(pal)
     
+    data <- data %>% 
+      tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE)
+    
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_boxplot(
@@ -1076,10 +1028,9 @@ ggplot_boxplot_col_facet <-
       ) 
     
     if (stat == "boxplot") {
-      if(rlang::quo_is_null(group_var)) {
         plot <- plot +
           geom_boxplot(
-            aes(x = !!x_var, y = !!y_var, fill = !!col_var),
+            aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
             stat = stat,
             col = "#323232", 
             width = width,
@@ -1087,20 +1038,6 @@ ggplot_boxplot_col_facet <-
             alpha = alpha,
             outlier.alpha = 1
           )
-      }
-      else if(!rlang::quo_is_null(group_var)) {
-        plot <- plot +
-          geom_boxplot(
-            aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = !!group_var),
-            stat = stat,
-            col = "#323232", 
-            width = width,
-            size = size_line, 
-            alpha = alpha,
-            outlier.alpha = 1, 
-            outlier.size = size_point
-          )
-      }
     }
     else if (stat == "identity") {
       plot <- ggplot(data) +
@@ -1118,7 +1055,8 @@ ggplot_boxplot_col_facet <-
             middle = .data$middle,
             upper = .data$upper,
             ymax = .data$ymax,
-            fill = !!col_var
+            fill = !!col_var,
+            group = .data$group_var
           ),
           stat = stat,
           col = "#323232", 

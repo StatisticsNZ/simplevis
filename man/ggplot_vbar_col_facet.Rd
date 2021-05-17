@@ -8,16 +8,18 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
   text_var = NULL, position = "stack", pal = NULL, pal_rev = FALSE,
   width = 0.75, alpha = 1, size_line = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  x_labels = waiver(), x_pretty_n = 5, x_expand = NULL,
-  x_title = "[X title]", x_title_wrap = 50, y_balance = FALSE,
-  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
-  y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
-  y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
-  col_rev = FALSE, col_title = "", col_title_wrap = 25,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  x_balance = FALSE, x_labels = waiver(), x_pretty_n = 6,
+  x_expand = NULL, x_title = "[X title]", x_trans = "identity",
+  x_title_wrap = 50, x_zero = FALSE, x_zero_line = NULL,
+  y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
+  y_pretty_n = 5, y_title = "[Y title]", y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  col_labels = NULL, col_legend_ncol = NULL, col_legend_nrow = NULL,
+  col_na = TRUE, col_rev = FALSE, col_title = "",
+  col_title_wrap = 25, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -52,15 +54,23 @@ ggplot_vbar_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
+\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
+
 \item{x_labels}{Adjust the  x scale labels through a function or vector.}
 
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_title}{X axis title string. Defaults to [X title].}
+\item{x_title}{X axis title string. Defaults to "[X title]".}
+
+\item{x_trans}{A string specifying a transformation for the x scale. Defaults to "identity".}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
+
+\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.}
+
+\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
 \item{y_balance}{Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".}
 

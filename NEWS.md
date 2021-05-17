@@ -1,3 +1,7 @@
+# simplevis 3.1.5
+
+* Update ggplot
+
 # simplevis 3.1.4
 
 * Breaking change: removed group_var argument, and updated grouping code.

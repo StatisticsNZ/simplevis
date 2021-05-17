@@ -16,12 +16,12 @@
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -72,12 +72,12 @@ ggplot_boxplot <- function(data,
                            subtitle = NULL,
                            subtitle_wrap = 80,
                            x_balance = FALSE,
-                           x_expand = NULL,
                            x_labels = waiver(),
-                           x_pretty_n = 5,
+                           x_pretty_n = 6,
+                           x_expand = NULL,
                            x_title = "[X title]",
+                           x_trans = "identity", 
                            x_title_wrap = 50,
-                           x_trans = "identity",
                            x_zero = FALSE,
                            x_zero_line = NULL,
                            y_balance = FALSE,
@@ -165,7 +165,7 @@ ggplot_boxplot <- function(data,
     
     x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(x_expand)) x_expand <- waiver()
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -175,18 +175,18 @@ ggplot_boxplot <- function(data,
   
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
+      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
-        limits = x_limits,
         labels = x_labels
       )
   }
   else if (is.numeric(x_var_vctr)) {
     plot <- plot +
+      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
-                         limits = x_limits,
                          labels = x_labels,
                          oob = scales::squish)
     
@@ -213,7 +213,7 @@ ggplot_boxplot <- function(data,
       }
     }
   }
-  
+
   if(is.null(y_expand)) y_expand <- c(0, 0)  
   
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -293,12 +293,12 @@ ggplot_boxplot <- function(data,
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -357,12 +357,12 @@ ggplot_boxplot_col <- function(data,
                                subtitle = NULL,
                                subtitle_wrap = 80,
                                x_balance = FALSE,
-                               x_expand = NULL,
                                x_labels = waiver(),
-                               x_pretty_n = 5,
+                               x_pretty_n = 6,
+                               x_expand = NULL,
                                x_title = "[X title]",
+                               x_trans = "identity", 
                                x_title_wrap = 50,
-                               x_trans = "identity",
                                x_zero = FALSE,
                                x_zero_line = NULL,
                                y_balance = FALSE,
@@ -471,7 +471,7 @@ ggplot_boxplot_col <- function(data,
     
     x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(x_expand)) x_expand <- waiver()
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -481,18 +481,18 @@ ggplot_boxplot_col <- function(data,
   
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
+      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
-        limits = x_limits,
         labels = x_labels
       )
   }
   else if (is.numeric(x_var_vctr)) {
     plot <- plot +
+      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
-                         limits = x_limits,
                          labels = x_labels,
                          oob = scales::squish)
     
@@ -624,12 +624,12 @@ ggplot_boxplot_col <- function(data,
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -672,12 +672,12 @@ ggplot_boxplot_facet <-
            subtitle = NULL,
            subtitle_wrap = 80,
            x_balance = FALSE,
-           x_expand = NULL,
            x_labels = waiver(),
-           x_pretty_n = 5,
+           x_pretty_n = 6,
+           x_expand = NULL,
            x_title = "[X title]",
+           x_trans = "identity", 
            x_title_wrap = 50,
-           x_trans = "identity",
            x_zero = FALSE,
            x_zero_line = NULL,
            y_balance = FALSE,
@@ -774,28 +774,28 @@ ggplot_boxplot_facet <-
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
         
         x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+        x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
         x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
-        if(is.null(x_expand)) x_expand <- c(0, 0)
+        if(is.null(x_expand)) x_expand <- waiver()
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            limits = x_limits,
             labels = x_labels
           )
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             limits = x_limits,
                              labels = x_labels,
                              oob = scales::squish)
         
@@ -885,12 +885,12 @@ ggplot_boxplot_facet <-
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.    
+#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the  y scale labels through a function or vector.
@@ -954,12 +954,12 @@ ggplot_boxplot_col_facet <-
            subtitle = NULL,
            subtitle_wrap = 80,
            x_balance = FALSE,
-           x_expand = NULL,
            x_labels = waiver(),
-           x_pretty_n = 5,
+           x_pretty_n = 6,
+           x_expand = NULL,
            x_title = "[X title]",
+           x_trans = "identity", 
            x_title_wrap = 50,
-           x_trans = "identity",
            x_zero = FALSE,
            x_zero_line = NULL,
            y_balance = FALSE,
@@ -1072,28 +1072,28 @@ ggplot_boxplot_col_facet <-
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
         
         x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+        x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero)
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
-        if(is.null(x_expand)) x_expand <- c(0, 0)
+        if(is.null(x_expand)) x_expand <- waiver()
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
-            limits = x_limits,
             labels = x_labels
           )
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
-                             limits = x_limits,
                              labels = x_labels,
                              oob = scales::squish)
         

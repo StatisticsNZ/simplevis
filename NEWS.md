@@ -1,6 +1,10 @@
+# simplevis 3.1.6
+
+* Update boxplot x scales to be more flexible.
+
 # simplevis 3.1.5
 
-* Update ggplot
+* Update vbar x scales to be more flexible.
 
 # simplevis 3.1.4
 

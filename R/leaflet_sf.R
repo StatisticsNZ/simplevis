@@ -1,6 +1,6 @@
 # leaflet sf functions
 
-#' @title Map of simple features in leaflet.
+#' @title Simple feature leaflet map.
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
@@ -196,7 +196,7 @@ leaflet_sf <- function(data,
   
 }
 
-#' @title Map of simple features in leaflet that is coloured.
+#' @title Simple feature leaflet map that is coloured.
 #' @description Map of simple features in leaflet that is coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param col_var Unquoted variable to colour the features by. Required input.

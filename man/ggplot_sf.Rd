@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot_sf.R
 \name{ggplot_sf}
 \alias{ggplot_sf}
-\title{Map of simple features in ggplot.}
+\title{Simple feature ggplot map.}
 \usage{
 ggplot_sf(data, text_var = NULL, size_point = 1, size_line = 0.5,
   alpha = 1, pal = NULL, borders = NULL, borders_behind = TRUE,

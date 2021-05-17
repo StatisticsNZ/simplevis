@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot_sf.R
 \name{ggplot_sf_col_facet}
 \alias{ggplot_sf_col_facet}
-\title{Map of simple features in ggplot that is coloured and facetted.}
+\title{Simple feature ggplot map that is coloured and facetted.}
 \usage{
 ggplot_sf_col_facet(data, col_var, facet_var, text_var = NULL,
   pal = NULL, pal_rev = FALSE, size_point = 1, size_line = 0.5,

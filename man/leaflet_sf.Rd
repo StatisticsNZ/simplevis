@@ -2,7 +2,7 @@
 % Please edit documentation in R/leaflet_sf.R
 \name{leaflet_sf}
 \alias{leaflet_sf}
-\title{Map of simple features in leaflet.}
+\title{Simple feature leaflet map.}
 \usage{
 leaflet_sf(data, popup_vars_vctr = NULL, pal = NULL, size_point = 2,
   size_line = 2, alpha = 0.9, basemap = "light", title = "[Title]",

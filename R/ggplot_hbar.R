@@ -91,7 +91,7 @@ ggplot_hbar <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(y_var_vctr)  | is.logical(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
-
+  
   if (y_rev == FALSE) {
     if (is.factor(y_var_vctr)){
       data <- data %>%
@@ -109,13 +109,13 @@ ggplot_hbar <- function(data,
     }
   }
   y_var_vctr <- dplyr::pull(data, !!y_var)
-
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-
+  
   if (is.null(pal)) pal <- sv_pal(1)
   else pal <- pal[1]
-
+  
   plot <- ggplot(data) +
     theme_hbar(
       font_family = font_family,
@@ -143,7 +143,7 @@ ggplot_hbar <- function(data,
   else ({
     x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
-
+    
     plot <- plot +
       scale_x_continuous(
         expand = x_expand,
@@ -320,7 +320,7 @@ ggplot_hbar_col <-
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
     if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
-
+    
     if (position == "stack" & x_trans != "identity") message("simplevis may not perform correctly using an x scale other than identity where position equals stack")
     if (position == "stack" & x_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and x_zero equal to FALSE")
     
@@ -347,7 +347,7 @@ ggplot_hbar_col <-
       }
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-
+    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
     
@@ -386,7 +386,7 @@ ggplot_hbar_col <-
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-
+    
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
     
@@ -414,7 +414,7 @@ ggplot_hbar_col <-
     else ({
       x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
       x_limits <- c(min(x_breaks), max(x_breaks))
-
+      
       plot <- plot +
         scale_x_continuous(
           expand = x_expand,
@@ -431,7 +431,7 @@ ggplot_hbar_col <-
         x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
         alpha = alpha, size = size_line, width = width, 
         position = position2)
-
+    
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
@@ -609,13 +609,13 @@ ggplot_hbar_facet <-
       }
       y_var_vctr <- dplyr::pull(data, !!y_var)
     }
-
+    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
-
+    
     plot <- ggplot(data) +
       theme_hbar(
         font_family = font_family,
@@ -630,7 +630,7 @@ ggplot_hbar_facet <-
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
-
+    
     if (facet_scales %in% c("fixed", "free_y")) {
       if (all(x_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
@@ -651,7 +651,7 @@ ggplot_hbar_facet <-
           )
       })
     }
-
+    
     if (facet_scales %in% c("free", "free_x")) {
       plot <- plot +
         scale_x_continuous(expand = x_expand,
@@ -664,7 +664,7 @@ ggplot_hbar_facet <-
     
     plot <- plot +
       scale_y_discrete(expand = y_expand, labels = y_labels)
-
+    
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
@@ -679,7 +679,7 @@ ggplot_hbar_facet <-
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
-
+    
     return(plot)
   }
 
@@ -860,7 +860,7 @@ ggplot_hbar_col_facet <-
         font_size_title = font_size_title
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = size_line, width = width, position = position2)
-
+    
     if (!is.null(col_labels)) labels <- rev(col_labels)
     if (is.null(col_labels)) labels <- waiver()
     
@@ -870,7 +870,7 @@ ggplot_hbar_col_facet <-
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(y_expand)) y_expand <- waiver()
-
+    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var))) %>%
@@ -912,7 +912,7 @@ ggplot_hbar_col_facet <-
     
     plot <- plot +
       scale_y_discrete(expand = y_expand, labels = y_labels)
-
+    
     plot <- plot +
       scale_fill_manual(
         values = pal,
@@ -928,12 +928,12 @@ ggplot_hbar_col_facet <-
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
-
+    
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -955,6 +955,6 @@ ggplot_hbar_col_facet <-
         reverse = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) 
-
+    
     return(plot)
   }

@@ -13,24 +13,24 @@
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -75,8 +75,8 @@ ggplot_boxplot <- function(data,
                            x_labels = waiver(),
                            x_pretty_n = 6,
                            x_expand = NULL,
+                           x_rev = FALSE,
                            x_title = "[X title]",
-                           x_trans = "identity", 
                            x_title_wrap = 50,
                            x_zero = FALSE,
                            x_zero_line = NULL,
@@ -105,7 +105,7 @@ ggplot_boxplot <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
-
+  
   x_var_vctr <- dplyr::pull(data, !!x_var)
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -121,18 +121,18 @@ ggplot_boxplot <- function(data,
     )
   
   if (stat == "boxplot") {
-      plot <- plot +
-        geom_boxplot(
-          aes(x = !!x_var, y = !!y_var, group = !!x_var),
-          stat = stat,
-          col = "#323232", 
-          fill = pal,
-          width = width,
-          size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point 
-        )
+    plot <- plot +
+      geom_boxplot(
+        aes(x = !!x_var, y = !!y_var, group = !!x_var),
+        stat = stat,
+        col = "#323232", 
+        fill = pal,
+        width = width,
+        size = size_line, 
+        alpha = alpha,
+        outlier.alpha = 1, 
+        outlier.size = size_point 
+      )
   }
   else if (stat == "identity") {
     plot <- plot +
@@ -163,7 +163,7 @@ ggplot_boxplot <- function(data,
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
-    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if(is.null(x_expand)) x_expand <- waiver()
     
@@ -213,7 +213,7 @@ ggplot_boxplot <- function(data,
       }
     }
   }
-
+  
   if(is.null(y_expand)) y_expand <- c(0, 0)  
   
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -243,7 +243,7 @@ ggplot_boxplot <- function(data,
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
-
+  
   if (mobile == FALSE){
     plot <- plot +
       labs(
@@ -273,7 +273,7 @@ ggplot_boxplot <- function(data,
   return(plot)
 }
 
-#' ggplot boxplot that is coloured
+#' Boxplot ggplot that is coloured
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
@@ -290,24 +290,24 @@ ggplot_boxplot <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_legend_nrow The number of rows in the legend.
@@ -361,7 +361,6 @@ ggplot_boxplot_col <- function(data,
                                x_pretty_n = 6,
                                x_expand = NULL,
                                x_title = "[X title]",
-                               x_trans = "identity", 
                                x_title_wrap = 50,
                                x_zero = FALSE,
                                x_zero_line = NULL,
@@ -369,6 +368,7 @@ ggplot_boxplot_col <- function(data,
                                y_expand = NULL,
                                y_labels = waiver(),
                                y_pretty_n = 5,
+                               x_rev = FALSE,
                                y_title = "[Y title]",
                                y_title_wrap = 50,
                                y_trans = "identity",
@@ -395,12 +395,12 @@ ggplot_boxplot_col <- function(data,
   x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var) #categorical var
-
+  
   x_var_vctr <- dplyr::pull(data, !!x_var)
   if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
   else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
   col_var_vctr <- dplyr::pull(data, !!col_var)
-
+  
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
   if (!(is.character(col_var_vctr) |is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a boxplot")
   
@@ -416,7 +416,7 @@ ggplot_boxplot_col <- function(data,
   
   data <- data %>% 
     tidyr::unite(col = "group_var",  !!x_var, !!col_var, remove = FALSE)
-    
+  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_boxplot(
@@ -426,18 +426,18 @@ ggplot_boxplot_col <- function(data,
     )
   
   if (stat == "boxplot") {
-      plot <- plot +
-        geom_boxplot(
-          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
-          stat = stat,
-          position = position_dodge2(preserve = "single"),
-          col = "#323232", 
-          width = width,
-          size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point 
-        )
+    plot <- plot +
+      geom_boxplot(
+        aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
+        stat = stat,
+        position = position_dodge2(preserve = "single"),
+        col = "#323232", 
+        width = width,
+        size = size_line, 
+        alpha = alpha,
+        outlier.alpha = 1, 
+        outlier.size = size_point 
+      )
   }
   else if (stat == "identity") {
     plot <- plot +
@@ -469,7 +469,7 @@ ggplot_boxplot_col <- function(data,
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
-    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if(is.null(x_expand)) x_expand <- waiver()
     
@@ -552,7 +552,7 @@ ggplot_boxplot_col <- function(data,
   
   if (!is.null(col_labels)) labels <- col_labels
   if (is.null(col_labels)) labels <- waiver()
-
+  
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -621,24 +621,24 @@ ggplot_boxplot_col <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -672,11 +672,11 @@ ggplot_boxplot_facet <-
            subtitle = NULL,
            subtitle_wrap = 80,
            x_balance = FALSE,
+           x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 6,
-           x_expand = NULL,
+           x_rev = FALSE,
            x_title = "[X title]",
-           x_trans = "identity", 
            x_title_wrap = 50,
            x_zero = FALSE,
            x_zero_line = NULL,
@@ -702,7 +702,7 @@ ggplot_boxplot_facet <-
     x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
-
+    
     x_var_vctr <- dplyr::pull(data, !!x_var) 
     if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
     else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -719,7 +719,7 @@ ggplot_boxplot_facet <-
     
     data <- data %>% 
       tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE)
-
+    
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_boxplot(
@@ -729,17 +729,17 @@ ggplot_boxplot_facet <-
       ) 
     
     if (stat == "boxplot") {
-        plot <- plot +
-          geom_boxplot(
-            aes(x = !!x_var, y = !!y_var, group = .data$group_var),
-            stat = stat,
-            col = "#323232", 
-            fill = pal,
-            width = width,
-            size = size_line, 
-            alpha = alpha,
-            outlier.alpha = 1
-            )
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, group = .data$group_var),
+          stat = stat,
+          col = "#323232", 
+          fill = pal,
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1
+        )
     }
     else if (stat == "identity") {
       plot <- ggplot(data) +
@@ -777,7 +777,7 @@ ggplot_boxplot_facet <-
         x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- waiver()
       }
@@ -850,7 +850,7 @@ ggplot_boxplot_facet <-
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
-
+    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -860,11 +860,11 @@ ggplot_boxplot_facet <-
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow, ncol = facet_ncol)
-
+    
     return(plot)
   }
 
-#' ggplot boxplot that is coloured
+#' Boxplot ggplot that is coloured
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
@@ -882,24 +882,24 @@ ggplot_boxplot_facet <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param y_trans TRUEransformation of y-axis scale (e.g. "signed_sqrt"). Defaults to "identity", which has no transformation.
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_legend_nrow The number of rows in the legend.
@@ -957,8 +957,8 @@ ggplot_boxplot_col_facet <-
            x_labels = waiver(),
            x_pretty_n = 6,
            x_expand = NULL,
+           x_rev = FALSE,
            x_title = "[X title]",
-           x_trans = "identity", 
            x_title_wrap = 50,
            x_zero = FALSE,
            x_zero_line = NULL,
@@ -992,7 +992,7 @@ ggplot_boxplot_col_facet <-
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
-
+    
     x_var_vctr <- dplyr::pull(data, !!x_var) 
     if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
     else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
@@ -1028,16 +1028,16 @@ ggplot_boxplot_col_facet <-
       ) 
     
     if (stat == "boxplot") {
-        plot <- plot +
-          geom_boxplot(
-            aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
-            stat = stat,
-            col = "#323232", 
-            width = width,
-            size = size_line, 
-            alpha = alpha,
-            outlier.alpha = 1
-          )
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
+          stat = stat,
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1
+        )
     }
     else if (stat == "identity") {
       plot <- ggplot(data) +
@@ -1075,7 +1075,7 @@ ggplot_boxplot_col_facet <-
         x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- waiver()
       }

@@ -11,24 +11,25 @@
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "Helvetica".
@@ -61,9 +62,10 @@ ggplot_line <- function(data,
                         subtitle = NULL,
                         subtitle_wrap = 80,
                         x_balance = FALSE,
+                        x_expand = NULL,
                         x_labels = waiver(),
                         x_pretty_n = 6,
-                        x_expand = NULL,
+                        x_rev = FALSE,
                         x_title = "[X title]",
                         x_trans = "identity", 
                         x_title_wrap = 50,
@@ -121,7 +123,7 @@ ggplot_line <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-
+    
     x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -147,6 +149,7 @@ ggplot_line <- function(data,
                          breaks = x_breaks,
                          limits = x_limits,
                          labels = x_labels,
+                         trans = x_trans,
                          oob = scales::squish)
     
     if(x_zero_line == TRUE) {
@@ -197,12 +200,12 @@ ggplot_line <- function(data,
         oob = scales::rescale_none
       )
   })
-
+  
   if(y_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
-
+  
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -244,24 +247,25 @@ ggplot_line <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend. 
@@ -304,6 +308,7 @@ ggplot_line_col <-
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 6,
+           x_rev = FALSE,
            x_title = "[X title]",
            x_title_wrap = 50,
            x_trans = "identity",
@@ -381,7 +386,7 @@ ggplot_line_col <-
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
-
+      
       x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
       x_limits <- c(min(x_breaks), max(x_breaks))
       if(is.null(x_expand)) x_expand <- c(0, 0)
@@ -407,6 +412,7 @@ ggplot_line_col <-
                            breaks = x_breaks,
                            limits = x_limits,
                            labels = x_labels,
+                           trans = x_trans,
                            oob = scales::squish)
       
       if(x_zero_line == TRUE) {
@@ -438,7 +444,7 @@ ggplot_line_col <-
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-
+    
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -446,7 +452,7 @@ ggplot_line_col <-
     else ({
       y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
-
+      
       plot <- plot +
         scale_y_continuous(
           expand = y_expand,
@@ -474,7 +480,7 @@ ggplot_line_col <-
         na.translate = col_na,
         na.value = "#A8A8A8"
       )
-
+    
     if (mobile == FALSE) {
       plot <- plot +
         labs(
@@ -516,24 +522,25 @@ ggplot_line_col <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param x_title X axis title string. Defaults to "[X title]".
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
+#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -571,6 +578,7 @@ ggplot_line_facet <-
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
+           x_rev = FALSE,
            x_title = "[X title]",
            x_title_wrap = 50,
            x_trans = "identity",
@@ -655,6 +663,7 @@ ggplot_line_facet <-
                              breaks = x_breaks,
                              limits = x_limits,
                              labels = x_labels,
+                             trans = x_trans,
                              oob = scales::squish)
         
         if(x_zero_line == TRUE) {
@@ -675,7 +684,7 @@ ggplot_line_facet <-
     y_zero_line <- y_zero_list[[2]]
     
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (facet_scales %in% c("fixed", "free_x")) {
       if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
@@ -718,7 +727,7 @@ ggplot_line_facet <-
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) 
-
+    
     return(plot)
   }
 
@@ -738,24 +747,25 @@ ggplot_line_facet <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param x_title X axis title string. Defaults to "[X title]".
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to "[Y title]".
+#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE whether the minimum of the y scale is zero. Defaults to FALSE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
@@ -801,6 +811,7 @@ ggplot_line_col_facet <-
            x_expand = NULL,
            x_labels = waiver(),
            x_pretty_n = 5,
+           x_rev = FALSE,
            x_title = "[X title]",
            x_title_wrap = 50,
            x_trans = "identity",
@@ -905,6 +916,7 @@ ggplot_line_col_facet <-
                              breaks = x_breaks,
                              limits = x_limits,
                              labels = x_labels,
+                             trans = x_trans,
                              oob = scales::squish)
         
         if(x_zero_line == TRUE) {

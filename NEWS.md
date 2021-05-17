@@ -1,3 +1,13 @@
+# simplevis 3.1.8
+
+* Removed x_trans from vbar and boxplot.
+* Removed col_quantile_by_facet argument from point.
+
+# simplevis 3.1.7
+
+* Update all boxplot, point, and line x scales to be consistent.
+* Added x_rev argument to all boxplot, point, and line x scales.
+
 # simplevis 3.1.6
 
 * Update boxplot x scales to be more flexible.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot_sf.R
 \name{ggplot_sf_col}
 \alias{ggplot_sf_col}
-\title{Map of simple features in ggplot that is coloured.}
+\title{Simple feature ggplot map that is coloured.}
 \usage{
 ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
   pal_rev = FALSE, size_point = 1, size_line = 0.5, alpha = 1,

@@ -1,37 +1,37 @@
 #' @title Vertical bar ggplot.
 #' @description Vertical bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to [Y title].
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -67,7 +67,6 @@ ggplot_vbar <- function(data,
                         x_pretty_n = 6,
                         x_expand = NULL,
                         x_title = "[X title]",
-                        x_trans = "identity", 
                         x_title_wrap = 50,
                         x_zero = FALSE,
                         x_zero_line = NULL,
@@ -75,6 +74,7 @@ ggplot_vbar <- function(data,
                         y_expand = NULL,
                         y_labels = waiver(),
                         y_pretty_n = 5,
+                        x_rev = FALSE,
                         y_title = "[Y title]",
                         y_title_wrap = 50,
                         y_trans = "identity",
@@ -97,6 +97,12 @@ ggplot_vbar <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
+  if (x_rev == TRUE) {
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+    }
+  }
   x_var_vctr <- dplyr::pull(data, !!x_var)
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -125,7 +131,7 @@ ggplot_vbar <- function(data,
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
-    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
     
@@ -234,8 +240,8 @@ ggplot_vbar <- function(data,
 #' @title Vertical bar ggplot that is coloured.
 #' @description Vertical bar ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
@@ -245,36 +251,36 @@ ggplot_vbar <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to [Title].
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
-#' @param x_title X axis title string. Defaults to "[X title]".
-#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale.
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to [Y title].
-#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
+#' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
+#' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param caption Caption title string. Defaults to NULL.
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "Helvetica".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -312,7 +318,6 @@ ggplot_vbar_col <-
            x_pretty_n = 6,
            x_expand = NULL,
            x_title = "[X title]",
-           x_trans = "identity", 
            x_title_wrap = 50,
            x_zero = FALSE,
            x_zero_line = NULL,
@@ -320,6 +325,7 @@ ggplot_vbar_col <-
            y_expand = NULL,
            y_labels = waiver(),
            y_pretty_n = 5,
+           x_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
@@ -352,8 +358,13 @@ ggplot_vbar_col <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
+    if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      }
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if (col_rev == TRUE){
       if (is.factor(col_var_vctr)){
@@ -366,6 +377,9 @@ ggplot_vbar_col <-
       }
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
+    
+    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
     
     if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
     if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
@@ -405,7 +419,7 @@ ggplot_vbar_col <-
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
       
-      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = mobile)
       x_limits <- c(min(x_breaks), max(x_breaks))
       if(is.null(x_expand)) x_expand <- waiver()
       
@@ -455,7 +469,7 @@ ggplot_vbar_col <-
         }
       }
     }
-
+    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(!!x_var)) %>%
@@ -495,7 +509,7 @@ ggplot_vbar_col <-
         x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
         alpha = alpha, size = size_line, width = width, 
         position = position2)
-
+    
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
@@ -516,7 +530,7 @@ ggplot_vbar_col <-
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
-
+    
     if (mobile == FALSE) {
       plot <- plot +
         labs(
@@ -559,8 +573,8 @@ ggplot_vbar_col <-
 #' @title Vertical bar ggplot that is facetted.
 #' @description Vertical bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
@@ -571,24 +585,24 @@ ggplot_vbar_col <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_title X axis title string. Defaults to "[X title]".
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to [Y title].
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -628,7 +642,6 @@ ggplot_vbar_facet <-
            x_pretty_n = 6,
            x_expand = NULL,
            x_title = "[X title]",
-           x_trans = "identity", 
            x_title_wrap = 50,
            x_zero = FALSE,
            x_zero_line = NULL,
@@ -636,6 +649,7 @@ ggplot_vbar_facet <-
            y_expand = NULL,
            y_labels = waiver(),
            y_pretty_n = 5,
+           x_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
@@ -663,6 +677,12 @@ ggplot_vbar_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
+    if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      }
+    }
     x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
@@ -670,7 +690,7 @@ ggplot_vbar_facet <-
     
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
-
+    
     if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
     else bar_unit <- 1
     
@@ -691,7 +711,7 @@ ggplot_vbar_facet <-
         x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- waiver()
       }
@@ -721,8 +741,8 @@ ggplot_vbar_facet <-
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = x_labels)
       }
     }
     
@@ -731,7 +751,7 @@ ggplot_vbar_facet <-
     y_zero_line <- y_zero_list[[2]]
     
     if(is.null(y_expand)) y_expand <- c(0, 0)
-
+    
     if (facet_scales %in% c("fixed", "free_x")) {
       if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
@@ -740,7 +760,7 @@ ggplot_vbar_facet <-
       else ({
         y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
         y_limits <- c(min(y_breaks), max(y_breaks))
-  
+        
         plot <- plot +
           scale_y_continuous(
             expand = y_expand,
@@ -775,15 +795,15 @@ ggplot_vbar_facet <-
       ) +
       facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
       theme(axis.text.x = element_text(hjust = 0.75))
-
+    
     return(plot)
   }
 
 #' @title Vertical bar ggplot that is coloured and facetted.
 #' @description Vertical bar ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Required input.
+#' @param x_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -797,24 +817,24 @@ ggplot_vbar_facet <-
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
-#' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
-#' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
-#' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_title X axis title string. Defaults to "[X title]".
+#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
+#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
-#' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
-#' @param y_balance Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_x".
-#' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
-#' @param y_pretty_n The desired number of intervals on the y axis, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param y_title Y axis title string. Defaults to [Y title].
+#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
+#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
+#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".
-#' @param y_zero TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line TRUE or FALSE whether to add a zero reference line to the y axis. TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
+#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
@@ -868,7 +888,6 @@ ggplot_vbar_col_facet <-
            x_pretty_n = 6,
            x_expand = NULL,
            x_title = "[X title]",
-           x_trans = "identity", 
            x_title_wrap = 50,
            x_zero = FALSE,
            x_zero_line = NULL,
@@ -876,6 +895,7 @@ ggplot_vbar_col_facet <-
            y_expand = NULL,
            y_labels = waiver(),
            y_pretty_n = 5,
+           x_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
            y_trans = "identity",
@@ -912,6 +932,14 @@ ggplot_vbar_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    
+    if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      }
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if (col_rev == TRUE){
       if (is.factor(col_var_vctr)){
@@ -972,12 +1000,19 @@ ggplot_vbar_col_facet <-
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-        x_breaks <- pretty(x_var_vctr, n = x_pretty_n)
-
+        
+        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+        x_zero <- x_zero_list[[1]]
+        x_zero_line <- x_zero_list[[2]]
+        
+        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = FALSE)
+        x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- waiver()
       }
+      
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
@@ -986,14 +1021,20 @@ ggplot_vbar_col_facet <-
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
+          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
                              labels = x_labels,
                              oob = scales::squish)
+        
+        if(x_zero_line == TRUE) {
+          plot <- plot +
+            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        }
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-        if(is.null(x_expand)) x_expand <- c(0, 0)
-          
+        if(is.null(x_expand)) x_expand <- waiver()
+        
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }

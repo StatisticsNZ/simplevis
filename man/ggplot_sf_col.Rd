@@ -9,11 +9,11 @@ ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
   borders = NULL, borders_behind = TRUE, borders_pal = "#7f7f7f",
   borders_size = 0.2, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, col_cuts = NULL,
-  col_labels = NULL, col_labels_dp = 1, col_legend_ncol = NULL,
-  col_legend_nrow = NULL, col_method = NULL, col_na = TRUE,
-  col_title = "", col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+  col_labels_dp = 1, col_legend_ncol = NULL, col_legend_nrow = NULL,
+  col_method = NULL, col_na = TRUE, col_title = "",
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -49,8 +49,6 @@ ggplot_sf_col(data, col_var, text_var = NULL, pal = NULL,
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_labels}{Adjust the  colour scale labels through a vector.}
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 

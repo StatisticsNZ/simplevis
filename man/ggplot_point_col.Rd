@@ -13,8 +13,8 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
   y_labels = waiver(), y_pretty_n = 5, y_trans = "identity",
   y_zero = FALSE, y_zero_line = NULL, title = "[Title]",
   subtitle = NULL, x_title = "[X title]", y_title = "[Y title]",
-  col_title = "", caption = NULL, col_labels = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_labels_dp = 1,
+  col_title = "", caption = NULL, col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_labels_dp = 1,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, title_wrap = 70, subtitle_wrap = 80,
   x_title_wrap = 50, y_title_wrap = 50, col_title_wrap = 25,
@@ -84,8 +84,6 @@ ggplot_point_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
-
-\item{col_labels}{Adjust the colour scale labels through a vector.}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 

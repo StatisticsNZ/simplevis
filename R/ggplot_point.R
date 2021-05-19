@@ -256,7 +256,6 @@ ggplot_point <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels Adjust the colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
@@ -311,7 +310,6 @@ ggplot_point_col <-
            y_title = "[Y title]",
            col_title = "",
            caption = NULL,
-           col_labels = NULL,
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_labels_dp = 1,
@@ -359,8 +357,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
-        else labels <- col_labels
+        col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
       }
       else if (col_method == "bin") {
         if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -372,8 +369,7 @@ ggplot_point_col <-
         data <- data %>% 
           dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
-        else labels <- col_labels
+        col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
       }
       n_col <- length(col_cuts) - 1
       if (is.null(pal)) pal <- sv_pal(n_col)
@@ -388,8 +384,7 @@ ggplot_point_col <-
       if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
       
-      if (is.null(col_labels)) labels <- waiver()
-      else labels <- col_labels
+      col_labels <- waiver()
     }
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -492,7 +487,7 @@ ggplot_point_col <-
       scale_color_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
@@ -774,7 +769,6 @@ ggplot_point_facet <-
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
-#' @param col_labels Adjust the colour scale labels through a vector.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL.
@@ -833,7 +827,6 @@ ggplot_point_col_facet <-
            y_zero_line = NULL,
            col_cuts = NULL,
            col_labels_dp = 1,
-           col_labels = NULL,
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_method = NULL,
@@ -869,24 +862,23 @@ ggplot_point_col_facet <-
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
-      if (is.numeric(col_var_vctr)) col_method <- "quantile"      
+      else if (is.numeric(col_var_vctr)) col_method <- "quantile"
     }
     
     if(col_method %in% c("quantile", "bin")) {
       if (col_method == "quantile") {
-        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+        if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
         else {
           if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
           if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
         }  
+        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
         
-        data <- data %>%
-          dplyr::group_by(!!facet_var) %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts)))
+        data <- data %>% 
+          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- paste0(sv_labels_from_cuts(col_cuts * 100, 0), "%")
-        else labels <- col_labels
+        col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
       }
       else if (col_method == "bin") {
         if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -895,15 +887,15 @@ ggplot_point_col_facet <-
           if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
         })
         
-        data <- dplyr::mutate(data, dplyr::across(!!col_var, ~cut(.x, col_cuts)))
+        data <- data %>% 
+          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
         
-        if (is.null(col_labels)) labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
-        else labels <- col_labels
+        col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
       }
       n_col <- length(col_cuts) - 1
       if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
-    } 
+    }
     else if (col_method == "category") {
       if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
         n_col <- length(levels(col_var_vctr))
@@ -913,8 +905,7 @@ ggplot_point_col_facet <-
       if (is.null(pal)) pal <- sv_pal(n_col)
       else pal <- pal[1:n_col]
       
-      if (!is.null(col_labels)) labels <- col_labels
-      else labels <- waiver()
+      col_labels <- waiver()
     }
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -1014,7 +1005,7 @@ ggplot_point_col_facet <-
       scale_color_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +

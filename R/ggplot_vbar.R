@@ -331,7 +331,7 @@ ggplot_vbar_col <-
            y_trans = "identity",
            y_zero = TRUE,
            y_zero_line = NULL,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_na = TRUE,
@@ -401,9 +401,6 @@ ggplot_vbar_col <-
     else pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
-    
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
     
     plot <- ggplot(data) +
       theme_vbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -519,14 +516,14 @@ ggplot_vbar_col <-
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
@@ -972,9 +969,6 @@ ggplot_vbar_col_facet <-
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
-    
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
@@ -1078,14 +1072,14 @@ ggplot_vbar_col_facet <-
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       )

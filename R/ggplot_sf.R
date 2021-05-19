@@ -148,7 +148,6 @@ ggplot_sf <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
@@ -194,7 +193,6 @@ ggplot_sf_col <- function(data,
                           subtitle = NULL,
                           subtitle_wrap = 80,
                           col_cuts = NULL,
-                          col_labels = NULL,
                           col_labels_dp = 1,
                           col_legend_ncol = NULL,
                           col_legend_nrow = NULL,
@@ -243,44 +241,41 @@ ggplot_sf_col <- function(data,
     }
   }
   
-  if (is.null(col_method) & !is.numeric(col_var_vctr)) col_method <- "category"
-  if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
-  
-  if (col_method == "quantile") {
-    if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
-    else {
-      if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-      if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-    }  
-    col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-    if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-    
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-    
-    n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- sv_pal(n_col)
-    else pal <- pal[1:n_col]
-    
-    if (is.null(col_labels)) labels <-  sv_labels_from_cuts(col_cuts, col_labels_dp)
-    else labels <- col_labels
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
   }
-  else if (col_method == "bin") {
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-    else({
-      if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-      if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-    })
-    
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-    
+  
+  if(col_method %in% c("quantile", "bin")) {
+    if (col_method == "quantile") {
+      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      else {
+        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+      }  
+      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+    }
+    else if (col_method == "bin") {
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      else({
+        if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+      })
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+    }
     n_col <- length(col_cuts) - 1
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
-    
-    if (is.null(col_labels)) labels <-  sv_labels_from_cuts(col_cuts, col_labels_dp)
-    else labels <- col_labels
   }
   else if (col_method == "category") {
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
@@ -291,18 +286,16 @@ ggplot_sf_col <- function(data,
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(col_labels)) labels <- waiver()
-    else labels <- col_labels
+    col_labels <- waiver()
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
-  
+
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
         size = size_point,
-        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -311,7 +304,6 @@ ggplot_sf_col <- function(data,
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
         size = size_line,
-        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -320,7 +312,6 @@ ggplot_sf_col <- function(data,
       geom_sf( 
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
         size = size_line,
-        # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
       )
@@ -330,7 +321,7 @@ ggplot_sf_col <- function(data,
     scale_color_manual(
       values = pal,
       drop = FALSE,
-      labels = labels,
+      labels = col_labels,
       na.translate = col_na, 
       na.value = "#A8A8A8"
     )
@@ -340,7 +331,7 @@ ggplot_sf_col <- function(data,
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na, 
         na.value = "#A8A8A8"
       )
@@ -480,7 +471,6 @@ ggplot_sf_facet <- function(data,
         aes(text = !!text_var), 
         col = pal,
         size = size_point,
-        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -490,7 +480,6 @@ ggplot_sf_facet <- function(data,
         aes(text = !!text_var), 
         col = pal,
         size = size_line,
-        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -501,7 +490,6 @@ ggplot_sf_facet <- function(data,
         col = pal,
         fill = pal,
         size = size_line,
-        # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
       )
@@ -552,7 +540,6 @@ ggplot_sf_facet <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
@@ -592,7 +579,6 @@ ggplot_sf_col_facet <- function(data,
                                 subtitle_wrap = 80,
                                 col_cuts = NULL,
                                 col_labels_dp = 1,
-                                col_labels = NULL,
                                 col_method = NULL,
                                 col_na = TRUE,
                                 col_legend_ncol = NULL,
@@ -644,10 +630,43 @@ ggplot_sf_col_facet <- function(data,
     }
   }
   
-  if (is.null(col_method) & !is.numeric(col_var_vctr)) col_method <- "category"
-  if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+  }
   
-  if (col_method == "category") {
+  if(col_method %in% c("quantile", "bin")) {
+    if (col_method == "quantile") {
+      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      else {
+        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+      }  
+      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+    }
+    else if (col_method == "bin") {
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      else({
+        if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+      })
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+    }
+    n_col <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- sv_pal(n_col)
+    else pal <- pal[1:n_col]
+  }
+  else if (col_method == "category") {
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
       n_col <- length(levels(col_var_vctr))
     }
@@ -656,38 +675,7 @@ ggplot_sf_col_facet <- function(data,
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
-    if (is.null(col_labels)) labels <- waiver()
-    else labels <- col_labels
-  }
-  else if (col_method == "bin") {
-    if (!is.null(col_cuts)) {
-      if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-      if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-    }
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-    
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-    
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    if (is.null(col_labels)) labels <-  sv_labels_from_cuts(col_cuts, col_labels_dp)
-    if (!is.null(col_labels)) labels <- col_labels
-  }
-  else if (col_method == "quantile") {
-    if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
-    else {
-      if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-      if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-    }  
-    data <- data %>%
-      dplyr::group_by(dplyr::across(!!facet_var)) %>%
-      dplyr::mutate(dplyr::across(!!col_var, ~percent_rank(.x))) %>%
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-    
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
-    
-    if (is.null(col_labels)) labels <- paste0( sv_labels_from_cuts(col_cuts * 100, 0), "\u1D57\u02B0 percentile")
-    if (!is.null(col_labels)) labels <- col_labels
+    col_labels <- waiver()
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -697,7 +685,6 @@ ggplot_sf_col_facet <- function(data,
       geom_sf(
         aes(col = !!col_var, text = !!text_var),
         size = size_point,
-        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -706,7 +693,6 @@ ggplot_sf_col_facet <- function(data,
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
         size = size_line,
-        # key_glyph = draw_key_polygon,
         data = data
       )
   }
@@ -715,7 +701,6 @@ ggplot_sf_col_facet <- function(data,
       geom_sf(
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
         size = size_line,
-        # key_glyph = draw_key_polygon,
         alpha = alpha,
         data = data
       )
@@ -725,7 +710,7 @@ ggplot_sf_col_facet <- function(data,
     scale_color_manual(
       values = pal,
       drop = FALSE,
-      labels = labels,
+      labels = col_labels,
       na.translate = col_na, 
       na.value = "#A8A8A8"
     )
@@ -735,7 +720,7 @@ ggplot_sf_col_facet <- function(data,
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na, 
         na.value = "#A8A8A8"
       )

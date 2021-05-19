@@ -1,3 +1,7 @@
+# simplevis 3.2.1
+
+* For ggplot functions, updated col_labels.
+
 # simplevis 3.2.0
 
 * For ggplot functions, updated help for x and y_labels arguments.

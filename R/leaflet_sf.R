@@ -11,7 +11,6 @@
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title"
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels A vector of legend label values. Defaults to "[Feature]".
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -26,7 +25,6 @@ leaflet_sf <- function(data,
                        basemap = "light",
                        title = "[Title]",
                        col_labels_dp = 1,
-                       col_labels = "[Feature]",
                        map_id = "map") {
   
   data <- dplyr::ungroup(data)
@@ -104,7 +102,7 @@ leaflet_sf <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal[1],
-        labels =  col_labels, 
+        labels =  "Feature", 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
@@ -145,7 +143,7 @@ leaflet_sf <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal[1],
-        labels =  col_labels, 
+        labels =  "Feature", 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
@@ -185,7 +183,7 @@ leaflet_sf <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal[1],
-        labels =  col_labels, 
+        labels =  "Feature", 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
@@ -193,7 +191,6 @@ leaflet_sf <- function(data,
       )
     
   }
-  
 }
 
 #' @title Simple feature leaflet map that is coloured.
@@ -211,7 +208,6 @@ leaflet_sf <- function(data,
 #' @param title A title string that will be wrapped into the legend. Defaults to "Title".
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_labels Adjust the  x scale labels through a vector.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_na TRUE or FALSE  of whether to include NAs of the colour variable. Defaults to TRUE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
@@ -243,7 +239,6 @@ leaflet_sf_col <- function(data,
                            title = "[Title]",
                            col_cuts = NULL,
                            col_labels_dp = 1,
-                           col_labels = NULL,
                            col_method = NULL,
                            col_na = TRUE,
                            map_id = "map") {
@@ -266,17 +261,16 @@ leaflet_sf_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   text_var_vctr <- dplyr::pull(data, !!text_var)
   
-  if (is.null(col_method) & !is.numeric(col_var_vctr)) col_method <- "category"
-  if (is.null(col_method) & is.numeric(col_var_vctr)) col_method <- "quantile"
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+  }
   
   if (col_method == "category") {
-    if (is.null( col_labels)){ 
-      if (is.factor(col_var_vctr)) labels <- levels(col_var_vctr)
-      else if (is.character(col_var_vctr)) labels <- sort(unique(col_var_vctr))
-    }
-    else if (!is.null( col_labels)) labels <-  col_labels
-    
-    n_col <- length(labels)
+    if (is.factor(col_var_vctr)) col_labels <- levels(col_var_vctr)
+    else if (is.character(col_var_vctr)) col_labels <- sort(unique(col_var_vctr))
+
+    n_col <- length(col_labels)
     
     if (is.null(pal)) pal <- sv_pal(n_col)
     else if (!is.null(pal)) pal <- pal[1:n_col]
@@ -308,8 +302,7 @@ leaflet_sf_col <- function(data,
       right = FALSE,
       na.color = "#A8A8A8"
     )
-    if (is.null( col_labels)) labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
-    else if (!is.null( col_labels)) labels <-  col_labels
+    col_labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -333,8 +326,7 @@ leaflet_sf_col <- function(data,
       na.color = "#A8A8A8"
     )
     
-    if (is.null( col_labels)) labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
-    else if (!is.null( col_labels)) labels <-  col_labels
+    col_labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))
@@ -401,7 +393,7 @@ leaflet_sf_col <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal,
-        labels = labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
@@ -443,7 +435,7 @@ leaflet_sf_col <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal,
-        labels = labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
@@ -484,7 +476,7 @@ leaflet_sf_col <- function(data,
       addLegend(
         layerId = col_id,
         colors = pal,
-        labels = labels,
+        labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,

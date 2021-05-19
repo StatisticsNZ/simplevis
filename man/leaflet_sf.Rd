@@ -6,7 +6,7 @@
 \usage{
 leaflet_sf(data, popup_vars_vctr = NULL, pal = NULL, size_point = 2,
   size_line = 2, alpha = 0.9, basemap = "light", title = "[Title]",
-  col_labels_dp = 1, col_labels = "[Feature]", map_id = "map")
+  col_labels_dp = 1, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -26,8 +26,6 @@ leaflet_sf(data, popup_vars_vctr = NULL, pal = NULL, size_point = 2,
 \item{title}{A title string that will be wrapped into the legend. Defaults to "Title"}
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
-
-\item{col_labels}{A vector of legend label values. Defaults to "[Feature]".}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

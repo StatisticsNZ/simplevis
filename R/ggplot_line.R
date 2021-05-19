@@ -323,7 +323,7 @@ ggplot_line_col <-
            y_trans = "identity",
            y_zero = FALSE,
            y_zero_line = NULL,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_na = TRUE,
@@ -469,14 +469,11 @@ ggplot_line_col <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (!is.null(col_labels)) labels <- col_labels
-    if (is.null(col_labels)) labels <- waiver()
-    
     plot <- plot +
       scale_color_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       )
@@ -827,7 +824,7 @@ ggplot_line_col_facet <-
            y_zero = FALSE,
            y_zero_line = NULL,
            col_na = TRUE,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_title = "",
@@ -971,14 +968,11 @@ ggplot_line_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (!is.null(col_labels)) labels <- col_labels
-    if (is.null(col_labels)) labels <- waiver()
-    
     plot <- plot +
       scale_color_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +

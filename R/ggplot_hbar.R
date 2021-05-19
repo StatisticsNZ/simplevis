@@ -289,7 +289,7 @@ ggplot_hbar_col <-
            y_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_na = TRUE,
@@ -367,9 +367,6 @@ ggplot_hbar_col <-
         font_size_title = font_size_title
       ) 
     
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
-    
     if (position == "stack") {
       data_sum <- data %>%
         dplyr::group_by(dplyr::across(!!y_var)) %>%
@@ -437,14 +434,14 @@ ggplot_hbar_col <-
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       )
@@ -773,7 +770,7 @@ ggplot_hbar_col_facet <-
            y_rev = FALSE,
            y_title = "[Y title]",
            y_title_wrap = 50,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_na = TRUE,
@@ -857,9 +854,6 @@ ggplot_hbar_col_facet <-
       ) +
       geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), alpha = alpha, size = size_line, width = width, position = position2)
     
-    if (!is.null(col_labels)) labels <- rev(col_labels)
-    if (is.null(col_labels)) labels <- waiver()
-    
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
@@ -913,14 +907,14 @@ ggplot_hbar_col_facet <-
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) 

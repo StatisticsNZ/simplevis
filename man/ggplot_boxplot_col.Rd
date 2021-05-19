@@ -14,11 +14,11 @@ ggplot_boxplot_col(data, x_var, y_var = NULL, col_var,
   y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
   x_rev = FALSE, y_title = "[Y title]", y_title_wrap = 50,
   y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
-  col_labels = NULL, col_legend_ncol = NULL, col_legend_nrow = NULL,
-  col_na = TRUE, col_rev = FALSE, col_title = "",
-  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
-  font_family = "Helvetica", font_size_title = NULL,
-  font_size_body = NULL, mobile = FALSE)
+  col_labels = waiver(), col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_na = TRUE, col_rev = FALSE,
+  col_title = "", col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "Helvetica",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}

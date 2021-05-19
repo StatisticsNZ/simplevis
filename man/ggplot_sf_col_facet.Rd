@@ -9,12 +9,12 @@ ggplot_sf_col_facet(data, col_var, facet_var, text_var = NULL,
   alpha = 1, borders = NULL, borders_behind = TRUE,
   borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  col_cuts = NULL, col_labels_dp = 1, col_labels = NULL,
-  col_method = NULL, col_na = TRUE, col_legend_ncol = NULL,
-  col_legend_nrow = NULL, col_title = "", col_title_wrap = 25,
-  facet_ncol = NULL, facet_nrow = NULL, caption = NULL,
-  caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL)
+  col_cuts = NULL, col_labels_dp = 1, col_method = NULL,
+  col_na = TRUE, col_legend_ncol = NULL, col_legend_nrow = NULL,
+  col_title = "", col_title_wrap = 25, facet_ncol = NULL,
+  facet_nrow = NULL, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -54,8 +54,6 @@ ggplot_sf_col_facet(data, col_var, facet_var, text_var = NULL,
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
-
-\item{col_labels}{Adjust the  colour scale labels through a vector.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 

@@ -374,7 +374,7 @@ ggplot_boxplot_col <- function(data,
                                y_trans = "identity",
                                y_zero = FALSE,
                                y_zero_line = NULL,
-                               col_labels = NULL,
+                               col_labels = waiver(),
                                col_legend_ncol = NULL,
                                col_legend_nrow = NULL,
                                col_na = TRUE,
@@ -550,14 +550,11 @@ ggplot_boxplot_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (!is.null(col_labels)) labels <- col_labels
-  if (is.null(col_labels)) labels <- waiver()
-  
   plot <- plot +
     scale_fill_manual(
       values = pal,
       drop = FALSE,
-      labels = labels,
+      labels = col_labels,
       na.translate = col_na,
       na.value = "#A8A8A8"
     ) 
@@ -971,7 +968,7 @@ ggplot_boxplot_col_facet <-
            y_trans = "identity",
            y_zero = FALSE,
            y_zero_line = NULL,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_na = TRUE,
@@ -1149,14 +1146,11 @@ ggplot_boxplot_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (!is.null(col_labels)) labels <- col_labels
-    if (is.null(col_labels)) labels <- waiver()
-
     plot <- plot +
       scale_fill_manual(
         values = pal,
         drop = FALSE,
-        labels = labels,
+        labels = col_labels,
         na.translate = col_na,
         na.value = "#A8A8A8"
       ) +

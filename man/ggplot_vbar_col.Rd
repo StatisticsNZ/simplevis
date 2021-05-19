@@ -8,10 +8,10 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
   position = "stack", pal = NULL, pal_rev = FALSE, width = 0.75,
   alpha = 1, size_line = 0.5, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
-  x_labels = waiver(), x_pretty_n = 6, x_expand = NULL,
-  x_title = "[X title]", x_title_wrap = 50, x_zero = FALSE,
-  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, x_rev = FALSE,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
+  x_rev = FALSE, x_title = "[X title]", x_title_wrap = 50,
+  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 5,
   y_title = "[Y title]", y_title_wrap = 50, y_trans = "identity",
   y_zero = TRUE, y_zero_line = NULL, col_labels = NULL,
   col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
@@ -52,11 +52,13 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
+\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
+
 \item{x_labels}{Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
-\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
+\item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
 \item{x_title}{X scale title string. Defaults to "[X title]".}
 
@@ -73,8 +75,6 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{y_labels}{Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
-
-\item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
 \item{y_title}{Y scale title string. Defaults to [Y title].}
 

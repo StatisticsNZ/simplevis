@@ -1,3 +1,8 @@
+# simplevis 3.1.9
+
+* For vbar, added support for all variables on the x scale.
+* For vbar, added an x_rev argument. 
+
 # simplevis 3.1.8
 
 * Removed x_trans from vbar and boxplot.

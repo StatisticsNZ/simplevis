@@ -14,7 +14,7 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
@@ -23,7 +23,7 @@
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -96,7 +96,7 @@ ggplot_vbar <- function(data,
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-  
+
   if (x_rev == TRUE) {
     if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       data <- data %>%
@@ -256,7 +256,7 @@ ggplot_vbar <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
@@ -265,7 +265,7 @@ ggplot_vbar <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -587,7 +587,7 @@ ggplot_vbar_col <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
@@ -596,7 +596,7 @@ ggplot_vbar_col <-
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -819,7 +819,7 @@ ggplot_vbar_facet <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
@@ -828,7 +828,7 @@ ggplot_vbar_facet <-
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 

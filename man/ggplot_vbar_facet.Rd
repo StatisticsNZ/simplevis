@@ -49,7 +49,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.}
+\item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
@@ -67,7 +67,7 @@ ggplot_vbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.}
+\item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 

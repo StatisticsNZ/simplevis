@@ -56,7 +56,7 @@ ggplot_boxplot_col_facet(data, x_var, y_var = NULL, col_var, facet_var,
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
-\item{x_labels}{Adjust the x scale labels through a scales function (e.g. scales::comma) or a vector of labels.}
+\item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
@@ -76,7 +76,7 @@ ggplot_boxplot_col_facet(data, x_var, y_var = NULL, col_var, facet_var,
 
 \item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
 
-\item{y_labels}{Adjust the y scale labels through a scales function (e.g. scales::comma) or a vector of labels.}
+\item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 

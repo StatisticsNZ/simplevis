@@ -14,7 +14,7 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.
@@ -22,7 +22,7 @@
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.  
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
@@ -123,11 +123,7 @@ ggplot_hbar <- function(data,
       font_size_title = font_size_title
     ) +
     geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
-             col = pal, 
-             fill = pal, 
-             alpha = alpha, 
-             size = size_line, 
-             width = width)
+             col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
   
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
@@ -221,7 +217,7 @@ ggplot_hbar <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.
 #' @param x_trans A string specifying a transformation for the x axis scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -229,7 +225,7 @@ ggplot_hbar <- function(data,
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.
@@ -511,7 +507,7 @@ ggplot_hbar_col <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_trans A string specifying a transformation for the x scale. Defaults to "identity".
 #' @param x_title X axis title string. Defaults to [X title].
@@ -519,7 +515,7 @@ ggplot_hbar_col <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -703,7 +699,7 @@ ggplot_hbar_facet <-
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".
 #' @param x_expand A vector of range expansion constants used to add some padding on the x scale. 
-#' @param x_labels Adjust the  x scale labels through a function or vector.
+#' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X axis title string. Defaults to [X title].
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -711,7 +707,7 @@ ggplot_hbar_facet <-
 #' @param x_zero TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.
 #' @param y_expand A vector of range expansion constants used to add some padding on the y scale. 
-#' @param y_labels Adjust the  y scale labels through a function or vector.
+#' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_rev TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.
 #' @param y_title Y axis title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 

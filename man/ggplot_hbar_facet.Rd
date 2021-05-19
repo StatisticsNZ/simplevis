@@ -47,7 +47,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
 
-\item{x_labels}{Adjust the  x scale labels through a function or vector.}
+\item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -63,7 +63,7 @@ ggplot_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
 
-\item{y_labels}{Adjust the  y scale labels through a function or vector.}
+\item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
 

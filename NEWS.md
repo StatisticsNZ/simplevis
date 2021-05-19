@@ -1,3 +1,7 @@
+# simplevis 3.2.0
+
+* For ggplot functions, updated help for x and y_labels arguments.
+
 # simplevis 3.1.9
 
 * For vbar, added support for all variables on the x scale.

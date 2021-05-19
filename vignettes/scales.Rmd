@@ -81,14 +81,6 @@ ggplot_point(iris, Sepal.Width, Sepal.Length,
                y_title = "Sepal length (m)")
 ```
 
-Or you can use a vector of labels. Note the difference between a `x_title` and `the x_labels`
-
-```{r}
-ggplot_point(iris, Sepal.Width, Sepal.Length,
-             x_labels = c("Zero", "One", "Two", "Three", "Four", "Five"), 
-             x_title = "Sepal width (cm)")
-```
-
 ### Discrete scales
 
 `simplevis` automatically orders hbar graphs of character variables from biggest to smallest.

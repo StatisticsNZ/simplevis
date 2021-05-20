@@ -136,7 +136,8 @@ plot_data <- storms \%>\%
   filter(year \%in\% 1975:1980) \%>\%
   filter(!(status == "Tropical storm" & year == 1980)) \%>\%
   filter(name \%in\% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
-  "Henri", "Gloria", "Georges", "Frederic"))
+                   "Henri", "Gloria", "Georges", "Frederic")) \%>\% 
+   mutate(year = as.character(year))
 
   ggplot_vbar_col_facet(plot_data, year, average_wind, name, status)
 

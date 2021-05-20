@@ -1,3 +1,7 @@
+# simplevis 3.3.0
+
+* Fixed vbar x_limits defaults. 
+
 # simplevis 3.2.4
 
 * Fixed x_rev for if character in vbar, point and line.

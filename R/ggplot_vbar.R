@@ -136,7 +136,11 @@ ggplot_vbar <- function(data,
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    
+    if(x_zero == FALSE & x_balance == FALSE) {
+      x_limits <- c(min(x_var_vctr), max(x_var_vctr))
+    } else x_limits <- c(min(x_breaks), max(x_breaks))
+    
     if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
     
     if(mobile == TRUE) {
@@ -425,7 +429,11 @@ ggplot_vbar_col <-
       x_zero_line <- x_zero_list[[2]]
       
       x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = mobile)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      
+      if(x_zero == FALSE & x_balance == FALSE) {
+        x_limits <- c(min(x_var_vctr), max(x_var_vctr))
+      } else x_limits <- c(min(x_breaks), max(x_breaks))
+      
       if(is.null(x_expand)) x_expand <- waiver()
       
       if(mobile == TRUE) {
@@ -721,7 +729,11 @@ ggplot_vbar_facet <-
         x_zero_line <- x_zero_list[[2]]
         
         x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = FALSE)
-        x_limits <- c(min(x_breaks), max(x_breaks))
+        
+        if(x_zero == FALSE & x_balance == FALSE) {
+          x_limits <- c(min(x_var_vctr), max(x_var_vctr))
+        } else x_limits <- c(min(x_breaks), max(x_breaks))
+        
         if(is.null(x_expand)) x_expand <- waiver()
       }
       
@@ -871,7 +883,8 @@ ggplot_vbar_facet <-
 #'   filter(year %in% 1975:1980) %>%
 #'   filter(!(status == "Tropical storm" & year == 1980)) %>%
 #'   filter(name %in% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
-#'   "Henri", "Gloria", "Georges", "Frederic"))
+#'                    "Henri", "Gloria", "Georges", "Frederic")) %>% 
+#'    mutate(year = as.character(year))
 #'
 #'   ggplot_vbar_col_facet(plot_data, year, average_wind, name, status)
 #'
@@ -1016,7 +1029,11 @@ ggplot_vbar_col_facet <-
         x_zero_line <- x_zero_list[[2]]
         
         x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = "identity", x_zero = x_zero, mobile = FALSE)
-        x_limits <- c(min(x_breaks), max(x_breaks))
+        
+        if(x_zero == FALSE & x_balance == FALSE) {
+          x_limits <- c(min(x_var_vctr), max(x_var_vctr))
+        } else x_limits <- c(min(x_breaks), max(x_breaks))
+
         if(is.null(x_expand)) x_expand <- waiver()
       }
       

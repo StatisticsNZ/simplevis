@@ -97,12 +97,15 @@ ggplot_point <- function(data,
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   if (x_rev == TRUE) {
-    if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
+    else if (is.character(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   if (is.null(pal)) pal <- sv_pal(1)
@@ -346,12 +349,15 @@ ggplot_point_col <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -640,12 +646,15 @@ ggplot_point_facet <-
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
@@ -885,12 +894,15 @@ ggplot_point_col_facet <-
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)

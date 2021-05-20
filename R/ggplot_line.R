@@ -101,14 +101,17 @@ ggplot_line <- function(data,
   }
   
   if (x_rev == TRUE) {
-    if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
+    else if (is.character(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
@@ -365,12 +368,15 @@ ggplot_line_col <-
     }
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -634,12 +640,15 @@ ggplot_line_facet <-
     }
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
@@ -888,12 +897,15 @@ ggplot_line_col_facet <-
     }
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)

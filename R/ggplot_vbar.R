@@ -98,14 +98,17 @@ ggplot_vbar <- function(data,
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
 
   if (x_rev == TRUE) {
-    if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
+    else if (is.character(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
@@ -358,14 +361,20 @@ ggplot_vbar_col <-
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
-    
+    if (y_trans != "identity") {
+      if (position == "stack") stop("Please use position = 'dodge', if you would like to transform the y scale")
+    } 
+
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if (col_rev == TRUE){
@@ -382,9 +391,6 @@ ggplot_vbar_col <-
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-    
-    if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
-    if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
     
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
@@ -677,12 +683,15 @@ ggplot_vbar_facet <-
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
@@ -901,7 +910,7 @@ ggplot_vbar_col_facet <-
            y_trans = "identity",
            y_zero = TRUE,
            y_zero_line = NULL,
-           col_labels = NULL,
+           col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_na = TRUE,
@@ -932,14 +941,20 @@ ggplot_vbar_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
     if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    if (y_trans != "identity") {
+      if (position == "stack") stop("Please use position = 'dodge', if you would like to transform the y scale")
+    } 
     
     if (x_rev == TRUE) {
-      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      if (is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-        
-        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
+      else if (is.character(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+      }
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if (col_rev == TRUE){
@@ -956,9 +971,6 @@ ggplot_vbar_col_facet <-
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-    
-    if (position == "stack" & y_trans != "identity") message("simplevis may not perform correctly using a y scale other than identity where position equals stack")
-    if (position == "stack" & y_zero == FALSE) message("simplevis may not perform correctly with position equal to stack and y_zero equal to FALSE")
     
     if (position == "stack") position2 <- "stack"
     else if (position == "dodge") position2 <- position_dodge2(preserve = "single")

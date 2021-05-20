@@ -1,3 +1,9 @@
+# simplevis 3.2.4
+
+* Fixed x_rev for if character in vbar, point and line.
+* Corrected vbar_col_facet labels bug.
+* Stop people from trying to stacjk
+
 # simplevis 3.2.3
 
 * Fixed x_rev in point and line.

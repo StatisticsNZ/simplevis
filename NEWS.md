@@ -1,3 +1,7 @@
+# simplevis 3.2.2
+
+* Updated breaks functions for better speed.
+
 # simplevis 3.2.1
 
 * For ggplot functions, updated col_labels.

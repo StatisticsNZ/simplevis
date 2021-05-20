@@ -18,7 +18,7 @@ x_numeric_breaks(x_var_vctr, x_balance = FALSE, x_pretty_n = 6,
 
 \item{x_zero}{TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$mobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }
 \value{
 A vector of breaks
@@ -26,3 +26,4 @@ A vector of breaks
 \description{
 Calculate the breaks for a x axis numeric vector.
 }
+\keyword{internal}

@@ -5,7 +5,7 @@
 \title{Calculate the breaks for a y axis numeric vector.}
 \usage{
 y_numeric_breaks(y_var_vctr, y_balance = FALSE, y_pretty_n = 5,
-  y_trans = "identity", y_zero = TRUE)
+  y_trans = "identity", y_zero = TRUE, mobile = NULL)
 }
 \arguments{
 \item{y_var_vctr}{A numeric vector for the y scale from which to determine breaks from.}
@@ -17,6 +17,8 @@ y_numeric_breaks(y_var_vctr, y_balance = FALSE, y_pretty_n = 5,
 \item{y_trans}{A string specifying a transformation for the y axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{y_zero}{TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to NULL.}
 }
 \value{
 A vector of breaks
@@ -24,3 +26,4 @@ A vector of breaks
 \description{
 Calculate the breaks for a y axis numeric vector.
 }
+\keyword{internal}

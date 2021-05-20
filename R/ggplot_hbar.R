@@ -25,6 +25,7 @@
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param y_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param y_reorder For a categorical x variable, TRUE or FALSE of whether the y variable variable is to be reordered by the x variable. Defaults to FALSE.
 #' @param y_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param y_title X scale title string. Defaults to "[X title]".
 #' @param y_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -62,6 +63,7 @@ ggplot_hbar <- function(data,
                         y_expand = NULL,
                         y_labels = waiver(),
                         y_pretty_n = 6,
+                        y_reorder = FALSE,
                         y_rev = FALSE,
                         y_title = "[X title]",
                         y_title_wrap = 50,
@@ -93,23 +95,23 @@ ggplot_hbar <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if (y_rev == FALSE) {
-    if (is.factor(y_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-    }
-    else if (is.character(y_var_vctr)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
-    }
-  }
-  else if (y_rev == TRUE) {
-    if (is.character(y_var_vctr)) {
+  if (y_reorder == TRUE) {
+    if(y_rev == FALSE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
-    }
+    } 
+    else if(y_rev == TRUE) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
+    } 
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  } 
+  else if (y_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  y_var_vctr <- dplyr::pull(data, !!y_var)
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
@@ -152,21 +154,21 @@ ggplot_hbar <- function(data,
   
   if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = c(y_limits[1], y_limits[2])) +
+      coord_flip(xlim = c(y_limits[2], y_limits[1])) +
       scale_x_date(
         expand = y_expand,
-        breaks = y_breaks,
-        labels = y_labels
+        breaks = rev(y_breaks),
+        labels = rev(y_labels)
       )
   }
   else if (is.numeric(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = c(y_limits[1], y_limits[2])) +
-      scale_x_continuous(expand = y_expand,
-                         breaks = y_breaks,
-                         labels = y_labels,
-                         oob = scales::squish)
-    
+      coord_flip(xlim = c(y_limits[2], y_limits[1])) +
+      scale_x_reverse(expand = y_expand,
+                      breaks = rev(y_breaks),
+                      labels = rev(y_labels),
+                      oob = scales::squish) 
+
     if(y_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)

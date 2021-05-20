@@ -8,13 +8,14 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
   width = 0.75, alpha = 1, size_line = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
   y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
-  y_pretty_n = 6, y_rev = FALSE, y_title = "[X title]",
-  y_title_wrap = 50, y_zero = FALSE, y_zero_line = NULL,
-  x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
-  x_pretty_n = 5, x_title = "[Y title]", x_title_wrap = 50,
-  x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+  y_pretty_n = 6, y_reorder = FALSE, y_rev = FALSE,
+  y_title = "[X title]", y_title_wrap = 50, y_zero = FALSE,
+  y_zero_line = NULL, x_balance = FALSE, x_expand = NULL,
+  x_labels = waiver(), x_pretty_n = 5, x_title = "[Y title]",
+  x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
+  x_zero_line = NULL, caption = NULL, caption_wrap = 80,
+  font_family = "Helvetica", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -48,6 +49,8 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 \item{y_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
+
+\item{y_reorder}{For a categorical x variable, TRUE or FALSE of whether the y variable variable is to be reordered by the x variable. Defaults to FALSE.}
 
 \item{y_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 

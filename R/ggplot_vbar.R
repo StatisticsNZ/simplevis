@@ -16,6 +16,7 @@
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_reorder For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the y variable. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -45,11 +46,7 @@
 #'   group_by(year) %>%
 #'   summarise(average_wind = round(mean(wind), 2)) 
 #'
-#' ggplot_vbar(plot_data, year, average_wind,
-#'       title = "Average wind speed of Atlantic storms, 1975-2015",
-#'       x_title = "Year",
-#'       y_title = "Average maximum sustained wind speed (knots)")
-#'
+#' ggplot_vbar(plot_data, year, average_wind)
 ggplot_vbar <- function(data,
                         x_var,
                         y_var,
@@ -66,6 +63,7 @@ ggplot_vbar <- function(data,
                         x_expand = NULL,
                         x_labels = waiver(),
                         x_pretty_n = 6,
+                        x_reorder = FALSE,
                         x_rev = FALSE,
                         x_title = "[X title]",
                         x_title_wrap = 50,
@@ -96,19 +94,25 @@ ggplot_vbar <- function(data,
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-
-  if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+  
+  if (x_reorder == TRUE) {
+    if(x_rev == FALSE) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-    }
-    else if (is.character(x_var_vctr)){
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = TRUE)))
+    } 
+    else if(x_rev == TRUE) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = FALSE)))
+    } 
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  } 
+  else if (x_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+    
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   

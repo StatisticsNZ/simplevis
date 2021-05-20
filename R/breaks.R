@@ -25,8 +25,8 @@ y_numeric_breaks <- function(y_var_vctr,
   y_breaks <- pretty(y_min_max, n = y_pretty_n)
   y_limits <- c(min(y_breaks), max(y_breaks))
   if(y_trans == "log10" | y_trans == "log") {
-    if(y_breaks[1] == 0) y_breaks[1] <- 0.1 
-    if(y_limits[1] == 0) y_limits[1] <- 0.1 
+    if(y_breaks[1] == 0) y_breaks[1] <- 1
+    if(y_limits[1] == 0) y_limits[1] <- 1 
   }
 
   return(y_breaks)
@@ -59,8 +59,8 @@ x_numeric_breaks <- function(x_var_vctr,
   x_breaks <- pretty(x_min_max, n = x_pretty_n)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if(x_trans == "log10" | x_trans == "log") {
-    if(x_breaks[1] == 0) x_breaks[1] <- 0.1 
-    if(x_limits[1] == 0) x_limits[1] <- 0.1 
+    if(x_breaks[1] == 0) x_breaks[1] <- 1 
+    if(x_limits[1] == 0) x_limits[1] <- 1 
   }
 
   if(mobile == TRUE) {

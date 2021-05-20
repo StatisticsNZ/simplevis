@@ -1,3 +1,7 @@
+# simplevis 3.2.3
+
+* Fixed x_rev in point and line.
+
 # simplevis 3.2.2
 
 * Updated breaks functions for better speed.

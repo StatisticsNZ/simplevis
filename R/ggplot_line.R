@@ -100,6 +100,15 @@ ggplot_line <- function(data,
     stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
   }
   
+  if (x_rev == TRUE) {
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
+  }
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
@@ -353,6 +362,15 @@ ggplot_line_col <-
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
+    }
+    
+    if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
+      }
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -615,6 +633,15 @@ ggplot_line_facet <-
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }
     
+    if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
+      }
+    }
+    
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
@@ -858,6 +885,15 @@ ggplot_line_col_facet <-
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
+    }
+    
+    if (x_rev == TRUE) {
+      if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
+      }
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)

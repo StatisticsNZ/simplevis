@@ -101,10 +101,11 @@ ggplot_vbar <- function(data,
     if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
   }
-  x_var_vctr <- dplyr::pull(data, !!x_var)
-  
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
@@ -362,9 +363,10 @@ ggplot_vbar_col <-
       if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
     }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if (col_rev == TRUE){
       if (is.factor(col_var_vctr)){
@@ -678,9 +680,10 @@ ggplot_vbar_facet <-
       if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
     }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
@@ -934,9 +937,10 @@ ggplot_vbar_col_facet <-
       if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
     }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
     
     if (col_rev == TRUE){
       if (is.factor(col_var_vctr)){

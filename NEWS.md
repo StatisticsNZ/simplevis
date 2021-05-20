@@ -1,3 +1,7 @@
+# simplevis 3.3.1 
+
+* Rewrote hbar to be based on vbar code.
+
 # simplevis 3.3.0
 
 * Fixed vbar x_limits defaults. 

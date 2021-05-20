@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.1</span>
       </span>
     </div>
 
@@ -158,12 +158,13 @@
     <pre class="usage"><span class='fu'>ggplot_hbar</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
   <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -175,11 +176,11 @@
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted numeric variable to be on the x axis. Required input.</p></td>
+      <td><p>Unquoted numeric variable to be on the y scale. Required input.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
-      <td><p>Unquoted categorical variable to be on the y axis. Required input.</p></td>
+      <td><p>Unquoted numeric, date or categorical variable to be on the x scale. Required input.</p></td>
     </tr>
     <tr>
       <th>text_var</th>
@@ -187,7 +188,7 @@
     </tr>
     <tr>
       <th>pal</th>
-      <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
+      <td><p>Character vector of hex codes. Defaults to NULL, which selects a default palette.</p></td>
     </tr>
     <tr>
       <th>width</th>
@@ -207,7 +208,7 @@
     </tr>
     <tr>
       <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the title to. Defaults to 70.</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
@@ -215,63 +216,79 @@
     </tr>
     <tr>
       <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 80.</p></td>
     </tr>
     <tr>
-      <th>x_balance</th>
-      <td><p>Add balance to the x axis so that zero is in the centre of the x scale.</p></td>
-    </tr>
-    <tr>
-      <th>x_expand</th>
-      <td><p>A vector of range expansion constants used to add some padding on the x scale.</p></td>
-    </tr>
-    <tr>
-      <th>x_labels</th>
-      <td><p>Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
-    </tr>
-    <tr>
-      <th>x_pretty_n</th>
-      <td><p>The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>x_title</th>
-      <td><p>X axis title string. Defaults to [X title].</p></td>
-    </tr>
-    <tr>
-      <th>x_title_wrap</th>
-      <td><p>Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>x_trans</th>
-      <td><p>A string specifying a transformation for the x axis scale. Defaults to "identity".</p></td>
-    </tr>
-    <tr>
-      <th>x_zero</th>
-      <td><p>TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>x_zero_line</th>
-      <td><p>TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.</p></td>
+      <th>y_balance</th>
+      <td><p>For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_expand</th>
-      <td><p>A vector of range expansion constants used to add some padding on the y scale.</p></td>
+      <td><p>Adjust the vector of range expansion constants used to add some padding on the x scale.</p></td>
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
+      <td><p>Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
+    </tr>
+    <tr>
+      <th>y_pretty_n</th>
+      <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.</p></td>
     </tr>
     <tr>
       <th>y_rev</th>
-      <td><p>TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.</p></td>
+      <td><p>For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_title</th>
-      <td><p>Y axis title string. Defaults to [Y title].</p></td>
+      <td><p>X scale title string. Defaults to "[X title]".</p></td>
     </tr>
     <tr>
       <th>y_title_wrap</th>
-      <td><p>Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the x title to. Defaults to 50.</p></td>
+    </tr>
+    <tr>
+      <th>y_zero</th>
+      <td><p>For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>y_zero_line</th>
+      <td><p>For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>x_balance</th>
+      <td><p>For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.</p></td>
+    </tr>
+    <tr>
+      <th>x_expand</th>
+      <td><p>Adjust the vector of range expansion constants used to add some padding on the y scale.</p></td>
+    </tr>
+    <tr>
+      <th>x_labels</th>
+      <td><p>Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
+    </tr>
+    <tr>
+      <th>x_pretty_n</th>
+      <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+    </tr>
+    <tr>
+      <th>x_title</th>
+      <td><p>Y scale title string. Defaults to [Y title].</p></td>
+    </tr>
+    <tr>
+      <th>x_title_wrap</th>
+      <td><p>Number of characters to wrap the y title to. Defaults to 50.</p></td>
+    </tr>
+    <tr>
+      <th>x_trans</th>
+      <td><p>For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+    </tr>
+    <tr>
+      <th>x_zero</th>
+      <td><p>For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>x_zero_line</th>
+      <td><p>For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>caption</th>
@@ -279,7 +296,7 @@
     </tr>
     <tr>
       <th>caption_wrap</th>
-      <td><p>Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.</p></td>
+      <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     <tr>
       <th>font_family</th>
@@ -306,17 +323,11 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>cut</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>cut</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cut</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_price</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>price</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>average_price</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>average_price</span> / <span class='fl'>1000</span>, <span class='fl'>1</span>))
+<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>storms</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))
 
-<span class='fu'>ggplot_hbar</span>(<span class='no'>plot_data</span>, <span class='no'>average_price</span>, <span class='no'>cut</span>,
-   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Average diamond price by cut"</span>,
-   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Average price ($US thousands)"</span>,
-   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Cut"</span>)</div><div class='img'><img src='ggplot_hbar-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot_hbar</span>(<span class='no'>plot_data</span>, <span class='no'>average_wind</span>, <span class='no'>year</span>)</div><div class='img'><img src='ggplot_hbar-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

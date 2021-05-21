@@ -95,22 +95,24 @@ ggplot_hbar <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if (y_reorder == TRUE) {
-    if(y_rev == FALSE) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
+    if (y_reorder == TRUE) {
+      if(y_rev == FALSE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
+      } 
+      else if(y_rev == TRUE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
+      } 
+      y_var_vctr <- dplyr::pull(data, !!y_var)
     } 
-    else if(y_rev == TRUE) {
+    else if (y_rev == FALSE) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
-    } 
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-  } 
-  else if (y_rev == TRUE) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-    
-    y_var_vctr <- dplyr::pull(data, !!y_var)
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
+      
+      y_var_vctr <- dplyr::pull(data, !!y_var)
+    }
   }
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)

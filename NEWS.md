@@ -1,9 +1,6 @@
-# simplevis 3.3.4
+# simplevis 3.3.5
 
 * For hbar, fixed ordering of date or numeric on y scale.
-
-# simplevis 3.3.2
-
 * For vbar and hbar, added x_reorder and y_reorder argument.
 
 # simplevis 3.3.1 

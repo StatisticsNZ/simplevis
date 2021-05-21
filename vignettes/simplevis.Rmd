@@ -85,7 +85,7 @@ It is always recommended to add a `title`, `x_title` and `y_title` too.
 
 Identify the function that you need, then provide the `data`, an `x_var` and a `y_var` (unless of the `ggplot_sf` family).
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.05) %>% 
   tibble::as_tibble()
@@ -95,7 +95,7 @@ plot_data
 ggplot_point(plot_data, carat, price)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(average_price = mean(price)) %>%
@@ -113,7 +113,7 @@ ggplot_hbar(plot_data,
             y_title = "Cut")
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = mean(wind)) %>% 
@@ -126,7 +126,7 @@ ggplot_vbar(plot_data,
             y_var = average_wind)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(wind = mean(wind)) %>% 
@@ -141,7 +141,7 @@ ggplot_line(plot_data,
 
 Note the `ggplot_boxplot` functions transform the data to boxplot statistics by default. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- iris %>%
   mutate(Species = stringr::str_to_sentence(Species)) %>% 
   tibble::as_tibble()
@@ -223,14 +223,14 @@ These functions work in the same way as the ggplot2 graph functions, but with th
 * No `x_var` and `y_var` variables are required
 * Borders can added to maps by providing an `sf` object to the `borders` argument. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 example_sf_point
 
 ggplot_sf(example_sf_point, 
           size_point = 0.25)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 nz
 
 ggplot_sf(example_sf_point, 
@@ -238,7 +238,7 @@ ggplot_sf(example_sf_point,
           size_point = 0.25)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 example_sf_polygon
 
 ggplot_sf_col(example_sf_polygon, 
@@ -246,14 +246,14 @@ ggplot_sf_col(example_sf_polygon,
               borders = nz)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 ggplot_sf_facet(example_sf_point, 
                 facet_var = trend_category, 
                 borders = nz, 
                 size_point = 0.5)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 ggplot_sf_col_facet(example_sf_point, 
                     col_var = trend_category, 
                     facet_var = trend_category,
@@ -318,7 +318,7 @@ For further information on how to create leaflet html maps, see the [leaflet art
 
 Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. Data is inherited from the simplevis, but aesthetics are not.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length) +
   ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length), col = viridis::viridis(4)[2])
 ```
@@ -327,11 +327,11 @@ ggplot_point(iris, Sepal.Width, Sepal.Length) +
 
 To change the colours, add a `pal` argument with a vector of hex strings.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 ggplot_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
                  pal = c("#1B9E77", "#D95F02", "#7570B3"))
 

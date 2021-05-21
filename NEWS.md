@@ -1,3 +1,7 @@
+# simplevis 3.3.6
+
+* Rewrote hbar_col based on vbar code to expand variable types and arguments available.
+
 # simplevis 3.3.5
 
 * For hbar, fixed ordering of date or numeric on y scale.
@@ -5,7 +9,7 @@
 
 # simplevis 3.3.1 
 
-* Rewrote hbar to be based on vbar code.
+* Rewrote hbar based on vbar code to expand variable types and arguments available.
 
 # simplevis 3.3.0
 

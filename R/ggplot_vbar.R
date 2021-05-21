@@ -16,8 +16,8 @@
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_reorder For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the y variable. Defaults to FALSE.
-#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_reorder For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.
+#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -25,7 +25,7 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
-#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -95,22 +95,24 @@ ggplot_vbar <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if (x_reorder == TRUE) {
-    if(x_rev == FALSE) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = TRUE)))
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
+    if (x_reorder == TRUE) {
+      if(x_rev == FALSE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = TRUE)))
+      } 
+      else if(x_rev == TRUE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = FALSE)))
+      } 
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     } 
-    else if(x_rev == TRUE) {
+    else if (x_rev == TRUE) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = FALSE)))
-    } 
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-  } 
-  else if (x_rev == TRUE) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-    
-    x_var_vctr <- dplyr::pull(data, !!x_var)
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
   }
 
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -151,11 +153,15 @@ ggplot_vbar <- function(data,
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
     }
+    if(x_rev == TRUE) {
+      x_breaks <- rev(x_breaks)
+      x_limits <- rev(x_limits)
+    }
   }
   
   if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
+      coord_cartesian(xlim = x_limits) +
       scale_x_date(
         expand = x_expand,
         breaks = x_breaks,
@@ -164,11 +170,11 @@ ggplot_vbar <- function(data,
   }
   else if (is.numeric(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-      scale_x_continuous(expand = x_expand,
-                         breaks = x_breaks,
-                         labels = x_labels,
-                         oob = scales::squish)
+      coord_cartesian(xlim = x_limits) +
+      scale_x_reverse(expand = x_expand,
+                      breaks = x_breaks,
+                      labels = x_labels,
+                      oob = scales::squish)
     
     if(x_zero_line == TRUE) {
       plot <- plot +
@@ -270,7 +276,7 @@ ggplot_vbar <- function(data,
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -278,7 +284,7 @@ ggplot_vbar <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
-#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -368,21 +374,21 @@ ggplot_vbar_col <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
+    if (!(is.character(col_var_vctr) | is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a vertical bar plot")
     if (y_trans != "identity") {
-      if (position == "stack") stop("Please use position = 'dodge', if you would like to transform the y scale")
+      if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
     } 
-
-    if (x_rev == TRUE) {
-      if (is.factor(x_var_vctr)){
+    if (y_zero == FALSE) {
+      if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
+    }
+    
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
+      if (x_rev == TRUE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
-      else if (is.character(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-      }
-      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if (col_rev == TRUE){
@@ -444,11 +450,16 @@ ggplot_vbar_col <-
         x_breaks <- x_limits
         if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
+      
+      if(x_rev == TRUE) {
+        x_breaks <- rev(x_breaks)
+        x_limits <- rev(x_limits)
+      }
     }
     
     if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
+        coord_cartesian(xlim = x_limits) +
         scale_x_date(
           expand = x_expand,
           breaks = x_breaks,
@@ -457,12 +468,12 @@ ggplot_vbar_col <-
     }
     else if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-        scale_x_continuous(expand = x_expand,
-                           breaks = x_breaks,
-                           labels = x_labels,
-                           oob = scales::squish)
-      
+        coord_cartesian(xlim = x_limits) +
+        scale_x_reverse(expand = x_expand,
+                        breaks = x_breaks,
+                        labels = x_labels,
+                        oob = scales::squish)
+
       if(x_zero_line == TRUE) {
         plot <- plot +
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
@@ -520,12 +531,6 @@ ggplot_vbar_col <-
           oob = scales::squish
         )
     })
-    
-    plot <- plot +
-      geom_col(aes(
-        x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-        alpha = alpha, size = size_line, width = width, 
-        position = position2)
     
     if(y_zero_line == TRUE) {
       plot <- plot +
@@ -606,7 +611,7 @@ ggplot_vbar_col <-
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -614,7 +619,7 @@ ggplot_vbar_col <-
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
-#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -692,18 +697,15 @@ ggplot_vbar_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    if (!(is.character(facet_var_vctr) | is.factor(facet_var_vctr))) stop("Please use a categorical facet variable for a vertical bar plot")
     
-    if (x_rev == TRUE) {
-      if (is.factor(x_var_vctr)){
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
+      if (x_rev == TRUE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
-      else if (is.character(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-      }
-      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
@@ -739,11 +741,16 @@ ggplot_vbar_facet <-
         } else x_limits <- c(min(x_breaks), max(x_breaks))
         
         if(is.null(x_expand)) x_expand <- waiver()
+        
+        if(x_rev == TRUE) {
+          x_breaks <- rev(x_breaks)
+          x_limits <- rev(x_limits)
+        }
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
+          coord_cartesian(xlim = x_limits) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
@@ -752,11 +759,11 @@ ggplot_vbar_facet <-
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-          scale_x_continuous(expand = x_expand,
-                             breaks = x_breaks,
-                             labels = x_labels,
-                             oob = scales::squish)
+          coord_cartesian(xlim = x_limits) +
+          scale_x_reverse(expand = x_expand,
+                          breaks = x_breaks,
+                          labels = x_labels,
+                          oob = scales::squish)
         
         if(x_zero_line == TRUE) {
           plot <- plot +
@@ -846,7 +853,7 @@ ggplot_vbar_facet <-
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "[X title]".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -854,7 +861,7 @@ ggplot_vbar_facet <-
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
-#' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title Y scale title string. Defaults to [Y title].
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -956,22 +963,22 @@ ggplot_vbar_col_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (is.numeric(col_var_vctr) | is.logical(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
-    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    if (!(is.character(col_var_vctr) | is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a vertical bar plot")
+    if (!(is.character(facet_var_vctr) | is.factor(facet_var_vctr))) stop("Please use a categorical facet variable for a vertical bar plot")
     if (y_trans != "identity") {
-      if (position == "stack") stop("Please use position = 'dodge', if you would like to transform the y scale")
+      if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
+    } 
+    if (y_zero == FALSE) {
+      if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
     } 
     
-    if (x_rev == TRUE) {
-      if (is.factor(x_var_vctr)){
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
+      if (x_rev == TRUE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+        
+        x_var_vctr <- dplyr::pull(data, !!x_var)
       }
-      else if (is.character(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-      }
-      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
     if (col_rev == TRUE){
@@ -1039,11 +1046,16 @@ ggplot_vbar_col_facet <-
         } else x_limits <- c(min(x_breaks), max(x_breaks))
 
         if(is.null(x_expand)) x_expand <- waiver()
+        
+        if(x_rev == TRUE) {
+          x_breaks <- rev(x_breaks)
+          x_limits <- rev(x_limits)
+        }
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
+          coord_cartesian(xlim = x_limits) +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
@@ -1052,11 +1064,11 @@ ggplot_vbar_col_facet <-
       }
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-          scale_x_continuous(expand = x_expand,
-                             breaks = x_breaks,
-                             labels = x_labels,
-                             oob = scales::squish)
+          coord_cartesian(xlim = x_limits) +
+          scale_x_reverse(expand = x_expand,
+                          breaks = x_breaks,
+                          labels = x_labels,
+                          oob = scales::squish)
         
         if(x_zero_line == TRUE) {
           plot <- plot +

@@ -7,13 +7,13 @@
 ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
   width = 0.75, alpha = 1, size_line = 0.5, title = "[Title]",
   title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
+  x_balance = FALSE, x_expand = NULL, x_labels = waiver(),
+  x_pretty_n = 5, x_title = "[Y title]", x_title_wrap = 50,
+  x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
   y_balance = FALSE, y_expand = NULL, y_labels = waiver(),
   y_pretty_n = 6, y_reorder = FALSE, y_rev = FALSE,
   y_title = "[X title]", y_title_wrap = 50, y_zero = FALSE,
-  y_zero_line = NULL, x_balance = FALSE, x_expand = NULL,
-  x_labels = waiver(), x_pretty_n = 5, x_title = "[Y title]",
-  x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
-  x_zero_line = NULL, caption = NULL, caption_wrap = 80,
+  y_zero_line = NULL, caption = NULL, caption_wrap = 80,
   font_family = "Helvetica", font_size_title = NULL,
   font_size_body = NULL, mobile = FALSE)
 }
@@ -42,43 +42,43 @@ ggplot_hbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{y_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
+\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
-\item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
+\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
 
-\item{y_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
-
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
-
-\item{y_reorder}{For a categorical x variable, TRUE or FALSE of whether the y variable variable is to be reordered by the x variable. Defaults to FALSE.}
-
-\item{y_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
-
-\item{y_title}{X scale title string. Defaults to "[X title]".}
-
-\item{y_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
-
-\item{y_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.}
-
-\item{y_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
-
-\item{x_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
-
-\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
-
-\item{x_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
+\item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{x_title}{Y scale title string. Defaults to [Y title].}
+\item{x_title}{X scale title string. Defaults to [Y title].}
 
-\item{x_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{x_trans}{For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".}
+\item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
 
-\item{x_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
+\item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
+
+\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
+
+\item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
+
+\item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
+
+\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
+
+\item{y_reorder}{For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.}
+
+\item{y_rev}{TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
+
+\item{y_title}{y scale title string. Defaults to "[X title]".}
+
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+
+\item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.}
+
+\item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 

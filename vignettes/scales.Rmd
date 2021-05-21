@@ -27,7 +27,7 @@ In general:
 * Arguments that relate to the colour scale start with `col_`
 * Arguments that relate to facetting start with `facet_`
 
-Therefore, if you know want to adjust the x scale but can't think how, you can start typing `x_` within the simplevis function, and you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.
+Therefore, if you know want to adjust the x scale but can't think how, you can start typing `x_` within the simplevis function, press tab, and then you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.
 
 One deviation from this logic is that colour palette is selected using a `pal` argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.
 
@@ -85,7 +85,7 @@ ggplot_point(iris, Sepal.Width, Sepal.Length,
 
 `simplevis` automatically orders hbar graphs of character variables from biggest to smallest.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = as.character(cut)) %>% 
   group_by(cut) %>%
@@ -97,14 +97,14 @@ ggplot_hbar(plot_data, average_price, cut)
 
 Discrete scales can be reversed easily using the relevant `y_rev` or `x_rev` argument. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 ggplot_hbar(plot_data, average_price, cut,
             y_rev = TRUE)
 ```
 
 If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 7}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
 
 plot_data <- plot_data %>% 

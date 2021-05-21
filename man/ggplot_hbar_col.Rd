@@ -8,11 +8,13 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
   position = "stack", pal = NULL, pal_rev = FALSE, width = 0.75,
   alpha = 1, size_line = 0.5, title = "[Title]", title_wrap = 70,
   subtitle = NULL, subtitle_wrap = 80, x_balance = FALSE,
-  x_expand = NULL, x_labels = waiver(), x_pretty_n = 6,
-  x_title = "[X title]", x_title_wrap = 50, x_trans = "identity",
-  x_zero = TRUE, x_zero_line = NULL, y_expand = NULL,
-  y_labels = waiver(), y_rev = FALSE, y_title = "[Y title]",
-  y_title_wrap = 50, col_labels = waiver(), col_legend_ncol = NULL,
+  x_expand = NULL, x_labels = waiver(), x_pretty_n = 5,
+  x_title = "[Y title]", x_title_wrap = 50, x_trans = "identity",
+  x_zero = TRUE, x_zero_line = NULL, y_balance = FALSE,
+  y_expand = NULL, y_labels = waiver(), y_pretty_n = 6,
+  y_reorder = FALSE, y_rev = FALSE, y_title = "[X title]",
+  y_title_wrap = 50, y_zero = FALSE, y_zero_line = NULL,
+  col_labels = waiver(), col_legend_ncol = NULL,
   col_legend_nrow = NULL, col_na = TRUE, col_rev = FALSE,
   col_title = "", col_title_wrap = 25, caption = NULL,
   caption_wrap = 80, font_family = "Helvetica",
@@ -21,9 +23,9 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted numeric variable to be on the x axis. Required input.}
+\item{x_var}{Unquoted numeric variable to be on the y scale. Required input.}
 
-\item{y_var}{Unquoted categorical variable to be on the y axis. Required input.}
+\item{y_var}{Unquoted numeric, date or categorical variable to be on the x scale. Required input.}
 
 \item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
 
@@ -31,9 +33,9 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
 
-\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
-\item{pal_rev}{TRUE or FALSE of whether to reverse the pal.}
+\item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{width}{Width of bars. Defaults to 0.75.}
 
@@ -43,41 +45,51 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{title}{Title string. Defaults to [Title].}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
 \item{subtitle}{Subtitle string. Defaults to [Subtitle].}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale.}
+\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
-\item{x_expand}{A vector of range expansion constants used to add some padding on the x scale.}
+\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
 
 \item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
-\item{x_pretty_n}{The desired number of intervals on the x axis, as calculated by the pretty algorithm. Defaults to 6. Not applicable where mobile equals TRUE.}
+\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{x_title}{X axis title string. Defaults to [X title].}
+\item{x_title}{X scale title string. Defaults to [Y title].}
 
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50. Not applicable where mobile equals TRUE.}
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{x_trans}{A string specifying a transformation for the x axis scale. Defaults to "identity".}
+\item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
 
-\item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
+\item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.}
 
-\item{x_zero_line}{TRUE or FALSE whether to add a zero reference line to the x axis. Defaults to NULL, which is TRUE if there are positive and negative values in x_var. Otherwise it is FALSE.}
+\item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
-\item{y_expand}{A vector of range expansion constants used to add some padding on the y scale.}
+\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
+
+\item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
-\item{y_rev}{TRUE or FALSE of whether bar order from top to bottom is reversed from default. Defaults to FALSE.}
+\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
 
-\item{y_title}{Y axis title string. Defaults to [Y title].}
+\item{y_reorder}{For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.}
 
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50. Not applicable where mobile equals TRUE.}
+\item{y_rev}{TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
 
-\item{col_labels}{Adjust the  x scale labels through a vector.}
+\item{y_title}{Y scale title string. Defaults to "[X title]".}
+
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+
+\item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.}
+
+\item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
+
+\item{col_labels}{Adjust the  colour scale labels through a vector.}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 
@@ -85,15 +97,15 @@ ggplot_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
-\item{col_rev}{TRUE or FALSE of whether bar fill order from left to right is reversed from default. Defaults to FALSE.}
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL.}
 
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 
@@ -112,16 +124,11 @@ Horizontal bar ggplot that is coloured, but not facetted.
 \examples{
 library(dplyr)
 
-plot_data <- ggplot2::diamonds \%>\%
-  mutate(cut = stringr::str_to_sentence(cut)) \%>\%
-  group_by(cut, clarity) \%>\%
-  summarise(average_price = mean(price)) \%>\%
-  mutate(average_price = round(average_price / 1000, 1)) \%>\%
-  ungroup()
+plot_data <- storms \%>\%
+  mutate(status = stringr::str_to_sentence(status)) \%>\%
+  group_by(year, status) \%>\%
+  summarise(average_wind = round(mean(wind), 2)) 
 
-ggplot_hbar_col(plot_data, average_price, cut, clarity, 
-  title = "Average diamond price by cut and clarity", 
-  x_title = "Average price ($US thousands)", 
-  y_title = "Cut")
+ggplot_hbar_col(plot_data, year, average_wind, status)
 
 }

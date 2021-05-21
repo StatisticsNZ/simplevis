@@ -29,7 +29,7 @@ In simplevis, users define the following to adjust colours:
 
 The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the `pal` argument.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 ggplot_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
 ```
 
@@ -39,7 +39,7 @@ Users can get access to a large amount of colour palettes through the `pals` pac
 
 To colour by a variable, use a `_col` function
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
                  pal = c("#1B9E77", "#D95F02", "#7570B3"))
 ```
@@ -48,7 +48,7 @@ ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species,
 
 Emphasis can be given to the outline of polygons by using an `alpha` argument to add opacity to the fill of polygons.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 
@@ -71,7 +71,7 @@ You do this by specifying whether you want to do this by:
 * defining whether the col_method is to be by `bin` or `quantile`
 * defining a vector or col_cuts. These should be between 0 and infinity (`Inf`) for `bin` and between 0 and 1 for `quantile`
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.01)
 
@@ -92,7 +92,7 @@ ggplot_point_col(plot_data,
                  col_cuts = c(0, 1, 2, 3, 4, 5, Inf))
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 ggplot_sf_col(example_sf_polygon, 
                col_var = density, 
                col_method = "bin", 
@@ -119,7 +119,7 @@ To select colours to use:
 * In `simplevis`: use `pal` argument and specify a vector of colours
 * In `ggplot2`: if no variable is <i>not</i> mapped to colours, then provide a vector of colours to fill and/or col arguments within the `geom` layer. Otherwise, if a variable is mapped to colours, then provide a vector of colours the values argument within `scale_fill_manual` and/or `scale_colour_manual`.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3, fig.width = 6}
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 

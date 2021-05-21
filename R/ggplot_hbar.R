@@ -158,7 +158,7 @@ ggplot_hbar <- function(data,
       scale_x_date(
         expand = y_expand,
         breaks = rev(y_breaks),
-        labels = rev(y_labels)
+        labels = y_labels
       )
   }
   else if (is.numeric(y_var_vctr)) {
@@ -166,7 +166,7 @@ ggplot_hbar <- function(data,
       coord_flip(xlim = c(y_limits[2], y_limits[1])) +
       scale_x_reverse(expand = y_expand,
                       breaks = rev(y_breaks),
-                      labels = rev(y_labels),
+                      labels = y_labels,
                       oob = scales::squish) 
 
     if(y_zero_line == TRUE) {

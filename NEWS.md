@@ -1,4 +1,4 @@
-# simplevis 3.3.3
+# simplevis 3.3.4
 
 * For hbar, fixed ordering of date or numeric on y scale.
 

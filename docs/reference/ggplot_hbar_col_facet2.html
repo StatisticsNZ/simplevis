@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vertical bar ggplot that is facetted. — ggplot_vbar_facet • simplevis</title>
+<title>Horizontal bar ggplot that is facetted. — ggplot_hbar_col_facet2 • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Vertical bar ggplot that is facetted. — ggplot_vbar_facet" />
-<meta property="og:description" content="Vertical bar ggplot that is facetted, but not coloured." />
+<meta property="og:title" content="Horizontal bar ggplot that is facetted. — ggplot_hbar_col_facet2" />
+<meta property="og:description" content="Horizontal bar ggplot that is facetted, but not coloured." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.3.7</span>
       </span>
     </div>
 
@@ -146,28 +146,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vertical bar ggplot that is facetted.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_vbar.R'><code>R/ggplot_vbar.R</code></a></small>
-    <div class="hidden name"><code>ggplot_vbar_facet.Rd</code></div>
+    <h1>Horizontal bar ggplot that is facetted.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplot_hbar2.R'><code>R/ggplot_hbar2.R</code></a></small>
+    <div class="hidden name"><code>ggplot_hbar_col_facet2.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Vertical bar ggplot that is facetted, but not coloured.</p>
+    <p>Horizontal bar ggplot that is facetted, but not coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_vbar_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>facet_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
-  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_hbar_col_facet2</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>,
+  <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,11 +181,11 @@
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted numeric, date or categorical variable to be on the x scale. Required input.</p></td>
+      <td><p>Unquoted numeric variable to be on the y scale. Required input.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
-      <td><p>Unquoted numeric variable to be on the y scale. Required input.</p></td>
+      <td><p>Unquoted numeric, date or categorical variable to be on the x scale. Required input.</p></td>
     </tr>
     <tr>
       <th>facet_var</th>
@@ -226,7 +229,7 @@
     </tr>
     <tr>
       <th>x_balance</th>
-      <td><p>For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.</p></td>
+      <td><p>For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.</p></td>
     </tr>
     <tr>
       <th>x_expand</th>
@@ -238,31 +241,31 @@
     </tr>
     <tr>
       <th>x_pretty_n</th>
-      <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.</p></td>
-    </tr>
-    <tr>
-      <th>x_rev</th>
-      <td><p>TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.</p></td>
+      <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
     </tr>
     <tr>
       <th>x_title</th>
-      <td><p>X scale title string. Defaults to "[X title]".</p></td>
+      <td><p>Y scale title string. Defaults to [Y title].</p></td>
     </tr>
     <tr>
       <th>x_title_wrap</th>
       <td><p>Number of characters to wrap the x title to. Defaults to 50.</p></td>
     </tr>
     <tr>
+      <th>x_trans</th>
+      <td><p>For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+    </tr>
+    <tr>
       <th>x_zero</th>
-      <td><p>For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.</p></td>
+      <td><p>For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>x_zero_line</th>
-      <td><p>For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></td>
+      <td><p>For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_balance</th>
-      <td><p>For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.</p></td>
+      <td><p>For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_expand</th>
@@ -274,27 +277,55 @@
     </tr>
     <tr>
       <th>y_pretty_n</th>
-      <td><p>For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+      <td><p>For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.</p></td>
+    </tr>
+    <tr>
+      <th>y_rev</th>
+      <td><p>TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_title</th>
-      <td><p>Y scale title string. Defaults to [Y title].</p></td>
+      <td><p>X scale title string. Defaults to "[X title]".</p></td>
     </tr>
     <tr>
       <th>y_title_wrap</th>
       <td><p>Number of characters to wrap the y title to. Defaults to 50.</p></td>
     </tr>
     <tr>
-      <th>y_trans</th>
-      <td><p>For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
-    </tr>
-    <tr>
       <th>y_zero</th>
-      <td><p>For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.</p></td>
+      <td><p>For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_zero_line</th>
-      <td><p>For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
+      <td><p>For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>col_labels</th>
+      <td><p>Adjust the  colour scale labels through a vector.</p></td>
+    </tr>
+    <tr>
+      <th>col_legend_ncol</th>
+      <td><p>The number of columns in the legend.</p></td>
+    </tr>
+    <tr>
+      <th>col_legend_nrow</th>
+      <td><p>The number of rows in the legend.</p></td>
+    </tr>
+    <tr>
+      <th>col_na</th>
+      <td><p>TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>col_rev</th>
+      <td><p>TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>col_title</th>
+      <td><p>Colour title string for the legend. Defaults to NULL.</p></td>
+    </tr>
+    <tr>
+      <th>col_title_wrap</th>
+      <td><p>Number of characters to wrap the colour title to. Defaults to 25.</p></td>
     </tr>
     <tr>
       <th>facet_ncol</th>
@@ -341,8 +372,7 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>status</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>status</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>status</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'year'. You can override using the `.groups` argument.</span></div><div class='input'>
-<span class='fu'>ggplot_vbar_facet</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>status</span>)</div><div class='img'><img src='ggplot_vbar_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot_hbar_col_facet2</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>status</span>)</div><div class='output co'>#&gt; <span class='error'>Error: object '' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

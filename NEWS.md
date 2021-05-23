@@ -1,3 +1,7 @@
+# simplevis 3.3.7
+
+* Rewrote hbar_col_facet based on vbar code to expand variable types and arguments available.
+
 # simplevis 3.3.6
 
 * Rewrote hbar_col based on vbar code to expand variable types and arguments available.

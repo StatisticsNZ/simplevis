@@ -487,14 +487,8 @@ ggplot_vbar_col <-
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }
       else if (mobile == TRUE){
-        if(is.character(x_labels)) {
           plot <- plot +
-            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
-        }
-        else {
-          plot <- plot +
-            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-        }
+            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 10))
       }
     }
     

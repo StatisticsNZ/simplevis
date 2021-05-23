@@ -50,7 +50,7 @@ ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
-\item{x_reorder}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the y variable. Defaults to FALSE.}
+\item{x_reorder}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.}
 
 \item{x_rev}{TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -68,7 +68,7 @@ ggplot_vbar(data, x_var, y_var, text_var = NULL, pal = NULL,
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_title}{Y scale title string. Defaults to [Y title].}
 

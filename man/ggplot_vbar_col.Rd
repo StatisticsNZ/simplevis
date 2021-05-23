@@ -74,7 +74,7 @@ ggplot_vbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_title}{Y scale title string. Defaults to [Y title].}
 

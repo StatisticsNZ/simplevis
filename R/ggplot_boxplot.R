@@ -402,8 +402,8 @@ ggplot_boxplot_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
-  if (!(is.character(col_var_vctr) |is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a boxplot")
-  
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
+
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     n_col <- length(levels(col_var_vctr))
   }
@@ -997,9 +997,9 @@ ggplot_boxplot_col_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
-    if (!(is.character(col_var_vctr) |is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a boxplot")
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
-    
+
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     

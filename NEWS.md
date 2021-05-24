@@ -1,4 +1,4 @@
-# simplevis 3.4.3
+# simplevis 3.4.4
 
 * Updated support for x logical variables.
 

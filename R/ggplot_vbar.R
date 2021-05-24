@@ -365,7 +365,7 @@ ggplot_vbar_col <-
     
     data <- dplyr::ungroup(data)
     y_var <- rlang::enquo(y_var) #numeric var
-    x_var <- rlang::enquo(x_var) #categorical var
+    x_var <- rlang::enquo(x_var) 
     col_var <- rlang::enquo(col_var) #categorical var
     text_var <- rlang::enquo(text_var)
     
@@ -374,7 +374,8 @@ ggplot_vbar_col <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (!(is.character(col_var_vctr) | is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a vertical bar plot")
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
+
     if (y_trans != "identity") {
       if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
     } 
@@ -681,7 +682,7 @@ ggplot_vbar_facet <-
            font_size_body = NULL) {
     
     data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) #categorical var
+    x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
     text_var <- rlang::enquo(text_var)
@@ -691,7 +692,7 @@ ggplot_vbar_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (!(is.character(facet_var_vctr) | is.factor(facet_var_vctr))) stop("Please use a categorical facet variable for a vertical bar plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
     
     if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
       if (x_rev == TRUE) {
@@ -945,7 +946,7 @@ ggplot_vbar_col_facet <-
            font_size_body = NULL) {
     
     data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) #categorical var
+    x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -957,8 +958,9 @@ ggplot_vbar_col_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
-    if (!(is.character(col_var_vctr) | is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a vertical bar plot")
-    if (!(is.character(facet_var_vctr) | is.factor(facet_var_vctr))) stop("Please use a categorical facet variable for a vertical bar plot")
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
+    
     if (y_trans != "identity") {
       if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
     } 

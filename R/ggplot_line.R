@@ -88,7 +88,7 @@ ggplot_line <- function(data,
                         mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
-  x_var <- rlang::enquo(x_var) #numeric var
+  x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   text_var <- rlang::enquo(text_var)
   
@@ -96,6 +96,7 @@ ggplot_line <- function(data,
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+
   if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
     stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
   }
@@ -348,7 +349,7 @@ ggplot_line_col <-
            font_size_body = NULL,
            mobile = FALSE) {
     
-    x_var <- rlang::enquo(x_var) #numeric var
+    x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     text_var <- rlang::enquo(text_var)
@@ -363,6 +364,7 @@ ggplot_line_col <-
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
+
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }
@@ -624,7 +626,7 @@ ggplot_line_facet <-
            font_size_body = NULL) {
     
     data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) #numeric var
+    x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
     text_var <- rlang::enquo(text_var)
@@ -635,6 +637,7 @@ ggplot_line_facet <-
     
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
+
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }
@@ -874,7 +877,7 @@ ggplot_line_col_facet <-
            font_size_title = NULL,
            font_size_body = NULL) {
     
-    x_var <- rlang::enquo(x_var) #numeric var
+    x_var <- rlang::enquo(x_var) 
     y_var <- rlang::enquo(y_var) #numeric var
     col_var <- rlang::enquo(col_var) #categorical var
     facet_var <- rlang::enquo(facet_var) #categorical var
@@ -892,6 +895,7 @@ ggplot_line_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
+
     if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
       stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
     }

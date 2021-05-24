@@ -374,8 +374,8 @@ ggplot_hbar_col <-
     col_var_vctr <- dplyr::pull(data, !!col_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (!(is.character(col_var_vctr) | is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a horizontal bar plot")
-    
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
+
     if (x_trans != "identity") {
       if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
     } 
@@ -718,7 +718,7 @@ ggplot_hbar_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (!(is.character(facet_var_vctr) | is.factor(facet_var_vctr))) stop("Please use a categorical facet variable for a horizontal bar plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
     
     if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
       if (y_rev == FALSE) {
@@ -985,9 +985,9 @@ ggplot_hbar_col_facet <-
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
     if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (!(is.character(col_var_vctr) | is.factor(col_var_vctr))) stop("Please use a categorical colour variable for a horizontal bar plot")
-    if (!(is.character(facet_var_vctr) | is.factor(facet_var_vctr))) stop("Please use a categorical facet variable for a horizontal bar plot")
-    
+    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
+    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
+
     if (x_trans != "identity") {
       if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
     } 

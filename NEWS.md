@@ -1,4 +1,8 @@
-# simplevis 3.3.9
+# simplevis 3.4.1
+
+* Updated default colours for 3 values.
+
+# simplevis 3.4.0
 
 * Fixed hbar mobile scales.
 

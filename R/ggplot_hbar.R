@@ -141,17 +141,13 @@ ggplot_hbar <- function(data,
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
-    y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
     if(y_zero == FALSE & y_balance == FALSE) {
       y_limits <- c(min(y_var_vctr), max(y_var_vctr))
     } else y_limits <- c(min(y_breaks), max(y_breaks))
     
     if(is.null(y_expand)) y_expand <- c(0.5 / (length(y_var_vctr) - 1) * width, 0)
     
-    if(mobile == TRUE) {
-      y_breaks <- y_limits
-      if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
-    }
     if(y_rev == FALSE) {
       y_breaks <- rev(y_breaks)
       y_limits <- rev(y_limits)
@@ -213,7 +209,7 @@ ggplot_hbar <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
@@ -475,7 +471,7 @@ ggplot_hbar_col <-
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
       
-      y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
       
       if(y_zero == FALSE & y_balance == FALSE) {
         y_limits <- c(min(y_var_vctr), max(y_var_vctr))
@@ -483,10 +479,6 @@ ggplot_hbar_col <-
       
       if(is.null(y_expand)) y_expand <- waiver()
       
-      if(mobile == TRUE) {
-        y_breaks <- y_limits
-        if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
-      }
       if(y_rev == FALSE) {
         y_breaks <- rev(y_breaks)
         y_limits <- rev(y_limits)
@@ -548,7 +540,7 @@ ggplot_hbar_col <-
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = mobile)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = mobile)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
@@ -763,7 +755,7 @@ ggplot_hbar_facet <-
         y_zero <- y_zero_list[[1]]
         y_zero_line <- y_zero_list[[2]]
         
-        y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
+        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
         
         if(y_zero == FALSE & y_balance == FALSE) {
           y_limits <- c(min(y_var_vctr), max(y_var_vctr))
@@ -820,7 +812,7 @@ ggplot_hbar_facet <-
           scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
       }
       else ({
-        x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = FALSE)
+        x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         
         plot <- plot +
@@ -1073,7 +1065,7 @@ ggplot_hbar_col_facet <-
         y_zero <- y_zero_list[[1]]
         y_zero_line <- y_zero_list[[2]]
         
-        y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
+        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
         
         if(y_zero == FALSE & y_balance == FALSE) {
           y_limits <- c(min(y_var_vctr), max(y_var_vctr))
@@ -1130,7 +1122,7 @@ ggplot_hbar_col_facet <-
           scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
       }
       else ({
-        x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = FALSE)
+        x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         
         plot <- plot +

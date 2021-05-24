@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get default font_size_body — sv_font_size_body • simplevis</title>
+<title>Calculate the breaks for a y axis numeric vector. — sv_numeric_breaks_v • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get default font_size_body — sv_font_size_body" />
-<meta property="og:description" content="Get default font_size_body" />
+<meta property="og:title" content="Calculate the breaks for a y axis numeric vector. — sv_numeric_breaks_v" />
+<meta property="og:description" content="Calculate the breaks for a y axis numeric vector." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -146,21 +146,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get default font_size_body</h1>
+    <h1>Calculate the breaks for a y axis numeric vector.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/internal.R'><code>R/internal.R</code></a></small>
-    <div class="hidden name"><code>sv_font_size_body.Rd</code></div>
+    <div class="hidden name"><code>sv_numeric_breaks_v.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get default font_size_body</p>
+    <p>Calculate the breaks for a y axis numeric vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sv_font_size_body</span>(<span class='no'>mobile</span>)</pre>
+    <pre class="usage"><span class='fu'>sv_numeric_breaks_v</span>(<span class='no'>var_vctr</span>, <span class='kw'>balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>var_vctr</th>
+      <td><p>A numeric vector for the vertical scale from which to determine breaks from.</p></td>
+    </tr>
+    <tr>
+      <th>balance</th>
+      <td><p>Add balance to the vertical axis so that zero is in the centre of the vertical scale.</p></td>
+    </tr>
+    <tr>
+      <th>pretty_n</th>
+      <td><p>The desired number of intervals on the vertical axis, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+    </tr>
+    <tr>
+      <th>trans</th>
+      <td><p>A string specifying a transformation for the vertical axis scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
+    </tr>
+    <tr>
+      <th>zero</th>
+      <td><p>TRUE or FALSE of whether the minimum of the vertical scale is zero. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>mobile</th>
+      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to NULL.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>values for font sizes</p>
+    <p>A vector of breaks</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

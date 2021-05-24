@@ -4,7 +4,9 @@
 \name{example_sf_polygon}
 \alias{example_sf_polygon}
 \title{Example sf polygon object.}
-\format{An \code{sf} object.}
+\format{
+An \code{sf} object.
+}
 \usage{
 example_sf_polygon
 }

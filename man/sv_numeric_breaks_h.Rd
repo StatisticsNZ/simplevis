@@ -4,8 +4,14 @@
 \alias{sv_numeric_breaks_h}
 \title{Calculate the breaks for a horizontal axis numeric vector.}
 \usage{
-sv_numeric_breaks_h(var_vctr, balance = FALSE, pretty_n = 6,
-  trans = "identity", zero = TRUE, mobile = FALSE)
+sv_numeric_breaks_h(
+  var_vctr,
+  balance = FALSE,
+  pretty_n = 6,
+  trans = "identity",
+  zero = TRUE,
+  mobile = FALSE
+)
 }
 \arguments{
 \item{var_vctr}{A numeric vector for the horizontal scale from which to determine breaks from.}

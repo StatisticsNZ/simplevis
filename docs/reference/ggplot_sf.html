@@ -155,12 +155,28 @@
     <p>Map of simple features in ggplot that is not coloured and not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_sf</span>(<span class='no'>data</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
-  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ggplot_sf</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
+  <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>"Helvetica"</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -252,7 +268,7 @@
     <p>A ggplot object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='error'>Error in ggplot_sf(data = example_sf_point, borders = nz): could not find function "ggplot_sf"</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ggplot_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='ggplot_sf-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

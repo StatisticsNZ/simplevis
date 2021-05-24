@@ -4,12 +4,28 @@
 \alias{ggplot_sf}
 \title{Simple feature ggplot map.}
 \usage{
-ggplot_sf(data, text_var = NULL, size_point = 1, size_line = 0.5,
-  alpha = 1, pal = NULL, borders = NULL, borders_behind = TRUE,
-  borders_pal = "#7f7f7f", borders_size = 0.2, title = "[Title]",
-  title_wrap = 70, subtitle = NULL, subtitle_wrap = 80,
-  caption = NULL, caption_wrap = 80, font_family = "Helvetica",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+ggplot_sf(
+  data,
+  text_var = NULL,
+  size_point = 1,
+  size_line = 0.5,
+  alpha = 1,
+  pal = NULL,
+  borders = NULL,
+  borders_behind = TRUE,
+  borders_pal = "#7f7f7f",
+  borders_size = 0.2,
+  title = "[Title]",
+  title_wrap = 70,
+  subtitle = NULL,
+  subtitle_wrap = 80,
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "Helvetica",
+  font_size_title = NULL,
+  font_size_body = NULL,
+  mobile = FALSE
+)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}

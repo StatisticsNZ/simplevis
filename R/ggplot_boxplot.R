@@ -195,7 +195,7 @@ ggplot_boxplot <- function(data,
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
     if (mobile == FALSE){
@@ -501,7 +501,7 @@ ggplot_boxplot_col <- function(data,
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
     if (mobile == FALSE){
@@ -595,7 +595,7 @@ ggplot_boxplot_col <- function(data,
         nrow = col_legend_nrow, 
         byrow = TRUE,
         reverse = TRUE,
-        title = stringr::str_wrap(col_title, col_title_wrap)
+        title = stringr::str_wrap(col_title, 20)
       )) 
   }
   
@@ -801,7 +801,7 @@ ggplot_boxplot_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
         plot <- plot +
@@ -1099,7 +1099,7 @@ ggplot_boxplot_col_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
         plot <- plot +

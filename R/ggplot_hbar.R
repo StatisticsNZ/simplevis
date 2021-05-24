@@ -176,7 +176,7 @@ ggplot_hbar <- function(data,
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
-  else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
+  else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
     
     if (mobile == FALSE){
@@ -507,7 +507,7 @@ ggplot_hbar_col <-
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
     }
-    else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
+    else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
       if(is.null(y_expand)) y_expand <- waiver()
       
       if (mobile == FALSE){
@@ -605,8 +605,8 @@ ggplot_hbar_col <-
           caption = stringr::str_wrap(caption, 50)
         ) +
         guides(
-          fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 15)),
-          col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 15))
+          fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20)),
+          col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20))
         ) +
         theme_mobile_graph()
     }
@@ -791,7 +791,7 @@ ggplot_hbar_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
+      else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
         if(is.null(y_expand)) y_expand <- waiver()
         
         plot <- plot +
@@ -1101,7 +1101,7 @@ ggplot_hbar_col_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
+      else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
         if(is.null(y_expand)) y_expand <- waiver()
         
         plot <- plot +

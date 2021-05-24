@@ -15,7 +15,7 @@ leaflet_sf_col(
   size_line = 2,
   alpha = 0.9,
   basemap = "light",
-  title = "[Title]",
+  title = NULL,
   col_cuts = NULL,
   col_labels_dp = 1,
   col_method = NULL,
@@ -44,7 +44,7 @@ leaflet_sf_col(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{title}{A title string that will be wrapped into the legend. Defaults to "Title".}
+\item{title}{A title string that will be wrapped into the legend.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 

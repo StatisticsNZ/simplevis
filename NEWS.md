@@ -1,3 +1,11 @@
+# simplevis 3.4.3
+
+* Updated support for x logical variables.
+
+# simplevis 3.4.2 
+
+* Updated col_title wrapping for mobile.
+
 # simplevis 3.4.1
 
 * Updated default colours for 3 values.

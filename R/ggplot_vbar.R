@@ -181,7 +181,7 @@ ggplot_vbar <- function(data,
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
     if (mobile == FALSE){
@@ -479,7 +479,7 @@ ggplot_vbar_col <-
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
     }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
       
       if (mobile == FALSE){
@@ -577,8 +577,8 @@ ggplot_vbar_col <-
           caption = stringr::str_wrap(caption, 50)
         ) +
         guides(
-          fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 15)),
-          col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 15))
+          fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20)),
+          col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20))
         ) +
         theme_mobile_graph()
     }
@@ -764,7 +764,7 @@ ggplot_vbar_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
         plot <- plot +
@@ -1069,7 +1069,7 @@ ggplot_vbar_col_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
         plot <- plot +

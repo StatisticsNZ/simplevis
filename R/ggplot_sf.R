@@ -366,8 +366,8 @@ ggplot_sf_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         caption = stringr::str_wrap(caption, 50)
       )  +
-      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
-      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
+      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
+      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
       theme_mobile_map()
   }
   

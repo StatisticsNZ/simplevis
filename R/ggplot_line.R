@@ -169,7 +169,7 @@ ggplot_line <- function(data,
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
     if (mobile == FALSE){
@@ -444,7 +444,7 @@ ggplot_line_col <-
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
     }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
       
       if (mobile == FALSE){
@@ -522,7 +522,7 @@ ggplot_line_col <-
           y = stringr::str_wrap(y_title, 30),
           caption = stringr::str_wrap(caption, 50)
         )  +
-        guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 15))) +
+        guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
         theme_mobile_graph()
     }
     
@@ -704,7 +704,7 @@ ggplot_line_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
         plot <- plot +
@@ -969,7 +969,7 @@ ggplot_line_col_facet <-
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
         
         plot <- plot +

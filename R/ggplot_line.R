@@ -136,7 +136,7 @@ ggplot_line <- function(data,
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
-    x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+    x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
@@ -199,7 +199,7 @@ ggplot_line <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+    y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -411,7 +411,7 @@ ggplot_line_col <-
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
       
-      x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = mobile)
+      x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
       x_limits <- c(min(x_breaks), max(x_breaks))
       if(is.null(x_expand)) x_expand <- c(0, 0)
       
@@ -474,7 +474,7 @@ ggplot_line_col <-
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+      y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
@@ -676,7 +676,7 @@ ggplot_line_facet <-
         if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero, mobile = FALSE)
+        x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- c(0, 0)
       }
@@ -724,7 +724,7 @@ ggplot_line_facet <-
           scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
       }
       else ({
-        y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+        y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
         y_limits <- c(min(y_breaks), max(y_breaks))
         
         plot <- plot +
@@ -941,7 +941,7 @@ ggplot_line_col_facet <-
         if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
 
-        x_breaks <- x_numeric_breaks(x_var_vctr, x_balance = x_balance, x_pretty_n = x_pretty_n, x_trans = x_trans, x_zero = x_zero)
+        x_breaks <- h_numeric_breaks(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- c(0, 0)
       }
@@ -989,7 +989,7 @@ ggplot_line_col_facet <-
           scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
       }
       else ({
-        y_breaks <- y_numeric_breaks(y_var_vctr, y_balance = y_balance, y_pretty_n = y_pretty_n, y_trans = y_trans, y_zero = y_zero)
+        y_breaks <- v_numeric_breaks(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
         y_limits <- c(min(y_breaks), max(y_breaks))
         
         plot <- plot +

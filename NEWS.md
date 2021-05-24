@@ -1,3 +1,7 @@
+# simplevis 3.3.9
+
+* Fixed hbar mobile scales.
+
 # simplevis 3.3.8
 
 * Rewrote hbar_col_facet based on vbar code to expand variable types and arguments available.

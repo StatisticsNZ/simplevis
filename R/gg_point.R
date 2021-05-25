@@ -184,7 +184,7 @@ gg_point <- function(data,
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if (all(y_var_vctr == 0)) {
+  if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
@@ -271,7 +271,6 @@ gg_point <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -300,7 +299,6 @@ gg_point_col <-
            pal_rev = FALSE,
            col_method = NULL,
            col_cuts = NULL,
-           col_na = TRUE,
            x_balance = FALSE,
            x_zero = FALSE,
            x_zero_line = NULL,
@@ -492,7 +490,7 @@ gg_point_col <-
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
-    if (all(y_var_vctr == 0)) {
+    if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
@@ -516,7 +514,6 @@ gg_point_col <-
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
     
@@ -729,7 +726,7 @@ gg_point_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (all(y_var_vctr == 0)) {
+      if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
           scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
       }
@@ -813,7 +810,6 @@ gg_point_facet <-
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_ncol The number of columns of facetted plots. 
@@ -873,7 +869,6 @@ gg_point_col_facet <-
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_method = NULL,
-           col_na = TRUE,
            col_title = NULL,
            col_title_wrap = 25,
            facet_ncol = NULL,
@@ -1028,7 +1023,7 @@ gg_point_col_facet <-
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (all(y_var_vctr == 0)) {
+      if (all(y_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
           scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
       }
@@ -1065,7 +1060,6 @@ gg_point_col_facet <-
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       labs(

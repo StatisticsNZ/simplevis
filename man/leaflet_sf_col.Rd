@@ -19,7 +19,6 @@ leaflet_sf_col(
   col_cuts = NULL,
   col_labels_dp = 1,
   col_method = NULL,
-  col_na = TRUE,
   map_id = "map"
 )
 }
@@ -51,8 +50,6 @@ leaflet_sf_col(
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
-
-\item{col_na}{TRUE or FALSE  of whether to include NAs of the colour variable. Defaults to TRUE.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

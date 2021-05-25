@@ -151,7 +151,6 @@ gg_sf <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -197,7 +196,6 @@ gg_sf_col <- function(data,
                           col_legend_ncol = NULL,
                           col_legend_nrow = NULL,
                           col_method = NULL,
-                          col_na = TRUE,
                           col_title = NULL,
                           col_title_wrap = 25,
                           caption = NULL,
@@ -324,7 +322,6 @@ gg_sf_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.translate = col_na, 
       na.value = "#A8A8A8"
     )
   
@@ -334,7 +331,6 @@ gg_sf_col <- function(data,
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na, 
         na.value = "#A8A8A8"
       )
   }
@@ -542,7 +538,6 @@ gg_sf_facet <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -582,7 +577,6 @@ gg_sf_col_facet <- function(data,
                                 col_cuts = NULL,
                                 col_labels_dp = 1,
                                 col_method = NULL,
-                                col_na = TRUE,
                                 col_legend_ncol = NULL,
                                 col_legend_nrow = NULL,
                                 col_title = NULL,
@@ -715,7 +709,6 @@ gg_sf_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.translate = col_na, 
       na.value = "#A8A8A8"
     )
   
@@ -725,7 +718,6 @@ gg_sf_col_facet <- function(data,
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na, 
         na.value = "#A8A8A8"
       )
   }

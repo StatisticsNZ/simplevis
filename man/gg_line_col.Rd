@@ -40,7 +40,6 @@ gg_line_col(
   col_labels = waiver(),
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_na = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
@@ -121,8 +120,6 @@ gg_line_col(
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
-
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

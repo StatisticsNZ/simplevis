@@ -15,7 +15,6 @@ gg_point_col(
   pal_rev = FALSE,
   col_method = NULL,
   col_cuts = NULL,
-  col_na = TRUE,
   x_balance = FALSE,
   x_zero = FALSE,
   x_zero_line = NULL,
@@ -72,8 +71,6 @@ gg_point_col(
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 

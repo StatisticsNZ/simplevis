@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.2</span>
       </span>
     </div>
 
@@ -192,7 +192,6 @@
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
@@ -352,10 +351,6 @@
       <td><p>The number of rows in the legend.</p></td>
     </tr>
     <tr>
-      <th>col_na</th>
-      <td><p>TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
       <th>col_rev</th>
       <td><p>TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.</p></td>
     </tr>
@@ -406,16 +401,14 @@
 <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>gg_boxplot_col</span>(<span class='no'>plot_data</span>, <span class='no'>cut</span>, <span class='no'>price</span>, <span class='no'>clarity</span>,
                            <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Average diamond price by cut and clarity"</span>,
                            <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Average price ($US thousands)"</span>,
-                           <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Cut"</span>)
-
-<span class='no'>plot</span></div><div class='img'><img src='gg_boxplot_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+                           <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Cut"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot_col(plot_data, cut, price, clarity, title = "Average diamond price by cut and clarity",     x_title = "Average price ($US thousands)", y_title = "Cut"): could not find function "gg_boxplot_col"</span></div><div class='input'>
+<span class='no'>plot</span></div><div class='output co'>#&gt; function (x, y, ...) 
+#&gt; UseMethod("plot")
+#&gt; &lt;bytecode: 0x55eca3826f88&gt;
+#&gt; &lt;environment: namespace:graphics&gt;</div><div class='input'>
 <span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/layout.html'>layout</a></span>(<span class='kw'>boxmode</span> <span class='kw'>=</span> <span class='st'>"group"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='plotly_camera.html'>plotly_camera</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: 'layout' objects don't have these attributes: 'boxmode'</span>
-#&gt; <span class='warning'>Valid attributes include:</span>
-#&gt; <span class='warning'>'font', 'title', 'uniformtext', 'autosize', 'width', 'height', 'margin', 'computed', 'paper_bgcolor', 'plot_bgcolor', 'separators', 'hidesources', 'showlegend', 'colorway', 'datarevision', 'uirevision', 'editrevision', 'selectionrevision', 'template', 'modebar', 'newshape', 'activeshape', 'meta', 'transition', '_deprecated', 'clickmode', 'dragmode', 'hovermode', 'hoverdistance', 'spikedistance', 'hoverlabel', 'selectdirection', 'grid', 'calendar', 'xaxis', 'yaxis', 'ternary', 'scene', 'geo', 'mapbox', 'polar', 'radialaxis', 'angularaxis', 'direction', 'orientation', 'editType', 'legend', 'annotations', 'shapes', 'images', 'updatemenus', 'sliders', 'colorscale', 'coloraxis', 'metasrc', 'barmode', 'bargap', 'mapType'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'layout' objects don't have these attributes: 'boxmode'</span>
-#&gt; <span class='warning'>Valid attributes include:</span>
-#&gt; <span class='warning'>'font', 'title', 'uniformtext', 'autosize', 'width', 'height', 'margin', 'computed', 'paper_bgcolor', 'plot_bgcolor', 'separators', 'hidesources', 'showlegend', 'colorway', 'datarevision', 'uirevision', 'editrevision', 'selectionrevision', 'template', 'modebar', 'newshape', 'activeshape', 'meta', 'transition', '_deprecated', 'clickmode', 'dragmode', 'hovermode', 'hoverdistance', 'spikedistance', 'hoverlabel', 'selectdirection', 'grid', 'calendar', 'xaxis', 'yaxis', 'ternary', 'scene', 'geo', 'mapbox', 'polar', 'radialaxis', 'angularaxis', 'direction', 'orientation', 'editType', 'legend', 'annotations', 'shapes', 'images', 'updatemenus', 'sliders', 'colorscale', 'coloraxis', 'metasrc', 'barmode', 'bargap', 'mapType'</span></div></pre>
+  <span class='fu'><a href='plotly_camera.html'>plotly_camera</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in plotly_camera(.): could not find function "plotly_camera"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

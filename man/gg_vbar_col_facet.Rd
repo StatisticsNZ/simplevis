@@ -42,7 +42,6 @@ gg_vbar_col_facet(
   col_labels = waiver(),
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_na = TRUE,
   col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
@@ -130,8 +129,6 @@ gg_vbar_col_facet(
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
-
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 

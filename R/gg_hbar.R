@@ -207,7 +207,7 @@ gg_hbar <- function(data,
   
   if(is.null(x_expand)) x_expand <- c(0, 0)
   
-  if (all(x_var_vctr == 0)) {
+  if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
@@ -295,7 +295,6 @@ gg_hbar <- function(data,
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -355,7 +354,6 @@ gg_hbar_col <-
            col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
-           col_na = TRUE,
            col_rev = FALSE,
            col_title = NULL,
            col_title_wrap = 25,
@@ -542,7 +540,7 @@ gg_hbar_col <-
     
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
-    if (all(x_var_vctr == 0)) {
+    if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
@@ -571,14 +569,12 @@ gg_hbar_col <-
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na,
         na.value = "#A8A8A8"
       ) 
     
@@ -817,7 +813,7 @@ gg_hbar_facet <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (all(x_var_vctr == 0)) {
+      if (all(x_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
           scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
       }
@@ -907,7 +903,6 @@ gg_hbar_facet <-
 #' @param col_labels Adjust the  colour scale labels through a vector.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
-#' @param col_na TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -969,7 +964,6 @@ gg_hbar_col_facet <-
            col_labels = waiver(),
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
-           col_na = TRUE,
            col_rev = FALSE,
            col_title = NULL,
            col_title_wrap = 25,
@@ -1131,7 +1125,7 @@ gg_hbar_col_facet <-
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (all(x_var_vctr == 0)) {
+      if (all(x_var_vctr == 0, na.rm = TRUE)) {
         plot <- plot +
           scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
       }
@@ -1173,14 +1167,12 @@ gg_hbar_col_facet <-
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.translate = col_na,
         na.value = "#A8A8A8"
       ) +
       guides(fill = guide_legend(

@@ -209,7 +209,6 @@ leaflet_sf <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
-#' @param col_na TRUE or FALSE  of whether to include NAs of the colour variable. Defaults to TRUE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -240,7 +239,6 @@ leaflet_sf_col <- function(data,
                            col_cuts = NULL,
                            col_labels_dp = 1,
                            col_method = NULL,
-                           col_na = TRUE,
                            map_id = "map") {
   
   data <- dplyr::ungroup(data)
@@ -254,9 +252,6 @@ leaflet_sf_col <- function(data,
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
   if(is.null(rlang::get_expr(text_var))) text_var <- col_var
-  
-  if (col_na == FALSE) data <- data %>% 
-    dplyr::filter(!is.na(!!col_var))
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
   text_var_vctr <- dplyr::pull(data, !!text_var)

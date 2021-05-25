@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.2</span>
       </span>
     </div>
 
@@ -192,7 +192,6 @@
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
@@ -352,10 +351,6 @@
       <td><p>The number of rows in the legend.</p></td>
     </tr>
     <tr>
-      <th>col_na</th>
-      <td><p>TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
       <th>col_rev</th>
       <td><p>TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.</p></td>
     </tr>
@@ -404,7 +399,7 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>status</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>status</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>status</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'year'. You can override using the `.groups` argument.</span></div><div class='input'>
-<span class='fu'>gg_vbar_col</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>status</span>)</div><div class='img'><img src='gg_vbar_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_vbar_col</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>status</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_vbar_col(plot_data, year, average_wind, status): could not find function "gg_vbar_col"</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -42,7 +42,6 @@ gg_point_col_facet(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_method = NULL,
-  col_na = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
   facet_ncol = NULL,
@@ -129,8 +128,6 @@ gg_point_col_facet(
 \item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
-
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

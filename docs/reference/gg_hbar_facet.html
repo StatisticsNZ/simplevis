@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.2</span>
       </span>
     </div>
 
@@ -166,9 +166,9 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>65</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
@@ -242,7 +242,7 @@
     </tr>
     <tr>
       <th>title_wrap</th>
-      <td><p>Number of characters to wrap the title to. Defaults to 70.</p></td>
+      <td><p>Number of characters to wrap the title to. Defaults to 65.</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
@@ -250,7 +250,7 @@
     </tr>
     <tr>
       <th>subtitle_wrap</th>
-      <td><p>Number of characters to wrap the subtitle to. Defaults to 80.</p></td>
+      <td><p>Number of characters to wrap the subtitle to. Defaults to 75.</p></td>
     </tr>
     <tr>
       <th>x_balance</th>
@@ -369,7 +369,7 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>status</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>status</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>status</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>average_wind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>wind</span>), <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'year'. You can override using the `.groups` argument.</span></div><div class='input'>
-<span class='fu'>gg_hbar_facet</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>status</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: position_stack requires non-overlapping x intervals</span></div><div class='output co'>#&gt; <span class='warning'>Warning: position_stack requires non-overlapping x intervals</span></div><div class='output co'>#&gt; <span class='warning'>Warning: position_stack requires non-overlapping x intervals</span></div><div class='img'><img src='gg_hbar_facet-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>gg_hbar_facet</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>average_wind</span>, <span class='no'>status</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_hbar_facet(plot_data, year, average_wind, status): could not find function "gg_hbar_facet"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

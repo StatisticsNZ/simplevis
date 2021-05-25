@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.2</span>
       </span>
     </div>
 
@@ -176,7 +176,6 @@
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -274,10 +273,6 @@
       <td><p>The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
     </tr>
     <tr>
-      <th>col_na</th>
-      <td><p>TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
       <th>col_legend_ncol</th>
       <td><p>The number of columns in the legend.</p></td>
     </tr>
@@ -332,7 +327,7 @@
 
 <span class='fu'>gg_sf_col_facet</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>example_sf_point</span>, <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>, <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal</span>,
- <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Trends, 1990-2017"</span>)</div><div class='img'><img src='gg_sf_col_facet-1.png' alt='' width='700' height='433' /></div></pre>
+ <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Trends, 1990-2017"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_sf_col_facet(data = example_sf_point, col_var = trend_category,     facet_var = trend_category, borders = nz, pal = pal, title = "Trends, 1990-2017"): could not find function "gg_sf_col_facet"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

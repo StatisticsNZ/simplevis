@@ -1,3 +1,8 @@
+# simplevis 3.5.2
+
+* Removed col_na argument.
+* Updated all statement to remove NAs.
+
 # simplevis 3.5.1
 
 * Tweaked hbar title wrapping defaults.

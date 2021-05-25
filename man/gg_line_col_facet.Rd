@@ -38,7 +38,6 @@ gg_line_col_facet(
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
-  col_na = TRUE,
   col_labels = waiver(),
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -120,8 +119,6 @@ gg_line_col_facet(
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
-
-\item{col_na}{TRUE or FALSE of whether to show NA values of the colour variable. Defaults to TRUE.}
 
 \item{col_labels}{Adjust the  colour scale labels through a vector.}
 

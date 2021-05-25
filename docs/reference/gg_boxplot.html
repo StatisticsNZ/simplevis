@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.2</span>
       </span>
     </div>
 
@@ -363,14 +363,14 @@
 <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>Species</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>Species</span>))
 
-<span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>, <span class='no'>Species</span>, <span class='no'>Petal.Length</span>)</div><div class='img'><img src='gg_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>, <span class='no'>Species</span>, <span class='no'>Petal.Length</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot(plot_data, Species, Petal.Length): could not find function "gg_boxplot"</span></div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>boxplot_stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/set_names.html'>set_names</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/boxplot.stats.html'>boxplot.stats</a></span>(<span class='no'>Petal.Length</span>)$<span class='no'>stats</span>,
                                                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'ymin'</span>,<span class='st'>'lower'</span>,<span class='st'>'middle'</span>,<span class='st'>'upper'</span>,<span class='st'>'ymax'</span>)))) <span class='kw'>%&gt;%</span>
  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>boxplot_stats</span>)
 
-<span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>, <span class='no'>Species</span>, <span class='no'>Petal.Length</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>, <span class='no'>Species</span>, <span class='no'>Petal.Length</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot(plot_data, Species, Petal.Length, stat = "identity"): could not find function "gg_boxplot"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

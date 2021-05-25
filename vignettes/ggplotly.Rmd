@@ -37,9 +37,7 @@ plot_data <- ggplot2::diamonds %>%
 
 plot_data
 
-plot <- ggplot_point(plot_data, 
-                 x_var = carat, 
-                 y_var = price)
+plot <- gg_point(plot_data, carat, price)
 
 plotly::ggplotly(plot) 
 ```
@@ -56,10 +54,7 @@ plot_data <- ggplot2::diamonds %>%
 plot_data %>% 
   select(text)
 
-plot <- ggplot_point(plot_data, 
-                 x_var = carat, 
-                 y_var = price,
-                 text_var = text)
+plot <- gg_point(plot_data, carat, price, text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text") 
 ```
@@ -74,10 +69,7 @@ plot_data <- ggplot2::diamonds %>%
 plot_data %>% 
   select(text)
 
-plot <- ggplot_point(plot_data, 
-                 x_var = carat, 
-                 y_var = price,
-                 text_var = text)
+plot <- gg_point(plot_data, carat, price, text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text")
 ```
@@ -91,9 +83,7 @@ plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = mean(wind))
 
-plot <- ggplot_vbar(data = plot_data, 
-                    x_var = year, 
-                    y_var = average_wind)
+plot <- gg_vbar(plot_data, year, average_wind)
 
 plotly::ggplotly(plot) %>% 
   plotly_camera() 
@@ -106,7 +96,7 @@ Sometimes the ggplotly legend displays elements in a different order to how you 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05) 
  
-plot <- ggplot_point_col(data = plot_data, x_var = carat, y_var = price, col_var = color)
+plot <- gg_point_col(plot_data, carat, price, color)
  
 plotly::ggplotly(plot)
 
@@ -124,9 +114,7 @@ plot_data <- example_sf_point %>%
 
 plot_data
 
-plot <- ggplot_sf_col(data = plot_data, 
-              col_var = trend_category, 
-              text_var = text,
+plot <- gg_sf_col(plot_data, trend_category, text_var = text,
               borders = nz, 
               pal = c("#4575B4", "#D3D3D3", "#D73027"), 
               title = "Monitored trends, 2008-17")
@@ -147,10 +135,7 @@ plot_data <- example_sf_point %>%
                               TRUE ~ "Q4")) %>% 
   mutate_text()
 
-plot <- ggplot_sf_col_facet(data = plot_data, 
-                      col_var = trend_category, 
-                      facet_var = quartile,
-                      text_var = text,
+plot <- gg_sf_col_facet(plot_data, trend_category, quartile, text_var = text,
                       borders = nz,
                       pal = c("#4575B4", "#D3D3D3", "#D73027"), 
                       title = "Trends by median quartile, 2017")

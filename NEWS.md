@@ -1,3 +1,19 @@
+# simplevis 3.5.0
+
+* Breaking change: renamed all ggplot_ prefixes with gg_.
+
+# simplevis 3.4.7
+
+* Update x_rev and col_rev to support logical variables.
+
+# simplevis 3.4.6
+
+* Updated titles logic.
+
+# simplevis 3.4.5
+
+* Fixed bug with hbar x_title and y_title around the wrong way.
+
 # simplevis 3.4.4
 
 * Updated support for x logical variables.

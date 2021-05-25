@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.4.7</span>
       </span>
     </div>
 
@@ -182,11 +182,11 @@
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"[X title]"</span>,
-  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"[Y title]"</span>,
-  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -312,7 +312,7 @@
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title string. Defaults to "[Title]".</p></td>
+      <td><p>Title string. Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
@@ -320,15 +320,15 @@
     </tr>
     <tr>
       <th>x_title</th>
-      <td><p>X scale title string. Defaults to "[X title]".</p></td>
+      <td><p>X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>y_title</th>
-      <td><p>Y scale title string. Defaults to [Y title].</p></td>
+      <td><p>y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>col_title</th>
-      <td><p>Colour title string for the legend. Defaults to NULL.</p></td>
+      <td><p>Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>caption</th>

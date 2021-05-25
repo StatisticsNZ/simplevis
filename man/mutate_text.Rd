@@ -25,7 +25,7 @@ library(dplyr)
 plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) \%>\% 
   mutate_text(c("carat", "price"), comma = TRUE)
 
-plot <- ggplot_point(data = plot_data, x_var = carat, y_var = price,
+plot <- gg_point(data = plot_data, x_var = carat, y_var = price,
                        text_var = text,
                        title = "Diamond price by carat",
                        x_title = "Carat",

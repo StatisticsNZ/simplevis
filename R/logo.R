@@ -6,7 +6,7 @@
 #   mutate(dummy = "1") %>%
 #   sf::st_as_sf()
 # 
-# plot <- ggplot_sf_col(nz, dummy, title = "",
+# plot <- gg_sf_col(nz, dummy, title = "",
 #                       pal = "#f8fafb",
 #                       col_labels = "") +
 #   theme(panel.background = element_rect(fill = "#EAEFF3")) +

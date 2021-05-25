@@ -37,7 +37,7 @@ shinyServer(function(input, output, session) {
     x_title <- "Average price ($US thousands)"
     y_title <- "Cut"
     
-    plot <- ggplot_hbar_col(data = plot_data(), 
+    plot <- gg_hbar_col(data = plot_data(), 
                             x_var = average_price_thousands, 
                             y_var = cut, 
                             col_var = clarity, 

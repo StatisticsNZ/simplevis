@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.4.7</span>
       </span>
     </div>
 
@@ -169,7 +169,7 @@
   <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7f7f7f"</span>,
   <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>70</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -179,7 +179,7 @@
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -247,7 +247,7 @@
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title string. Defaults to "[Title]".</p></td>
+      <td><p>Title string. Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>title_wrap</th>
@@ -287,7 +287,7 @@
     </tr>
     <tr>
       <th>col_title</th>
-      <td><p>Colour title string for the legend. Defaults to NULL.</p></td>
+      <td><p>Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>col_title_wrap</th>

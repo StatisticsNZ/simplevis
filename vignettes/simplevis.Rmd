@@ -22,19 +22,15 @@ library(simplevis)
 
 ### Purpose 
 
-simplevis is a package of wrapper functions to make ggplot2 and leaflet visualisation easier.
+simplevis is a package of wrapper functions that aim to make ggplot2 and leaflet visualisation easier and quicker for users. 
 
-The aim is of simplevis is to make the majority of visualisations easier, while supporting users to move between ggplot2 and simplevis as needed. 
+simplevis emphasises cognitive ease and speed to make common visualisations based on colouring and/or facetting. Some flexibility is lost compared to ggplot. But the gain in cognitive ease and speed will be valuable for many users in many situations. 
 
-simplevis makes things easier by:
+There are many things simplevis does to work towards this objective. But one primary thing is that simplevis reimagines ggplot code in a way that emphasises consistent prefixes in the function and argument names. 
 
-* minimising aesthetics available to x, y, colour and facetting
-* designing families of functions that describe the graph type and aesthetics
-* using consistent prefixes designed to work with the Rstudio auto-complete function
-* using a straightforward method for colouring that is consistent across functions
-* using ggplot2 based terminology for leaflet visualisation.
+Why? This is good for human brains, but also is fantastic with the Rstudio Auto-complete function. This means you can start typing the prefix function or argument name, press tab, scroll through the options, and press tab again when you find what you need. 
 
-The package also supports making mobile-friendly visualisation for mobile devices.
+There are lots of other things that simplevis is doing to make things easier and quicker, but best to dive it to find out! 
 
 ### Overview
 
@@ -42,15 +38,15 @@ The package also supports making mobile-friendly visualisation for mobile device
 
 Graph:
 
-* horizontal bar (`ggplot_hbar`)
-* vertical bar (`ggplot_vbar`)
-* line plot (`ggplot_line`)
-* scatter graph (`ggplot_point`)
-* boxplot (`ggplot_boxplot`)
+* horizontal bar (`gg_hbar`)
+* vertical bar (`gg_vbar`)
+* line plot (`gg_line`)
+* scatter graph (`gg_point`)
+* boxplot (`gg_boxplot`)
 
 Map:
 
-* sf (`ggplot_sf`)
+* sf (`gg_sf`)
 
 Each visualisation family has a family of generally 4 functions.
 
@@ -58,12 +54,12 @@ The function name specifies whether or not a ggplot is to be coloured by a varia
 
 Each ggplot2 wrapper family follows the structure as below:
 
-* `ggplot_hbar()`: a horizontal bar graph.
-* `ggplot_hbar_col()`: a horizontal bar graph that is coloured by a variable.
-* `ggplot_hbar_facet()`: a facetted horizontal bar graph.
-* `ggplot_hbar_col_facet()`a facetted horizontal bar graph that is coloured by a variable.
+* `gg_hbar()`: a horizontal bar graph.
+* `gg_hbar_col()`: a horizontal bar graph that is coloured by a variable.
+* `gg_hbar_facet()`: a facetted horizontal bar graph.
+* `gg_hbar_col_facet()`a facetted horizontal bar graph that is coloured by a variable.
 
-For different types of graph, just replace `ggplot_hbar` with `ggplot_line`, `ggplot_point`, `ggplot_vbar`, `ggplot_boxplot` or `ggplot_sf`. 
+For different types of graph, just replace `gg_hbar` with `gg_line`, `gg_point`, `gg_vbar`, `gg_boxplot` or `gg_sf`. 
 
 In general, required arguments (i.e. specifications) to functions are:
 
@@ -83,7 +79,7 @@ It is always recommended to add a `title`, `x_title` and `y_title` too.
 
 ### Plots <i>not</i> coloured by a variable.
 
-Identify the function that you need, then provide the `data`, an `x_var` and a `y_var` (unless of the `ggplot_sf` family).
+Identify the function that you need, then provide the `data`, an `x_var` and a `y_var` (unless of the `gg_sf` family).
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>% 
@@ -92,7 +88,7 @@ plot_data <- ggplot2::diamonds %>%
 
 plot_data
 
-ggplot_point(plot_data, carat, price)
+gg_point(plot_data, carat, price)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
@@ -105,12 +101,7 @@ plot_data <- ggplot2::diamonds %>%
 
 plot_data
 
-ggplot_hbar(plot_data, 
-            x_var = average_price, 
-            y_var = cut,
-            title = "Average diamond price by cut", 
-            x_title = "Average price ($US thousands)", 
-            y_title = "Cut")
+gg_hbar(plot_data, average_price, cut)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
@@ -121,9 +112,7 @@ plot_data <- storms %>%
 
 plot_data
 
-ggplot_vbar(plot_data, 
-            x_var = year, 
-            y_var = average_wind)
+gg_vbar(plot_data, year, average_wind)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
@@ -134,12 +123,10 @@ plot_data <- storms %>%
 
 plot_data 
 
-ggplot_line(plot_data, 
-            x_var = year, 
-            y_var = wind)
+gg_line(plot_data, year, y_var = wind)
 ```
 
-Note the `ggplot_boxplot` functions transform the data to boxplot statistics by default. 
+Note the `gg_boxplot` functions transform the data to boxplot statistics by default. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- iris %>%
@@ -148,14 +135,12 @@ plot_data <- iris %>%
 
 plot_data
 
-ggplot_boxplot(plot_data, 
-               x_var = Species, 
-               y_var = Petal.Length)
+gg_boxplot(plot_data, Species, Petal.Length)
 ```
 
 ### Plots coloured by a variable
 
-To colour by a variable, use a `_col` function (e.g. `ggplot_hbar_col`). Add a `col_var` variable in addition.
+To colour by a variable, use a `_col` function (e.g. `gg_hbar_col`). Add a `col_var` variable in addition.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 plot_data <- ggplot2::diamonds %>%
@@ -167,10 +152,7 @@ plot_data <- ggplot2::diamonds %>%
 
 plot_data
 
-ggplot_hbar_col(plot_data, 
-                x_var = average_price, 
-                y_var = cut, 
-                col_var = clarity)
+gg_hbar_col(plot_data, average_price, cut, clarity)
 ```
 
 ### Plots facetted by a variable
@@ -187,10 +169,7 @@ plot_data <- ggplot2::diamonds %>%
 
 plot_data
 
-ggplot_hbar_facet(plot_data, 
-                  x_var = average_price, 
-                  y_var = cut, 
-                  facet_var = clarity)
+gg_hbar_facet(plot_data, average_price, cut, clarity)
 ```
 
 ### Plots coloured by a variable and facetted by a variable
@@ -204,11 +183,7 @@ plot_data <- ggplot2::diamonds %>%
   summarise(average_price = mean(price)) %>%
   mutate(average_price = round(average_price / 1000, 1))
 
-ggplot_hbar_col_facet(plot_data, 
-                      x_var = average_price, 
-                      y_var = color, 
-                      col_var = clarity, 
-                      facet_var = cut)
+gg_hbar_col_facet(plot_data, average_price, color, clarity, cut)
 ```
 
 ### `sf` ggplot maps
@@ -226,35 +201,31 @@ These functions work in the same way as the ggplot2 graph functions, but with th
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 example_sf_point
 
-ggplot_sf(example_sf_point, 
-          size_point = 0.25)
+gg_sf(example_sf_point, size_point = 0.25)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 nz
 
-ggplot_sf(example_sf_point, 
-          borders = nz, 
-          size_point = 0.25)
+gg_sf(example_sf_point, borders = nz, size_point = 0.25)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 example_sf_polygon
 
-ggplot_sf_col(example_sf_polygon, 
+gg_sf_col(example_sf_polygon, 
               col_var = density, 
               borders = nz)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_sf_facet(example_sf_point, 
-                facet_var = trend_category, 
+gg_sf_facet(example_sf_point, trend_category, 
                 borders = nz, 
                 size_point = 0.5)
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_sf_col_facet(example_sf_point, 
+gg_sf_col_facet(example_sf_point, 
                     col_var = trend_category, 
                     facet_var = trend_category,
                     borders = nz, 
@@ -287,7 +258,7 @@ tibble::tribble(
 All ggplot objects can be converted into interactive html objects using ggplotly. Simply wrap the plot object in `plotly::ggplotly` as follows:
 
 ```{r, eval = FALSE}
-plot <- ggplot_point(iris, Sepal.Width, Sepal.Length)
+plot <- gg_point(iris, Sepal.Width, Sepal.Length)
 
 plotly::ggplotly(plot)
 ```
@@ -305,8 +276,7 @@ A `leaflet_sf` and `leaflet_sf_col` function are provided.
 They work in essentially the same way as the ggplot2 non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-leaflet_sf_col(example_sf_point, 
-               col_var = trend_category, 
+leaflet_sf_col(example_sf_point, trend_category, 
                basemap = "light",
                pal = c("#0D94A3", "#C4C4C7", "#AE4E51"), 
                title = "Monitored trends, 2008\u201317")
@@ -319,7 +289,7 @@ For further information on how to create leaflet html maps, see the [leaflet art
 Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. Data is inherited from the simplevis, but aesthetics are not.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length) +
+gg_point(iris, Sepal.Width, Sepal.Length) +
   ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length), col = viridis::viridis(4)[2])
 ```
 
@@ -328,11 +298,11 @@ ggplot_point(iris, Sepal.Width, Sepal.Length) +
 To change the colours, add a `pal` argument with a vector of hex strings.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
+gg_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
 ```
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_point_col(iris, Sepal.Width, Sepal.Length, Species, 
+gg_point_col(iris, Sepal.Width, Sepal.Length, Species, 
                  pal = c("#1B9E77", "#D95F02", "#7570B3"))
 
 ```

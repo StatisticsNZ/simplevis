@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@
   <span class="fu">sample_frac</span>(<span class="fl">0.05</span>) <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>))
 
-<span class="fu"><a href="../reference/ggplot_point_col_facet.html">ggplot_point_col_facet</a></span>(<span class="no">plot_data</span>, !!<span class="fu">sym</span>(<span class="st">"carat"</span>), !!<span class="fu">sym</span>(<span class="st">"price"</span>), !!<span class="fu">sym</span>(<span class="st">"color"</span>), !!<span class="fu">sym</span>(<span class="st">"cut"</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">plot_data</span>, !!<span class="fu">sym</span>(<span class="st">"carat"</span>), !!<span class="fu">sym</span>(<span class="st">"price"</span>), !!<span class="fu">sym</span>(<span class="st">"color"</span>), !!<span class="fu">sym</span>(<span class="st">"cut"</span>))</pre></body></html></div>
 <p><img src="shiny_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
 <div id="mobile-friendly-apps" class="section level3">
@@ -152,7 +152,7 @@
   <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
-<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US)"</span>,
             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>,

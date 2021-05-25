@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.0</span>
       </span>
     </div>
 
@@ -146,16 +146,16 @@
 <i>not</i> starting from zero for numeric scales on all other graphs.</li>
 </ul>
 <p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments to change the defaults.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
                <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <p>Adjust the number of breaks for numeric x and/or y scales.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
                <span class="kw">y_pretty_n</span> <span class="kw">=</span> <span class="fl">10</span>,
                <span class="kw">x_pretty_n</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <p>Transform numeric x and y scales.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
                <span class="kw">x_trans</span> <span class="kw">=</span> <span class="st">"sqrt"</span>,
                <span class="kw">y_trans</span> <span class="kw">=</span> <span class="st">"log10"</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
@@ -164,11 +164,11 @@
   <span class="fu">group_by</span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
   <span class="fu">summarise</span>(<span class="kw">average_wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>), <span class="fl">2</span>))
 
-<span class="fu"><a href="../reference/ggplot_vbar.html">ggplot_vbar</a></span>(<span class="no">plot_data</span>, <span class="no">year</span>, <span class="no">average_wind</span>,
+<span class="fu"><a href="../reference/gg_vbar.html">gg_vbar</a></span>(<span class="no">plot_data</span>, <span class="no">year</span>, <span class="no">average_wind</span>,
             <span class="kw">y_balance</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>You can adjust x, y or colour scale labels using <code>x_labels</code>, <code>y_labels</code> or <code>col_labels</code> arguments, and functions from the <code>scales</code> package.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_point.html">ggplot_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>,
                <span class="kw">y_labels</span> <span class="kw">=</span> <span class="kw pkg">scales</span><span class="kw ns">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html">number_format</a></span>(<span class="kw">accuracy</span> <span class="kw">=</span> <span class="fl">0.01</span>, <span class="kw">scale</span> <span class="kw">=</span> <span class="fl">1</span>/<span class="fl">100</span>),
                <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Sepal length (m)"</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
@@ -176,45 +176,53 @@
 <div id="discrete-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#discrete-scales" class="anchor"></a>Discrete scales</h3>
-<p><code>simplevis</code> automatically orders hbar graphs of character variables from biggest to smallest.</p>
+<p><code>simplevis</code> automatically orders hbar graphs of character variables alphabetically.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
-<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
-<p>Discrete scales can be reversed easily using the relevant <code>y_rev</code> or <code>x_rev</code> argument.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
-            <span class="kw">y_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p>Simple hbar and vbar plots that are not facetted or coloured can be ordered by size using y_reorder or x_reorder.</p>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="kw">y_reorder</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+<p>Discrete scales can be reversed easily using the relevant <code>y_rev</code> or <code>x_rev</code> argument.</p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
+            <span class="kw">y_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
 <p>If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">cut_levels</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>)
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">cut_levels</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>)
 
 <span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">plot_data</span> <span class="kw">%&gt;%</span>
  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="no">cut_levels</span>))
 
-<span class="fu"><a href="../reference/ggplot_hbar.html">ggplot_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
 </div>
 <div id="colour-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#colour-scales" class="anchor"></a>Colour scales</h3>
 <p>Add a colour title.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
   <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
-<span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>, <span class="kw">col_title</span> <span class="kw">=</span> <span class="st">"Clarity"</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
-<p>Reverse the palette.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
-                <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>, <span class="kw">col_title</span> <span class="kw">=</span> <span class="st">"Clarity"</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
-<p>Reverse the order of coloured bar pieces.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/ggplot_hbar_col.html">ggplot_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
-                <span class="kw">col_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p>Reverse the palette.</p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
+                <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
+<p>Reverse the order of coloured bar pieces.</p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
+                <span class="kw">col_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
 </div>
   </div>
 

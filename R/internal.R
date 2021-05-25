@@ -14,8 +14,8 @@ sv_numeric_breaks_v <- function(var_vctr,
                                 trans = "identity", 
                                 zero = TRUE) {
   
-  min <- min(var_vctr)
-  max <- max(var_vctr)
+  min <- min(var_vctr, na.rm = TRUE)
+  max <- max(var_vctr, na.rm = TRUE)
   min_max <- c(min, max)
   
   if (zero == TRUE) min_max <- c(0, min_max)
@@ -46,8 +46,8 @@ sv_numeric_breaks_h <- function(var_vctr,
                                 zero = TRUE,
                                 mobile = FALSE) {
   
-  min <- min(var_vctr)
-  max <- max(var_vctr)
+  min <- min(var_vctr, na.rm = TRUE)
+  max <- max(var_vctr, na.rm = TRUE)
   min_max <- c(min, max)
   
   if (zero == TRUE) min_max <- c(0, min_max)

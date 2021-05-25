@@ -41,7 +41,7 @@ One deviation from this logic is that colour palette is selected using a `pal` a
 You can use the `x_zero` and `y_zero` arguments to change the defaults.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length,
+gg_point(iris, Sepal.Width, Sepal.Length,
                x_zero = FALSE, y_zero = FALSE)
 
 ```
@@ -49,7 +49,7 @@ ggplot_point(iris, Sepal.Width, Sepal.Length,
 Adjust the number of breaks for numeric x and/or y scales.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length, 
+gg_point(iris, Sepal.Width, Sepal.Length, 
                y_pretty_n = 10,
                x_pretty_n = 3)
 ```
@@ -57,7 +57,7 @@ ggplot_point(iris, Sepal.Width, Sepal.Length,
 Transform numeric x and y scales.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length,
+gg_point(iris, Sepal.Width, Sepal.Length,
                x_trans = "sqrt", 
                y_trans = "log10")
 ```
@@ -69,21 +69,21 @@ plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = round(mean(wind), 2)) 
 
-ggplot_vbar(plot_data, year, average_wind,
+gg_vbar(plot_data, year, average_wind,
             y_balance = TRUE)
 ```
 
 You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-ggplot_point(iris, Sepal.Width, Sepal.Length,
+gg_point(iris, Sepal.Width, Sepal.Length,
                y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
                y_title = "Sepal length (m)")
 ```
 
 ### Discrete scales
 
-`simplevis` automatically orders hbar graphs of character variables from biggest to smallest.
+`simplevis` automatically orders hbar graphs of character variables alphabetically.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
 plot_data <- ggplot2::diamonds %>%
@@ -91,14 +91,27 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(average_price = mean(price)) 
   
-ggplot_hbar(plot_data, average_price, cut)
+gg_hbar(plot_data, average_price, cut)
 
 ```
+
+Simple hbar and vbar plots that are not facetted or coloured can be ordered by size using y_reorder or x_reorder.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+plot_data <- ggplot2::diamonds %>%
+  mutate(cut = as.character(cut)) %>% 
+  group_by(cut) %>%
+  summarise(average_price = mean(price)) 
+  
+gg_hbar(plot_data, average_price, cut, y_reorder = T)
+```
+
+
 
 Discrete scales can be reversed easily using the relevant `y_rev` or `x_rev` argument. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_hbar(plot_data, average_price, cut,
+gg_hbar(plot_data, average_price, cut,
             y_rev = TRUE)
 ```
 
@@ -110,7 +123,7 @@ cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
 plot_data <- plot_data %>% 
  mutate(cut = factor(cut, levels = cut_levels)) 
 
-ggplot_hbar(plot_data, average_price, cut)
+gg_hbar(plot_data, average_price, cut)
 ```
 
 ### Colour scales
@@ -122,14 +135,14 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
 
-ggplot_hbar_col(plot_data, average_price, cut, clarity, col_title = "Clarity")
+gg_hbar_col(plot_data, average_price, cut, clarity, col_title = "Clarity")
 
 ```
 
 Reverse the palette.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_hbar_col(plot_data, average_price, cut, clarity,
+gg_hbar_col(plot_data, average_price, cut, clarity,
                 pal_rev = TRUE)
 
 ```
@@ -137,7 +150,7 @@ ggplot_hbar_col(plot_data, average_price, cut, clarity,
 Reverse the order of coloured bar pieces.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-ggplot_hbar_col(plot_data, average_price, cut, clarity,
+gg_hbar_col(plot_data, average_price, cut, clarity,
                 col_rev = TRUE)
 
 ```

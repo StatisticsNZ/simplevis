@@ -29,7 +29,7 @@ plot_data <- ggplot2::diamonds %>%
   sample_frac(0.05) %>%
   mutate(cut = stringr::str_to_sentence(cut))
 
-ggplot_point_col_facet(plot_data, !!sym("carat"), !!sym("price"), !!sym("color"), !!sym("cut"))
+gg_point_col_facet(plot_data, !!sym("carat"), !!sym("price"), !!sym("color"), !!sym("cut"))
 ```
 
 ### Mobile friendly apps
@@ -52,7 +52,7 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(average_price = mean(price)) 
 
-ggplot_hbar(plot_data, average_price, cut,
+gg_hbar(plot_data, average_price, cut,
             title = "Average diamond price by cut",
             x_title = "Average price ($US)",
             y_title = "Cut", 

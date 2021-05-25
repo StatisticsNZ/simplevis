@@ -20,7 +20,7 @@ There are many things simplevis does to work towards this objective. But one pri
 
 Why? This is good for human brains, but also is fantastic with the Rstudio Auto-complete function. This means you can start typing the prefix function or argument name, press tab, scroll through the options, and press tab again when you find what you need. 
 
-There are lots of other things that simplevis is doing to make things easier and quicker, but best to dive it to find out! 
+There are lots of other things that simplevis is doing to make things easier and quicker, but best to dive in to find out! 
 
 ### Installation
 

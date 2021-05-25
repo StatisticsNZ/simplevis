@@ -9,9 +9,9 @@
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 65. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
@@ -56,9 +56,9 @@ gg_hbar <- function(data,
                         alpha = 1,
                         size_line = 0.5,
                         title = NULL,
-                        title_wrap = 70,
+                        title_wrap = 65,
                         subtitle = NULL,
-                        subtitle_wrap = 80,
+                        subtitle_wrap = 75,
                         x_balance = FALSE,
                         x_expand = NULL,
                         x_labels = waiver(),
@@ -270,9 +270,9 @@ gg_hbar <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 65. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
@@ -330,9 +330,9 @@ gg_hbar_col <-
            alpha = 1,
            size_line = 0.5,
            title = NULL,
-           title_wrap = 70,
+           title_wrap = 65,
            subtitle = NULL,
-           subtitle_wrap = 80,
+           subtitle_wrap = 75,
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
@@ -633,9 +633,9 @@ gg_hbar_col <-
 #' @param alpha The alpha of the fill. Defaults to 1.
 #' @param size_line The size of the outlines of bars. 
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 65. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
@@ -684,9 +684,9 @@ gg_hbar_facet <-
            alpha = 1,
            size_line = 0.5,
            title = NULL,
-           title_wrap = 70,
+           title_wrap = 65,
            subtitle = NULL,
-           subtitle_wrap = 80,
+           subtitle_wrap = 75,
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
@@ -883,9 +883,9 @@ gg_hbar_facet <-
 #' @param alpha The alpha of the fill. Defaults to 1.
 #' @param size_line The size of the outlines of bars. 
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 65. 
 #' @param subtitle Subtitle string. Defaults to [Subtitle].
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
@@ -945,9 +945,9 @@ gg_hbar_col_facet <-
            alpha = 1,
            size_line = 0.5,
            title = NULL,
-           title_wrap = 70,
+           title_wrap = 65,
            subtitle = NULL,
-           subtitle_wrap = 80,
+           subtitle_wrap = 75,
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),

@@ -1,3 +1,7 @@
+# simplevis 3.5.1
+
+* Tweaked hbar title wrapping defaults.
+
 # simplevis 3.5.0
 
 * Breaking change: renamed all ggplot_ prefixes with gg_.

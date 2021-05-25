@@ -1,3 +1,7 @@
+# simplevis 3.5.3
+
+* Moved palmerpenguins to suggests.
+
 # simplevis 3.5.2
 
 * Removed col_na argument.

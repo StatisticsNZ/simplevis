@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Make 'ggplot2' and 'leaflet' Visualisation Easier
-Version: 3.5.2
+Version: 3.5.3
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 
@@ -18,10 +18,10 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 2.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
-         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, palmerpenguins, plotly, readr, 
+         leaflet.extras, janitor, jsonlite, lubridate, magrittr, methods, plotly, readr, 
          rlang (>= 0.4.0), rmarkdown, scales, sf, shiny, shinycssloaders, stats, stringr, 
          tibble, tidyr (>= 1.0.0), viridis
 Suggests: 
-    knitr, rgdal, rgeos 
+    knitr, palmerpenguins, rgdal, rgeos 
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

@@ -263,7 +263,7 @@ gg_hbar <- function(data,
 #' @param x_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
+#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
@@ -322,7 +322,7 @@ gg_hbar_col <-
            y_var,
            col_var,
            text_var = NULL,
-           position = "stack",
+           position = "dodge",
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 
@@ -872,7 +872,7 @@ gg_hbar_facet <-
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "stack" or "dodge". Defaults to "stack".
+#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
@@ -933,7 +933,7 @@ gg_hbar_col_facet <-
            col_var,
            facet_var,
            text_var = NULL,
-           position = "stack",
+           position = "dodge",
            pal = NULL,
            pal_rev = FALSE,
            width = 0.75, 

@@ -1,3 +1,7 @@
+# simplevis 3.5.4
+
+* Changed position default to "dodge" from "stack".
+
 # simplevis 3.5.3
 
 * Moved palmerpenguins to suggests.

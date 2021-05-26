@@ -10,7 +10,7 @@ gg_hbar_col(
   y_var,
   col_var,
   text_var = NULL,
-  position = "stack",
+  position = "dodge",
   pal = NULL,
   pal_rev = FALSE,
   width = 0.75,
@@ -64,7 +64,7 @@ gg_hbar_col(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether bars are positioned by "stack" or "dodge". Defaults to "stack".}
+\item{position}{Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 

@@ -1,8 +1,8 @@
 #' @title Horizontal bar ggplot.
 #' @description Horizontal bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the y scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param x_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
@@ -259,8 +259,8 @@ gg_hbar <- function(data,
 #' @title Horizontal bar ggplot that is coloured.
 #' @description Horizontal bar ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
-#' @param x_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param x_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
@@ -620,8 +620,8 @@ gg_hbar_col <-
 #' @title Horizontal bar ggplot that is facetted.
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the y scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param x_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
@@ -867,8 +867,8 @@ gg_hbar_facet <-
 #' @title Horizontal bar ggplot that is facetted.
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric variable to be on the y scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the x scale. Required input.
+#' @param x_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.

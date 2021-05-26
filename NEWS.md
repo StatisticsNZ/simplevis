@@ -1,3 +1,7 @@
+# simplevis 3.5.5
+
+* Corrected the hbar and vbar x_var and y_var help.
+
 # simplevis 3.5.4
 
 * Changed position default to "dodge" from "stack".

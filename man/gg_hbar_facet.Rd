@@ -99,7 +99,7 @@ gg_hbar_facet(
 
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
 
-\item{y_rev}{TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
+\item{y_rev}{For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

@@ -91,7 +91,7 @@ gg_vbar_col(
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
-\item{x_rev}{TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
+\item{x_rev}{For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

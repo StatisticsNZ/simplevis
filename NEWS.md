@@ -1,3 +1,7 @@
+# simplevis 3.5.8
+
+* For bar, removed the ability to reverse x and y scales for numeric variables. 
+
 # simplevis 3.5.7
 
 * Fixed bar reorder direction.

@@ -26,7 +26,7 @@
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param y_reorder For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.
-#' @param y_rev TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
+#' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
@@ -150,27 +150,22 @@ gg_hbar <- function(data,
     } else y_limits <- c(min(y_breaks), max(y_breaks))
     
     if(is.null(y_expand)) y_expand <- c(0.5 / (length(y_var_vctr) - 1) * width, 0)
-    
-    if(y_rev == FALSE) {
-      y_breaks <- rev(y_breaks)
-      y_limits <- rev(y_limits)
-    }
   }
   
   if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = y_limits) +
+      coord_flip(xlim = rev(y_limits)) +
       scale_x_date(
         expand = y_expand,
-        breaks = y_breaks,
+        breaks = rev(y_breaks),
         labels = y_labels
       )
   }
   else if (is.numeric(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = y_limits) +
+      coord_flip(xlim = rev(y_limits)) +
       scale_x_reverse(expand = y_expand,
-                      breaks = y_breaks,
+                      breaks = rev(y_breaks),
                       labels = y_labels,
                       oob = scales::squish) 
 
@@ -287,7 +282,7 @@ gg_hbar <- function(data,
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param y_reorder For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.
-#' @param y_rev TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
+#' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
@@ -460,27 +455,22 @@ gg_hbar_col <-
       } else y_limits <- c(min(y_breaks), max(y_breaks))
       
       if(is.null(y_expand)) y_expand <- waiver()
-      
-      if(y_rev == FALSE) {
-        y_breaks <- rev(y_breaks)
-        y_limits <- rev(y_limits)
-      }
     }
     
     if (lubridate::is.Date(y_var_vctr)) {
       plot <- plot +
-        coord_flip(xlim = y_limits) +
+        coord_flip(xlim = rev(y_limits)) +
         scale_x_date(
           expand = y_expand,
-          breaks = y_breaks,
+          breaks = rev(y_breaks),
           labels = y_labels
         )
     }
     else if (is.numeric(y_var_vctr)) {
       plot <- plot +
-        coord_flip(xlim = y_limits) +
+        coord_flip(xlim = rev(y_limits)) +
         scale_x_reverse(expand = y_expand,
-                        breaks = y_breaks,
+                        breaks = rev(y_breaks),
                         labels = y_labels,
                         oob = scales::squish) 
       
@@ -622,7 +612,7 @@ gg_hbar_col <-
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param y_rev TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
+#' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
@@ -745,27 +735,22 @@ gg_hbar_facet <-
         } else y_limits <- c(min(y_breaks), max(y_breaks))
         
         if(is.null(y_expand)) y_expand <- waiver()
-        
-        if(y_rev == TRUE) {
-          y_breaks <- rev(y_breaks)
-          y_limits <- rev(y_limits)
-        }
       }
       
       if (lubridate::is.Date(y_var_vctr)) {
         plot <- plot +
-          coord_flip(xlim = y_limits) +
+          coord_flip(xlim = rev(y_limits)) +
           scale_x_date(
             expand = y_expand,
-            breaks = y_breaks,
+            breaks = rev(y_breaks),
             labels = y_labels
           )
       }
       else if (is.numeric(y_var_vctr)) {
         plot <- plot +
-          coord_flip(xlim = y_limits) +
+          coord_flip(xlim = rev(y_limits)) +
           scale_x_reverse(expand = y_expand,
-                          breaks = y_breaks,
+                          breaks = rev(y_breaks),
                           labels = y_labels,
                           oob = scales::squish)
         
@@ -872,7 +857,7 @@ gg_hbar_facet <-
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param y_rev TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
+#' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
@@ -1057,27 +1042,22 @@ gg_hbar_col_facet <-
         } else y_limits <- c(min(y_breaks), max(y_breaks))
         
         if(is.null(y_expand)) y_expand <- waiver()
-        
-        if(y_rev == TRUE) {
-          y_breaks <- rev(y_breaks)
-          y_limits <- rev(y_limits)
-        }
       }
       
       if (lubridate::is.Date(y_var_vctr)) {
         plot <- plot +
-          coord_flip(xlim = y_limits) +
+          coord_flip(xlim = rev(y_limits)) +
           scale_x_date(
             expand = y_expand,
-            breaks = y_breaks,
+            breaks = rev(y_breaks),
             labels = y_labels
           )
       }
       else if (is.numeric(y_var_vctr)) {
         plot <- plot +
-          coord_flip(xlim = y_limits) +
+          coord_flip(xlim = rev(y_limits)) +
           scale_x_reverse(expand = y_expand,
-                          breaks = y_breaks,
+                          breaks = rev(y_breaks),
                           labels = y_labels,
                           oob = scales::squish)
         

@@ -17,7 +17,7 @@
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_reorder For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.
-#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -156,10 +156,6 @@ gg_vbar <- function(data,
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
     }
-    if(x_rev == TRUE) {
-      x_breaks <- rev(x_breaks)
-      x_limits <- rev(x_limits)
-    }
   }
   
   if (lubridate::is.Date(x_var_vctr)) {
@@ -174,7 +170,7 @@ gg_vbar <- function(data,
   else if (is.numeric(x_var_vctr)) {
     plot <- plot +
       coord_cartesian(xlim = x_limits) +
-      scale_x_reverse(expand = x_expand,
+      scale_x_continuous(expand = x_expand,
                       breaks = x_breaks,
                       labels = x_labels,
                       oob = scales::squish)
@@ -279,7 +275,7 @@ gg_vbar <- function(data,
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -456,11 +452,6 @@ gg_vbar_col <-
         x_breaks <- x_limits
         if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
       }
-      
-      if(x_rev == TRUE) {
-        x_breaks <- rev(x_breaks)
-        x_limits <- rev(x_limits)
-      }
     }
     
     if (lubridate::is.Date(x_var_vctr)) {
@@ -475,7 +466,7 @@ gg_vbar_col <-
     else if (is.numeric(x_var_vctr)) {
       plot <- plot +
         coord_cartesian(xlim = x_limits) +
-        scale_x_reverse(expand = x_expand,
+        scale_x_continuous(expand = x_expand,
                         breaks = x_breaks,
                         labels = x_labels,
                         oob = scales::squish)
@@ -609,7 +600,7 @@ gg_vbar_col <-
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -742,11 +733,6 @@ gg_vbar_facet <-
         } else x_limits <- c(min(x_breaks), max(x_breaks))
         
         if(is.null(x_expand)) x_expand <- waiver()
-        
-        if(x_rev == TRUE) {
-          x_breaks <- rev(x_breaks)
-          x_limits <- rev(x_limits)
-        }
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
@@ -761,7 +747,7 @@ gg_vbar_facet <-
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
           coord_cartesian(xlim = x_limits) +
-          scale_x_reverse(expand = x_expand,
+          scale_x_continuous(expand = x_expand,
                           breaks = x_breaks,
                           labels = x_labels,
                           oob = scales::squish)
@@ -854,7 +840,7 @@ gg_vbar_facet <-
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
-#' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
+#' @param x_rev For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
@@ -1050,11 +1036,6 @@ gg_vbar_col_facet <-
         } else x_limits <- c(min(x_breaks), max(x_breaks))
 
         if(is.null(x_expand)) x_expand <- waiver()
-        
-        if(x_rev == TRUE) {
-          x_breaks <- rev(x_breaks)
-          x_limits <- rev(x_limits)
-        }
       }
       
       if (lubridate::is.Date(x_var_vctr)) {
@@ -1069,7 +1050,7 @@ gg_vbar_col_facet <-
       else if (is.numeric(x_var_vctr)) {
         plot <- plot +
           coord_cartesian(xlim = x_limits) +
-          scale_x_reverse(expand = x_expand,
+          scale_x_continuous(expand = x_expand,
                           breaks = x_breaks,
                           labels = x_labels,
                           oob = scales::squish)

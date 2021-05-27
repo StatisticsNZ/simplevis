@@ -1,3 +1,11 @@
+# simplevis 3.5.7
+
+* Fixed bar reorder direction.
+
+# simplevis 3.5.6
+
+* Updated boxplot code for how it works with stat = "identity".
+
 # simplevis 3.5.5
 
 * Corrected the hbar and vbar x_var and y_var help.

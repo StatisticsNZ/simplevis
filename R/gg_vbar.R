@@ -98,7 +98,7 @@ gg_vbar <- function(data,
   if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
   if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
 
-  if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
     if (x_reorder == TRUE) {
       if(x_rev == FALSE) {
         data <- data %>%
@@ -388,7 +388,7 @@ gg_vbar_col <-
     if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
     if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
     
-    if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
       if (x_rev == TRUE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -396,7 +396,7 @@ gg_vbar_col <-
         x_var_vctr <- dplyr::pull(data, !!x_var)
       }
     }
-    
+
     if (col_rev == TRUE){
       if (is.factor(col_var_vctr)){
         data <- data %>%
@@ -700,7 +700,7 @@ gg_vbar_facet <-
     if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
     if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
 
-    if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
       if (x_rev == TRUE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -976,7 +976,7 @@ gg_vbar_col_facet <-
     if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
     if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
     
-    if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
       if (x_rev == TRUE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))

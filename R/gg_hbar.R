@@ -102,11 +102,11 @@ gg_hbar <- function(data,
     if (y_reorder == TRUE) {
       if(y_rev == FALSE) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
       } 
       else if(y_rev == TRUE) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
       } 
       y_var_vctr <- dplyr::pull(data, !!y_var)
     } 
@@ -389,37 +389,14 @@ gg_hbar_col <-
     if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
     
     if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
-      if (y_reorder == TRUE) {
-        if(y_rev == FALSE) {
-          data <- data %>%
-            dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
-        } 
-        else if(y_rev == TRUE) {
-          data <- data %>%
-            dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
-        } 
-        y_var_vctr <- dplyr::pull(data, !!y_var)
-      } 
-      else if (y_rev == FALSE) {
+      if (y_rev == FALSE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
         
         y_var_vctr <- dplyr::pull(data, !!y_var)
       }
     }
-    
-    if (y_rev == TRUE) {
-      if (is.factor(y_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-      }
-      else if (is.character(y_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(factor(.x))))
-      }
-      y_var_vctr <- dplyr::pull(data, !!y_var)
-    }
-    
+
     if (col_rev == TRUE){
       if (is.factor(col_var_vctr)){
         data <- data %>%

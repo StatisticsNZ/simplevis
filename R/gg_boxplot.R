@@ -2,8 +2,8 @@
 #' @description Boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
+#' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -47,14 +47,6 @@
 #'   mutate(Species = stringr::str_to_sentence(Species))
 #'
 #' gg_boxplot(plot_data, Species, Petal.Length)
-#'   
-#' plot_data <- iris %>%
-#'   group_by(Species) %>%
-#'   summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
-#'                                                  c('ymin','lower','middle','upper','ymax')))) %>%
-#'  tidyr::unnest_wider(boxplot_stats)
-#'
-#'gg_boxplot(plot_data, Species, Petal.Length, stat = "identity")
 gg_boxplot <- function(data,
                            x_var,
                            y_var = NULL,
@@ -104,11 +96,18 @@ gg_boxplot <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
-  if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
-  else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
   
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
+  if(stat == "boxplot") {
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  } else if(stat == "identity") {
+    data <- data %>% 
+      tidyr::unnest_wider(!!y_var)
+    
+    y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
+  }
   
+  if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
+
   if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
   if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
   
@@ -151,11 +150,11 @@ gg_boxplot <- function(data,
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = .data$ymin,
+          ymin = .data$min,
           lower = .data$lower,
           middle = .data$middle,
           upper = .data$upper,
-          ymax = .data$ymax, 
+          ymax = .data$max, 
           group = !!x_var
         ),
         stat = stat,
@@ -289,9 +288,9 @@ gg_boxplot <- function(data,
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
+#' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
 #' @param width Width of the box. Defaults to 0.5.
@@ -407,11 +406,19 @@ gg_boxplot_col <- function(data,
   col_var <- rlang::enquo(col_var) #categorical var
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
-  if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
-  else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
+  
+  if(stat == "boxplot") {
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  } else if(stat == "identity") {
+    data <- data %>% 
+      tidyr::unnest_wider(!!y_var)
+    
+    y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
+  }
+  
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
+  if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
   
   if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
@@ -470,11 +477,11 @@ gg_boxplot_col <- function(data,
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = .data$ymin,
+          ymin = .data$min,
           lower = .data$lower,
           middle = .data$middle,
           upper = .data$upper,
-          ymax = .data$ymax,
+          ymax = .data$max, 
           fill = !!col_var,
           group = .data$group_var
         ),
@@ -631,9 +638,9 @@ gg_boxplot_col <- function(data,
 #' @description Boxplot ggplot that is facetted, but not coloured.
 #' @param data An tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
+#' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param width Width of the box. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -726,11 +733,19 @@ gg_boxplot_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     
     x_var_vctr <- dplyr::pull(data, !!x_var) 
-    if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
-    else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
+    
+    if(stat == "boxplot") {
+      y_var_vctr <- dplyr::pull(data, !!y_var)
+    } else if(stat == "identity") {
+      data <- data %>% 
+        tidyr::unnest_wider(!!y_var)
+      
+      y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
+    }
+    
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
+    if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
     if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
@@ -789,11 +804,11 @@ gg_boxplot_facet <-
         geom_boxplot(
           aes(
             x = !!x_var,
-            ymin = .data$ymin,
+            ymin = .data$min,
             lower = .data$lower,
             middle = .data$middle,
             upper = .data$upper,
-            ymax = .data$ymax,
+            ymax = .data$max, 
             group = .data$group_var
           ),
           stat = stat,
@@ -905,10 +920,10 @@ gg_boxplot_facet <-
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
-#' @param y_var Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".
+#' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
 #' @param width Width of the box. Defaults to 0.5.
@@ -1029,12 +1044,20 @@ gg_boxplot_col_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     
     x_var_vctr <- dplyr::pull(data, !!x_var) 
-    if (stat == "boxplot") y_var_vctr <- dplyr::pull(data, !!y_var)
-    else if (stat == "identity") y_var_vctr <- c(dplyr::pull(data, .data$ymin), dplyr::pull(data, .data$ymax))
+    
+    if(stat == "boxplot") {
+      y_var_vctr <- dplyr::pull(data, !!y_var)
+    } else if(stat == "identity") {
+      data <- data %>% 
+        tidyr::unnest_wider(!!y_var)
+      
+      y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
+    }
+    
     col_var_vctr <- dplyr::pull(data, !!col_var)
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
     
-    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot")
+    if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
@@ -1101,11 +1124,11 @@ gg_boxplot_col_facet <-
         geom_boxplot(
           aes(
             x = !!x_var,
-            ymin = .data$ymin,
+            ymin = .data$min,
             lower = .data$lower,
             middle = .data$middle,
             upper = .data$upper,
-            ymax = .data$ymax,
+            ymax = .data$max, 
             fill = !!col_var,
             group = .data$group_var
           ),

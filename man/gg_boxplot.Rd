@@ -49,9 +49,9 @@ gg_boxplot(
 
 \item{x_var}{Unquoted numeric, date or categorical variable to be on the x axis. Required input.}
 
-\item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
+\item{y_var}{Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
 
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 
@@ -133,12 +133,4 @@ tibble::as_tibble() \%>\%
   mutate(Species = stringr::str_to_sentence(Species))
 
 gg_boxplot(plot_data, Species, Petal.Length)
-  
-plot_data <- iris \%>\%
-  group_by(Species) \%>\%
-  summarise(boxplot_stats = list(rlang::set_names(boxplot.stats(Petal.Length)$stats,
-                                                 c('ymin','lower','middle','upper','ymax')))) \%>\%
- tidyr::unnest_wider(boxplot_stats)
-
-gg_boxplot(plot_data, Species, Petal.Length, stat = "identity")
 }

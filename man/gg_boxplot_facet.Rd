@@ -52,11 +52,11 @@ gg_boxplot_facet(
 
 \item{x_var}{Unquoted numeric, date or categorical variable to be on the x axis. Required input.}
 
-\item{y_var}{Unquoted numeric variable to be on the y axis. Defaults to NULL. Required if stat equals "boxplot".}
+\item{y_var}{Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot". If identity is selected, data provided must be grouped by the x_var and facet_var with ymin, lower, middle, upper, ymax variables. Note "identity" does not provide outliers.}
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
 

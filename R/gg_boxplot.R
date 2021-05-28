@@ -182,7 +182,7 @@ gg_boxplot <- function(data,
       )
   }
   
-  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
@@ -190,7 +190,7 @@ gg_boxplot <- function(data,
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -198,18 +198,8 @@ gg_boxplot <- function(data,
     }
   }
   
-  if (lubridate::is.Date(x_var_vctr)) {
+  if (is.numeric(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-      scale_x_date(
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels
-      )
-  }
-  else if (is.numeric(x_var_vctr)) {
-    plot <- plot +
-      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          labels = x_labels,
@@ -219,6 +209,22 @@ gg_boxplot <- function(data,
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
+  }
+  else if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
+  }
+  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    plot <- plot +
+      scale_x_datetime(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
@@ -530,7 +536,7 @@ gg_boxplot_col <- function(data,
       )
   }
   
-  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
@@ -538,7 +544,7 @@ gg_boxplot_col <- function(data,
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -546,18 +552,8 @@ gg_boxplot_col <- function(data,
     }
   }
   
-  if (lubridate::is.Date(x_var_vctr)) {
+  if (is.numeric(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-      scale_x_date(
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels
-      )
-  }
-  else if (is.numeric(x_var_vctr)) {
-    plot <- plot +
-      coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          labels = x_labels,
@@ -567,6 +563,22 @@ gg_boxplot_col <- function(data,
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
+  }
+  else if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
+  }
+  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    plot <- plot +
+      scale_x_datetime(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
@@ -585,7 +597,7 @@ gg_boxplot_col <- function(data,
           scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
       }
     }
-  }
+  }  
   
   if(is.null(y_expand)) y_expand <- c(0, 0)
   
@@ -876,7 +888,7 @@ gg_boxplot_facet <- function(data,
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+      if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
         
         x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
         x_zero <- x_zero_list[[1]]
@@ -884,21 +896,11 @@ gg_boxplot_facet <- function(data,
         
         x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
-        if(is.null(x_expand)) x_expand <- waiver()
+        if(is.null(x_expand)) x_expand <- c(0, 0)
       }
       
-      if (lubridate::is.Date(x_var_vctr)) {
+      if (is.numeric(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-          scale_x_date(
-            expand = x_expand,
-            breaks = x_breaks,
-            labels = x_labels
-          )
-      }
-      else if (is.numeric(x_var_vctr)) {
-        plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
           scale_x_continuous(expand = x_expand,
                              breaks = x_breaks,
                              labels = x_labels,
@@ -908,6 +910,22 @@ gg_boxplot_facet <- function(data,
           plot <- plot +
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
+      }
+      else if (lubridate::is.Date(x_var_vctr)) {
+        plot <- plot +
+          scale_x_date(
+            expand = x_expand,
+            breaks = x_breaks,
+            labels = x_labels
+          )
+      }
+      else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+        plot <- plot +
+          scale_x_datetime(
+            expand = x_expand,
+            breaks = x_breaks,
+            labels = x_labels
+          )
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
@@ -1097,166 +1115,172 @@ gg_boxplot_col_facet <- function(data,
                                  font_size_title = NULL,
                                  font_size_body = NULL
 ) {
-    
-    data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) 
-    y_var <- rlang::enquo(y_var) #numeric var
-    col_var <- rlang::enquo(col_var) #categorical var
-    facet_var <- rlang::enquo(facet_var) #categorical var
-    
-    if (x_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!x_var))
-    }
-    if (y_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!y_var))
-    }
-    if (col_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!col_var))
-    }
-    if (facet_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!facet_var))
-    }
-    
-    x_var_vctr <- dplyr::pull(data, !!x_var) 
-    
-    if(stat == "boxplot") {
-      y_var_vctr <- dplyr::pull(data, !!y_var)
-    } else if(stat == "identity") {
-      data <- data %>% 
-        tidyr::unnest_wider(!!y_var)
-      
-      y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-    }
-    
-    col_var_vctr <- dplyr::pull(data, !!col_var)
-    facet_var_vctr <- dplyr::pull(data, !!facet_var)
-    
-    if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
-    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
-    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
-    
-    if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-    if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-    if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
-    
-    if (x_rev == TRUE) {
-      if (is.factor(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      }
-      else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-      }
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
-    
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-    
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      n_col <- length(levels(col_var_vctr))
-    }
-    else n_col <- length(unique(col_var_vctr))
-    
-    if (is.null(pal)) pal <- sv_pal(n_col)
-    else pal <- pal[1:n_col]
-    
-    if (pal_rev == TRUE) pal <- rev(pal)
-    
+  
+  data <- dplyr::ungroup(data)
+  x_var <- rlang::enquo(x_var) 
+  y_var <- rlang::enquo(y_var) #numeric var
+  col_var <- rlang::enquo(col_var) #categorical var
+  facet_var <- rlang::enquo(facet_var) #categorical var
+  
+  if (x_na == FALSE) {
     data <- data %>% 
-      tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE)
+      dplyr::filter(!is.na(!!x_var))
+  }
+  if (y_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!y_var))
+  }
+  if (col_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!col_var))
+  }
+  if (facet_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!facet_var))
+  }
+  
+  x_var_vctr <- dplyr::pull(data, !!x_var) 
+  
+  if(stat == "boxplot") {
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  } else if(stat == "identity") {
+    data <- data %>% 
+      tidyr::unnest_wider(!!y_var)
     
+    y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
+  }
+  
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  
+  if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
+  
+  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
+  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  
+  if (x_rev == TRUE) {
+    if (is.factor(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+    }
+    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+  
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
+  
+  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+    n_col <- length(levels(col_var_vctr))
+  }
+  else n_col <- length(unique(col_var_vctr))
+  
+  if (is.null(pal)) pal <- sv_pal(n_col)
+  else pal <- pal[1:n_col]
+  
+  if (pal_rev == TRUE) pal <- rev(pal)
+  
+  data <- data %>% 
+    tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE)
+  
+  plot <- ggplot(data) +
+    coord_cartesian(clip = "off") +
+    theme_boxplot(
+      font_family = font_family,
+      font_size_body = font_size_body,
+      font_size_title = font_size_title
+    ) 
+  
+  if (stat == "boxplot") {
+    plot <- plot +
+      geom_boxplot(
+        aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
+        stat = stat,
+        col = "#323232", 
+        width = width,
+        size = size_line, 
+        alpha = alpha,
+        outlier.alpha = 1
+      )
+  }
+  else if (stat == "identity") {
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
       theme_boxplot(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
-      ) 
-    
-    if (stat == "boxplot") {
-      plot <- plot +
-        geom_boxplot(
-          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
-          stat = stat,
-          col = "#323232", 
-          width = width,
-          size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1
-        )
-    }
-    else if (stat == "identity") {
-      plot <- ggplot(data) +
-        coord_cartesian(clip = "off") +
-        theme_boxplot(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
-        geom_boxplot(
-          aes(
-            x = !!x_var,
-            ymin = .data$min,
-            lower = .data$lower,
-            middle = .data$middle,
-            upper = .data$upper,
-            ymax = .data$max, 
-            fill = !!col_var,
-            group = .data$group_var
-          ),
-          stat = stat,
-          col = "#323232", 
-          width = width,
-          size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point
-        )
-    }
-    
-    if (facet_scales %in% c("fixed", "free_y")) {
-      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-        
-        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-        x_zero <- x_zero_list[[1]]
-        x_zero_line <- x_zero_list[[2]]
-        
-        x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-        x_limits <- c(min(x_breaks), max(x_breaks))
-        if(is.null(x_expand)) x_expand <- waiver()
-      }
+      ) +
+      geom_boxplot(
+        aes(
+          x = !!x_var,
+          ymin = .data$min,
+          lower = .data$lower,
+          middle = .data$middle,
+          upper = .data$upper,
+          ymax = .data$max, 
+          fill = !!col_var,
+          group = .data$group_var
+        ),
+        stat = stat,
+        col = "#323232", 
+        width = width,
+        size = size_line, 
+        alpha = alpha,
+        outlier.alpha = 1, 
+        outlier.size = size_point
+      )
+  }
+  
+  if (facet_scales %in% c("fixed", "free_y")) {
+    if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
       
-      if (lubridate::is.Date(x_var_vctr)) {
+      x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+      x_zero <- x_zero_list[[1]]
+      x_zero_line <- x_zero_list[[2]]
+      
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+      if(is.null(x_expand)) x_expand <- c(0, 0)
+    }
+    
+    if (is.numeric(x_var_vctr)) {
+      plot <- plot +
+        scale_x_continuous(expand = x_expand,
+                           breaks = x_breaks,
+                           labels = x_labels,
+                           oob = scales::squish)
+      
+      if(x_zero_line == TRUE) {
         plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-          scale_x_date(
-            expand = x_expand,
-            breaks = x_breaks,
-            labels = x_labels
-          )
+          geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
-      else if (is.numeric(x_var_vctr)) {
-        plot <- plot +
-          coord_cartesian(xlim = c(x_limits[1], x_limits[2])) +
-          scale_x_continuous(expand = x_expand,
-                             breaks = x_breaks,
-                             labels = x_labels,
-                             oob = scales::squish)
-        
-        if(x_zero_line == TRUE) {
-          plot <- plot +
-            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-        }
-      }
-      else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
-        if(is.null(x_expand)) x_expand <- waiver()
-        
+    }
+    else if (lubridate::is.Date(x_var_vctr)) {
+      plot <- plot +
+        scale_x_date(
+          expand = x_expand,
+          breaks = x_breaks,
+          labels = x_labels
+        )
+    }
+    else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+      plot <- plot +
+        scale_x_datetime(
+          expand = x_expand,
+          breaks = x_breaks,
+          labels = x_labels
+        )
+    }
+    else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
+      if(is.null(x_expand)) x_expand <- waiver()
+      
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
       }

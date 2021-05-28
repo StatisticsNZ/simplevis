@@ -152,19 +152,15 @@ gg_vbar <- function(data,
              size = size_line, 
              width = bar_width)
   
-  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    
-    if(x_zero == FALSE & x_balance == FALSE) {
-      x_limits <- c(min(x_var_vctr), max(x_var_vctr))
-    } else x_limits <- c(min(x_breaks), max(x_breaks))
-    
-    if(is.null(x_expand)) x_expand <- c(0.5 / (length(x_var_vctr) - 1) * width, 0)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -172,18 +168,8 @@ gg_vbar <- function(data,
     }
   }
   
-  if (lubridate::is.Date(x_var_vctr)) {
+  if (is.numeric(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = x_limits) +
-      scale_x_date(
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels
-      )
-  }
-  else if (is.numeric(x_var_vctr)) {
-    plot <- plot +
-      coord_cartesian(xlim = x_limits) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          labels = x_labels,
@@ -193,6 +179,22 @@ gg_vbar <- function(data,
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
+  }
+  else if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
+  }
+  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    plot <- plot +
+      scale_x_datetime(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
@@ -467,19 +469,15 @@ gg_vbar_col <- function(data,
              width = bar_width, 
              position = position2)
   
-  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    
-    if(x_zero == FALSE & x_balance == FALSE) {
-      x_limits <- c(min(x_var_vctr), max(x_var_vctr))
-    } else x_limits <- c(min(x_breaks), max(x_breaks))
-    
-    if(is.null(x_expand)) x_expand <- waiver()
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -487,18 +485,8 @@ gg_vbar_col <- function(data,
     }
   }
   
-  if (lubridate::is.Date(x_var_vctr)) {
+  if (is.numeric(x_var_vctr)) {
     plot <- plot +
-      coord_cartesian(xlim = x_limits) +
-      scale_x_date(
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels
-      )
-  }
-  else if (is.numeric(x_var_vctr)) {
-    plot <- plot +
-      coord_cartesian(xlim = x_limits) +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
                          labels = x_labels,
@@ -509,6 +497,22 @@ gg_vbar_col <- function(data,
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
+  else if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
+  }
+  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    plot <- plot +
+      scale_x_datetime(
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels
+      )
+  }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
@@ -517,10 +521,16 @@ gg_vbar_col <- function(data,
         scale_x_discrete(expand = x_expand, labels = x_labels)
     }
     else if (mobile == TRUE){
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 10))
+      if(is.character(x_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
     }
-  }
+  } 
   
   if (position == "stack") {
     data_sum <- data %>%
@@ -772,33 +782,19 @@ gg_vbar_facet <- function(data,
     geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = bar_width)
   
   if (facet_scales %in% c("fixed", "free_y")) {
-    if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+    if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
       
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
       
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-      
-      if(x_zero == FALSE & x_balance == FALSE) {
-        x_limits <- c(min(x_var_vctr), max(x_var_vctr))
-      } else x_limits <- c(min(x_breaks), max(x_breaks))
-      
-      if(is.null(x_expand)) x_expand <- waiver()
+      x_limits <- c(min(x_breaks), max(x_breaks))
+      if(is.null(x_expand)) x_expand <- c(0, 0)
     }
     
-    if (lubridate::is.Date(x_var_vctr)) {
+    if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        coord_cartesian(xlim = x_limits) +
-        scale_x_date(
-          expand = x_expand,
-          breaks = x_breaks,
-          labels = x_labels
-        )
-    }
-    else if (is.numeric(x_var_vctr)) {
-      plot <- plot +
-        coord_cartesian(xlim = x_limits) +
         scale_x_continuous(expand = x_expand,
                            breaks = x_breaks,
                            labels = x_labels,
@@ -808,6 +804,22 @@ gg_vbar_facet <- function(data,
         plot <- plot +
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
+    }
+    else if (lubridate::is.Date(x_var_vctr)) {
+      plot <- plot +
+        scale_x_date(
+          expand = x_expand,
+          breaks = x_breaks,
+          labels = x_labels
+        )
+    }
+    else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+      plot <- plot +
+        scale_x_datetime(
+          expand = x_expand,
+          breaks = x_breaks,
+          labels = x_labels
+        )
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
@@ -1100,42 +1112,44 @@ gg_vbar_col_facet <- function(data,
     }
     
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+      if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
         
         x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
         x_zero <- x_zero_list[[1]]
         x_zero_line <- x_zero_list[[2]]
         
         x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-        
-        if(x_zero == FALSE & x_balance == FALSE) {
-          x_limits <- c(min(x_var_vctr), max(x_var_vctr))
-        } else x_limits <- c(min(x_breaks), max(x_breaks))
-
-        if(is.null(x_expand)) x_expand <- waiver()
+        x_limits <- c(min(x_breaks), max(x_breaks))
+        if(is.null(x_expand)) x_expand <- c(0, 0)
       }
       
-      if (lubridate::is.Date(x_var_vctr)) {
+      if (is.numeric(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = x_limits) +
+          scale_x_continuous(expand = x_expand,
+                             breaks = x_breaks,
+                             labels = x_labels,
+                             oob = scales::squish)
+        
+        if(x_zero_line == TRUE) {
+          plot <- plot +
+            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+        }
+      }
+      else if (lubridate::is.Date(x_var_vctr)) {
+        plot <- plot +
           scale_x_date(
             expand = x_expand,
             breaks = x_breaks,
             labels = x_labels
           )
       }
-      else if (is.numeric(x_var_vctr)) {
+      else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
         plot <- plot +
-          coord_cartesian(xlim = x_limits) +
-          scale_x_continuous(expand = x_expand,
-                          breaks = x_breaks,
-                          labels = x_labels,
-                          oob = scales::squish)
-        
-        if(x_zero_line == TRUE) {
-          plot <- plot +
-            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-        }
+          scale_x_datetime(
+            expand = x_expand,
+            breaks = x_breaks,
+            labels = x_labels
+          )
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()

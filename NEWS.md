@@ -1,6 +1,11 @@
+# simplevis 3.6.3
+
+* Added support for datetime for point, boxplot and vbar.
+* Removed x_trans from line as unnecessary.
+
 # simplevis 3.6.2
 
-* Added support for datetime to the gg_line functions.
+* Added support for datetime to the other gg_line functions.
 
 # simplevis 3.6.1
 

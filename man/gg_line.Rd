@@ -23,7 +23,6 @@ gg_line(
   x_pretty_n = 6,
   x_rev = FALSE,
   x_title = NULL,
-  x_trans = "identity",
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
@@ -81,8 +80,6 @@ gg_line(
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
-
-\item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 

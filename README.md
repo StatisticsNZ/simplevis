@@ -14,13 +14,9 @@
 
 simplevis is a package of wrapper functions that aim to make ggplot2 and leaflet visualisation easier and quicker for users. 
 
-simplevis emphasises cognitive ease and speed to make common visualisations based on colouring and/or facetting. Some flexibility is lost compared to ggplot. But the gain in cognitive ease and speed will be valuable for many users in many situations. 
+simplevis emphasises cognitive ease and speed, and subsequently some flexibility is lost compared to the underlying fantastic ggplot2 and leaflet packages. 
 
-There are many things simplevis does to work towards this objective. But one primary thing is that simplevis reimagines ggplot code in a way that emphasises consistent prefixes in the function and argument names. 
-
-Why? This is good for human brains, but also is fantastic with the Rstudio Auto-complete function. This means you can start typing the prefix function or argument name, press tab, scroll through the options, and press tab again when you find what you need. 
-
-There are lots of other things that simplevis is doing to make things easier and quicker, but best to dive in to find out! 
+But the gain in cognitive ease and speed will be valuable for many users in many situations. 
 
 ### Installation
 

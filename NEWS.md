@@ -1,3 +1,7 @@
+# simplevis 3.6.4
+
+* Added datetime support to hbar.
+
 # simplevis 3.6.3
 
 * Added support for datetime for point, boxplot and vbar.

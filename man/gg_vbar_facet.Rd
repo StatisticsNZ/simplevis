@@ -52,7 +52,7 @@ gg_vbar_facet(
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted numeric, date or categorical variable to be on the x scale. Required input.}
+\item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
 

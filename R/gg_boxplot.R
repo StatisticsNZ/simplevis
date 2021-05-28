@@ -1,7 +1,7 @@
 #' @title Boxplot ggplot.
 #' @description Boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.
@@ -136,7 +136,7 @@ gg_boxplot <- function(data,
     }
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-
+  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme_boxplot(
@@ -307,7 +307,7 @@ gg_boxplot <- function(data,
 #' Boxplot ggplot that is coloured
 #'
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
@@ -683,7 +683,7 @@ gg_boxplot_col <- function(data,
 #' @title Boxplot ggplot that is facetted.
 #' @description Boxplot ggplot that is facetted, but not coloured.
 #' @param data An tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
@@ -830,7 +830,7 @@ gg_boxplot_facet <- function(data,
       }
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-
+    
     if (is.null(pal)) pal <- sv_pal(1)
     else pal <- pal[1]
     
@@ -985,12 +985,12 @@ gg_boxplot_facet <- function(data,
       facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow, ncol = facet_ncol)
     
     return(plot)
-  }
+}
 
 #' Boxplot ggplot that is coloured
 #'
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted numeric, date or categorical variable to be on the x axis. Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -1281,69 +1281,69 @@ gg_boxplot_col_facet <- function(data,
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
       
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = x_labels)
-      }
-    }
-    
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
-    y_zero_line <- y_zero_list[[2]]
-    
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    if (facet_scales %in% c("fixed", "free_x")) {
-      if (all(y_var_vctr == 0, na.rm = TRUE)) {
-        plot <- plot +
-          scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
-      }
-      else ({
-        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
-        y_limits <- c(min(y_breaks), max(y_breaks))
-        
-        plot <- plot +
-          scale_y_continuous(
-            expand = y_expand,
-            breaks = y_breaks,
-            limits = y_limits,
-            trans = y_trans,
-            labels = y_labels,
-            oob = scales::rescale_none
-          )
-      })
-    }
-    else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = y_expand,
-                           trans = y_trans,
-                           labels = y_labels,
-                           oob = scales::rescale_none)
+        scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-    
-    if(y_zero_line == TRUE) {
+  }
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
+  
+  if(is.null(y_expand)) y_expand <- c(0, 0)
+  
+  if (facet_scales %in% c("fixed", "free_x")) {
+    if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
-    
+    else ({
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
+      y_limits <- c(min(y_breaks), max(y_breaks))
+      
+      plot <- plot +
+        scale_y_continuous(
+          expand = y_expand,
+          breaks = y_breaks,
+          limits = y_limits,
+          trans = y_trans,
+          labels = y_labels,
+          oob = scales::rescale_none
+        )
+    })
+  }
+  else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_fill_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = "#A8A8A8"
-      ) +
-      labs(
-        title = stringr::str_wrap(title, title_wrap),
-        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-        x = stringr::str_wrap(x_title, x_title_wrap),
-        y = stringr::str_wrap(y_title, y_title_wrap),
-        caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow, ncol = facet_ncol) +
-      guides(fill = guide_legend(
-        ncol = col_legend_ncol,
-        nrow = col_legend_nrow,
-        byrow = TRUE,
+      scale_y_continuous(expand = y_expand,
+                         trans = y_trans,
+                         labels = y_labels,
+                         oob = scales::rescale_none)
+  }
+  
+  if(y_zero_line == TRUE) {
+    plot <- plot +
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+  }
+  
+  plot <- plot +
+    scale_fill_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = "#A8A8A8"
+    ) +
+    labs(
+      title = stringr::str_wrap(title, title_wrap),
+      subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+      x = stringr::str_wrap(x_title, x_title_wrap),
+      y = stringr::str_wrap(y_title, y_title_wrap),
+      caption = stringr::str_wrap(caption, caption_wrap)
+    ) +
+    facet_wrap(vars(!!facet_var), scales = facet_scales, nrow = facet_nrow, ncol = facet_ncol) +
+    guides(fill = guide_legend(
+      ncol = col_legend_ncol,
+      nrow = col_legend_nrow,
+      byrow = TRUE,
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) 
     

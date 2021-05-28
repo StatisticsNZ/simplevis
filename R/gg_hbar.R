@@ -2,7 +2,7 @@
 #' @description Horizontal bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
 #' @param width Width of bars. Defaults to 0.75.
@@ -152,21 +152,36 @@ gg_hbar <- function(data,
              size = size_line, 
              width = bar_width)
   
-  if (lubridate::is.Date(y_var_vctr) | is.numeric(y_var_vctr)) {
+  if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-    if(y_zero == FALSE & y_balance == FALSE) {
-      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-    } else y_limits <- c(min(y_breaks), max(y_breaks))
+    y_limits <- c(min(y_breaks), max(y_breaks))
+    if(is.null(y_expand)) y_expand <- c(0, 0)
     
-    if(is.null(y_expand)) y_expand <- c(0.5 / (length(y_var_vctr) - 1) * width, 0)
+    if(mobile == TRUE) {
+      y_breaks <- y_limits
+      if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
+    }
   }
   
-  if (lubridate::is.Date(y_var_vctr)) {
+  if (is.numeric(y_var_vctr)) {
+    plot <- plot +      
+      coord_flip(xlim = rev(y_limits)) +
+      scale_x_reverse(expand = y_expand,
+                      breaks = rev(y_breaks),
+                      labels = y_labels,
+                      oob = scales::squish)
+    
+    if(y_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+  }
+  else if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
       coord_flip(xlim = rev(y_limits)) +
       scale_x_date(
@@ -175,18 +190,14 @@ gg_hbar <- function(data,
         labels = y_labels
       )
   }
-  else if (is.numeric(y_var_vctr)) {
+  else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     plot <- plot +
       coord_flip(xlim = rev(y_limits)) +
-      scale_x_reverse(expand = y_expand,
-                      breaks = rev(y_breaks),
-                      labels = y_labels,
-                      oob = scales::squish) 
-
-    if(y_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-    }
+      scale_x_datetime(
+        expand = y_expand,
+        breaks = rev(y_breaks),
+        labels = y_labels
+      )
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
@@ -209,7 +220,7 @@ gg_hbar <- function(data,
       }
     }
   }
-  
+
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
@@ -269,7 +280,7 @@ gg_hbar <- function(data,
 #' @description Horizontal bar ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
@@ -475,22 +486,36 @@ gg_hbar_col <- function(data,
     x_var_vctr <- dplyr::pull(data_sum, !!x_var)
   }
   
-  if (lubridate::is.Date(y_var_vctr) | is.numeric(y_var_vctr)) {
+  if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
+    y_limits <- c(min(y_breaks), max(y_breaks))
+    if(is.null(y_expand)) y_expand <- c(0, 0)
     
-    if(y_zero == FALSE & y_balance == FALSE) {
-      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-    } else y_limits <- c(min(y_breaks), max(y_breaks))
-    
-    if(is.null(y_expand)) y_expand <- waiver()
+    if(mobile == TRUE) {
+      y_breaks <- y_limits
+      if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
+    }
   }
   
-  if (lubridate::is.Date(y_var_vctr)) {
+  if (is.numeric(y_var_vctr)) {
+    plot <- plot +      
+      coord_flip(xlim = rev(y_limits)) +
+      scale_x_reverse(expand = y_expand,
+                      breaks = rev(y_breaks),
+                      labels = y_labels,
+                      oob = scales::squish)
+    
+    if(y_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+  }
+  else if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
       coord_flip(xlim = rev(y_limits)) +
       scale_x_date(
@@ -499,18 +524,14 @@ gg_hbar_col <- function(data,
         labels = y_labels
       )
   }
-  else if (is.numeric(y_var_vctr)) {
+  else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     plot <- plot +
       coord_flip(xlim = rev(y_limits)) +
-      scale_x_reverse(expand = y_expand,
-                      breaks = rev(y_breaks),
-                      labels = y_labels,
-                      oob = scales::squish) 
-    
-    if(y_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-    }
+      scale_x_datetime(
+        expand = y_expand,
+        breaks = rev(y_breaks),
+        labels = y_labels
+      )
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
@@ -533,7 +554,7 @@ gg_hbar_col <- function(data,
       }
     }
   }
-  
+
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
@@ -621,7 +642,7 @@ gg_hbar_col <- function(data,
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
@@ -774,32 +795,19 @@ gg_hbar_facet <- function(data,
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = bar_width)
   
   if (facet_scales %in% c("fixed", "free_x")) {
-    if (lubridate::is.Date(y_var_vctr) | is.numeric(y_var_vctr)) {
+    if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       
       y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
       
       y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-      
-      if(y_zero == FALSE & y_balance == FALSE) {
-        y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-      } else y_limits <- c(min(y_breaks), max(y_breaks))
-      
-      if(is.null(y_expand)) y_expand <- waiver()
+      y_limits <- c(min(y_breaks), max(y_breaks))
+      if(is.null(y_expand)) y_expand <- c(0, 0)
     }
     
-    if (lubridate::is.Date(y_var_vctr)) {
-      plot <- plot +
-        coord_flip(xlim = rev(y_limits)) +
-        scale_x_date(
-          expand = y_expand,
-          breaks = rev(y_breaks),
-          labels = y_labels
-        )
-    }
-    else if (is.numeric(y_var_vctr)) {
-      plot <- plot +
+    if (is.numeric(y_var_vctr)) {
+      plot <- plot +      
         coord_flip(xlim = rev(y_limits)) +
         scale_x_reverse(expand = y_expand,
                         breaks = rev(y_breaks),
@@ -810,6 +818,24 @@ gg_hbar_facet <- function(data,
         plot <- plot +
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
+    }
+    else if (lubridate::is.Date(y_var_vctr)) {
+      plot <- plot +
+        coord_flip(xlim = rev(y_limits)) +
+        scale_x_date(
+          expand = y_expand,
+          breaks = rev(y_breaks),
+          labels = y_labels
+        )
+    }
+    else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+      plot <- plot +
+        coord_flip(xlim = rev(y_limits)) +
+        scale_x_datetime(
+          expand = y_expand,
+          breaks = rev(y_breaks),
+          labels = y_labels
+        )
     }
     else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
       if(is.null(y_expand)) y_expand <- waiver()
@@ -882,7 +908,7 @@ gg_hbar_facet <- function(data,
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted numeric, date or categorical variable to be on the y scale. Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -997,141 +1023,128 @@ gg_hbar_col_facet <- function(data,
                               font_size_title = NULL,
                               font_size_body = NULL
 ) {
-    
-    data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) #numeric var
-    y_var <- rlang::enquo(y_var) 
-    col_var <- rlang::enquo(col_var) #categorical var
-    facet_var <- rlang::enquo(facet_var) #categorical var
-    text_var <- rlang::enquo(text_var)
-    
-    if (x_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!x_var))
-    }
-    if (y_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!y_var))
-    }
-    if (col_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!col_var))
-    }
-    if (facet_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!facet_var))
-    }
-    
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-    col_var_vctr <- dplyr::pull(data, !!col_var)
-    facet_var_vctr <- dplyr::pull(data, !!facet_var)
-    
-    if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-    if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
-    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
-
-    if (x_trans != "identity") {
-      if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
-    } 
-    if (x_zero == FALSE) {
-      if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
-    }
-    
-    if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-    if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-    if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
-    
-    if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
-      if (y_rev == FALSE) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-        
-        y_var_vctr <- dplyr::pull(data, !!y_var)
-      }
-    }
-    
-    if (col_rev == FALSE){
-      if (is.factor(col_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
-      }
-      else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-      }
-      col_var_vctr <- dplyr::pull(data, !!col_var)
-    }
-    
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-    
-    if (position == "stack") position2 <- "stack"
-    else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
-    
-    if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
-    else bar_unit <- 1
-    
-    bar_width <- bar_unit * width
-    
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      n_col <- length(levels(col_var_vctr))
-    }
-    else n_col <- length(unique(col_var_vctr))
-    
-    if (is.null(pal)) pal <- sv_pal(n_col)
-    else pal <- pal[1:n_col]
-    
-    if (pal_rev == TRUE) pal <- rev(pal)
-    
-    plot <- ggplot(data) +
-      theme_hbar(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
-      geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-               alpha = alpha, 
-               size = size_line, 
-               width = bar_width, 
-               position = position2)
-    
-    if (position == "stack") {
-      data_sum <- data %>%
-        dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var))) %>%
-        dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-        dplyr::ungroup()
+  
+  data <- dplyr::ungroup(data)
+  x_var <- rlang::enquo(x_var) #numeric var
+  y_var <- rlang::enquo(y_var) 
+  col_var <- rlang::enquo(col_var) #categorical var
+  facet_var <- rlang::enquo(facet_var) #categorical var
+  text_var <- rlang::enquo(text_var)
+  
+  if (x_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!x_var))
+  }
+  if (y_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!y_var))
+  }
+  if (col_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!col_var))
+  }
+  if (facet_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!facet_var))
+  }
+  
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
+  
+  if (x_trans != "identity") {
+    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
+  } 
+  if (x_zero == FALSE) {
+    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
+  }
+  
+  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
+  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
+    if (y_rev == FALSE) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       
-      x_var_vctr <- dplyr::pull(data_sum, !!x_var)
+      y_var_vctr <- dplyr::pull(data, !!y_var)
     }
+  }
+  
+  if (col_rev == FALSE){
+    if (is.factor(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+    }
+    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
+    }
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
+  
+  if (position == "stack") position2 <- "stack"
+  else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
+  
+  if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
+  else bar_unit <- 1
+  
+  bar_width <- bar_unit * width
+  
+  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+    n_col <- length(levels(col_var_vctr))
+  }
+  else n_col <- length(unique(col_var_vctr))
+  
+  if (is.null(pal)) pal <- sv_pal(n_col)
+  else pal <- pal[1:n_col]
+  
+  if (pal_rev == TRUE) pal <- rev(pal)
+  
+  plot <- ggplot(data) +
+    theme_hbar(
+      font_family = font_family,
+      font_size_body = font_size_body,
+      font_size_title = font_size_title
+    ) +
+    geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
+             alpha = alpha, 
+             size = size_line, 
+             width = bar_width, 
+             position = position2)
+  
+  if (position == "stack") {
+    data_sum <- data %>%
+      dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var))) %>%
+      dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
+      dplyr::ungroup()
+    
+    x_var_vctr <- dplyr::pull(data_sum, !!x_var)
+  }
     
     if (facet_scales %in% c("fixed", "free_x")) {
-      if (lubridate::is.Date(y_var_vctr) | is.numeric(y_var_vctr)) {
+      if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
         
         y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
         y_zero <- y_zero_list[[1]]
         y_zero_line <- y_zero_list[[2]]
         
         y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-        
-        if(y_zero == FALSE & y_balance == FALSE) {
-          y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-        } else y_limits <- c(min(y_breaks), max(y_breaks))
-        
-        if(is.null(y_expand)) y_expand <- waiver()
+        y_limits <- c(min(y_breaks), max(y_breaks))
+        if(is.null(y_expand)) y_expand <- c(0, 0)
       }
       
-      if (lubridate::is.Date(y_var_vctr)) {
-        plot <- plot +
-          coord_flip(xlim = rev(y_limits)) +
-          scale_x_date(
-            expand = y_expand,
-            breaks = rev(y_breaks),
-            labels = y_labels
-          )
-      }
-      else if (is.numeric(y_var_vctr)) {
-        plot <- plot +
+      if (is.numeric(y_var_vctr)) {
+        plot <- plot +      
           coord_flip(xlim = rev(y_limits)) +
           scale_x_reverse(expand = y_expand,
                           breaks = rev(y_breaks),
@@ -1142,6 +1155,24 @@ gg_hbar_col_facet <- function(data,
           plot <- plot +
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
+      }
+      else if (lubridate::is.Date(y_var_vctr)) {
+        plot <- plot +
+          coord_flip(xlim = rev(y_limits)) +
+          scale_x_date(
+            expand = y_expand,
+            breaks = rev(y_breaks),
+            labels = y_labels
+          )
+      }
+      else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+        plot <- plot +
+          coord_flip(xlim = rev(y_limits)) +
+          scale_x_datetime(
+            expand = y_expand,
+            breaks = rev(y_breaks),
+            labels = y_labels
+          )
       }
       else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
         if(is.null(y_expand)) y_expand <- waiver()

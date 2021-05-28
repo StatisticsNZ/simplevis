@@ -54,7 +54,7 @@ gg_hbar_facet(
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
-\item{y_var}{Unquoted numeric, date or categorical variable to be on the y scale. Required input.}
+\item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 

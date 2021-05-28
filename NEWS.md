@@ -1,3 +1,7 @@
+# simplevis 3.6.2
+
+* Added support for datetime to the gg_line functions.
+
 # simplevis 3.6.1
 
 * Added support for datetime to gg_line().

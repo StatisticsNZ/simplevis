@@ -98,7 +98,7 @@ gg_point <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
-
+  
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
@@ -106,7 +106,7 @@ gg_point <- function(data,
   
   if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
   if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
@@ -353,229 +353,229 @@ gg_point_col <- function(data,
                          caption_wrap = 80,
                          mobile = FALSE)
 {
-    
-    data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) #numeric var
-    y_var <- rlang::enquo(y_var) #numeric var
-    col_var <- rlang::enquo(col_var)
-    text_var <- rlang::enquo(text_var)
-    
-    if (x_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!x_var))
-    }
-    if (y_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!y_var))
-    }
-    if (col_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!col_var))
-    }
-
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-    col_var_vctr <- dplyr::pull(data, !!col_var)
-    
-    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
-    
-    if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-    if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-    if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
-    
-    if (x_rev == TRUE) {
-      if (is.factor(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      }
-      else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-      }
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
-    
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-    
-    if (is.null(col_method)) {
-      if (!is.numeric(col_var_vctr)) col_method <- "category"
-      else if (is.numeric(col_var_vctr)) col_method <- "quantile"
-    }
-    
-    if(col_method %in% c("quantile", "bin")) {
-      if (col_method == "quantile") {
-        if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
-        else {
-          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-        }  
-        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-        
-        data <- data %>% 
-          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-        
-        col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
-      }
-      else if (col_method == "bin") {
-        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-        else({
-          if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-        })
-        
-        data <- data %>% 
-          dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-        
-        col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
-      }
-      n_col <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- sv_pal(n_col)
-      else pal <- pal[1:n_col]
-    }
-    else if (col_method == "category") {
-      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        n_col <- length(levels(col_var_vctr))
-      }
-      else n_col <- length(unique(col_var_vctr))
-      
-      if (is.null(pal)) pal <- sv_pal(n_col)
-      else pal <- pal[1:n_col]
-      
-      col_labels <- waiver()
-    }
-    
-    if (pal_rev == TRUE) pal <- rev(pal)
-    
-    plot <- ggplot(data) +
-      theme_point(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
-      coord_cartesian(clip = "off")
-    
-    plot <- plot +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
-    
-    if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-      
-      x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-      x_zero <- x_zero_list[[1]]
-      x_zero_line <- x_zero_list[[2]]
-      
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-      x_limits <- c(min(x_breaks), max(x_breaks))
-      if(is.null(x_expand)) x_expand <- c(0, 0)
-      
-      if(mobile == TRUE) {
-        x_breaks <- x_limits
-        if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-      }
-    }
-    
-    if (lubridate::is.Date(x_var_vctr)) {
-      plot <- plot +
-        scale_x_date(
-          expand = x_expand,
-          breaks = x_breaks,
-          limits = x_limits,
-          labels = x_labels
-        )
-    }
-    else if (is.numeric(x_var_vctr)) {
-      plot <- plot +
-        scale_x_continuous(expand = x_expand,
-                           breaks = x_breaks,
-                           limits = x_limits,
-                           labels = x_labels,
-                           trans = x_trans,
-                           oob = scales::squish)
-      
-      if(x_zero_line == TRUE) {
-        plot <- plot +
-          geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-      }
-    }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
-      if(is.null(x_expand)) x_expand <- waiver()
-      
-      if (mobile == FALSE){
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = x_labels)
-      }
-      else if (mobile == TRUE){
-        if(is.character(x_labels)) {
-          plot <- plot +
-            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
-        }
-        else {
-          plot <- plot +
-            scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-        }
-      }
-    }
-    
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-    y_zero <- y_zero_list[[1]]
-    y_zero_line <- y_zero_list[[2]]
-    
-    if (all(y_var_vctr == 0, na.rm = TRUE)) {
-      plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
-    }
-    else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
-      y_limits <- c(min(y_breaks), max(y_breaks))
-      
-      plot <- plot +
-        scale_y_continuous(
-          expand = y_expand,
-          breaks = y_breaks,
-          limits = y_limits,
-          trans = y_trans,
-          labels = y_labels,
-          oob = scales::rescale_none
-        )
-    })
-    
-    plot <- plot +
-      scale_color_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = "#A8A8A8"
-      ) 
-    
-    if (mobile == FALSE) {
-      plot <- plot +
-        labs(
-          title = stringr::str_wrap(title, title_wrap),
-          subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-          x = stringr::str_wrap(x_title, x_title_wrap),
-          y = stringr::str_wrap(y_title, y_title_wrap),
-          caption = stringr::str_wrap(caption, caption_wrap)
-        ) +
-        guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
-    }
-    else if (mobile == TRUE) {
-      plot <- plot +
-        labs(
-          title = stringr::str_wrap(title, 40),
-          subtitle = stringr::str_wrap(subtitle, 40),
-          x = stringr::str_wrap(x_title, 20),
-          y = stringr::str_wrap(y_title, 30),
-          caption = stringr::str_wrap(caption, 50)
-        )  +
-        guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
-        theme_mobile_graph()
-    }
-    
-    return(plot)
+  
+  data <- dplyr::ungroup(data)
+  x_var <- rlang::enquo(x_var) #numeric var
+  y_var <- rlang::enquo(y_var) #numeric var
+  col_var <- rlang::enquo(col_var)
+  text_var <- rlang::enquo(text_var)
+  
+  if (x_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!x_var))
   }
+  if (y_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!y_var))
+  }
+  if (col_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!col_var))
+  }
+  
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
+  
+  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
+  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  
+  if (x_rev == TRUE) {
+    if (is.factor(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+    }
+    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
+    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+  
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
+  
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+  }
+  
+  if(col_method %in% c("quantile", "bin")) {
+    if (col_method == "quantile") {
+      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      else {
+        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+      }  
+      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+    }
+    else if (col_method == "bin") {
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      else({
+        if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+      })
+      
+      data <- data %>% 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      
+      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+    }
+    n_col <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- sv_pal(n_col)
+    else pal <- pal[1:n_col]
+  }
+  else if (col_method == "category") {
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      n_col <- length(levels(col_var_vctr))
+    }
+    else n_col <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- sv_pal(n_col)
+    else pal <- pal[1:n_col]
+    
+    col_labels <- waiver()
+  }
+  
+  if (pal_rev == TRUE) pal <- rev(pal)
+  
+  plot <- ggplot(data) +
+    theme_point(
+      font_family = font_family,
+      font_size_body = font_size_body,
+      font_size_title = font_size_title
+    ) +
+    coord_cartesian(clip = "off")
+  
+  plot <- plot +
+    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
+  
+  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+    
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if(is.null(x_expand)) x_expand <- c(0, 0)
+    
+    if(mobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
+    }
+  }
+  
+  if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels
+      )
+  }
+  else if (is.numeric(x_var_vctr)) {
+    plot <- plot +
+      scale_x_continuous(expand = x_expand,
+                         breaks = x_breaks,
+                         limits = x_limits,
+                         labels = x_labels,
+                         trans = x_trans,
+                         oob = scales::squish)
+    
+    if(x_zero_line == TRUE) {
+      plot <- plot +
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
+    }
+  }
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
+    if(is.null(x_expand)) x_expand <- waiver()
+    
+    if (mobile == FALSE){
+      plot <- plot +
+        scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else if (mobile == TRUE){
+      if(is.character(x_labels)) {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
+      }
+      else {
+        plot <- plot +
+          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
+      }
+    }
+  }
+  
+  if(is.null(y_expand)) y_expand <- c(0, 0)
+  
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero <- y_zero_list[[1]]
+  y_zero_line <- y_zero_list[[2]]
+  
+  if (all(y_var_vctr == 0, na.rm = TRUE)) {
+    plot <- plot +
+      scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
+  }
+  else ({
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = y_trans, zero = y_zero)
+    y_limits <- c(min(y_breaks), max(y_breaks))
+    
+    plot <- plot +
+      scale_y_continuous(
+        expand = y_expand,
+        breaks = y_breaks,
+        limits = y_limits,
+        trans = y_trans,
+        labels = y_labels,
+        oob = scales::rescale_none
+      )
+  })
+  
+  plot <- plot +
+    scale_color_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = "#A8A8A8"
+    ) 
+  
+  if (mobile == FALSE) {
+    plot <- plot +
+      labs(
+        title = stringr::str_wrap(title, title_wrap),
+        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+        x = stringr::str_wrap(x_title, x_title_wrap),
+        y = stringr::str_wrap(y_title, y_title_wrap),
+        caption = stringr::str_wrap(caption, caption_wrap)
+      ) +
+      guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+  }
+  else if (mobile == TRUE) {
+    plot <- plot +
+      labs(
+        title = stringr::str_wrap(title, 40),
+        subtitle = stringr::str_wrap(subtitle, 40),
+        x = stringr::str_wrap(x_title, 20),
+        y = stringr::str_wrap(y_title, 30),
+        caption = stringr::str_wrap(caption, 50)
+      )  +
+      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
+      theme_mobile_graph()
+  }
+  
+  return(plot)
+}
 
 #' @title Point ggplot that is facetted.
 #' @description Point ggplot that is facetted, but not coloured.
@@ -671,71 +671,71 @@ gg_point_facet <- function(data,
                            font_size_title = NULL,
                            font_size_body = NULL
 ) {
-    
-    data <- dplyr::ungroup(data)
-    x_var <- rlang::enquo(x_var) #numeric var
-    y_var <- rlang::enquo(y_var) #numeric var
-    facet_var <- rlang::enquo(facet_var) #categorical var
-    text_var <- rlang::enquo(text_var)
-    
-    if (x_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!x_var))
+  
+  data <- dplyr::ungroup(data)
+  x_var <- rlang::enquo(x_var) #numeric var
+  y_var <- rlang::enquo(y_var) #numeric var
+  facet_var <- rlang::enquo(facet_var) #categorical var
+  text_var <- rlang::enquo(text_var)
+  
+  if (x_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!x_var))
+  }
+  if (y_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!y_var))
+  }
+  if (facet_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!facet_var))
+  }
+  
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
+  
+  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
+  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  
+  if (x_rev == TRUE) {
+    if (is.factor(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    if (y_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!y_var))
+    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
-    if (facet_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!facet_var))
-    }
-    
     x_var_vctr <- dplyr::pull(data, !!x_var)
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-    facet_var_vctr <- dplyr::pull(data, !!facet_var)
-    
-    if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
-    if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
-    
-    if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-    if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-
-    if (x_rev == TRUE) {
-      if (is.factor(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      }
-      else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-      }
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
-    
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-    
-    if (is.null(pal)) pal <- sv_pal(1)
-    else pal <- pal[1]
-    
-    plot <- ggplot(data) +
-      theme_point(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
-      coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point)
-    
-    if (facet_scales %in% c("fixed", "free_y")) {
-      if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-        
-        x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-        if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
-        x_zero_line <- x_zero_list[[2]]
-        
-        x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
+  }
+  
+  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
+  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
+  
+  if (is.null(pal)) pal <- sv_pal(1)
+  else pal <- pal[1]
+  
+  plot <- ggplot(data) +
+    theme_point(
+      font_family = font_family,
+      font_size_body = font_size_body,
+      font_size_title = font_size_title
+    ) +
+    coord_cartesian(clip = "off") +
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point)
+  
+  if (facet_scales %in% c("fixed", "free_y")) {
+    if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
+      
+      x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+      if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+      x_zero_line <- x_zero_list[[2]]
+      
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
         x_limits <- c(min(x_breaks), max(x_breaks))
         if(is.null(x_expand)) x_expand <- c(0, 0)
       }

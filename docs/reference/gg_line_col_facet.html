@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.5.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.6.0</span>
       </span>
     </div>
 
@@ -173,6 +173,7 @@
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -183,6 +184,7 @@
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -192,8 +194,10 @@
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
@@ -276,6 +280,10 @@
       <td><p>Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
     </tr>
     <tr>
+      <th>x_na</th>
+      <td><p>TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
       <th>x_pretty_n</th>
       <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.</p></td>
     </tr>
@@ -316,6 +324,10 @@
       <td><p>Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
     </tr>
     <tr>
+      <th>y_na</th>
+      <td><p>TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
       <th>y_pretty_n</th>
       <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
     </tr>
@@ -352,12 +364,20 @@
       <td><p>The number of rows in the legend.</p></td>
     </tr>
     <tr>
+      <th>col_na</th>
+      <td><p>TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
       <th>col_title</th>
       <td><p>Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>col_title_wrap</th>
       <td><p>Number of characters to wrap the colour title to. Defaults to 25.</p></td>
+    </tr>
+    <tr>
+      <th>facet_na</th>
+      <td><p>TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>facet_ncol</th>

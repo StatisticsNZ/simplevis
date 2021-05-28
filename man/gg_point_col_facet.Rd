@@ -21,6 +21,7 @@ gg_point_col_facet(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = waiver(),
+  x_na = TRUE,
   x_pretty_n = 5,
   x_rev = FALSE,
   x_title = NULL,
@@ -31,6 +32,7 @@ gg_point_col_facet(
   y_balance = FALSE,
   y_expand = NULL,
   y_labels = waiver(),
+  y_na = TRUE,
   y_pretty_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
@@ -42,8 +44,10 @@ gg_point_col_facet(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_method = NULL,
+  col_na = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
+  facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
   facet_scales = "fixed",
@@ -87,6 +91,8 @@ gg_point_col_facet(
 
 \item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
+\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
@@ -106,6 +112,8 @@ gg_point_col_facet(
 \item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
+
+\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -129,9 +137,13 @@ gg_point_col_facet(
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
+\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+
+\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

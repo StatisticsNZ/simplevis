@@ -25,25 +25,26 @@
 #' @examples
 #' gg_sf(data = example_sf_point, borders = nz)
 gg_sf <- function(data,
-                      text_var = NULL,
-                      size_point = 1,
-                      size_line = 0.5,
-                      alpha = 1,
-                      pal = NULL,
-                      borders = NULL,
-                      borders_behind = TRUE,
-                      borders_pal = "#7f7f7f",
-                      borders_size = 0.2,
-                      title = NULL,
-                      title_wrap = 70,
-                      subtitle = NULL,
-                      subtitle_wrap = 80,
-                      caption = NULL,
-                      caption_wrap = 80,
-                      font_family = "Helvetica",
-                      font_size_title = NULL,
-                      font_size_body = NULL,
-                      mobile = FALSE) {
+                  text_var = NULL,
+                  size_point = 1,
+                  size_line = 0.5,
+                  alpha = 1,
+                  pal = NULL,
+                  borders = NULL,
+                  borders_behind = TRUE,
+                  borders_pal = "#7f7f7f",
+                  borders_size = 0.2,
+                  title = NULL,
+                  title_wrap = 70,
+                  subtitle = NULL,
+                  subtitle_wrap = 80,
+                  caption = NULL,
+                  caption_wrap = 80,
+                  font_family = "Helvetica",
+                  font_size_title = NULL,
+                  font_size_body = NULL,
+                  mobile = FALSE
+) {
   
   data <- dplyr::ungroup(data)
   text_var <- rlang::enquo(text_var)
@@ -151,6 +152,7 @@ gg_sf <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -176,39 +178,46 @@ gg_sf <- function(data,
 #'    pal = pal, col_method = "category",
 #'    title = "Monitored trends, 2008-17")
 gg_sf_col <- function(data,
-                          col_var,
-                          text_var = NULL,
-                          pal = NULL,
-                          pal_rev = FALSE,
-                          size_point = 1,
-                          size_line = 0.5,
-                          alpha = 1,
-                          borders = NULL,
-                          borders_behind = TRUE,
-                          borders_pal = "#7f7f7f",
-                          borders_size = 0.2,
-                          title = NULL,
-                          title_wrap = 70,
-                          subtitle = NULL,
-                          subtitle_wrap = 80,
-                          col_cuts = NULL,
-                          col_labels_dp = 1,
-                          col_legend_ncol = NULL,
-                          col_legend_nrow = NULL,
-                          col_method = NULL,
-                          col_title = NULL,
-                          col_title_wrap = 25,
-                          caption = NULL,
-                          caption_wrap = 80,
-                          font_family = "Helvetica",
-                          font_size_title = NULL,
-                          font_size_body = NULL,
-                          mobile = FALSE) {
+                      col_var,
+                      text_var = NULL,
+                      pal = NULL,
+                      pal_rev = FALSE,
+                      size_point = 1,
+                      size_line = 0.5,
+                      alpha = 1,
+                      borders = NULL,
+                      borders_behind = TRUE,
+                      borders_pal = "#7f7f7f",
+                      borders_size = 0.2,
+                      title = NULL,
+                      title_wrap = 70,
+                      subtitle = NULL,
+                      subtitle_wrap = 80,
+                      col_cuts = NULL,
+                      col_labels_dp = 1,
+                      col_legend_ncol = NULL,
+                      col_legend_nrow = NULL,
+                      col_na = TRUE,
+                      col_method = NULL,
+                      col_title = NULL,
+                      col_title_wrap = 25,
+                      caption = NULL,
+                      caption_wrap = 80,
+                      font_family = "Helvetica",
+                      font_size_title = NULL,
+                      font_size_body = NULL,
+                      mobile = FALSE
+) {
   
   data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
   
+  if (col_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!col_var))
+  }
+
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
@@ -381,6 +390,7 @@ gg_sf_col <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
@@ -403,31 +413,39 @@ gg_sf_col <- function(data,
 #'   borders = nz,
 #'   title = "Trends, 1990-2017")
 gg_sf_facet <- function(data,
-                            facet_var,
-                            text_var = NULL,
-                            size_point = 1,
-                            size_line = 0.5,
-                            alpha = 1,
-                            pal = NULL,
-                            facet_ncol = NULL,
-                            facet_nrow = NULL,
-                            borders = NULL,
-                            borders_behind = TRUE,
-                            borders_pal = "#7f7f7f",
-                            borders_size = 0.2,
-                            title = NULL,
-                            title_wrap = 70,
-                            subtitle = NULL,
-                            subtitle_wrap = 80,
-                            caption = NULL,
-                            caption_wrap = 80,
-                            font_family = "Helvetica",
-                            font_size_title = NULL,
-                            font_size_body = NULL) {
+                        facet_var,
+                        text_var = NULL,
+                        size_point = 1,
+                        size_line = 0.5,
+                        alpha = 1,
+                        pal = NULL,
+                        facet_na = TRUE,
+                        facet_ncol = NULL,
+                        facet_nrow = NULL,
+                        borders = NULL,
+                        borders_behind = TRUE,
+                        borders_pal = "#7f7f7f",
+                        borders_size = 0.2,
+                        title = NULL,
+                        title_wrap = 70,
+                        subtitle = NULL,
+                        subtitle_wrap = 80,
+                        caption = NULL,
+                        caption_wrap = 80,
+                        font_family = "Helvetica",
+                        font_size_title = NULL,
+                        font_size_body = NULL
+                        
+) {
   
   data <- dplyr::ungroup(data)
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
+  
+  if (facet_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!facet_var))
+  }
   
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
@@ -537,11 +555,13 @@ gg_sf_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param caption Caption title string. Defaults to NULL.
@@ -558,41 +578,53 @@ gg_sf_facet <- function(data,
 #'  borders = nz, pal = pal,
 #'  title = "Trends, 1990-2017")
 gg_sf_col_facet <- function(data,
-                                col_var,
-                                facet_var,
-                                text_var = NULL,
-                                pal = NULL,
-                                pal_rev = FALSE,
-                                size_point = 1,
-                                size_line = 0.5,
-                                alpha = 1,
-                                borders = NULL,
-                                borders_behind = TRUE,
-                                borders_pal = "#7f7f7f",
-                                borders_size = 0.2, 
-                                title = NULL,
-                                title_wrap = 70,
-                                subtitle = NULL,
-                                subtitle_wrap = 80,
-                                col_cuts = NULL,
-                                col_labels_dp = 1,
-                                col_method = NULL,
-                                col_legend_ncol = NULL,
-                                col_legend_nrow = NULL,
-                                col_title = NULL,
-                                col_title_wrap = 25,
-                                facet_ncol = NULL,
-                                facet_nrow = NULL,
-                                caption = NULL,
-                                caption_wrap = 80,
-                                font_family = "Helvetica",
-                                font_size_title = NULL,
-                                font_size_body = NULL) {
+                            col_var,
+                            facet_var,
+                            text_var = NULL,
+                            pal = NULL,
+                            pal_rev = FALSE,
+                            size_point = 1,
+                            size_line = 0.5,
+                            alpha = 1,
+                            borders = NULL,
+                            borders_behind = TRUE,
+                            borders_pal = "#7f7f7f",
+                            borders_size = 0.2,
+                            title = NULL,
+                            title_wrap = 70,
+                            subtitle = NULL,
+                            subtitle_wrap = 80,
+                            col_cuts = NULL,
+                            col_labels_dp = 1,
+                            col_method = NULL,
+                            col_legend_ncol = NULL,
+                            col_legend_nrow = NULL,
+                            col_na = TRUE,
+                            col_title = NULL,
+                            col_title_wrap = 25,
+                            facet_na = TRUE,
+                            facet_ncol = NULL,
+                            facet_nrow = NULL,
+                            caption = NULL,
+                            caption_wrap = 80,
+                            font_family = "Helvetica",
+                            font_size_title = NULL,
+                            font_size_body = NULL)
+{
   
   data <- dplyr::ungroup(data)
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
+  
+  if (col_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!col_var))
+  }
+  if (facet_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!facet_var))
+  }
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
@@ -743,6 +775,6 @@ gg_sf_col_facet <- function(data,
     guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     guides(fill = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     facet_wrap(vars(!!facet_var), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow) 
-
+  
   return(plot)
 }

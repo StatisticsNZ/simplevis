@@ -20,6 +20,7 @@ gg_vbar(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = waiver(),
+  x_na = TRUE,
   x_pretty_n = 6,
   x_reorder = FALSE,
   x_rev = FALSE,
@@ -30,6 +31,7 @@ gg_vbar(
   y_balance = FALSE,
   y_expand = NULL,
   y_labels = waiver(),
+  y_na = TRUE,
   y_pretty_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
@@ -75,6 +77,8 @@ gg_vbar(
 
 \item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
+\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_reorder}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.}
@@ -94,6 +98,8 @@ gg_vbar(
 \item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
+
+\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 

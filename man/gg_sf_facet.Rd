@@ -12,6 +12,7 @@ gg_sf_facet(
   size_line = 0.5,
   alpha = 1,
   pal = NULL,
+  facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
   borders = NULL,
@@ -43,6 +44,8 @@ gg_sf_facet(
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+
+\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

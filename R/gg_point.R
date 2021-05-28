@@ -13,6 +13,7 @@
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -23,6 +24,7 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -45,46 +47,58 @@
 #' gg_point(plot_data, carat, price)
 
 gg_point <- function(data,
-                         x_var,
-                         y_var,
-                         text_var = NULL,
-                         size_point = 1,
-                         pal = NULL, 
-                         title = NULL,
-                         title_wrap = 70,
-                         subtitle = NULL,
-                         subtitle_wrap = 80,
-                         x_balance = FALSE,
-                         x_expand = NULL,
-                         x_labels = waiver(),
-                         x_pretty_n = 6,
-                         x_rev = FALSE,
-                         x_title = NULL,
-                         x_title_wrap = 50,
-                         x_trans = "identity",
-                         x_zero = FALSE,
-                         x_zero_line = NULL,
-                         y_balance = FALSE, 
-                         y_expand = NULL,
-                         y_labels = waiver(),
-                         y_pretty_n = 5,
-                         y_title = NULL,
-                         y_title_wrap = 50,
-                         y_trans = "identity",
-                         y_zero = FALSE,
-                         y_zero_line = NULL,
-                         caption = NULL,
-                         caption_wrap = 80,
-                         font_family = "Helvetica",
-                         font_size_title = NULL,
-                         font_size_body = NULL,
-                         mobile = FALSE) {
+                     x_var,
+                     y_var,
+                     text_var = NULL,
+                     size_point = 1,
+                     pal = NULL,
+                     title = NULL,
+                     title_wrap = 70,
+                     subtitle = NULL,
+                     subtitle_wrap = 80,
+                     x_balance = FALSE,
+                     x_expand = NULL,
+                     x_labels = waiver(),
+                     x_pretty_n = 6,
+                     x_na = TRUE,
+                     x_rev = FALSE,
+                     x_title = NULL,
+                     x_title_wrap = 50,
+                     x_trans = "identity",
+                     x_zero = FALSE,
+                     x_zero_line = NULL,
+                     y_balance = FALSE,
+                     y_expand = NULL,
+                     y_labels = waiver(),
+                     y_pretty_n = 5,
+                     y_na = TRUE,
+                     y_title = NULL,
+                     y_title_wrap = 50,
+                     y_trans = "identity",
+                     y_zero = FALSE,
+                     y_zero_line = NULL,
+                     caption = NULL,
+                     caption_wrap = 80,
+                     font_family = "Helvetica",
+                     font_size_title = NULL,
+                     font_size_body = NULL,
+                     mobile = FALSE
+) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   text_var <- rlang::enquo(text_var)
   
+  if (x_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!x_var))
+  }
+  if (y_na == FALSE) {
+    data <- data %>% 
+      dplyr::filter(!is.na(!!y_var))
+  }
+
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
@@ -250,6 +264,7 @@ gg_point <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -260,6 +275,7 @@ gg_point <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -271,6 +287,7 @@ gg_point <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
+#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
@@ -288,51 +305,54 @@ gg_point <- function(data,
 #'
 #' gg_point_col(plot_data, carat, price, color)
 #'
-gg_point_col <-
-  function(data,
-           x_var,
-           y_var,
-           col_var,
-           text_var = NULL,
-           size_point = 1,
-           pal = NULL,
-           pal_rev = FALSE,
-           col_method = NULL,
-           col_cuts = NULL,
-           x_balance = FALSE,
-           x_zero = FALSE,
-           x_zero_line = NULL,
-           x_trans = "identity",
-           x_labels = waiver(),
-           x_pretty_n = 6,
-           x_rev = FALSE,
-           x_expand = NULL,
-           y_balance = FALSE, 
-           y_expand = NULL,
-           y_labels = waiver(),
-           y_pretty_n = 5,
-           y_trans = "identity",
-           y_zero = FALSE,
-           y_zero_line = NULL,
-           title = NULL,
-           subtitle = NULL,
-           x_title = NULL,
-           y_title = NULL,
-           col_title = NULL,
-           caption = NULL,
-           col_legend_ncol = NULL,
-           col_legend_nrow = NULL,
-           col_labels_dp = 1,
-           font_family = "Helvetica",
-           font_size_title = NULL,
-           font_size_body = NULL,
-           title_wrap = 70,
-           subtitle_wrap = 80,
-           x_title_wrap = 50,
-           y_title_wrap = 50,
-           col_title_wrap = 25,
-           caption_wrap = 80,
-           mobile = FALSE) {
+gg_point_col <- function(data,
+                         x_var,
+                         y_var,
+                         col_var,
+                         text_var = NULL,
+                         size_point = 1,
+                         pal = NULL,
+                         pal_rev = FALSE,
+                         x_balance = FALSE,
+                         x_expand = NULL,
+                         x_labels = waiver(),
+                         x_na = TRUE,
+                         x_pretty_n = 6,
+                         x_rev = FALSE,
+                         x_trans = "identity",
+                         x_zero = FALSE,
+                         x_zero_line = NULL,
+                         y_balance = FALSE,
+                         y_expand = NULL,
+                         y_labels = waiver(),
+                         y_na = TRUE,
+                         y_pretty_n = 5,
+                         y_trans = "identity",
+                         y_zero = FALSE,
+                         y_zero_line = NULL,
+                         title = NULL,
+                         subtitle = NULL,
+                         x_title = NULL,
+                         y_title = NULL,
+                         col_title = NULL,
+                         caption = NULL,
+                         col_cuts = NULL,
+                         col_legend_ncol = NULL,
+                         col_legend_nrow = NULL,
+                         col_labels_dp = 1,
+                         col_method = NULL,
+                         col_na = TRUE,
+                         font_family = "Helvetica",
+                         font_size_title = NULL,
+                         font_size_body = NULL,
+                         title_wrap = 70,
+                         subtitle_wrap = 80,
+                         x_title_wrap = 50,
+                         y_title_wrap = 50,
+                         col_title_wrap = 25,
+                         caption_wrap = 80,
+                         mobile = FALSE)
+{
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
@@ -340,6 +360,19 @@ gg_point_col <-
     col_var <- rlang::enquo(col_var)
     text_var <- rlang::enquo(text_var)
     
+    if (x_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!x_var))
+    }
+    if (y_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!y_var))
+    }
+    if (col_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!col_var))
+    }
+
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
     col_var_vctr <- dplyr::pull(data, !!col_var)
@@ -560,6 +593,7 @@ gg_point_col <-
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -570,12 +604,14 @@ gg_point_col <-
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -593,51 +629,67 @@ gg_point_col <-
 #'
 #' gg_point_facet(plot_data, carat, price, color)
 #'
-gg_point_facet <-
-  function(data,
-           x_var,
-           y_var,
-           facet_var,
-           text_var = NULL,
-           size_point = 1,
-           pal = NULL,
-           title = NULL,
-           title_wrap = 70,
-           subtitle = NULL,
-           subtitle_wrap = 80,
-           x_balance = FALSE,
-           x_expand = NULL,
-           x_labels = waiver(),
-           x_pretty_n = 5,
-           x_rev = FALSE,
-           x_title = NULL,
-           x_title_wrap = 50,
-           x_trans = "identity",
-           x_zero = FALSE,
-           x_zero_line = NULL,
-           y_balance = FALSE,
-           y_expand = NULL,
-           y_labels = waiver(),
-           y_pretty_n = 5,
-           y_title = NULL,
-           y_title_wrap = 50,
-           y_trans = "identity",
-           y_zero = FALSE,
-           y_zero_line = NULL,
-           facet_ncol = NULL,
-           facet_nrow = NULL,
-           facet_scales = "fixed",
-           caption = NULL,
-           caption_wrap = 80,
-           font_family = "Helvetica",
-           font_size_title = NULL,
-           font_size_body = NULL) {
+gg_point_facet <- function(data,
+                           x_var,
+                           y_var,
+                           facet_var,
+                           text_var = NULL,
+                           size_point = 1,
+                           pal = NULL,
+                           title = NULL,
+                           title_wrap = 70,
+                           subtitle = NULL,
+                           subtitle_wrap = 80,
+                           x_balance = FALSE,
+                           x_expand = NULL,
+                           x_labels = waiver(),
+                           x_na = TRUE,
+                           x_pretty_n = 5,
+                           x_rev = FALSE,
+                           x_title = NULL,
+                           x_title_wrap = 50,
+                           x_trans = "identity",
+                           x_zero = FALSE,
+                           x_zero_line = NULL,
+                           y_balance = FALSE,
+                           y_expand = NULL,
+                           y_labels = waiver(),
+                           y_na = TRUE,
+                           y_pretty_n = 5,
+                           y_title = NULL,
+                           y_title_wrap = 50,
+                           y_trans = "identity",
+                           y_zero = FALSE,
+                           y_zero_line = NULL,
+                           facet_na = TRUE,
+                           facet_ncol = NULL,
+                           facet_nrow = NULL,
+                           facet_scales = "fixed",
+                           caption = NULL,
+                           caption_wrap = 80,
+                           font_family = "Helvetica",
+                           font_size_title = NULL,
+                           font_size_body = NULL
+) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
     y_var <- rlang::enquo(y_var) #numeric var
     facet_var <- rlang::enquo(facet_var) #categorical var
     text_var <- rlang::enquo(text_var)
+    
+    if (x_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!x_var))
+    }
+    if (y_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!y_var))
+    }
+    if (facet_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!facet_var))
+    }
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -789,6 +841,7 @@ gg_point_facet <-
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
 #' @param x_labels Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -799,6 +852,7 @@ gg_point_facet <-
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand Adjust the vector of range expansion constants used to add some padding on the y scale. 
 #' @param y_labels Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.
+#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -810,8 +864,10 @@ gg_point_facet <-
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
+#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -848,6 +904,7 @@ gg_point_col_facet <-
            x_balance = FALSE,
            x_expand = NULL,
            x_labels = waiver(),
+           x_na = TRUE,
            x_pretty_n = 5,
            x_rev = FALSE,
            x_title = NULL,
@@ -858,6 +915,7 @@ gg_point_col_facet <-
            y_balance = FALSE,
            y_expand = NULL,
            y_labels = waiver(),
+           y_na = TRUE,
            y_pretty_n = 5,
            y_title = NULL,
            y_title_wrap = 50,
@@ -869,8 +927,10 @@ gg_point_col_facet <-
            col_legend_ncol = NULL,
            col_legend_nrow = NULL,
            col_method = NULL,
+           col_na = TRUE,
            col_title = NULL,
            col_title_wrap = 25,
+           facet_na = TRUE,
            facet_ncol = NULL,
            facet_nrow = NULL,
            facet_scales = "fixed",
@@ -878,7 +938,8 @@ gg_point_col_facet <-
            caption_wrap = 80,
            font_family = "Helvetica",
            font_size_title = NULL,
-           font_size_body = NULL) {
+           font_size_body = NULL
+  ) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
@@ -886,6 +947,23 @@ gg_point_col_facet <-
     col_var <- rlang::enquo(col_var)
     facet_var <- rlang::enquo(facet_var) #categorical var
     text_var <- rlang::enquo(text_var)
+    
+    if (x_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!x_var))
+    }
+    if (y_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!y_var))
+    }
+    if (col_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!col_var))
+    }
+    if (facet_na == FALSE) {
+      data <- data %>% 
+        dplyr::filter(!is.na(!!facet_var))
+    }
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
     y_var_vctr <- dplyr::pull(data, !!y_var)

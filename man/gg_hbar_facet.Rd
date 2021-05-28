@@ -21,6 +21,7 @@ gg_hbar_facet(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = waiver(),
+  x_na = TRUE,
   x_pretty_n = 5,
   x_title = NULL,
   x_title_wrap = 50,
@@ -30,12 +31,14 @@ gg_hbar_facet(
   y_balance = FALSE,
   y_expand = NULL,
   y_labels = waiver(),
+  y_na = TRUE,
   y_pretty_n = 6,
   y_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
+  facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
   facet_scales = "fixed",
@@ -79,6 +82,8 @@ gg_hbar_facet(
 
 \item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
 
+\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
@@ -97,6 +102,8 @@ gg_hbar_facet(
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
 
+\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
+
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{y_rev}{For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
@@ -108,6 +115,8 @@ gg_hbar_facet(
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.}
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
+
+\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

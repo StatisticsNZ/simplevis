@@ -27,8 +27,10 @@ gg_sf_col_facet(
   col_method = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_na = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
+  facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
   caption = NULL,
@@ -83,9 +85,13 @@ gg_sf_col_facet(
 
 \item{col_legend_nrow}{The number of rows in the legend.}
 
+\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+
+\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

@@ -1,3 +1,7 @@
+# simplevis 3.6.0
+
+* Added in arguments to filter out NA values.
+
 # simplevis 3.5.8
 
 * For bar, removed the ability to reverse x and y scales for numeric variables. 

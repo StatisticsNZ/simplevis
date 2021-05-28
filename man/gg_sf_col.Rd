@@ -25,6 +25,7 @@ gg_sf_col(
   col_labels_dp = 1,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_na = TRUE,
   col_method = NULL,
   col_title = NULL,
   col_title_wrap = 25,
@@ -76,6 +77,8 @@ gg_sf_col(
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
+
+\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 

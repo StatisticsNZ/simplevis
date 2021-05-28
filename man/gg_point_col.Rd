@@ -13,19 +13,19 @@ gg_point_col(
   size_point = 1,
   pal = NULL,
   pal_rev = FALSE,
-  col_method = NULL,
-  col_cuts = NULL,
   x_balance = FALSE,
-  x_zero = FALSE,
-  x_zero_line = NULL,
-  x_trans = "identity",
+  x_expand = NULL,
   x_labels = waiver(),
+  x_na = TRUE,
   x_pretty_n = 6,
   x_rev = FALSE,
-  x_expand = NULL,
+  x_trans = "identity",
+  x_zero = FALSE,
+  x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = NULL,
   y_labels = waiver(),
+  y_na = TRUE,
   y_pretty_n = 5,
   y_trans = "identity",
   y_zero = FALSE,
@@ -36,9 +36,12 @@ gg_point_col(
   y_title = NULL,
   col_title = NULL,
   caption = NULL,
+  col_cuts = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_labels_dp = 1,
+  col_method = NULL,
+  col_na = TRUE,
   font_family = "Helvetica",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -68,31 +71,31 @@ gg_point_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
-
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
-\item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.}
-
-\item{x_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
-
-\item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
+\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
 
 \item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
+
+\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
-\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
+\item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
+
+\item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.}
+
+\item{x_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
 
 \item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
+
+\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -114,11 +117,17 @@ gg_point_col(
 
 \item{caption}{Caption title string. Defaults to NULL.}
 
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
+
+\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
 \item{font_family}{Font family to use. Defaults to "Helvetica".}
 

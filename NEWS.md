@@ -1,3 +1,7 @@
+# simplevis 3.6.1
+
+* Added support for datetime to gg_line().
+
 # simplevis 3.6.0
 
 * Added in arguments to filter out NA values.

@@ -111,10 +111,6 @@ gg_line <- function(data,
   if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
   if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
 
-  if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
-    stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
-  }
-  
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
       data <- data %>%
@@ -145,8 +141,8 @@ gg_line <- function(data,
     geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1]) +
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
   
-  if (lubridate::is.Date(x_var_vctr) | is.numeric(x_var_vctr)) {
-    
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
@@ -161,16 +157,7 @@ gg_line <- function(data,
     }
   }
   
-  if (lubridate::is.Date(x_var_vctr)) {
-    plot <- plot +
-      scale_x_date(
-        expand = x_expand,
-        breaks = x_breaks,
-        limits = x_limits,
-        labels = x_labels
-      )
-  }
-  else if (is.numeric(x_var_vctr)) {
+  if (is.numeric(x_var_vctr)) {
     plot <- plot +
       scale_x_continuous(expand = x_expand,
                          breaks = x_breaks,
@@ -183,6 +170,24 @@ gg_line <- function(data,
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
+  }
+  else if (lubridate::is.Date(x_var_vctr)) {
+    plot <- plot +
+      scale_x_date(
+        expand = x_expand,
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels
+      )
+  }
+  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    plot <- plot +
+      scale_x_datetime(
+        expand = x_expand,
+        breaks = x_breaks,
+        limits = x_limits,
+        labels = x_labels
+      )
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
@@ -396,10 +401,6 @@ gg_line_col <- function(data,
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
 
-    if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
-      stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
-    }
-    
     if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
     if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
     if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
@@ -691,10 +692,6 @@ gg_line_facet <- function(data,
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
 
-    if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
-      stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
-    }
-    
     if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
     if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
 
@@ -975,10 +972,6 @@ gg_line_col_facet <- function(data,
     if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
 
-    if(lubridate::is.Date(x_var_vctr) & (x_zero == TRUE | x_balance == TRUE | x_trans != "identity")) {
-      stop("x_zero == FALSE, x_balance == FALSE or x_trans other than identity are only allowed when x_var is numeric")
-    }
-    
     if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
     if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
     if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))

@@ -4,14 +4,10 @@
 \alias{theme_boxplot}
 \title{Theme for box ggplots.}
 \usage{
-theme_boxplot(
-  font_family = "Helvetica",
-  font_size_title = 11,
-  font_size_body = 10
-)
+theme_boxplot(font_family = "", font_size_title = 11, font_size_body = 10)
 }
 \arguments{
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

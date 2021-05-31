@@ -1,3 +1,7 @@
+# simplevis 3.6.7 
+
+* Changed themes to default to "".
+
 # simplevis 3.6.6
 
 * Fixed bar scales.

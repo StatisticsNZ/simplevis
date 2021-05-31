@@ -1,3 +1,8 @@
+# simplevis 3.6.8
+
+* Updated boxplot x_var scale.
+* Removed flipping of scales for boxplot on mobile.
+
 # simplevis 3.6.7 
 
 * Changed themes to default to "".

@@ -189,7 +189,7 @@ gg_boxplot <- function(data,
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
@@ -288,7 +288,6 @@ gg_boxplot <- function(data,
   else if (mobile == TRUE){
     plot <- plot +
       theme_mobile_graph() +
-      coord_flip() +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank()) +
       theme(axis.text.x = element_text(hjust = 1)) +  
@@ -543,7 +542,7 @@ gg_boxplot_col <- function(data,
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
@@ -657,7 +656,6 @@ gg_boxplot_col <- function(data,
   else if (mobile == TRUE){
     plot <- plot +
       theme_mobile_graph() +
-      coord_flip() +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank()) +
       theme(axis.text.x = element_text(hjust = 1)) +  
@@ -895,7 +893,7 @@ gg_boxplot_facet <- function(data,
         x_zero_line <- x_zero_list[[2]]
         
         x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-        x_limits <- c(min(x_breaks), max(x_breaks))
+        x_limits <- c(min(x_var_vctr), max(x_var_vctr))
         if(is.null(x_expand)) x_expand <- c(0, 0)
       }
       
@@ -1246,7 +1244,7 @@ gg_boxplot_col_facet <- function(data,
       x_zero_line <- x_zero_list[[2]]
       
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr), max(x_var_vctr))
       if(is.null(x_expand)) x_expand <- c(0, 0)
     }
     

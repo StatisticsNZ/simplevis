@@ -42,7 +42,7 @@ gg_point_col(
   col_labels_dp = 1,
   col_method = NULL,
   col_na = TRUE,
-  font_family = "Helvetica",
+  font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
   title_wrap = 70,
@@ -129,7 +129,7 @@ gg_point_col(
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

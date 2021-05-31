@@ -51,7 +51,7 @@ gg_line_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  font_family = "Helvetica",
+  font_family = "",
   font_size_title = NULL,
   font_size_body = NULL
 )
@@ -149,7 +149,7 @@ gg_line_col_facet(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
-\item{font_family}{Font family to use. Defaults to "Helvetica".}
+\item{font_family}{Font family to use. Defaults to "".}
 
 \item{font_size_title}{Font size for the title text. Defaults to 11.}
 

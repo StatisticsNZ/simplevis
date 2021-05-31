@@ -44,7 +44,7 @@ gg_vbar_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  font_family = "Helvetica",
+  font_family = "",
   font_size_title = NULL,
   font_size_body = NULL
 )

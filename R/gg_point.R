@@ -33,7 +33,7 @@
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
@@ -79,7 +79,7 @@ gg_point <- function(data,
                      y_zero_line = NULL,
                      caption = NULL,
                      caption_wrap = 80,
-                     font_family = "Helvetica",
+                     font_family = "",
                      font_size_title = NULL,
                      font_size_body = NULL,
                      mobile = FALSE
@@ -289,7 +289,7 @@ gg_point <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
@@ -339,7 +339,7 @@ gg_point_col <- function(data,
                          col_labels_dp = 1,
                          col_method = NULL,
                          col_na = TRUE,
-                         font_family = "Helvetica",
+                         font_family = "",
                          font_size_title = NULL,
                          font_size_body = NULL,
                          title_wrap = 70,
@@ -611,7 +611,7 @@ gg_point_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot object.
@@ -661,7 +661,7 @@ gg_point_facet <- function(data,
                            facet_scales = "fixed",
                            caption = NULL,
                            caption_wrap = 80,
-                           font_family = "Helvetica",
+                           font_family = "",
                            font_size_title = NULL,
                            font_size_body = NULL
 ) {
@@ -876,7 +876,7 @@ gg_point_facet <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "Helvetica".
+#' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot object.
@@ -939,7 +939,7 @@ gg_point_col_facet <-
            facet_scales = "fixed",
            caption = NULL,
            caption_wrap = 80,
-           font_family = "Helvetica",
+           font_family = "",
            font_size_title = NULL,
            font_size_body = NULL
   ) {

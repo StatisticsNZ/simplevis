@@ -1,3 +1,7 @@
+# simplevis 3.7.2
+
+* Changed more Helvetica font defaults to "".
+
 # simplevis 3.7.1
 
 * Removed discrete horizontal scale mobile wrapping.

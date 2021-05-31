@@ -106,8 +106,8 @@ gg_line <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
 
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -384,9 +384,9 @@ gg_line_col <- function(data,
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
-  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -669,8 +669,8 @@ gg_line_facet <- function(data,
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -955,9 +955,9 @@ gg_line_col_facet <- function(data,
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
-  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){

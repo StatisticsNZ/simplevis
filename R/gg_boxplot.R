@@ -122,8 +122,8 @@ gg_boxplot <- function(data,
   
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
 
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -448,9 +448,9 @@ gg_boxplot_col <- function(data,
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
-  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -787,8 +787,8 @@ gg_boxplot_facet <- function(data,
     if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
     
-    if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-    if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+    if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+    if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
     
     if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
     if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
@@ -1131,9 +1131,9 @@ gg_boxplot_col_facet <- function(data,
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
-  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){

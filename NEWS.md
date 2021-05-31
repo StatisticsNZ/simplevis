@@ -1,3 +1,7 @@
+# simplevis 3.7.3
+
+* Fixed bugs with default titles.
+
 # simplevis 3.7.2
 
 * Changed more Helvetica font defaults to "".

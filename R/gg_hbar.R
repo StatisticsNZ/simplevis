@@ -109,8 +109,8 @@ gg_hbar <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
 
   if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
     if (y_reorder == TRUE) {
@@ -409,9 +409,9 @@ gg_hbar_col <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
   }
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
-  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
     if (y_rev == FALSE) {
@@ -735,8 +735,8 @@ gg_hbar_facet <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
     if (y_rev == FALSE) {
@@ -1036,9 +1036,9 @@ gg_hbar_col_facet <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
   }
   
-  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
-  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
     if (y_rev == FALSE) {

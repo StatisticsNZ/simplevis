@@ -229,20 +229,8 @@ gg_boxplot <- function(data,
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
-    if (mobile == FALSE){
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
-    }
-    else if (mobile == TRUE){
-      if(is.character(x_labels)) {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
-      }
-      else {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-    }
+    plot <- plot +
+      scale_x_discrete(expand = x_expand, labels = x_labels)
   }
   
   if(is.null(y_expand)) y_expand <- c(0, 0)  
@@ -582,20 +570,8 @@ gg_boxplot_col <- function(data,
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     
-    if (mobile == FALSE){
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
-    }
-    else if (mobile == TRUE){
-      if(is.character(x_labels)) {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x_labels, 20))
-      }
-      else {
-        plot <- plot +
-          scale_x_discrete(expand = x_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-    }
+    plot <- plot +
+      scale_x_discrete(expand = x_expand, labels = x_labels)
   }  
   
   if(is.null(y_expand)) y_expand <- c(0, 0)

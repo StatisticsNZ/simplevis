@@ -202,23 +202,9 @@ gg_hbar <- function(data,
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
     
-    if (mobile == FALSE){
       plot <- plot +
         coord_flip() +
         scale_x_discrete(expand = y_expand, labels = y_labels)
-    }
-    else if (mobile == TRUE){
-      if(is.character(y_labels)) {
-        plot <- plot +
-          coord_flip() +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(y_labels, 20))
-      }
-      else {
-        plot <- plot +
-          coord_flip() +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-    }
   }
 
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -536,23 +522,9 @@ gg_hbar_col <- function(data,
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
     
-    if (mobile == FALSE){
-      plot <- plot +
-        coord_flip() +
-        scale_x_discrete(expand = y_expand, labels = y_labels)
-    }
-    else if (mobile == TRUE){
-      if(is.character(y_labels)) {
-        plot <- plot +
-          coord_flip() +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(y_labels, 20))
-      }
-      else {
-        plot <- plot +
-          coord_flip() +
-          scale_x_discrete(expand = y_expand, labels = function(x) stringr::str_wrap(x, 20))
-      }
-    }
+    plot <- plot +
+      coord_flip() +
+      scale_x_discrete(expand = y_expand, labels = y_labels)
   }
 
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -1261,5 +1233,5 @@ gg_hbar_col_facet <- function(data,
       theme(axis.text.x = element_text(hjust = 0.75))
     
     return(plot)
-  }
+}
 

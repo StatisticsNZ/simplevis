@@ -1,3 +1,7 @@
+# simplevis 3.7.1
+
+* Removed discrete horizontal scale mobile wrapping.
+
 # simplevis 3.7.0
 
 * Updated code to use snakecase::to_sentence_case where possible.

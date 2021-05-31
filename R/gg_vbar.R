@@ -159,9 +159,9 @@ gg_vbar <- function(data,
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0, 0)
-    
+
     if(mobile == TRUE) {
       x_breaks <- x_limits
       if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
@@ -476,7 +476,7 @@ gg_vbar_col <- function(data,
     x_zero_line <- x_zero_list[[2]]
     
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0, 0)
     
     if(mobile == TRUE) {
@@ -789,7 +789,7 @@ gg_vbar_facet <- function(data,
       x_zero_line <- x_zero_list[[2]]
       
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr), max(x_var_vctr))
       if(is.null(x_expand)) x_expand <- c(0, 0)
     }
     
@@ -1119,7 +1119,7 @@ gg_vbar_col_facet <- function(data,
       x_zero_line <- x_zero_list[[2]]
       
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr), max(x_var_vctr))
       if(is.null(x_expand)) x_expand <- c(0, 0)
     }
     

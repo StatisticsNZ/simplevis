@@ -1,3 +1,11 @@
+# simplevis 3.6.6
+
+* Fixed bar scales.
+
+# simplevis 3.6.5
+
+* Reverted bar expand default to c(0, 0).
+
 # simplevis 3.6.4
 
 * Added datetime support to hbar.

@@ -159,9 +159,9 @@ gg_hbar <- function(data,
     y_zero_line <- y_zero_list[[2]]
     
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-    y_limits <- c(min(y_breaks), max(y_breaks))
+    y_limits <- c(min(y_var_vctr), max(y_var_vctr))
     if(is.null(y_expand)) y_expand <- c(0, 0)
-    
+
     if(mobile == TRUE) {
       y_breaks <- y_limits
       if (min(y_limits) < 0 & max(y_limits > 0)) y_breaks <- c(y_limits[1], 0, y_limits[2])
@@ -170,7 +170,7 @@ gg_hbar <- function(data,
   
   if (is.numeric(y_var_vctr)) {
     plot <- plot +      
-      coord_flip(xlim = rev(y_limits)) +
+      coord_flip() +
       scale_x_reverse(expand = y_expand,
                       breaks = rev(y_breaks),
                       labels = y_labels,
@@ -183,7 +183,7 @@ gg_hbar <- function(data,
   }
   else if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = rev(y_limits)) +
+      coord_flip() +
       scale_x_date(
         expand = y_expand,
         breaks = rev(y_breaks),
@@ -192,7 +192,7 @@ gg_hbar <- function(data,
   }
   else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = rev(y_limits)) +
+      coord_flip() +
       scale_x_datetime(
         expand = y_expand,
         breaks = rev(y_breaks),
@@ -493,7 +493,7 @@ gg_hbar_col <- function(data,
     y_zero_line <- y_zero_list[[2]]
     
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-    y_limits <- c(min(y_breaks), max(y_breaks))
+    y_limits <- c(min(y_var_vctr), max(y_var_vctr))
     if(is.null(y_expand)) y_expand <- c(0, 0)
     
     if(mobile == TRUE) {
@@ -504,7 +504,7 @@ gg_hbar_col <- function(data,
   
   if (is.numeric(y_var_vctr)) {
     plot <- plot +      
-      coord_flip(xlim = rev(y_limits)) +
+      coord_flip() +
       scale_x_reverse(expand = y_expand,
                       breaks = rev(y_breaks),
                       labels = y_labels,
@@ -517,7 +517,7 @@ gg_hbar_col <- function(data,
   }
   else if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = rev(y_limits)) +
+      coord_flip() +
       scale_x_date(
         expand = y_expand,
         breaks = rev(y_breaks),
@@ -526,7 +526,7 @@ gg_hbar_col <- function(data,
   }
   else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     plot <- plot +
-      coord_flip(xlim = rev(y_limits)) +
+      coord_flip() +
       scale_x_datetime(
         expand = y_expand,
         breaks = rev(y_breaks),
@@ -802,13 +802,13 @@ gg_hbar_facet <- function(data,
       y_zero_line <- y_zero_list[[2]]
       
       y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-      y_limits <- c(min(y_breaks), max(y_breaks))
+      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
       if(is.null(y_expand)) y_expand <- c(0, 0)
     }
     
     if (is.numeric(y_var_vctr)) {
       plot <- plot +      
-        coord_flip(xlim = rev(y_limits)) +
+        coord_flip() +
         scale_x_reverse(expand = y_expand,
                         breaks = rev(y_breaks),
                         labels = y_labels,
@@ -821,7 +821,7 @@ gg_hbar_facet <- function(data,
     }
     else if (lubridate::is.Date(y_var_vctr)) {
       plot <- plot +
-        coord_flip(xlim = rev(y_limits)) +
+        coord_flip() +
         scale_x_date(
           expand = y_expand,
           breaks = rev(y_breaks),
@@ -830,7 +830,7 @@ gg_hbar_facet <- function(data,
     }
     else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       plot <- plot +
-        coord_flip(xlim = rev(y_limits)) +
+        coord_flip() +
         scale_x_datetime(
           expand = y_expand,
           breaks = rev(y_breaks),
@@ -1139,13 +1139,13 @@ gg_hbar_col_facet <- function(data,
         y_zero_line <- y_zero_list[[2]]
         
         y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-        y_limits <- c(min(y_breaks), max(y_breaks))
+        y_limits <- c(min(y_var_vctr), max(y_var_vctr))
         if(is.null(y_expand)) y_expand <- c(0, 0)
       }
       
       if (is.numeric(y_var_vctr)) {
         plot <- plot +      
-          coord_flip(xlim = rev(y_limits)) +
+          coord_flip() +
           scale_x_reverse(expand = y_expand,
                           breaks = rev(y_breaks),
                           labels = y_labels,
@@ -1158,7 +1158,7 @@ gg_hbar_col_facet <- function(data,
       }
       else if (lubridate::is.Date(y_var_vctr)) {
         plot <- plot +
-          coord_flip(xlim = rev(y_limits)) +
+          coord_flip() +
           scale_x_date(
             expand = y_expand,
             breaks = rev(y_breaks),
@@ -1167,7 +1167,7 @@ gg_hbar_col_facet <- function(data,
       }
       else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
         plot <- plot +
-          coord_flip(xlim = rev(y_limits)) +
+          coord_flip() +
           scale_x_datetime(
             expand = y_expand,
             breaks = rev(y_breaks),

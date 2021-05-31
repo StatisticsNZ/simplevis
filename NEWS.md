@@ -1,3 +1,7 @@
+# simplevis 3.6.9
+
+Removed hbar reversing of breaks, as not required.
+
 # simplevis 3.6.8
 
 * Updated boxplot x_var scale.

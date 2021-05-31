@@ -172,7 +172,7 @@ gg_hbar <- function(data,
     plot <- plot +      
       coord_flip() +
       scale_x_reverse(expand = y_expand,
-                      breaks = rev(y_breaks),
+                      breaks = y_breaks,
                       labels = y_labels,
                       oob = scales::squish)
     
@@ -186,7 +186,7 @@ gg_hbar <- function(data,
       coord_flip() +
       scale_x_date(
         expand = y_expand,
-        breaks = rev(y_breaks),
+        breaks = y_breaks,
         labels = y_labels
       )
   }
@@ -195,7 +195,7 @@ gg_hbar <- function(data,
       coord_flip() +
       scale_x_datetime(
         expand = y_expand,
-        breaks = rev(y_breaks),
+        breaks = y_breaks,
         labels = y_labels
       )
   }
@@ -506,7 +506,7 @@ gg_hbar_col <- function(data,
     plot <- plot +      
       coord_flip() +
       scale_x_reverse(expand = y_expand,
-                      breaks = rev(y_breaks),
+                      breaks = y_breaks,
                       labels = y_labels,
                       oob = scales::squish)
     
@@ -520,7 +520,7 @@ gg_hbar_col <- function(data,
       coord_flip() +
       scale_x_date(
         expand = y_expand,
-        breaks = rev(y_breaks),
+        breaks = y_breaks,
         labels = y_labels
       )
   }
@@ -529,7 +529,7 @@ gg_hbar_col <- function(data,
       coord_flip() +
       scale_x_datetime(
         expand = y_expand,
-        breaks = rev(y_breaks),
+        breaks = y_breaks,
         labels = y_labels
       )
   }
@@ -810,7 +810,7 @@ gg_hbar_facet <- function(data,
       plot <- plot +      
         coord_flip() +
         scale_x_reverse(expand = y_expand,
-                        breaks = rev(y_breaks),
+                        breaks = y_breaks,
                         labels = y_labels,
                         oob = scales::squish)
       
@@ -824,7 +824,7 @@ gg_hbar_facet <- function(data,
         coord_flip() +
         scale_x_date(
           expand = y_expand,
-          breaks = rev(y_breaks),
+          breaks = y_breaks,
           labels = y_labels
         )
     }
@@ -833,7 +833,7 @@ gg_hbar_facet <- function(data,
         coord_flip() +
         scale_x_datetime(
           expand = y_expand,
-          breaks = rev(y_breaks),
+          breaks = y_breaks,
           labels = y_labels
         )
     }
@@ -1147,7 +1147,7 @@ gg_hbar_col_facet <- function(data,
         plot <- plot +      
           coord_flip() +
           scale_x_reverse(expand = y_expand,
-                          breaks = rev(y_breaks),
+                          breaks = y_breaks,
                           labels = y_labels,
                           oob = scales::squish)
         
@@ -1161,7 +1161,7 @@ gg_hbar_col_facet <- function(data,
           coord_flip() +
           scale_x_date(
             expand = y_expand,
-            breaks = rev(y_breaks),
+            breaks = y_breaks,
             labels = y_labels
           )
       }
@@ -1170,7 +1170,7 @@ gg_hbar_col_facet <- function(data,
           coord_flip() +
           scale_x_datetime(
             expand = y_expand,
-            breaks = rev(y_breaks),
+            breaks = y_breaks,
             labels = y_labels
           )
       }

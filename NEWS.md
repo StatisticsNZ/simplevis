@@ -1,6 +1,10 @@
+# simplevis 3.7.0
+
+* Updated code to use snakecase::to_sentence_case where possible.
+
 # simplevis 3.6.9
 
-Removed hbar reversing of breaks, as not required.
+* Removed hbar reversing of breaks, as not required.
 
 # simplevis 3.6.8
 

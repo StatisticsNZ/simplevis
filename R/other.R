@@ -45,7 +45,7 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
           sf::st_drop_geometry()
       
       temp <- paste0(
-        stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
+        snakecase::to_sentence_case(colnames(temp)),
         ": ", 
         format(dplyr::pull(temp, 1), big.mark = ","))
       
@@ -62,7 +62,7 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
           sf::st_drop_geometry()
       
       temp <- paste0(
-        stringr::str_to_sentence(stringr::str_replace_all(colnames(temp), "_", " ")),
+        snakecase::to_sentence_case(colnames(temp)),
         ": ", 
         dplyr::pull(temp, 1))
       

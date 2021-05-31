@@ -223,7 +223,7 @@ gg_sf_col <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
-  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
@@ -633,7 +633,7 @@ gg_sf_col_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
-  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)

@@ -109,8 +109,8 @@ gg_vbar <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
     if (x_reorder == TRUE) {
@@ -415,9 +415,9 @@ gg_vbar_col <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
   }
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
     if (x_rev == TRUE) {
@@ -750,8 +750,8 @@ gg_vbar_facet <- function(data,
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
     if (x_rev == TRUE) {
@@ -1047,9 +1047,9 @@ gg_vbar_col_facet <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
   } 
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
     if (x_rev == TRUE) {

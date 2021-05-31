@@ -104,8 +104,8 @@ gg_point <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
@@ -388,9 +388,9 @@ gg_point_col <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-  if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -716,8 +716,8 @@ gg_point_facet <- function(data,
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
   
-  if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-  if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
+  if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
   
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
@@ -1000,9 +1000,9 @@ gg_point_col_facet <-
     if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a point plot")
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
-    if (is.null(x_title)) x_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(x_var)), "_", " "))
-    if (is.null(y_title)) y_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(y_var)), "_", " "))
-    if (is.null(col_title)) col_title <- stringr::str_to_sentence(stringr::str_replace_all(janitor::make_clean_names(rlang::as_name(col_var)), "_", " "))
+    if (is.null(x_title)) snakecase::to_sentence_case(rlang::as_name(x_var))
+    if (is.null(y_title)) snakecase::to_sentence_case(rlang::as_name(y_var))
+    if (is.null(col_title)) snakecase::to_sentence_case(rlang::as_name(col_var))
     
     if (x_rev == TRUE) {
       if (is.factor(x_var_vctr)){

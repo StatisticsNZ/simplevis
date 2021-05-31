@@ -13,6 +13,6 @@ sv_colnames_to_present(data)
 A numeric value.
 }
 \description{
-Convert colnames to snakecase and then to sentence case to present colnames visually.
+Convert colnames to sentence case.
 }
 \keyword{internal}

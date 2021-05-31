@@ -67,15 +67,13 @@ sv_numeric_breaks_h <- function(var_vctr,
 }
 
 #' @title Convert column names to snake case and then to sentence case.
-#' @description Convert colnames to snakecase and then to sentence case to present colnames visually.
+#' @description Convert colnames to sentence case.
 #' @param data The number of digits to round the legend labels.
 #' @return A numeric value.
 #' @keywords internal
 sv_colnames_to_present <- function(data) {
   
-  data <- janitor::clean_names(data) 
-  
-  colnames(data) <-  stringr::str_replace_all(stringr::str_to_sentence(colnames(data)), "_", " ")
+  colnames(data) <- snakecase::to_sentence_case(colnames(data))
   
   return(data)
 }

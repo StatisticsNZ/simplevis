@@ -561,6 +561,8 @@ gg_hbar_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -1212,6 +1214,7 @@ gg_hbar_col_facet <- function(data,
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
+    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
     if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
     
     plot <- plot +

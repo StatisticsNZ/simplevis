@@ -60,7 +60,7 @@ theme_boxplot <-
           family = font_family,
           colour = "#323232",
           size = font_size_body,
-          hjust = 0.475
+          hjust = 0.5
         ),
         axis.title.x = element_text(
           family = font_family,
@@ -171,7 +171,7 @@ theme_hbar <-
           family = font_family,
           colour = "#323232",
           size = font_size_body,
-          hjust = 0.425
+          hjust = 0.5
         ),
         axis.title.x = element_text(
           family = font_family,

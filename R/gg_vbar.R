@@ -43,12 +43,14 @@
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   group_by(year) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) 
-#'
-#' gg_vbar(plot_data, year, average_wind)
+#' plot_data <- penguins %>% 
+#'   group_by(species) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_vbar(plot_data, species, body_mass_g)
 gg_vbar <- function(data,
                     x_var,
                     y_var,
@@ -314,14 +316,14 @@ gg_vbar <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   mutate(status = stringr::str_to_sentence(status)) %>%
-#'   group_by(year, status) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) 
-#'
-#' gg_vbar_col(plot_data, year, average_wind, status)
-#'
+#' plot_data <- penguins %>% 
+#'   group_by(species, sex) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_vbar_col(plot_data, species, body_mass_g, sex)
 gg_vbar_col <- function(data,
                         x_var,
                         y_var,
@@ -550,6 +552,8 @@ gg_vbar_col <- function(data,
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
+  
+  if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
   
   plot <- plot +
     scale_fill_manual(
@@ -1201,6 +1205,7 @@ gg_vbar_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
   if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
 
   plot <- plot +
@@ -1220,7 +1225,7 @@ gg_vbar_col_facet <- function(data,
     col = guide_legend(
       ncol = 1,
       byrow = TRUE,
-        title = stringr::str_wrap(col_title, 15)
+      title = stringr::str_wrap(col_title, 15)
       ))  
     
     return(plot)

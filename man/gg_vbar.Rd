@@ -133,10 +133,12 @@ Vertical bar ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- storms \%>\%
-  group_by(year) \%>\%
-  summarise(average_wind = round(mean(wind), 2)) 
+plot_data <- penguins \%>\% 
+  group_by(species) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_vbar(plot_data, year, average_wind)
+gg_vbar(plot_data, species, body_mass_g)
 }

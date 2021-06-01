@@ -120,9 +120,7 @@ A ggplot object.
 Map of simple features in ggplot that is coloured and facetted.
 }
 \examples{
- pal <- c("#4575B4", "#D3D3D3", "#D73027")
-
-gg_sf_col_facet(data = example_sf_point, col_var = trend_category, facet_var = trend_category,
- borders = nz, pal = pal,
- title = "Trends, 1990-2017")
+gg_sf_col_facet(example_sf_point, trend_category, trend_category,
+ borders = nz, pal = c("#4575B4", "#D3D3D3", "#D73027"))
+ 
 }

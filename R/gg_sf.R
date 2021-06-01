@@ -23,7 +23,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf(data = example_sf_point, borders = nz)
+#' gg_sf(example_sf_point, borders = nz)
 gg_sf <- function(data,
                   text_var = NULL,
                   size_point = 1,
@@ -165,19 +165,14 @@ gg_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf_col(data = example_sf_polygon, col_var = density, borders = nz,
-#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf), col_labels_dp = 0,
-#'      title = "Density, 2017")
+#' gg_sf_col(example_sf_point, trend_category, 
+#'           borders = nz, pal = c("#4575B4", "#D3D3D3", "#D73027"))
+#'    
+#' gg_sf_col(example_sf_polygon, density, 
+#'      borders = nz, col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
 #'
-#' gg_sf_col(data = example_sf_polygon, col_var = density, borders = nz,
-#'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
-#'      title = "Density, 2017")
-#'
-#'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
-#'
-#' gg_sf_col(data = example_sf_point, col_var = trend_category, borders = nz, 
-#'    pal = pal, col_method = "category",
-#'    title = "Monitored trends, 2008-17")
+#' gg_sf_col(example_sf_polygon, density, borders = nz,
+#'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
 gg_sf_col <- function(data,
                       col_var,
                       text_var = NULL,
@@ -410,9 +405,7 @@ gg_sf_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf_facet(data = example_sf_point, facet_var = trend_category, 
-#'   borders = nz,
-#'   title = "Trends, 1990-2017")
+#' gg_sf_facet(example_sf_point, trend_category, borders = nz)
 gg_sf_facet <- function(data,
                         facet_var,
                         text_var = NULL,
@@ -578,11 +571,9 @@ gg_sf_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#'  pal <- c("#4575B4", "#D3D3D3", "#D73027")
-#'
-#' gg_sf_col_facet(data = example_sf_point, col_var = trend_category, facet_var = trend_category,
-#'  borders = nz, pal = pal,
-#'  title = "Trends, 1990-2017")
+#' gg_sf_col_facet(example_sf_point, trend_category, trend_category,
+#'  borders = nz, pal = c("#4575B4", "#D3D3D3", "#D73027"))
+#'  
 gg_sf_col_facet <- function(data,
                             col_var,
                             facet_var,

@@ -61,7 +61,7 @@ gg_point(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
 
-\item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 

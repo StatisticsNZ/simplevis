@@ -39,6 +39,7 @@ gg_boxplot_facet(
   y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
+  facet_labels = NULL,
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -75,7 +76,7 @@ gg_boxplot_facet(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
-\item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
@@ -118,6 +119,8 @@ gg_boxplot_facet(
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
+
+\item{facet_labels}{As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.}
 
 \item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 

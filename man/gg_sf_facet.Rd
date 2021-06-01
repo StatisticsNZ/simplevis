@@ -12,6 +12,7 @@ gg_sf_facet(
   size_line = 0.5,
   alpha = 1,
   pal = NULL,
+  facet_labels = NULL,
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -45,6 +46,8 @@ gg_sf_facet(
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
 
+\item{facet_labels}{As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.}
+
 \item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
@@ -63,7 +66,7 @@ gg_sf_facet(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
-\item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 

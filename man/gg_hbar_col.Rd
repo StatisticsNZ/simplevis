@@ -83,7 +83,7 @@ gg_hbar_col(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 65.}
 
-\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
@@ -129,7 +129,7 @@ gg_hbar_col(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_labels}{Adjust the  colour scale labels through a vector.}
+\item{col_labels}{A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case.}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 

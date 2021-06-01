@@ -48,6 +48,7 @@ gg_hbar_col_facet(
   col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
+  facet_labels = NULL,
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -88,7 +89,7 @@ gg_hbar_col_facet(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 65.}
 
-\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
@@ -132,7 +133,7 @@ gg_hbar_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_labels}{Adjust the  colour scale labels through a vector.}
+\item{col_labels}{A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case.}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 
@@ -145,6 +146,8 @@ gg_hbar_col_facet(
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+
+\item{facet_labels}{As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.}
 
 \item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 

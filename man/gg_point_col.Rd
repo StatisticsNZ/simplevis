@@ -108,7 +108,7 @@ gg_point_col(
 
 \item{title}{Title string. Defaults to NULL.}
 
-\item{subtitle}{Subtitle string. Defaults to "[Subtitle]".}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -120,7 +120,7 @@ gg_point_col(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or vector as per the ggplot2 labels argument in ggplot2 scales. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function.}
+\item{col_labels}{A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function.}
 
 \item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 

@@ -67,7 +67,7 @@ gg_hbar(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 65.}
 
-\item{subtitle}{Subtitle string. Defaults to [Subtitle].}
+\item{subtitle}{Subtitle string. Defaults to "".}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 

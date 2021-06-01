@@ -12,7 +12,7 @@
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. Defaults to NULL.
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
@@ -145,10 +145,10 @@ gg_sf <- function(data,
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function.   
+#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function.   
 #' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
@@ -390,6 +390,7 @@ gg_sf_col <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects a default palette.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -398,7 +399,7 @@ gg_sf_col <- function(data,
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param caption Caption title string. Defaults to NULL.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
@@ -419,6 +420,7 @@ gg_sf_facet <- function(data,
                         size_line = 0.5,
                         alpha = 1,
                         pal = NULL,
+                        facet_labels = NULL,
                         facet_na = TRUE,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
@@ -523,14 +525,16 @@ gg_sf_facet <- function(data,
     }
   }
   
+  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, 50)
     ) +
-    facet_wrap(vars(!!facet_var), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
-  
+    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
+
   return(plot)
 }
 
@@ -551,10 +555,11 @@ gg_sf_facet <- function(data,
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function.   
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.
+#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function.   
 #' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
@@ -604,6 +609,7 @@ gg_sf_col_facet <- function(data,
                             col_na = TRUE,
                             col_title = NULL,
                             col_title_wrap = 25,
+                            facet_labels = NULL,
                             facet_na = TRUE,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
@@ -766,6 +772,8 @@ gg_sf_col_facet <- function(data,
     }
   }
   
+  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -774,7 +782,8 @@ gg_sf_col_facet <- function(data,
     ) +
     guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     guides(fill = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
-    facet_wrap(vars(!!facet_var), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow) 
+    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
+  
   
   return(plot)
 }

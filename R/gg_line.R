@@ -9,7 +9,7 @@
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
@@ -264,7 +264,7 @@ gg_line <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
@@ -286,7 +286,7 @@ gg_line <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_labels Adjust the  colour scale labels through a vector.
+#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case.  
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
@@ -561,7 +561,7 @@ gg_line_col <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
@@ -583,6 +583,7 @@ gg_line_col <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -636,6 +637,7 @@ gg_line_facet <- function(data,
                           y_trans = "identity",
                           y_zero = FALSE,
                           y_zero_line = NULL,
+                          facet_labels = NULL,
                           facet_na = TRUE,
                           facet_ncol = NULL,
                           facet_nrow = NULL,
@@ -798,6 +800,8 @@ gg_line_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -806,8 +810,8 @@ gg_line_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) 
-  
+    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
+
   return(plot)
 }
 
@@ -825,7 +829,7 @@ gg_line_facet <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "[Subtitle]".
+#' @param subtitle Subtitle string. Defaults to "".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand Adjust the vector of range expansion constants used to add some padding on the x scale. 
@@ -847,12 +851,13 @@ gg_line_facet <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_labels Adjust the  colour scale labels through a vector.
+#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case.  
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots.  
 #' @param facet_nrow The number of rows of facetted plots.  
@@ -914,6 +919,7 @@ gg_line_col_facet <- function(data,
                               col_na = TRUE,
                               col_title = NULL,
                               col_title_wrap = 25,
+                              facet_labels = NULL,
                               facet_na = TRUE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
@@ -1095,6 +1101,8 @@ gg_line_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  
   plot <- plot +
     scale_color_manual(
       values = pal,
@@ -1109,7 +1117,7 @@ gg_line_col_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-      facet_wrap(vars(!!facet_var), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
+      facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
       guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) 
 
     return(plot)

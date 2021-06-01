@@ -1,3 +1,7 @@
+# simplevis 3.7.8
+
+* Added facet_labels argument. 
+
 # simplevis 3.7.7
 
 * Updated leaflet_sf_col col_label_dp defaults.

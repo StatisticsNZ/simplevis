@@ -32,7 +32,7 @@ leaflet_sf_col(
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
-\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+\item{pal}{Character vector of hex codes.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
@@ -44,11 +44,11 @@ leaflet_sf_col(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{title}{A title string that will be wrapped into the legend. Defaults to NULL.}
+\item{title}{A title string that will be wrapped into the legend.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
+\item{col_labels_dp}{For numeric colour variables, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
 

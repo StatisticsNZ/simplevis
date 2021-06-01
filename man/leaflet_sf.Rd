@@ -22,7 +22,7 @@ leaflet_sf(
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
-\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+\item{pal}{Character vector of hex codes.}
 
 \item{size_point}{Size of points (i.e. radius). Defaults to 2.}
 
@@ -32,7 +32,7 @@ leaflet_sf(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{title}{A title string that will be wrapped into the legend. Defaults to NULL.}
+\item{title}{A title string that will be wrapped into the legend.}
 
 \item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 

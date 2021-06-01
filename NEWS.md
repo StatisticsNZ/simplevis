@@ -1,3 +1,7 @@
+# simplevis 3.8.0
+
+* Updated help. 
+
 # simplevis 3.7.9
 
 * Updated help. 

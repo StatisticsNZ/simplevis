@@ -84,7 +84,7 @@ gg_point <- function(data,
                      font_size_body = NULL,
                      mobile = FALSE
 ) {
-  
+
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var

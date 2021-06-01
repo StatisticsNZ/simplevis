@@ -1,3 +1,11 @@
+# simplevis 3.7.5
+
+* Added new col_labels code for gg_point family.
+
+# simplevis 3.7.4
+
+* Added default sentence case x and y labels for categorical variables.
+
 # simplevis 3.7.3
 
 * Fixed bugs with default titles.

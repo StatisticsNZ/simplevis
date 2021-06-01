@@ -306,7 +306,7 @@ leaflet_sf_col <- function(data,
       right = FALSE,
       na.color = "#A8A8A8"
     )
-    col_labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
+    col_labels <-  sv_numeric_bin_labels(col_cuts,  col_labels_dp)
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -330,7 +330,7 @@ leaflet_sf_col <- function(data,
       na.color = "#A8A8A8"
     )
     
-    col_labels <-  sv_labels_from_cuts(col_cuts,  col_labels_dp)
+    col_labels <-  sv_numeric_bin_labels(col_cuts,  col_labels_dp)
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))

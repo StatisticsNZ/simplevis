@@ -81,16 +81,16 @@ sv_colnames_to_present <- function(data) {
 #' @title Numeric legend labels.
 #' @description Pretty numeric legend labels.
 #' @param cuts_vctr A numeric vector of bin cuts from which to create a vector of legend labels.
-#' @param col_labels_dp The number of digits to round the legend labels.
+#' @param labels_dp The number of digits to round the legend labels.
 #' @return A vector of labels.
 #' @keywords internal
-sv_labels_from_cuts <- function(cuts_vctr, col_labels_dp = 1) {
+sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = 1) {
   
   labels <- vector("character", 0)
   cuts_vctr_no <- length(cuts_vctr)
   cuts_vctr <-
-    sprintf(paste0("%.", col_labels_dp, "f"),
-            round(cuts_vctr, col_labels_dp))
+    sprintf(paste0("%.", labels_dp, "f"),
+            round(cuts_vctr, labels_dp))
   
   if (cuts_vctr_no == 2) {
     labels <- c("Feature")
@@ -108,6 +108,23 @@ sv_labels_from_cuts <- function(cuts_vctr, col_labels_dp = 1) {
         labels,
         paste0("\u2265", cuts_vctr[length(cuts_vctr) - 1]))
   }
+}
+
+
+#' Identify the maximum decimal places in a numeric vector. 
+#'
+#' @param vctr A numeric vector. 
+#'
+#' @return a numeric value.
+#' @keywords internal
+sv_max_dp <- function(vctr) {
+  if (length(vctr) == 0) return(numeric())
+  vctr_nchr <- vctr %>% abs() %>% as.character() %>% nchar() %>% as.numeric()
+  vctr_int <- floor(vctr) %>% abs() %>% nchar()
+  vctr_nchr <- vctr_nchr - 1 - vctr_int
+  vctr_nchr[vctr_nchr < 0] <- 0
+  vctr_nchr <- max(vctr_nchr, na.rm = TRUE)
+  return(vctr_nchr)
 }
 
 #' Get default font_size_title

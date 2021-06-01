@@ -73,7 +73,7 @@ gg_hbar <- function(data,
                     x_zero_line = NULL,
                     y_balance = FALSE,
                     y_expand = NULL,
-                    y_labels = waiver(),
+                    y_labels = NULL,
                     y_na = TRUE,
                     y_pretty_n = 6,
                     y_reorder = FALSE,
@@ -161,6 +161,7 @@ gg_hbar <- function(data,
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
     y_limits <- c(min(y_var_vctr), max(y_var_vctr))
     if(is.null(y_expand)) y_expand <- c(0, 0)
+    if(is.null(y_labels)) y_labels <- waiver()
 
     if(mobile == TRUE) {
       y_breaks <- y_limits
@@ -201,6 +202,7 @@ gg_hbar <- function(data,
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
+    if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
     
       plot <- plot +
         coord_flip() +
@@ -352,7 +354,7 @@ gg_hbar_col <- function(data,
                         x_zero_line = NULL,
                         y_balance = FALSE,
                         y_expand = NULL,
-                        y_labels = waiver(),
+                        y_labels = NULL,
                         y_na = TRUE,
                         y_pretty_n = 6,
                         y_reorder = FALSE,
@@ -481,6 +483,7 @@ gg_hbar_col <- function(data,
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
     y_limits <- c(min(y_var_vctr), max(y_var_vctr))
     if(is.null(y_expand)) y_expand <- c(0, 0)
+    if(is.null(y_labels)) y_labels <- waiver()
     
     if(mobile == TRUE) {
       y_breaks <- y_limits
@@ -521,6 +524,7 @@ gg_hbar_col <- function(data,
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
+    if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
     
     plot <- plot +
       coord_flip() +
@@ -690,7 +694,7 @@ gg_hbar_facet <- function(data,
                           x_zero_line = NULL,
                           y_balance = FALSE,
                           y_expand = NULL,
-                          y_labels = waiver(),
+                          y_labels = NULL,
                           y_na = TRUE,
                           y_pretty_n = 6,
                           y_rev = FALSE,
@@ -776,6 +780,7 @@ gg_hbar_facet <- function(data,
       y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
       y_limits <- c(min(y_var_vctr), max(y_var_vctr))
       if(is.null(y_expand)) y_expand <- c(0, 0)
+      if(is.null(y_labels)) y_labels <- waiver()
     }
     
     if (is.numeric(y_var_vctr)) {
@@ -811,6 +816,7 @@ gg_hbar_facet <- function(data,
     }
     else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
       if(is.null(y_expand)) y_expand <- waiver()
+      if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
       
       plot <- plot +
         coord_flip() +
@@ -970,7 +976,7 @@ gg_hbar_col_facet <- function(data,
                               x_zero_line = NULL,
                               y_balance = FALSE,
                               y_expand = NULL,
-                              y_labels = waiver(),
+                              y_labels = NULL,
                               y_na = TRUE,
                               y_pretty_n = 6,
                               y_rev = FALSE,
@@ -1113,6 +1119,7 @@ gg_hbar_col_facet <- function(data,
         y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
         y_limits <- c(min(y_var_vctr), max(y_var_vctr))
         if(is.null(y_expand)) y_expand <- c(0, 0)
+        if(is.null(y_labels)) y_labels <- waiver()
       }
       
       if (is.numeric(y_var_vctr)) {
@@ -1148,6 +1155,7 @@ gg_hbar_col_facet <- function(data,
       }
       else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
         if(is.null(y_expand)) y_expand <- waiver()
+        if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
         
         plot <- plot +
           coord_flip() +

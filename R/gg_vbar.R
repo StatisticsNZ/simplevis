@@ -63,7 +63,7 @@ gg_vbar <- function(data,
                     subtitle_wrap = 80,
                     x_balance = FALSE,
                     x_expand = NULL,
-                    x_labels = waiver(),
+                    x_labels = NULL,
                     x_na = TRUE,
                     x_pretty_n = 6,
                     x_reorder = FALSE,
@@ -161,6 +161,7 @@ gg_vbar <- function(data,
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(x_labels)) x_labels <- waiver()
 
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -198,6 +199,7 @@ gg_vbar <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -337,7 +339,7 @@ gg_vbar_col <- function(data,
                         subtitle_wrap = 80,
                         x_balance = FALSE,
                         x_expand = NULL,
-                        x_labels = waiver(),
+                        x_labels = NULL,
                         x_na = TRUE,
                         x_pretty_n = 6,
                         x_rev = FALSE,
@@ -466,6 +468,7 @@ gg_vbar_col <- function(data,
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_var_vctr), max(x_var_vctr))
     if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(x_labels)) x_labels <- waiver()
     
     if(mobile == TRUE) {
       x_breaks <- x_limits
@@ -503,6 +506,7 @@ gg_vbar_col <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -671,7 +675,7 @@ gg_vbar_facet <- function(data,
                           subtitle_wrap = 80,
                           x_balance = FALSE,
                           x_expand = NULL,
-                          x_labels = waiver(),
+                          x_labels = NULL,
                           x_na = TRUE,
                           x_pretty_n = 6,
                           x_rev = FALSE,
@@ -767,6 +771,7 @@ gg_vbar_facet <- function(data,
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_var_vctr), max(x_var_vctr))
       if(is.null(x_expand)) x_expand <- c(0, 0)
+      if(is.null(x_labels)) x_labels <- waiver()
     }
     
     if (is.numeric(x_var_vctr)) {
@@ -799,6 +804,7 @@ gg_vbar_facet <- function(data,
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
+      if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -947,7 +953,7 @@ gg_vbar_col_facet <- function(data,
                               subtitle_wrap = 80,
                               x_balance = FALSE,
                               x_expand = NULL,
-                              x_labels = waiver(),
+                              x_labels = NULL,
                               x_na = TRUE,
                               x_pretty_n = 6,
                               x_rev = FALSE,
@@ -1097,6 +1103,7 @@ gg_vbar_col_facet <- function(data,
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_var_vctr), max(x_var_vctr))
       if(is.null(x_expand)) x_expand <- c(0, 0)
+      if(is.null(x_labels)) x_labels <- waiver()
     }
     
     if (is.numeric(x_var_vctr)) {
@@ -1129,6 +1136,7 @@ gg_vbar_col_facet <- function(data,
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
+      if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)

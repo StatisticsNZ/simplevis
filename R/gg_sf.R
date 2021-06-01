@@ -268,7 +268,7 @@ gg_sf_col <- function(data,
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     }
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -280,7 +280,7 @@ gg_sf_col <- function(data,
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     }
     n_col <- length(col_cuts) - 1
     if (is.null(pal)) pal <- sv_pal(n_col)
@@ -678,7 +678,7 @@ gg_sf_col_facet <- function(data,
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     }
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -690,7 +690,7 @@ gg_sf_col_facet <- function(data,
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
       
-      col_labels <- sv_labels_from_cuts(col_cuts, col_labels_dp)
+      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     }
     n_col <- length(col_cuts) - 1
     if (is.null(pal)) pal <- sv_pal(n_col)

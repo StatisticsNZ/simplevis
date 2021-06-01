@@ -22,7 +22,7 @@ gg_boxplot_col_facet(
   subtitle = NULL,
   subtitle_wrap = 80,
   x_balance = FALSE,
-  x_labels = waiver(),
+  x_labels = NULL,
   x_na = TRUE,
   x_pretty_n = 6,
   x_expand = NULL,

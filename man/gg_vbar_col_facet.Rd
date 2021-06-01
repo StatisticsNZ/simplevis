@@ -23,7 +23,7 @@ gg_vbar_col_facet(
   subtitle_wrap = 80,
   x_balance = FALSE,
   x_expand = NULL,
-  x_labels = waiver(),
+  x_labels = NULL,
   x_na = TRUE,
   x_pretty_n = 6,
   x_rev = FALSE,

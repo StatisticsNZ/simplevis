@@ -32,7 +32,7 @@ gg_hbar_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = NULL,
-  y_labels = waiver(),
+  y_labels = NULL,
   y_na = TRUE,
   y_pretty_n = 6,
   y_reorder = FALSE,

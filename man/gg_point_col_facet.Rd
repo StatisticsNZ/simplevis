@@ -20,7 +20,7 @@ gg_point_col_facet(
   subtitle_wrap = 80,
   x_balance = FALSE,
   x_expand = NULL,
-  x_labels = waiver(),
+  x_labels = NULL,
   x_na = TRUE,
   x_pretty_n = 5,
   x_rev = FALSE,
@@ -40,7 +40,8 @@ gg_point_col_facet(
   y_zero = FALSE,
   y_zero_line = NULL,
   col_cuts = NULL,
-  col_labels_dp = 1,
+  col_labels = NULL,
+  col_labels_dp = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_method = NULL,
@@ -129,7 +130,9 @@ gg_point_col_facet(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_labels}{A function to apply to modify the col_labels. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function with col_labels_dp decimal places.}
+
+\item{col_labels_dp}{The number of decimal places for NULL numeric variable default labels. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 

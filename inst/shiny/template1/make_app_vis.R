@@ -31,14 +31,14 @@ x_title <- "Average price ($US thousands)"
 y_title <- "Cut"
 
 plot <- gg_hbar_col(data = plot_data, 
-                        x_var = average_price_thousands, 
-                        y_var = cut, 
-                        col_var = clarity, 
-                        text_var = text,
-                        col_ncol = 4,
-                        title = title, 
-                        x_title = x_title, 
-                        y_title = y_title)
+                    x_var = average_price_thousands, 
+                    y_var = cut, 
+                    col_var = clarity, 
+                    text_var = text,
+                    col_ncol = 4,
+                    title = title, 
+                    x_title = x_title, 
+                    y_title = y_title)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

@@ -66,18 +66,6 @@ sv_numeric_breaks_h <- function(var_vctr,
   return(breaks)
 }
 
-#' @title Convert column names to snake case and then to sentence case.
-#' @description Convert colnames to sentence case.
-#' @param data The number of digits to round the legend labels.
-#' @return A numeric value.
-#' @keywords internal
-sv_colnames_to_present <- function(data) {
-  
-  colnames(data) <- snakecase::to_sentence_case(colnames(data))
-  
-  return(data)
-}
-
 #' @title Numeric legend labels.
 #' @description Pretty numeric legend labels.
 #' @param cuts_vctr A numeric vector of bin cuts from which to create a vector of legend labels.

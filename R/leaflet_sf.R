@@ -56,13 +56,13 @@ leaflet_sf <- function(data,
   if(is.null(popup_vars_vctr)){
     popup_data <- data %>% 
       sf::st_drop_geometry() %>% 
-      sv_colnames_to_present()
+      rlang::set_names(~snakecase::to_sentence_case(.))
   }
   else {
     popup_data <- data %>% 
       dplyr::select(popup_vars_vctr) %>% 
       sf::st_drop_geometry() %>% 
-      sv_colnames_to_present()
+      rlang::set_names(~snakecase::to_sentence_case(.))
   }
   
   popup <- leafpop::popupTable(popup_data, row.numbers = FALSE, feature.id = FALSE)
@@ -208,7 +208,7 @@ leaflet_sf <- function(data,
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. Defaults to NULL. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
@@ -239,7 +239,7 @@ leaflet_sf_col <- function(data,
                            basemap = "light",
                            title = NULL,
                            col_cuts = NULL,
-                           col_labels_dp = 1,
+                           col_labels_dp = NULL,
                            col_method = NULL,
                            col_na = TRUE,
                            map_id = "map"
@@ -261,7 +261,7 @@ leaflet_sf_col <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-
+  
   col_var_vctr <- dplyr::pull(data, !!col_var)
   text_var_vctr <- dplyr::pull(data, !!text_var)
   
@@ -273,7 +273,7 @@ leaflet_sf_col <- function(data,
   if (col_method == "category") {
     if (is.factor(col_var_vctr)) col_labels <- levels(col_var_vctr)
     else if (is.character(col_var_vctr)) col_labels <- sort(unique(col_var_vctr))
-
+    
     n_col <- length(col_labels)
     
     if (is.null(pal)) pal <- sv_pal(n_col)
@@ -306,7 +306,9 @@ leaflet_sf_col <- function(data,
       right = FALSE,
       na.color = "#A8A8A8"
     )
-    col_labels <-  sv_numeric_bin_labels(col_cuts,  col_labels_dp)
+    
+    if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
+    col_labels <-  sv_numeric_bin_labels(col_cuts, col_labels_dp)
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -330,7 +332,8 @@ leaflet_sf_col <- function(data,
       na.color = "#A8A8A8"
     )
     
-    col_labels <-  sv_numeric_bin_labels(col_cuts,  col_labels_dp)
+    if(is.null(col_labels_dp)) col_labels_dp <- 1
+    col_labels <-  sv_numeric_bin_labels(col_cuts, col_labels_dp)
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))
@@ -350,13 +353,13 @@ leaflet_sf_col <- function(data,
   if(is.null(popup_vars_vctr)){
     popup_data <- data %>% 
       sf::st_drop_geometry() %>% 
-      sv_colnames_to_present()
+      rlang::set_names(~snakecase::to_sentence_case(.))
   }
   else {
     popup_data <- data %>% 
       dplyr::select(popup_vars_vctr) %>% 
       sf::st_drop_geometry() %>% 
-      sv_colnames_to_present()
+      rlang::set_names(~snakecase::to_sentence_case(.))
   }
   
   popup <- leafpop::popupTable(popup_data, row.numbers = FALSE, feature.id = FALSE)

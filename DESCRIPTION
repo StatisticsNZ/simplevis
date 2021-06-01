@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Make 'ggplot2' and 'leaflet' Visualisation Easier
-Version: 3.7.6
+Version: 3.7.7
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 

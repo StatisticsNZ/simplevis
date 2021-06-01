@@ -116,10 +116,12 @@ shinyServer(function(input, output, session) {
   
   table_data <- reactive({    # create a reactive table_data object
     if(input$table_data == "Diamonds") ggplot2::diamonds %>% 
-      select(carat:price)
+      select(carat:price) %>% 
+      rlang::set_names(~snakecase::to_sentence_case(.))
     
     else if(input$table_data == "Storms") dplyr::storms %>% 
-      select(name, year, month, day, status, wind, pressure)
+      select(name, year, month, day, status, wind, pressure) %>% 
+      rlang::set_names(~snakecase::to_sentence_case(.))
   })
   
   output$table <- DT::renderDT(

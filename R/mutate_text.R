@@ -72,7 +72,7 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
   
   data <- data %>%
     dplyr::mutate(text = stringr::str_replace_all(text, " NA<br>", " Not available<br>"))
-
+  
   if(class == "sf") {
     data <- data %>%
       dplyr::relocate(text, .before = "geometry")

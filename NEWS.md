@@ -1,3 +1,8 @@
+# simplevis 3.7.7
+
+* Updated leaflet_sf_col col_label_dp defaults.
+* Replaced internal function with rlang::set_names(~snakecase::to_sentence_case(.))
+
 # simplevis 3.7.6
 
 * Added new col_labels code for gg_sf family.

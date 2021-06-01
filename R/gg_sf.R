@@ -148,7 +148,8 @@ gg_sf <- function(data,
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function with col_labels_dp decimal places.   
+#' @param col_labels_dp For NULL numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
@@ -194,7 +195,8 @@ gg_sf_col <- function(data,
                       subtitle = NULL,
                       subtitle_wrap = 80,
                       col_cuts = NULL,
-                      col_labels_dp = 1,
+                      col_labels = NULL,
+                      col_labels_dp = NULL,
                       col_legend_ncol = NULL,
                       col_legend_nrow = NULL,
                       col_na = TRUE,
@@ -264,11 +266,7 @@ gg_sf_col <- function(data,
       }  
       col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+      if(is.null(col_labels_dp)) col_labels_dp <- 1
     }
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -276,12 +274,14 @@ gg_sf_col <- function(data,
         if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
-      
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+      if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
     }
+    
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+    
     n_col <- length(col_cuts) - 1
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
@@ -295,7 +295,7 @@ gg_sf_col <- function(data,
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
-    col_labels <- waiver()
+    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -554,7 +554,8 @@ gg_sf_facet <- function(data,
 #' @param subtitle Subtitle string. Defaults to "[Subtitle]".
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
+#' @param col_labels A function or vector as per the ggplot2 labels argument in ggplot2 scales. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function with col_labels_dp decimal places.   
+#' @param col_labels_dp For NULL numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
@@ -595,7 +596,8 @@ gg_sf_col_facet <- function(data,
                             subtitle = NULL,
                             subtitle_wrap = 80,
                             col_cuts = NULL,
-                            col_labels_dp = 1,
+                            col_labels = NULL,
+                            col_labels_dp = NULL,
                             col_method = NULL,
                             col_legend_ncol = NULL,
                             col_legend_nrow = NULL,
@@ -674,11 +676,7 @@ gg_sf_col_facet <- function(data,
       }  
       col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
       if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+      if(is.null(col_labels_dp)) col_labels_dp <- 1
     }
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -686,12 +684,14 @@ gg_sf_col_facet <- function(data,
         if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
-      
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-      
-      col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+      if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
     }
+    
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+    
     n_col <- length(col_cuts) - 1
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
@@ -705,7 +705,7 @@ gg_sf_col_facet <- function(data,
     if (is.null(pal)) pal <- sv_pal(n_col)
     else pal <- pal[1:n_col]
     
-    col_labels <- waiver()
+    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)

@@ -22,7 +22,8 @@ gg_sf_col(
   subtitle = NULL,
   subtitle_wrap = 80,
   col_cuts = NULL,
-  col_labels_dp = 1,
+  col_labels = NULL,
+  col_labels_dp = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_na = TRUE,
@@ -72,7 +73,9 @@ gg_sf_col(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
+\item{col_labels}{A function or vector as per the ggplot2 labels argument in ggplot2 scales. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function with col_labels_dp decimal places.}
+
+\item{col_labels_dp}{For NULL numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 

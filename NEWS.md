@@ -1,3 +1,7 @@
+# simplevis 3.7.6
+
+* Added new col_labels code for gg_sf family.
+
 # simplevis 3.7.5
 
 * Added new col_labels code for gg_point family.

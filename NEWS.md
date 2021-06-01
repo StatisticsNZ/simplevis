@@ -1,6 +1,6 @@
 # simplevis 3.8.0
 
-* Updated help. 
+* Updated col_labels default. 
 
 # simplevis 3.7.9
 

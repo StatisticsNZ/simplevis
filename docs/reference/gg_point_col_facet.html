@@ -433,13 +433,10 @@
     <p>A ggplot object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample_n.html'>sample_frac</a></span>(<span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>cut</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>(<span class='no'>cut</span>))
-
-<span class='fu'>gg_point_col_facet</span>(<span class='no'>plot_data</span>, <span class='no'>carat</span>, <span class='no'>price</span>, <span class='no'>color</span>, <span class='no'>cut</span>)</div><div class='img'><img src='gg_point_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_point_col_facet</span>(<span class='no'>penguins</span>, <span class='no'>bill_length_mm</span>, <span class='no'>body_mass_g</span>, <span class='no'>sex</span>, <span class='no'>species</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='gg_point_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

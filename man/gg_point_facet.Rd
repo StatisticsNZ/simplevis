@@ -141,10 +141,9 @@ A ggplot object.
 Point ggplot that is facetted, but not coloured.
 }
 \examples{
-library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
-
-gg_point_facet(plot_data, carat, price, color)
+gg_point_facet(penguins, bill_length_mm, body_mass_g, species)
 
 }

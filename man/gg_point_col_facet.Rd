@@ -174,12 +174,9 @@ A ggplot object.
 Point ggplot that is coloured and facetted.
 }
 \examples{
-library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- ggplot2::diamonds \%>\%
-  sample_frac(0.05) \%>\%
-  mutate(cut = stringr::str_to_sentence(cut))
-
-gg_point_col_facet(plot_data, carat, price, color, cut)
+gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species, col_na = FALSE)
 
 }

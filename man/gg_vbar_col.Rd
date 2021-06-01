@@ -40,7 +40,7 @@ gg_vbar_col(
   y_trans = "identity",
   y_zero = TRUE,
   y_zero_line = NULL,
-  col_labels = waiver(),
+  col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_na = TRUE,

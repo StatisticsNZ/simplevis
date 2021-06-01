@@ -126,9 +126,9 @@ A ggplot object.
 Point ggplot that is not coloured and not facetted.
 }
 \examples{
-library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
+gg_point(penguins, bill_length_mm, body_mass_g)
 
-gg_point(plot_data, carat, price)
 }

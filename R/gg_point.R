@@ -40,12 +40,11 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
-#'
-#' gg_point(plot_data, carat, price)
-
+#' gg_point(penguins, bill_length_mm, body_mass_g)
+#' 
 gg_point <- function(data,
                      x_var,
                      y_var,
@@ -299,12 +298,11 @@ gg_point <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
-#'
-#' gg_point_col(plot_data, carat, price, color)
-#'
+#' gg_point_col(penguins, bill_length_mm, body_mass_g, species)
+#' 
 gg_point_col <- function(data,
                          x_var,
                          y_var,
@@ -622,12 +620,11 @@ gg_point_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05)
-#'
-#' gg_point_facet(plot_data, carat, price, color)
-#'
+#' gg_point_facet(penguins, bill_length_mm, body_mass_g, species)
+#' 
 gg_point_facet <- function(data,
                            x_var,
                            y_var,
@@ -894,14 +891,11 @@ gg_point_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- ggplot2::diamonds %>%
-#'   sample_frac(0.05) %>%
-#'   mutate(cut = stringr::str_to_sentence(cut))
-#'
-#' gg_point_col_facet(plot_data, carat, price, color, cut)
-#'
+#' gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species, col_na = FALSE)
+#' 
 gg_point_col_facet <-
   function(data,
            x_var,

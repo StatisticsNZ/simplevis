@@ -208,7 +208,7 @@
     </tr>
     <tr>
       <th>y_var</th>
-      <td><p>Unquoted numeric variable to be on the y axis. Required input.</p></td>
+      <td><p>Unquoted numeric variable to be on the y scale. Required input.</p></td>
     </tr>
     <tr>
       <th>text_var</th>
@@ -220,7 +220,7 @@
     </tr>
     <tr>
       <th>pal</th>
-      <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
+      <td><p>Character vector of hex codes.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -244,11 +244,11 @@
     </tr>
     <tr>
       <th>x_expand</th>
-      <td><p>Adjust the vector of range expansion constants used to add some padding on the x scale.</p></td>
+      <td><p>A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
     <tr>
       <th>x_labels</th>
-      <td><p>Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
+      <td><p>A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
     </tr>
     <tr>
       <th>x_pretty_n</th>
@@ -288,11 +288,11 @@
     </tr>
     <tr>
       <th>y_expand</th>
-      <td><p>Adjust the vector of range expansion constants used to add some padding on the y scale.</p></td>
+      <td><p>A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.</p></td>
+      <td><p>A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_pretty_n</th>

@@ -44,7 +44,7 @@ gg_sf_facet(
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
-\item{pal}{Character vector of hex codes. Defaults to NULL, which selects a default palette.}
+\item{pal}{Character vector of hex codes.}
 
 \item{facet_labels}{As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.}
 

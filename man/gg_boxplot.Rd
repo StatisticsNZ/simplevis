@@ -51,11 +51,11 @@ gg_boxplot(
 
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 
-\item{y_var}{Generally an unquoted numeric variable to be on the y axis. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
+\item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
-\item{pal}{Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.}
+\item{pal}{Character vector of hex codes.}
 
 \item{width}{Width of the box. Defaults to 0.5.}
 
@@ -75,13 +75,13 @@ gg_boxplot(
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
-\item{x_labels}{Adjust the x scale labels through a function that takes the breaks as input and returns labels as output.}
+\item{x_labels}{A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
-\item{x_expand}{Adjust the vector of range expansion constants used to add some padding on the x scale.}
+\item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -95,9 +95,9 @@ gg_boxplot(
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
-\item{y_expand}{Adjust the vector of range expansion constants used to add some padding on the y scale.}
+\item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{Adjust the y scale labels through a function that takes the breaks as input and returns labels as output.}
+\item{y_labels}{A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 

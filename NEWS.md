@@ -1,3 +1,7 @@
+# simplevis 3.7.9
+
+* Updated help. 
+
 # simplevis 3.7.8
 
 * Added facet_labels argument. 

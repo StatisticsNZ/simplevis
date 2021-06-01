@@ -657,13 +657,14 @@ gg_vbar_col <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   mutate(status = stringr::str_to_sentence(status)) %>%
-#'   group_by(year, status) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) 
-#'
-#' gg_vbar_facet(plot_data, year, average_wind, status)
+#' plot_data <- penguins %>% 
+#'   group_by(species, sex) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_vbar_facet(plot_data, species, body_mass_g, sex)
 #'
 gg_vbar_facet <- function(data,
                           x_var,
@@ -1186,6 +1187,14 @@ gg_vbar_col_facet <- function(data,
                          oob = scales::squish)
   }
   
+  if(y_zero_line == TRUE) {
+    plot <- plot +
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+  }
+  
+  if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -1198,17 +1207,7 @@ gg_vbar_col_facet <- function(data,
       drop = FALSE,
       labels = col_labels,
       na.value = "#A8A8A8"
-    )
-  
-  if(y_zero_line == TRUE) {
-    plot <- plot +
-      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
-  }
-  
-  if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
-  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
-
-  plot <- plot +
+    ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

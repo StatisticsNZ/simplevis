@@ -1,3 +1,7 @@
+# simplevis 3.8.6
+
+* Updated help for facet_labels.
+
 # simplevis 3.8.5
 
 * Modified group by statement for col stack bars, so that zeros are not dropped.

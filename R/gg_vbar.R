@@ -1,7 +1,7 @@
 #' @title Vertical bar ggplot.
 #' @description Vertical bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
@@ -266,7 +266,7 @@ gg_vbar <- function(data,
 #' @title Vertical bar ggplot that is coloured.
 #' @description Vertical bar ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -520,7 +520,7 @@ gg_vbar_col <- function(data,
   
   if (position == "stack") {
     data_sum <- data %>%
-      dplyr::group_by(dplyr::across(!!x_var)) %>%
+      dplyr::group_by(dplyr::across(!!x_var), .drop = FALSE) %>%
       dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
       dplyr::ungroup()
     
@@ -615,7 +615,7 @@ gg_vbar_col <- function(data,
 #' @title Vertical bar ggplot that is facetted.
 #' @description Vertical bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -879,7 +879,7 @@ gg_vbar_facet <- function(data,
 #' @title Vertical bar ggplot that is coloured and facetted.
 #' @description Vertical bar ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -1096,7 +1096,7 @@ gg_vbar_col_facet <- function(data,
   
   if (position == "stack") {
     data_sum <- data %>%
-      dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var))) %>%
+      dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var)), .drop = FALSE) %>%
       dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
       dplyr::ungroup()
     

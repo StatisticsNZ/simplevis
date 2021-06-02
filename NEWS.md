@@ -1,3 +1,8 @@
+# simplevis 3.8.5
+
+* Modified group by statement for col stack bars, so that zeros are not dropped.
+* Updated bar x_var and y_var help for the specific.
+
 # simplevis 3.8.4
 
 * Updated help.

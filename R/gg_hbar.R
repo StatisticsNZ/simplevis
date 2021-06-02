@@ -2,7 +2,7 @@
 #' @description Horizontal bar ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param width Width of bars. Defaults to 0.75.
@@ -271,7 +271,7 @@ gg_hbar <- function(data,
 #' @description Horizontal bar ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
@@ -473,7 +473,7 @@ gg_hbar_col <- function(data,
   
   if (position == "stack") {
     data_sum <- data %>%
-      dplyr::group_by(dplyr::across(!!y_var)) %>%
+      dplyr::group_by(dplyr::across(!!y_var), .drop = FALSE) %>%
       dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
       dplyr::ungroup()
     
@@ -626,7 +626,7 @@ gg_hbar_col <- function(data,
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
@@ -899,7 +899,7 @@ gg_hbar_facet <- function(data,
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -1118,7 +1118,7 @@ gg_hbar_col_facet <- function(data,
   
   if (position == "stack") {
     data_sum <- data %>%
-      dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var))) %>%
+      dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var), .drop = FALSE)) %>%
       dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
       dplyr::ungroup()
     

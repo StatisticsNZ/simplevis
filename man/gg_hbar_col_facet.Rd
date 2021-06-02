@@ -65,7 +65,7 @@ gg_hbar_col_facet(
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
-\item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
+\item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
 
 \item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
 

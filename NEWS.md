@@ -1,3 +1,7 @@
+# simplevis 3.8.4
+
+* Updated help.
+
 # simplevis 3.8.3
 
 * Updated examples.

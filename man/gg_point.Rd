@@ -61,7 +61,7 @@ gg_point(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
 
-\item{subtitle}{Subtitle string. Defaults to "".}
+\item{subtitle}{Subtitle string.}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
@@ -107,7 +107,7 @@ gg_point(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{caption}{Caption title string. Defaults to NULL.}
+\item{caption}{Caption title string.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
@@ -117,7 +117,7 @@ gg_point(
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }
 \value{
 A ggplot object.

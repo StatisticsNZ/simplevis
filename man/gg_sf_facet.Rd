@@ -66,11 +66,11 @@ gg_sf_facet(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
 
-\item{subtitle}{Subtitle string. Defaults to "".}
+\item{subtitle}{Subtitle string.}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
-\item{caption}{Caption title string. Defaults to NULL.}
+\item{caption}{Caption title string.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 

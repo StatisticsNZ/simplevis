@@ -52,11 +52,11 @@ gg_sf(
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
 
-\item{subtitle}{Subtitle string. Defaults to "".}
+\item{subtitle}{Subtitle string.}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
-\item{caption}{Caption title string. Defaults to NULL.}
+\item{caption}{Caption title string.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
@@ -66,7 +66,7 @@ gg_sf(
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }
 \value{
 A ggplot object.

@@ -10,7 +10,7 @@
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -33,12 +33,12 @@
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -278,7 +278,7 @@ gg_vbar <- function(data,
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -307,12 +307,12 @@ gg_vbar <- function(data,
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -625,7 +625,7 @@ gg_vbar_col <- function(data,
 #' @param size_line The size of the outlines of bars. 
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -652,9 +652,9 @@ gg_vbar_col <- function(data,
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults NULL.
+#' @param font_family Font family to use. Defaults "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @return A ggplot object.
@@ -892,7 +892,7 @@ gg_vbar_facet <- function(data,
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -926,7 +926,7 @@ gg_vbar_facet <- function(data,
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.

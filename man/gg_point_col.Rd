@@ -108,7 +108,7 @@ gg_point_col(
 
 \item{title}{Title string. Defaults to NULL.}
 
-\item{subtitle}{Subtitle string. Defaults to "".}
+\item{subtitle}{Subtitle string.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -116,7 +116,7 @@ gg_point_col(
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
-\item{caption}{Caption title string. Defaults to NULL.}
+\item{caption}{Caption title string.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
@@ -150,7 +150,7 @@ gg_point_col(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.}
 
-\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.}
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }
 \value{
 A ggplot object.

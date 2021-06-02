@@ -12,14 +12,14 @@
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -145,7 +145,7 @@ gg_sf <- function(data,
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
@@ -156,12 +156,12 @@ gg_sf <- function(data,
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -394,8 +394,8 @@ gg_sf_col <- function(data,
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
-#' @param subtitle Subtitle string. Defaults to "".
-#' @param caption Caption title string. Defaults to NULL.
+#' @param subtitle Subtitle string. 
+#' @param caption Caption title string. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -548,7 +548,7 @@ gg_sf_facet <- function(data,
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle Subtitle string. Defaults to "".
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to as_labeller(snakecase::to_sentence_case). Use facet_labels = label_value to turn off default sentence case transformation.
@@ -563,7 +563,7 @@ gg_sf_facet <- function(data,
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_ncol The number of columns of facetted plots. 
-#' @param caption Caption title string. Defaults to NULL.
+#' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.

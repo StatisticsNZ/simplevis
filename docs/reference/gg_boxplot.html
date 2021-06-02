@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.8.4</span>
       </span>
     </div>
 
@@ -246,7 +246,7 @@
     </tr>
     <tr>
       <th>subtitle</th>
-      <td><p>Subtitle string. Defaults to "".</p></td>
+      <td><p>Subtitle string.</p></td>
     </tr>
     <tr>
       <th>subtitle_wrap</th>
@@ -334,7 +334,7 @@
     </tr>
     <tr>
       <th>caption</th>
-      <td><p>Caption title string. Defaults to NULL.</p></td>
+      <td><p>Caption title string.</p></td>
     </tr>
     <tr>
       <th>caption_wrap</th>
@@ -354,7 +354,7 @@
     </tr>
     <tr>
       <th>mobile</th>
-      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within an app with the mobileDetect function, then use mobile = input$isMobile.</p></td>
+      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.</p></td>
     </tr>
     </table>
 
@@ -381,18 +381,21 @@
     )
   )))
 
+<span class='no'>plot_data</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+#&gt;   species   bill_length_mm
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
+#&gt; <span style='color: #BCBCBC;'>1</span> Adelie    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap <span style='color: #949494;'>&lt;dbl [5]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>3</span> Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>     </div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>bill_length_mm</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 6</span><span>
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>bill_length_mm</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 6</span>
 #&gt;   species     min lower middle upper   max
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Adelie     32.1  36.8   38.8  40.8  46  
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Chinstrap  40.9  46.3   49.6  51.2  58  
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Gentoo     40.9  45.3   47.3  49.6  55.9</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> Adelie     32.1  36.8   38.8  40.8  46  
+#&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap  40.9  46.3   49.6  51.2  58  
+#&gt; <span style='color: #BCBCBC;'>3</span> Gentoo     40.9  45.3   47.3  49.6  55.9</div><div class='input'>
 <span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>, <span class='no'>species</span>, <span class='no'>bill_length_mm</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>gg_boxplot</span>(<span class='no'>penguins</span>, <span class='no'>species</span>, <span class='no'>body_mass_g</span>)
-
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='input'>
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

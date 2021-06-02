@@ -24,5 +24,5 @@ library(ggplot2)
 
 ggplot() +
   theme_boxplot("Courier", 9, 7) +
-  ggtitle("This is a title of a selected font family and size")
+  ggtitle("This is a title of a font family and size")
 }

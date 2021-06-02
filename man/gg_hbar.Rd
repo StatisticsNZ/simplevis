@@ -133,10 +133,13 @@ Horizontal bar ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- storms \%>\%
-  group_by(year) \%>\%
-  summarise(average_wind = round(mean(wind), 2)) 
+plot_data <- penguins \%>\% 
+  group_by(species) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar(plot_data, average_wind, year)
+gg_hbar(plot_data, body_mass_g, species)
+
 }

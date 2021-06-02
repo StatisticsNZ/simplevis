@@ -159,19 +159,15 @@ A ggplot object.
 Boxplot ggplot that is coloured
 }
 \examples{
-library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- ggplot2::diamonds \%>\%
-  mutate(cut = stringr::str_to_sentence(cut)) 
+gg_boxplot_col(penguins, species, body_mass_g, sex)
 
-plot <- gg_boxplot_col(plot_data, cut, price, clarity, 
-                           title = "Average diamond price by cut and clarity", 
-                           x_title = "Average price ($US thousands)", 
-                           y_title = "Cut") 
+plot <- gg_boxplot_col(penguins, species, body_mass_g, sex)
 
-plot
-
-plotly::ggplotly(plot) \%>\% 
-  plotly::layout(boxmode = "group") \%>\% 
+plotly::ggplotly(plot) \%>\%
+  plotly::layout(boxmode = "group") \%>\%
   plotly_camera()
+
 }

@@ -142,12 +142,14 @@ Line ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- storms \%>\%
-  mutate(status = stringr::str_to_sentence(status)) \%>\%
-  group_by(year, status) \%>\%
-  summarise(wind = round(mean(wind), 2)) 
+plot_data <- penguins \%>\% 
+  group_by(year, species) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\% 
+  mutate(year = as.character(year))
 
- gg_line_facet(plot_data, year, wind, status)
+gg_line_facet(plot_data, year, body_mass_g, species)
 
 }

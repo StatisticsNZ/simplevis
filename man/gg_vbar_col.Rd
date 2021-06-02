@@ -168,4 +168,7 @@ plot_data <- penguins \%>\%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
 gg_vbar_col(plot_data, species, body_mass_g, sex)
+
+gg_vbar_col(plot_data, species, body_mass_g, sex, position = "stack")
+
 }

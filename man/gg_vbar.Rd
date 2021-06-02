@@ -141,4 +141,5 @@ plot_data <- penguins \%>\%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
 gg_vbar(plot_data, species, body_mass_g)
+
 }

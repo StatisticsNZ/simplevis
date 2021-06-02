@@ -43,12 +43,15 @@
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   group_by(year) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) 
-#'
-#' gg_hbar(plot_data, average_wind, year)
+#' plot_data <- penguins %>% 
+#'   group_by(species) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_hbar(plot_data, body_mass_g, species)
+#' 
 gg_hbar <- function(data,
                     x_var,
                     y_var,
@@ -319,14 +322,17 @@ gg_hbar <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   mutate(status = stringr::str_to_sentence(status)) %>%
-#'   group_by(year, status) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) 
-#'
-#' gg_hbar_col(plot_data, year, average_wind, status)
-#'
+#' plot_data <- penguins %>% 
+#'   group_by(species, sex) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_hbar_col(plot_data, body_mass_g, species, sex)
+#' 
+#' gg_hbar_col(plot_data, body_mass_g, species, sex, position = "stack")
+#' 
 gg_hbar_col <- function(data,
                         x_var,
                         y_var,
@@ -665,13 +671,15 @@ gg_hbar_col <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   mutate(status = stringr::str_to_sentence(status)) %>%
-#'   group_by(year, status) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) 
+#' plot_data <- penguins %>% 
+#'   group_by(species, sex) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_hbar_facet(plot_data, body_mass_g, sex, species)
 #'
-#' gg_hbar_facet(plot_data, year, average_wind, status)
 gg_hbar_facet <- function(data,
                           x_var,
                           y_var,
@@ -946,14 +954,15 @@ gg_hbar_facet <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- ggplot2::diamonds %>%
-#'   mutate(cut = stringr::str_to_sentence(cut)) %>%
-#'   group_by(cut, clarity, color) %>%
-#'   summarise(average_price = mean(price)) %>%
-#'   mutate(average_price = round(average_price / 1000, 1))
-#'
-#' gg_hbar_col_facet(plot_data, average_price, color, clarity, cut)
+#' plot_data <- penguins %>% 
+#'   group_by(species, sex, island) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_hbar_col_facet(plot_data, body_mass_g, sex, island, species)
+#' 
 gg_hbar_col_facet <- function(data,
                               x_var,
                               y_var,

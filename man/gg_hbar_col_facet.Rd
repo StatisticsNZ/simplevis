@@ -175,12 +175,13 @@ Horizontal bar ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- ggplot2::diamonds \%>\%
-  mutate(cut = stringr::str_to_sentence(cut)) \%>\%
-  group_by(cut, clarity, color) \%>\%
-  summarise(average_price = mean(price)) \%>\%
-  mutate(average_price = round(average_price / 1000, 1))
+plot_data <- penguins \%>\% 
+  group_by(species, sex, island) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar_col_facet(plot_data, average_price, color, clarity, cut)
+gg_hbar_col_facet(plot_data, body_mass_g, sex, island, species)
+
 }

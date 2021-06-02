@@ -216,17 +216,12 @@ leaflet_sf <- function(data,
 #' @export
 #' @examples
 #' leaflet_sf_col(example_sf_polygon, density,
-#'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1),
-#'      title = "Modelled density, 2017")
+#'      col_method = "quantile", col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
 #'
 #' leaflet_sf_col(example_sf_polygon, density,
-#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf),  col_labels_dp = 0,
-#'      title = "Modelled density, 2017")
+#'      col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
 #'
-#' pal <- c("#4575B4", "#D3D3D3", "#D73027")
-#'
-#' leaflet_sf_col(example_sf_point, trend_category, pal = pal, col_method = "category",
-#'    title = "Monitored trends, 2008\u201317")
+#' leaflet_sf_col(example_sf_point, trend_category, pal = c("#4575B4", "#D3D3D3", "#D73027"))
 leaflet_sf_col <- function(data,
                            col_var,
                            text_var = NULL,

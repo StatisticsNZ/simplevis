@@ -175,19 +175,18 @@ Boxplot ggplot that is coloured
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- ggplot2::diamonds \%>\%
-  mutate(cut = stringr::str_to_sentence(cut)) \%>\%
-  filter(cut \%in\% c("Good", "Ideal")) \%>\%
-  filter(color \%in\% c("D", "E")) \%>\%
-  filter(clarity \%in\% c("I1", "IF", "SI1", "VS1")) \%>\%
-  mutate(across(c("color", "cut", "clarity"), ~as.character(.x)))
+plot_data <- penguins \%>\% 
+  mutate(year = as.character(year))
 
-plot <- gg_boxplot_col_facet(plot_data, cut, price, clarity, color)
+gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
 
-plot
+plot <- gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
 
-plotly::ggplotly(plot) \%>\% 
-  plotly::layout(boxmode = "group") \%>\% 
+plotly::ggplotly(plot) \%>\%
+  plotly::layout(boxmode = "group") \%>\%
   plotly_camera()
+
 }

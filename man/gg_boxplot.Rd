@@ -133,10 +133,27 @@ Boxplot ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- iris \%>\%
-tibble::as_tibble() \%>\%
-  mutate(Species = stringr::str_to_sentence(Species))
+gg_boxplot(penguins, species, body_mass_g)
 
-gg_boxplot(plot_data, Species, Petal.Length)
+plot_data <- penguins \%>\%
+  group_by(species) \%>\%
+  summarise(across(bill_length_mm, ~ list(
+    rlang::set_names(
+      boxplot.stats(.x)$stats,
+      c('min', 'lower', 'middle', 'upper', 'max')
+    )
+  )))
+
+plot_data \%>\% 
+  tidyr::unnest_wider(bill_length_mm)
+
+gg_boxplot(plot_data, species, bill_length_mm, stat = "identity")
+
+plot <- gg_boxplot(penguins, species, body_mass_g)
+
+plotly::ggplotly(plot)
+
 }

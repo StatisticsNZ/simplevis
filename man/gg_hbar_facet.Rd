@@ -145,11 +145,13 @@ Horizontal bar ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- storms \%>\%
-  mutate(status = stringr::str_to_sentence(status)) \%>\%
-  group_by(year, status) \%>\%
-  summarise(average_wind = round(mean(wind), 2)) 
+plot_data <- penguins \%>\% 
+  group_by(species, sex) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar_facet(plot_data, year, average_wind, status)
+gg_hbar_facet(plot_data, body_mass_g, sex, species)
+
 }

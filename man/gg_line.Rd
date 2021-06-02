@@ -127,10 +127,14 @@ Line ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- storms \%>\%
-  group_by(year) \%>\%
-  summarise(wind = round(mean(wind), 2)) 
+plot_data <- penguins \%>\% 
+  group_by(year) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\% 
+  mutate(year = as.character(year))
 
-  gg_line(plot_data, year, wind)
+gg_line(plot_data, year, body_mass_g)
+
 }

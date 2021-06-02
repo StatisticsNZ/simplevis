@@ -9,7 +9,7 @@
 #' 
 #' ggplot() +
 #'   theme_boxplot("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a font family and size")
 theme_boxplot <-
   function(font_family = "",
            font_size_title = 11,
@@ -120,7 +120,7 @@ theme_boxplot <-
 #' 
 #' ggplot() +
 #'   theme_hbar("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a font family and size")
 theme_hbar <-
   function(font_family = "",
            font_size_title = 11,
@@ -230,7 +230,7 @@ theme_hbar <-
 #' 
 #' ggplot() +
 #'   theme_line("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a font family and size")
 theme_line <-
   function(font_family = "",
            font_size_title = 11,
@@ -339,7 +339,7 @@ theme_line <-
 #' 
 #' ggplot() +
 #'   theme_point("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a font family and size")
 theme_point <-
   function(font_family = "",
            font_size_title = 11,
@@ -449,7 +449,7 @@ theme_point <-
 #' 
 #' ggplot() +
 #'   theme_sf("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a font family and size")
 theme_sf <-
   function(font_family = "",
            font_size_title = 11,
@@ -539,7 +539,7 @@ theme_sf <-
 #' 
 #' ggplot() +
 #'   theme_vbar("Courier", 9, 7) +
-#'   ggtitle("This is a title of a selected font family and size")
+#'   ggtitle("This is a title of a font family and size")
 theme_vbar <-
   function(font_family = "",
            font_size_title = 11,

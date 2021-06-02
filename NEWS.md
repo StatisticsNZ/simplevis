@@ -1,3 +1,7 @@
+# simplevis 3.8.3
+
+* Updated examples.
+
 # simplevis 3.8.2
 
 * Fixed col_labels default bug.

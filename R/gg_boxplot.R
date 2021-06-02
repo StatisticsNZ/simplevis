@@ -43,12 +43,31 @@
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- iris %>%
-#' tibble::as_tibble() %>%
-#'   mutate(Species = stringr::str_to_sentence(Species))
-#'
-#' gg_boxplot(plot_data, Species, Petal.Length)
+#' gg_boxplot(penguins, species, body_mass_g)
+#' 
+#' plot_data <- penguins %>%
+#'   group_by(species) %>%
+#'   summarise(across(bill_length_mm, ~ list(
+#'     rlang::set_names(
+#'       boxplot.stats(.x)$stats,
+#'       c('min', 'lower', 'middle', 'upper', 'max')
+#'     )
+#'   )))
+#'   
+#' plot_data
+#' 
+#' plot_data %>% 
+#'   tidyr::unnest_wider(bill_length_mm)
+#' 
+#' gg_boxplot(plot_data, species, bill_length_mm, stat = "identity")
+#' 
+#' plot <- gg_boxplot(penguins, species, body_mass_g)
+#' 
+#' plotly::ggplotly(plot)
+#' 
 gg_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
@@ -348,21 +367,17 @@ gg_boxplot <- function(data,
 #' @export
 
 #' @examples
-#' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- ggplot2::diamonds %>%
-#'   mutate(cut = stringr::str_to_sentence(cut)) 
+#' gg_boxplot_col(penguins, species, body_mass_g, sex)
 #' 
-#' plot <- gg_boxplot_col(plot_data, cut, price, clarity, 
-#'                            title = "Average diamond price by cut and clarity", 
-#'                            x_title = "Average price ($US thousands)", 
-#'                            y_title = "Cut") 
+#' plot <- gg_boxplot_col(penguins, species, body_mass_g, sex)
 #' 
-#' plot
-#' 
-#' plotly::ggplotly(plot) %>% 
-#'   plotly::layout(boxmode = "group") %>% 
+#' plotly::ggplotly(plot) %>%
+#'   plotly::layout(boxmode = "group") %>%
 #'   plotly_camera()
+#' 
 gg_boxplot_col <- function(data,
                            x_var,
                            y_var = NULL,
@@ -710,11 +725,15 @@ gg_boxplot_col <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- ggplot2::diamonds %>%
-#'   mutate(price_thousands = (price / 1000)) 
+#' gg_boxplot_facet(penguins, sex, body_mass_g, species)
 #'
-#' gg_boxplot_facet(plot_data, cut, price_thousands, color)
+#' plot <- gg_boxplot_facet(penguins, sex, body_mass_g, species)
+#' 
+#' plotly::ggplotly(plot)
+#' 
 gg_boxplot_facet <- function(data,
                              x_var,
                              y_var = NULL,
@@ -1034,21 +1053,20 @@ gg_boxplot_facet <- function(data,
 #'
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- ggplot2::diamonds %>%
-#'   mutate(cut = stringr::str_to_sentence(cut)) %>%
-#'   filter(cut %in% c("Good", "Ideal")) %>%
-#'   filter(color %in% c("D", "E")) %>%
-#'   filter(clarity %in% c("I1", "IF", "SI1", "VS1")) %>%
-#'   mutate(across(c("color", "cut", "clarity"), ~as.character(.x)))
+#' plot_data <- penguins %>% 
+#'   mutate(year = as.character(year))
 #' 
-#' plot <- gg_boxplot_col_facet(plot_data, cut, price, clarity, color)
+#' gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
 #' 
-#' plot
+#' plot <- gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
 #' 
-#' plotly::ggplotly(plot) %>% 
-#'   plotly::layout(boxmode = "group") %>% 
+#' plotly::ggplotly(plot) %>%
+#'   plotly::layout(boxmode = "group") %>%
 #'   plotly_camera()
+#' 
 gg_boxplot_col_facet <- function(data,
                                  x_var,
                                  y_var = NULL,

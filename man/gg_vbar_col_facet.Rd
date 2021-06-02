@@ -175,17 +175,13 @@ Vertical bar ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- storms \%>\%
-  mutate(status = stringr::str_to_sentence(status)) \%>\%
-  group_by(year, status, name) \%>\%
-  summarise(average_wind = round(mean(wind), 2)) \%>\%
-  filter(year \%in\% 1975:1980) \%>\%
-  filter(!(status == "Tropical storm" & year == 1980)) \%>\%
-  filter(name \%in\% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
-                   "Henri", "Gloria", "Georges", "Frederic")) \%>\% 
-   mutate(year = as.character(year))
+plot_data <- penguins \%>\% 
+  group_by(species, sex, island) \%>\% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-  gg_vbar_col_facet(plot_data, year, average_wind, name, status)
+gg_vbar_col_facet(plot_data, sex, body_mass_g, island, species)
 
 }

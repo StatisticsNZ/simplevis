@@ -51,6 +51,7 @@
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
 #' gg_vbar(plot_data, species, body_mass_g)
+#' 
 gg_vbar <- function(data,
                     x_var,
                     y_var,
@@ -324,6 +325,9 @@ gg_vbar <- function(data,
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
 #' gg_vbar_col(plot_data, species, body_mass_g, sex)
+#' 
+#' gg_vbar_col(plot_data, species, body_mass_g, sex, position = "stack")
+#' 
 gg_vbar_col <- function(data,
                         x_var,
                         y_var,
@@ -664,7 +668,7 @@ gg_vbar_col <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_vbar_facet(plot_data, species, body_mass_g, sex)
+#' gg_vbar_facet(plot_data, sex, body_mass_g, species)
 #'
 gg_vbar_facet <- function(data,
                           x_var,
@@ -931,19 +935,15 @@ gg_vbar_facet <- function(data,
 #' @export
 #' @examples
 #' library(dplyr)
+#' library(simplevis)
+#' library(palmerpenguins)
 #' 
-#' plot_data <- storms %>%
-#'   mutate(status = stringr::str_to_sentence(status)) %>%
-#'   group_by(year, status, name) %>%
-#'   summarise(average_wind = round(mean(wind), 2)) %>%
-#'   filter(year %in% 1975:1980) %>%
-#'   filter(!(status == "Tropical storm" & year == 1980)) %>%
-#'   filter(name %in% c("Karl", "Juliet", "Jeanne", "Ivan", "Hermine",
-#'                    "Henri", "Gloria", "Georges", "Frederic")) %>% 
-#'    mutate(year = as.character(year))
-#'
-#'   gg_vbar_col_facet(plot_data, year, average_wind, name, status)
-#'
+#' plot_data <- penguins %>% 
+#'   group_by(species, sex, island) %>% 
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+#' 
+#' gg_vbar_col_facet(plot_data, sex, body_mass_g, island, species)
+#' 
 gg_vbar_col_facet <- function(data,
                               x_var,
                               y_var,

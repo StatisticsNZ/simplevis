@@ -148,9 +148,13 @@ Boxplot ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)
+library(simplevis)
+library(palmerpenguins)
 
-plot_data <- ggplot2::diamonds \%>\%
-  mutate(price_thousands = (price / 1000)) 
+gg_boxplot_facet(penguins, sex, body_mass_g, species)
 
-gg_boxplot_facet(plot_data, cut, price_thousands, color)
+plot <- gg_boxplot_facet(penguins, sex, body_mass_g, species)
+
+plotly::ggplotly(plot)
+
 }

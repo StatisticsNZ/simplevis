@@ -389,6 +389,7 @@ gg_sf_col <- function(data,
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_scales Whether facet_scales should be "fixed" across facets or "free". Defaults to "fixed". 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -417,6 +418,7 @@ gg_sf_facet <- function(data,
                         facet_na = TRUE,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
+                        facet_scales = "fixed",
                         borders = NULL,
                         borders_behind = TRUE,
                         borders_pal = "#7f7f7f",
@@ -526,7 +528,7 @@ gg_sf_facet <- function(data,
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, 50)
     ) +
-    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
+    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
 
   return(plot)
 }
@@ -562,7 +564,8 @@ gg_sf_facet <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_nrow The number of rows of facetted plots.
-#' @param facet_ncol The number of columns of facetted plots. 
+#' @param facet_ncol The number of columns of facetted plots.
+#' @param facet_scales Whether facet_scales should be "fixed" across facets or "free". Defaults to "fixed". 
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
@@ -604,6 +607,7 @@ gg_sf_col_facet <- function(data,
                             facet_na = TRUE,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
+                            facet_scales = "fixed",
                             caption = NULL,
                             caption_wrap = 80,
                             font_family = "",
@@ -773,7 +777,7 @@ gg_sf_col_facet <- function(data,
     ) +
     guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
     guides(fill = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) +
-    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
+    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
   
   
   return(plot)

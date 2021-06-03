@@ -1,3 +1,7 @@
+# simplevis 3.8.9
+
+* Added facet_scales arg into gg_sf family.
+
 # simplevis 3.8.8
 
 * Subtle changes to the aim of the project.

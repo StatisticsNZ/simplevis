@@ -35,6 +35,7 @@ gg_sf_col_facet(
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
+  facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
   font_family = "",
@@ -102,6 +103,8 @@ gg_sf_col_facet(
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets or "free". Defaults to "fixed".}
 
 \item{caption}{Caption title string.}
 

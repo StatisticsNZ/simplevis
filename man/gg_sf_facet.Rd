@@ -16,6 +16,7 @@ gg_sf_facet(
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
+  facet_scales = "fixed",
   borders = NULL,
   borders_behind = TRUE,
   borders_pal = "#7f7f7f",
@@ -53,6 +54,8 @@ gg_sf_facet(
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets or "free". Defaults to "fixed".}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

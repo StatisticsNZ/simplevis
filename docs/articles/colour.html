@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.8.7</span>
       </span>
     </div>
 
@@ -116,64 +116,43 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">palmerpenguins</span>)</pre></body></html></div>
 <div id="overview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h3>
 <p>In simplevis, users define the following to adjust colours:</p>
 <ol style="list-style-type: decimal">
-<li>a <code>pal</code> argument of which colours to use</li>
-<li>a <code>col_var</code> argument of which variable is to be mapped to colours within an <code>_col</code> function</li>
-<li>an <code>alpha</code> argument of what the opacity of the fill of colours within polygons is to be</li>
+<li>Always define the colours to use via the <code>pal</code> argument</li>
+<li>If colouring by a variable, use a <code>*_col</code> or <code>*_col_facet</code> function, and define the <code>col_var</code>
+</li>
 <li>If the <code>col_var</code> is numeric, the <code>col_method</code> of <code>bin</code> or <code>quantile</code>, and the <code>col_cuts</code> to use.</li>
 </ol>
 </div>
-<div id="defining-the-pal-to-adjust-which-colours-to-use" class="section level3">
+<div id="always-define-the-colours-to-use-via-the-pal-argument" class="section level3">
 <h3 class="hasAnchor">
-<a href="#defining-the-pal-to-adjust-which-colours-to-use" class="anchor"></a>2. Defining the <code>pal</code> to adjust which colours to use</h3>
+<a href="#always-define-the-colours-to-use-via-the-pal-argument" class="anchor"></a>1. Always define the colours to use via the <code>pal</code> argument</h3>
 <p>The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the <code>pal</code> argument.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>, <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#e7298a"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#e7298a"</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>Users can get access to a large amount of colour palettes through the <code>pals</code> package.</p>
 </div>
-<div id="defining-a-col_var-to-map-a-variable-to-colours-within-an-_col-function" class="section level3">
+<div id="if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="section level3">
 <h3 class="hasAnchor">
-<a href="#defining-a-col_var-to-map-a-variable-to-colours-within-an-_col-function" class="anchor"></a>2. Defining a <code>col_var</code> to map a variable to colours within an <code>_col</code> function</h3>
-<p>To colour by a variable, use a <code>_col</code> function</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">iris</span>, <span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>, <span class="no">Species</span>,
-                 <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#1B9E77"</span>, <span class="st">"#D95F02"</span>, <span class="st">"#7570B3"</span>))</pre></body></html></div>
+<a href="#if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="anchor"></a>2. If colouring by a variable, use a <code>*_col</code> or <code>*_col_facet</code> function, and define the <code>col_var</code>
+</h3>
+<p>To colour by a variable, use a <code>*_col</code> function</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#1B9E77"</span>, <span class="st">"#D95F02"</span>, <span class="st">"#7570B3"</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
-<div id="defining-the-alpha-to-adjust-the-opacity-of-the-fill-of-polygons-" class="section level3">
+<div id="if-colouring-by-a-numeric-variable-define-the-col_method-and-col_cuts" class="section level3">
 <h3 class="hasAnchor">
-<a href="#defining-the-alpha-to-adjust-the-opacity-of-the-fill-of-polygons-" class="anchor"></a>3. Defining the <code>alpha</code> to adjust the opacity of the fill of polygons.</h3>
-<p>Emphasis can be given to the outline of polygons by using an <code>alpha</code> argument to add opacity to the fill of polygons.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>) / <span class="fl">1000</span>, <span class="fl">1</span>))
-
-<span class="no">plot_data</span>
-<span class="co">#&gt; # A tibble: 5 x 2</span>
-<span class="co">#&gt;   cut       average_price</span>
-<span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Fair                4.4</span>
-<span class="co">#&gt; 2 Good                3.9</span>
-<span class="co">#&gt; 3 Very good           4  </span>
-<span class="co">#&gt; 4 Premium             4.6</span>
-<span class="co">#&gt; 5 Ideal               3.5</span>
-
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.25</span>)</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
-</div>
-<div id="if-colouring-by-a-numeric-variable-defining-the-col_method-and-col_cuts" class="section level3">
-<h3 class="hasAnchor">
-<a href="#if-colouring-by-a-numeric-variable-defining-the-col_method-and-col_cuts" class="anchor"></a>4. If colouring by a numeric variable, defining the <code>col_method</code> and <code>col_cuts</code>
+<a href="#if-colouring-by-a-numeric-variable-define-the-col_method-and-col_cuts" class="anchor"></a>3. If colouring by a numeric variable, define the <code>col_method</code> and <code>col_cuts</code>
 </h3>
-<p>All <code>simplevis</code> <code>_col</code> functions provide for colouring by a categorical variable.</p>
-<p>In addition, <code>sf</code> and <code>point</code> functions provide for colouring by a numeric variable.</p>
+<p>All <code>simplevis</code> <code>*_col</code> and <code>*_col_facet</code> functions support colouring by a categorical variable.</p>
+<p>In addition, <code>sf</code> and <code>point</code> <code>*_col</code> and <code>*_col_facet</code> functions support colouring by a numeric variable.</p>
 <p>You do this by specifying whether you want to do this by:</p>
 <ul>
 <li>defining whether the col_method is to be by <code>bin</code> or <code>quantile</code>
@@ -181,23 +160,23 @@
 <li>defining a vector or col_cuts. These should be between 0 and infinity (<code>Inf</code>) for <code>bin</code> and between 0 and 1 for <code>quantile</code>
 </li>
 </ul>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu">slice_sample</span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
 
 <span class="no">plot_data</span>
 <span class="co">#&gt; # A tibble: 539 x 10</span>
 <span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  1.01 Premium   H     VS2      61.5    59  5303  6.48  6.49  3.99</span>
-<span class="co">#&gt;  2  0.34 Premium   D     VS2      59.3    58  1033  4.55  4.52  2.69</span>
-<span class="co">#&gt;  3  0.32 Ideal     F     VS2      62.5    56   645  4.37  4.4   2.74</span>
-<span class="co">#&gt;  4  0.31 Ideal     H     VVS2     61.5    56   625  4.35  4.37  2.68</span>
-<span class="co">#&gt;  5  1    Good      G     SI2      63.4    60  3676  6.22  6.34  3.98</span>
-<span class="co">#&gt;  6  1.54 Ideal     G     VS1      61.2    56 14278  7.45  7.46  4.57</span>
-<span class="co">#&gt;  7  0.31 Ideal     I     VS2      61.4    55   452  4.35  4.41  2.69</span>
-<span class="co">#&gt;  8  1    Very Good E     SI1      63.4    58  4805  6.29  6.26  3.98</span>
-<span class="co">#&gt;  9  1.54 Premium   D     VS2      62.7    59 16921  7.33  7.29  4.58</span>
-<span class="co">#&gt; 10  1.04 Ideal     I     VS1      62.9    43  4997  6.45  6.41  4.04</span>
+<span class="co">#&gt;  1  1.05 Premium   G     IF       60.6  60    9012  6.59  6.57  3.99</span>
+<span class="co">#&gt;  2  0.25 Ideal     F     VS1      61.8  56     595  4.07  4.09  2.52</span>
+<span class="co">#&gt;  3  1.63 Very Good H     VVS1     59.1  58   13211  7.68  7.84  4.59</span>
+<span class="co">#&gt;  4  0.51 Very Good I     SI2      63.3  58     995  5.09  5.02  3.2 </span>
+<span class="co">#&gt;  5  0.71 Premium   D     SI1      61.3  58    2797  5.73  5.75  3.52</span>
+<span class="co">#&gt;  6  0.43 Good      G     VS2      61.8  60.7   891  4.8   4.84  2.99</span>
+<span class="co">#&gt;  7  0.72 Ideal     D     SI2      62.7  55    2647  5.7   5.72  3.58</span>
+<span class="co">#&gt;  8  0.7  Ideal     F     VS2      61.3  57    3008  5.7   5.76  3.51</span>
+<span class="co">#&gt;  9  1.01 Premium   D     SI1      60    59    5780  6.51  6.45  3.89</span>
+<span class="co">#&gt; 10  0.41 Very Good F     VVS1     62.3  54    1161  4.75  4.79  2.97</span>
 <span class="co">#&gt; # … with 529 more rows</span>
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
@@ -206,122 +185,14 @@
                  <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
                  <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
                  <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>))</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r">
-<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
+<p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
                  <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
                  <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
                  <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
                  <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
                  <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">Inf</span>))</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-6-2.png" width="576"></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span>(<span class="no">example_sf_polygon</span>,
-               <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">density</span>,
-               <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
-               <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">Inf</span>),
-               <span class="kw">col_labels_dp</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
-</div>
-<div id="simplevis-colouring-vs-ggplot2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#simplevis-colouring-vs-ggplot2" class="anchor"></a><code>simplevis</code> colouring vs <code>ggplot2</code>
-</h3>
-<p><code>simplevis</code> unites two <code>ggplot2</code> concepts into one to make things simpler for users:</p>
-<ul>
-<li>the colouring of points and lines (including outlines)</li>
-<li>the colouring of the fill of polygons</li>
-</ul>
-<p>These concepts are referred to as the <code>col</code> and the <code>fill</code> in ggplot2. So geom_point uses <code>col</code> and <code>geom_bar</code> uses fill (and col).</p>
-<p>To map colours to a variable:</p>
-<ul>
-<li>In <code>simplevis</code>: use a <code>_col</code> function and specify the <code>col_var</code>
-</li>
-<li>In <code>ggplot2</code>: add a <code>col</code> and/or <code>fill</code> argument within <code>aes</code> to the relevant <code>geom</code> layer</li>
-</ul>
-<p>To select colours to use:</p>
-<ul>
-<li>In <code>simplevis</code>: use <code>pal</code> argument and specify a vector of colours</li>
-<li>In <code>ggplot2</code>: if no variable is <i>not</i> mapped to colours, then provide a vector of colours to fill and/or col arguments within the <code>geom</code> layer. Otherwise, if a variable is mapped to colours, then provide a vector of colours the values argument within <code>scale_fill_manual</code> and/or <code>scale_colour_manual</code>.</li>
-</ul>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>) / <span class="fl">1000</span>, <span class="fl">1</span>))
-
-<span class="no">plot_data</span>
-<span class="co">#&gt; # A tibble: 5 x 2</span>
-<span class="co">#&gt;   cut       average_price</span>
-<span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Fair                4.4</span>
-<span class="co">#&gt; 2 Good                3.9</span>
-<span class="co">#&gt; 3 Very good           4  </span>
-<span class="co">#&gt; 4 Premium             4.6</span>
-<span class="co">#&gt; 5 Ideal               3.5</span>
-
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
-            <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">2</span>], <span class="co"># in simplevis, pal is always a vector of colours</span>
-            <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-            <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-            <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r">
-<span class="fu">ggplot</span>(<span class="no">plot_data</span>) +
-  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">average_price</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu">fct_rev</span>(<span class="no">cut</span>)),
-           <span class="kw">stat</span> <span class="kw">=</span> <span class="st">"identity"</span>,
-           <span class="kw">fill</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">2</span>], <span class="co"># in ggplot2, fill is a vector of colours when outside of aes</span>
-           <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.75</span>) +
-   <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">5</span>)) +
-   <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
-        <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-        <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Cut"</span>) +
-  <span class="kw pkg">simplevis</span><span class="kw ns">::</span><span class="fu"><a href="../reference/theme_hbar.html">theme_hbar</a></span>()</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-8-2.png" width="576"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu">group_by</span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>) / <span class="fl">1000</span>, <span class="fl">1</span>))
-
-<span class="no">plot_data</span>
-<span class="co">#&gt; # A tibble: 40 x 3</span>
-<span class="co">#&gt; # Groups:   cut [5]</span>
-<span class="co">#&gt;    cut   clarity average_price</span>
-<span class="co">#&gt;    &lt;fct&gt; &lt;ord&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Fair  I1                3.7</span>
-<span class="co">#&gt;  2 Fair  SI2               5.2</span>
-<span class="co">#&gt;  3 Fair  SI1               4.2</span>
-<span class="co">#&gt;  4 Fair  VS2               4.2</span>
-<span class="co">#&gt;  5 Fair  VS1               4.2</span>
-<span class="co">#&gt;  6 Fair  VVS2              3.3</span>
-<span class="co">#&gt;  7 Fair  VVS1              3.9</span>
-<span class="co">#&gt;  8 Fair  IF                1.9</span>
-<span class="co">#&gt;  9 Good  I1                3.6</span>
-<span class="co">#&gt; 10 Good  SI2               4.6</span>
-<span class="co">#&gt; # … with 30 more rows</span>
-
-<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-                <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">8</span>),
-                <span class="kw">position</span> <span class="kw">=</span> <span class="st">"dodge"</span>,
-                <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-                <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-                <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>)</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r">
-<span class="fu">ggplot</span>(<span class="no">plot_data</span>) +
-  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">average_price</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu">fct_rev</span>(<span class="no">cut</span>), <span class="kw">fill</span> <span class="kw">=</span> <span class="no">clarity</span>),
-           <span class="kw">stat</span> <span class="kw">=</span> <span class="st">"identity"</span>,
-           <span class="kw">position</span> <span class="kw">=</span> <span class="st">"dodge"</span>,
-           <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.75</span>) +
-  <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">6</span>)) +
-  <span class="fu">scale_fill_manual</span>(<span class="kw">values</span> <span class="kw">=</span> <span class="kw pkg">viridis</span><span class="kw ns">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/reexports.html">viridis</a></span>(<span class="fl">8</span>)) +
-  <span class="fu">guides</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="fu">guide_legend</span>(<span class="kw">rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) +
-  <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut and clarity"</span>,
-       <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Average price ($US thousands)"</span>,
-       <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Cut"</span>,
-       <span class="kw">fill</span> <span class="kw">=</span> <span class="st">"Clarity"</span>) +
-  <span class="kw pkg">simplevis</span><span class="kw ns">::</span><span class="fu"><a href="../reference/theme_hbar.html">theme_hbar</a></span>()</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-9-2.png" width="576"></p>
+<p><img src="colour_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 </div>
   </div>
 

@@ -12,8 +12,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
+library(dplyr)
 library(simplevis)
+library(palmerpenguins)
 ```
 
 ### Overview
@@ -32,12 +33,7 @@ The `simplevis` package provides:
 The `plotly::ggplotly` function provides the ability to convert the ggplot to an interactive object. 
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-plot_data <- ggplot2::diamonds %>% 
-  slice_sample(prop = 0.01)
-
-plot_data
-
-plot <- gg_point(plot_data, carat, price)
+plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species)
 
 plotly::ggplotly(plot) 
 ```
@@ -47,47 +43,31 @@ plotly::ggplotly(plot)
 Use `mutate_text`, `text_var` and `plotly::ggplotly(tooltip = "text")` to make pretty tooltips.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-plot_data <- ggplot2::diamonds %>% 
-  slice_sample(prop = 0.01) %>% 
+
+plot_data <- penguins %>% 
   mutate_text()
 
-plot_data %>% 
-  select(text)
+plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, text_var = text)
 
-plot <- gg_point(plot_data, carat, price, text_var = text)
-
-plotly::ggplotly(plot, tooltip = "text") 
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
 ```
 
 You can select a subset of variables for your tooltip.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-plot_data <- ggplot2::diamonds %>% 
-  slice_sample(prop = 0.01) %>% 
-  mutate_text(c("color", "clarity", "depth"))
+plot_data <- penguins %>% 
+  mutate_text(c("species", "flipper_length_mm"))
 
-plot_data %>% 
-  select(text)
+plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, text_var = text)
 
-plot <- gg_point(plot_data, carat, price, text_var = text)
-
-plotly::ggplotly(plot, tooltip = "text")
+plotly::ggplotly(plot, tooltip = "text") %>% 
+  plotly_camera()
 ```
 
 ### Turning off widgets other than the camera
 
 The `plotly_camera` function turns off all widgets other than the camera to make a cleaner graph.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(average_wind = mean(wind))
-
-plot <- gg_vbar(plot_data, year, average_wind)
-
-plotly::ggplotly(plot) %>% 
-  plotly_camera() 
-```
 
 ### Controlling the colour legend.
 
@@ -124,6 +104,7 @@ plot
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
 ```
+
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 7}
 col_cuts <- as.vector(quantile(example_sf_point$median, probs = c(0, 0.25, 0.5, 0.75, 1)))

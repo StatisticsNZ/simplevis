@@ -1,5 +1,7 @@
 ---
 title: "Simplevis"
+author: "David Hodge"
+date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette
 vignette: >
@@ -11,183 +13,165 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.height = 3.5, 
+  fig.width = 6
 )
 ```
 
 ```{r, message=FALSE, warning=FALSE}
+library(dplyr)
 library(simplevis)
 library(palmerpenguins)
-library(dplyr)
 ```
 
 ### Purpose 
 
-simplevis is a package of wrapper functions that aim to make ggplot2 and leaflet visualisation easier and quicker for users. 
+simplevis is a package of wrapper functions that aims to make fantastic ggplot2 visualisation <i>easier</i> and <i>quicker</i> for users. 
 
-simplevis emphasises cognitive ease and speed, and subsequently some flexibility is lost compared to the underlying fantastic ggplot2 and leaflet packages. 
+### Visualisation family types
 
-But the gain in cognitive ease and speed will be valuable for many users in many situations. 
+`simplevis` supports the following families of visualisation type:
 
-### Overview
+point
 
-`simplevis` provides the following families of ggplot2 visualisation:
-
-Graph:
-
-* horizontal bar (`gg_hbar`)
-* vertical bar (`gg_vbar`)
-* line (`gg_line`)
-* point (`gg_point`)
-* boxplot (`gg_boxplot`)
-
-Map:
-
-* sf (`gg_sf`)
-
-Each visualisation family has a family of generally 4 functions.
-
-The function name specifies whether or not a ggplot is to be coloured by a variable, facetted by a variable, or neither or both of these. Colouring by a variable means that different values of a selected variable are to have different colours. Facetting means different values of a selected variable are to have there own mini-plot, and these are to be placed alongside each other.
-
-Each ggplot2 wrapper family follows the structure as below:
-
-* `gg_hbar()`: a horizontal bar graph.
-* `gg_hbar_col()`: a horizontal bar graph that is coloured by a variable.
-* `gg_hbar_facet()`: a facetted horizontal bar graph.
-* `gg_hbar_col_facet()`a facetted horizontal bar graph that is coloured by a variable.
-
-For different types of graph, just replace `gg_hbar` with `gg_line`, `gg_point`, `gg_vbar`, `gg_boxplot` or `gg_sf`. 
-
-In general, required arguments (i.e. specifications) to functions are:
-
-* `data` 
-* `x_var` (not required for `sf`)
-* `y_var` (not required for `sf`) 
-
-If you are using a `_col` or `_col_facet` function:
-
-* `col_var`
-
-If you are using a `_facet` or `_col_facet` function:
-
-* `facet_var`
-
-It is always recommended to add a `title`, `x_title` and `y_title` too. 
-
-### Plots <i>not</i> coloured by a variable.
-
-Identify the function that you need, then provide the `data`, an `x_var` and a `y_var` (unless of the `gg_sf` family).
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>% 
-  slice_sample(prop = 0.05) %>% 
-  tibble::as_tibble()
-
-plot_data
-
-gg_point(plot_data, carat, price)
+```{r}
+gg_point(iris, Sepal.Width, Sepal.Length)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  group_by(cut) %>%
-  summarise(average_price = mean(price)) %>%
-  mutate(average_price = average_price / 1000) %>%  
-  mutate(cut = stringr::str_to_sentence(cut)) %>% 
-  tibble::as_tibble()
+vbar (i.e vertical bar)
 
-plot_data
-
-gg_hbar(plot_data, average_price, cut)
-```
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+```{r}
 plot_data <- storms %>%
   group_by(year) %>%
-  summarise(average_wind = mean(wind)) %>% 
-  tibble::as_tibble()
+  summarise(wind = mean(wind))
 
-plot_data
-
-gg_vbar(plot_data, year, average_wind)
+gg_vbar(plot_data, year, wind)
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+hbar (i.e horizontal bar)
+
+```{r}
 plot_data <- storms %>%
   group_by(year) %>%
-  summarise(wind = mean(wind)) %>% 
-  tibble::as_tibble()
+  summarise(wind = mean(wind))
 
-plot_data 
-
-gg_line(plot_data, year, y_var = wind)
+gg_hbar(plot_data, wind, year)
 ```
 
-Note the `gg_boxplot` functions transform the data to boxplot statistics by default. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- iris %>%
-  mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  tibble::as_tibble()
 
-plot_data
+* boxplot
 
-gg_boxplot(plot_data, Species, Petal.Length)
+```{r}
+gg_boxplot(storms, year, wind)
 ```
 
-### Plots coloured by a variable
+line
 
-To colour by a variable, use a `_col` function (e.g. `gg_hbar_col`). Add a `col_var` variable in addition.
+```{r}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  group_by(cut, clarity) %>%
-  summarise(average_price = mean(price)) %>% 
-  mutate(average_price = average_price / 1000) %>% 
-  mutate(cut = stringr::str_to_sentence(cut)) %>% 
-  tibble::as_tibble()
-
-plot_data
-
-gg_hbar_col(plot_data, average_price, cut, clarity)
+gg_line(plot_data, year, wind)
 ```
 
-### Plots facetted by a variable
+* sf (short for simple features map)
 
-To facet by a variable, use a `_facet` function.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  group_by(cut, clarity) %>%
-  summarise(average_price = mean(price)) %>%
-  mutate(average_price = average_price / 1000) %>% 
-  tibble::as_tibble()
-
-plot_data
-
-gg_hbar_facet(plot_data, average_price, cut, clarity)
+```{r}
+gg_sf(example_sf_point, borders = nz)
 ```
 
-### Plots coloured by a variable and facetted by a variable
+### Colouring, facetting, neither or both
 
-facet by a variable, use a `_col_facet` function.
+Each visualisation family generally has 4 functions.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  group_by(cut, clarity, color) %>%
-  summarise(average_price = mean(price)) %>%
-  mutate(average_price = round(average_price / 1000, 1))
+The function name specifies whether or not a visualisation is to be coloured by a variable (`*_col()`), facetted by a variable (`*_facet()`), or neither (`*()`) or both of these (`_col_facet()`). 
 
-gg_hbar_col_facet(plot_data, average_price, color, clarity, cut)
+Colouring by a variable means that different values of a selected variable are to have different colours. Facetting means that different values of a selected variable are to have their facet.
+
+A `*()` function such `gg_point()` requires only a dataset, an x variable and a y variable. 
+
+```{r}
+gg_point(penguins, bill_length_mm, body_mass_g)
 ```
 
-### `sf` ggplot maps
+A `*_col()` function such `gg_point_col()` requires only a dataset, an x variable, a y variable, and a colour variable. 
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species)
+```
+
+A `*_facet()` function such `gg_point_facet()` requires only a dataset, an x variable, a y variable, and a facet variable. 
+
+```{r}
+gg_point_facet(penguins, bill_length_mm, body_mass_g, species)
+```
+
+A `*_col_facet()` function such `gg_point_col_facet()` requires only a dataset, an x variable, a y variable, a colour variable, and a facet variable. 
+
+```{r}
+gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species)
+```
+
+Data is generally plotted with a stat of `identity`, which means data is plotted as is. Only for boxplot, there is a different default stat of boxplot, which means data will be transformed to boxplot statistics. 
+
+`_sf` functions for maps differ slightly, which is discussed further below.  
+
+### Titles
+
+Customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+             title = "Adult penguin mass by bill length and species",
+             subtitle = "Palmer station, Antarctica",
+             x_title = "Bill length (mm)", 
+             y_title = "Body mass (g)",
+             col_title = "Species type",
+             caption = "Source: Gorman KB, Williams TD, Fraser WR (2014)")
+```
+
+Defaults titles are: 
+
+ * no title, subtitle or caption 
+ * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. You can turn this transformation off to use variable names as is using `x_title = ggplot2::waiver()` or likewise for `y_title` and `col_title`. You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.
+
+### Colour palettes.
+
+Change the colour palette by supplying a vector of colours to the `pal` argument. 
+
+```{r}
+gg_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
+
+```
+
+### Scale transformations
+
+simplevis makes it easy to make easy scale transformations.
+
+These use consistent prefixes based on `x_*`, `y_*`, `col_*` or `facet_*`, and as such the autocomplete can help identify what you need.
+
+Common transformations are `*_zero` or `*_labels`.
+
+```{r}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
+
+gg_line(plot_data, year, wind, 
+        y_zero = T, 
+        y_labels = scales::dollar_format())
+```
+
+### `sf` maps
 
 `simplevis` provides simple feature (`sf`) maps (i.e. maps with point, line or polygon features). 
 
-These functions work in the same way as the ggplot2 graph functions, but with the following key differences:
+These functions work in the same way as the ggplot2 graph functions, but with the following noteworthy differences:
 
 * Data must be an `sf` object 
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type
@@ -195,43 +179,33 @@ These functions work in the same way as the ggplot2 graph functions, but with th
 * No `x_var` and `y_var` variables are required
 * Borders can added to maps by providing an `sf` object to the `borders` argument. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-example_sf_point
+A couple of example sf objects are provided with the package for learning purposes: `example_sf_point` and `example_sf_polygon`.
 
-gg_sf(example_sf_point, size_point = 0.25)
+```{r}
+gg_sf_col(example_sf_point, trend_category, 
+          size_point = 0.5,
+          pal = c("#4575B4", "#D3D3D3", "#D73027"))
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-nz
+The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative bounrdaries). An sf object of the New Zealand coastline has been provided for learning purposes with the package.
 
-gg_sf(example_sf_point, borders = nz, size_point = 0.25)
+```{r}
+gg_sf_col(example_sf_point, trend_category,
+          borders = nz, 
+          size_point = 0.5,
+          pal = c("#4575B4", "#D3D3D3", "#D73027"))
+
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-example_sf_polygon
+As a bonus, simplevis also provides `leaflet` and `leaflet_sf` functions, which work in a similar way. 
 
-gg_sf_col(example_sf_polygon, 
-              col_var = density, 
-              borders = nz)
+```{r}
+leaflet_sf_col(example_sf_point, trend_category,
+          size_point = 0.5,
+          pal = c("#4575B4", "#D3D3D3", "#D73027"))
 ```
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-gg_sf_facet(example_sf_point, trend_category, 
-                borders = nz, 
-                size_point = 0.5)
-```
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-gg_sf_col_facet(example_sf_point, 
-                    col_var = trend_category, 
-                    facet_var = trend_category,
-                    borders = nz, 
-                    size_point = 0.5, 
-                    pal = c("#4575B4", "#D3D3D3", "#D73027"),
-                    title = "Site trends, 1990\u201317")
-```
-
-#### ggplot supported variable classes
+### supported variable classes
 
 variable types supported by the different groups of functions are outlined below.
 
@@ -239,81 +213,44 @@ A stat of `identity` refers to the value being plotted as it is. A stat of `boxp
 
 ```{r, message = FALSE, warning = FALSE, fig.width = 7}
 tibble::tribble(
-  ~group, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
-  "vbar", "numeric, date or categorical", "numeric", "categorical or numeric", "categorical", "identity",
-  "hbar", "numeric", "categorical", "categorical or numeric", "categorical", "identity",
-  "line", "numeric, date or categorical", "numeric", "categorical or numeric", "categorical", "identity",
-  "point", "numeric, date or categorical", "numeric", "categorical or numeric", "categorical", "identity",
-  "boxplot", "numeric, date or categorical", "numeric", "categorical", "categorical", "boxplot or identity",
-  "sf", NA, NA, "categorical or numeric", "categorical", "identity",
+  ~type, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
+  "vbar", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "Identity",
+  "hbar", "tibble or data.frame", "Numeric", "Any", "Categorical or numeric", "Categorical", "Identity",
+  "line", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "Identity",
+  "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "Identity",
+  "boxplot", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "Boxplot or identity",
+  "sf", "sf", NA, NA, "Categorical or numeric", "Categorical", "Identity",
   ) %>% 
   DT::datatable()
 ```
 
-### ggplotly interactive html graphs and maps
+### Output objects
 
-All ggplot objects can be converted into interactive html objects using ggplotly. Simply wrap the plot object in `plotly::ggplotly` as follows:
+All `gg_*` and `leaflet_*` wrapper functions produce ggplot or leaflet objects.
+
+This mean layers can be added to the functions in the same way you would a ggplot2 or leaflet object.
+
+Note you need to add all aesthetics to any additional layers.
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species) +
+  ggplot2::geom_smooth(ggplot2::aes(bill_length_mm, body_mass_g, col = species))
+
+```
+
+### ggplotly interactive visualisation
+
+All ggplot objects can be converted into interactive html objects using ggplotly. 
+
+Simply wrap the plot object in `plotly::ggplotly` as follows:
 
 ```{r, eval = FALSE}
-plot <- gg_point(iris, Sepal.Width, Sepal.Length)
+plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species)
 
-plotly::ggplotly(plot)
+plotly::ggplotly(plot) %>% 
+  plotly_camera()
 ```
 
-For further information on how to use `ggplotly` with `simplevis`, see the [ggplotly article](https://statisticsnz.github.io/simplevis/articles/ggplotly.html) 
+### Further information
 
-### `sf` leaflet html interactive maps 
-
-`simplevis` also provides wrapper functions for `sf` leaflet html interactive maps.
-
-These differ from `ggplotly` interactive plots in that they provide basemaps and zoom functionality. However, they do not support facetting. 
-
-A `leaflet_sf` and `leaflet_sf_col` function are provided. 
-
-They work in essentially the same way as the ggplot2 non-facetted `sf` functions. Arguments have been aligned with simplevis ggplot wrapping functions (e.g. size_point = radius, line_size = weight, alpha = fillOpacity).
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-leaflet_sf_col(example_sf_point, trend_category, 
-               basemap = "light",
-               pal = c("#0D94A3", "#C4C4C7", "#AE4E51"), 
-               title = "Monitored trends, 2008\u201317")
-```
-
-For further information on how to create leaflet html maps, see the [leaflet article](https://statisticsnz.github.io/simplevis/articles/leaflet.html) 
-
-### Adding layers
-
-Because both of the ggplot and leaflet wrapper functions produce ggplot and leaflet objects, you can add layers in the same way that you would normally to these objects. Be careful to use `+` to add layers to ggplot objects and `%>%` to add to leaflet objects. Data is inherited from the simplevis, but aesthetics are not.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-gg_point(iris, Sepal.Width, Sepal.Length) +
-  ggplot2::geom_smooth(ggplot2::aes(Sepal.Width, Sepal.Length), col = viridis::viridis(4)[2])
-```
-
-### Colour 
-
-To change the colours, add a `pal` argument with a vector of hex strings.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-gg_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
-```
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-gg_point_col(iris, Sepal.Width, Sepal.Length, Species, 
-                 pal = c("#1B9E77", "#D95F02", "#7570B3"))
-
-```
-
-Colouring works slightly differently in simplevis to ggplot2. For further information, see the [colour article](https://statisticsnz.github.io/simplevis/articles/colour.html). 
-
-### Working with scales
-
-Working with scales can be one of the most challenging aspects of creating a nice visualisation. 'simplevis` uses the power of consistent prefixes and the Rstudio auto-complete to make this easier for users.
-
-For further information, see the [scales article](https://statisticsnz.github.io/simplevis/articles/scales.html).
-
-### Shiny apps for mobile devices 
-
-`simplevis` provides simple methods for supporting visualisation on apps for mobile device users. 
-
-For further information, see the [shiny article](https://statisticsnz.github.io/simplevis/articles/shiny.html).
+For further information, see the articles on the [website](https://statisticsnz.github.io/simplevis/).

@@ -12,59 +12,44 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
+library(dplyr)
 library(simplevis)
+library(palmerpenguins)
 ```
 
 ### Overview
 
 In simplevis, users define the following to adjust colours:
 
-1. a `pal` argument of which colours to use 
-2. a `col_var` argument of which variable is to be mapped to colours within an `_col` function
-3. an `alpha` argument of what the opacity of the fill of colours within polygons is to be
-4. If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
+1. Always define the colours to use via the `pal` argument 
+2. If colouring by a variable, use a `*_col` or `*_col_facet` function, and define the `col_var`
+3. If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
 
-### 2. Defining the `pal` to adjust which colours to use
+### 1. Always define the colours to use via the `pal` argument 
 
 The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the `pal` argument.
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-gg_point(iris, Sepal.Width, Sepal.Length, pal = "#e7298a")
+gg_point(penguins, bill_length_mm, body_mass_g, pal = "#e7298a")
+
 ```
 
 Users can get access to a large amount of colour palettes through the `pals` package.
 
-### 2. Defining a `col_var` to map a variable to colours within an `_col` function
+### 2. If colouring by a variable, use a `*_col` or `*_col_facet` function, and define the `col_var`
 
-To colour by a variable, use a `_col` function
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-gg_point_col(iris, Sepal.Width, Sepal.Length, Species, 
-                 pal = c("#1B9E77", "#D95F02", "#7570B3"))
-```
-
-### 3. Defining the `alpha` to adjust the opacity of the fill of polygons.
-
-Emphasis can be given to the outline of polygons by using an `alpha` argument to add opacity to the fill of polygons.
+To colour by a variable, use a `*_col` function
 
 ```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 
-  group_by(cut) %>%
-  summarise(average_price = round(mean(price) / 1000, 1))
-
-plot_data
-
-gg_hbar(plot_data, average_price, cut, alpha = 0.25)
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+             pal = c("#1B9E77", "#D95F02", "#7570B3"))
 ```
 
-### 4. If colouring by a numeric variable, defining the `col_method` and `col_cuts`
+### 3. If colouring by a numeric variable, define the `col_method` and `col_cuts`
 
-All `simplevis` `_col` functions provide for colouring by a categorical variable.
+All `simplevis` `*_col` and `*_col_facet` functions support colouring by a categorical variable.
 
-In addition, `sf` and `point` functions provide for colouring by a numeric variable.
+In addition, `sf` and `point` `*_col` and `*_col_facet` functions support colouring by a numeric variable.
 
 You do this by specifying whether you want to do this by:
 
@@ -83,98 +68,15 @@ gg_point_col(plot_data,
                  col_var = z,
                  col_method = "quantile",
                  col_cuts = c(0, 0.25, 0.5, 0.75, 1))
+```
 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
 gg_point_col(plot_data, 
                  x_var = carat, 
                  y_var = price, 
                  col_var = z,
                  col_method = "bin",
                  col_cuts = c(0, 1, 2, 3, 4, 5, Inf))
-```
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-gg_sf_col(example_sf_polygon, 
-               col_var = density, 
-               col_method = "bin", 
-               col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
-               col_labels_dp = 0)
-```
-
-### `simplevis` colouring vs `ggplot2` 
-
-`simplevis` unites two `ggplot2` concepts into one to make things simpler for users:
-
-* the colouring of points and lines (including outlines) 
-* the colouring of the fill of polygons
-
-These concepts are referred to as the `col` and the `fill` in ggplot2. So geom_point uses `col` and `geom_bar` uses fill (and col). 
-
-To map colours to a variable:
-
-* In `simplevis`: use a `_col` function and specify the `col_var`
-* In `ggplot2`: add a `col` and/or `fill` argument within `aes` to the relevant `geom` layer
-
-To select colours to use:
-
-* In `simplevis`: use `pal` argument and specify a vector of colours
-* In `ggplot2`: if no variable is <i>not</i> mapped to colours, then provide a vector of colours to fill and/or col arguments within the `geom` layer. Otherwise, if a variable is mapped to colours, then provide a vector of colours the values argument within `scale_fill_manual` and/or `scale_colour_manual`.
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 
-  group_by(cut) %>%
-  summarise(average_price = round(mean(price) / 1000, 1))
-
-plot_data
-
-gg_hbar(plot_data, average_price, cut, 
-            pal = viridis::viridis(4)[2], # in simplevis, pal is always a vector of colours
-            title = "Average diamond price by cut and clarity", 
-            x_title = "Average price ($US thousands)",  
-            y_title = "Cut")
-
-ggplot(plot_data) + 
-  geom_bar(aes(x = average_price, y = fct_rev(cut)), 
-           stat = "identity", 
-           fill = viridis::viridis(4)[2], # in ggplot2, fill is a vector of colours when outside of aes
-           width = 0.75) +
-   scale_x_continuous(expand = c(0, 0), limits = c(0, 5)) +
-   labs(title = "Average diamond price by cut", 
-        x = "Average price ($US thousands)",  
-        y = "Cut") +
-  simplevis::theme_hbar() 
-```
-
-
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
-plot_data <- ggplot2::diamonds %>%
-  mutate(cut = stringr::str_to_sentence(cut)) %>%
-  mutate(cut = factor(cut, levels = c("Fair", "Good", "Very good", "Premium", "Ideal"))) %>% 
-  group_by(cut, clarity) %>%
-  summarise(average_price = round(mean(price) / 1000, 1))
-
-plot_data
-
-gg_hbar_col(plot_data, average_price, cut, col_var = clarity, 
-                pal = viridis::viridis(8), 
-                position = "dodge",
-                title = "Average diamond price by cut and clarity", 
-                x_title = "Average price ($US thousands)", 
-                y_title = "Cut")
-
-ggplot(plot_data) + 
-  geom_bar(aes(x = average_price, y = fct_rev(cut), fill = clarity), 
-           stat = "identity", 
-           position = "dodge",
-           width = 0.75) +
-  scale_x_continuous(expand = c(0, 0), limits = c(0, 6)) +
-  scale_fill_manual(values = viridis::viridis(8)) + 
-  guides(fill = guide_legend(rev = TRUE)) +
-  labs(title = "Average diamond price by cut and clarity", 
-       x = "Average price ($US thousands)",  
-       y = "Cut",
-       fill = "Clarity") +
-  simplevis::theme_hbar() 
 ```
 

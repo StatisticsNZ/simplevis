@@ -12,8 +12,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
+library(dplyr)
 library(simplevis)
+library(palmerpenguins)
 ```
 
 ### Overview
@@ -30,6 +31,33 @@ In general:
 Therefore, if you know want to adjust the x scale but can't think how, you can start typing `x_` within the simplevis function, press tab, and then you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.
 
 One deviation from this logic is that colour palette is selected using a `pal` argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.
+
+### Labels
+
+You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+gg_point(iris, Sepal.Width, Sepal.Length,
+               y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
+               y_title = "Sepal length (m)")
+```
+
+Or via a function.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+gg_point(iris, Sepal.Width, Sepal.Length,
+               x_labels = function(x) glue::glue("{x}ish"))
+```
+
+Note there is a default sentence case transformation for categorical x variables.
+
+```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+gg_point(penguins, sex, body_mass_g)
+```
+
+You can use ggplot2::waiver() to turn this off.
+
+The `facet_labels` argument works slightly differently in that it provides access to the ggplot2 labeller argument within the ggplot facet_wrap function. Therefore you need to use ggplot labeller functions to modify these.
 
 ### Numeric scales
 
@@ -73,13 +101,6 @@ gg_vbar(plot_data, year, average_wind,
             y_balance = TRUE)
 ```
 
-You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
-
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
-gg_point(iris, Sepal.Width, Sepal.Length,
-               y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
-               y_title = "Sepal length (m)")
-```
 
 ### Discrete scales
 

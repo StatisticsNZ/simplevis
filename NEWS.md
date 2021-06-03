@@ -1,3 +1,7 @@
+# simplevis 3.8.7
+
+* Updated vignette.
+
 # simplevis 3.8.6
 
 * Updated help for facet_labels.

@@ -1,3 +1,7 @@
+# simplevis 3.8.8
+
+* Subtle changes to the aim of the project.
+
 # simplevis 3.8.7
 
 * Updated vignette.

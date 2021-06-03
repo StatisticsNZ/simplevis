@@ -29,7 +29,7 @@ library(palmerpenguins)
 
 ### Purpose 
 
-simplevis is a package of wrapper functions that aims to make fantastic ggplot2 visualisation <i>easier</i> and <i>quicker</i> for users. 
+simplevis is a package of wrapper functions that aim to make ggplot2 visualisation easier and quicker. 
 
 ### Visualisation family types
 
@@ -54,11 +54,11 @@ gg_vbar(plot_data, year, wind)
 hbar (i.e horizontal bar)
 
 ```{r}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
+plot_data <- ggplot2::diamonds %>%
+  group_by(cut) %>%
+  summarise(price = mean(price))
 
-gg_hbar(plot_data, wind, year)
+gg_hbar(plot_data, price, cut)
 ```
 
 
@@ -89,7 +89,7 @@ gg_sf(example_sf_point, borders = nz)
 
 Each visualisation family generally has 4 functions.
 
-The function name specifies whether or not a visualisation is to be coloured by a variable (`*_col()`), facetted by a variable (`*_facet()`), or neither (`*()`) or both of these (`_col_facet()`). 
+The function name specifies whether or not a visualisation is to be coloured by a variable (`*_col()`), facetted by a variable (`*_facet()`), or neither (`*()`) or both of these (`*_col_facet()`). 
 
 Colouring by a variable means that different values of a selected variable are to have different colours. Facetting means that different values of a selected variable are to have their facet.
 

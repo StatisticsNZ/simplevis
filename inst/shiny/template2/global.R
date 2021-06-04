@@ -6,10 +6,6 @@ library(dplyr)
 library(simplevis)
 
 # load data
-# data_folder <- "data/"
-# data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
-# data2 <-  readRDS(paste0(data_folder, "data2.RDS"))
-
 data1 <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.1)
 

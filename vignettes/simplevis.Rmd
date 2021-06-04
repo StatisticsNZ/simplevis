@@ -36,6 +36,16 @@ simplevis is a package of wrapper functions that aim to make ggplot2 visualisati
 
 `simplevis` supports the following families of visualisation type:
 
+bar (i.e vertical bar)
+
+```{r}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
+
+gg_bar(plot_data, year, wind)
+```
+
 point
 
 ```{r}
@@ -52,14 +62,10 @@ plot_data <- storms %>%
 gg_line(plot_data, year, wind)
 ```
 
-bar (i.e vertical bar)
+* boxplot
 
 ```{r}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
-
-gg_bar(plot_data, year, wind)
+gg_boxplot(storms, year, wind)
 ```
 
 hbar (i.e horizontal bar)
@@ -70,12 +76,6 @@ plot_data <- ggplot2::diamonds %>%
   summarise(price = mean(price))
 
 gg_hbar(plot_data, price, cut)
-```
-
-* boxplot
-
-```{r}
-gg_boxplot(storms, year, wind)
 ```
 
 * sf (short for simple features map)

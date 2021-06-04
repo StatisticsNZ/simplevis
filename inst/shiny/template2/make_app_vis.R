@@ -6,11 +6,11 @@
 library(dplyr)
 library(simplevis)
 
-data_folder <- "inst/shiny/template2/data/"
+# read data from app data folder
+data1 <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.1)
 
-data1 <-  readRDS(paste0(data_folder, "data1.RDS"))
-
-data2 <-  readRDS(paste0(data_folder, "data2.RDS")) %>% 
+data2 <- simplevis::example_sf_point %>% 
   mutate(trend_category = factor(trend_category, levels = c("Improving", "Indeterminate", "Worsening")))
 
 # make a plot filtered by a user selected colour
@@ -31,15 +31,15 @@ title <- paste0("Average diamond price of colour ", selected_color, " by cut and
 x_title <- "Average price ($US thousands)"
 y_title <- "Cut"
 
-plot <- gg_hbar_col(data = plot_data, 
-                        x_var = average_price_thousands, 
-                        y_var = cut, 
-                        col_var = clarity,
-                        text_var = text,
-                        col_ncol = 4,
-                        title = title, 
-                        x_title = x_title, 
-                        y_title = y_title)
+plot <- gg_hbar_col(plot_data, average_price_thousands, cut, clarity, 
+                    text_var = text,
+                    title = title, 
+                    x_title = x_title, 
+                    y_title = y_title,
+                    font_family = "Helvetica", 
+                    mobile = F)
+
+plot 
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera() 

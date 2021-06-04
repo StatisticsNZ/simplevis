@@ -1,3 +1,7 @@
+# simplevis 3.9.5
+
+* Updated app templates.
+
 # simplevis 3.9.4
 
 * Changed vbar family to hbar.

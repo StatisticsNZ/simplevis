@@ -349,7 +349,6 @@ gg_boxplot <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -413,7 +412,6 @@ gg_boxplot_col <- function(data,
                            col_legend_ncol = NULL,
                            col_legend_nrow = NULL,
                            col_na = TRUE,
-                           col_rev = FALSE,
                            col_title = NULL,
                            col_title_wrap = 25,
                            caption = NULL,
@@ -1026,7 +1024,6 @@ gg_boxplot_facet <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. Defaults to 1.
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
@@ -1099,7 +1096,6 @@ gg_boxplot_col_facet <- function(data,
                                  col_legend_ncol = NULL,
                                  col_legend_nrow = NULL,
                                  col_na = TRUE,
-                                 col_rev = FALSE,
                                  col_title = NULL,
                                  col_title_wrap = 25,
                                  facet_labels = NULL,

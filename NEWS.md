@@ -1,3 +1,11 @@
+# simplevis 3.9.2
+
+* Removed col_rev from gg_boxplot family.
+
+# simplevis 3.9.1
+
+* Added hack example.
+
 # simplevis 3.9.0
 
 * Removed facet_scales arg from gg_sf family.

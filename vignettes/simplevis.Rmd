@@ -160,10 +160,11 @@ These use consistent prefixes based on `x_*`, `y_*`, `col_*` or `facet_*`, and a
 
 Some examples of transformations available are:
 
+* `*_na` to quickly not include NA observations
 * `*_labels` to adjust labels for any x, y, col or facet scale
 * `*_zero` to start at zero for numeric x or y scales 
 * `*_pretty_n` for the number of numeric bins of breaks for the x or y scale to aim for 
-* `*_rev` to reverse the order of categorical x, y or col scales 
+* `*_rev` to reverse the order of categorical x, y or col scales in bars 
 * `*_expand` to add padding to an x or y scale.
 
 ```{r}
@@ -179,10 +180,6 @@ gg_line(plot_data, year, wind,
         y_pretty_n = 10,
         y_expand = c(0, 2))
 ```
-
-### NA values
-
-simplevis allows users to quickly remove na observations from their plots, by changing `x_na`, `y_na`, `col_na` or `facet_na` to `FALSE`.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, sex, col_na = FALSE)
@@ -282,7 +279,7 @@ Note you need to add all aesthetics to any additional layers.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species) +
-  ggplot2::geom_smooth(ggplot2::aes(bill_length_mm, body_mass_g, col = species))
+  geom_smooth(aes(bill_length_mm, body_mass_g, col = species))
 
 ```
 
@@ -298,6 +295,15 @@ gg_vbar(plot_data, sex, body_mass_g, y_pretty_n = 3, x_na = FALSE) +
   facet_grid(rows = vars(species), 
              cols = vars(island), 
              labeller = as_labeller(snakecase::to_sentence_case))
+
+```
+
+It also enables you to 'hack' some other `geoms` of `ggplot2` currently unsupported by simplevis, while utilising the functionality and look of `simplevis`. 
+
+```{r}
+gg_point(penguins, species, body_mass_g, size_point = NA, y_zero = T, y_labels = scales::comma) +
+  geom_violin(aes(species, body_mass_g)) +
+  theme(panel.grid.major.x = element_blank())
 
 ```
 

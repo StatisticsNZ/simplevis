@@ -538,9 +538,9 @@ theme_sf <-
 #' library(ggplot2)
 #' 
 #' ggplot() +
-#'   theme_vbar("Courier", 9, 7) +
+#'   theme_bar("Courier", 9, 7) +
 #'   ggtitle("This is a title of a font family and size")
-theme_vbar <-
+theme_bar <-
   function(font_family = "",
            font_size_title = 11,
            font_size_body = 10) {

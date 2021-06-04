@@ -1,3 +1,11 @@
+# simplevis 3.9.4
+
+* Changed vbar family to hbar.
+
+# simplevis 3.9.3
+
+* Removed hack example.
+
 # simplevis 3.9.2
 
 * Removed col_rev from gg_boxplot family.

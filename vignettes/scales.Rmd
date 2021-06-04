@@ -97,7 +97,7 @@ plot_data <- storms %>%
   group_by(year) %>%
   summarise(average_wind = round(mean(wind), 2)) 
 
-gg_vbar(plot_data, year, average_wind,
+gg_bar(plot_data, year, average_wind,
             y_balance = TRUE)
 ```
 

@@ -52,14 +52,14 @@ plot_data <- storms %>%
 gg_line(plot_data, year, wind)
 ```
 
-vbar (i.e vertical bar)
+bar (i.e vertical bar)
 
 ```{r}
 plot_data <- storms %>%
   group_by(year) %>%
   summarise(wind = mean(wind))
 
-gg_vbar(plot_data, year, wind)
+gg_bar(plot_data, year, wind)
 ```
 
 hbar (i.e horizontal bar)
@@ -232,7 +232,7 @@ A stat of `identity` refers to the value being plotted as it is. A stat of `boxp
 ```{r, message = FALSE, warning = FALSE, fig.width = 7}
 tibble::tribble(
   ~type, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
-  "vbar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "Identity",
+  "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "Identity",
   "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "Identity",
   "line", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "Identity",
   "point", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "Identity",
@@ -291,19 +291,10 @@ plot_data <- penguins %>%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
   filter(!is.na(sex))
 
-gg_vbar(plot_data, sex, body_mass_g, y_pretty_n = 3, x_na = FALSE) +
+gg_bar(plot_data, sex, body_mass_g, y_pretty_n = 3, x_na = FALSE) +
   facet_grid(rows = vars(species), 
              cols = vars(island), 
              labeller = as_labeller(snakecase::to_sentence_case))
-
-```
-
-It also enables you to 'hack' some other `geoms` of `ggplot2` currently unsupported by simplevis, while utilising the functionality and look of `simplevis`. 
-
-```{r}
-gg_point(penguins, species, body_mass_g, size_point = NA, y_zero = T, y_labels = scales::comma) +
-  geom_violin(aes(species, body_mass_g)) +
-  theme(panel.grid.major.x = element_blank())
 
 ```
 

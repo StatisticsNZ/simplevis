@@ -7,11 +7,15 @@ date: "`r Sys.Date()`"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.height = 3.5, 
+  fig.width = 6
 )
 ```
 
-```{r, message = FALSE, warning = FALSE}
+```{r}
 library(dplyr)
 library(simplevis)
 library(palmerpenguins)
@@ -23,7 +27,7 @@ The `plotly::ggplotly` function works to convert ggplot objects to interactive h
 
 The `simplevis` package provides:
 
-* a `text_var` argument within ggplot wrapper functions for use as the tooltip
+* a `text_var` argument within `gg_*` wrapper functions for use as the tooltip
 * a `mutate_text` function to create a tooltip easily based on all or a subset of variables in the data
 * a `plotly_camera` function to turn off all widgets other than the camera
 * `plotly_col_legend` to manipulate the order of plotly legends.
@@ -32,8 +36,9 @@ The `simplevis` package provides:
 
 The `plotly::ggplotly` function provides the ability to convert the ggplot to an interactive object. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
-plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species)
+```{r}
+plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+                     font_family = "Helvetica")
 
 plotly::ggplotly(plot) 
 ```
@@ -42,24 +47,32 @@ plotly::ggplotly(plot)
 
 Use `mutate_text`, `text_var` and `plotly::ggplotly(tooltip = "text")` to make pretty tooltips.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+A variable can be added to the `text_var` in the `gg_*` function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
+
+`simplevis` provides a `mutate_text` function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the `snakecase::to_sentence_case` function. 
+
+```{r}
 
 plot_data <- penguins %>% 
   mutate_text()
 
-plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, text_var = text)
+plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, 
+                     text_var = text, 
+                     font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
 ```
 
-You can select a subset of variables for your tooltip.
+The `mutate_text` function uses all variables in the dataset by defalut, but a subset can be used if desired. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 plot_data <- penguins %>% 
   mutate_text(c("species", "flipper_length_mm"))
 
-plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, text_var = text)
+plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, 
+                     text_var = text, 
+                     font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -73,10 +86,11 @@ The `plotly_camera` function turns off all widgets other than the camera to make
 
 Sometimes the ggplotly legend displays elements in a different order to how you want them. You can reverse them or specify a specific order using `plotly_col_legend`. Note, this only affects the legend elements.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05) 
  
-plot <- gg_point_col(plot_data, carat, price, color)
+plot <- gg_point_col(plot_data, carat, price, color, 
+                     font_family = "Helvetica")
  
 plotly::ggplotly(plot)
 
@@ -88,25 +102,22 @@ plotly::ggplotly(plot) %>%
 
 sf ggplots can also be converted to interactive ggplotly objects using the same method.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r, fig.height = 4}
 plot_data <- example_sf_point %>% 
   mutate_text()
 
-plot_data
-
-plot <- gg_sf_col(plot_data, trend_category, text_var = text,
+plot <- gg_sf_col(plot_data, trend_category, 
+              text_var = text,
               borders = nz, 
               pal = c("#4575B4", "#D3D3D3", "#D73027"), 
-              title = "Monitored trends, 2008-17")
-
-plot
+              font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
 ```
 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 6, fig.width = 7}
+```{r, fig.height = 6}
 col_cuts <- as.vector(quantile(example_sf_point$median, probs = c(0, 0.25, 0.5, 0.75, 1)))
 
 plot_data <- example_sf_point %>% 
@@ -119,9 +130,7 @@ plot_data <- example_sf_point %>%
 plot <- gg_sf_col_facet(plot_data, trend_category, quartile, text_var = text,
                       borders = nz,
                       pal = c("#4575B4", "#D3D3D3", "#D73027"), 
-                      title = "Trends by median quartile, 2017")
-
-plot
+                      font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

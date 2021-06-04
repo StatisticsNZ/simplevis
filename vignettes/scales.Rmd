@@ -7,11 +7,15 @@ date: "`r Sys.Date()`"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.height = 3.5, 
+  fig.width = 6
 )
 ```
 
-```{r, message = FALSE, warning = FALSE}
+```{r}
 library(dplyr)
 library(simplevis)
 library(palmerpenguins)
@@ -36,7 +40,7 @@ One deviation from this logic is that colour palette is selected using a `pal` a
 
 You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r}
 gg_point(iris, Sepal.Width, Sepal.Length,
                y_labels = scales::number_format(accuracy = 0.01, scale = 1/100),
                y_title = "Sepal length (m)")
@@ -44,20 +48,20 @@ gg_point(iris, Sepal.Width, Sepal.Length,
 
 Or via a function.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r}
 gg_point(iris, Sepal.Width, Sepal.Length,
                x_labels = function(x) glue::glue("{x}ish"))
 ```
 
 Note there is a default sentence case transformation for categorical x variables.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r}
 gg_point(penguins, sex, body_mass_g)
 ```
 
-You can use ggplot2::waiver() to turn this off.
+You can use `ggplot2::waiver()` to turn this off.
 
-The `facet_labels` argument works slightly differently in that it provides access to the ggplot2 labeller argument within the ggplot facet_wrap function. Therefore you need to use ggplot labeller functions to modify these.
+The `facet_labels` argument works slightly differently in that it provides access to the ggplot2 labeller argument within the ggplot `facet_wrap` function. Therefore you need to use ggplot labeller functions to modify these.
 
 ### Numeric scales
 
@@ -68,7 +72,7 @@ The `facet_labels` argument works slightly differently in that it provides acces
 
 You can use the `x_zero` and `y_zero` arguments to change the defaults.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r}
 gg_point(iris, Sepal.Width, Sepal.Length,
                x_zero = FALSE, y_zero = FALSE)
 
@@ -76,7 +80,7 @@ gg_point(iris, Sepal.Width, Sepal.Length,
 
 Adjust the number of breaks for numeric x and/or y scales.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r}
 gg_point(iris, Sepal.Width, Sepal.Length, 
                y_pretty_n = 10,
                x_pretty_n = 3)
@@ -84,7 +88,7 @@ gg_point(iris, Sepal.Width, Sepal.Length,
 
 Transform numeric x and y scales.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 7}
+```{r}
 gg_point(iris, Sepal.Width, Sepal.Length,
                x_trans = "sqrt", 
                y_trans = "log10")
@@ -101,12 +105,11 @@ gg_bar(plot_data, year, average_wind,
             y_balance = TRUE)
 ```
 
-
 ### Discrete scales
 
 `simplevis` automatically orders hbar graphs of character variables alphabetically.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = as.character(cut)) %>% 
   group_by(cut) %>%
@@ -118,7 +121,7 @@ gg_hbar(plot_data, average_price, cut)
 
 Simple hbar and vbar plots that are not facetted or coloured can be ordered by size using y_reorder or x_reorder.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = as.character(cut)) %>% 
   group_by(cut) %>%
@@ -127,18 +130,16 @@ plot_data <- ggplot2::diamonds %>%
 gg_hbar(plot_data, average_price, cut, y_reorder = T)
 ```
 
-
-
 Discrete scales can be reversed easily using the relevant `y_rev` or `x_rev` argument. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 gg_hbar(plot_data, average_price, cut,
             y_rev = TRUE)
 ```
 
 If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor. 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
 
 plot_data <- plot_data %>% 
@@ -149,30 +150,34 @@ gg_hbar(plot_data, average_price, cut)
 
 ### Colour scales
 
-Add a colour title.
+Customise the colour title. Note that because colour labels will be converted by default in simplevis, but we can turn this default transformation off using `ggplot2::waiver()`
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
 
-gg_hbar_col(plot_data, average_price, cut, clarity, col_title = "Clarity")
+gg_hbar_col(plot_data, average_price, cut, clarity, 
+            col_labels = ggplot2::waiver(),
+            col_title = "Diamond clarity")
 
 ```
 
 Reverse the palette.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 gg_hbar_col(plot_data, average_price, cut, clarity,
-                pal_rev = TRUE)
+            col_labels = ggplot2::waiver(), 
+            pal_rev = TRUE)
 
 ```
 
 Reverse the order of coloured bar pieces.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 7}
+```{r}
 gg_hbar_col(plot_data, average_price, cut, clarity,
-                col_rev = TRUE)
+            col_labels = ggplot2::waiver(), 
+            col_rev = TRUE)
 
 ```
 

@@ -36,7 +36,7 @@ simplevis is a package of wrapper functions that aim to make ggplot2 visualisati
 
 `simplevis` supports the following families of visualisation type:
 
-bar (i.e vertical bar)
+bar
 
 ```{r}
 plot_data <- storms %>%
@@ -70,7 +70,7 @@ gg_boxplot(storms, year, wind)
 
 hbar (i.e horizontal bar)
 
-```{r, fig.height = 3.5}
+```{r, fig.height = 3}
 plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(price = mean(price))
@@ -245,7 +245,9 @@ tibble::tribble(
 
 ### ggplotly interactive visualisation
 
-All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in `plotly::ggplotly()`. The `plotly_camera` function removes plotly widgets other than the camera to keep things tidy.
+All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in `plotly::ggplotly()`. 
+
+The `plotly_camera` function removes plotly widgets other than the camera to keep things tidy.
 
 ```{r, eval = FALSE}
 plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species) 
@@ -254,15 +256,13 @@ plotly::ggplotly(plot) %>%
   plotly_camera()
 ```
 
-`simplevis` also offers more customisability for making tooltips (i.e. hover values). 
+`simplevis` also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values). 
 
-The `mutate_text` functions  produces a variable named `text` that can be added into the simplevis function through `text_var`, which access the ggplot text aesthetic. 
+A variable can be added to the `text_var` in the `gg_*` function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
 
-These variables and values can then be seen in tooltips in the `ggplotly` object if `tooltip = "text"` is added to the function. 
+`simplevis` provides a `mutate_text` function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the `snakecase::to_sentence_case` function. 
 
-The `mutate_text` creates a tooltip column of all variables and values in the data by default, but you can express a subset of these by specifying a vector of variable names to the function.
-
-Note that this function converts column names to sentence case using the `snakecase::to_sentence_case` function.
+The `mutate_text` function uses all variables in the dataset by defalut, but a subset can be used if desired. 
 
 ```{r, eval = FALSE}
 plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species) 

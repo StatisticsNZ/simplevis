@@ -7,11 +7,15 @@ date: "`r Sys.Date()`"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.height = 3.5, 
+  fig.width = 6
 )
 ```
 
-```{r, message = FALSE, warning = FALSE}
+```{r}
 library(dplyr)
 library(simplevis)
 library(palmerpenguins)
@@ -29,7 +33,7 @@ In simplevis, users define the following to adjust colours:
 
 The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the `pal` argument.
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+```{r}
 gg_point(penguins, bill_length_mm, body_mass_g, pal = "#e7298a")
 
 ```
@@ -40,7 +44,7 @@ Users can get access to a large amount of colour palettes through the `pals` pac
 
 To colour by a variable, use a `*_col` function
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
              pal = c("#1B9E77", "#D95F02", "#7570B3"))
 ```
@@ -56,7 +60,7 @@ You do this by specifying whether you want to do this by:
 * defining whether the col_method is to be by `bin` or `quantile`
 * defining a vector or col_cuts. These should be between 0 and infinity (`Inf`) for `bin` and between 0 and 1 for `quantile`
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+```{r}
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.01)
 
@@ -71,7 +75,7 @@ gg_point_col(plot_data,
 ```
 
 
-```{r, message = FALSE, warning = FALSE, fig.height = 3.5, fig.width = 6}
+```{r}
 gg_point_col(plot_data, 
                  x_var = carat, 
                  y_var = price, 

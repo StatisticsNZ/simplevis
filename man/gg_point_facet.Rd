@@ -20,7 +20,7 @@ gg_point_facet(
   x_expand = NULL,
   x_labels = NULL,
   x_na = TRUE,
-  x_pretty_n = 5,
+  x_pretty_n = 3,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
@@ -31,7 +31,7 @@ gg_point_facet(
   y_expand = NULL,
   y_labels = waiver(),
   y_na = TRUE,
-  y_pretty_n = 5,
+  y_pretty_n = 4,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
@@ -80,7 +80,7 @@ gg_point_facet(
 
 \item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -102,7 +102,7 @@ gg_point_facet(
 
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

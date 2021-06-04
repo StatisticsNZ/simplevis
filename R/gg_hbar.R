@@ -112,10 +112,17 @@ gg_hbar <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   
+  if(is.logical(y_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  }
+  
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
 
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
     if (y_reorder == TRUE) {
       if(y_rev == FALSE) {
         data <- data %>%
@@ -203,7 +210,7 @@ gg_hbar <- function(data,
         labels = y_labels
       )
   }
-  else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
+  else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
     if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
     
@@ -288,7 +295,7 @@ gg_hbar <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
-#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -298,7 +305,7 @@ gg_hbar <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
-#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_reorder For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -417,11 +424,24 @@ gg_hbar_col <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
   }
   
+  if(is.logical(y_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  }
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
     if (y_rev == FALSE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
@@ -528,7 +548,7 @@ gg_hbar_col <- function(data,
         labels = y_labels
       )
   }
-  else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
+  else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
     if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
     
@@ -641,7 +661,7 @@ gg_hbar_col <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
-#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -651,7 +671,7 @@ gg_hbar_col <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
-#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -697,7 +717,7 @@ gg_hbar_facet <- function(data,
                           x_expand = NULL,
                           x_labels = waiver(),
                           x_na = TRUE,
-                          x_pretty_n = 5,
+                          x_pretty_n = 3,
                           x_title = NULL,
                           x_title_wrap = 50,
                           x_trans = "identity",
@@ -707,7 +727,7 @@ gg_hbar_facet <- function(data,
                           y_expand = NULL,
                           y_labels = NULL,
                           y_na = TRUE,
-                          y_pretty_n = 6,
+                          y_pretty_n = 4,
                           y_rev = FALSE,
                           y_title = NULL,
                           y_title_wrap = 50,
@@ -751,10 +771,23 @@ gg_hbar_facet <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
   
+  if(is.logical(y_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  }
+  if(is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
     if (y_rev == FALSE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
@@ -826,7 +859,7 @@ gg_hbar_facet <- function(data,
           labels = y_labels
         )
     }
-    else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
+    else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
       if(is.null(y_expand)) y_expand <- waiver()
       if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
       
@@ -983,7 +1016,7 @@ gg_hbar_col_facet <- function(data,
                               x_expand = NULL,
                               x_labels = waiver(),
                               x_na = TRUE,
-                              x_pretty_n = 5,
+                              x_pretty_n = 3,
                               x_title = NULL,
                               x_title_wrap = 50,
                               x_trans = "identity",
@@ -993,7 +1026,7 @@ gg_hbar_col_facet <- function(data,
                               y_expand = NULL,
                               y_labels = NULL,
                               y_na = TRUE,
-                              y_pretty_n = 6,
+                              y_pretty_n = 4,
                               y_rev = FALSE,
                               y_title = NULL,
                               y_title_wrap = 50,
@@ -1058,11 +1091,30 @@ gg_hbar_col_facet <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
   }
   
+  if(is.logical(y_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+  }
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  if(is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
+  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
     if (y_rev == FALSE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
@@ -1169,7 +1221,7 @@ gg_hbar_col_facet <- function(data,
             labels = y_labels
           )
       }
-      else if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)){
+      else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
         if(is.null(y_expand)) y_expand <- waiver()
         if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
         

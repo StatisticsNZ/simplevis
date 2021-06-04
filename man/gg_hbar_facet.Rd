@@ -22,7 +22,7 @@ gg_hbar_facet(
   x_expand = NULL,
   x_labels = waiver(),
   x_na = TRUE,
-  x_pretty_n = 5,
+  x_pretty_n = 3,
   x_title = NULL,
   x_title_wrap = 50,
   x_trans = "identity",
@@ -32,7 +32,7 @@ gg_hbar_facet(
   y_expand = NULL,
   y_labels = NULL,
   y_na = TRUE,
-  y_pretty_n = 6,
+  y_pretty_n = 4,
   y_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
@@ -85,7 +85,7 @@ gg_hbar_facet(
 
 \item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -105,7 +105,7 @@ gg_hbar_facet(
 
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
-\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_rev}{For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
 

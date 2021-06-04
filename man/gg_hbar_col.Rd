@@ -95,7 +95,7 @@ gg_hbar_col(
 
 \item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -115,7 +115,7 @@ gg_hbar_col(
 
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
-\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_reorder}{For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.}
 

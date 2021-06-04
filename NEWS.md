@@ -1,3 +1,15 @@
+# simplevis 3.9.8
+
+* Updated app templates.
+
+# simplevis 3.9.7
+
+* Updated defaults for facetted pretty breaks.
+
+# simplevis 3.9.6
+
+* Added code to ensure logical variables work.
+
 # simplevis 3.9.5
 
 * Updated app templates.

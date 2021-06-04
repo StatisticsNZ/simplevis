@@ -112,6 +112,13 @@ gg_bar <- function(data,
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   
+  if(is.logical(x_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
@@ -200,7 +207,7 @@ gg_bar <- function(data,
         labels = x_labels
       )
   }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
     
@@ -411,11 +418,24 @@ gg_bar_col <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
   }
   
+  if(is.logical(x_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
     if (x_rev == TRUE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -510,7 +530,7 @@ gg_bar_col <- function(data,
         labels = x_labels
       )
   }
-  else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
+  else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
     if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
     
@@ -631,7 +651,7 @@ gg_bar_col <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
-#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_rev For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -641,7 +661,7 @@ gg_bar_col <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
-#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -687,7 +707,7 @@ gg_bar_facet <- function(data,
                           x_expand = NULL,
                           x_labels = NULL,
                           x_na = TRUE,
-                          x_pretty_n = 6,
+                          x_pretty_n = 3,
                           x_rev = FALSE,
                           x_title = NULL,
                           x_title_wrap = 50,
@@ -697,7 +717,7 @@ gg_bar_facet <- function(data,
                           y_expand = NULL,
                           y_labels = waiver(),
                           y_na = TRUE,
-                          y_pretty_n = 5,
+                          y_pretty_n = 4,
                           y_title = NULL,
                           y_title_wrap = 50,
                           y_trans = "identity",
@@ -744,7 +764,20 @@ gg_bar_facet <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
+  if(is.logical(x_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+  if(is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
     if (x_rev == TRUE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -813,7 +846,7 @@ gg_bar_facet <- function(data,
           labels = x_labels
         )
     }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
       if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
       
@@ -898,7 +931,7 @@ gg_bar_facet <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
-#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_rev For a categorical variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -908,7 +941,7 @@ gg_bar_facet <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
-#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -964,7 +997,7 @@ gg_bar_col_facet <- function(data,
                               x_expand = NULL,
                               x_labels = NULL,
                               x_na = TRUE,
-                              x_pretty_n = 6,
+                              x_pretty_n = 3,
                               x_rev = FALSE,
                               x_title = NULL,
                               x_title_wrap = 50,
@@ -974,7 +1007,7 @@ gg_bar_col_facet <- function(data,
                               y_expand = NULL,
                               y_labels = waiver(),
                               y_na = TRUE,
-                              y_pretty_n = 5,
+                              y_pretty_n = 4,
                               y_title = NULL,
                               y_title_wrap = 50,
                               y_trans = "identity",
@@ -1039,11 +1072,30 @@ gg_bar_col_facet <- function(data,
     if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
   } 
   
+  if(is.logical(x_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  if(is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)) {
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
     if (x_rev == TRUE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -1144,7 +1196,7 @@ gg_bar_col_facet <- function(data,
           labels = x_labels
         )
     }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
       if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
       

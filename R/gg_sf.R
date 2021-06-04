@@ -220,6 +220,13 @@ gg_sf_col <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -448,6 +455,13 @@ gg_sf_facet <- function(data,
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
+  if(is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
@@ -631,6 +645,19 @@ gg_sf_col_facet <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
+  
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  if(is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   

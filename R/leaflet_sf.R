@@ -260,6 +260,13 @@ leaflet_sf_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   text_var_vctr <- dplyr::pull(data, !!text_var)
   
+  if(is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "quantile"

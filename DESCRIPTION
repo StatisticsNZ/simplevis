@@ -17,7 +17,7 @@ BugReports: https://github.com/statisticsNZ/simplevis/issues/
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 2.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
+Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 3.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
          leaflet.extras, jsonlite, lubridate, magrittr, plotly, readr, rlang (>= 0.4.0), scales, sf,    
          shiny, shinycssloaders, snakecase, stringr, tibble,  tidyr (>= 1.0.0), viridis
 Suggests: 

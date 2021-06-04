@@ -116,8 +116,9 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">palmerpenguins</span>)</pre></body></html></div>
 <div id="overview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h3>
@@ -127,12 +128,8 @@
 <h3 class="hasAnchor">
 <a href="#working-with-quoted-inputs" class="anchor"></a>Working with quoted inputs</h3>
 <p>In shiny it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in <code>!!sym</code>, as shown below.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu">sample_frac</span>(<span class="fl">0.05</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>))
-
-<span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">plot_data</span>, !!<span class="fu">sym</span>(<span class="st">"carat"</span>), !!<span class="fu">sym</span>(<span class="st">"price"</span>), !!<span class="fu">sym</span>(<span class="st">"color"</span>), !!<span class="fu">sym</span>(<span class="st">"cut"</span>))</pre></body></html></div>
-<p><img src="shiny_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="st">"bill_length_mm"</span>), !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="st">"body_mass_g"</span>), !!<span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">sym</a></span>(<span class="st">"species"</span>))</pre></body></html></div>
+<p><img src="shiny_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 </div>
 <div id="mobile-friendly-apps" class="section level3">
 <h3 class="hasAnchor">
@@ -147,54 +144,28 @@
 <li>font sizes need to be appropriate</li>
 </ul>
 <p><code>simplevis</code> provides mobile support for plots through a <code>mobile</code> argument, which makes the above changes.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu">group_by</span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">summarise</span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>, <span class="no">status</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>))
 
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>,
-            <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Average diamond price by cut"</span>,
-            <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Average price ($US)"</span>,
-            <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Cut"</span>,
-            <span class="kw">mobile</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p><img src="shiny_files/figure-html/unnamed-chunk-3-1.png" width="288"></p>
-<p>The default font size scales to look about right when viewed on a mobile device.</p>
-<p>Build one app that:</p>
-<ul>
-<li>identifies a <code>input$isMobile</code> value of whether a user is on a mobile device or not through a mobileDetect function in the <code>ui.R</code> and some javascript in the <code>www/js/mobile.js</code>
-</li>
-<li>in the <code>server.R</code>, generate a <code>reactive</code> plot object incorporating an <code>mobile = input$isMobile</code> argument into <code>simplevis</code> ggplot function</li>
-<li>in the <code>server.R</code>, render a plot object and a plotly object</li>
-<li>in the ui.R, use conditional panels to provide the rendered plotly object to non-mobile users and the rendered plot object to mobile users</li>
-</ul>
-<p>The reason why a plotly object is not provided to mobile users is that <code>ggplotly</code> does not implement all aspects of ggplot. This makes it hard to make it work nicely every time. A more reliable approach is to just provide a ggplot object instead to those users.</p>
+<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">mobile</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<p><img src="shiny_files/figure-html/unnamed-chunk-4-1.png" width="240"></p>
+<p>From the <code>simplevis</code> templates, the <code>mobileDetect</code> function in the <code>ui.R</code> and associated javascript in the <code>www/js/mobile.js</code> returns a TRUE or FALSE <code>input$isMobile</code> value if the user is on a mobile device.</p>
+<p>This <code>input$isMobile</code> TRUE or FALSE value can then be added to the <code>mobile</code> argument in the <code>simplevis</code> <code>gg_*</code> function in the <code>server.R</code>.</p>
+<p>One reliable way to ensure the plot viewed by mobile users is in the <code>ui.R</code> to use conditional panels to provide a plotly object to non-mobile users and a plot object to mobile users.</p>
+<p>This method is implemented in the <code>simplevis</code> templates.</p>
 </div>
 <div id="app-templates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#app-templates" class="anchor"></a>App templates</h3>
-<p>This method is demonstrated in two template apps that are provided called <code>template1</code> and <code>template2</code>.</p>
-<p>Users can access these functions by using the <code>run_template</code> functions for the applicable app, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
-<p>You can use these either to understand the method outlined above or to use as templates.</p>
+<p>Users can access the <code>simplevis</code> functions by using the <code>run_template</code> functions for the applicable app, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template1"</span>) <span class="co"># a graph and table</span>
 <span class="fu"><a href="../reference/run_template.html">run_template</a></span>(<span class="st">"template2"</span>) <span class="co"># a leaflet map, as well as graph and table</span></pre></body></html></div>
-<p>If you use these as templates, the basic method to create an app is:</p>
-<ul>
-<li>run <code><a href="../reference/run_template.html">run_template("template1")</a></code> or <code><a href="../reference/run_template.html">run_template("template2")</a></code> and download the code to use as a template</li>
-<li>In <code>get_data.R</code>, extract, process and save your data into the <code>data</code> subfolder, including a zip file for download</li>
-<li>In <code>make_app_vis.R</code>, draft your visualisations with dummy character inputs</li>
-<li>In <code>global.R</code>, read your data in, and create any vectors required</li>
-<li>In <code>ui.R</code>, add a app title</li>
-<li>In <code>ui.R</code>. add <code>radioButtons</code> and other widgets</li>
-<li>In <code>server.R</code>, add code within reactive plot_data and plot components, change any dummy character inputs to shiny user inputs. Add a <code>mobile = input$isMobile</code> specification to any simplevis graphs if you are looking to support mobile users as well as desktop</li>
-<li>In <code>server.R</code>, add code for map and table components, as applicable</li>
-<li>In <code>www/About.Rmd</code>, update as necessary</li>
-<li>If using google tag-manager, obtain a tag and replace <code>GTM-XXXXXXX</code> with it in the <code>www/js/tag-manager-js</code> file.</li>
-</ul>
 </div>
 <div id="thanks" class="section level3">
 <h3 class="hasAnchor">
 <a href="#thanks" class="anchor"></a>Thanks!</h3>
-<p>Thanks to Gervasio Marchand for creating the code to identify whether users are on a mobile device as described here: <a href="https://g3rv4.com/2017/08/shiny-detect-mobile-browsers" class="uri">https://g3rv4.com/2017/08/shiny-detect-mobile-browsers</a></p>
+<p>Thanks to Gervasio Marchand for creating the code to identify whether users are on a mobile device as described <a href="https://g3rv4.com/2017/08/shiny-detect-mobile-browsers">here</a></p>
 </div>
   </div>
 

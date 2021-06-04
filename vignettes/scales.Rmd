@@ -150,7 +150,7 @@ gg_hbar(plot_data, average_price, cut)
 
 ### Colour scales
 
-Customise the colour title. Note that because colour labels will be converted by default in simplevis, but we can turn this default transformation off using `ggplot2::waiver()`
+Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using `ggplot2::waiver()`
 
 ```{r}
 plot_data <- ggplot2::diamonds %>%

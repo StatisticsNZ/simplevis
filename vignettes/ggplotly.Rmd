@@ -43,6 +43,19 @@ plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species,
 plotly::ggplotly(plot) 
 ```
 
+### Turning off widgets other than the camera
+
+The `plotly_camera` function turns off all widgets other than the camera to make a cleaner graph.
+
+```{r}
+plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+                     font_family = "Helvetica")
+
+plotly::ggplotly(plot) %>% 
+  plotly_camera()
+  
+```
+
 ### Creating nice tooltips
 
 Use `mutate_text`, `text_var` and `plotly::ggplotly(tooltip = "text")` to make pretty tooltips.
@@ -77,10 +90,6 @@ plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species,
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
 ```
-
-### Turning off widgets other than the camera
-
-The `plotly_camera` function turns off all widgets other than the camera to make a cleaner graph.
 
 ### Controlling the colour legend.
 

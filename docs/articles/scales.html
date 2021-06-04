@@ -222,7 +222,7 @@
 <div id="colour-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#colour-scales" class="anchor"></a>Colour scales</h3>
-<p>Customise the colour title. Note that because colour labels will be converted by default in simplevis, but we can turn this default transformation off using <code><a href="https://ggplot2.tidyverse.org/reference/waiver.html">ggplot2::waiver()</a></code></p>
+<p>Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using <code><a href="https://ggplot2.tidyverse.org/reference/waiver.html">ggplot2::waiver()</a></code></p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))

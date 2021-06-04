@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Make 'ggplot2' Visualisation Easier and Quicker
-Version: 4.9.8
+Version: 4.0.0
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 

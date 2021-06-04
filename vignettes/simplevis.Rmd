@@ -215,15 +215,14 @@ gg_sf_col(example_sf_point, trend_category,
 
 ```
 
-As a bonus, simplevis also provides `leaflet` and `leaflet_sf` functions, which work in a similar way. 
+Simplevis also provides `leaflet` and `leaflet_sf` functions, which work in a similar way. 
 
 ```{r}
 leaflet_sf_col(example_sf_point, trend_category,
-          size_point = 0.5,
           pal = c("#4575B4", "#D3D3D3", "#D73027"))
 ```
 
-### supported variable classes
+### Supported variable classes
 
 variable types supported by the different groups of functions are outlined below.
 
@@ -246,14 +245,27 @@ tibble::tribble(
 
 ### ggplotly interactive visualisation
 
-All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in `plotly::ggplotly()`. 
-
-`simplevis` also offers more customisability and ease for making tooltips (i.e. hover values). The `mutate_text` functions  produces a variable named `text` that can be added into the simplevis function through `text_var`, and then visualised in the `ggplotly` object if `tooltip = "text"` if added to the function. 
-
-`mutate_text` creates a tooltip column of all variables and values in the data by default, but you can express a subset of these by specifying a vector of variable names to the function.
+All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in `plotly::ggplotly()`. The `plotly_camera` function removes plotly widgets other than the camera to keep things tidy.
 
 ```{r, eval = FALSE}
-plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species) 
+plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species) 
+
+plotly::ggplotly(plot) %>% 
+  plotly_camera()
+```
+
+`simplevis` also offers more customisability for making tooltips (i.e. hover values). 
+
+The `mutate_text` functions  produces a variable named `text` that can be added into the simplevis function through `text_var`, which access the ggplot text aesthetic. 
+
+These variables and values can then be seen in tooltips in the `ggplotly` object if `tooltip = "text"` is added to the function. 
+
+The `mutate_text` creates a tooltip column of all variables and values in the data by default, but you can express a subset of these by specifying a vector of variable names to the function.
+
+Note that this function converts column names to sentence case using the `snakecase::to_sentence_case` function.
+
+```{r, eval = FALSE}
+plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species) 
 
 plotly::ggplotly(plot) %>% 
   plotly_camera()
@@ -275,7 +287,7 @@ All `gg_*` and `leaflet_*` wrapper functions produce ggplot or leaflet objects.
 
 This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object.
 
-Note you need to add all aesthetics to any additional layers.
+Note you need to add _all_ aesthetics to any additional layers.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species) +
@@ -291,7 +303,7 @@ plot_data <- penguins %>%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
   filter(!is.na(sex))
 
-gg_bar(plot_data, sex, body_mass_g, y_pretty_n = 3, x_na = FALSE) +
+gg_bar(plot_data, sex, body_mass_g, width = 0.66, y_pretty_n = 3, x_na = FALSE) +
   facet_grid(rows = vars(species), 
              cols = vars(island), 
              labeller = as_labeller(snakecase::to_sentence_case))

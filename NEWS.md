@@ -1,3 +1,7 @@
+# simplevis 4.0.0
+
+* Bump version for CRAN major release.
+
 # simplevis 3.9.8
 
 * Updated app templates.

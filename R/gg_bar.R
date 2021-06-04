@@ -975,7 +975,7 @@ gg_bar_facet <- function(data,
 #'   group_by(species, sex, island) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_bar_col_facet(plot_data, sex, body_mass_g, island, species)
+#' gg_bar_col_facet(plot_data, species, body_mass_g, island, sex)
 #' 
 gg_bar_col_facet <- function(data,
                               x_var,

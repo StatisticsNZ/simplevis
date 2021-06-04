@@ -182,6 +182,6 @@ plot_data <- penguins \%>\%
   group_by(species, sex, island) \%>\% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar_col_facet(plot_data, body_mass_g, sex, island, species)
+gg_hbar_col_facet(plot_data, body_mass_g, species, island, sex)
 
 }

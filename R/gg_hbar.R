@@ -450,7 +450,7 @@ gg_hbar_col <- function(data,
     }
   }
   
-  if (col_rev == TRUE){
+  if (col_rev == FALSE){
     if (is.factor(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
@@ -615,11 +615,13 @@ gg_hbar_col <- function(data,
       guides(fill = guide_legend(
         ncol = col_legend_ncol,
         byrow = TRUE,
+        reverse = TRUE, 
         title = stringr::str_wrap(col_title, col_title_wrap)
       ), 
       col = guide_legend(
         ncol = col_legend_ncol, nrow = col_legend_nrow, 
         byrow = TRUE,
+        reverse = TRUE, 
         title = stringr::str_wrap(col_title, col_title_wrap)
       ))
   }
@@ -1294,11 +1296,13 @@ gg_hbar_col_facet <- function(data,
       guides(fill = guide_legend(
         ncol = col_legend_ncol,
         byrow = TRUE,
+        reverse = TRUE, 
         title = stringr::str_wrap(col_title, col_title_wrap)
       ), 
       col = guide_legend(
         ncol = col_legend_ncol, nrow = col_legend_nrow, 
         byrow = TRUE,
+        reverse = TRUE, 
         title = stringr::str_wrap(col_title, col_title_wrap)
       )) +
       labs(

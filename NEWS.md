@@ -1,3 +1,7 @@
+# simplevis 4.0.1
+
+* Updated hbar col reversing and legend order.
+
 # simplevis 4.0.0
 
 * Bump version for CRAN major release.

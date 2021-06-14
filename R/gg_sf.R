@@ -11,9 +11,9 @@
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
 #' @param font_family Font family to use. Defaults to "".
@@ -35,9 +35,9 @@ gg_sf <- function(data,
                   borders_pal = "#7f7f7f",
                   borders_size = 0.2,
                   title = NULL,
-                  title_wrap = 70,
+                  title_wrap = 100,
                   subtitle = NULL,
-                  subtitle_wrap = 80,
+                  subtitle_wrap = 100,
                   caption = NULL,
                   caption_wrap = 80,
                   font_family = "",
@@ -144,9 +144,9 @@ gg_sf <- function(data,
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
@@ -186,9 +186,9 @@ gg_sf_col <- function(data,
                       borders_pal = "#7f7f7f",
                       borders_size = 0.2,
                       title = NULL,
-                      title_wrap = 70,
+                      title_wrap = 100,
                       subtitle = NULL,
-                      subtitle_wrap = 80,
+                      subtitle_wrap = 100,
                       col_cuts = NULL,
                       col_labels = NULL,
                       col_labels_dp = NULL,
@@ -406,8 +406,8 @@ gg_sf_col <- function(data,
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @return A ggplot object.
 #' @export
@@ -429,9 +429,9 @@ gg_sf_facet <- function(data,
                         borders_pal = "#7f7f7f",
                         borders_size = 0.2,
                         title = NULL,
-                        title_wrap = 70,
+                        title_wrap = 100,
                         subtitle = NULL,
-                        subtitle_wrap = 80,
+                        subtitle_wrap = 100,
                         caption = NULL,
                         caption_wrap = 80,
                         font_family = "",
@@ -561,9 +561,9 @@ gg_sf_facet <- function(data,
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 70. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
@@ -602,9 +602,9 @@ gg_sf_col_facet <- function(data,
                             borders_pal = "#7f7f7f",
                             borders_size = 0.2,
                             title = NULL,
-                            title_wrap = 70,
+                            title_wrap = 100,
                             subtitle = NULL,
-                            subtitle_wrap = 80,
+                            subtitle_wrap = 100,
                             col_cuts = NULL,
                             col_labels = NULL,
                             col_labels_dp = NULL,

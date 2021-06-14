@@ -1,3 +1,7 @@
+# simplevis 4.0.2
+
+* Increase title and subtitle wrap defaults to 100.
+
 # simplevis 4.0.1
 
 * Updated hbar col reversing and legend order.

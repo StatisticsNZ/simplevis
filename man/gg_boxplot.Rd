@@ -15,9 +15,9 @@ gg_boxplot(
   size_line = 0.5,
   size_point = 1,
   title = NULL,
-  title_wrap = 70,
+  title_wrap = 100,
   subtitle = NULL,
-  subtitle_wrap = 80,
+  subtitle_wrap = 100,
   x_balance = FALSE,
   x_labels = NULL,
   x_na = TRUE,
@@ -67,11 +67,11 @@ gg_boxplot(
 
 \item{title}{Title string. Defaults to NULL.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.}
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 

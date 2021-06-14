@@ -19,9 +19,9 @@ gg_sf_col_facet(
   borders_pal = "#7f7f7f",
   borders_size = 0.2,
   title = NULL,
-  title_wrap = 70,
+  title_wrap = 100,
   subtitle = NULL,
-  subtitle_wrap = 80,
+  subtitle_wrap = 100,
   col_cuts = NULL,
   col_labels = NULL,
   col_labels_dp = NULL,
@@ -71,11 +71,11 @@ gg_sf_col_facet(
 
 \item{title}{Title string. Defaults to NULL.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 

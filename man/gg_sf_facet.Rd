@@ -21,9 +21,9 @@ gg_sf_facet(
   borders_pal = "#7f7f7f",
   borders_size = 0.2,
   title = NULL,
-  title_wrap = 70,
+  title_wrap = 100,
   subtitle = NULL,
-  subtitle_wrap = 80,
+  subtitle_wrap = 100,
   caption = NULL,
   caption_wrap = 80,
   font_family = "",
@@ -64,11 +64,11 @@ gg_sf_facet(
 
 \item{title}{Title string. Defaults to NULL.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
 
 \item{caption}{Caption title string.}
 

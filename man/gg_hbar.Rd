@@ -14,9 +14,9 @@ gg_hbar(
   alpha = 1,
   size_line = 0.5,
   title = NULL,
-  title_wrap = 65,
+  title_wrap = 80,
   subtitle = NULL,
-  subtitle_wrap = 75,
+  subtitle_wrap = 80,
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = waiver(),
@@ -65,11 +65,11 @@ gg_hbar(
 
 \item{title}{Title string. Defaults to NULL.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 65.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 80.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80.}
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 

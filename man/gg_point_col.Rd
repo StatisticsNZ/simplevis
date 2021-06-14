@@ -46,8 +46,8 @@ gg_point_col(
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
-  title_wrap = 70,
-  subtitle_wrap = 80,
+  title_wrap = 100,
+  subtitle_wrap = 100,
   x_title_wrap = 50,
   y_title_wrap = 50,
   col_title_wrap = 25,
@@ -138,9 +138,9 @@ gg_point_col(
 
 \item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 70. Not applicable where mobile equals TRUE.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 80. Not applicable where mobile equals TRUE.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 

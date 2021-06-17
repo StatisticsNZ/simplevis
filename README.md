@@ -12,7 +12,7 @@
 
 ### Purpose
 
-simplevis is a package of wrapper functions that aim to make ggplot2 visualisation easier and quicker. 
+`simplevis` is a package of `ggplot2` wrapper functions that aim to make visualisation easier with less brainpower and typing required.
 
 ### Installation
 

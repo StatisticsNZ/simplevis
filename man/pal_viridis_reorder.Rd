@@ -4,14 +4,17 @@
 \alias{pal_viridis_reorder}
 \title{Viridis palette reordered.}
 \usage{
-pal_viridis_reorder(n_col)
+pal_viridis_reorder(col_n)
 }
 \arguments{
-\item{n_col}{The number of colours (excluding an NA colour).}
+\item{col_n}{The number of colours (excluding an NA colour).}
 }
 \value{
 A vector of hex codes.
 }
 \description{
 A function to retreive a vector of hex codes for a numeric (or ordererd) variable.
+}
+\examples{
+scales::show_col(pal_viridis_reorder(9)) 
 }

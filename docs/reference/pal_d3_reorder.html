@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0</span>
       </span>
     </div>
 
@@ -155,13 +155,13 @@
     <p>A function to retreive a vector of hex codes for a non-numeric (or non-ordererd) variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pal_d3_reorder</span>(<span class='no'>n_col</span>)</pre>
+    <pre class="usage"><span class='fu'>pal_d3_reorder</span>(<span class='no'>col_n</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>n_col</th>
+      <th>col_n</th>
       <td><p>The number of colours (excluding an NA colour).</p></td>
     </tr>
     </table>
@@ -170,6 +170,8 @@
 
     <p>A vector of hex codes.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/show_col.html'>show_col</a></span>(<span class='fu'>pal_d3_reorder</span>(<span class='fl'>9</span>))</div><div class='img'><img src='pal_d3_reorder-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

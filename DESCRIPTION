@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
-Title: Make 'ggplot2' Visualisation Easier and Quicker
-Version: 4.0.3
+Title: Simple 'ggplot2' Visualisation With Less Brainpower and Typing
+Version: 4.1.0
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 
@@ -10,7 +10,7 @@ Authors@R:
                comment = c(ORCID = "0000-0002-3868-7501")),
       person("Statistics New Zealand", 
              role = c("cph")))
-Description: Wrapper functions to make 'ggplot2' visualisation easier and quicker.
+Description: Wrapper functions to make 'ggplot2' visualisation easier with less brainpower and typing required.
 License: MIT + file LICENSE
 URL: https://statisticsnz.github.io/simplevis/, https://github.com/statisticsnz/simplevis/
 BugReports: https://github.com/statisticsNZ/simplevis/issues/
@@ -20,7 +20,6 @@ Depends: R (>= 3.5.0)
 Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 3.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
          leaflet.extras, jsonlite, lubridate, magrittr, plotly, readr, rlang (>= 0.4.0), scales, sf,    
          shiny, shinycssloaders, snakecase, stringr, tibble,  tidyr (>= 1.0.0), viridis
-Suggests: 
-    knitr, palmerpenguins, rgdal, rgeos, rmarkdown 
+Suggests: knitr, palmerpenguins, rgdal, rgeos, rmarkdown, s2 
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

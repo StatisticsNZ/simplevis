@@ -276,10 +276,10 @@ leaflet_sf_col <- function(data,
     if (is.factor(col_var_vctr)) col_labels <- levels(col_var_vctr)
     else if (is.character(col_var_vctr)) col_labels <- sort(unique(col_var_vctr))
     
-    n_col <- length(col_labels)
+    col_n <- length(col_labels)
     
-    if (is.null(pal)) pal <- pal_d3_reorder(n_col)
-    else if (!is.null(pal)) pal <- pal[1:n_col]
+    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+    else if (!is.null(pal)) pal <- pal[1:col_n]
     
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)

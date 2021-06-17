@@ -82,9 +82,7 @@ leaflet_sf(example_sf_point, basemap = "street")
 As a leaflet object is produced, you can add additional layers with leaflet.
 
 ```{r}
-leaflet_sf_col(example_sf_point, 
-               col_var = trend_category, 
-               pal = c("#0D94A3", "#C4C4C7", "#AE4E51")) %>% 
+leaflet_sf_col(example_sf_point, trend_category) %>% 
   leaflet::addPolygons(data = nz, color = "#35B779", weight = 3, fillOpacity = 0, opacity = 1)
 ```
 
@@ -97,6 +95,11 @@ simplevis::leaflet_basemap()
 ```
 
 You can set the bounds by adding a vector or bbox of bounds.
+
+```{r}
+leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
+```
+
 
 ```{r}
 leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))

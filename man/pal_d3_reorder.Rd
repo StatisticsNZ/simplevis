@@ -4,14 +4,17 @@
 \alias{pal_d3_reorder}
 \title{D3 palette reordered.}
 \usage{
-pal_d3_reorder(n_col)
+pal_d3_reorder(col_n)
 }
 \arguments{
-\item{n_col}{The number of colours (excluding an NA colour).}
+\item{col_n}{The number of colours (excluding an NA colour).}
 }
 \value{
 A vector of hex codes.
 }
 \description{
 A function to retreive a vector of hex codes for a non-numeric (or non-ordererd) variable.
+}
+\examples{
+scales::show_col(pal_d3_reorder(9)) 
 }

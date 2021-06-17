@@ -45,8 +45,7 @@ Users can get access to a large amount of colour palettes through the `pals` pac
 To colour by a variable, use a `*_col` function
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-             pal = c("#1B9E77", "#D95F02", "#7570B3"))
+gg_point_col(penguins, bill_length_mm, body_mass_g, species)
 ```
 
 ### 3. If colouring by a numeric variable, define the `col_method` and `col_cuts`

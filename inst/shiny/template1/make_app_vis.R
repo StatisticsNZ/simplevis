@@ -10,33 +10,35 @@ library(simplevis)
 data <- ggplot2::diamonds %>%
   slice_sample(prop = 0.1)
 
+# make a plot filtered by a user selected colour
 color_vector <- sort(unique(data$color))
 
-selected_color <- "E"
+.color <- "E"
 
-plot_data <- data1 %>%
-  filter(color == selected_color) %>% 
+plot_data <- data %>%
+  filter(color == .color) %>% 
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity, .drop = FALSE) %>%
-  summarise(average_price = round(mean(price), 0)) %>%
-  mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-  mutate(average_price = paste0("US$", prettyNum(average_price,  big.mark = ","))) %>% 
-  mutate_text(c("cut", "clarity", "average_price"))
+  summarise(price = mean(price)) %>%
+  mutate_text(c("cut", "clarity", "price")) 
 
-title <- paste0("Average diamond price of colour ", selected_color, " by cut and clarity")
+title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
 x_title <- "Average price ($US thousands)"
 y_title <- "Cut"
 
-plot <- gg_hbar_col(plot_data, average_price_thousands, cut, clarity, 
+plot <- gg_hbar_col(plot_data, price, cut, clarity, 
                     text_var = text,
                     title = title, 
                     x_title = x_title, 
                     y_title = y_title,
+                    x_labels = scales::comma_format(),
+                    col_labels = ggplot2::waiver(),
                     font_family = "Helvetica", 
                     mobile = F)
 
 plot
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
-  plotly_camera()
+  plotly_camera() %>% 
+  plotly_col_legend(rev = T)
 

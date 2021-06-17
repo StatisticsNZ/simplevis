@@ -10,20 +10,18 @@ shinyServer(function(input, output, session) {
     # add plot_data code from make_data_vis.R
     # change any placeholder character values to input widgets
     
-    selected_color <- input$plot_color
-    
+    .color <- input$plot_color
+
     plot_data <- data %>%
-      filter(color == selected_color) %>% 
+      filter(color == .color) %>% 
       mutate(cut = stringr::str_to_sentence(cut)) %>%
       group_by(cut, clarity, .drop = FALSE) %>%
-      summarise(average_price = round(mean(price), 0)) %>%
-      mutate(average_price_thousands = round(average_price / 1000, 1)) %>%
-      mutate(average_price = paste0("US$", prettyNum(average_price,  big.mark = ","))) %>% 
-      mutate_text(c("cut", "clarity", "average_price"))
+      summarise(price = mean(price)) %>%
+      mutate_text(c("cut", "clarity", "price")) 
     
     return(plot_data)
   }) %>% 
-    bindCache(input$plot_color)
+  bindCache(input$plot_color)
   
   plot <- reactive({ # create a reactive ggplot object
     
@@ -31,21 +29,22 @@ shinyServer(function(input, output, session) {
     # change any placeholder character values to input widgets
     # refer to a reactive plot_data object as plot_data()
 
-    selected_color <- input$plot_color
+    .color <- input$plot_color
     
-    title <- paste0("Average diamond price of colour ", selected_color, " by cut and clarity")
+    title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
     x_title <- "Average price ($US thousands)"
     y_title <- "Cut"
     
-    plot <- gg_hbar_col(data = plot_data(), average_price_thousands, cut, clarity,
+    plot <- gg_hbar_col(plot_data(), price, cut, clarity, 
                         text_var = text,
                         title = title, 
                         x_title = x_title, 
                         y_title = y_title,
+                        x_labels = scales::comma_format(),
+                        col_labels = ggplot2::waiver(),
                         font_family = "Helvetica", 
                         mobile = input$isMobile)
-    
-    
+
     return(plot)
   }) %>% 
     bindCache(input$plot_color)

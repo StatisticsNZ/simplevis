@@ -468,12 +468,12 @@ gg_bar_col <- function(data,
   bar_width <- bar_unit * width
   
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-    n_col <- length(levels(col_var_vctr))
+    col_n <- length(levels(col_var_vctr))
   }
-  else n_col <- length(unique(col_var_vctr))
+  else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(n_col)
-  else pal <- pal[1:n_col]
+  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -1128,12 +1128,12 @@ gg_bar_col_facet <- function(data,
   bar_width <- bar_unit * width
   
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-    n_col <- length(levels(col_var_vctr))
+    col_n <- length(levels(col_var_vctr))
   }
-  else n_col <- length(unique(col_var_vctr))
+  else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(n_col)
-  else pal <- pal[1:n_col]
+  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   

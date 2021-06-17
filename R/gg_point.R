@@ -447,18 +447,18 @@ gg_point_col <- function(data,
     
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
-    n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(n_col)
-    else pal <- pal[1:n_col]
+    col_n <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+    else pal <- pal[1:col_n]
   }
   else if (col_method == "category") {
     if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      n_col <- length(levels(col_var_vctr))
+      col_n <- length(levels(col_var_vctr))
     }
-    else n_col <- length(unique(col_var_vctr))
+    else col_n <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- pal_d3_reorder(n_col)
-    else pal <- pal[1:n_col]
+    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+    else pal <- pal[1:col_n]
     
     if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
   }
@@ -1085,18 +1085,18 @@ gg_point_col_facet <-
       
       if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
       
-      n_col <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(n_col)
-      else pal <- pal[1:n_col]
+      col_n <- length(col_cuts) - 1
+      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
       if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        n_col <- length(levels(col_var_vctr))
+        col_n <- length(levels(col_var_vctr))
       }
-      else n_col <- length(unique(col_var_vctr))
+      else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(n_col)
-      else pal <- pal[1:n_col]
+      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      else pal <- pal[1:col_n]
       
       if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
     }

@@ -145,7 +145,7 @@ gg_bar <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
@@ -472,7 +472,7 @@ gg_bar_col <- function(data,
   }
   else n_col <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- sv_pal(n_col)
+  if (is.null(pal)) pal <- pal_d3_reorder(n_col)
   else pal <- pal[1:n_col]
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -584,13 +584,13 @@ gg_bar_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#A8A8A8"
+      na.value = "#7F7F7FFF"
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#A8A8A8"
+      na.value = "#7F7F7FFF"
     ) 
   
   if (mobile == FALSE) {
@@ -789,7 +789,7 @@ gg_bar_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
@@ -1132,7 +1132,7 @@ gg_bar_col_facet <- function(data,
   }
   else n_col <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- sv_pal(n_col)
+  if (is.null(pal)) pal <- pal_d3_reorder(n_col)
   else pal <- pal[1:n_col]
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -1252,13 +1252,13 @@ gg_bar_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#A8A8A8"
+      na.value = "#7F7F7FFF"
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#A8A8A8"
+      na.value = "#7F7F7FFF"
     ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),

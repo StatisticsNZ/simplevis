@@ -38,7 +38,7 @@ leaflet_sf <- function(data,
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   col_id <- paste0(map_id, "_legend")
@@ -278,7 +278,7 @@ leaflet_sf_col <- function(data,
     
     n_col <- length(col_labels)
     
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_d3_reorder(n_col)
     else if (!is.null(pal)) pal <- pal[1:n_col]
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -286,7 +286,7 @@ leaflet_sf_col <- function(data,
     
     pal_fun <- colorFactor(palette = pal,
                            domain = col_var_vctr,
-                           na.color = "#A8A8A8")
+                           na.color = "#7F7F7FFF")
   }
   else if (col_method == "bin") {
     if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -295,7 +295,7 @@ leaflet_sf_col <- function(data,
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
     }
     
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
@@ -306,7 +306,7 @@ leaflet_sf_col <- function(data,
       bins = col_cuts,
       pretty = FALSE,
       right = FALSE,
-      na.color = "#A8A8A8"
+      na.color = "#7F7F7FFF"
     )
     
     if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
@@ -318,7 +318,7 @@ leaflet_sf_col <- function(data,
       if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
       if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
     }  
-    if (is.null(pal)) pal <- viridis::viridis(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     pal <- stringr::str_sub(pal, 1, 7)
@@ -331,7 +331,7 @@ leaflet_sf_col <- function(data,
       domain = col_var_vctr,
       bins = col_cuts,
       right = FALSE,
-      na.color = "#A8A8A8"
+      na.color = "#7F7F7FFF"
     )
     
     if(is.null(col_labels_dp)) col_labels_dp <- 1

@@ -128,7 +128,7 @@ gg_point <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   plot <- ggplot(data) +
@@ -448,7 +448,7 @@ gg_point_col <- function(data,
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_viridis_reorder(n_col)
     else pal <- pal[1:n_col]
   }
   else if (col_method == "category") {
@@ -457,7 +457,7 @@ gg_point_col <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_d3_reorder(n_col)
     else pal <- pal[1:n_col]
     
     if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
@@ -563,7 +563,7 @@ gg_point_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#A8A8A8"
+      na.value = "#7F7F7FFF"
     ) 
   
   if (mobile == FALSE) {
@@ -746,7 +746,7 @@ gg_point_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   plot <- ggplot(data) +
@@ -1086,7 +1086,7 @@ gg_point_col_facet <-
       if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
       
       n_col <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- sv_pal(n_col)
+      if (is.null(pal)) pal <- pal_viridis_reorder(n_col)
       else pal <- pal[1:n_col]
     }
     else if (col_method == "category") {
@@ -1095,7 +1095,7 @@ gg_point_col_facet <-
       }
       else n_col <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- sv_pal(n_col)
+      if (is.null(pal)) pal <- pal_d3_reorder(n_col)
       else pal <- pal[1:n_col]
       
       if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
@@ -1212,7 +1212,7 @@ gg_point_col_facet <-
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = "#A8A8A8"
+        na.value = "#7F7F7FFF"
       ) +
       labs(
         title = stringr::str_wrap(title, title_wrap),

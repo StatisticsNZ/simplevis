@@ -62,7 +62,7 @@ plot_data <- storms %>%
 gg_line(plot_data, year, wind)
 ```
 
-* boxplot
+boxplot
 
 ```{r}
 gg_boxplot(storms, year, wind)
@@ -78,7 +78,7 @@ plot_data <- ggplot2::diamonds %>%
 gg_hbar(plot_data, price, cut)
 ```
 
-* sf (short for simple features map)
+sf (short for simple features map)
 
 ```{r}
 gg_sf(example_sf_point, borders = nz)
@@ -200,26 +200,21 @@ These functions work in the same way as the ggplot2 graph functions, but with th
 A couple of example sf objects are provided with the package for learning purposes: `example_sf_point` and `example_sf_polygon`.
 
 ```{r}
-gg_sf_col(example_sf_point, trend_category, 
-          size_point = 0.5,
-          pal = c("#4575B4", "#D3D3D3", "#D73027"))
+gg_sf_col(example_sf_point, trend_category)
 ```
 
 The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative bounrdaries). An sf object of the New Zealand coastline has been provided for learning purposes with the package.
 
 ```{r}
 gg_sf_col(example_sf_point, trend_category,
-          borders = nz, 
-          size_point = 0.5,
-          pal = c("#4575B4", "#D3D3D3", "#D73027"))
+          borders = nz)
 
 ```
 
 Simplevis also provides `leaflet` and `leaflet_sf` functions, which work in a similar way. 
 
 ```{r}
-leaflet_sf_col(example_sf_point, trend_category,
-          pal = c("#4575B4", "#D3D3D3", "#D73027"))
+leaflet_sf_col(example_sf_point, trend_category)
 ```
 
 ### Supported variable classes

@@ -75,7 +75,7 @@ gg_sf <- function(data,
     }
   }
 
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
@@ -285,7 +285,7 @@ gg_sf_col <- function(data,
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_viridis_reorder(n_col)
     else pal <- pal[1:n_col]
   }
   else if (col_method == "category") {
@@ -294,7 +294,7 @@ gg_sf_col <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_d3_reorder(n_col)
     else pal <- pal[1:n_col]
     
     if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
@@ -487,7 +487,7 @@ gg_sf_facet <- function(data,
     }
   }
   
-  if (is.null(pal)) pal <- sv_pal(1)
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
 
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
@@ -717,7 +717,7 @@ gg_sf_col_facet <- function(data,
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
     n_col <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_viridis_reorder(n_col)
     else pal <- pal[1:n_col]
   }
   else if (col_method == "category") {
@@ -726,7 +726,7 @@ gg_sf_col_facet <- function(data,
     }
     else n_col <- length(unique(col_var_vctr))
     
-    if (is.null(pal)) pal <- sv_pal(n_col)
+    if (is.null(pal)) pal <- pal_d3_reorder(n_col)
     else pal <- pal[1:n_col]
     
     if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)

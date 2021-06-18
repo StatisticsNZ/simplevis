@@ -297,7 +297,7 @@ gg_sf_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -392,7 +392,7 @@ gg_sf_col <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param pal Character vector of hex codes. 
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -532,7 +532,7 @@ gg_sf_facet <- function(data,
     }
   }
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
   
   plot <- plot +
     labs(
@@ -565,7 +565,7 @@ gg_sf_facet <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
@@ -729,7 +729,7 @@ gg_sf_col_facet <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -790,7 +790,7 @@ gg_sf_col_facet <- function(data,
     }
   }
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
   
   plot <- plot +
     labs(

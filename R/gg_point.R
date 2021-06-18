@@ -191,7 +191,7 @@ gg_point <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
 
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -460,7 +460,7 @@ gg_point_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -527,7 +527,7 @@ gg_point_col <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -632,7 +632,7 @@ gg_point_col <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -810,7 +810,7 @@ gg_point_facet <- function(data,
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
-      if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+      if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -856,7 +856,7 @@ gg_point_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
   
   plot <- plot +
     labs(
@@ -916,7 +916,7 @@ gg_point_facet <- function(data,
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -1103,7 +1103,7 @@ gg_point_col_facet <-
       if (is.null(pal)) pal <- pal_d3_reorder(col_n)
       else pal <- pal[1:col_n]
       
-      if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+      if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
     }
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -1164,7 +1164,7 @@ gg_point_col_facet <-
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
-        if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+        if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
         
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -1210,7 +1210,7 @@ gg_point_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+    if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
       
     plot <- plot +
       scale_color_manual(

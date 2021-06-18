@@ -1,3 +1,7 @@
+# simplevis 4.1.2
+
+* Changed label default conversion to use stringr::str_to_sentence.
+
 # simplevis 4.1.1
 
 * Fixed gg_point_col bug to make the zero lines work.

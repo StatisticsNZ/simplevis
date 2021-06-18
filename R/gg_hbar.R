@@ -212,7 +212,7 @@ gg_hbar <- function(data,
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
-    if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
     
       plot <- plot +
         coord_flip() +
@@ -550,7 +550,7 @@ gg_hbar_col <- function(data,
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if(is.null(y_expand)) y_expand <- waiver()
-    if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
+    if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
     
     plot <- plot +
       coord_flip() +
@@ -587,7 +587,7 @@ gg_hbar_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+  if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
 
   plot <- plot +
     scale_fill_manual(
@@ -679,7 +679,7 @@ gg_hbar_col <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
@@ -863,7 +863,7 @@ gg_hbar_facet <- function(data,
     }
     else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
       if(is.null(y_expand)) y_expand <- waiver()
-      if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
+      if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
       
       plot <- plot +
         coord_flip() +
@@ -915,7 +915,7 @@ gg_hbar_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
 
   plot <- plot +
     labs(
@@ -975,7 +975,7 @@ gg_hbar_facet <- function(data,
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(snakecase::to_sentence_case). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
@@ -1225,7 +1225,7 @@ gg_hbar_col_facet <- function(data,
       }
       else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
         if(is.null(y_expand)) y_expand <- waiver()
-        if(is.null(y_labels)) y_labels <- function(x) snakecase::to_sentence_case(x)
+        if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
         
         plot <- plot +
           coord_flip() +
@@ -1277,8 +1277,8 @@ gg_hbar_col_facet <- function(data,
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
-    if(is.null(facet_labels)) facet_labels <- as_labeller(snakecase::to_sentence_case)
+    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+    if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
     
     plot <- plot +
       scale_fill_manual(

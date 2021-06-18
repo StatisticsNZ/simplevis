@@ -1,3 +1,8 @@
+# simplevis 4.1.1
+
+* Fixed gg_point_col bug to make the zero lines work.
+* Updated articles and vignettes.
+
 # simplevis 4.1.0
 
 * Add categorical colour palette.

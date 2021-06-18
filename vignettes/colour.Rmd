@@ -23,11 +23,15 @@ library(palmerpenguins)
 
 ### Overview
 
-In simplevis, users define the following to adjust colours:
+In simplevis, users adhere to the following rules for adjusting colour:
 
 1. Always define the colours to use via the `pal` argument 
-2. If colouring by a variable, use a `*_col` or `*_col_facet` function, and define the `col_var`
+2. If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
 3. If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
+
+In simplevis, there is one colour concept, which includes all aspects of points, lines and polygons that is relevant to the visualisation family type.
+
+This is a consistent method across all functions, which is intended to simplify colouring.
 
 ### 1. Always define the colours to use via the `pal` argument 
 
@@ -40,9 +44,9 @@ gg_point(penguins, bill_length_mm, body_mass_g, pal = "#e7298a")
 
 Users can get access to a large amount of colour palettes through the `pals` package.
 
-### 2. If colouring by a variable, use a `*_col` or `*_col_facet` function, and define the `col_var`
+### 2. If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
 
-To colour by a variable, use a `*_col` function
+To colour by a variable, use a `*_col()` function and then define that variable to be coloured using the `col_var` argument.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species)
@@ -50,9 +54,9 @@ gg_point_col(penguins, bill_length_mm, body_mass_g, species)
 
 ### 3. If colouring by a numeric variable, define the `col_method` and `col_cuts`
 
-All `simplevis` `*_col` and `*_col_facet` functions support colouring by a categorical variable.
+All `simplevis` `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
 
-In addition, `sf` and `point` `*_col` and `*_col_facet` functions support colouring by a numeric variable.
+In addition, `sf` and `point` `*_col()` and `*_col_facet()` functions support colouring by a numeric variable.
 
 You do this by specifying whether you want to do this by:
 

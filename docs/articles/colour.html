@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
       <h1 data-toc-skip>Colour</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-06-17</h4>
+            <h4 class="date">2021-06-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/colour.Rmd"><code>vignettes/colour.Rmd</code></a></small>
       <div class="hidden name"><code>colour.Rmd</code></div>
@@ -122,13 +122,15 @@
 <div id="overview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h3>
-<p>In simplevis, users define the following to adjust colours:</p>
+<p>In simplevis, users adhere to the following rules for adjusting colour:</p>
 <ol style="list-style-type: decimal">
 <li>Always define the colours to use via the <code>pal</code> argument</li>
-<li>If colouring by a variable, use a <code>*_col</code> or <code>*_col_facet</code> function, and define the <code>col_var</code>
+<li>If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code>
 </li>
 <li>If the <code>col_var</code> is numeric, the <code>col_method</code> of <code>bin</code> or <code>quantile</code>, and the <code>col_cuts</code> to use.</li>
 </ol>
+<p>In simplevis, there is one colour concept, which includes all aspects of points, lines and polygons that is relevant to the visualisation family type.</p>
+<p>This is a consistent method across all functions, which is intended to simplify colouring.</p>
 </div>
 <div id="always-define-the-colours-to-use-via-the-pal-argument" class="section level3">
 <h3 class="hasAnchor">
@@ -140,9 +142,9 @@
 </div>
 <div id="if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="section level3">
 <h3 class="hasAnchor">
-<a href="#if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="anchor"></a>2. If colouring by a variable, use a <code>*_col</code> or <code>*_col_facet</code> function, and define the <code>col_var</code>
+<a href="#if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="anchor"></a>2. If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code>
 </h3>
-<p>To colour by a variable, use a <code>*_col</code> function</p>
+<p>To colour by a variable, use a <code>*_col()</code> function and then define that variable to be coloured using the <code>col_var</code> argument.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
@@ -150,8 +152,8 @@
 <h3 class="hasAnchor">
 <a href="#if-colouring-by-a-numeric-variable-define-the-col_method-and-col_cuts" class="anchor"></a>3. If colouring by a numeric variable, define the <code>col_method</code> and <code>col_cuts</code>
 </h3>
-<p>All <code>simplevis</code> <code>*_col</code> and <code>*_col_facet</code> functions support colouring by a categorical variable.</p>
-<p>In addition, <code>sf</code> and <code>point</code> <code>*_col</code> and <code>*_col_facet</code> functions support colouring by a numeric variable.</p>
+<p>All <code>simplevis</code> <code>*_col()</code> and <code>*_col_facet()</code> functions support colouring by a categorical variable.</p>
+<p>In addition, <code>sf</code> and <code>point</code> <code>*_col()</code> and <code>*_col_facet()</code> functions support colouring by a numeric variable.</p>
 <p>You do this by specifying whether you want to do this by:</p>
 <ul>
 <li>defining whether the col_method is to be by <code>bin</code> or <code>quantile</code>
@@ -166,16 +168,16 @@
 <span class="co">#&gt; # A tibble: 539 x 10</span>
 <span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  1    Good      G     VVS1     63.8    60  7134  6.35  6.31  4.04</span>
-<span class="co">#&gt;  2  1.74 Premium   F     I1       59.9    58  6821  7.88  7.82  4.7 </span>
-<span class="co">#&gt;  3  0.8  Very Good G     SI1      59.4    60  2723  6.03  6.06  3.59</span>
-<span class="co">#&gt;  4  0.39 Very Good E     VS2      63.1    56  1065  4.69  4.63  2.94</span>
-<span class="co">#&gt;  5  1.02 Good      E     I1       63.1    60  3051  6.31  6.4   4.01</span>
-<span class="co">#&gt;  6  0.31 Ideal     D     SI1      62.4    53   732  4.35  4.33  2.71</span>
-<span class="co">#&gt;  7  0.31 Premium   G     VS1      62.1    58   695  4.36  4.31  2.69</span>
-<span class="co">#&gt;  8  0.7  Very Good H     SI2      59.9    57  2034  5.74  5.77  3.45</span>
-<span class="co">#&gt;  9  0.28 Ideal     G     VS2      62.1    56   508  4.19  4.23  2.61</span>
-<span class="co">#&gt; 10  1.63 Ideal     F     SI1      61.5    56 13363  7.55  7.58  4.66</span>
+<span class="co">#&gt;  1  0.7  Premium   E     VS2      63      60  2818  5.64  5.6   3.54</span>
+<span class="co">#&gt;  2  0.7  Ideal     E     VS1      62.1    55  3248  5.72  5.77  3.57</span>
+<span class="co">#&gt;  3  0.58 Ideal     F     VS1      59.9    59  1979  5.42  5.47  3.26</span>
+<span class="co">#&gt;  4  1.32 Very Good J     SI1      63.5    57  4657  6.98  6.95  4.42</span>
+<span class="co">#&gt;  5  0.33 Ideal     H     VVS2     62.2    54   666  4.44  4.46  2.77</span>
+<span class="co">#&gt;  6  0.45 Fair      F     VS2      67      56   923  4.77  4.7   3.17</span>
+<span class="co">#&gt;  7  0.34 Premium   D     SI1      59.6    59   803  4.57  4.55  2.72</span>
+<span class="co">#&gt;  8  1.02 Ideal     H     VS2      61.2    56  5312  6.53  6.48  3.98</span>
+<span class="co">#&gt;  9  1.03 Premium   G     SI1      59.5    60  5791  6.6   6.54  3.91</span>
+<span class="co">#&gt; 10  0.36 Ideal     G     VVS2     62.3    56  1053  4.56  4.53  2.83</span>
 <span class="co">#&gt; # … with 529 more rows</span>
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,

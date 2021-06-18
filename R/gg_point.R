@@ -558,6 +558,11 @@ gg_point_col <- function(data,
       )
   })
   
+  if(y_zero_line == TRUE) {
+    plot <- plot +
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+  }
+  
   plot <- plot +
     scale_color_manual(
       values = pal,

@@ -103,26 +103,3 @@ gg_point_col(plot_data, carat, price, z,
              pal = pals::parula(6))
 ```
 
-### Default colour palettes
-
-From simplevis 4.1.0 onwards, default colour palettes are:
-
-```{r}
-scales::show_col(pal_viridis_reorder(1))
-```
-
-```{r}
-scales::show_col(pal_d3_reorder(9))
-```
-
-```{r}
-scales::show_col(pal_viridis_reorder(9))
-```
-
-
-```{r}
-scales::show_col(pal_na())
-```
-
-
-

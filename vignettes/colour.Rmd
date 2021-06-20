@@ -44,7 +44,8 @@ gg_point(penguins, bill_length_mm, body_mass_g)
 But this default palette can be changed by providing a character vector of hex codes to the `pal` argument.
 
 ```{r}
-gg_point(penguins, bill_length_mm, body_mass_g, pal = "#da3490")
+gg_point(penguins, bill_length_mm, body_mass_g, 
+         pal = "#da3490")
 
 ```
 
@@ -63,13 +64,15 @@ gg_point_col(penguins, bill_length_mm, body_mass_g, col_var = species)
 You can adjust the colours of the coloured variable using the pal argument as described earlier.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, pal = c("#da3490", "#9089fa", "#47e26f"))
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+             pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
 The `pals` package provides a large amount of colour palettes.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, pal = pals::brewer.dark2(3))
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+             pal = pals::brewer.dark2(3))
 ```
 
 ### If colouring by a numeric variable, define the `col_method` and `col_cuts`

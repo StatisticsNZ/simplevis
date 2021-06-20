@@ -1,3 +1,8 @@
+# simplevis 4.1.3
+
+* Added pal_na function.
+* Updated colour article.
+
 # simplevis 4.1.2
 
 * Changed label default conversion to use stringr::str_to_sentence.

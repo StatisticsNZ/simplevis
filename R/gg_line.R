@@ -545,7 +545,7 @@ gg_line_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#7F7F7FFF"
+      na.value = pal_na()
     )
   
   if (mobile == FALSE) {
@@ -1171,7 +1171,7 @@ gg_line_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#7F7F7FFF"
+      na.value = pal_na()
     ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),

@@ -333,7 +333,7 @@ gg_sf_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#7F7F7FFF"
+      na.value = pal_na()
     )
   
     if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
@@ -342,7 +342,7 @@ gg_sf_col <- function(data,
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = "#7F7F7FFF"
+        na.value = pal_na()
       )
   }
   
@@ -765,7 +765,7 @@ gg_sf_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#7F7F7FFF"
+      na.value = pal_na()
     )
   
   if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
@@ -774,7 +774,7 @@ gg_sf_col_facet <- function(data,
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = "#7F7F7FFF"
+        na.value = pal_na()
       )
   }
   

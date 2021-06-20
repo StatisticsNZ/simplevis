@@ -286,7 +286,7 @@ leaflet_sf_col <- function(data,
     
     pal_fun <- colorFactor(palette = pal,
                            domain = col_var_vctr,
-                           na.color = "#7F7F7FFF")
+                           na.color = pal_na())
   }
   else if (col_method == "bin") {
     if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
@@ -306,7 +306,7 @@ leaflet_sf_col <- function(data,
       bins = col_cuts,
       pretty = FALSE,
       right = FALSE,
-      na.color = "#7F7F7FFF"
+      na.color = pal_na()
     )
     
     if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
@@ -331,7 +331,7 @@ leaflet_sf_col <- function(data,
       domain = col_var_vctr,
       bins = col_cuts,
       right = FALSE,
-      na.color = "#7F7F7FFF"
+      na.color = pal_na()
     )
     
     if(is.null(col_labels_dp)) col_labels_dp <- 1

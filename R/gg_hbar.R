@@ -594,13 +594,13 @@ gg_hbar_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#7F7F7FFF"
+      na.value = pal_na()
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = "#7F7F7FFF"
+      na.value = pal_na()
     ) 
   
   if (mobile == FALSE) {
@@ -1285,13 +1285,13 @@ gg_hbar_col_facet <- function(data,
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = "#7F7F7FFF"
+        na.value = pal_na()
       ) +
       scale_colour_manual(
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = "#7F7F7FFF"
+        na.value = pal_na()
       ) +
       guides(fill = guide_legend(
         ncol = col_legend_ncol,

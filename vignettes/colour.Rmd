@@ -25,34 +25,54 @@ library(palmerpenguins)
 
 In simplevis, users adhere to the following rules for adjusting colour:
 
-1. Always define the colours to use via the `pal` argument 
-2. If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
-3. If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
+* Always define the colours to use via the `pal` argument 
+* If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
+* If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
 
 In simplevis, there is one colour concept, which includes all aspects of points, lines and polygons that is relevant to the visualisation family type.
 
 This is a consistent method across all functions, which is intended to simplify colouring.
 
-### 1. Always define the colours to use via the `pal` argument 
+### Always define the colours to use via the `pal` argument 
 
-The colour palette can be changed from the default viridis colours by providing a character vector of hex codes to the `pal` argument.
+`simplevis` has default palettes that are based on the viridis and D3 colour palettes. 
 
 ```{r}
-gg_point(penguins, bill_length_mm, body_mass_g, pal = "#e7298a")
+gg_point(penguins, bill_length_mm, body_mass_g)
+```
+
+But this default palette can be changed by providing a character vector of hex codes to the `pal` argument.
+
+```{r}
+gg_point(penguins, bill_length_mm, body_mass_g, pal = "#da3490")
 
 ```
 
 Users can get access to a large amount of colour palettes through the `pals` package.
 
-### 2. If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
+### If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
 
 To colour by a variable, use a `*_col()` function and then define that variable to be coloured using the `col_var` argument.
 
+Note the graph below uses a default pal for a non-numeric colour variable.
+
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species)
+gg_point_col(penguins, bill_length_mm, body_mass_g, col_var = species)
 ```
 
-### 3. If colouring by a numeric variable, define the `col_method` and `col_cuts`
+You can adjust the colours of the coloured variable using the pal argument as described earlier.
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, pal = c("#da3490", "#9089fa", "#47e26f"))
+```
+
+The `pals` package provides a large amount of colour palettes.
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, pal = pals::brewer.dark2(3))
+```
+
+### If colouring by a numeric variable, define the `col_method` and `col_cuts`
 
 All `simplevis` `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
 
@@ -67,23 +87,42 @@ You do this by specifying whether you want to do this by:
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.01)
 
-plot_data
-
-gg_point_col(plot_data, 
-                 x_var = carat, 
-                 y_var = price, 
-                 col_var = z,
+gg_point_col(plot_data, carat, price, z,
                  col_method = "quantile",
                  col_cuts = c(0, 0.25, 0.5, 0.75, 1))
 ```
 
 
 ```{r}
-gg_point_col(plot_data, 
-                 x_var = carat, 
-                 y_var = price, 
-                 col_var = z,
-                 col_method = "bin",
-                 col_cuts = c(0, 1, 2, 3, 4, 5, Inf))
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.01)
+
+gg_point_col(plot_data, carat, price, z,
+             col_method = "bin", 
+             col_cuts = c(0, 1, 2, 3, 4, 5, Inf), 
+             pal = pals::parula(6))
 ```
+
+### Default colour palettes
+
+From simplevis 4.1.0 onwards, default colour palettes are:
+
+```{r}
+scales::show_col(pal_viridis_reorder(1))
+```
+
+```{r}
+scales::show_col(pal_d3_reorder(9))
+```
+
+```{r}
+scales::show_col(pal_viridis_reorder(9))
+```
+
+
+```{r}
+scales::show_col(pal_na())
+```
+
+
 

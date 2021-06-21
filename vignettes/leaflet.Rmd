@@ -33,8 +33,7 @@ As per the ggplot sf functions:
 There is no facetting functionality provided for leaflet.
 
 ```{r}
-leaflet_sf_col(data = example_sf_point, 
-              col_var = median, 
+leaflet_sf_col(example_sf_point, median, 
               col_method = "quantile",
               col_cuts = seq(0, 1, 0.25),
               title = "Monitored medians, 2008-17")
@@ -102,8 +101,6 @@ leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 
 
 ```{r}
-leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
-
 bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 
    sf::st_bbox() 
  

@@ -211,7 +211,9 @@ gg_sf_col(example_sf_point, trend_category,
 
 ```
 
-Simplevis also provides `leaflet` and `leaflet_sf` functions, which work in a similar way. 
+### leaflet wrappers
+
+simplevis also provides a `leaflet_sf()` and `leaflet_sf_col()` function, which work in a similar way as a bonus. 
 
 ```{r}
 leaflet_sf_col(example_sf_point, trend_category)
@@ -299,10 +301,12 @@ This means you can facet by more than one variable, provided that you are not us
 ```{r, fig.height = 4.5}
 plot_data <- penguins %>% 
   group_by(species, sex, island) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
-  filter(!is.na(sex))
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
-gg_bar(plot_data, sex, body_mass_g, width = 0.66, y_pretty_n = 3, x_na = FALSE) +
+gg_bar(plot_data, sex, body_mass_g, 
+       width = 0.66, 
+       x_na = FALSE, 
+       y_pretty_n = 3) +
   facet_grid(rows = vars(species), 
              cols = vars(island), 
              labeller = as_labeller(snakecase::to_sentence_case))

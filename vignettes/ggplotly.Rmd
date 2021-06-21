@@ -91,7 +91,7 @@ plotly::ggplotly(plot, tooltip = "text") %>%
   plotly_camera()
 ```
 
-### Controlling the colour legend.
+### Controlling the plotly colour legend order
 
 Sometimes the ggplotly legend displays elements in a different order to how you want them. You can reverse them or specify a specific order using `plotly_col_legend`. Note, this only affects the legend elements.
 
@@ -101,10 +101,9 @@ plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
 plot <- gg_point_col(plot_data, carat, price, color, 
                      font_family = "Helvetica")
  
-plotly::ggplotly(plot)
-
 plotly::ggplotly(plot) %>% 
-   plotly_col_legend(rev = TRUE)
+   plotly_camera() %>% 
+   plotly_col_legend(order = c(2:7, 1))
 ```
 
 ### `sf` maps
@@ -118,7 +117,6 @@ plot_data <- example_sf_point %>%
 plot <- gg_sf_col(plot_data, trend_category, 
               text_var = text,
               borders = nz, 
-              pal = c("#4575B4", "#D3D3D3", "#D73027"), 
               font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
@@ -136,9 +134,9 @@ plot_data <- example_sf_point %>%
                               TRUE ~ "Q4")) %>% 
   mutate_text()
 
-plot <- gg_sf_col_facet(plot_data, trend_category, quartile, text_var = text,
+plot <- gg_sf_col_facet(plot_data, trend_category, quartile, 
+                      text_var = text,
                       borders = nz,
-                      pal = c("#4575B4", "#D3D3D3", "#D73027"), 
                       font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 

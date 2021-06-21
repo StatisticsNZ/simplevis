@@ -139,7 +139,8 @@
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>But this default palette can be changed by providing a character vector of hex codes to the <code>pal</code> argument.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#da3490"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>,
+         <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#da3490"</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>Users can get access to a large amount of colour palettes through the <code>pals</code> package.</p>
 </div>
@@ -152,10 +153,12 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>You can adjust the colours of the coloured variable using the pal argument as described earlier.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>The <code>pals</code> package provides a large amount of colour palettes.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/brewer.html">brewer.dark2</a></span>(<span class="fl">3</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/brewer.html">brewer.dark2</a></span>(<span class="fl">3</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
 <div id="if-colouring-by-a-numeric-variable-define-the-col_method-and-col_cuts" class="section level3">

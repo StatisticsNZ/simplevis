@@ -1,3 +1,7 @@
+# simplevis 4.1.5
+
+* Fixed point family bug to support log10 x axis with x_zero equals TRUE.
+
 # simplevis 4.1.4
 
 * Updated pal_na to add a col_n argument for consistency with other pal functions.

@@ -12,3 +12,4 @@
 ^vignettes/leaflet\.Rmd$
 ^vignettes/scales\.Rmd$
 ^vignettes/shiny\.Rmd$
+^vignettes/titles\.Rmd$

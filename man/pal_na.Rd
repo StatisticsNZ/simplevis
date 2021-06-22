@@ -4,7 +4,10 @@
 \alias{pal_na}
 \title{NA palette.}
 \usage{
-pal_na()
+pal_na(col_n = 1)
+}
+\arguments{
+\item{col_n}{The number of NA colours. Doesn't do anything, but provided for consistency.}
 }
 \value{
 A vector of one hex code.

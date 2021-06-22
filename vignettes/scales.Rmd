@@ -50,7 +50,7 @@ Or via a function.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-                   x_labels = function(x) glue::glue("{x}ish"))
+                   x_labels = function(x) glue::glue("{x} mm"))
 ```
 
 Note there is a default sentence case transformation for categorical x, y or col variables. But you can use `ggplot2::waiver()` to turn this off. 
@@ -72,6 +72,17 @@ gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, sex,
 * <i>not</i> starting from zero for numeric scales on all other graphs. 
 
 You can use the `x_zero` and `y_zero` arguments to change the defaults.
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+               y_zero = TRUE)
+```
+
+```{r}
+gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+               x_zero = TRUE)
+```
+
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
@@ -203,25 +214,3 @@ You can quickly remove NA values by setting `x_na`, `y_na`, `col_na` or `facet_n
 ```{r}
 gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species, col_na = F)
 ```
-
-### Titles
-
-Customise titles with `title`, `subtitle`, `x_title`, `y_title`, `col_title` and `caption` arguments. 
-
-```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-             title = "Adult penguin mass by bill length and species",
-             subtitle = "Palmer station, Antarctica",
-             x_title = "Bill length (mm)", 
-             y_title = "Body mass (g)",
-             col_title = "Penguin species",
-             caption = "Source: Gorman KB, Williams TD, Fraser WR (2014)")
-```
-
-Defaults titles are: 
-
- * no title, subtitle or caption 
- * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. You can turn this transformation off to use variable names as is using `x_title = ggplot2::waiver()` or likewise for `y_title` and `col_title`. You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.
-
-
-

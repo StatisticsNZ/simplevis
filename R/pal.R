@@ -34,10 +34,12 @@ pal_viridis_reorder <- function(col_n) {
 #' 
 #' @description A function to retreive a hex code for a colour to use for NA values.
 #' 
+#' @param col_n The number of NA colours. Doesn't do anything, but provided for consistency.
+#'
 #' @return A vector of one hex code.
 #' @export 
 #' @examples 
 #' scales::show_col(pal_viridis_reorder(9)) 
-pal_na <- function() {
+pal_na <- function(col_n = 1) {
   "#7F7F7FFF"
 }

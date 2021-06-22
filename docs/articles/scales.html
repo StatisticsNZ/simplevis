@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4</span>
       </span>
     </div>
 
@@ -78,6 +78,9 @@
     <li>
       <a href="../articles/shiny.html">Shiny</a>
     </li>
+    <li>
+      <a href="../articles/titles.html">Titles</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -107,7 +110,7 @@
       <h1 data-toc-skip>Scales</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-06-21</h4>
+            <h4 class="date">2021-06-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/scales.Rmd"><code>vignettes/scales.Rmd</code></a></small>
       <div class="hidden name"><code>scales.Rmd</code></div>
@@ -147,7 +150,7 @@
 <p><img src="scales_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>Or via a function.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
-                   <span class="kw">x_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"{x}ish"</span>))</pre></body></html></div>
+                   <span class="kw">x_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"{x} mm"</span>))</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>Note there is a default sentence case transformation for categorical x, y or col variables. But you can use <code><a href="https://ggplot2.tidyverse.org/reference/waiver.html">ggplot2::waiver()</a></code> to turn this off.</p>
 <p>The <code>facet_labels</code> argument works slightly differently in that it provides access to the ggplot2 <code>labeller</code> argument within the ggplot <code>facet_wrap</code> function. Therefore you need to use ggplot labeller functions to modify them.</p>
@@ -167,38 +170,44 @@
 </ul>
 <p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments to change the defaults.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
-               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+               <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
-<p>Adjust the number of breaks for numeric x and/or y scales.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+               <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
+<p>Adjust the number of breaks for numeric x and/or y scales.</p>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
                <span class="kw">y_pretty_n</span> <span class="kw">=</span> <span class="fl">10</span>,
                <span class="kw">x_pretty_n</span> <span class="kw">=</span> <span class="fl">6</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <p>Transform numeric x and y scales.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
                <span class="kw">x_trans</span> <span class="kw">=</span> <span class="st">"log10"</span>,
                <span class="kw">y_trans</span> <span class="kw">=</span> <span class="st">"sqrt"</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
-<p>Balance a numeric scale so that it has equivalence between positive and negative values.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">y_balance</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
-<p>Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">y_balance</span> <span class="kw">=</span> <span class="no">T</span>, <span class="kw">y_zero_line</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+<p>Balance a numeric scale so that it has equivalence between positive and negative values.</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">y_balance</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+<p>Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired.</p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>, <span class="kw">y_balance</span> <span class="kw">=</span> <span class="no">T</span>, <span class="kw">y_zero_line</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 </div>
 <div id="discrete-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#discrete-scales" class="anchor"></a>Discrete scales</h3>
 <p><code>simplevis</code> automatically orders hbar graphs of character variables alphabetically.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
 <span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">price</span>, <span class="no">cut</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
 <p>If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor, and give it the appropriate levels.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">cut_levels</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>)
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">cut_levels</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span>)
 
 <span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
@@ -207,80 +216,62 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
 <span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">price</span>, <span class="no">cut</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 <p>Discrete scales can be reversed easily using the relevant <code>y_rev</code> or <code>x_rev</code> argument.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
 <span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">price</span>, <span class="no">cut</span>,
             <span class="kw">y_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
 <p>Simple hbar and vbar plots made with <code><a href="../reference/gg_bar.html">gg_bar()</a></code> or <code>gg_hbar</code> can be ordered by size using y_reorder or x_reorder. For other functions, you will need to reorder variables in the data as you wish them to be ordered.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
 <span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>, <span class="no">price</span>, <span class="no">cut</span>, <span class="kw">y_reorder</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
 </div>
 <div id="colour-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#colour-scales" class="anchor"></a>Colour scales</h3>
 <p>Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using <code><a href="https://ggplot2.tidyverse.org/reference/waiver.html">ggplot2::waiver()</a></code></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
-
-<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
-            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(),
-            <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
-<p>Reverse the palette.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
-
-<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
-            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(),
-            <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
-<p>Reverse the order of coloured bars.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
 
 <span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
             <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(),
-            <span class="kw">col_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+            <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
+<p>Reverse the palette.</p>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+
+<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
+            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(),
+            <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
+<p>Reverse the order of coloured bars.</p>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+
+<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>, <span class="no">average_price</span>, <span class="no">cut</span>, <span class="no">clarity</span>,
+            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(),
+            <span class="kw">col_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 </div>
 <div id="na-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#na-values" class="anchor"></a>NA values</h3>
 <p>You can quickly remove NA values by setting <code>x_na</code>, <code>y_na</code>, <code>col_na</code> or <code>facet_na</code> arguments to FALSE.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">sex</span>, <span class="no">species</span>, <span class="kw">col_na</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
-</div>
-<div id="titles" class="section level3">
-<h3 class="hasAnchor">
-<a href="#titles" class="anchor"></a>Titles</h3>
-<p>Customise titles with <code>title</code>, <code>subtitle</code>, <code>x_title</code>, <code>y_title</code>, <code>col_title</code> and <code>caption</code> arguments.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
-             <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Adult penguin mass by bill length and species"</span>,
-             <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Palmer station, Antarctica"</span>,
-             <span class="kw">x_title</span> <span class="kw">=</span> <span class="st">"Bill length (mm)"</span>,
-             <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Body mass (g)"</span>,
-             <span class="kw">col_title</span> <span class="kw">=</span> <span class="st">"Penguin species"</span>,
-             <span class="kw">caption</span> <span class="kw">=</span> <span class="st">"Source: Gorman KB, Williams TD, Fraser WR (2014)"</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
-<p>Defaults titles are:</p>
-<ul>
-<li>no title, subtitle or caption</li>
-<li>x, y and colour titles are converted to sentence case using the <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html">snakecase::to_sentence_case</a></code> function. You can turn this transformation off to use variable names as is using <code>x_title = ggplot2::waiver()</code> or likewise for <code>y_title</code> and <code>col_title</code>. You can also request no x_title using <code>x_title = ""</code> or likewise for <code>y_title</code> and <code>col_title</code>.</li>
-</ul>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">sex</span>, <span class="no">species</span>, <span class="kw">col_na</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 </div>
   </div>
 

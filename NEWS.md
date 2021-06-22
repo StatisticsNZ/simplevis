@@ -1,3 +1,8 @@
+# simplevis 4.1.4
+
+* Updated pal_na to add a col_n argument for consistency with other pal functions.
+* Add article on titles.
+
 # simplevis 4.1.3
 
 * Added pal_na function.

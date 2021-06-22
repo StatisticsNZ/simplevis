@@ -46,4 +46,6 @@ Map of simple features in leaflet that is not coloured.
 }
 \examples{
 leaflet_sf(example_sf_point)
+
+leaflet_sf(example_sf_polygon)
 }

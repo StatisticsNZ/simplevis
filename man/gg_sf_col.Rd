@@ -12,7 +12,7 @@ gg_sf_col(
   pal_rev = FALSE,
   size_point = 1,
   size_line = 0.5,
-  alpha = 1,
+  alpha = 0.9,
   borders = NULL,
   borders_behind = TRUE,
   borders_pal = "#7f7f7f",
@@ -109,7 +109,7 @@ Map of simple features in ggplot that is coloured, but not facetted.
 }
 \examples{
 gg_sf_col(example_sf_point, trend_category, 
-          borders = nz, pal = c("#4575B4", "#D3D3D3", "#D73027"))
+          borders = nz)
    
 gg_sf_col(example_sf_polygon, density, 
      borders = nz, col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf))

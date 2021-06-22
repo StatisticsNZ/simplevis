@@ -1,3 +1,7 @@
+# simplevis 4.1.6
+
+* Changed gg_sf* family alpha default to 0.9.
+
 # simplevis 4.1.5
 
 * Fixed point family bug to support log10 x axis with x_zero equals TRUE.

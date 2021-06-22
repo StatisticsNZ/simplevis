@@ -4,7 +4,7 @@
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param size_point Size of points. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 0.9. 
 #' @param pal Character vector of hex codes. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
@@ -28,7 +28,7 @@ gg_sf <- function(data,
                   text_var = NULL,
                   size_point = 1,
                   size_line = 0.5,
-                  alpha = 1,
+                  alpha = 0.9,
                   pal = NULL,
                   borders = NULL,
                   borders_behind = TRUE,
@@ -166,7 +166,7 @@ gg_sf <- function(data,
 #' @export
 #' @examples
 #' gg_sf_col(example_sf_point, trend_category, 
-#'           borders = nz, pal = c("#4575B4", "#D3D3D3", "#D73027"))
+#'           borders = nz)
 #'    
 #' gg_sf_col(example_sf_polygon, density, 
 #'      borders = nz, col_method = "bin", col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
@@ -180,7 +180,7 @@ gg_sf_col <- function(data,
                       pal_rev = FALSE,
                       size_point = 1,
                       size_line = 0.5,
-                      alpha = 1,
+                      alpha = 0.9,
                       borders = NULL,
                       borders_behind = TRUE,
                       borders_pal = "#7f7f7f",
@@ -390,7 +390,7 @@ gg_sf_col <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param size_point Size of points. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha The alpha of the fill. Defaults to 0.9. 
 #' @param pal Character vector of hex codes. 
 #' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
@@ -418,7 +418,7 @@ gg_sf_facet <- function(data,
                         text_var = NULL,
                         size_point = 1,
                         size_line = 0.5,
-                        alpha = 1,
+                        alpha = 0.9,
                         pal = NULL,
                         facet_labels = NULL,
                         facet_na = TRUE,
@@ -586,7 +586,7 @@ gg_sf_facet <- function(data,
 #' @export
 #' @examples
 #' gg_sf_col_facet(example_sf_point, trend_category, trend_category,
-#'  borders = nz, pal = c("#4575B4", "#D3D3D3", "#D73027"))
+#'  borders = nz)
 #'  
 gg_sf_col_facet <- function(data,
                             col_var,
@@ -596,7 +596,7 @@ gg_sf_col_facet <- function(data,
                             pal_rev = FALSE,
                             size_point = 1,
                             size_line = 0.5,
-                            alpha = 1,
+                            alpha = 0.9,
                             borders = NULL,
                             borders_behind = TRUE,
                             borders_pal = "#7f7f7f",

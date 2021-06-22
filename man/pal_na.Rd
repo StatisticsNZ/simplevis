@@ -16,5 +16,5 @@ A vector of one hex code.
 A function to retreive a hex code for a colour to use for NA values.
 }
 \examples{
-scales::show_col(pal_viridis_reorder(9)) 
+scales::show_col(pal_na(9)) 
 }

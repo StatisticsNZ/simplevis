@@ -39,7 +39,7 @@ pal_viridis_reorder <- function(col_n) {
 #' @return A vector of one hex code.
 #' @export 
 #' @examples 
-#' scales::show_col(pal_viridis_reorder(9)) 
+#' scales::show_col(pal_na(9)) 
 pal_na <- function(col_n = 1) {
   "#7F7F7FFF"
 }

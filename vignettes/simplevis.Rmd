@@ -178,7 +178,7 @@ gg_line(plot_data, year, wind,
         y_labels = scales::comma_format(accuracy = 0.1), 
         y_zero = T, 
         y_pretty_n = 10,
-        y_expand = c(0, 2))
+        y_expand = ggplot2::expansion(mult = c(0.025, 0.025)))
 ```
 
 ```{r}

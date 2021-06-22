@@ -101,8 +101,8 @@ Transform numeric x and y scales.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-               x_trans = "log10", 
-               y_trans = "sqrt")
+               x_trans = "sqrt", x_zero = T,
+               y_trans = "log10")
 ```
 
 Balance a numeric scale so that it has equivalence between positive and negative values.
@@ -214,3 +214,18 @@ You can quickly remove NA values by setting `x_na`, `y_na`, `col_na` or `facet_n
 ```{r}
 gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species, col_na = F)
 ```
+
+### Expanding the scale
+
+To expand the scale use `x_expand` and `y_expand` arguments with the `ggplot2::expansion` function, which allows to expand in either or both directions of both x and y in an additive or multiplative way. 
+
+```{r}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
+
+gg_line(plot_data, year, wind, 
+        x_expand = ggplot2::expansion(add = c(0, 5)),
+        y_expand = ggplot2::expansion(mult = c(0, 0.025)))
+```
+

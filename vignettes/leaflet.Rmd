@@ -32,6 +32,10 @@ As per the ggplot sf functions:
 
 There is no facetting functionality provided for leaflet.
 
+### Colouring 
+
+Colouring is the same as that for graphs.
+
 ```{r}
 leaflet_sf_col(example_sf_point, median, 
               col_method = "quantile",
@@ -44,20 +48,24 @@ leaflet_sf_col(example_sf_point, median,
 leaflet_sf_col(example_sf_polygon, density,
      col_method = "bin", 
      col_cuts = c(0, 10, 50, 100, 150, 200, Inf),
-     col_labels_dp = 0,
      title = "Modelled density, 2017")
 ```
 
-The popup will default to a `leafpop::popupTable` of all variables, but can be adjusted to a subset using the `popup_vars_vctr` argument.
+
+### Popups and hover text
+
+The popup will default to a `leafpop::popupTable` of all variables, but popups can be adjusted to a subset of column using the `popup_vars_vctr` argument.
 
 ```{r}
-leaflet_sf_col(example_sf_point, trend_category, popup_vars_vctr = c("site_id", "median"))
+leaflet_sf_col(example_sf_point, trend_category, 
+               popup_vars_vctr = c("site_id", "median"))
 ```
 
-The tooltip will default to the colour variable, but can be adjusted using the `text_var` variable.
+The tooltip will default to the colour variable, but can be adjusted using the `text_var` variable. It has been called the `text_var` to align with the term that `ggplot2` calls the hover value or tooltip.
 
 ```{r}
-leaflet_sf_col(example_sf_point, trend_category, text_var = site_id)
+leaflet_sf_col(example_sf_point, trend_category, 
+               text_var = site_id)
 ```
 
 ### Basemaps
@@ -78,7 +86,7 @@ leaflet_sf(example_sf_point, basemap = "street")
 
 ### Adding additional layers
 
-As a leaflet object is produced, you can add additional layers with leaflet.
+As a leaflet object is produced, you can add additional layers with leaflet - although this may effect popups and labels.
 
 ```{r}
 leaflet_sf_col(example_sf_point, trend_category) %>% 
@@ -98,7 +106,6 @@ You can set the bounds by adding a vector or bbox of bounds.
 ```{r}
 leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 ```
-
 
 ```{r}
 bb <- rnaturalearth::ne_countries(scale = "small", country = "Indonesia", returnclass = "sf") %>% 

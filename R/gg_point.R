@@ -436,14 +436,14 @@ gg_point_col <- function(data,
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       else({
-        if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
       if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
     }
     
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE), .names = "col_var2"))
     
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
@@ -461,6 +461,9 @@ gg_point_col <- function(data,
     else pal <- pal[1:col_n]
     
     if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+    
+    data <- data %>% 
+      dplyr::mutate(col_var2 = !!col_var)
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -474,7 +477,7 @@ gg_point_col <- function(data,
     coord_cartesian(clip = "off")
   
   plot <- plot +
-    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, col = .data$col_var2, text = !!text_var), size = size_point)
   
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
@@ -1086,7 +1089,7 @@ gg_point_col_facet <-
       }
       
       data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE), .names = "col_var2"))
       
       if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
       
@@ -1104,6 +1107,9 @@ gg_point_col_facet <-
       else pal <- pal[1:col_n]
       
       if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+      
+      data <- data %>% 
+        dplyr::mutate(col_var2 = !!col_var)
     }
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -1115,7 +1121,7 @@ gg_point_col_facet <-
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point)
+      geom_point(aes(x = !!x_var, y = !!y_var, col = .data$col_var2, text = !!text_var), size = size_point)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {

@@ -273,7 +273,7 @@ gg_sf_col <- function(data,
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       else({
-        if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
       if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
@@ -705,7 +705,7 @@ gg_sf_col_facet <- function(data,
     else if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
       else({
-        if (!(dplyr::first(col_cuts) %in% c(0,-Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
       if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)

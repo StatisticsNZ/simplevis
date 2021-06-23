@@ -1,3 +1,7 @@
+# simplevis 4.1.7
+
+* For point, fixed bug to support use of the same col_var as x or y.
+
 # simplevis 4.1.6
 
 * Changed gg_sf* family alpha default to 0.9.

@@ -75,10 +75,10 @@ sv_numeric_breaks_h <- function(var_vctr,
 sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = 1) {
   
   labels <- vector("character", 0)
+  
   cuts_vctr_no <- length(cuts_vctr)
-  cuts_vctr <-
-    sprintf(paste0("%.", labels_dp, "f"),
-            round(cuts_vctr, labels_dp))
+  
+  cuts_vctr <- sprintf(paste0("%.", labels_dp, "f"), round(cuts_vctr, labels_dp))
   
   if (cuts_vctr_no == 2) {
     labels <- c("Feature")
@@ -91,7 +91,8 @@ sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = 1) {
       temp <- paste0(cuts_vctr[i], "\u2013", cuts_vctr[i + 1])
       labels <- c(labels, temp)
     }
-    labels <-
+    
+    labels <- 
       c(paste0("<", cuts_vctr[2]),
         labels,
         paste0("\u2265", cuts_vctr[length(cuts_vctr) - 1]))

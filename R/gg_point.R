@@ -132,7 +132,7 @@ gg_point <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_point(
+    theme_xy_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -246,7 +246,7 @@ gg_point <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) + 
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -469,7 +469,7 @@ gg_point_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_point(
+    theme_xy_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -595,7 +595,7 @@ gg_point_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       )  +
       guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -758,7 +758,7 @@ gg_point_facet <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_point(
+    theme_xy_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1115,7 +1115,7 @@ gg_point_col_facet <-
     if (pal_rev == TRUE) pal <- rev(pal)
     
     plot <- ggplot(data) +
-      theme_point(
+      theme_xy_gridlines(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title

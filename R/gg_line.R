@@ -139,7 +139,7 @@ gg_line <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_line(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -247,7 +247,6 @@ gg_line <- function(data,
   }
   else if (mobile == TRUE) {
     plot <- plot +
-      theme_mobile_graph() +
       labs(
         title = stringr::str_wrap(title, 40),
         subtitle = stringr::str_wrap(subtitle, 40),
@@ -255,7 +254,7 @@ gg_line <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -441,7 +440,7 @@ gg_line_col <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_line(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -569,7 +568,7 @@ gg_line_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       )  +
       guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -739,7 +738,7 @@ gg_line_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_line(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1060,7 +1059,7 @@ gg_line_col_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_line(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title

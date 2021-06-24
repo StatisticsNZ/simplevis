@@ -1,6 +1,10 @@
+# simplevis 4.2.1
+
+* Consolidated and renamed themes.
+
 # simplevis 4.1.7
 
-* For point, fixed bug to support use of the same col_var as x or y.
+* For point*, fixed bug to support use of the same col_var as x or y.
 
 # simplevis 4.1.6
 
@@ -8,7 +12,7 @@
 
 # simplevis 4.1.5
 
-* Fixed point family bug to support log10 x axis with x_zero equals TRUE.
+* Fixed point* family bug to support log10 x axis with x_zero equals TRUE.
 
 # simplevis 4.1.4
 

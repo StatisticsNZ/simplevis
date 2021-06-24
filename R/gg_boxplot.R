@@ -161,7 +161,7 @@ gg_boxplot <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_boxplot(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -299,7 +299,7 @@ gg_boxplot <- function(data,
   }
   else if (mobile == TRUE){
     plot <- plot +
-      theme_mobile_graph() +
+      theme_mobile_extra() +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank()) +
       theme(axis.text.x = element_text(hjust = 1)) +  
@@ -510,7 +510,7 @@ gg_boxplot_col <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_boxplot(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -666,7 +666,7 @@ gg_boxplot_col <- function(data,
   }
   else if (mobile == TRUE){
     plot <- plot +
-      theme_mobile_graph() +
+      theme_mobile_extra() +
       theme(panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2)) +
       theme(panel.grid.major.y = element_blank()) +
       theme(axis.text.x = element_text(hjust = 1)) +  
@@ -863,7 +863,7 @@ gg_boxplot_facet <- function(data,
     
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme_boxplot(
+      theme_y_gridlines(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title
@@ -885,7 +885,7 @@ gg_boxplot_facet <- function(data,
     else if (stat == "identity") {
       plot <- ggplot(data) +
         coord_cartesian(clip = "off") +
-        theme_boxplot(
+        theme_y_gridlines(
           font_family = font_family,
           font_size_body = font_size_body,
           font_size_title = font_size_title
@@ -1237,7 +1237,7 @@ gg_boxplot_col_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_boxplot(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1258,7 +1258,7 @@ gg_boxplot_col_facet <- function(data,
   else if (stat == "identity") {
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme_boxplot(
+      theme_y_gridlines(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title

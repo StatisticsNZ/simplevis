@@ -56,7 +56,7 @@ gg_sf <- function(data,
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   plot <- ggplot(data) +
-    theme_sf(
+    theme_map(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -123,7 +123,7 @@ gg_sf <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         caption = stringr::str_wrap(caption, 50)
       ) + 
-      theme_mobile_map()
+      theme_mobile_extra_map()
   }
   
   return(plot)
@@ -235,7 +235,7 @@ gg_sf_col <- function(data,
   geometry_type <- unique(sf::st_geometry_type(data))
   
   plot <- ggplot(data) +
-    theme_sf(
+    theme_map(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -377,7 +377,7 @@ gg_sf_col <- function(data,
       )  +
       guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
       guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
-      theme_mobile_map()
+      theme_mobile_extra_map()
   }
   
   return(plot)
@@ -468,7 +468,7 @@ gg_sf_facet <- function(data,
   geometry_type <- unique(sf::st_geometry_type(data))
   
   plot <- ggplot(data) +
-    theme_sf(
+    theme_map(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -667,7 +667,7 @@ gg_sf_col_facet <- function(data,
   geometry_type <- unique(sf::st_geometry_type(data))
   
   plot <- ggplot(data) +
-    theme_sf(
+    theme_map(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title

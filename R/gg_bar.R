@@ -154,7 +154,7 @@ gg_bar <- function(data,
   bar_width <- bar_unit * width
   
   plot <- ggplot(data) +
-    theme_bar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
              col = pal, 
              fill = pal, 
@@ -264,7 +264,7 @@ gg_bar <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -478,7 +478,7 @@ gg_bar_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_bar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -626,7 +626,7 @@ gg_bar_col <- function(data,
         fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20)),
         col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20))
       ) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -798,7 +798,7 @@ gg_bar_facet <- function(data,
   bar_width <- bar_unit * width
   
   plot <- ggplot(data) +
-    theme_bar(
+    theme_y_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1139,7 +1139,7 @@ gg_bar_col_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian() +
-    theme_bar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 

@@ -154,7 +154,7 @@ gg_hbar <- function(data,
   bar_width <- bar_unit * width
   
   plot <- ggplot(data) +
-    theme_hbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), 
              col = pal, 
              fill = pal, 
@@ -268,7 +268,7 @@ gg_hbar <- function(data,
         y = stringr::str_wrap(x_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -484,7 +484,7 @@ gg_hbar_col <- function(data,
   if (pal_rev == FALSE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_hbar(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -638,7 +638,7 @@ gg_hbar_col <- function(data,
         fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20)),
         col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20))
       ) +
-      theme_mobile_graph()
+      theme_mobile_extra()
   }
   
   return(plot)
@@ -810,7 +810,7 @@ gg_hbar_facet <- function(data,
   bar_width <- bar_unit * width
   
   plot <- ggplot(data) +
-    theme_hbar(
+    theme_x_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1159,7 +1159,7 @@ gg_hbar_col_facet <- function(data,
   if (pal_rev == FALSE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_hbar(
+    theme_x_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title

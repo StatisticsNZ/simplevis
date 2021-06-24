@@ -218,7 +218,7 @@ theme_x_gridlines <-
     )
   }
 
-#' @title Theme for point ggplots.
+#' @title Theme for graphs with x and y gridlines.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.

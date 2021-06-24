@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.R
 \name{theme_xy_gridlines}
 \alias{theme_xy_gridlines}
-\title{Theme for point ggplots.}
+\title{Theme for graphs with x and y gridlines.}
 \usage{
 theme_xy_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
 }
@@ -17,7 +17,7 @@ theme_xy_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
 A ggplot theme.
 }
 \description{
-Theme for point ggplots.
+Theme for graphs with x and y gridlines.
 }
 \examples{
 library(ggplot2)

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.2</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@
   <span class='no'>y_var</span>,
   <span class='no'>col_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
@@ -234,7 +234,7 @@
     </tr>
     <tr>
       <th>position</th>
-      <td><p>Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".</p></td>
+      <td><p>Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -420,6 +420,7 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
 <span class='fu'>gg_bar_col</span>(<span class='no'>plot_data</span>, <span class='no'>species</span>, <span class='no'>body_mass_g</span>, <span class='no'>sex</span>)</div><div class='img'><img src='gg_bar_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>gg_bar_col</span>(<span class='no'>plot_data</span>, <span class='no'>species</span>, <span class='no'>body_mass_g</span>, <span class='no'>sex</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>)</div><div class='img'><img src='gg_bar_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_bar_col</span>(<span class='no'>plot_data</span>, <span class='no'>species</span>, <span class='no'>body_mass_g</span>, <span class='no'>sex</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</div><div class='img'><img src='gg_bar_col-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

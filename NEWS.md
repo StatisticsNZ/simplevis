@@ -1,3 +1,7 @@
+# simplevis 4.2.2 
+
+* Updated bar position code to provide more flexibility.
+
 # simplevis 4.2.1
 
 * Consolidated and renamed themes.

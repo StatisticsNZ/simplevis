@@ -277,7 +277,7 @@ gg_bar <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
+#' @param position Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
@@ -335,12 +335,14 @@ gg_bar <- function(data,
 #' 
 #' gg_bar_col(plot_data, species, body_mass_g, sex, position = "stack")
 #' 
+#' gg_bar_col(plot_data, species, body_mass_g, sex, position = "fill")
+#' 
 gg_bar_col <- function(data,
                         x_var,
                         y_var,
                         col_var,
                         text_var = NULL,
-                        position = "dodge",
+                        position = NULL,
                         pal = NULL,
                         pal_rev = FALSE,
                         width = 0.75,
@@ -411,13 +413,6 @@ gg_bar_col <- function(data,
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a vertical bar plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
   
-  if (y_trans != "identity") {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
-  } 
-  if (y_zero == FALSE) {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
-  }
-  
   if(is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
@@ -459,9 +454,6 @@ gg_bar_col <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
-  if (position == "stack") position2 <- "stack"
-  else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
-  
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
   else bar_unit <- 1
   
@@ -476,6 +468,11 @@ gg_bar_col <- function(data,
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
+  
+  if (is.null(position)) {
+    position2 <- position_dodge2(preserve = "single")
+  }
+  else if (!is.null(position)) position2 <- position
   
   plot <- ggplot(data) +
     theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -538,13 +535,16 @@ gg_bar_col <- function(data,
       scale_x_discrete(expand = x_expand, labels = x_labels)
   } 
   
-  if (position == "stack") {
-    data_sum <- data %>%
-      dplyr::group_by(dplyr::across(!!x_var), .drop = FALSE) %>%
-      dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
-      dplyr::ungroup()
-    
-    y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+  if (!is.null(position)) {
+    if (position == "stack") {
+      data_sum <- data %>%
+        dplyr::group_by(dplyr::across(!!x_var), .drop = FALSE) %>%
+        dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
+        dplyr::ungroup()
+      
+      y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+    }
+    else if (position == "fill") y_var_vctr <- c(0, 1)
   }
   
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -917,7 +917,7 @@ gg_bar_facet <- function(data,
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
+#' @param position Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
@@ -983,7 +983,7 @@ gg_bar_col_facet <- function(data,
                               col_var,
                               facet_var,
                               text_var = NULL,
-                              position = "dodge",
+                              position = NULL,
                               pal = NULL,
                               pal_rev = FALSE,
                               width = 0.75,
@@ -1065,13 +1065,6 @@ gg_bar_col_facet <- function(data,
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a vertical bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a vertical bar plot")
   
-  if (y_trans != "identity") {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
-  } 
-  if (y_zero == FALSE) {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of y scale")
-  } 
-  
   if(is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
@@ -1119,9 +1112,6 @@ gg_bar_col_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
-  if (position == "stack") position2 <- "stack"
-  else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
-  
   if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
   else bar_unit <- 1
   
@@ -1137,6 +1127,11 @@ gg_bar_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  if (is.null(position)) {
+    position2 <- position_dodge2(preserve = "single")
+  }
+  else if (!is.null(position)) position2 <- position
+  
   plot <- ggplot(data) +
     coord_cartesian() +
     theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -1146,13 +1141,16 @@ gg_bar_col_facet <- function(data,
              width = bar_width, 
              position = position2)
   
-  if (position == "stack") {
-    data_sum <- data %>%
-      dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var)), .drop = FALSE) %>%
-      dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
-      dplyr::ungroup()
-    
-    y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+  if (!is.null(position)) {
+    if (position == "stack") {
+      data_sum <- data %>%
+        dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var)), .drop = FALSE) %>%
+        dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
+        dplyr::ungroup()
+      
+      y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+    }
+    else if (position == "fill") y_var_vctr <- c(0, 1)
   }
   
   if (facet_scales %in% c("fixed", "free_y")) {

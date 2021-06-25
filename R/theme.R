@@ -328,7 +328,7 @@ theme_xy_gridlines <-
     )
   }
 
-#' @title Theme for ggplot maps.
+#' @title Theme for maps.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.

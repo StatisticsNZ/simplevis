@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.R
 \name{theme_map}
 \alias{theme_map}
-\title{Theme for ggplot maps.}
+\title{Theme for maps.}
 \usage{
 theme_map(font_family = "", font_size_title = 11, font_size_body = 10)
 }
@@ -17,7 +17,7 @@ theme_map(font_family = "", font_size_title = 11, font_size_body = 10)
 A ggplot theme.
 }
 \description{
-Theme for ggplot maps.
+Theme for maps.
 }
 \examples{
 library(ggplot2)

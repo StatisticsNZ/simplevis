@@ -11,7 +11,7 @@ gg_bar_col_facet(
   col_var,
   facet_var,
   text_var = NULL,
-  position = "dodge",
+  position = NULL,
   pal = NULL,
   pal_rev = FALSE,
   width = 0.75,
@@ -73,7 +73,7 @@ gg_bar_col_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".}
+\item{position}{Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".}
 
 \item{pal}{Character vector of hex codes.}
 

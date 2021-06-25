@@ -10,7 +10,7 @@ gg_hbar_col(
   y_var,
   col_var,
   text_var = NULL,
-  position = "dodge",
+  position = NULL,
   pal = NULL,
   pal_rev = FALSE,
   width = 0.75,
@@ -67,7 +67,7 @@ gg_hbar_col(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".}
+\item{position}{Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -174,4 +174,5 @@ gg_hbar_col(plot_data, body_mass_g, species, sex)
 
 gg_hbar_col(plot_data, body_mass_g, species, sex, position = "stack")
 
+gg_hbar_col(plot_data, body_mass_g, species, sex, position = "fill")
 }

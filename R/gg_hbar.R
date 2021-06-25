@@ -281,7 +281,7 @@ gg_hbar <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
+#' @param position Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
@@ -340,12 +340,13 @@ gg_hbar <- function(data,
 #' 
 #' gg_hbar_col(plot_data, body_mass_g, species, sex, position = "stack")
 #' 
+#' gg_hbar_col(plot_data, body_mass_g, species, sex, position = "fill")
 gg_hbar_col <- function(data,
                         x_var,
                         y_var,
                         col_var,
                         text_var = NULL,
-                        position = "dodge",
+                        position = NULL,
                         pal = NULL,
                         pal_rev = FALSE,
                         width = 0.75,
@@ -465,9 +466,6 @@ gg_hbar_col <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
-  if (position == "stack") position2 <- "stack"
-  else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
-  
   if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
   else bar_unit <- 1
   
@@ -483,6 +481,11 @@ gg_hbar_col <- function(data,
   
   if (pal_rev == FALSE) pal <- rev(pal)
   
+  if (is.null(position)) {
+    position2 <- position_dodge2(preserve = "single")
+  }
+  else if (!is.null(position)) position2 <- position
+  
   plot <- ggplot(data) +
     theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
@@ -491,13 +494,16 @@ gg_hbar_col <- function(data,
              width = bar_width, 
              position = position2)
   
-  if (position == "stack") {
-    data_sum <- data %>%
-      dplyr::group_by(dplyr::across(!!y_var), .drop = FALSE) %>%
-      dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-      dplyr::ungroup()
-    
-    x_var_vctr <- dplyr::pull(data_sum, !!x_var)
+  if (!is.null(position)) {
+    if (position == "stack") {
+      data_sum <- data %>%
+        dplyr::group_by(dplyr::across(!!y_var), .drop = FALSE) %>%
+        dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
+        dplyr::ungroup()
+      
+      x_var_vctr <- dplyr::pull(data_sum, !!x_var)
+    }
+    else if (position == "fill") x_var_vctr <- c(0, 1)
   }
   
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -938,7 +944,7 @@ gg_hbar_facet <- function(data,
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
+#' @param position Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
@@ -1004,7 +1010,7 @@ gg_hbar_col_facet <- function(data,
                               col_var,
                               facet_var,
                               text_var = NULL,
-                              position = "dodge",
+                              position = NULL,
                               pal = NULL,
                               pal_rev = FALSE,
                               width = 0.75,
@@ -1140,9 +1146,6 @@ gg_hbar_col_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
-  if (position == "stack") position2 <- "stack"
-  else if (position == "dodge") position2 <- position_dodge2(preserve = "single")
-  
   if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
   else bar_unit <- 1
   
@@ -1158,6 +1161,11 @@ gg_hbar_col_facet <- function(data,
   
   if (pal_rev == FALSE) pal <- rev(pal)
   
+  if (is.null(position)) {
+    position2 <- position_dodge2(preserve = "single")
+  }
+  else if (!is.null(position)) position2 <- position
+  
   plot <- ggplot(data) +
     theme_x_gridlines(
       font_family = font_family,
@@ -1170,15 +1178,18 @@ gg_hbar_col_facet <- function(data,
              width = bar_width, 
              position = position2)
   
-  if (position == "stack") {
-    data_sum <- data %>%
-      dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var), .drop = FALSE)) %>%
-      dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-      dplyr::ungroup()
-    
-    x_var_vctr <- dplyr::pull(data_sum, !!x_var)
-  }
-    
+    if (!is.null(position)) {
+      if (position == "stack") {
+        data_sum <- data %>%
+          dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var)), .drop = FALSE) %>%
+          dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
+          dplyr::ungroup()
+        
+        x_var_vctr <- dplyr::pull(data_sum, !!x_var)
+      }
+      else if (position == "fill") x_var_vctr <- seq(0, 1, 0.1)
+    }
+  
     if (facet_scales %in% c("fixed", "free_x")) {
       if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
         

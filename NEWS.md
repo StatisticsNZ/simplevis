@@ -1,3 +1,7 @@
+# simplevis 4.2.3
+
+* For point, added position and alpha arguments.
+
 # simplevis 4.2.2 
 
 * Updated bar position code to provide more flexibility.

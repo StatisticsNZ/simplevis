@@ -4,6 +4,8 @@
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param alpha The opacity of points. Defaults to 1.
 #' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. 
 #' @param title Title string. Defaults to NULL.
@@ -49,6 +51,8 @@ gg_point <- function(data,
                      x_var,
                      y_var,
                      text_var = NULL,
+                     position = "identity", 
+                     alpha = 1,
                      size_point = 1,
                      pal = NULL,
                      title = NULL,
@@ -138,7 +142,7 @@ gg_point <- function(data,
       font_size_title = font_size_title
     ) +
     coord_cartesian(clip = "off") +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point)
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
   
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
@@ -259,6 +263,8 @@ gg_point <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param alpha The opacity of points. Defaults to 1.
 #' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -315,6 +321,8 @@ gg_point_col <- function(data,
                          y_var,
                          col_var,
                          text_var = NULL,
+                         position = "identity", 
+                         alpha = 1,
                          size_point = 1,
                          pal = NULL,
                          pal_rev = FALSE,
@@ -477,7 +485,7 @@ gg_point_col <- function(data,
     coord_cartesian(clip = "off")
   
   plot <- plot +
-    geom_point(aes(x = !!x_var, y = !!y_var, col = .data$col_var2, text = !!text_var), size = size_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, col = .data$col_var2, text = !!text_var), size = size_point, alpha = alpha, position = position)
   
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
@@ -608,6 +616,8 @@ gg_point_col <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param alpha The opacity of points. Defaults to 1.
 #' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. 
 #' @param title Title string. Defaults to NULL.
@@ -658,6 +668,8 @@ gg_point_facet <- function(data,
                            y_var,
                            facet_var,
                            text_var = NULL,
+                           position = "identity", 
+                           alpha = 1,
                            size_point = 1,
                            pal = NULL,
                            title = NULL,
@@ -764,7 +776,7 @@ gg_point_facet <- function(data,
       font_size_title = font_size_title
     ) +
     coord_cartesian(clip = "off") +
-    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
   
   if (facet_scales %in% c("fixed", "free_y")) {
     if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
@@ -882,6 +894,8 @@ gg_point_facet <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param alpha The opacity of points. Defaults to 1.
 #' @param size_point Size of points. Defaults to 1.
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -944,6 +958,8 @@ gg_point_col_facet <-
            col_var,
            facet_var,
            text_var = NULL,
+           position = "identity", 
+           alpha = 1,
            size_point = 1,
            pal = NULL,
            pal_rev = FALSE,
@@ -1121,7 +1137,7 @@ gg_point_col_facet <-
         font_size_title = font_size_title
       ) +
       coord_cartesian(clip = "off") +
-      geom_point(aes(x = !!x_var, y = !!y_var, col = .data$col_var2, text = !!text_var), size = size_point)
+      geom_point(aes(x = !!x_var, y = !!y_var, col = .data$col_var2, text = !!text_var), size = size_point, alpha = alpha, position = position)
     
     if (facet_scales %in% c("fixed", "free_y")) {
       if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {

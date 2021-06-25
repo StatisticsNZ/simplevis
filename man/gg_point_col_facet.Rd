@@ -11,6 +11,8 @@ gg_point_col_facet(
   col_var,
   facet_var,
   text_var = NULL,
+  position = "identity",
+  alpha = 1,
   size_point = 1,
   pal = NULL,
   pal_rev = FALSE,
@@ -72,6 +74,10 @@ gg_point_col_facet(
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
+
+\item{position}{Whether bars are positioned by "identity" or "jitter". Defaults to "identity".}
+
+\item{alpha}{The opacity of points. Defaults to 1.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

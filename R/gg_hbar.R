@@ -281,7 +281,7 @@ gg_hbar <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".
+#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of bars. Defaults to 0.75.
@@ -417,13 +417,6 @@ gg_hbar_col <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
-  
-  if (x_trans != "identity") {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
-  } 
-  if (x_zero == FALSE) {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
-  }
   
   if(is.logical(y_var_vctr)) {
     data <- data %>% 
@@ -944,7 +937,7 @@ gg_hbar_facet <- function(data,
 #' @param col_var Unquoted categorical variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge", "stack" or "fill". Defaults to "dodge".
+#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param width Width of bars. Defaults to 0.75.
@@ -1091,13 +1084,6 @@ gg_hbar_col_facet <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
-  
-  if (x_trans != "identity") {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
-  } 
-  if (x_zero == FALSE) {
-    if (position == "stack") stop("Please use position = 'dodge', if you would like to not have zero as the minimum of x scale")
-  }
   
   if(is.logical(y_var_vctr)) {
     data <- data %>% 

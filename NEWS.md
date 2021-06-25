@@ -1,3 +1,11 @@
+# simplevis 4.2.5
+
+* Created first density function.
+
+# simplevis 4.2.4
+
+* Updated bar help to note that only stack and dodge positions are supported.
+
 # simplevis 4.2.3
 
 * For point, added position and alpha arguments.

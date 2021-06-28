@@ -1,7 +1,11 @@
+# simplevis 4.2.7
+
+* Added gg_density_facet() function.
+
 # simplevis 4.2.6
 
-* added arguments to modify density stat within gg_density().
-* added gg_density_col() function.
+* Added arguments to modify density stat within gg_density().
+* Added gg_density_col() function.
 
 # simplevis 4.2.5
 

@@ -339,8 +339,6 @@ gg_hbar <- function(data,
 #' gg_hbar_col(plot_data, body_mass_g, species, sex)
 #' 
 #' gg_hbar_col(plot_data, body_mass_g, species, sex, position = "stack")
-#' 
-#' gg_hbar_col(plot_data, body_mass_g, species, sex, position = "fill")
 gg_hbar_col <- function(data,
                         x_var,
                         y_var,
@@ -474,11 +472,15 @@ gg_hbar_col <- function(data,
   
   if (pal_rev == FALSE) pal <- rev(pal)
   
+  if(!is.null(position)) {
+    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
+  }
+  
   if (is.null(position)) {
     position2 <- position_dodge2(preserve = "single")
   }
-  else if (!is.null(position)) position2 <- position
-  
+  else position2 <- position
+
   plot <- ggplot(data) +
     theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
@@ -496,7 +498,7 @@ gg_hbar_col <- function(data,
       
       x_var_vctr <- dplyr::pull(data_sum, !!x_var)
     }
-    else if (position == "fill") x_var_vctr <- c(0, 1)
+    # else if (position == "fill") x_var_vctr <- c(0, 1)
   }
   
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -1147,10 +1149,14 @@ gg_hbar_col_facet <- function(data,
   
   if (pal_rev == FALSE) pal <- rev(pal)
   
+  if(!is.null(position)) {
+    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
+  }
+  
   if (is.null(position)) {
     position2 <- position_dodge2(preserve = "single")
   }
-  else if (!is.null(position)) position2 <- position
+  else position2 <- position
   
   plot <- ggplot(data) +
     theme_x_gridlines(
@@ -1173,7 +1179,7 @@ gg_hbar_col_facet <- function(data,
         
         x_var_vctr <- dplyr::pull(data_sum, !!x_var)
       }
-      else if (position == "fill") x_var_vctr <- seq(0, 1, 0.1)
+      # else if (position == "fill") x_var_vctr <- seq(0, 1, 0.1)
     }
   
     if (facet_scales %in% c("fixed", "free_x")) {

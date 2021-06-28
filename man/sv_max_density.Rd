@@ -18,6 +18,16 @@ sv_max_density(
 \item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
+
+\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+
+\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+
+\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+
+\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
+
+\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 }
 \description{
 Calculate the max density in a gg_density() plot.

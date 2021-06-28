@@ -21,6 +21,16 @@ sv_max_density_col_identity(
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{col_var}{Unquoted categorical variable to colour density areas. Required input.}
+
+\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+
+\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+
+\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+
+\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
+
+\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 }
 \description{
 Calculate the max density in a gg_density_col(..., position == "identity") plot.

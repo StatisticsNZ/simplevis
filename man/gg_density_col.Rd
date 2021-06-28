@@ -57,7 +57,7 @@ gg_density_col(
 
 \item{col_var}{Unquoted categorical variable to colour density areas. Required input.}
 
-\item{position}{Position of smoothed density curves, either "identity", "stack" or 'fill'. Defaults to "identity".}
+\item{position}{Position of smoothed density curves, either "identity" or "stack". Defaults to "identity".}
 
 \item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
 

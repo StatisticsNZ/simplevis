@@ -173,6 +173,4 @@ plot_data <- penguins \%>\%
 gg_hbar_col(plot_data, body_mass_g, species, sex)
 
 gg_hbar_col(plot_data, body_mass_g, species, sex, position = "stack")
-
-gg_hbar_col(plot_data, body_mass_g, species, sex, position = "fill")
 }

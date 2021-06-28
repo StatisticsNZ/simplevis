@@ -171,6 +171,4 @@ gg_bar_col(plot_data, species, body_mass_g, sex)
 
 gg_bar_col(plot_data, species, body_mass_g, sex, position = "stack")
 
-gg_bar_col(plot_data, species, body_mass_g, sex, position = "fill")
-
 }

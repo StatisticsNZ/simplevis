@@ -335,8 +335,6 @@ gg_bar <- function(data,
 #' 
 #' gg_bar_col(plot_data, species, body_mass_g, sex, position = "stack")
 #' 
-#' gg_bar_col(plot_data, species, body_mass_g, sex, position = "fill")
-#' 
 gg_bar_col <- function(data,
                         x_var,
                         y_var,
@@ -469,10 +467,14 @@ gg_bar_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  if(!is.null(position)) {
+    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
+  }
+  
   if (is.null(position)) {
     position2 <- position_dodge2(preserve = "single")
   }
-  else if (!is.null(position)) position2 <- position
+  else position2 <- position
   
   plot <- ggplot(data) +
     theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -544,7 +546,7 @@ gg_bar_col <- function(data,
       
       y_var_vctr <- dplyr::pull(data_sum, !!y_var)
     }
-    else if (position == "fill") y_var_vctr <- c(0, 1)
+    # else if (position == "fill") y_var_vctr <- c(0, 1)
   }
   
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -1127,11 +1129,15 @@ gg_bar_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  if(!is.null(position)) {
+    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
+  }
+  
   if (is.null(position)) {
     position2 <- position_dodge2(preserve = "single")
   }
-  else if (!is.null(position)) position2 <- position
-  
+  else position2 <- position
+
   plot <- ggplot(data) +
     coord_cartesian() +
     theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -1150,7 +1156,7 @@ gg_bar_col_facet <- function(data,
       
       y_var_vctr <- dplyr::pull(data_sum, !!y_var)
     }
-    else if (position == "fill") y_var_vctr <- c(0, 1)
+    # else if (position == "fill") y_var_vctr <- c(0, 1)
   }
   
   if (facet_scales %in% c("fixed", "free_y")) {

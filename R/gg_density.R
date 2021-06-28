@@ -187,7 +187,7 @@ gg_density <- function(data,
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
-#' @param position Position of smoothed density curves, either "identity", "stack" or 'fill'. Defaults to "identity".
+#' @param position Position of smoothed density curves, either "identity" or "stack". Defaults to "identity".
 #' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
 #' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
 #' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
@@ -296,7 +296,7 @@ gg_density_col <- function(data,
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a density plot")
   
   if(!is.null(position)) {
-    if(!position %in% c("identity", "stack", "fill")) stop("Please use a position of either 'identity', 'stack', or 'fill'")
+    if(!position %in% c("identity", "stack")) stop("Please use a position of either 'identity' or 'stack'")
   }
     
   if(is.logical(col_var_vctr)) {
@@ -381,7 +381,7 @@ gg_density_col <- function(data,
   
   if (position == "identity") y_var_vctr <- c(0, sv_max_density_col_identity(data, !!x_var, !!col_var))
   if (position == "stack") y_var_vctr <- c(0, sv_max_density_col_stack(data, !!x_var, !!col_var))
-  if (position == "fill") y_var_vctr <- c(0, 1)
+  # if (position == "fill") y_var_vctr <- c(0, 1)
   
   if(is.null(y_expand)) y_expand <- c(0, 0)
   

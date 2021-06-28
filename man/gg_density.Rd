@@ -7,8 +7,13 @@
 gg_density(
   data,
   x_var,
+  density_bw = "nrd0",
+  density_adjust = 1,
+  density_kernel = "gaussian",
+  density_n = 512,
+  density_trim = FALSE,
   pal = NULL,
-  alpha = 0.5,
+  alpha = 1,
   size_line = 0.5,
   title = NULL,
   title_wrap = 100,
@@ -40,11 +45,21 @@ gg_density(
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
+\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+
+\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+
+\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+
+\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
+
+\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
+
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha}{The alpha of the fill. Defaults to 0.5.}
+\item{alpha}{The alpha of the fill. Defaults to 1.}
 
-\item{size_line}{The size of the outlines of bars.}
+\item{size_line}{The size of the outlines of density areas.}
 
 \item{title}{Title string. Defaults to NULL.}
 
@@ -99,7 +114,6 @@ A ggplot object.
 Smoothed density ggplot that is not coloured and not facetted.
 }
 \examples{
-library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 

@@ -1,3 +1,8 @@
+# simplevis 4.2.6
+
+* added arguments to modify density stat within gg_density().
+* added gg_density_col() function.
+
 # simplevis 4.2.5
 
 * Created first density function.

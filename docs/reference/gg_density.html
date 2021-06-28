@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.6</span>
       </span>
     </div>
 
@@ -161,8 +161,13 @@
     <pre class="usage"><span class='fu'>gg_density</span>(
   <span class='no'>data</span>,
   <span class='no'>x_var</span>,
+  <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
+  <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
+  <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
@@ -201,16 +206,36 @@
       <td><p>Unquoted numeric variable to be on the x scale. Required input.</p></td>
     </tr>
     <tr>
+      <th>density_bw</th>
+      <td><p>The bw argument of the stats::density function. Defaults to "nrd0".</p></td>
+    </tr>
+    <tr>
+      <th>density_adjust</th>
+      <td><p>The adjust argument of the stats::density function. Defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>density_kernel</th>
+      <td><p>The kernel argument of the stats::density function. Defaults to "gaussian".</p></td>
+    </tr>
+    <tr>
+      <th>density_n</th>
+      <td><p>The n argument of the stats::density function. Defaults to 512.</p></td>
+    </tr>
+    <tr>
+      <th>density_trim</th>
+      <td><p>The trim argument of the stats::density function. Defaults to FALSE.</p></td>
+    </tr>
+    <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>The alpha of the fill. Defaults to 0.5.</p></td>
+      <td><p>The alpha of the fill. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>size_line</th>
-      <td><p>The size of the outlines of bars.</p></td>
+      <td><p>The size of the outlines of density areas.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -311,11 +336,13 @@
     <p>A ggplot object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='fu'>gg_density</span>(<span class='no'>penguins</span>, <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='gg_density-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_density</span>(<span class='no'>penguins</span>, <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: In density.default(vctr, bw = density_bw, adjust = density_adjust, </span>
+#&gt; <span class='warning'>    kernel = density_kernel, n = density_n, trim = density_trim, </span>
+#&gt; <span class='warning'>    na.rm = TRUE) :</span>
+#&gt; <span class='warning'> extra argument ‘trim’ will be disregarded</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='gg_density-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

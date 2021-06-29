@@ -11,13 +11,16 @@
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) %>% 
 #'   mutate_text(c("carat", "price"), comma = TRUE)
 #' 
-#' plot <- gg_point(data = plot_data, x_var = carat, y_var = price,
-#'                        text_var = text,
-#'                        title = "Diamond price by carat",
-#'                        x_title = "Carat",
-#'                        y_title = "Price ($US thousands)")
+#' plot <- gg_point(data = plot_data, 
+#'                  x_var = carat, 
+#'                  y_var = price, 
+#'                  text_var = text, 
+#'                  title = "Diamond price by carat", 
+#'                  x_title = "Carat", 
+#'                  y_title = "Price ($US thousands)")
 #' 
 #' plotly::ggplotly(plot, tooltip = "text")
+#' 
 mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
   
   data <- data %>% 

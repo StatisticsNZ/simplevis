@@ -39,4 +39,5 @@ Map of simple features in leaflet that is not coloured.
 leaflet_sf(example_sf_point)
 
 leaflet_sf(example_sf_polygon)
+
 }

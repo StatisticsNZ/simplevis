@@ -40,7 +40,8 @@
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_density(penguins, body_mass_g)
+#' gg_density(penguins, 
+#'            x_var = body_mass_g)
 #' 
 gg_density <- function(data,
                     x_var,
@@ -232,7 +233,9 @@ gg_density <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_density_col(penguins, body_mass_g, species)
+#' gg_density_col(penguins, 
+#'                x_var = body_mass_g, 
+#'                col_var = species)
 #' 
 gg_density_col <- function(data,
                            x_var,
@@ -506,7 +509,9 @@ gg_density_col <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_density_facet(penguins, body_mass_g, species, 
+#' gg_density_facet(penguins, 
+#'                  x_var = body_mass_g, 
+#'                  facet_var = species, 
 #'                  x_pretty_n = 2)
 #' 
 gg_density_facet <- function(data,
@@ -712,7 +717,10 @@ gg_density_facet <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_density_col_facet(penguins, body_mass_g, sex, species, 
+#' gg_density_col_facet(penguins, 
+#'                      x_var = body_mass_g, 
+#'                      col_var = sex, 
+#'                      facet_var = species, 
 #'                      x_pretty_n = 2, 
 #'                      col_na = FALSE)
 #' 

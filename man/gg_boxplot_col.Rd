@@ -124,9 +124,15 @@ Boxplot ggplot that is coloured
 library(simplevis)
 library(palmerpenguins)
 
-gg_boxplot_col(penguins, species, body_mass_g, sex)
+gg_boxplot_col(penguins, 
+               x_var = species, 
+               y_var = body_mass_g, 
+               col_var = sex)
 
-plot <- gg_boxplot_col(penguins, species, body_mass_g, sex)
+plot <- gg_boxplot_col(penguins, 
+                       x_var = species, 
+                       y_var = body_mass_g, 
+                       col_var = sex)
 
 plotly::ggplotly(plot) \%>\%
   plotly::layout(boxmode = "group") \%>\%

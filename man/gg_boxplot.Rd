@@ -107,7 +107,9 @@ library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 
-gg_boxplot(penguins, species, body_mass_g)
+gg_boxplot(penguins, 
+           x_var = species, 
+           y_var = body_mass_g)
 
 plot_data <- penguins \%>\%
   group_by(species) \%>\%
@@ -123,6 +125,9 @@ plot_data
 plot_data \%>\% 
   tidyr::unnest_wider(bill_length_mm)
 
-gg_boxplot(plot_data, species, bill_length_mm, stat = "identity")
+gg_boxplot(plot_data, 
+           x_var = species, 
+           y_var = bill_length_mm, 
+           stat = "identity")
 
 }

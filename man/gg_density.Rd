@@ -93,6 +93,7 @@ Smoothed density ggplot that is not coloured and not facetted.
 library(simplevis)
 library(palmerpenguins)
 
-gg_density(penguins, body_mass_g)
+gg_density(penguins, 
+           x_var = body_mass_g)
 
 }

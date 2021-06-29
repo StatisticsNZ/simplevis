@@ -106,6 +106,8 @@ Point ggplot that is not coloured and not facetted.
 library(simplevis)
 library(palmerpenguins)
 
-gg_point(penguins, bill_length_mm, body_mass_g)
+gg_point(penguins, 
+         x_var = bill_length_mm, 
+         y_var = body_mass_g)
 
 }

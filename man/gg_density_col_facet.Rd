@@ -126,7 +126,10 @@ Smoothed density ggplot that is coloured and facetted.
 library(simplevis)
 library(palmerpenguins)
 
-gg_density_col_facet(penguins, body_mass_g, sex, species, 
+gg_density_col_facet(penguins, 
+                     x_var = body_mass_g, 
+                     col_var = sex, 
+                     facet_var = species, 
                      x_pretty_n = 2, 
                      col_na = FALSE)
 

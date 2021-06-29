@@ -50,7 +50,9 @@
 #'   group_by(species) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_bar(plot_data, species, body_mass_g)
+#' gg_bar(plot_data, 
+#'        x_var = species, 
+#'        y_var = body_mass_g)
 #' 
 gg_bar <- function(data,
                     x_var,
@@ -331,9 +333,16 @@ gg_bar <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_bar_col(plot_data, species, body_mass_g, sex)
+#' gg_bar_col(plot_data, 
+#'            x_var = species, 
+#'            y_var = body_mass_g, 
+#'            col_var = sex)
 #' 
-#' gg_bar_col(plot_data, species, body_mass_g, sex, position = "stack")
+#'  gg_bar_col(plot_data, 
+#'            x_var = species, 
+#'            y_var = body_mass_g, 
+#'            col_var = sex,
+#'            position = "stack")
 #' 
 gg_bar_col <- function(data,
                         x_var,
@@ -690,7 +699,10 @@ gg_bar_col <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_bar_facet(plot_data, sex, body_mass_g, species)
+#' gg_bar_facet(plot_data, 
+#'              x_var = sex, 
+#'              y_var = body_mass_g, 
+#'              facet_var = species)
 #'
 gg_bar_facet <- function(data,
                           x_var,
@@ -977,7 +989,11 @@ gg_bar_facet <- function(data,
 #'   group_by(species, sex, island) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_bar_col_facet(plot_data, species, body_mass_g, island, sex)
+#' gg_bar_col_facet(plot_data, 
+#'                  x_var = species, 
+#'                  y_var = body_mass_g, 
+#'                  col_var = island, 
+#'                  facet_var = sex)
 #' 
 gg_bar_col_facet <- function(data,
                               x_var,

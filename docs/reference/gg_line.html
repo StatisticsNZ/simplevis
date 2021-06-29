@@ -337,7 +337,9 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>year</span>))
 
-<span class='fu'>gg_line</span>(<span class='no'>plot_data</span>, <span class='no'>year</span>, <span class='no'>body_mass_g</span>)</div><div class='img'><img src='gg_line-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_line</span>(<span class='no'>plot_data</span>,
+        <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>,
+        <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='img'><img src='gg_line-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

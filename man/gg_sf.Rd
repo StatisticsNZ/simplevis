@@ -59,5 +59,7 @@ A ggplot object.
 Map of simple features in ggplot that is not coloured and not facetted.
 }
 \examples{
-gg_sf(example_sf_point, borders = nz)
+gg_sf(example_sf_point, 
+     borders = nz)
+     
 }

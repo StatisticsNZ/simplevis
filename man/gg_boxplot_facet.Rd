@@ -118,6 +118,9 @@ library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 
-gg_boxplot_facet(penguins, sex, body_mass_g, species)
+gg_boxplot_facet(penguins, 
+                 x_var = sex, 
+                 y_var = body_mass_g, 
+                 facet_var = species)
 
 }

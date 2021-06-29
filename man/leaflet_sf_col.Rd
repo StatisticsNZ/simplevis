@@ -50,14 +50,17 @@ A leaflet object.
 Map of simple features in leaflet that is coloured.
 }
 \examples{
-leaflet_sf_col(example_sf_point, trend_category)
+leaflet_sf_col(example_sf_point, 
+               col_var = trend_category)
 
-leaflet_sf_col(example_sf_polygon, density,
-     col_method = "quantile", 
-     col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
+leaflet_sf_col(example_sf_polygon, 
+               col_var = density, 
+               col_method = "quantile", 
+               col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
 
-leaflet_sf_col(example_sf_polygon, density,
-     col_method = "bin", 
-     col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
+leaflet_sf_col(example_sf_polygon, 
+               col_var = density, 
+               col_method = "bin", 
+               col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
 
 }

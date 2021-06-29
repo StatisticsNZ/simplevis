@@ -341,7 +341,9 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='fu'>gg_boxplot</span>(<span class='no'>penguins</span>, <span class='no'>species</span>, <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_boxplot</span>(<span class='no'>penguins</span>,
+           <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
+           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span>(<span class='no'>bill_length_mm</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -364,7 +366,10 @@
 #&gt; <span style='color: #BCBCBC;'>1</span> Adelie     32.1  36.8   38.8  40.8  46  
 #&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap  40.9  46.3   49.6  51.2  58  
 #&gt; <span style='color: #BCBCBC;'>3</span> Gentoo     40.9  45.3   47.3  49.6  55.9</div><div class='input'>
-<span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>, <span class='no'>species</span>, <span class='no'>bill_length_mm</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>,
+           <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
+           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>bill_length_mm</span>,
+           <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

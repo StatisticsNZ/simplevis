@@ -125,6 +125,9 @@ plot_data <- penguins \%>\%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\% 
   mutate(year = as.character(year))
 
-gg_line_col(plot_data, year, body_mass_g, species)
+gg_line_col(plot_data, 
+            x_var = year, 
+            y_var = body_mass_g, 
+            col_var = species)
 
 }

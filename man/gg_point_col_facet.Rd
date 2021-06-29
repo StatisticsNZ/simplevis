@@ -143,6 +143,10 @@ Point ggplot that is coloured and facetted.
 library(simplevis)
 library(palmerpenguins)
 
-gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species)
+gg_point_col_facet(penguins, 
+                   x_var = bill_length_mm, 
+                   y_var = body_mass_g, 
+                   col_var = sex, 
+                   facet_var = species)
 
 }

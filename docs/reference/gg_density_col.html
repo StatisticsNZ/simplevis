@@ -353,7 +353,9 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='fu'>gg_density_col</span>(<span class='no'>penguins</span>, <span class='no'>body_mass_g</span>, <span class='no'>species</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='gg_density_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_density_col</span>(<span class='no'>penguins</span>,
+               <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
+               <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>species</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='gg_density_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

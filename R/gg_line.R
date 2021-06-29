@@ -49,7 +49,9 @@
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
 #'   mutate(year = as.character(year))
 #' 
-#' gg_line(plot_data, year, body_mass_g)
+#' gg_line(plot_data, 
+#'         x_var = year, 
+#'         y_var = body_mass_g)
 #' 
 gg_line <- function(data,
                     x_var,
@@ -319,7 +321,10 @@ gg_line <- function(data,
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
 #'   mutate(year = as.character(year))
 #' 
-#' gg_line_col(plot_data, year, body_mass_g, species)
+#' gg_line_col(plot_data, 
+#'             x_var = year, 
+#'             y_var = body_mass_g, 
+#'             col_var = species)
 #'
 gg_line_col <- function(data,
                         x_var,
@@ -630,7 +635,10 @@ gg_line_col <- function(data,
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
 #'   mutate(year = as.character(year))
 #' 
-#' gg_line_facet(plot_data, year, body_mass_g, species)
+#' gg_line_facet(plot_data, 
+#'               x_var = year, 
+#'               y_var = body_mass_g, 
+#'               facet_var = species)
 #'
 gg_line_facet <- function(data,
                           x_var,
@@ -919,7 +927,11 @@ gg_line_facet <- function(data,
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
 #'   mutate(year = as.character(year))
 #' 
-#' gg_line_col_facet(plot_data, year, body_mass_g, sex, species)
+#' gg_line_col_facet(plot_data, 
+#'                   x_var = year, 
+#'                   y_var = body_mass_g, 
+#'                   col_var = sex, 
+#'                   facet_var = species)
 #'
 gg_line_col_facet <- function(data,
                               x_var,

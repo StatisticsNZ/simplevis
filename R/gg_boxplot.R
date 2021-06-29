@@ -46,7 +46,9 @@
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_boxplot(penguins, species, body_mass_g)
+#' gg_boxplot(penguins, 
+#'            x_var = species, 
+#'            y_var = body_mass_g)
 #' 
 #' plot_data <- penguins %>%
 #'   group_by(species) %>%
@@ -62,7 +64,10 @@
 #' plot_data %>% 
 #'   tidyr::unnest_wider(bill_length_mm)
 #' 
-#' gg_boxplot(plot_data, species, bill_length_mm, stat = "identity")
+#' gg_boxplot(plot_data, 
+#'            x_var = species, 
+#'            y_var = bill_length_mm, 
+#'            stat = "identity")
 #' 
 gg_boxplot <- function(data,
                        x_var,
@@ -372,9 +377,15 @@ gg_boxplot <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_boxplot_col(penguins, species, body_mass_g, sex)
+#' gg_boxplot_col(penguins, 
+#'                x_var = species, 
+#'                y_var = body_mass_g, 
+#'                col_var = sex)
 #' 
-#' plot <- gg_boxplot_col(penguins, species, body_mass_g, sex)
+#' plot <- gg_boxplot_col(penguins, 
+#'                        x_var = species, 
+#'                        y_var = body_mass_g, 
+#'                        col_var = sex)
 #' 
 #' plotly::ggplotly(plot) %>%
 #'   plotly::layout(boxmode = "group") %>%
@@ -742,7 +753,10 @@ gg_boxplot_col <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_boxplot_facet(penguins, sex, body_mass_g, species)
+#' gg_boxplot_facet(penguins, 
+#'                  x_var = sex, 
+#'                  y_var = body_mass_g, 
+#'                  facet_var = species)
 #'
 gg_boxplot_facet <- function(data,
                              x_var,
@@ -1081,9 +1095,17 @@ gg_boxplot_facet <- function(data,
 #' plot_data <- penguins %>% 
 #'   mutate(year = as.character(year))
 #' 
-#' gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
+#' gg_boxplot_col_facet(plot_data, 
+#'                      x_var = year, 
+#'                      y_var = body_mass_g, 
+#'                      col_var = sex, 
+#'                      facet_var = species)
 #' 
-#' plot <- gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
+#' plot <- gg_boxplot_col_facet(plot_data, 
+#'                              x_var = year, 
+#'                              y_var = body_mass_g, 
+#'                              col_var = sex, 
+#'                              facet_var = species)
 #' 
 #' plotly::ggplotly(plot) %>%
 #'   plotly::layout(boxmode = "group") %>%

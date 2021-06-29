@@ -13,6 +13,7 @@
 #' leaflet_basemap("dark")
 #' 
 #' leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
+#' 
 leaflet_basemap <- function(top_layer = "light", bounds = NULL){
   
   if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")

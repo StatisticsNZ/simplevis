@@ -45,7 +45,9 @@
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_point(penguins, bill_length_mm, body_mass_g)
+#' gg_point(penguins, 
+#'          x_var = bill_length_mm, 
+#'          y_var = body_mass_g)
 #' 
 gg_point <- function(data,
                      x_var,
@@ -314,7 +316,10 @@ gg_point <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_point_col(penguins, bill_length_mm, body_mass_g, species)
+#' gg_point_col(penguins, 
+#'              x_var = bill_length_mm, 
+#'              y_var = body_mass_g, 
+#'              col_var = species)
 #' 
 gg_point_col <- function(data,
                          x_var,
@@ -661,7 +666,10 @@ gg_point_col <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_point_facet(penguins, bill_length_mm, body_mass_g, species)
+#' gg_point_facet(penguins, 
+#'                x_var = bill_length_mm, 
+#'                y_var = body_mass_g, 
+#'                facet_var = species)
 #' 
 gg_point_facet <- function(data,
                            x_var,
@@ -949,7 +957,11 @@ gg_point_facet <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species)
+#' gg_point_col_facet(penguins, 
+#'                    x_var = bill_length_mm, 
+#'                    y_var = body_mass_g, 
+#'                    col_var = sex, 
+#'                    facet_var = species)
 #' 
 gg_point_col_facet <-
   function(data,

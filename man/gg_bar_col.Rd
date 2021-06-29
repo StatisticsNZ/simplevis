@@ -131,8 +131,15 @@ plot_data <- penguins \%>\%
   group_by(species, sex) \%>\% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_bar_col(plot_data, species, body_mass_g, sex)
+gg_bar_col(plot_data, 
+           x_var = species, 
+           y_var = body_mass_g, 
+           col_var = sex)
 
-gg_bar_col(plot_data, species, body_mass_g, sex, position = "stack")
+ gg_bar_col(plot_data, 
+           x_var = species, 
+           y_var = body_mass_g, 
+           col_var = sex,
+           position = "stack")
 
 }

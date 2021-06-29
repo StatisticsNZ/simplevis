@@ -118,6 +118,9 @@ Point ggplot that is facetted, but not coloured.
 library(simplevis)
 library(palmerpenguins)
 
-gg_point_facet(penguins, bill_length_mm, body_mass_g, species)
+gg_point_facet(penguins, 
+               x_var = bill_length_mm, 
+               y_var = body_mass_g, 
+               facet_var = species)
 
 }

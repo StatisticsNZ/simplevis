@@ -110,6 +110,8 @@ plot_data <- penguins \%>\%
   group_by(species) \%>\% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar(plot_data, body_mass_g, species)
+gg_hbar(plot_data, 
+        x_var = body_mass_g, 
+        y_var = species)
 
 }

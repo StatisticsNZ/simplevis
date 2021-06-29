@@ -120,6 +120,9 @@ plot_data <- penguins \%>\%
   group_by(species, sex) \%>\% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar_facet(plot_data, body_mass_g, sex, species)
+gg_hbar_facet(plot_data, 
+              x_var = body_mass_g, 
+              y_var = sex, 
+              facet_var = species)
 
 }

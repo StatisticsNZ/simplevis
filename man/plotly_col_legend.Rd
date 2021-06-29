@@ -20,7 +20,10 @@ Change colour legend elements order.
 library(dplyr)
 plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05) 
 
-plot <- gg_point_col(data = plot_data, x_var = carat, y_var = price, col_var = color)
+plot <- gg_point_col(data = plot_data, 
+                     x_var = carat, 
+                     y_var = price, 
+                     col_var = color)
 
 plotly::ggplotly(plot)
 
@@ -29,4 +32,5 @@ plotly::ggplotly(plot) \%>\%
 
 plotly::ggplotly(plot) \%>\% 
   plotly_col_legend(order = c(2, 1, 3:7))
+  
 }

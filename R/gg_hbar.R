@@ -50,7 +50,9 @@
 #'   group_by(species) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_hbar(plot_data, body_mass_g, species)
+#' gg_hbar(plot_data, 
+#'         x_var = body_mass_g, 
+#'         y_var = species)
 #' 
 gg_hbar <- function(data,
                     x_var,
@@ -336,9 +338,17 @@ gg_hbar <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_hbar_col(plot_data, body_mass_g, species, sex)
+#' gg_hbar_col(plot_data, 
+#'             x_var = body_mass_g, 
+#'             y_var = species, 
+#'             col_var = sex)
 #' 
-#' gg_hbar_col(plot_data, body_mass_g, species, sex, position = "stack")
+#' gg_hbar_col(plot_data, 
+#'             x_var = body_mass_g, 
+#'             y_var = species, 
+#'             col_var = sex, 
+#'             position = "stack")
+#'             
 gg_hbar_col <- function(data,
                         x_var,
                         y_var,
@@ -701,7 +711,10 @@ gg_hbar_col <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_hbar_facet(plot_data, body_mass_g, sex, species)
+#' gg_hbar_facet(plot_data, 
+#'               x_var = body_mass_g, 
+#'               y_var = sex, 
+#'               facet_var = species)
 #'
 gg_hbar_facet <- function(data,
                           x_var,
@@ -997,7 +1010,11 @@ gg_hbar_facet <- function(data,
 #'   group_by(species, sex, island) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_hbar_col_facet(plot_data, body_mass_g, species, island, sex)
+#' gg_hbar_col_facet(plot_data, 
+#'                   x_var = body_mass_g, 
+#'                   y_var = species, 
+#'                   col_var = island, 
+#'                   facet_var = sex)
 #' 
 gg_hbar_col_facet <- function(data,
                               x_var,

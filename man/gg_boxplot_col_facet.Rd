@@ -140,9 +140,17 @@ library(palmerpenguins)
 plot_data <- penguins \%>\% 
   mutate(year = as.character(year))
 
-gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
+gg_boxplot_col_facet(plot_data, 
+                     x_var = year, 
+                     y_var = body_mass_g, 
+                     col_var = sex, 
+                     facet_var = species)
 
-plot <- gg_boxplot_col_facet(plot_data, year, body_mass_g, sex, species)
+plot <- gg_boxplot_col_facet(plot_data, 
+                             x_var = year, 
+                             y_var = body_mass_g, 
+                             col_var = sex, 
+                             facet_var = species)
 
 plotly::ggplotly(plot) \%>\%
   plotly::layout(boxmode = "group") \%>\%

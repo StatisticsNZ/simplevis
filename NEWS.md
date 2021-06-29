@@ -1,3 +1,8 @@
+# simplevis 4.2.9
+
+* Made legend fill background white for all functions. 
+* Updated vignette to discuss density functions, and make vars more explicit.
+
 # simplevis 4.2.8
 
 * Added gg_density_col_facet() function.
@@ -31,6 +36,10 @@
 # simplevis 4.2.1
 
 * Consolidated and renamed themes.
+
+# simplevis 4.2.0
+
+* Bumped version for CRAN release.
 
 # simplevis 4.1.7
 

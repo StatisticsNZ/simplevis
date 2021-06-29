@@ -127,6 +127,7 @@ library(simplevis)
 library(palmerpenguins)
 
 gg_density_col_facet(penguins, body_mass_g, sex, species, 
-                     x_pretty_n = 2)
+                     x_pretty_n = 2, 
+                     col_na = FALSE)
 
 }

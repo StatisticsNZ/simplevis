@@ -713,7 +713,8 @@ gg_density_facet <- function(data,
 #' library(palmerpenguins)
 #' 
 #' gg_density_col_facet(penguins, body_mass_g, sex, species, 
-#'                      x_pretty_n = 2)
+#'                      x_pretty_n = 2, 
+#'                      col_na = FALSE)
 #' 
 gg_density_col_facet <- function(data,
                                  x_var,

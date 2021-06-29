@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smoothed density ggplot. — gg_density_facet • simplevis</title>
+<title>Smoothed density ggplot that is facetted. — gg_density_facet • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Smoothed density ggplot. — gg_density_facet" />
-<meta property="og:description" content="Smoothed density ggplot that is not coloured and not facetted." />
+<meta property="og:title" content="Smoothed density ggplot that is facetted. — gg_density_facet" />
+<meta property="og:description" content="Smoothed density ggplot that is facetted, but not coloured." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.8</span>
       </span>
     </div>
 
@@ -149,56 +149,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Smoothed density ggplot.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_density_facet.R'><code>R/gg_density_facet.R</code></a></small>
+    <h1>Smoothed density ggplot that is facetted.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_density.R'><code>R/gg_density.R</code></a></small>
     <div class="hidden name"><code>gg_density_facet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Smoothed density ggplot that is not coloured and not facetted.</p>
+    <p>Smoothed density ggplot that is facetted, but not coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_density_facet</span>(
-  <span class='no'>data</span>,
-  <span class='no'>x_var</span>,
-  <span class='no'>facet_var</span>,
-  <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
-  <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
-  <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
-  <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/number.html'>number</a></span>,
-  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>gg_density_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>facet_var</span>, <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>, <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
+  <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/number.html'>number</a></span>, <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -355,10 +326,6 @@
       <th>font_size_body</th>
       <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
     </tr>
-    <tr>
-      <th>mobile</th>
-      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -369,16 +336,8 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='fu'>gg_density_facet</span>(<span class='no'>penguins</span>, <span class='no'>body_mass_g</span>, <span class='no'>sex</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: In density.default(., bw = density_bw, adjust = density_adjust, </span>
-#&gt; <span class='warning'>    kernel = density_kernel, n = density_n, trim = density_trim, </span>
-#&gt; <span class='warning'>    na.rm = TRUE) :</span>
-#&gt; <span class='warning'> extra argument ‘trim’ will be disregarded</span></div><div class='output co'>#&gt; <span class='warning'>Warning: In density.default(., bw = density_bw, adjust = density_adjust, </span>
-#&gt; <span class='warning'>    kernel = density_kernel, n = density_n, trim = density_trim, </span>
-#&gt; <span class='warning'>    na.rm = TRUE) :</span>
-#&gt; <span class='warning'> extra argument ‘trim’ will be disregarded</span></div><div class='output co'>#&gt; <span class='warning'>Warning: In density.default(., bw = density_bw, adjust = density_adjust, </span>
-#&gt; <span class='warning'>    kernel = density_kernel, n = density_n, trim = density_trim, </span>
-#&gt; <span class='warning'>    na.rm = TRUE) :</span>
-#&gt; <span class='warning'> extra argument ‘trim’ will be disregarded</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='gg_density_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>gg_density_facet</span>(<span class='no'>penguins</span>, <span class='no'>body_mass_g</span>, <span class='no'>species</span>,
+                 <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_density).</span></div><div class='img'><img src='gg_density_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

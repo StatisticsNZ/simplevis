@@ -1,3 +1,8 @@
+# simplevis 4.2.8
+
+* Added gg_density_col_facet() function.
+* Made all gg_density* functions only support position = "identity".
+
 # simplevis 4.2.7
 
 * Added gg_density_facet() function.

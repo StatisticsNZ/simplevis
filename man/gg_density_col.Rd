@@ -4,51 +4,19 @@
 \alias{gg_density_col}
 \title{Smoothed density ggplot that is coloured.}
 \usage{
-gg_density_col(
-  data,
-  x_var,
-  col_var,
-  position = "identity",
-  density_bw = "nrd0",
-  density_adjust = 1,
-  density_kernel = "gaussian",
-  density_n = 512,
-  density_trim = FALSE,
-  pal = NULL,
-  pal_rev = FALSE,
-  alpha = NULL,
-  size_line = 0.5,
-  title = NULL,
-  title_wrap = 100,
-  subtitle = NULL,
-  subtitle_wrap = 100,
-  x_balance = FALSE,
-  x_expand = NULL,
-  x_labels = NULL,
-  x_pretty_n = 6,
-  x_title = NULL,
-  x_title_wrap = 50,
-  x_zero = FALSE,
-  x_zero_line = NULL,
-  y_expand = NULL,
-  y_labels = scales::number,
-  y_pretty_n = 5,
-  y_title = NULL,
-  y_title_wrap = 50,
-  col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_na = TRUE,
-  col_rev = FALSE,
-  col_title = NULL,
-  col_title_wrap = 25,
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
-)
+gg_density_col(data, x_var, col_var, density_bw = "nrd0",
+  density_adjust = 1, density_kernel = "gaussian", density_n = 512,
+  density_trim = FALSE, pal = NULL, pal_rev = FALSE, alpha = 0.1,
+  size_line = 0.5, title = NULL, title_wrap = 100, subtitle = NULL,
+  subtitle_wrap = 100, x_balance = FALSE, x_expand = NULL,
+  x_labels = NULL, x_pretty_n = 6, x_title = NULL,
+  x_title_wrap = 50, x_zero = FALSE, x_zero_line = NULL,
+  y_expand = NULL, y_labels = scales::number, y_pretty_n = 5,
+  y_title = NULL, y_title_wrap = 50, col_labels = NULL,
+  col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
+  col_rev = FALSE, col_title = NULL, col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -56,8 +24,6 @@ gg_density_col(
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{col_var}{Unquoted categorical variable to colour density areas. Required input.}
-
-\item{position}{Position of smoothed density curves, either "identity" or "stack". Defaults to "identity".}
 
 \item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
 
@@ -73,7 +39,7 @@ gg_density_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The alpha of the fill. Defaults to 0.1 if position of 'identity'. Otherwise 1.}
+\item{alpha}{The alpha of the fill. Defaults to 0.1.}
 
 \item{size_line}{The size of the outlines of density areas.}
 
@@ -147,6 +113,6 @@ Smoothed density ggplot that is coloured but not facetted.
 library(simplevis)
 library(palmerpenguins)
 
-gg_density_col(penguins, body_mass_g, sex)
+gg_density_col(penguins, body_mass_g, species)
 
 }

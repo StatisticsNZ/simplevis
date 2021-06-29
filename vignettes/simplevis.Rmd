@@ -145,11 +145,6 @@ gg_point_col(penguins, bill_length_mm, body_mass_g, species,
 
 You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.
 
-```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-             col_title = "")
-```
-
 ### Colour palettes
 
 Change the colour palette by supplying a vector of colours to the `pal` argument. 

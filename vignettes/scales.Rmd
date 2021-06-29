@@ -134,7 +134,7 @@ gg_hbar(plot_data, price, cut)
 If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor, and give it the appropriate levels. 
 
 ```{r}
-cut_levels <-  c("Fair", "Good", "Very Good", "Premium", "Ideal")
+cut_levels <-  c("Ideal", "Premium", "Very Good", "Good", "Fair")
 
 plot_data <- ggplot2::diamonds %>%
   mutate(cut = as.character(cut)) %>%

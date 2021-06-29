@@ -1,7 +1,7 @@
 # simplevis 4.2.9
 
 * Made legend fill background white for all functions. 
-* Updated vignette to discuss density functions, and make vars more explicit.
+* Updated vignette and arrticles to discuss density functions, and make vars more explicit.
 
 # simplevis 4.2.8
 

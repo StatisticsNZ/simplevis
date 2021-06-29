@@ -41,9 +41,12 @@ One deviation from this logic is that colour palette is selected using a `pal` a
 You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-                   y_labels = scales::comma_format(), 
-                   x_labels = scales::number_format(accuracy = 0.1))
+gg_point_col(penguins,
+             x_var = bill_length_mm,
+             y_var = body_mass_g,
+             col_var = species,
+             y_labels = scales::comma_format(),
+             x_labels = scales::number_format(accuracy = 0.1))
 ```
 
 Or via a function.
@@ -74,47 +77,55 @@ gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, sex,
 You can use the `x_zero` and `y_zero` arguments to change the defaults.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-               y_zero = TRUE)
-```
-
-```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-               x_zero = TRUE)
-```
-
-
-```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-               x_zero = TRUE, y_zero = TRUE)
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             x_zero = TRUE, y_zero = TRUE)
 ```
 
 Adjust the number of breaks for numeric x and/or y scales.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-               y_pretty_n = 10,
-               x_pretty_n = 6)
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             x_pretty_n = 6, 
+             y_pretty_n = 10)
 ```
 
 Transform numeric x and y scales.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-               x_trans = "sqrt", x_zero = T,
-               y_trans = "log10")
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             x_trans = "sqrt", 
+             x_zero = T,
+             y_trans = "log10")
 ```
 
 Balance a numeric scale so that it has equivalence between positive and negative values.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, y_balance = T)
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             y_balance = T)
 ```
 
 Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, y_balance = T, y_zero_line = F)
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             y_balance = T, 
+             y_zero_line = F)
 ```
 
 ### Discrete scales
@@ -127,8 +138,9 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(price = mean(price)) 
   
-gg_hbar(plot_data, price, cut)
-
+gg_hbar(plot_data, 
+        x_var = price, 
+        y_var = cut)
 ```
 
 If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor, and give it the appropriate levels. 
@@ -142,7 +154,9 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(price = mean(price)) 
 
-gg_hbar(plot_data, price, cut)
+gg_hbar(plot_data, 
+        x_var = price, 
+        y_var = cut)
 ```
 
 Discrete scales can be reversed easily using the relevant `y_rev` or `x_rev` argument. 
@@ -153,8 +167,10 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(price = mean(price)) 
 
-gg_hbar(plot_data, price, cut,
-            y_rev = TRUE)
+gg_hbar(plot_data, 
+        x_var = price, 
+        y_var = cut,
+        y_rev = TRUE)
 ```
 
 Simple hbar and vbar plots made with `gg_bar()` or `gg_hbar` can be ordered by size using y_reorder or x_reorder. For other functions, you will need to reorder variables in the data as you wish them to be ordered.
@@ -165,7 +181,10 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut) %>%
   summarise(price = mean(price)) 
   
-gg_hbar(plot_data, price, cut, y_reorder = T)
+gg_hbar(plot_data, 
+        x_var = price, 
+        y_var = cut, 
+        y_reorder = T)
 ```
 
 ### Colour scales
@@ -177,7 +196,10 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
 
-gg_hbar_col(plot_data, average_price, cut, clarity,
+gg_hbar_col(plot_data, 
+            x_var = average_price, 
+            y_var = cut, 
+            col_var = clarity,
             col_labels = ggplot2::waiver(), 
             pal_rev = TRUE)
 ```
@@ -189,7 +211,10 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
 
-gg_hbar_col(plot_data, average_price, cut, clarity,
+gg_hbar_col(plot_data, 
+            x_var = average_price, 
+            y_var = cut, 
+            col_var = clarity,
             col_labels = ggplot2::waiver(), 
             pal_rev = TRUE)
 
@@ -202,7 +227,10 @@ plot_data <- ggplot2::diamonds %>%
   group_by(cut, clarity) %>%
   summarise(average_price = mean(price))
 
-gg_hbar_col(plot_data, average_price, cut, clarity,
+gg_hbar_col(plot_data, 
+            x_var = average_price, 
+            y_var = cut, 
+            col_var = clarity,
             col_labels = ggplot2::waiver(), 
             col_rev = TRUE)
 ```
@@ -212,7 +240,12 @@ gg_hbar_col(plot_data, average_price, cut, clarity,
 You can quickly remove NA values by setting `x_na`, `y_na`, `col_na` or `facet_na` arguments to FALSE.
 
 ```{r}
-gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, species, col_na = F)
+gg_point_col_facet(penguins, 
+                   x_var = bill_length_mm, 
+                   y_var = body_mass_g, 
+                   col_var = sex, 
+                   facet_var = species, 
+                   col_na = F)
 ```
 
 ### Expanding the scale
@@ -224,8 +257,26 @@ plot_data <- storms %>%
   group_by(year) %>%
   summarise(wind = mean(wind))
 
-gg_line(plot_data, year, wind, 
+gg_line(plot_data, 
+        x_var = year, 
+        y_var = wind, 
         x_expand = ggplot2::expansion(add = c(0, 5)),
         y_expand = ggplot2::expansion(mult = c(0, 0.025)))
+```
+
+### Stacking bars
+
+`bar*()` and `hbar*()` plots support a `"stack"` position as well as the default `"dodge"`.
+
+```{r}
+plot_data <- penguins %>% 
+  group_by(sex, species) %>% 
+  summarise(count = n())
+
+gg_hbar_col(plot_data, 
+        x_var = count, 
+        y_var = species, 
+        col_var = sex,
+        position = "stack")
 ```
 

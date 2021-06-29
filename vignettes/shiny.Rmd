@@ -30,7 +30,10 @@ It can be challenging to build a `shiny` app with `ggplot` based graphs that wor
 In shiny it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in `!!sym`, as shown below. 
 
 ```{r}
-gg_point_col(penguins, !!sym("bill_length_mm"), !!sym("body_mass_g"), !!sym("species"))
+gg_point_col(penguins, 
+             x_var = !!sym("bill_length_mm"), 
+             y_var = !!sym("body_mass_g"), 
+             col_var = !!sym("species"))
 
 ```
 
@@ -53,7 +56,11 @@ plot_data <- storms %>%
   group_by(year, status) %>%
   summarise(wind = mean(wind))
 
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, mobile = T)
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             mobile = T)
 
 ```
 

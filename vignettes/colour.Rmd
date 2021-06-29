@@ -38,13 +38,17 @@ This is a consistent method across all functions, which is intended to simplify 
 `simplevis` has default palettes that are based on the viridis and D3 colour palettes. 
 
 ```{r}
-gg_point(penguins, bill_length_mm, body_mass_g)
+gg_point(penguins, 
+         x_var = bill_length_mm, 
+         y_var = body_mass_g)
 ```
 
 But this default palette can be changed by providing a character vector of hex codes to the `pal` argument.
 
 ```{r}
-gg_point(penguins, bill_length_mm, body_mass_g, 
+gg_point(penguins, 
+         x_var = bill_length_mm, 
+         y_var = body_mass_g, 
          pal = "#da3490")
 
 ```
@@ -58,20 +62,29 @@ To colour by a variable, use a `*_col()` function and then define that variable 
 Note the graph below uses a default pal for a non-numeric colour variable.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, col_var = species)
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species)
 ```
 
 You can adjust the colours of the coloured variable using the pal argument as described earlier.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
 The `pals` package provides a large amount of colour palettes.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
              pal = pals::brewer.dark2(3))
 ```
 
@@ -90,9 +103,12 @@ You do this by specifying whether you want to do this by:
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.01)
 
-gg_point_col(plot_data, carat, price, z,
-                 col_method = "quantile",
-                 col_cuts = c(0, 0.25, 0.5, 0.75, 1))
+gg_point_col(plot_data, 
+             x_var = carat, 
+             y_var = price, 
+             col_var = z,
+             col_method = "quantile",
+             col_cuts = c(0, 0.25, 0.5, 0.75, 1))
 ```
 
 
@@ -100,9 +116,12 @@ gg_point_col(plot_data, carat, price, z,
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.01)
 
-gg_point_col(plot_data, carat, price, z,
-             col_method = "bin", 
-             col_cuts = c(0, 1, 2, 3, 4, 5, Inf), 
+gg_point_col(plot_data, 
+             x_var = carat, 
+             y_var = price, 
+             col_var = z,
+             col_method = "quantile",
+             col_cuts = c(0, 0.25, 0.5, 0.75, 1), 
              pal = pals::parula(6))
 ```
 

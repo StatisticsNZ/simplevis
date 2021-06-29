@@ -139,10 +139,14 @@
 <h3 class="hasAnchor">
 <a href="#always-define-the-colours-to-use-via-the-pal-argument" class="anchor"></a>Always define the colours to use via the <code>pal</code> argument</h3>
 <p><code>simplevis</code> has default palettes that are based on the viridis and D3 colour palettes.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
+         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>But this default palette can be changed by providing a character vector of hex codes to the <code>pal</code> argument.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>,
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
+         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
          <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#da3490"</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>Users can get access to a large amount of colour palettes through the <code>pals</code> package.</p>
@@ -153,14 +157,23 @@
 </h3>
 <p>To colour by a variable, use a <code>*_col()</code> function and then define that variable to be coloured using the <code>col_var</code> argument.</p>
 <p>Note the graph below uses a default pal for a non-numeric colour variable.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>You can adjust the colours of the coloured variable using the pal argument as described earlier.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
              <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>The <code>pals</code> package provides a large amount of colour palettes.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>, <span class="no">bill_length_mm</span>, <span class="no">body_mass_g</span>, <span class="no">species</span>,
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
              <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/brewer.html">brewer.dark2</a></span>(<span class="fl">3</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
@@ -180,16 +193,22 @@
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
 
-<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>, <span class="no">carat</span>, <span class="no">price</span>, <span class="no">z</span>,
-                 <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
-                 <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
+             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
 
-<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>, <span class="no">carat</span>, <span class="no">price</span>, <span class="no">z</span>,
-             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
-             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">Inf</span>),
+<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
+             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>),
              <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/continuous.html">parula</a></span>(<span class="fl">6</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 </div>

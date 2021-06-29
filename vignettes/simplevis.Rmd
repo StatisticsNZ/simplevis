@@ -230,8 +230,25 @@ gg_line_col(plot_data,
 ```
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, sex, 
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = sex, 
              col_na = FALSE)
+```
+
+`bar*()` and `hbar*()` plots support a `"stack"` position as well as the default `"dodge"`.
+
+```{r}
+plot_data <- penguins %>% 
+  group_by(sex, species) %>% 
+  summarise(count = n())
+
+gg_hbar_col(plot_data, 
+        x_var = count, 
+        y_var = species, 
+        col_var = sex,
+        position = "stack")
 ```
 
 ### `sf` maps
@@ -314,8 +331,11 @@ This means layers can be added to the functions in the same way you would a ggpl
 Note you need to add _all_ aesthetics to any additional layers.
 
 ```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species) +
-  geom_smooth(aes(bill_length_mm, body_mass_g, col = species))
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species) +
+  geom_smooth(aes(x = bill_length_mm, y = body_mass_g, col = species))
 
 ```
 

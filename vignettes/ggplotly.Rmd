@@ -37,7 +37,10 @@ The `simplevis` package provides:
 The `plotly::ggplotly` function provides the ability to convert the ggplot to an interactive object. 
 
 ```{r}
-plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+plot <- gg_point_col(penguins, 
+                     x_var = bill_length_mm, 
+                     y_var = body_mass_g, 
+                     col_var = species, 
                      font_family = "Helvetica")
 
 plotly::ggplotly(plot) 
@@ -48,7 +51,10 @@ plotly::ggplotly(plot)
 The `plotly_camera` function turns off all widgets other than the camera to make a cleaner graph.
 
 ```{r}
-plot <- gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
+plot <- gg_point_col(penguins, 
+                     x_var = bill_length_mm, 
+                     y_var = body_mass_g, 
+                     col_var = species, 
                      font_family = "Helvetica")
 
 plotly::ggplotly(plot) %>% 
@@ -69,7 +75,10 @@ A variable can be added to the `text_var` in the `gg_*` function. This variable 
 plot_data <- penguins %>% 
   mutate_text()
 
-plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, 
+plot <- gg_point_col(plot_data, 
+                     x_var = bill_length_mm, 
+                     y_var = body_mass_g, 
+                     col_var = species, 
                      text_var = text, 
                      font_family = "Helvetica")
 
@@ -83,7 +92,10 @@ The `mutate_text` function uses all variables in the dataset by defalut, but a s
 plot_data <- penguins %>% 
   mutate_text(c("species", "flipper_length_mm"))
 
-plot <- gg_point_col(plot_data, bill_length_mm, body_mass_g, species, 
+plot <- gg_point_col(plot_data, 
+                     x_var = bill_length_mm, 
+                     y_var = body_mass_g, 
+                     col_var = species, 
                      text_var = text, 
                      font_family = "Helvetica")
 
@@ -98,7 +110,10 @@ Sometimes the ggplotly legend displays elements in a different order to how you 
 ```{r}
 plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05) 
  
-plot <- gg_point_col(plot_data, carat, price, color, 
+plot <- gg_point_col(plot_data, 
+                     x_var = carat, 
+                     y_var = price, 
+                     col_var = color, 
                      font_family = "Helvetica")
  
 plotly::ggplotly(plot) %>% 
@@ -114,10 +129,11 @@ sf ggplots can also be converted to interactive ggplotly objects using the same 
 plot_data <- example_sf_point %>% 
   mutate_text()
 
-plot <- gg_sf_col(plot_data, trend_category, 
-              text_var = text,
-              borders = nz, 
-              font_family = "Helvetica")
+plot <- gg_sf_col(plot_data, 
+                  col_var = trend_category, 
+                  text_var = text,
+                  borders = nz, 
+                  font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -134,10 +150,12 @@ plot_data <- example_sf_point %>%
                               TRUE ~ "Q4")) %>% 
   mutate_text()
 
-plot <- gg_sf_col_facet(plot_data, trend_category, quartile, 
-                      text_var = text,
-                      borders = nz,
-                      font_family = "Helvetica")
+plot <- gg_sf_col_facet(plot_data, 
+                        col_var = trend_category, 
+                        facet_var = quartile, 
+                        text_var = text,
+                        borders = nz,
+                        font_family = "Helvetica")
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

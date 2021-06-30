@@ -1,3 +1,7 @@
+# simplevis 4.4.0
+
+* Bumped version for CRAN.
+
 # simplevis 4.3.2
 
 * Renamed leaflet text_var to label_var.

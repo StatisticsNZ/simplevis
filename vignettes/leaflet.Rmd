@@ -55,7 +55,7 @@ leaflet_sf_col(example_sf_polygon, density,
 
 ### Popups and hover text
 
-The popup will default to a `leafpop::popupTable` of all variables, but popups can be adjusted to a subset of column using the `popup_vars_vctr` argument.
+The clickable popup will default to a `leafpop::popupTable` of all variables, but popups can be adjusted to a subset of column using the `popup_vars_vctr` argument.
 
 ```{r}
 leaflet_sf_col(example_sf_point, 
@@ -63,7 +63,7 @@ leaflet_sf_col(example_sf_point,
                popup_vars_vctr = c("site_id", "median"))
 ```
 
-The tooltip will default to the colour variable, but can be adjusted using the `label_var` variable. 
+The hover label will default to the colour variable, but can be adjusted using the `label_var` variable. 
 
 ```{r}
 leaflet_sf_col(example_sf_point, 
@@ -73,21 +73,11 @@ leaflet_sf_col(example_sf_point,
 
 ### Basemaps
 
-Users have a `basemap` argument that defaults to "light" but has other options.
+Users have a `basemap` argument that defaults to "light", but there are other options.
 
 ```{r}
 leaflet_sf(example_sf_point, 
            basemap = "dark")
-```
-
-```{r}
-leaflet_sf(example_sf_point, 
-           basemap = "satellite")
-```
-
-```{r}
-leaflet_sf(example_sf_point, 
-           basemap = "street")
 ```
 
 ### Adding additional layers
@@ -104,19 +94,15 @@ leaflet_sf_col(example_sf_point,
                        opacity = 1)
 ```
 
-### shiny
+### leaflet basemap stack for shiny
 
-A leaflet basemap is available for use in shiny apps. It defaults to the top layer being "light".
-
-```{r}
-simplevis::leaflet_basemap() 
-```
-
-You can set the bounds by adding a vector or bbox of bounds.
+A leaflet basemap stack is available for use in shiny apps. It defaults to the top layer being "light". You can set the bounds by adding a vector or bbox of bounds.
 
 ```{r}
 leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 ```
+
+You can also specify the top layer.
 
 ```{r}
 bb <- rnaturalearth::ne_countries(scale = "small", 
@@ -124,6 +110,6 @@ bb <- rnaturalearth::ne_countries(scale = "small",
                                   returnclass = "sf") %>% 
    sf::st_bbox() 
  
-leaflet_basemap(bounds = bb) 
+leaflet_basemap(bounds = bb, top_layer = "satellite") 
 ```
 

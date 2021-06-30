@@ -11,13 +11,13 @@ gg_boxplot_col(data, x_var, y_var = NULL, col_var, stat = "boxplot",
   x_labels = NULL, x_pretty_n = 6, x_expand = NULL, x_na = TRUE,
   x_title = NULL, x_title_wrap = 50, x_zero = FALSE,
   x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_na = TRUE, y_pretty_n = 5, x_rev = FALSE,
-  y_title = NULL, y_title_wrap = 50, y_trans = "identity",
-  y_zero = FALSE, y_zero_line = NULL, col_labels = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
-  col_title = NULL, col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL, mobile = FALSE)
+  y_gridlines_minor = FALSE, y_labels = waiver(), y_na = TRUE,
+  y_pretty_n = 5, x_rev = FALSE, y_title = NULL, y_title_wrap = 50,
+  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
+  col_labels = NULL, col_legend_ncol = NULL, col_legend_nrow = NULL,
+  col_na = TRUE, col_title = NULL, col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -71,6 +71,8 @@ gg_boxplot_col(data, x_var, y_var = NULL, col_var, stat = "boxplot",
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
+
+\item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
 \item{y_labels}{A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 

@@ -14,6 +14,7 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -68,6 +69,7 @@ gg_hbar <- function(data,
                     subtitle_wrap = 80,
                     x_balance = FALSE,
                     x_expand = NULL,
+                    x_gridlines_minor = FALSE,
                     x_labels = waiver(),
                     x_na = TRUE,
                     x_pretty_n = 5,
@@ -251,6 +253,11 @@ gg_hbar <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -295,6 +302,7 @@ gg_hbar <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
@@ -366,6 +374,7 @@ gg_hbar_col <- function(data,
                         subtitle_wrap = 80,
                         x_balance = FALSE,
                         x_expand = NULL,
+                        x_gridlines_minor = FALSE,
                         x_labels = waiver(),
                         x_na = TRUE,
                         x_pretty_n = 5,
@@ -598,6 +607,11 @@ gg_hbar_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  
   if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
 
   plot <- plot +
@@ -672,6 +686,7 @@ gg_hbar_col <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
@@ -731,6 +746,7 @@ gg_hbar_facet <- function(data,
                           subtitle_wrap = 80,
                           x_balance = FALSE,
                           x_expand = NULL,
+                          x_gridlines_minor = FALSE,
                           x_labels = waiver(),
                           x_na = TRUE,
                           x_pretty_n = 3,
@@ -929,6 +945,11 @@ gg_hbar_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  
   if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
 
   plot <- plot +
@@ -964,6 +985,7 @@ gg_hbar_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 80. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -1014,7 +1036,8 @@ gg_hbar_facet <- function(data,
 #'                   x_var = body_mass_g, 
 #'                   y_var = species, 
 #'                   col_var = island, 
-#'                   facet_var = sex)
+#'                   facet_var = sex, 
+#'                   facet_na = FALSE)
 #' 
 gg_hbar_col_facet <- function(data,
                               x_var,
@@ -1034,6 +1057,7 @@ gg_hbar_col_facet <- function(data,
                               subtitle_wrap = 80,
                               x_balance = FALSE,
                               x_expand = NULL,
+                              x_gridlines_minor = FALSE,
                               x_labels = waiver(),
                               x_na = TRUE,
                               x_pretty_n = 3,
@@ -1295,6 +1319,11 @@ gg_hbar_col_facet <- function(data,
     if(x_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+    }
+    
+    if (x_gridlines_minor == TRUE) {
+      plot <- plot +
+        theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
     }
     
     if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)

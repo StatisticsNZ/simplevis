@@ -14,6 +14,7 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
@@ -25,6 +26,7 @@
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -63,6 +65,7 @@ gg_point <- function(data,
                      subtitle_wrap = 100,
                      x_balance = FALSE,
                      x_expand = NULL,
+                     x_gridlines_minor = FALSE,
                      x_labels = NULL,
                      x_pretty_n = 6,
                      x_na = TRUE,
@@ -74,6 +77,7 @@ gg_point <- function(data,
                      x_zero_line = NULL,
                      y_balance = FALSE,
                      y_expand = NULL,
+                     y_gridlines_minor = FALSE,
                      y_labels = waiver(),
                      y_pretty_n = 5,
                      y_na = TRUE,
@@ -233,6 +237,15 @@ gg_point <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  if (y_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -276,6 +289,7 @@ gg_point <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
@@ -287,6 +301,7 @@ gg_point <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -333,6 +348,7 @@ gg_point_col <- function(data,
                          pal_rev = FALSE,
                          x_balance = FALSE,
                          x_expand = NULL,
+                         x_gridlines_minor = FALSE,
                          x_labels = NULL,
                          x_na = TRUE,
                          x_pretty_n = 6,
@@ -342,6 +358,7 @@ gg_point_col <- function(data,
                          x_zero_line = NULL,
                          y_balance = FALSE,
                          y_expand = NULL,
+                         y_gridlines_minor = FALSE,
                          y_labels = waiver(),
                          y_na = TRUE,
                          y_pretty_n = 5,
@@ -579,6 +596,15 @@ gg_point_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  if (y_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+
   plot <- plot +
     scale_color_manual(
       values = pal,
@@ -631,6 +657,7 @@ gg_point_col <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
@@ -642,6 +669,7 @@ gg_point_col <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -686,6 +714,7 @@ gg_point_facet <- function(data,
                            subtitle_wrap = 100,
                            x_balance = FALSE,
                            x_expand = NULL,
+                           x_gridlines_minor = FALSE,
                            x_labels = NULL,
                            x_na = TRUE,
                            x_pretty_n = 3,
@@ -696,6 +725,7 @@ gg_point_facet <- function(data,
                            x_zero = FALSE,
                            x_zero_line = NULL,
                            y_balance = FALSE,
+                           y_gridlines_minor = FALSE,
                            y_expand = NULL,
                            y_labels = waiver(),
                            y_na = TRUE,
@@ -879,6 +909,15 @@ gg_point_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  if (y_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+
   if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
   
   plot <- plot +
@@ -913,6 +952,7 @@ gg_point_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
@@ -924,6 +964,7 @@ gg_point_facet <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -981,6 +1022,7 @@ gg_point_col_facet <-
            subtitle_wrap = 100,
            x_balance = FALSE,
            x_expand = NULL,
+           x_gridlines_minor = FALSE,
            x_labels = NULL,
            x_na = TRUE,
            x_pretty_n = 3,
@@ -992,6 +1034,7 @@ gg_point_col_facet <-
            x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
+           y_gridlines_minor = FALSE,
            y_labels = waiver(),
            y_na = TRUE,
            y_pretty_n = 4,
@@ -1244,6 +1287,15 @@ gg_point_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
+    if (x_gridlines_minor == TRUE) {
+      plot <- plot +
+        theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+    }
+    if (y_gridlines_minor == TRUE) {
+      plot <- plot +
+        theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
+    }
+
     if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
       
     plot <- plot +

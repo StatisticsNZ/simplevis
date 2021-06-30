@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.2.9</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Scales</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-06-29</h4>
+            <h4 class="date">2021-06-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/scales.Rmd"><code>vignettes/scales.Rmd</code></a></small>
       <div class="hidden name"><code>scales.Rmd</code></div>
@@ -312,11 +312,22 @@
                    <span class="kw">col_na</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
 </div>
+<div id="adding-minor-gridlines" class="section level3">
+<h3 class="hasAnchor">
+<a href="#adding-minor-gridlines" class="anchor"></a>Adding minor gridlines</h3>
+<p>You can also add applicable minor gridlines to the plot quickly using the <code>*_gridlines_minor</code> arguments.</p>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
+             <span class="kw">y_gridlines_minor</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+</div>
 <div id="expanding-the-scale" class="section level3">
 <h3 class="hasAnchor">
 <a href="#expanding-the-scale" class="anchor"></a>Expanding the scale</h3>
 <p>To expand the scale use <code>x_expand</code> and <code>y_expand</code> arguments with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html">ggplot2::expansion</a></code> function, which allows to expand in either or both directions of both x and y in an additive or multiplative way.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>))
 
@@ -325,13 +336,13 @@
         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">wind</span>,
         <span class="kw">x_expand</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span>(<span class="kw">add</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">5</span>)),
         <span class="kw">y_expand</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span>(<span class="kw">mult</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.025</span>)))</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 </div>
 <div id="stacking-bars" class="section level3">
 <h3 class="hasAnchor">
 <a href="#stacking-bars" class="anchor"></a>Stacking bars</h3>
 <p><code>bar*()</code> and <code>hbar*()</code> plots support a <code>"stack"</code> position as well as the default <code>"dodge"</code>.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">sex</span>, <span class="no">species</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">count</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span>())
 
@@ -340,7 +351,7 @@
         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">species</span>,
         <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
         <span class="kw">position</span> <span class="kw">=</span> <span class="st">"stack"</span>)</pre></body></html></div>
-<p><img src="scales_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+<p><img src="scales_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 </div>
   </div>
 

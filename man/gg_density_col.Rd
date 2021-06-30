@@ -11,12 +11,13 @@ gg_density_col(data, x_var, col_var, density_bw = "nrd0",
   subtitle_wrap = 100, x_balance = FALSE, x_expand = NULL,
   x_labels = NULL, x_pretty_n = 6, x_title = NULL,
   x_title_wrap = 50, x_zero = FALSE, x_zero_line = NULL,
-  y_expand = NULL, y_labels = scales::number, y_pretty_n = 5,
-  y_title = NULL, y_title_wrap = 50, col_labels = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
-  col_rev = FALSE, col_title = NULL, col_title_wrap = 25,
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+  y_expand = NULL, y_gridlines_minor = FALSE,
+  y_labels = scales::number, y_pretty_n = 5, y_title = NULL,
+  y_title_wrap = 50, col_labels = NULL, col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_na = TRUE, col_rev = FALSE,
+  col_title = NULL, col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -68,6 +69,8 @@ gg_density_col(data, x_var, col_var, density_bw = "nrd0",
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
+
+\item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
 \item{y_labels}{A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 

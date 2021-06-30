@@ -248,6 +248,19 @@ gg_point_col_facet(penguins,
                    col_na = F)
 ```
 
+### Adding minor gridlines 
+
+You can also add applicable minor gridlines to the plot quickly using the `*_gridlines_minor` arguments.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             y_gridlines_minor = T)
+```
+
+
 ### Expanding the scale
 
 To expand the scale use `x_expand` and `y_expand` arguments with the `ggplot2::expansion` function, which allows to expand in either or both directions of both x and y in an additive or multiplative way. 
@@ -279,4 +292,3 @@ gg_hbar_col(plot_data,
         col_var = sex,
         position = "stack")
 ```
-

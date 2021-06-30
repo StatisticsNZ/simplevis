@@ -7,15 +7,15 @@
 gg_point(data, x_var, y_var, text_var = NULL, position = "identity",
   alpha = 1, size_point = 1, pal = NULL, title = NULL,
   title_wrap = 100, subtitle = NULL, subtitle_wrap = 100,
-  x_balance = FALSE, x_expand = NULL, x_labels = NULL,
-  x_pretty_n = 6, x_na = TRUE, x_rev = FALSE, x_title = NULL,
-  x_title_wrap = 50, x_trans = "identity", x_zero = FALSE,
-  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
-  y_labels = waiver(), y_pretty_n = 5, y_na = TRUE, y_title = NULL,
-  y_title_wrap = 50, y_trans = "identity", y_zero = FALSE,
-  y_zero_line = NULL, caption = NULL, caption_wrap = 80,
-  font_family = "", font_size_title = NULL, font_size_body = NULL,
-  mobile = FALSE)
+  x_balance = FALSE, x_expand = NULL, x_gridlines_minor = FALSE,
+  x_labels = NULL, x_pretty_n = 6, x_na = TRUE, x_rev = FALSE,
+  x_title = NULL, x_title_wrap = 50, x_trans = "identity",
+  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
+  y_expand = NULL, y_gridlines_minor = FALSE, y_labels = waiver(),
+  y_pretty_n = 5, y_na = TRUE, y_title = NULL, y_title_wrap = 50,
+  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -46,6 +46,8 @@ gg_point(data, x_var, y_var, text_var = NULL, position = "identity",
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
+\item{x_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.}
+
 \item{x_labels}{A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
@@ -67,6 +69,8 @@ gg_point(data, x_var, y_var, text_var = NULL, position = "identity",
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
+
+\item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
 \item{y_labels}{A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 

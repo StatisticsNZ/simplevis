@@ -2,6 +2,7 @@
 
 * Made legend fill background white for all functions. 
 * Updated vignette and arrticles to discuss density functions, and make vars more explicit.
+* Added minor gridline arguments.
 
 # simplevis 4.2.8
 

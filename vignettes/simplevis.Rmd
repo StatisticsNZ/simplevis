@@ -210,6 +210,7 @@ Some examples of transformations available are:
 * `*_zero` to start at zero for numeric x or y scales 
 * `*_pretty_n` for the number of numeric bins of breaks for the x or y scale to aim for 
 * `*_rev` to reverse the order of categorical x, y or col scales in bars 
+* `*_gridlines_minor` whether to add minor gridlines.
 * `*_expand` to add padding to an x or y scale.
 
 ```{r}
@@ -217,15 +218,17 @@ plot_data <- storms %>%
   group_by(year, status) %>%
   summarise(wind = mean(wind))
 
-gg_line_col(plot_data, 
+gg_bar_col(plot_data, 
         x_var = year, 
         y_var = wind, 
         col_var = status,
+        position = "stack",
         x_pretty_n = 4,
         x_labels = function(x) stringr::str_sub(x, 3, 4),
         y_labels = scales::comma_format(accuracy = 0.1), 
         y_zero = T, 
         y_pretty_n = 10,
+        y_gridlines_minor = T,
         y_expand = ggplot2::expansion(mult = c(0.025, 0.025)))
 ```
 

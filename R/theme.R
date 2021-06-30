@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' library(ggplot2)
-#' 
+#'
 #' ggplot() +
 #'   theme_y_gridlines("Courier", 9, 7) +
 #'   ggtitle("This is a title of a font family and size")
@@ -104,7 +104,7 @@ theme_y_gridlines <-
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
+        legend.direction = "vertical"
       )
     )
   }
@@ -117,7 +117,7 @@ theme_y_gridlines <-
 #' @export
 #' @examples
 #' library(ggplot2)
-#' 
+#'
 #' ggplot() +
 #'   theme_x_gridlines("Courier", 9, 7) +
 #'   ggtitle("This is a title of a font family and size")
@@ -215,7 +215,7 @@ theme_x_gridlines <-
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
+        legend.direction = "vertical"
       )
     )
   }
@@ -228,7 +228,7 @@ theme_x_gridlines <-
 #' @export
 #' @examples
 #' library(ggplot2)
-#' 
+#'
 #' ggplot() +
 #'   theme_xy_gridlines("Courier", 9, 7) +
 #'   ggtitle("This is a title of a font family and size")
@@ -325,7 +325,7 @@ theme_xy_gridlines <-
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
+        legend.direction = "vertical"
       )
     )
   }
@@ -338,7 +338,7 @@ theme_xy_gridlines <-
 #' @export
 #' @examples
 #' library(ggplot2)
-#' 
+#'
 #' ggplot() +
 #'   theme_map("Courier", 9, 7) +
 #'   ggtitle("This is a title of a font family and size")
@@ -415,7 +415,7 @@ theme_map <-
         legend.key = element_rect(fill = "white"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical" 
+        legend.direction = "vertical"
       )
     )
   }
@@ -433,8 +433,8 @@ theme_mobile_extra <- function() {
     legend.position = "bottom",
     legend.justification = "left",
     legend.margin = margin(t = 0, b = 0, l = 0, r = 0),
-    axis.text.x = element_text(hjust = 0.75) 
-  ) 
+    axis.text.x = element_text(hjust = 0.75)
+  )
 }
 
 #' @title Extra theme elements for ggplot2 maps on mobile devices
@@ -450,5 +450,5 @@ theme_mobile_extra_map <- function() {
     legend.position = "bottom",
     legend.justification = "left",
     legend.margin = margin(t = 0, b = 0, l = 0, r = 0)
-  ) 
+  )
 }

@@ -1,3 +1,5 @@
+# simplevis 4.3.0
+
 # simplevis 4.2.9
 
 * Made legend fill background white for all functions. 

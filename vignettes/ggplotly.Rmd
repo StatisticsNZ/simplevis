@@ -64,7 +64,7 @@ plotly::ggplotly(plot) %>%
 
 ### Creating nice tooltips
 
-Use `mutate_text`, `text_var` and `plotly::ggplotly(tooltip = "text")` to make pretty tooltips.
+Use `mutate_text`, `text_var` and `plotly::ggplotly(tooltip = "text")` to make pretty tooltips for functions for families other than `boxplot` or `density`.
 
 A variable can be added to the `text_var` in the `gg_*` function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
 

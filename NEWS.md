@@ -1,3 +1,7 @@
+# simplevis 4.3.2
+
+* Renamed leaflet text_var to label_var.
+
 # simplevis 4.3.1
 
 * Removed col_var2 from point tooltip.

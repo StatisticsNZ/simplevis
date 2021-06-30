@@ -63,12 +63,12 @@ leaflet_sf_col(example_sf_point,
                popup_vars_vctr = c("site_id", "median"))
 ```
 
-The tooltip will default to the colour variable, but can be adjusted using the `text_var` variable. It has been called the `text_var` to align with the term that `ggplot2` calls the hover value or tooltip.
+The tooltip will default to the colour variable, but can be adjusted using the `label_var` variable. 
 
 ```{r}
 leaflet_sf_col(example_sf_point, 
                col_var = trend_category, 
-               text_var = site_id)
+               label_var = site_id)
 ```
 
 ### Basemaps

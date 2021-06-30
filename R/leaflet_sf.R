@@ -201,7 +201,7 @@ leaflet_sf <- function(data,
 #' @description Map of simple features in leaflet that is coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param col_var Unquoted variable to colour the features by. Required input.
-#' @param text_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
+#' @param label_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -233,7 +233,7 @@ leaflet_sf <- function(data,
 #'
 leaflet_sf_col <- function(data,
                            col_var,
-                           text_var = NULL,
+                           label_var = NULL,
                            popup_vars_vctr = NULL,
                            pal = NULL,
                            pal_rev = FALSE,
@@ -258,8 +258,8 @@ leaflet_sf_col <- function(data,
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   
   col_var <- rlang::enquo(col_var)
-  text_var <- rlang::enquo(text_var)
-  if(is.null(rlang::get_expr(text_var))) text_var <- col_var
+  label_var <- rlang::enquo(label_var)
+  if(is.null(rlang::get_expr(label_var))) label_var <- col_var
   
   if (col_na == FALSE) {
     data <- data %>% 
@@ -267,7 +267,7 @@ leaflet_sf_col <- function(data,
   }
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
-  text_var_vctr <- dplyr::pull(data, !!text_var)
+  label_var_vctr <- dplyr::pull(data, !!label_var)
   
   if(is.logical(col_var_vctr)) {
     data <- data %>% 
@@ -383,7 +383,7 @@ leaflet_sf_col <- function(data,
         addCircleMarkers(
           data = data,
           color = ~ pal_fun(col_var_vctr),
-          label = ~ htmltools::htmlEscape(text_var_vctr),
+          label = ~ htmltools::htmlEscape(label_var_vctr),
           popup = ~ popup,
           radius = size_point,
           fillOpacity = alpha,
@@ -398,7 +398,7 @@ leaflet_sf_col <- function(data,
         addCircleMarkers(
           data = data,
           color = ~ pal_fun(col_var_vctr),
-          label = ~ htmltools::htmlEscape(text_var_vctr),
+          label = ~ htmltools::htmlEscape(label_var_vctr),
           popup = ~ popup,
           radius = size_point,
           fillOpacity = alpha,
@@ -428,7 +428,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
-          label = ~ htmltools::htmlEscape(text_var_vctr),
+          label = ~ htmltools::htmlEscape(label_var_vctr),
           fillOpacity = alpha,
           opacity = 1,
           weight = size_line
@@ -442,7 +442,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
-          label = ~ htmltools::htmlEscape(text_var_vctr),
+          label = ~ htmltools::htmlEscape(label_var_vctr),
           fillOpacity = alpha,
           opacity = 1,
           weight = size_line
@@ -469,7 +469,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
-          label = ~ htmltools::htmlEscape(text_var_vctr),
+          label = ~ htmltools::htmlEscape(label_var_vctr),
           fillOpacity = alpha, 
           opacity = 1,
           weight = size_line
@@ -483,7 +483,7 @@ leaflet_sf_col <- function(data,
           data = data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
-          label = ~ htmltools::htmlEscape(text_var_vctr),
+          label = ~ htmltools::htmlEscape(label_var_vctr),
           fillOpacity = alpha, 
           opacity = 1,
           weight = size_line

@@ -317,7 +317,9 @@ Where:
 * Numeric refers to double or integer classes.
 * Any* refers that if a numeric, date or datetime variable, values must be bins that are mutually exclusive and equidistant. 
 
-### Working with pipe
+### Working with the pipe
+
+`simplevis` functions work with the pipe.
 
 ```{r}
 penguins %>% 

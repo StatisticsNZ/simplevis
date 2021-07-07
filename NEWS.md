@@ -1,3 +1,7 @@
+# simplevis 4.4.1
+
+* Updated themes to be complete.
+
 # simplevis 4.4.0
 
 * Bumped version for CRAN.

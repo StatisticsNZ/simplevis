@@ -16,95 +16,35 @@ theme_y_gridlines <-
            font_size_body = 10) {
     list(
       theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
+        text = element_text(family = font_family, size = font_size_body, colour = "#323232", face = "plain"),
+        plot.title = element_text(size = font_size_title, face = "bold", colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        plot.subtitle = element_text(colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(angle = 90, margin = margin(r = 10)),
+        legend.title = element_text(hjust = 0, margin = margin(r = 20)),
+        plot.caption = element_text(hjust = 0.99, margin = margin(t = font_size_body)),
+        axis.text.x = element_text(size = font_size_body),
+        axis.text.y = element_text(hjust = 1, size = font_size_body),
+        strip.text = element_text(hjust = 0.5, margin = margin(b = font_size_body / 2)),
+        legend.text = element_text(margin = margin(r = 10), hjust = 0),
+        plot.margin = margin(t = 5, l = 5, b = 5, r = 20),
+        plot.caption.position = "plot",
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
+        panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          hjust = 0.475
-        ),
-        axis.title.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(t = 10)
-        ),
-        axis.title.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10)
-        ),
-        axis.text.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.text.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          hjust = 1,
-          size = font_size_body
-        ),
+        panel.background = element_rect(colour = "transparent", fill = "transparent"),
+        strip.background = element_rect(colour = "transparent", fill = "transparent"),
         axis.line = element_line(colour = "#323232", size = 0.3),
         axis.ticks = element_line(colour = "#323232", size = 0.3),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
         legend.margin = margin(t = 20, b = 20),
-        legend.key = element_rect(fill = "white"),
+        legend.key = element_rect(colour = "transparent", fill = "transparent"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical"
+        legend.direction = "vertical", 
+        legend.box = NULL,
+        complete = TRUE
       )
     )
   }
@@ -127,95 +67,35 @@ theme_x_gridlines <-
            font_size_body = 10) {
     list(
       theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
+        text = element_text(family = font_family, size = font_size_body, colour = "#323232", face = "plain"),
+        plot.title = element_text(size = font_size_title, face = "bold", colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        plot.subtitle = element_text(colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(angle = 90, margin = margin(r = 10)),
+        legend.title = element_text(hjust = 0, margin = margin(r = 20)),
+        plot.caption = element_text(hjust = 0.99, margin = margin(t = font_size_body)),
+        axis.text.x = element_text(size = font_size_body),
+        axis.text.y = element_text(hjust = 1, size = font_size_body),
+        strip.text = element_text(hjust = 0.5, margin = margin(b = font_size_body / 2)),
+        legend.text = element_text(margin = margin(r = 10), hjust = 0),
+        plot.margin = margin(t = 5, l = 5, b = 5, r = 20),
+        plot.caption.position = "plot",
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
+        panel.grid.minor = element_blank(),
         panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          hjust = 0.5
-        ),
-        axis.title.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(t = 10)
-        ),
-        axis.title.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10)
-        ),
-        axis.text.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.text.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          hjust = 1,
-          size = font_size_body
-        ),
+        panel.background = element_rect(colour = "transparent", fill = "transparent"),
+        strip.background = element_rect(colour = "transparent", fill = "transparent"),
         axis.line = element_line(colour = "#323232", size = 0.3),
         axis.ticks = element_line(colour = "#323232", size = 0.3),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
         legend.margin = margin(t = 20, b = 20),
-        legend.key = element_rect(fill = "white"),
+        legend.key = element_rect(colour = "transparent", fill = "transparent"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical"
+        legend.direction = "vertical",
+        legend.box = NULL,
+        complete = TRUE
       )
     )
   }
@@ -238,94 +118,35 @@ theme_xy_gridlines <-
            font_size_body = 10) {
     list(
       theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
+        text = element_text(family = font_family, size = font_size_body, colour = "#323232", face = "plain"),
+        plot.title = element_text(size = font_size_title, face = "bold", colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        plot.subtitle = element_text(colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(angle = 90, margin = margin(r = 10)),
+        legend.title = element_text(hjust = 0, margin = margin(r = 20)),
+        plot.caption = element_text(hjust = 0.99, margin = margin(t = font_size_body)),
+        axis.text.x = element_text(size = font_size_body),
+        axis.text.y = element_text(hjust = 1, size = font_size_body),
+        strip.text = element_text(hjust = 0.5, margin = margin(b = font_size_body / 2)),
+        legend.text = element_text(margin = margin(r = 10), hjust = 0),
+        plot.margin = margin(t = 5, l = 5, b = 5, r = 20),
+        plot.caption.position = "plot",
         panel.border = element_blank(),
         panel.spacing = unit(2.5, "lines"),
+        panel.grid.minor = element_blank(),
         panel.grid.major.x = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_line(colour = "#D3D3D3", size = 0.2),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.title.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(t = 10)
-        ),
-        axis.title.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10)
-        ),
-        axis.text.x = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.text.y = element_text(
-          family = font_family,
-          colour = "#323232",
-          hjust = 1,
-          size = font_size_body
-        ),
+        panel.background = element_rect(colour = "transparent", fill = "transparent"),
+        strip.background = element_rect(colour = "transparent", fill = "transparent"),
         axis.line = element_line(colour = "#323232", size = 0.3),
         axis.ticks = element_line(colour = "#323232", size = 0.3),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
         legend.margin = margin(t = 20, b = 20),
-        legend.key = element_rect(fill = "white"),
+        legend.key = element_rect(colour = "transparent", fill = "transparent"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical"
+        legend.direction = "vertical",
+        legend.box = NULL,
+        complete = TRUE
       )
     )
   }
@@ -348,74 +169,34 @@ theme_map <-
            font_size_body = 10) {
     list(
       theme(
-        plot.title = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_title,
-          face = "bold",
-          hjust = 0.5
-        ),
-        plot.subtitle = element_text(
-          family = font_family,
-          colour = "#000000",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.5
-        ),
-        plot.caption = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          face = "plain",
-          hjust = 0.99
-        ),
-        plot.margin = margin(
-          t = 5,
-          l = 5,
-          b = 5,
-          r = 20
-        ),
-        panel.border = element_blank(),
-        panel.spacing = unit(2.5, "lines"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        panel.background = element_rect(colour = "white", fill = "white"),
-        strip.background = element_rect(colour = "white", fill = "white"),
-        text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        strip.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body
-        ),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
+        text = element_text(family = font_family, size = font_size_body, colour = "#323232", face = "plain"),
+        plot.title = element_text(size = font_size_title, face = "bold", colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        plot.subtitle = element_text(colour = "#000000", hjust = 0.5, vjust = 1, margin = margin(b = font_size_body / 2)),
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(angle = 90, margin = margin(r = 10)),
+        legend.title = element_text(hjust = 0, margin = margin(r = 20)),
+        plot.caption = element_text(hjust = 0.99, margin = margin(t = font_size_body)),
         axis.text.x = element_blank(),
         axis.text.y = element_blank(),
+        strip.text = element_text(hjust = 0.5, margin = margin(b = font_size_body / 2)),
+        legend.text = element_text(margin = margin(r = 10), hjust = 0),
+        plot.margin = margin(t = 5, l = 5, b = 5, r = 20),
+        plot.caption.position = "plot",
+        panel.border = element_blank(),
+        panel.spacing = unit(2.5, "lines"),
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_rect(colour = "transparent", fill = "transparent"),
+        strip.background = element_rect(colour = "transparent", fill = "transparent"),
         axis.line = element_blank(),
         axis.ticks = element_blank(),
-        legend.text = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 10),
-          hjust = 0
-        ),
-        legend.title = element_text(
-          family = font_family,
-          colour = "#323232",
-          size = font_size_body,
-          margin = margin(r = 20)
-        ),
-        legend.key = element_rect(fill = "white"),
+        legend.margin = margin(t = 20, b = 20),
+        legend.key = element_rect(colour = "transparent", fill = "transparent"),
         legend.key.height = unit(5, "mm"),
         legend.key.width = unit(5, "mm"),
-        legend.direction = "vertical"
+        legend.direction = "vertical",
+        legend.box = NULL,
+        complete = TRUE
       )
     )
   }
@@ -428,7 +209,6 @@ theme_map <-
 theme_mobile_extra <- function() {
   theme(
     plot.title.position = "plot",
-    plot.caption.position = "plot",
     plot.margin = margin(t = 2, l = 2, b = 0, r = 10),
     legend.position = "bottom",
     legend.justification = "left",
@@ -445,7 +225,6 @@ theme_mobile_extra <- function() {
 theme_mobile_extra_map <- function() {
   theme(
     plot.title.position = "plot",
-    plot.caption.position = "plot",
     plot.margin = margin(t = 2, l = 2, b = 0, r = 10),
     legend.position = "bottom",
     legend.justification = "left",

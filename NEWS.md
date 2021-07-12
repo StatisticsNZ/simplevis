@@ -1,3 +1,8 @@
+# simplevis 4.4.2
+
+* Added theme_no_gridlines.
+* Made gg_tile_col function.
+
 # simplevis 4.4.1
 
 * Updated themes to be complete.

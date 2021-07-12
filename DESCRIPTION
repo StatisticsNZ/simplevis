@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' Visualisation with Less Brainpower
-Version: 4.4.1
+Version: 4.4.2
 Authors@R: 
     c(person(given = "David", 
                family = "Hodge", 
@@ -20,6 +20,6 @@ Depends: R (>= 3.5.0)
 Imports: dplyr (>= 1.0.0), DT, forcats, ggplot2 (>= 3.0.0), htmltools, leaflet (>= 2.0.0), leafpop, 
          leaflet.extras, jsonlite, lubridate, magrittr, plotly, purrr, readr, rlang (>= 0.4.0), scales, sf,    
          shiny, shinycssloaders, snakecase, stringr, tibble,  tidyr (>= 1.0.0), viridis
-Suggests: knitr, palmerpenguins, rgdal, rgeos, rmarkdown, s2 
+Suggests: knitr, glue, palmerpenguins, rgdal, rgeos, rmarkdown, s2 
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

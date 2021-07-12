@@ -118,15 +118,13 @@ library(palmerpenguins)
 
 plot_data <- penguins \%>\% 
   group_by(species, sex) \%>\% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\%
-  mutate(label = glue::glue("{prettyNum(round(body_mass_g, 0), big.mark = ',')} g"))
-
+    summarise(body_mass_g = round(mean(body_mass_g, na.rm = TRUE)), 0) \%>\% 
+    mutate(label = glue::glue("{prettyNum(body_mass_g, big.mark = ',')} g"))
 
 gg_tile_col(plot_data, 
             x_var = sex, 
             y_var = species, 
             col_var = body_mass_g, 
-            label_var = label,
-            col_labels_dp = 0) 
+            label_var = label) 
             
 }

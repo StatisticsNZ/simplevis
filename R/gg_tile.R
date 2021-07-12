@@ -52,16 +52,14 @@
 #' 
 #' plot_data <- penguins %>% 
 #'   group_by(species, sex) %>% 
-#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>%
-#'   mutate(label = glue::glue("{prettyNum(round(body_mass_g, 0), big.mark = ',')} g"))
-#' 
+#'     summarise(body_mass_g = round(mean(body_mass_g, na.rm = TRUE)), 0) %>% 
+#'     mutate(label = glue::glue("{prettyNum(body_mass_g, big.mark = ',')} g"))
 #' 
 #' gg_tile_col(plot_data, 
 #'             x_var = sex, 
 #'             y_var = species, 
 #'             col_var = body_mass_g, 
-#'             label_var = label,
-#'             col_labels_dp = 0) 
+#'             label_var = label) 
 #'             
 gg_tile_col <- function(data,
                        x_var,
@@ -238,15 +236,17 @@ gg_tile_col <- function(data,
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
-             width = bar_width) 
-  
+             width = bar_width) +
+    theme(axis.line = element_blank()) +
+    theme(axis.ticks = element_blank())
+    
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), col = pal_label)
   }
 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if(is.null(x_expand)) x_expand <- waiver()
+    if(is.null(x_expand)) x_expand <- c(0, 0)
     if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
     
     plot <- plot +
@@ -254,7 +254,7 @@ gg_tile_col <- function(data,
   } 
   
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-    if(is.null(y_expand)) y_expand <- waiver()
+    if(is.null(y_expand)) y_expand <- c(0, 0)
     if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
     
     plot <- plot +

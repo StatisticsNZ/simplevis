@@ -8,7 +8,6 @@
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param pal_label Hex code colour for labels. Defaults to "#FFFFFF".
 #' @param width Width of bars. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
@@ -69,7 +68,6 @@ gg_tile_col <- function(data,
                        text_var = NULL,
                        pal = NULL,
                        pal_rev = FALSE,
-                       pal_label = "#FFFFFF",
                        width = 1,
                        alpha = 1,
                        size_line = 0.5,
@@ -242,11 +240,11 @@ gg_tile_col <- function(data,
     
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), col = pal_label)
+      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), col = "#FFFFFF")
   }
 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if(is.null(x_expand)) x_expand <- c(0, 0)
+    if(is.null(x_expand)) x_expand <- waiver()
     if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
     
     plot <- plot +
@@ -254,7 +252,7 @@ gg_tile_col <- function(data,
   } 
   
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-    if(is.null(y_expand)) y_expand <- c(0, 0)
+    if(is.null(y_expand)) y_expand <- waiver()
     if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
     
     plot <- plot +

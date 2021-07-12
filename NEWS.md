@@ -1,3 +1,7 @@
+# simplevis 4.4.3
+
+* Made gg_tile_col_facet.
+
 # simplevis 4.4.2
 
 * Added theme_no_gridlines.

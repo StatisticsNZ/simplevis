@@ -24,7 +24,7 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 
 \item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
 
-\item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
+\item{col_var}{Unquoted categorical variable to colour the tiles Required input.}
 
 \item{label_var}{Unquoted variable to label the tiles.}
 
@@ -34,11 +34,11 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{width}{Width of bars. Defaults to 1.}
+\item{width}{Width of tiles. Defaults to 1.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
-\item{size_line}{The size of the outlines of bars.}
+\item{size_line}{The size of the outlines of tiles.}
 
 \item{title}{Title string. Defaults to NULL.}
 

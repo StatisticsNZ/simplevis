@@ -1,3 +1,7 @@
+# simplevis 4.4.5
+
+* Add support for colouring numeric variables to line family.
+
 # simplevis 4.4.4
 
 * Add comma big.mark into numeric colour labels.

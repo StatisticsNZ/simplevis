@@ -1,8 +1,8 @@
 Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' Visualisation with Less Brainpower
-Version: 4.4.4
-Authors@R: 
+Version: 4.4.5
+Authors@R:
     c(person(given = "David", 
                family = "Hodge", 
                email = "davidhodge931@gmail.com", 

@@ -1412,7 +1412,7 @@ gg_bar_col_facet <- function(data,
     col = guide_legend(
       ncol = 1,
       byrow = TRUE,
-      title = stringr::str_wrap(col_title, 15)
+      title = stringr::str_wrap(col_title, col_title_wrap)
     ))  
   
   return(plot)

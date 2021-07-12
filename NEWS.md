@@ -1,3 +1,8 @@
+# simplevis 4.4.4
+
+* Add comma big.mark into numeric colour labels.
+* Add support for colouring numeric variables to bar family.
+
 # simplevis 4.4.3
 
 * Made gg_tile_col_facet.

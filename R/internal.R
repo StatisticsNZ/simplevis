@@ -78,7 +78,9 @@ sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = 1) {
   
   cuts_vctr_no <- length(cuts_vctr)
   
-  cuts_vctr <- sprintf(paste0("%.", labels_dp, "f"), round(cuts_vctr, labels_dp))
+  cuts_vctr <- format(round(as.numeric(cuts_vctr), labels_dp), 
+                      nsmall = labels_dp, 
+                      big.mark = ",") 
   
   if (cuts_vctr_no == 2) {
     labels <- c("Feature")

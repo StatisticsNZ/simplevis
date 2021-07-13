@@ -1,3 +1,7 @@
+# simplevis 4.5.0 
+
+* Bumped version.
+
 # simplevis 4.4.7
 
 * Add support for colouring numeric variables to hbar family.

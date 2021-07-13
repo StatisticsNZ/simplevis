@@ -42,9 +42,12 @@ gg_hbar_col(
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
+  col_cuts = NULL,
   col_labels = NULL,
+  col_labels_dp = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_method = NULL,
   col_na = TRUE,
   col_rev = FALSE,
   col_title = NULL,
@@ -64,7 +67,7 @@ gg_hbar_col(
 
 \item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
 
-\item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
+\item{col_var}{Unquoted categorical or numeric variable to colour the bars. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
@@ -132,11 +135,17 @@ gg_hbar_col(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
@@ -144,7 +153,7 @@ gg_hbar_col(
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
 
 \item{caption}{Caption title string.}
 

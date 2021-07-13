@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.4.7</span>
       </span>
     </div>
 
@@ -196,9 +196,12 @@
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -228,7 +231,7 @@
     </tr>
     <tr>
       <th>col_var</th>
-      <td><p>Unquoted categorical variable to colour the bars. Required input.</p></td>
+      <td><p>Unquoted categorical or numeric variable to colour the bars. Required input.</p></td>
     </tr>
     <tr>
       <th>text_var</th>
@@ -363,8 +366,16 @@
       <td><p>For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
+    </tr>
+    <tr>
       <th>col_labels</th>
-      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+    </tr>
+    <tr>
+      <th>col_labels_dp</th>
+      <td><p>For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".</p></td>
     </tr>
     <tr>
       <th>col_legend_ncol</th>
@@ -373,6 +384,10 @@
     <tr>
       <th>col_legend_nrow</th>
       <td><p>The number of rows in the legend.</p></td>
+    </tr>
+    <tr>
+      <th>col_method</th>
+      <td><p>The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".</p></td>
     </tr>
     <tr>
       <th>col_na</th>
@@ -388,7 +403,7 @@
     </tr>
     <tr>
       <th>col_title_wrap</th>
-      <td><p>Number of characters to wrap the colour title to. Defaults to 25.</p></td>
+      <td><p>Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.</p></td>
     </tr>
     <tr>
       <th>caption</th>

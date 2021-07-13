@@ -288,7 +288,7 @@ gg_hbar <- function(data,
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
-#' @param col_var Unquoted categorical variable to colour the bars. Required input.
+#' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
@@ -325,10 +325,16 @@ gg_hbar <- function(data,
 #' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
+#' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
+#' @param col_legend_ncol The number of columns in the legend. 
+#' @param col_legend_nrow The number of rows in the legend.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
@@ -394,9 +400,12 @@ gg_hbar_col <- function(data,
                         y_title_wrap = 50,
                         y_zero = FALSE,
                         y_zero_line = NULL,
+                        col_cuts = NULL,
                         col_labels = NULL,
+                        col_labels_dp = NULL,
                         col_legend_ncol = NULL,
                         col_legend_nrow = NULL,
+                        col_method = NULL,
                         col_na = TRUE,
                         col_rev = FALSE,
                         col_title = NULL,
@@ -412,7 +421,7 @@ gg_hbar_col <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) 
-  col_var <- rlang::enquo(col_var) #categorical var
+  col_var <- rlang::enquo(col_var) 
   text_var <- rlang::enquo(text_var)
   
   if (x_na == FALSE) {
@@ -433,8 +442,7 @@ gg_hbar_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
-  
+
   if(is.logical(y_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
@@ -485,7 +493,53 @@ gg_hbar_col <- function(data,
     col_n <- length(levels(col_var_vctr))
   }
   else col_n <- length(unique(col_var_vctr))
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+  }
   
+  if(col_method %in% c("quantile", "bin")) {
+    if (col_method == "quantile") {
+      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      else {
+        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+      }  
+      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      if(is.null(col_labels_dp)) col_labels_dp <- 1
+    }
+    else if (col_method == "bin") {
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      else({
+        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+      })
+      if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
+    }
+    
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+    
+    col_n <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+    else pal <- pal[1:col_n]
+  }
+  else if (col_method == "category") {
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      col_n <- length(levels(col_var_vctr))
+    }
+    else col_n <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+    else pal <- pal[1:col_n]
+    
+    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+  }
+  
+  if (pal_rev == TRUE) pal <- rev(pal)
   if (is.null(pal)) pal <- pal_d3_reorder(col_n)
   else pal <- pal[1:col_n]
   
@@ -499,7 +553,7 @@ gg_hbar_col <- function(data,
     position2 <- position_dodge2(preserve = "single")
   }
   else position2 <- position
-
+  
   plot <- ggplot(data) +
     theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
@@ -576,7 +630,7 @@ gg_hbar_col <- function(data,
       coord_flip() +
       scale_x_discrete(expand = y_expand, labels = y_labels)
   }
-
+  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
@@ -613,7 +667,7 @@ gg_hbar_col <- function(data,
   }
   
   if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
-
+  
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -628,6 +682,8 @@ gg_hbar_col <- function(data,
       na.value = pal_na()
     ) 
   
+  legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
+  
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -639,14 +695,12 @@ gg_hbar_col <- function(data,
       ) +
       guides(fill = guide_legend(
         ncol = col_legend_ncol,
-        byrow = TRUE,
-        reverse = TRUE, 
+        byrow = TRUE, reverse = legend_reverse, 
         title = stringr::str_wrap(col_title, col_title_wrap)
       ), 
       col = guide_legend(
         ncol = col_legend_ncol, nrow = col_legend_nrow, 
-        byrow = TRUE,
-        reverse = TRUE, 
+        byrow = TRUE, reverse = legend_reverse, 
         title = stringr::str_wrap(col_title, col_title_wrap)
       ))
   }
@@ -660,8 +714,8 @@ gg_hbar_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       ) +
       guides(
-        fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20)),
-        col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20))
+        fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20), reverse = legend_reverse),
+        col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20), reverse = legend_reverse)
       ) +
       theme_mobile_extra()
   }
@@ -965,12 +1019,12 @@ gg_hbar_facet <- function(data,
   return(plot)
 }
 
-#' @title Horizontal bar ggplot that is facetted.
-#' @description Horizontal bar ggplot that is facetted, but not coloured.
+#' @title Horizontal bar ggplot that is coloured and facetted.
+#' @description Horizontal bar ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
-#' @param col_var Unquoted categorical variable to colour the bars. Required input.
+#' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
@@ -1004,13 +1058,16 @@ gg_hbar_facet <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
+#' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
@@ -1076,9 +1133,12 @@ gg_hbar_col_facet <- function(data,
                               y_title_wrap = 50,
                               y_zero = FALSE,
                               y_zero_line = NULL,
+                              col_cuts = NULL,
                               col_labels = NULL,
+                              col_labels_dp = NULL,
                               col_legend_ncol = NULL,
                               col_legend_nrow = NULL,
+                              col_method = NULL,
                               col_na = TRUE,
                               col_rev = FALSE,
                               col_title = NULL,
@@ -1098,7 +1158,7 @@ gg_hbar_col_facet <- function(data,
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) 
-  col_var <- rlang::enquo(col_var) #categorical var
+  col_var <- rlang::enquo(col_var) 
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
@@ -1125,7 +1185,6 @@ gg_hbar_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
   
   if(is.logical(y_var_vctr)) {
@@ -1180,15 +1239,53 @@ gg_hbar_col_facet <- function(data,
   
   bar_width <- bar_unit * width
   
-  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-    col_n <- length(levels(col_var_vctr))
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
   }
-  else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  else pal <- pal[1:col_n]
+  if(col_method %in% c("quantile", "bin")) {
+    if (col_method == "quantile") {
+      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      else {
+        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+      }  
+      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      if(is.null(col_labels_dp)) col_labels_dp <- 1
+    }
+    else if (col_method == "bin") {
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      else({
+        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+      })
+      if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
+    }
+    
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    
+    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
+    
+    col_n <- length(col_cuts) - 1
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+    else pal <- pal[1:col_n]
+  }
+  else if (col_method == "category") {
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      col_n <- length(levels(col_var_vctr))
+    }
+    else col_n <- length(unique(col_var_vctr))
+    
+    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+    else pal <- pal[1:col_n]
+    
+    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+  }
   
-  if (pal_rev == FALSE) pal <- rev(pal)
+  if (pal_rev == TRUE) pal <- rev(pal)
   
   if(!is.null(position)) {
     if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
@@ -1211,158 +1308,161 @@ gg_hbar_col_facet <- function(data,
              width = bar_width, 
              position = position2)
   
-    if (!is.null(position)) {
-      if (position == "stack") {
-        data_sum <- data %>%
-          dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var)), .drop = FALSE) %>%
-          dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-          dplyr::ungroup()
-        
-        x_var_vctr <- dplyr::pull(data_sum, !!x_var)
-      }
-      # else if (position == "fill") x_var_vctr <- seq(0, 1, 0.1)
-    }
-  
-    if (facet_scales %in% c("fixed", "free_x")) {
-      if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
-        
-        y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-        y_zero <- y_zero_list[[1]]
-        y_zero_line <- y_zero_list[[2]]
-        
-        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
-        y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-        if(is.null(y_expand)) y_expand <- c(0, 0)
-        if(is.null(y_labels)) y_labels <- waiver()
-      }
+  if (!is.null(position)) {
+    if (position == "stack") {
+      data_sum <- data %>%
+        dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var)), .drop = FALSE) %>%
+        dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
+        dplyr::ungroup()
       
-      if (is.numeric(y_var_vctr)) {
-        plot <- plot +      
-          coord_flip() +
-          scale_x_reverse(expand = y_expand,
-                          breaks = y_breaks,
-                          labels = y_labels,
-                          oob = scales::squish)
-        
-        if(y_zero_line == TRUE) {
-          plot <- plot +
-            geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-        }
-      }
-      else if (lubridate::is.Date(y_var_vctr)) {
-        plot <- plot +
-          coord_flip() +
-          scale_x_date(
-            expand = y_expand,
-            breaks = y_breaks,
-            labels = y_labels
-          )
-      }
-      else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
-        plot <- plot +
-          coord_flip() +
-          scale_x_datetime(
-            expand = y_expand,
-            breaks = y_breaks,
-            labels = y_labels
-          )
-      }
-      else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-        if(is.null(y_expand)) y_expand <- waiver()
-        if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
-        
-        plot <- plot +
-          coord_flip() +
-          scale_x_discrete(expand = y_expand, labels = y_labels)
-      }
+      x_var_vctr <- dplyr::pull(data_sum, !!x_var)
+    }
+    # else if (position == "fill") x_var_vctr <- seq(0, 1, 0.1)
+  }
+  
+  if (facet_scales %in% c("fixed", "free_x")) {
+    if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+      
+      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+      y_zero <- y_zero_list[[1]]
+      y_zero_line <- y_zero_list[[2]]
+      
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
+      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
+      if(is.null(y_expand)) y_expand <- c(0, 0)
+      if(is.null(y_labels)) y_labels <- waiver()
     }
     
-    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-    if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
-    x_zero_line <- x_zero_list[[2]]
-    
-    if(is.null(x_expand)) x_expand <- c(0, 0)
-    
-    if (facet_scales %in% c("fixed", "free_y")) {
-      if (all(x_var_vctr == 0, na.rm = TRUE)) {
+    if (is.numeric(y_var_vctr)) {
+      plot <- plot +      
+        coord_flip() +
+        scale_x_reverse(expand = y_expand,
+                        breaks = y_breaks,
+                        labels = y_labels,
+                        oob = scales::squish)
+      
+      if(y_zero_line == TRUE) {
         plot <- plot +
-          scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
+          geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
-      else ({
-        x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = FALSE)
-        x_limits <- c(min(x_breaks), max(x_breaks))
-        
-        plot <- plot +
-          scale_y_continuous(
-            expand = x_expand,
-            breaks = x_breaks,
-            limits = x_limits,
-            trans = x_trans,
-            labels = x_labels,
-            oob = scales::squish
-          )
-      })
     }
-    else if (facet_scales %in% c("free")) {
+    else if (lubridate::is.Date(y_var_vctr)) {
       plot <- plot +
-        scale_y_continuous(expand = x_expand,
-                           trans = x_trans,
-                           labels = x_labels,
-                           oob = scales::squish)
+        coord_flip() +
+        scale_x_date(
+          expand = y_expand,
+          breaks = y_breaks,
+          labels = y_labels
+        )
     }
-    
-    if(facet_scales %in% c("free_y", "free")) {
+    else if (lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       plot <- plot +
-        coord_flip()
+        coord_flip() +
+        scale_x_datetime(
+          expand = y_expand,
+          breaks = y_breaks,
+          labels = y_labels
+        )
     }
-    
-    if(x_zero_line == TRUE) {
+    else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
+      if(is.null(y_expand)) y_expand <- waiver()
+      if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
+      
       plot <- plot +
-        geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+        coord_flip() +
+        scale_x_discrete(expand = y_expand, labels = y_labels)
     }
-    
-    if (x_gridlines_minor == TRUE) {
+  }
+  
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+  x_zero_line <- x_zero_list[[2]]
+  
+  if(is.null(x_expand)) x_expand <- c(0, 0)
+  
+  if (facet_scales %in% c("fixed", "free_y")) {
+    if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
-        theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+        scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
-    
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
-    if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
-    
+    else ({
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = x_trans, zero = x_zero, mobile = FALSE)
+      x_limits <- c(min(x_breaks), max(x_breaks))
+      
+      plot <- plot +
+        scale_y_continuous(
+          expand = x_expand,
+          breaks = x_breaks,
+          limits = x_limits,
+          trans = x_trans,
+          labels = x_labels,
+          oob = scales::squish
+        )
+    })
+  }
+  else if (facet_scales %in% c("free")) {
     plot <- plot +
-      scale_fill_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na()
-      ) +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na()
-      ) +
-      guides(fill = guide_legend(
-        ncol = col_legend_ncol,
-        byrow = TRUE,
-        reverse = TRUE, 
-        title = stringr::str_wrap(col_title, col_title_wrap)
-      ), 
-      col = guide_legend(
-        ncol = col_legend_ncol, nrow = col_legend_nrow, 
-        byrow = TRUE,
-        reverse = TRUE, 
-        title = stringr::str_wrap(col_title, col_title_wrap)
-      )) +
-      labs(
-        title = stringr::str_wrap(title, title_wrap),
-        subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
-        x = stringr::str_wrap(y_title, y_title_wrap),
-        y = stringr::str_wrap(x_title, x_title_wrap),
-        caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
-
-    return(plot)
+      scale_y_continuous(expand = x_expand,
+                         trans = x_trans,
+                         labels = x_labels,
+                         oob = scales::squish)
+  }
+  
+  if(facet_scales %in% c("free_y", "free")) {
+    plot <- plot +
+      coord_flip()
+  }
+  
+  if(x_zero_line == TRUE) {
+    plot <- plot +
+      geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
+  }
+  
+  if (x_gridlines_minor == TRUE) {
+    plot <- plot +
+      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
+  }
+  
+  if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
+  
+  legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
+  
+  plot <- plot +
+    scale_fill_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na()
+    ) +
+    scale_colour_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na()
+    ) +
+    guides(fill = guide_legend(
+      ncol = col_legend_ncol,
+      byrow = TRUE,
+      reverse = legend_reverse, 
+      title = stringr::str_wrap(col_title, col_title_wrap)
+    ), 
+    col = guide_legend(
+      ncol = col_legend_ncol, nrow = col_legend_nrow, 
+      byrow = TRUE,
+      reverse = legend_reverse, 
+      title = stringr::str_wrap(col_title, col_title_wrap)
+    )) +
+    labs(
+      title = stringr::str_wrap(title, title_wrap),
+      subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
+      x = stringr::str_wrap(y_title, y_title_wrap),
+      y = stringr::str_wrap(x_title, x_title_wrap),
+      caption = stringr::str_wrap(caption, caption_wrap)
+    ) +
+    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
+  
+  return(plot)
 }
+
 

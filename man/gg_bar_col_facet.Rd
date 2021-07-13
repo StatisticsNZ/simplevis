@@ -71,7 +71,7 @@ gg_bar_col_facet(
 
 \item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
 
-\item{col_var}{Unquoted categorical variable to colour the bars. Required input.}
+\item{col_var}{Unquoted categorical or numeric variable to colour the bars. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 

@@ -1,3 +1,7 @@
+# simplevis 4.4.7
+
+* Add support for colouring numeric variables to hbar family.
+
 # simplevis 4.4.6
 
 * Removed support for colouring numeric variables to line family.

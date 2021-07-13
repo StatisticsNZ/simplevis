@@ -297,12 +297,12 @@ variable types supported by the different groups of functions are outlined below
 
 A stat of `identity` refers to the value being plotted as it is. A stat of `boxplot` refers to boxplot statistics being calculated from the data, and these plotted.
 
-```{r, message = FALSE, warning = FALSE, fig.width = 7}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 7}
 tibble::tribble(
   ~family, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
   "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
-  "line", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity",
+  "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "identity",
   "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
   "boxplot", "tibble or data.frame", "Any*", "Numeric", "Categorical", "Categorical", "boxplot (or identity)",

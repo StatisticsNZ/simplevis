@@ -4,8 +4,7 @@
 \alias{theme_x_gridlines}
 \title{Theme for graphs with vertical x gridlines.}
 \usage{
-theme_x_gridlines(font_family = "", font_size_title = 11,
-  font_size_body = 10)
+theme_x_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "".}

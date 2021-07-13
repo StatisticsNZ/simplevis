@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.4.6</span>
       </span>
     </div>
 
@@ -158,20 +158,54 @@
     <p>Line ggplot that is coloured, but not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_line_col</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_line_col</span>(
+  <span class='no'>data</span>,
+  <span class='no'>x_var</span>,
+  <span class='no'>y_var</span>,
+  <span class='no'>col_var</span>,
+  <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -313,16 +347,8 @@
       <td><p>For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>col_cuts</th>
-      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
       <th>col_labels</th>
-      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
-    </tr>
-    <tr>
-      <th>col_labels_dp</th>
-      <td><p>For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".</p></td>
+      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_legend_ncol</th>
@@ -331,10 +357,6 @@
     <tr>
       <th>col_legend_nrow</th>
       <td><p>The number of rows in the legend.</p></td>
-    </tr>
-    <tr>
-      <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".</p></td>
     </tr>
     <tr>
       <th>col_na</th>

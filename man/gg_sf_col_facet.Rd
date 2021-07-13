@@ -4,17 +4,43 @@
 \alias{gg_sf_col_facet}
 \title{Simple feature ggplot map that is coloured and facetted.}
 \usage{
-gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
-  pal_rev = FALSE, size_point = 1, size_line = 0.5, alpha = 0.9,
-  borders = NULL, borders_behind = TRUE, borders_pal = "#7f7f7f",
-  borders_size = 0.2, title = NULL, title_wrap = 100,
-  subtitle = NULL, subtitle_wrap = 100, col_cuts = NULL,
-  col_labels = NULL, col_labels_dp = NULL, col_method = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
-  col_title = NULL, col_title_wrap = 25, facet_labels = NULL,
-  facet_na = TRUE, facet_ncol = NULL, facet_nrow = NULL,
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL)
+gg_sf_col_facet(
+  data,
+  col_var,
+  facet_var,
+  text_var = NULL,
+  pal = NULL,
+  pal_rev = FALSE,
+  size_point = 1,
+  size_line = 0.5,
+  alpha = 0.9,
+  borders = NULL,
+  borders_behind = TRUE,
+  borders_pal = "#7f7f7f",
+  borders_size = 0.2,
+  title = NULL,
+  title_wrap = 100,
+  subtitle = NULL,
+  subtitle_wrap = 100,
+  col_cuts = NULL,
+  col_labels = NULL,
+  col_labels_dp = NULL,
+  col_method = NULL,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_na = TRUE,
+  col_title = NULL,
+  col_title_wrap = 25,
+  facet_labels = NULL,
+  facet_na = TRUE,
+  facet_ncol = NULL,
+  facet_nrow = NULL,
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "",
+  font_size_title = NULL,
+  font_size_body = NULL
+)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}

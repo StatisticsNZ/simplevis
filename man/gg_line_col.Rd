@@ -4,20 +4,54 @@
 \alias{gg_line_col}
 \title{Line ggplot that is coloured.}
 \usage{
-gg_line_col(data, x_var, y_var, col_var, text_var = NULL, pal = NULL,
-  pal_rev = FALSE, size_point = 1, size_line = 0.5, title = NULL,
-  title_wrap = 100, subtitle = NULL, subtitle_wrap = 100,
-  x_balance = FALSE, x_expand = NULL, x_labels = NULL, x_na = TRUE,
-  x_pretty_n = 6, x_rev = FALSE, x_title = NULL, x_title_wrap = 50,
-  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
-  y_expand = NULL, y_gridlines_minor = FALSE, y_labels = waiver(),
-  y_na = TRUE, y_pretty_n = 5, y_title = NULL, y_title_wrap = 50,
-  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
-  col_cuts = NULL, col_labels = NULL, col_labels_dp = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_method = NULL,
-  col_na = TRUE, col_title = NULL, col_title_wrap = 25,
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+gg_line_col(
+  data,
+  x_var,
+  y_var,
+  col_var,
+  text_var = NULL,
+  pal = NULL,
+  pal_rev = FALSE,
+  size_point = 1,
+  size_line = 0.5,
+  title = NULL,
+  title_wrap = 100,
+  subtitle = NULL,
+  subtitle_wrap = 100,
+  x_balance = FALSE,
+  x_expand = NULL,
+  x_labels = NULL,
+  x_na = TRUE,
+  x_pretty_n = 6,
+  x_rev = FALSE,
+  x_title = NULL,
+  x_title_wrap = 50,
+  x_zero = FALSE,
+  x_zero_line = NULL,
+  y_balance = FALSE,
+  y_expand = NULL,
+  y_gridlines_minor = FALSE,
+  y_labels = waiver(),
+  y_na = TRUE,
+  y_pretty_n = 5,
+  y_title = NULL,
+  y_title_wrap = 50,
+  y_trans = "identity",
+  y_zero = FALSE,
+  y_zero_line = NULL,
+  col_labels = NULL,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_na = TRUE,
+  col_title = NULL,
+  col_title_wrap = 25,
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "",
+  font_size_title = NULL,
+  font_size_body = NULL,
+  mobile = FALSE
+)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -88,17 +122,11 @@ gg_line_col(data, x_var, y_var, col_var, text_var = NULL, pal = NULL,
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.}
-
-\item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
+\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
-
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 

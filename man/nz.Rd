@@ -4,7 +4,9 @@
 \name{nz}
 \alias{nz}
 \title{New Zealand coastline.}
-\format{An \code{sf} object.}
+\format{
+An \code{sf} object.
+}
 \usage{
 nz
 }

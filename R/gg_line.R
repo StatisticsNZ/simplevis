@@ -107,7 +107,7 @@ gg_line <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
-
+  
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
   
@@ -122,7 +122,7 @@ gg_line <- function(data,
   
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
-
+  
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
       data <- data %>%
@@ -243,7 +243,7 @@ gg_line <- function(data,
     plot <- plot +
       theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
   }
-
+  
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -305,12 +305,9 @@ gg_line <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
-#' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
+#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
+#' @param col_legend_nrow The number of rows in the legend. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -371,12 +368,9 @@ gg_line_col <- function(data,
                         y_trans = "identity",
                         y_zero = FALSE,
                         y_zero_line = NULL,
-                        col_cuts = NULL,
                         col_labels = NULL,
-                        col_labels_dp = NULL,
                         col_legend_ncol = NULL,
                         col_legend_nrow = NULL,
-                        col_method = NULL,
                         col_na = TRUE,
                         col_title = NULL,
                         col_title_wrap = 25,
@@ -415,6 +409,7 @@ gg_line_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
   
   if(is.logical(x_var_vctr)) {
     data <- data %>% 
@@ -447,52 +442,13 @@ gg_line_col <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
+  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+    col_n <- length(levels(col_var_vctr))
+  }
+  else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(col_method)) {
-    if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
-  }
-  
-  if(col_method %in% c("quantile", "bin")) {
-    if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
-      else {
-        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-      }  
-      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      if(is.null(col_labels_dp)) col_labels_dp <- 1
-    }
-    else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-      else({
-        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-      })
-      if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
-    }
-    
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-    
-    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
-    
-    col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
-    else pal <- pal[1:col_n]
-  }
-  else if (col_method == "category") {
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      col_n <- length(levels(col_var_vctr))
-    }
-    else col_n <- length(unique(col_var_vctr))
-    
-    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-    else pal <- pal[1:col_n]
-    
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
-  }
+  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -504,18 +460,10 @@ gg_line_col <- function(data,
       font_size_title = font_size_title
     ) 
   
-  if(col_method == "category") {
-    plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
-      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-                 size = size_point, alpha = 1)
-  }
-  else if(col_method != "category") {
-    plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = NA), size = size_line) +
-      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = NA, text = !!text_var),
-                 size = size_point, alpha = 1)
-  }
+  plot <- plot +
+    geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
+    geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
+               size = size_point, alpha = 1)
   
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
     
@@ -932,7 +880,7 @@ gg_line_facet <- function(data,
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
-
+  
   return(plot)
 }
 
@@ -973,15 +921,12 @@ gg_line_facet <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.   
-#' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
+#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots.  
@@ -1045,12 +990,9 @@ gg_line_col_facet <- function(data,
                               y_title_wrap = 50,
                               y_zero = FALSE,
                               y_zero_line = NULL,
-                              col_cuts = NULL,
                               col_labels = NULL,
-                              col_labels_dp = NULL,
                               col_legend_ncol = NULL,
                               col_legend_nrow = NULL,
-                              col_method = NULL,
                               col_na = TRUE,
                               col_title = NULL,
                               col_title_wrap = 25,
@@ -1099,6 +1041,7 @@ gg_line_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
   
   if(is.logical(x_var_vctr)) {
@@ -1139,51 +1082,13 @@ gg_line_col_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
-  if (is.null(col_method)) {
-    if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+    col_n <- length(levels(col_var_vctr))
   }
+  else col_n <- length(unique(col_var_vctr))
   
-  if(col_method %in% c("quantile", "bin")) {
-    if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
-      else {
-        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-      }  
-      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      if(is.null(col_labels_dp)) col_labels_dp <- 1
-    }
-    else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
-      else({
-        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-      })
-      if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
-    }
-    
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
-    
-    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
-    
-    col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
-    else pal <- pal[1:col_n]
-  }
-  else if (col_method == "category") {
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      col_n <- length(levels(col_var_vctr))
-    }
-    else col_n <- length(unique(col_var_vctr))
-    
-    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-    else pal <- pal[1:col_n]
-    
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
-  }
+  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -1195,19 +1100,10 @@ gg_line_col_facet <- function(data,
       font_size_title = font_size_title
     ) 
   
-  if(col_method == "category") {
-    plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
-      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-                 size = size_point, alpha = 1)
-  }
-  else if(col_method != "category") {
-    plot <- plot +
-      geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = NA), size = size_line) +
-      geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = NA, text = !!text_var),
-                 size = size_point, alpha = 1)
-    
-  }
+  plot <- plot +
+    geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
+    geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
+               size = size_point, alpha = 1)
   
   if (facet_scales %in% c("fixed", "free_y")) {
     if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
@@ -1328,4 +1224,3 @@ gg_line_col_facet <- function(data,
   
   return(plot)
 }
-

@@ -4,61 +4,22 @@
 \alias{gg_boxplot_col_facet}
 \title{Boxplot ggplot that is coloured}
 \usage{
-gg_boxplot_col_facet(
-  data,
-  x_var,
-  y_var = NULL,
-  col_var,
-  facet_var,
-  stat = "boxplot",
-  pal = NULL,
-  pal_rev = FALSE,
-  width = 0.5,
-  alpha = 1,
-  size_line = 0.5,
-  size_point = 1,
-  title = NULL,
-  title_wrap = 100,
-  subtitle = NULL,
-  subtitle_wrap = 100,
-  x_balance = FALSE,
-  x_labels = NULL,
-  x_na = TRUE,
-  x_pretty_n = 3,
-  x_expand = NULL,
-  x_rev = FALSE,
-  x_title = NULL,
-  x_title_wrap = 50,
-  x_zero = FALSE,
-  x_zero_line = NULL,
-  y_balance = FALSE,
-  y_expand = NULL,
-  y_gridlines_minor = FALSE,
-  y_labels = waiver(),
-  y_na = TRUE,
-  y_pretty_n = 4,
-  y_title = NULL,
-  y_title_wrap = 50,
-  y_trans = "identity",
-  y_zero = FALSE,
-  y_zero_line = NULL,
-  col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_na = TRUE,
-  col_title = NULL,
-  col_title_wrap = 25,
-  facet_labels = NULL,
-  facet_na = TRUE,
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_scales = "fixed",
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL
-)
+gg_boxplot_col_facet(data, x_var, y_var = NULL, col_var, facet_var,
+  stat = "boxplot", pal = NULL, pal_rev = FALSE, width = 0.5,
+  alpha = 1, size_line = 0.5, size_point = 1, title = NULL,
+  title_wrap = 100, subtitle = NULL, subtitle_wrap = 100,
+  x_balance = FALSE, x_labels = NULL, x_na = TRUE, x_pretty_n = 3,
+  x_expand = NULL, x_rev = FALSE, x_title = NULL,
+  x_title_wrap = 50, x_zero = FALSE, x_zero_line = NULL,
+  y_balance = FALSE, y_expand = NULL, y_gridlines_minor = FALSE,
+  y_labels = waiver(), y_na = TRUE, y_pretty_n = 4, y_title = NULL,
+  y_title_wrap = 50, y_trans = "identity", y_zero = FALSE,
+  y_zero_line = NULL, col_labels = NULL, col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_na = TRUE, col_title = NULL,
+  col_title_wrap = 25, facet_labels = NULL, facet_na = TRUE,
+  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -135,7 +96,7 @@ gg_boxplot_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{col_labels}{A vector of colour labels.}
 
 \item{col_legend_ncol}{The number of columns in the legend. Defaults to 1.}
 

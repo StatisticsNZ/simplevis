@@ -4,60 +4,22 @@
 \alias{gg_bar_col}
 \title{Vertical bar ggplot that is coloured.}
 \usage{
-gg_bar_col(
-  data,
-  x_var,
-  y_var,
-  col_var,
-  text_var = NULL,
-  position = NULL,
-  pal = NULL,
-  pal_rev = FALSE,
-  width = 0.75,
-  alpha = 1,
-  size_line = 0.5,
-  title = NULL,
-  title_wrap = 100,
-  subtitle = NULL,
-  subtitle_wrap = 100,
-  x_balance = FALSE,
-  x_expand = NULL,
-  x_labels = NULL,
-  x_na = TRUE,
-  x_pretty_n = 6,
-  x_rev = FALSE,
-  x_title = NULL,
-  x_title_wrap = 50,
-  x_zero = FALSE,
-  x_zero_line = NULL,
-  y_balance = FALSE,
-  y_expand = NULL,
-  y_gridlines_minor = FALSE,
-  y_labels = waiver(),
-  y_na = TRUE,
-  y_pretty_n = 5,
-  y_title = NULL,
-  y_title_wrap = 50,
-  y_trans = "identity",
-  y_zero = TRUE,
-  y_zero_line = NULL,
-  col_cuts = NULL,
-  col_labels = NULL,
-  col_labels_dp = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_method = NULL,
-  col_na = TRUE,
-  col_rev = FALSE,
-  col_title = NULL,
-  col_title_wrap = 25,
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
-)
+gg_bar_col(data, x_var, y_var, col_var, text_var = NULL,
+  position = NULL, pal = NULL, pal_rev = FALSE, width = 0.75,
+  alpha = 1, size_line = 0.5, title = NULL, title_wrap = 100,
+  subtitle = NULL, subtitle_wrap = 100, x_balance = FALSE,
+  x_expand = NULL, x_labels = NULL, x_na = TRUE, x_pretty_n = 6,
+  x_rev = FALSE, x_title = NULL, x_title_wrap = 50, x_zero = FALSE,
+  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
+  y_gridlines_minor = FALSE, y_labels = waiver(), y_na = TRUE,
+  y_pretty_n = 5, y_title = NULL, y_title_wrap = 50,
+  y_trans = "identity", y_zero = TRUE, y_zero_line = NULL,
+  col_cuts = NULL, col_labels = NULL, col_labels_dp = NULL,
+  col_legend_ncol = NULL, col_legend_nrow = NULL, col_method = NULL,
+  col_na = TRUE, col_rev = FALSE, col_title = NULL,
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
+  font_family = "", font_size_title = NULL, font_size_body = NULL,
+  mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -134,7 +96,7 @@ gg_bar_col(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case, and numeric variable labels to pretty labels with an internal function. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A vector of colour labels.}
 
 \item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 

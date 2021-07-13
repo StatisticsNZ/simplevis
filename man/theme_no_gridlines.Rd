@@ -4,7 +4,8 @@
 \alias{theme_no_gridlines}
 \title{Theme for graphs with no gridlines.}
 \usage{
-theme_no_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
+theme_no_gridlines(font_family = "", font_size_title = 11,
+  font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "".}

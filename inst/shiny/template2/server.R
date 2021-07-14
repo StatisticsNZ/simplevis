@@ -120,7 +120,7 @@ shinyServer(function(input, output, session) {
     table_data(),
     filter = "top",
     rownames = FALSE,
-    options = list(scrollX = TRUE)
+    options = list(pageLength = ifelse(input$isMobile == FALSE, 10, 5), scrollX = TRUE)
   )
   
   ### download ###

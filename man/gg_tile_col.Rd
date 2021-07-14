@@ -6,7 +6,7 @@
 \usage{
 gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
   text_var = NULL, pal = NULL, pal_rev = FALSE, pal_label = NULL,
-  width = 1, alpha = 1, size_line = 0.5, size_label = 3,
+  width = 1, alpha = 1, size_line = 0.5, size_label = 3.5,
   title = NULL, title_wrap = 100, subtitle = NULL,
   subtitle_wrap = 100, x_expand = NULL, x_labels = NULL,
   x_na = TRUE, x_rev = FALSE, x_title = NULL, x_title_wrap = 50,
@@ -43,7 +43,7 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 
 \item{size_line}{The size of the outlines of tiles.}
 
-\item{size_label}{The size of the of labels. Defaults to 3.}
+\item{size_label}{The size of the of labels. Defaults to 3.5.}
 
 \item{title}{Title string. Defaults to NULL.}
 

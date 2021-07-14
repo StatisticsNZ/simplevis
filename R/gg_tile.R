@@ -12,7 +12,7 @@
 #' @param width Width of tiles. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
-#' @param size_label The size of the of labels. Defaults to 3.
+#' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -74,7 +74,7 @@ gg_tile_col <- function(data,
                        width = 1,
                        alpha = 1,
                        size_line = 0.5,
-                       size_label = 3,
+                       size_label = 3.5,
                        title = NULL,
                        title_wrap = 100,
                        subtitle = NULL,
@@ -215,7 +215,7 @@ gg_tile_col <- function(data,
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
     col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
     else pal <- pal[1:col_n]
   }
   else if (col_method == "category") {
@@ -332,7 +332,7 @@ gg_tile_col <- function(data,
 #' @param width Width of tiles. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
-#' @param size_label The size of the of labels. Defaults to 3.
+#' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -403,7 +403,7 @@ gg_tile_col_facet <- function(data,
                               width = 1,
                               alpha = 1,
                               size_line = 0.5,
-                              size_label = 3,
+                              size_label = 3.5,
                               title = NULL,
                               title_wrap = 100,
                               subtitle = NULL,
@@ -562,7 +562,7 @@ gg_tile_col_facet <- function(data,
     if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, col_labels_dp)
     
     col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
     else pal <- pal[1:col_n]
   }
   else if (col_method == "category") {

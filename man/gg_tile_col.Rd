@@ -5,17 +5,18 @@
 \title{Tile ggplot that is coloured.}
 \usage{
 gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
-  text_var = NULL, pal = NULL, pal_rev = FALSE, width = 1,
-  alpha = 1, size_line = 0.5, title = NULL, title_wrap = 100,
-  subtitle = NULL, subtitle_wrap = 100, x_expand = NULL,
-  x_labels = NULL, x_na = TRUE, x_rev = FALSE, x_title = NULL,
-  x_title_wrap = 50, y_expand = NULL, y_labels = waiver(),
-  y_na = TRUE, y_rev = FALSE, y_title = NULL, y_title_wrap = 50,
-  col_cuts = NULL, col_labels = NULL, col_labels_dp = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_method = NULL,
-  col_na = TRUE, col_title = NULL, col_title_wrap = 25,
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+  text_var = NULL, pal = NULL, pal_rev = FALSE, pal_label = NULL,
+  width = 1, alpha = 1, size_line = 0.5, size_label = 3,
+  title = NULL, title_wrap = 100, subtitle = NULL,
+  subtitle_wrap = 100, x_expand = NULL, x_labels = NULL,
+  x_na = TRUE, x_rev = FALSE, x_title = NULL, x_title_wrap = 50,
+  y_expand = NULL, y_labels = waiver(), y_na = TRUE, y_rev = FALSE,
+  y_title = NULL, y_title_wrap = 50, col_cuts = NULL,
+  col_labels = NULL, col_labels_dp = NULL, col_legend_ncol = NULL,
+  col_legend_nrow = NULL, col_method = NULL, col_na = TRUE,
+  col_title = NULL, col_title_wrap = 25, caption = NULL,
+  caption_wrap = 80, font_family = "", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -34,11 +35,15 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
+\item{pal_label}{Hex code for the label font colour.}
+
 \item{width}{Width of tiles. Defaults to 1.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
 \item{size_line}{The size of the outlines of tiles.}
+
+\item{size_label}{The size of the of labels. Defaults to 3.}
 
 \item{title}{Title string. Defaults to NULL.}
 

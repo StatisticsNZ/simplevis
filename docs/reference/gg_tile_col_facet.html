@@ -160,13 +160,13 @@
 
     <pre class="usage"><span class='fu'>gg_tile_col_facet</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='no'>y_var</span>, <span class='no'>col_var</span>, <span class='no'>facet_var</span>,
   <span class='kw'>label_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>size_label</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -214,6 +214,10 @@
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
+      <th>pal_label</th>
+      <td><p>Hex code for the label font colour.</p></td>
+    </tr>
+    <tr>
       <th>width</th>
       <td><p>Width of tiles. Defaults to 1.</p></td>
     </tr>
@@ -224,6 +228,10 @@
     <tr>
       <th>size_line</th>
       <td><p>The size of the outlines of tiles.</p></td>
+    </tr>
+    <tr>
+      <th>size_label</th>
+      <td><p>The size of the of labels. Defaults to 3.</p></td>
     </tr>
     <tr>
       <th>title</th>

@@ -8,9 +8,11 @@
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param pal_label Hex code for the label font colour.
 #' @param width Width of tiles. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
+#' @param size_label The size of the of labels. Defaults to 3.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -68,9 +70,11 @@ gg_tile_col <- function(data,
                        text_var = NULL,
                        pal = NULL,
                        pal_rev = FALSE,
+                       pal_label = NULL,
                        width = 1,
                        alpha = 1,
                        size_line = 0.5,
+                       size_label = 3,
                        title = NULL,
                        title_wrap = 100,
                        subtitle = NULL,
@@ -227,6 +231,8 @@ gg_tile_col <- function(data,
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
+  
+  if(is.null(pal_label)) pal_label <- "#FFFFFF"
 
   plot <- ggplot(data) +
     theme_no_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -239,7 +245,7 @@ gg_tile_col <- function(data,
     
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), col = "#FFFFFF")
+      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
   }
 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -322,9 +328,11 @@ gg_tile_col <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param pal_label Hex code for the label font colour.
 #' @param width Width of tiles. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
+#' @param size_label The size of the of labels. Defaults to 3.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -391,9 +399,11 @@ gg_tile_col_facet <- function(data,
                               text_var = NULL,
                               pal = NULL,
                               pal_rev = FALSE,
+                              pal_label = NULL,
                               width = 1,
                               alpha = 1,
                               size_line = 0.5,
+                              size_label = 3,
                               title = NULL,
                               title_wrap = 100,
                               subtitle = NULL,
@@ -569,6 +579,8 @@ gg_tile_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  if(is.null(pal_label)) pal_label <- "#FFFFFF"
+  
   plot <- ggplot(data) +
     theme_no_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
@@ -580,7 +592,7 @@ gg_tile_col_facet <- function(data,
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), col = "#FFFFFF")
+      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
   }
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){

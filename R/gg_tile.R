@@ -51,14 +51,14 @@
 #' 
 #' plot_data <- penguins %>% 
 #'   group_by(species, sex) %>% 
-#'     summarise(body_mass_g = round(mean(body_mass_g, na.rm = TRUE)), 0) %>% 
-#'     mutate(label = glue::glue("{prettyNum(body_mass_g, big.mark = ',')} g"))
-#' 
+#'   summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) %>% 
+#'   mutate(label = glue::glue("{bill_length_mm} mm"))
+#'   
 #' gg_tile_col(plot_data, 
-#'             x_var = sex, 
-#'             y_var = species, 
-#'             col_var = body_mass_g, 
-#'             label_var = label) 
+#'   x_var = sex, 
+#'   y_var = species, 
+#'   col_var = bill_length_mm, 
+#'   label_var = label) 
 #'             
 gg_tile_col <- function(data,
                        x_var,
@@ -369,19 +369,19 @@ gg_tile_col <- function(data,
 #' library(palmerpenguins)
 #' 
 #' plot_data <- penguins %>% 
-#'   group_by(species, sex, island) %>% 
-#'   summarise(body_mass_kg = round(mean(body_mass_g, na.rm = TRUE) / 1000, 1)) %>%
-#'   mutate(label = glue::glue("{prettyNum(body_mass_kg, big.mark = ',')} kg"))
-#' 
-#'  gg_tile_col_facet(plot_data,
-#'             x_var = sex,
-#'             y_var = island,
-#'             col_var = body_mass_kg,
-#'             facet_var = species,
-#'             label_var = label, 
-#'             x_na = FALSE, 
-#'             pal_rev = TRUE)
-#'             
+#'     group_by(species, sex, island) %>% 
+#'     summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) %>% 
+#'     mutate(label = glue::glue("{bill_length_mm} mm"))
+#'     
+#' gg_tile_col_facet(plot_data,
+#'     x_var = sex,
+#'     y_var = island,
+#'     col_var = bill_length_mm,
+#'     facet_var = species,
+#'     label_var = label, 
+#'     x_na = FALSE, 
+#'     pal_rev = TRUE)
+#'     
 gg_tile_col_facet <- function(data,
                               x_var,
                               y_var,

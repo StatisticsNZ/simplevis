@@ -108,7 +108,7 @@ tile
 plot_data <- penguins %>% 
   group_by(species, sex) %>% 
   summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) %>% 
-  mutate(label = glue::glue("{prettyNum(bill_length_mm, big.mark = ',')} mm"))
+  mutate(label = glue::glue("{bill_length_mm} mm"))
 
 gg_tile_col(plot_data, 
             x_var = sex, 

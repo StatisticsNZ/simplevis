@@ -129,17 +129,17 @@ library(dplyr)
 library(palmerpenguins)
 
 plot_data <- penguins \%>\% 
-  group_by(species, sex, island) \%>\% 
-  summarise(body_mass_kg = round(mean(body_mass_g, na.rm = TRUE) / 1000, 1)) \%>\%
-  mutate(label = glue::glue("{prettyNum(body_mass_kg, big.mark = ',')} kg"))
-
- gg_tile_col_facet(plot_data,
-            x_var = sex,
-            y_var = island,
-            col_var = body_mass_kg,
-            facet_var = species,
-            label_var = label, 
-            x_na = FALSE, 
-            pal_rev = TRUE)
-            
+    group_by(species, sex, island) \%>\% 
+    summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) \%>\% 
+    mutate(label = glue::glue("{bill_length_mm} mm"))
+    
+gg_tile_col_facet(plot_data,
+    x_var = sex,
+    y_var = island,
+    col_var = bill_length_mm,
+    facet_var = species,
+    label_var = label, 
+    x_na = FALSE, 
+    pal_rev = TRUE)
+    
 }

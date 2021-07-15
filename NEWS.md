@@ -1,5 +1,7 @@
 # simplevis 4.5.0 
 
+* Changed numeric col_method default to "bin"
+* Added col_pretty_n argument for "bin".
 * Bumped version.
 
 # simplevis 4.4.7

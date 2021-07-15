@@ -107,10 +107,21 @@ gg_point_col(plot_data,
              x_var = carat, 
              y_var = price, 
              col_var = z,
-             col_method = "quantile",
-             col_cuts = c(0, 0.25, 0.5, 0.75, 1))
+             col_method = "bin")
 ```
 
+
+```{r}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.01)
+
+gg_point_col(plot_data, 
+             x_var = carat, 
+             y_var = price, 
+             col_var = z,
+             col_method = "bin",
+             col_cuts = c(0, 3, 4, Inf))
+```
 
 ```{r}
 plot_data <- ggplot2::diamonds %>% 
@@ -125,3 +136,4 @@ gg_point_col(plot_data,
              pal = pals::parula(6))
 ```
 
+From version 4.5, you will be able to select a `col_pretty_n` to use the `pretty` algorithm to get it to aim for a number of pretty bin breaks. 

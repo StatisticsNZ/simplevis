@@ -162,7 +162,7 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,11 +221,15 @@
     </tr>
     <tr>
       <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
+      <td><p>The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".</p></td>
     </tr>
     <tr>
       <th>col_na</th>
       <td><p>TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>col_pretty_n</th>
+      <td><p>For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.</p></td>
     </tr>
     <tr>
       <th>map_id</th>

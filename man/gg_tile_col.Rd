@@ -14,9 +14,9 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
   y_title = NULL, y_title_wrap = 50, col_cuts = NULL,
   col_labels = NULL, col_labels_dp = NULL, col_legend_ncol = NULL,
   col_legend_nrow = NULL, col_method = NULL, col_na = TRUE,
-  col_title = NULL, col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL, mobile = FALSE)
+  col_pretty_n = 6, col_title = NULL, col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -87,9 +87,11 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 
 \item{col_legend_nrow}{The number of rows in the legend.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

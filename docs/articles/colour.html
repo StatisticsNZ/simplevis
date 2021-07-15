@@ -197,10 +197,19 @@
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
-             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
-             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>))</pre></body></html></div>
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
+
+<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
+             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">Inf</span>))</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
@@ -210,7 +219,8 @@
              <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
              <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>),
              <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/continuous.html">parula</a></span>(<span class="fl">6</span>))</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
+<p><img src="colour_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+<p>From version 4.5, you will be able to select a <code>col_pretty_n</code> to use the <code>pretty</code> algorithm to get it to aim for a number of pretty bin breaks.</p>
 </div>
   </div>
 

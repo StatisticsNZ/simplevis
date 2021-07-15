@@ -17,11 +17,11 @@ gg_point_col_facet(data, x_var, y_var, col_var, facet_var,
   y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
   col_cuts = NULL, col_labels = NULL, col_labels_dp = NULL,
   col_legend_ncol = NULL, col_legend_nrow = NULL, col_method = NULL,
-  col_na = TRUE, col_title = NULL, col_title_wrap = 25,
-  facet_labels = NULL, facet_na = TRUE, facet_ncol = NULL,
-  facet_nrow = NULL, facet_scales = "fixed", caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL)
+  col_na = TRUE, col_pretty_n = 6, col_title = NULL,
+  col_title_wrap = 25, facet_labels = NULL, facet_na = TRUE,
+  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -110,9 +110,11 @@ gg_point_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_legend_nrow}{The number of rows in the legend.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "quantile".}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

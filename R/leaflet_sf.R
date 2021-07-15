@@ -212,8 +212,9 @@ leaflet_sf <- function(data,
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels_dp For numeric colour variables, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -246,6 +247,7 @@ leaflet_sf_col <- function(data,
                            col_labels_dp = NULL,
                            col_method = NULL,
                            col_na = TRUE,
+                           col_pretty_n = 6,
                            map_id = "map"
 ) {
   
@@ -278,7 +280,7 @@ leaflet_sf_col <- function(data,
   
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+    else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
   if (col_method == "category") {
@@ -298,7 +300,7 @@ leaflet_sf_col <- function(data,
                            na.color = pal_na())
   }
   else if (col_method == "bin") {
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_pretty_n)
     else if (!is.null(col_cuts)) {
       if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
       if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")

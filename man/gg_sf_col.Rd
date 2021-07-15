@@ -10,10 +10,10 @@ gg_sf_col(data, col_var, text_var = NULL, pal = NULL,
   borders_size = 0.2, title = NULL, title_wrap = 100,
   subtitle = NULL, subtitle_wrap = 100, col_cuts = NULL,
   col_labels = NULL, col_labels_dp = NULL, col_legend_ncol = NULL,
-  col_legend_nrow = NULL, col_na = TRUE, col_method = NULL,
-  col_title = NULL, col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL, mobile = FALSE)
+  col_legend_nrow = NULL, col_na = TRUE, col_pretty_n = 6,
+  col_method = NULL, col_title = NULL, col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -60,7 +60,9 @@ gg_sf_col(data, col_var, text_var = NULL, pal = NULL,
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
+
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

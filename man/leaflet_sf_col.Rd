@@ -8,7 +8,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, popup_vars_vctr = NULL,
   pal = NULL, pal_rev = FALSE, size_point = 2, size_line = 2,
   alpha = 0.9, basemap = "light", title = NULL, col_cuts = NULL,
   col_labels_dp = NULL, col_method = NULL, col_na = TRUE,
-  map_id = "map")
+  col_pretty_n = 6, map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
@@ -37,9 +37,11 @@ leaflet_sf_col(data, col_var, label_var = NULL, popup_vars_vctr = NULL,
 
 \item{col_labels_dp}{For numeric colour variables, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." if categorical colour variable, NULL results in "category". If numeric variable, defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

@@ -154,7 +154,8 @@ gg_sf <- function(data,
 #' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -205,6 +206,7 @@ gg_sf_col <- function(data,
                       col_legend_ncol = NULL,
                       col_legend_nrow = NULL,
                       col_na = TRUE,
+                      col_pretty_n = 6,
                       col_method = NULL,
                       col_title = NULL,
                       col_title_wrap = 25,
@@ -266,7 +268,7 @@ gg_sf_col <- function(data,
   
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+    else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
   if(col_method %in% c("quantile", "bin")) {
@@ -281,7 +283,7 @@ gg_sf_col <- function(data,
       if(is.null(col_labels_dp)) col_labels_dp <- 1
     }
     else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_pretty_n)
       else({
         if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
@@ -583,7 +585,8 @@ gg_sf_facet <- function(data,
 #' @param col_labels_dp For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -627,6 +630,7 @@ gg_sf_col_facet <- function(data,
                             col_legend_ncol = NULL,
                             col_legend_nrow = NULL,
                             col_na = TRUE,
+                            col_pretty_n = 6,
                             col_title = NULL,
                             col_title_wrap = 25,
                             facet_labels = NULL,
@@ -703,7 +707,7 @@ gg_sf_col_facet <- function(data,
   
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "quantile"
+    else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
   if(col_method %in% c("quantile", "bin")) {
@@ -718,7 +722,7 @@ gg_sf_col_facet <- function(data,
       if(is.null(col_labels_dp)) col_labels_dp <- 1
     }
     else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr)
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_pretty_n)
       else({
         if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")

@@ -11,10 +11,10 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
   subtitle = NULL, subtitle_wrap = 100, col_cuts = NULL,
   col_labels = NULL, col_labels_dp = NULL, col_method = NULL,
   col_legend_ncol = NULL, col_legend_nrow = NULL, col_na = TRUE,
-  col_title = NULL, col_title_wrap = 25, facet_labels = NULL,
-  facet_na = TRUE, facet_ncol = NULL, facet_nrow = NULL,
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL)
+  col_pretty_n = 6, col_title = NULL, col_title_wrap = 25,
+  facet_labels = NULL, facet_na = TRUE, facet_ncol = NULL,
+  facet_nrow = NULL, caption = NULL, caption_wrap = 80,
+  font_family = "", font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -57,13 +57,15 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
 
 \item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
-\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." NULL results in "category", if categorical or "quantile" if numeric col_var. Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).}
+\item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_legend_ncol}{The number of columns in the legend.}
 
 \item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

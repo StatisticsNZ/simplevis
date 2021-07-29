@@ -4,33 +4,31 @@
 \alias{sv_density_max_col_facet}
 \title{Calculate the max density in a gg_density_col_facet(..., position == "identity") plot.}
 \usage{
-sv_density_max_col_facet(data, x_var, col_var, facet_var,
-  density_bw = "nrd0", density_adjust = 1,
-  density_kernel = "gaussian", density_n = 512, density_trim = FALSE)
+sv_density_max_col_facet(
+  data,
+  x_var,
+  col_var,
+  facet_var,
+  density_bw = "nrd0",
+  density_adjust = 1,
+  density_kernel = "gaussian",
+  density_n = 512,
+  density_trim = FALSE
+)
 
-sv_density_max_col_facet(data, x_var, col_var, facet_var,
-  density_bw = "nrd0", density_adjust = 1,
-  density_kernel = "gaussian", density_n = 512, density_trim = FALSE)
+sv_density_max_col_facet(
+  data,
+  x_var,
+  col_var,
+  facet_var,
+  density_bw = "nrd0",
+  density_adjust = 1,
+  density_kernel = "gaussian",
+  density_n = 512,
+  density_trim = FALSE
+)
 }
 \arguments{
-\item{data}{A tibble or dataframe. Required input.}
-
-\item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
-
-\item{col_var}{Unquoted categorical variable to colour density areas. Required input.}
-
-\item{facet_var}{Unquoted categorical variable to facet by. Required input.}
-
-\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
-
-\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
-
-\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
-
-\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
-
-\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
-
 \item{data}{A tibble or dataframe. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}

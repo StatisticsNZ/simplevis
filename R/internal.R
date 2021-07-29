@@ -72,7 +72,9 @@ sv_numeric_breaks_h <- function(var_vctr,
 #' @param labels_dp The number of digits to round the legend labels.
 #' @return A vector of labels.
 #' @keywords internal
-sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = 1) {
+sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = NULL) {
+  
+  if(is.null(labels_dp)) bin_labels_dp <- sv_max_dp(cuts_vctr)
   
   labels <- vector("character", 0)
   
@@ -100,6 +102,7 @@ sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = 1) {
         labels,
         paste0("\u2265", cuts_vctr[length(cuts_vctr) - 1]))
   }
+  return(labels)
 }
 
 

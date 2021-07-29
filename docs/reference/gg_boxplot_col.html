@@ -158,20 +158,56 @@
     <p>Boxplot ggplot that is coloured</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_boxplot_col</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>col_var</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_boxplot_col</span>(
+  <span class='no'>data</span>,
+  <span class='no'>x_var</span>,
+  <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>col_var</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>y_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -391,9 +427,9 @@
   <span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/layout.html'>layout</a></span>(<span class='kw'>boxmode</span> <span class='kw'>=</span> <span class='st'>"group"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='plotly_camera.html'>plotly_camera</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'layout' objects don't have these attributes: 'boxmode'</span>
 #&gt; <span class='warning'>Valid attributes include:</span>
-#&gt; <span class='warning'>'font', 'title', 'uniformtext', 'autosize', 'width', 'height', 'margin', 'computed', 'paper_bgcolor', 'plot_bgcolor', 'separators', 'hidesources', 'showlegend', 'colorway', 'datarevision', 'uirevision', 'editrevision', 'selectionrevision', 'template', 'modebar', 'newshape', 'activeshape', 'meta', 'transition', '_deprecated', 'clickmode', 'dragmode', 'hovermode', 'hoverdistance', 'spikedistance', 'hoverlabel', 'selectdirection', 'grid', 'calendar', 'xaxis', 'yaxis', 'ternary', 'scene', 'geo', 'mapbox', 'polar', 'radialaxis', 'angularaxis', 'direction', 'orientation', 'editType', 'legend', 'annotations', 'shapes', 'images', 'updatemenus', 'sliders', 'colorscale', 'coloraxis', 'metasrc', 'barmode', 'bargap', 'mapType'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'layout' objects don't have these attributes: 'boxmode'</span>
+#&gt; <span class='warning'>'font', 'title', 'uniformtext', 'autosize', 'width', 'height', 'margin', 'computed', 'paper_bgcolor', 'plot_bgcolor', 'autotypenumbers', 'separators', 'hidesources', 'showlegend', 'colorway', 'datarevision', 'uirevision', 'editrevision', 'selectionrevision', 'template', 'newshape', 'activeshape', 'meta', 'transition', '_deprecated', 'clickmode', 'dragmode', 'hovermode', 'hoverdistance', 'spikedistance', 'hoverlabel', 'selectdirection', 'grid', 'calendar', 'xaxis', 'yaxis', 'ternary', 'scene', 'geo', 'mapbox', 'polar', 'legend', 'annotations', 'shapes', 'images', 'updatemenus', 'sliders', 'editType', 'colorscale', 'coloraxis', 'modebar', 'metasrc', 'barmode', 'bargap', 'mapType'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'layout' objects don't have these attributes: 'boxmode'</span>
 #&gt; <span class='warning'>Valid attributes include:</span>
-#&gt; <span class='warning'>'font', 'title', 'uniformtext', 'autosize', 'width', 'height', 'margin', 'computed', 'paper_bgcolor', 'plot_bgcolor', 'separators', 'hidesources', 'showlegend', 'colorway', 'datarevision', 'uirevision', 'editrevision', 'selectionrevision', 'template', 'modebar', 'newshape', 'activeshape', 'meta', 'transition', '_deprecated', 'clickmode', 'dragmode', 'hovermode', 'hoverdistance', 'spikedistance', 'hoverlabel', 'selectdirection', 'grid', 'calendar', 'xaxis', 'yaxis', 'ternary', 'scene', 'geo', 'mapbox', 'polar', 'radialaxis', 'angularaxis', 'direction', 'orientation', 'editType', 'legend', 'annotations', 'shapes', 'images', 'updatemenus', 'sliders', 'colorscale', 'coloraxis', 'metasrc', 'barmode', 'bargap', 'mapType'</span></div><div class='input'>
+#&gt; <span class='warning'>'font', 'title', 'uniformtext', 'autosize', 'width', 'height', 'margin', 'computed', 'paper_bgcolor', 'plot_bgcolor', 'autotypenumbers', 'separators', 'hidesources', 'showlegend', 'colorway', 'datarevision', 'uirevision', 'editrevision', 'selectionrevision', 'template', 'newshape', 'activeshape', 'meta', 'transition', '_deprecated', 'clickmode', 'dragmode', 'hovermode', 'hoverdistance', 'spikedistance', 'hoverlabel', 'selectdirection', 'grid', 'calendar', 'xaxis', 'yaxis', 'ternary', 'scene', 'geo', 'mapbox', 'polar', 'legend', 'annotations', 'shapes', 'images', 'updatemenus', 'sliders', 'editType', 'colorscale', 'coloraxis', 'modebar', 'metasrc', 'barmode', 'bargap', 'mapType'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

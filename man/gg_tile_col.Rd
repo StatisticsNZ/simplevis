@@ -4,19 +4,53 @@
 \alias{gg_tile_col}
 \title{Tile ggplot that is coloured.}
 \usage{
-gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
-  text_var = NULL, pal = NULL, pal_rev = FALSE, pal_label = NULL,
-  width = 1, alpha = 1, size_line = 0.5, size_label = 3.5,
-  title = NULL, title_wrap = 100, subtitle = NULL,
-  subtitle_wrap = 100, x_expand = NULL, x_labels = NULL,
-  x_na = TRUE, x_rev = FALSE, x_title = NULL, x_title_wrap = 50,
-  y_expand = NULL, y_labels = waiver(), y_na = TRUE, y_rev = FALSE,
-  y_title = NULL, y_title_wrap = 50, col_cuts = NULL,
-  col_labels = NULL, col_labels_dp = NULL, col_legend_ncol = NULL,
-  col_legend_nrow = NULL, col_method = NULL, col_na = TRUE,
-  col_pretty_n = 6, col_title = NULL, col_title_wrap = 25,
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
+gg_tile_col(
+  data,
+  x_var,
+  y_var,
+  col_var,
+  label_var = NULL,
+  text_var = NULL,
+  pal = NULL,
+  pal_rev = FALSE,
+  pal_label = NULL,
+  width = 1,
+  alpha = 1,
+  size_line = 0.5,
+  size_label = 3.5,
+  title = NULL,
+  title_wrap = 100,
+  subtitle = NULL,
+  subtitle_wrap = 100,
+  x_expand = NULL,
+  x_labels = NULL,
+  x_na = TRUE,
+  x_rev = FALSE,
+  x_title = NULL,
+  x_title_wrap = 50,
+  y_expand = NULL,
+  y_labels = waiver(),
+  y_na = TRUE,
+  y_rev = FALSE,
+  y_title = NULL,
+  y_title_wrap = 50,
+  col_cuts = NULL,
+  col_labels = NULL,
+  col_labels_dp = NULL,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_method = NULL,
+  col_na = TRUE,
+  col_pretty_n = 4,
+  col_title = NULL,
+  col_title_wrap = 25,
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "",
+  font_size_title = NULL,
+  font_size_body = NULL,
+  mobile = FALSE
+)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -91,7 +125,7 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

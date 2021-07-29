@@ -4,24 +4,66 @@
 \alias{gg_point_col_facet}
 \title{Point ggplot that is coloured and facetted.}
 \usage{
-gg_point_col_facet(data, x_var, y_var, col_var, facet_var,
-  text_var = NULL, position = "identity", alpha = 1,
-  size_point = 1, pal = NULL, pal_rev = FALSE, title = NULL,
-  title_wrap = 100, subtitle = NULL, subtitle_wrap = 100,
-  x_balance = FALSE, x_expand = NULL, x_gridlines_minor = FALSE,
-  x_labels = NULL, x_na = TRUE, x_pretty_n = 3, x_rev = FALSE,
-  x_title = NULL, x_title_wrap = 50, x_trans = "identity",
-  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
-  y_expand = NULL, y_gridlines_minor = FALSE, y_labels = waiver(),
-  y_na = TRUE, y_pretty_n = 4, y_title = NULL, y_title_wrap = 50,
-  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
-  col_cuts = NULL, col_labels = NULL, col_labels_dp = NULL,
-  col_legend_ncol = NULL, col_legend_nrow = NULL, col_method = NULL,
-  col_na = TRUE, col_pretty_n = 6, col_title = NULL,
-  col_title_wrap = 25, facet_labels = NULL, facet_na = TRUE,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 80, font_family = "",
-  font_size_title = NULL, font_size_body = NULL)
+gg_point_col_facet(
+  data,
+  x_var,
+  y_var,
+  col_var,
+  facet_var,
+  text_var = NULL,
+  position = "identity",
+  alpha = 1,
+  size_point = 1,
+  pal = NULL,
+  pal_rev = FALSE,
+  title = NULL,
+  title_wrap = 100,
+  subtitle = NULL,
+  subtitle_wrap = 100,
+  x_balance = FALSE,
+  x_expand = NULL,
+  x_gridlines_minor = FALSE,
+  x_labels = NULL,
+  x_na = TRUE,
+  x_pretty_n = 3,
+  x_rev = FALSE,
+  x_title = NULL,
+  x_title_wrap = 50,
+  x_trans = "identity",
+  x_zero = FALSE,
+  x_zero_line = NULL,
+  y_balance = FALSE,
+  y_expand = NULL,
+  y_gridlines_minor = FALSE,
+  y_labels = waiver(),
+  y_na = TRUE,
+  y_pretty_n = 4,
+  y_title = NULL,
+  y_title_wrap = 50,
+  y_trans = "identity",
+  y_zero = FALSE,
+  y_zero_line = NULL,
+  col_cuts = NULL,
+  col_labels = NULL,
+  col_labels_dp = NULL,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_method = NULL,
+  col_na = TRUE,
+  col_pretty_n = 4,
+  col_title = NULL,
+  col_title_wrap = 25,
+  facet_labels = NULL,
+  facet_na = TRUE,
+  facet_ncol = NULL,
+  facet_nrow = NULL,
+  facet_scales = "fixed",
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "",
+  font_size_title = NULL,
+  font_size_body = NULL
+)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -114,7 +156,7 @@ gg_point_col_facet(data, x_var, y_var, col_var, facet_var,
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

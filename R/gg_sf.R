@@ -155,7 +155,7 @@ gg_sf <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -206,7 +206,7 @@ gg_sf_col <- function(data,
                       col_legend_ncol = NULL,
                       col_legend_nrow = NULL,
                       col_na = TRUE,
-                      col_pretty_n = 6,
+                      col_pretty_n = 4,
                       col_method = NULL,
                       col_title = NULL,
                       col_title_wrap = 25,
@@ -586,7 +586,7 @@ gg_sf_facet <- function(data,
 #' @param col_legend_ncol The number of columns in the legend. 
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -630,7 +630,7 @@ gg_sf_col_facet <- function(data,
                             col_legend_ncol = NULL,
                             col_legend_nrow = NULL,
                             col_na = TRUE,
-                            col_pretty_n = 6,
+                            col_pretty_n = 4,
                             col_title = NULL,
                             col_title_wrap = 25,
                             facet_labels = NULL,

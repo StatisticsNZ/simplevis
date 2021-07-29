@@ -4,7 +4,7 @@
 \alias{sv_numeric_bin_labels}
 \title{Numeric legend labels.}
 \usage{
-sv_numeric_bin_labels(cuts_vctr, labels_dp = 1)
+sv_numeric_bin_labels(cuts_vctr, labels_dp = NULL)
 }
 \arguments{
 \item{cuts_vctr}{A numeric vector of bin cuts from which to create a vector of legend labels.}

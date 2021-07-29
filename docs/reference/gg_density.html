@@ -158,17 +158,42 @@
     <p>Smoothed density ggplot that is not coloured and not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_density</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>, <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>, <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/number.html'>number</a></span>,
-  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_density</span>(
+  <span class='no'>data</span>,
+  <span class='no'>x_var</span>,
+  <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
+  <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
+  <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/number.html'>number</a></span>,
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

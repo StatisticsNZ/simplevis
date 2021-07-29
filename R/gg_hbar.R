@@ -329,7 +329,7 @@ gg_hbar <- function(data,
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -405,7 +405,7 @@ gg_hbar_col <- function(data,
                         col_legend_nrow = NULL,
                         col_method = NULL,
                         col_na = TRUE,
-                        col_pretty_n = 6,
+                        col_pretty_n = 4,
                         col_rev = FALSE,
                         col_title = NULL,
                         col_title_wrap = 25,
@@ -1064,7 +1064,7 @@ gg_hbar_facet <- function(data,
 #' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -1140,7 +1140,7 @@ gg_hbar_col_facet <- function(data,
                               col_legend_nrow = NULL,
                               col_method = NULL,
                               col_na = TRUE,
-                              col_pretty_n = 6,
+                              col_pretty_n = 4,
                               col_rev = FALSE,
                               col_title = NULL,
                               col_title_wrap = 25,

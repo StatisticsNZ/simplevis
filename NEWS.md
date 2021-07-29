@@ -1,8 +1,8 @@
 # simplevis 4.5.0 
 
+* Breaking: removed col_legend_ncol and col_legend_nrow.
 * Changed numeric col_method default to "bin".
 * Added col_pretty_n argument for "bin".
-* Removed col_labels_dp, col_legend_ncol and col_legend_nrow.
 
 # simplevis 4.4.7
 

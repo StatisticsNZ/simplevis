@@ -13,7 +13,6 @@ leaflet_sf(
   alpha = 0.9,
   basemap = "light",
   title = NULL,
-  col_labels_dp = 1,
   map_id = "map"
 )
 }
@@ -33,8 +32,6 @@ leaflet_sf(
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
 \item{title}{A title string that will be wrapped into the legend.}
-
-\item{col_labels_dp}{Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

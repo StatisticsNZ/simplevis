@@ -23,6 +23,7 @@ gg_sf_col(
   subtitle_wrap = 100,
   col_cuts = NULL,
   col_labels = NULL,
+  col_labels_dp = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
   col_method = NULL,
@@ -71,7 +72,9 @@ gg_sf_col(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A vector of colour labels.}
+\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks.}
+
+\item{col_labels_dp}{For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 

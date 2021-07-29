@@ -30,7 +30,8 @@
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_labels A vector of colour labels.   
+#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. 
+#' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
@@ -91,6 +92,7 @@ gg_tile_col <- function(data,
                        y_title_wrap = 50,
                        col_cuts = NULL,
                        col_labels = NULL,
+                       col_labels_dp = NULL,
                        col_method = NULL,
                        col_na = TRUE,
                        col_pretty_n = 4,
@@ -202,11 +204,12 @@ gg_tile_col <- function(data,
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
     }
-
+    
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, sv_max_dp(col_cuts))
+    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
@@ -336,7 +339,8 @@ gg_tile_col <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_labels A vector of colour labels.   
+#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. 
+#' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -406,6 +410,7 @@ gg_tile_col_facet <- function(data,
                               y_title_wrap = 50,
                               col_cuts = NULL,
                               col_labels = NULL,
+                              col_labels_dp = NULL,
                               col_method = NULL,
                               col_na = TRUE,
                               col_pretty_n = 4,
@@ -539,7 +544,8 @@ gg_tile_col_facet <- function(data,
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
     
-    if(is.null(col_labels)) col_labels <- sv_numeric_bin_labels(col_cuts, sv_max_dp(col_cuts))
+    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]

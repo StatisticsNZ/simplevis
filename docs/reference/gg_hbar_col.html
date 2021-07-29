@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.0</span>
       </span>
     </div>
 
@@ -198,6 +198,7 @@
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
@@ -369,7 +370,11 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A vector of colour labels.</p></td>
+      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks.</p></td>
+    </tr>
+    <tr>
+      <th>col_labels_dp</th>
+      <td><p>For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.</p></td>
     </tr>
     <tr>
       <th>col_method</th>

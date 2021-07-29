@@ -10,7 +10,6 @@
 #' @param alpha The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.9. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. 
-#' @param col_labels_dp Select the appropriate number of decimal places for numeric variable auto legend labels. Defaults to 1.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -27,7 +26,6 @@ leaflet_sf <- function(data,
                        alpha = 0.9,
                        basemap = "light",
                        title = NULL,
-                       col_labels_dp = 1,
                        map_id = "map")
 {
   
@@ -109,8 +107,7 @@ leaflet_sf <- function(data,
         labels =  "Feature", 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
+        opacity = 1
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
@@ -150,8 +147,7 @@ leaflet_sf <- function(data,
         labels =  "Feature", 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
+        opacity = 1
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
@@ -190,8 +186,7 @@ leaflet_sf <- function(data,
         labels =  "Feature", 
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
+        opacity = 1
       )
     
   }
@@ -211,7 +206,8 @@ leaflet_sf <- function(data,
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels_dp For numeric colour variables, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".
+#' @param col_labels A vector to modify colour scale labels.  
+#' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
@@ -244,6 +240,7 @@ leaflet_sf_col <- function(data,
                            basemap = "light",
                            title = NULL,
                            col_cuts = NULL,
+                           col_labels = NULL,
                            col_labels_dp = NULL,
                            col_method = NULL,
                            col_na = TRUE,
@@ -320,8 +317,8 @@ leaflet_sf_col <- function(data,
       na.color = pal_na()
     )
     
-    if(is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
-    col_labels <-  sv_numeric_bin_labels(col_cuts, col_labels_dp)
+    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts) 
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)  
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -345,8 +342,8 @@ leaflet_sf_col <- function(data,
       na.color = pal_na()
     )
     
-    if(is.null(col_labels_dp)) col_labels_dp <- 1
-    col_labels <-  sv_numeric_bin_labels(col_cuts, col_labels_dp)
+    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts) 
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)  
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))
@@ -417,7 +414,7 @@ leaflet_sf_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
+        labFormat = labelFormat(between = "&ndash;", digits = col_labels_dp)
       )
     
   }
@@ -459,7 +456,7 @@ leaflet_sf_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
+        labFormat = labelFormat(between = "&ndash;", digits = col_labels_dp)
       )
     
   }
@@ -500,7 +497,7 @@ leaflet_sf_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits =  col_labels_dp)
+        labFormat = labelFormat(between = "&ndash;", digits = col_labels_dp)
       )
   }
 }

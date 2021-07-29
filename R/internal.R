@@ -66,24 +66,21 @@ sv_numeric_breaks_h <- function(var_vctr,
   return(breaks)
 }
 
-#' @title Numeric legend labels.
-#' @description Pretty numeric legend labels.
+#' @title Convert cuts to bin legend labels.
 #' @param cuts_vctr A numeric vector of bin cuts from which to create a vector of legend labels.
-#' @param labels_dp The number of digits to round the legend labels.
+#' @param labels_dp The number of decimal places to round numeric labels to.
+#' @param comma TRUE or FALSE of whether to convert numeric values to character values with comma seperators.
 #' @return A vector of labels.
 #' @keywords internal
-sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = NULL) {
+sv_cuts_to_labels <- function(cuts_vctr, labels_dp = NULL, comma = TRUE) {
   
-  if(is.null(labels_dp)) bin_labels_dp <- sv_max_dp(cuts_vctr)
-  
+  if (is.null(labels_dp)) col_labels_dp <- sv_max_dp(labels_dp) 
+
   labels <- vector("character", 0)
   
   cuts_vctr_no <- length(cuts_vctr)
   
-  cuts_vctr <- format(round(as.numeric(cuts_vctr), labels_dp), 
-                      nsmall = labels_dp, 
-                      big.mark = ",", 
-                      trim = TRUE) 
+  cuts_vctr <- format(round(as.numeric(cuts_vctr), labels_dp), nsmall = labels_dp, big.mark = ifelse(comma == TRUE, ",", ""), trim = TRUE) 
   
   if (cuts_vctr_no == 2) {
     labels <- c("Feature")
@@ -104,7 +101,6 @@ sv_numeric_bin_labels <- function(cuts_vctr, labels_dp = NULL) {
   }
   return(labels)
 }
-
 
 #' Identify the maximum decimal places in a numeric vector. 
 #'
@@ -390,4 +386,3 @@ sv_density_max_col_facet <- function(data, x_var, col_var, facet_var,
     dplyr::summarise(max_density = max(.data$max_density)) %>% 
     dplyr::pull(.data$max_density)
 }
-

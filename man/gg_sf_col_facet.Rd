@@ -24,7 +24,6 @@ gg_sf_col_facet(
   subtitle_wrap = 100,
   col_cuts = NULL,
   col_labels = NULL,
-  col_labels_dp = NULL,
   col_method = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -81,8 +80,6 @@ gg_sf_col_facet(
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_labels}{A vector of colour labels.}
-
-\item{col_labels_dp}{For numeric colour variables and where col_labels equals NULL, the number of decimal places. Defaults to 1 for "quantile" col_method, and the lowest dp within the col_cuts vector for "bin".}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

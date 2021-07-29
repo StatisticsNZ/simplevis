@@ -37,8 +37,6 @@ gg_density_col_facet(
   y_title = NULL,
   y_title_wrap = 50,
   col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
   col_na = TRUE,
   col_rev = FALSE,
   col_title = NULL,
@@ -119,10 +117,6 @@ gg_density_col_facet(
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
 \item{col_labels}{A vector of colour labels.}
-
-\item{col_legend_ncol}{The number of columns in the legend.}
-
-\item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 

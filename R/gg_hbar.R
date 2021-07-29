@@ -324,11 +324,9 @@ gg_hbar <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A vector of colour labels.   
-#' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -399,8 +397,6 @@ gg_hbar_col <- function(data,
                         y_zero_line = NULL,
                         col_cuts = NULL,
                         col_labels = NULL,
-                        col_legend_ncol = NULL,
-                        col_legend_nrow = NULL,
                         col_method = NULL,
                         col_na = TRUE,
                         col_pretty_n = 4,
@@ -663,18 +659,22 @@ gg_hbar_col <- function(data,
   
   if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
   
+  if (mobile == TRUE) col_title_wrap <- 20
+  
   plot <- plot +
     scale_fill_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
   legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
@@ -688,16 +688,7 @@ gg_hbar_col <- function(data,
         y = stringr::str_wrap(x_title, x_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(fill = guide_legend(
-        ncol = col_legend_ncol,
-        byrow = TRUE, reverse = legend_reverse, 
-        title = stringr::str_wrap(col_title, col_title_wrap)
-      ), 
-      col = guide_legend(
-        ncol = col_legend_ncol, nrow = col_legend_nrow, 
-        byrow = TRUE, reverse = legend_reverse, 
-        title = stringr::str_wrap(col_title, col_title_wrap)
-      ))
+      guides(fill = guide_legend(byrow = TRUE, reverse = legend_reverse), col = guide_legend(byrow = TRUE, reverse = legend_reverse))
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -708,10 +699,7 @@ gg_hbar_col <- function(data,
         y = stringr::str_wrap(x_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      guides(
-        fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20), reverse = legend_reverse),
-        col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20), reverse = legend_reverse)
-      ) +
+      guides(fill = guide_legend(ncol = 1, reverse = legend_reverse), col = guide_legend(ncol = 1, reverse = legend_reverse)) +
       theme_mobile_extra()
   }
   
@@ -1055,11 +1043,9 @@ gg_hbar_facet <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A vector of colour labels.   
-#' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -1130,8 +1116,6 @@ gg_hbar_col_facet <- function(data,
                               y_zero_line = NULL,
                               col_cuts = NULL,
                               col_labels = NULL,
-                              col_legend_ncol = NULL,
-                              col_legend_nrow = NULL,
                               col_method = NULL,
                               col_na = TRUE,
                               col_pretty_n = 4,
@@ -1426,26 +1410,17 @@ gg_hbar_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
-    guides(fill = guide_legend(
-      ncol = col_legend_ncol,
-      byrow = TRUE,
-      reverse = legend_reverse, 
-      title = stringr::str_wrap(col_title, col_title_wrap)
-    ), 
-    col = guide_legend(
-      ncol = col_legend_ncol, nrow = col_legend_nrow, 
-      byrow = TRUE,
-      reverse = legend_reverse, 
-      title = stringr::str_wrap(col_title, col_title_wrap)
-    )) +
+    guides(fill = guide_legend(byrow = TRUE, reverse = legend_reverse), col = guide_legend(byrow = TRUE, reverse = legend_reverse)) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

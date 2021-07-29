@@ -191,8 +191,6 @@
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_legend_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_legend_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
@@ -343,14 +341,6 @@
       <td><p>A vector of colour labels.</p></td>
     </tr>
     <tr>
-      <th>col_legend_ncol</th>
-      <td><p>The number of columns in the legend.</p></td>
-    </tr>
-    <tr>
-      <th>col_legend_nrow</th>
-      <td><p>The number of rows in the legend.</p></td>
-    </tr>
-    <tr>
       <th>col_method</th>
       <td><p>The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".</p></td>
     </tr>
@@ -360,7 +350,7 @@
     </tr>
     <tr>
       <th>col_pretty_n</th>
-      <td><p>For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
+      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
     </tr>
     <tr>
       <th>col_title</th>

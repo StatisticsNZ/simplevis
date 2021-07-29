@@ -223,8 +223,6 @@ gg_density <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A vector of colour labels.
-#' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -276,8 +274,6 @@ gg_density_col <- function(data,
                            y_title = NULL,
                            y_title_wrap = 50,
                            col_labels = NULL,
-                           col_legend_ncol = NULL,
-                           col_legend_nrow = NULL,
                            col_na = TRUE,
                            col_rev = FALSE,
                            col_title = NULL,
@@ -417,18 +413,22 @@ gg_density_col <- function(data,
   
   if (is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
   
+  if (mobile == TRUE) col_title_wrap <- 20
+  
   plot <- plot +
     scale_fill_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
   if (y_gridlines_minor == TRUE) {
@@ -445,16 +445,7 @@ gg_density_col <- function(data,
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(fill = guide_legend(
-        ncol = col_legend_ncol,
-        byrow = TRUE,
-        title = stringr::str_wrap(col_title, col_title_wrap)
-      ), 
-      col = guide_legend(
-        ncol = col_legend_ncol, nrow = col_legend_nrow, 
-        byrow = TRUE,
-        title = stringr::str_wrap(col_title, col_title_wrap)
-      ))
+      guides(fill = guide_legend(byrow = TRUE), col = guide_legend(byrow = TRUE))
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -465,10 +456,7 @@ gg_density_col <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      guides(
-        fill = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20)),
-        col = guide_legend(ncol = 1, title = stringr::str_wrap(col_title, 20))
-      ) +
+      guides(fill = guide_legend(ncol = 1), col = guide_legend(ncol = 1)) +
       theme_mobile_extra()
   }
   
@@ -717,8 +705,6 @@ gg_density_facet <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A vector of colour labels.
-#' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -778,8 +764,6 @@ gg_density_col_facet <- function(data,
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  col_labels = NULL,
-                                 col_legend_ncol = NULL,
-                                 col_legend_nrow = NULL,
                                  col_na = TRUE,
                                  col_rev = FALSE,
                                  col_title = NULL,
@@ -952,13 +936,15 @@ gg_density_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -967,16 +953,7 @@ gg_density_col_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(fill = guide_legend(
-      ncol = col_legend_ncol,
-      byrow = TRUE,
-      title = stringr::str_wrap(col_title, col_title_wrap)
-    ), 
-    col = guide_legend(
-      ncol = col_legend_ncol, nrow = col_legend_nrow, 
-      byrow = TRUE,
-      title = stringr::str_wrap(col_title, col_title_wrap)
-    )) +
+    guides(fill = guide_legend(byrow = TRUE), col = guide_legend(byrow = TRUE)) +
     facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
   
   return(plot)

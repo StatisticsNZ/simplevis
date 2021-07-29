@@ -44,8 +44,6 @@ gg_hbar_col_facet(
   y_zero_line = NULL,
   col_cuts = NULL,
   col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
   col_method = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
@@ -143,15 +141,11 @@ gg_hbar_col_facet(
 
 \item{col_labels}{A vector of colour labels.}
 
-\item{col_legend_ncol}{The number of columns in the legend.}
-
-\item{col_legend_nrow}{The number of rows in the legend.}
-
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 

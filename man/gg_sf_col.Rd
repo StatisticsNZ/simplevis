@@ -23,8 +23,6 @@ gg_sf_col(
   subtitle_wrap = 100,
   col_cuts = NULL,
   col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
   col_method = NULL,
@@ -75,13 +73,9 @@ gg_sf_col(
 
 \item{col_labels}{A vector of colour labels.}
 
-\item{col_legend_ncol}{The number of columns in the legend.}
-
-\item{col_legend_nrow}{The number of rows in the legend.}
-
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

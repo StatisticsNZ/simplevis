@@ -306,8 +306,6 @@ gg_line <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A vector of colour labels.
-#' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -369,8 +367,6 @@ gg_line_col <- function(data,
                         y_zero = FALSE,
                         y_zero_line = NULL,
                         col_labels = NULL,
-                        col_legend_ncol = NULL,
-                        col_legend_nrow = NULL,
                         col_na = TRUE,
                         col_title = NULL,
                         col_title_wrap = 25,
@@ -558,12 +554,15 @@ gg_line_col <- function(data,
   
   if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
   
+  if (mobile == TRUE) col_title_wrap <- 20
+  
   plot <- plot +
-    scale_color_manual(
+    scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     )
   
   if (mobile == FALSE) {
@@ -575,7 +574,7 @@ gg_line_col <- function(data,
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
-      guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap)))
+      guides(col = guide_legend(byrow = TRUE))
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -586,7 +585,7 @@ gg_line_col <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       )  +
-      guides(col = guide_legend(ncol = 1, byrow = TRUE, title = stringr::str_wrap(col_title, 20))) +
+      guides(col = guide_legend(ncol = 1)) +
       theme_mobile_extra()
   }
   
@@ -922,8 +921,6 @@ gg_line_facet <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A vector of colour labels.
-#' @param col_legend_ncol The number of columns in the legend. 
-#' @param col_legend_nrow The number of rows in the legend.
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -991,8 +988,6 @@ gg_line_col_facet <- function(data,
                               y_zero = FALSE,
                               y_zero_line = NULL,
                               col_labels = NULL,
-                              col_legend_ncol = NULL,
-                              col_legend_nrow = NULL,
                               col_na = TRUE,
                               col_title = NULL,
                               col_title_wrap = 25,
@@ -1206,11 +1201,12 @@ gg_line_col_facet <- function(data,
   if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
   
   plot <- plot +
-    scale_color_manual(
+    scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na()
+      na.value = pal_na(),
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -1220,7 +1216,7 @@ gg_line_col_facet <- function(data,
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
-    guides(col = guide_legend(ncol = col_legend_ncol, nrow = col_legend_nrow, byrow = TRUE, title = stringr::str_wrap(col_title, col_title_wrap))) 
+    guides(col = guide_legend(byrow = TRUE)) 
   
   return(plot)
 }

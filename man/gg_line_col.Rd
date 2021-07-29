@@ -40,8 +40,6 @@ gg_line_col(
   y_zero = FALSE,
   y_zero_line = NULL,
   col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
   col_na = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
@@ -123,10 +121,6 @@ gg_line_col(
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{col_labels}{A vector of colour labels.}
-
-\item{col_legend_ncol}{The number of columns in the legend.}
-
-\item{col_legend_nrow}{The number of rows in the legend.}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 

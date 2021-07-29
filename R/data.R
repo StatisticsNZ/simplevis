@@ -6,11 +6,11 @@
 #' @examples
 #' nz
 #'
-#' gg_sf(nz)
+#' gg_sf(nz, alpha = 0)
 #'
-#' gg_sf(dplyr::slice(nz, 2, 4))
+#' gg_sf(dplyr::slice(nz, 2, 4), alpha = 0)
 #'
-#' gg_sf(dplyr::slice(nz, 1, 3, 5:7))
+#' gg_sf(dplyr::slice(nz, 1, 3, 5:7), alpha = 0)
 "nz"
 
 #' @title Example sf polygon object.

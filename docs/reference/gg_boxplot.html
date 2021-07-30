@@ -387,14 +387,14 @@
     )
   )))
 
-<span class='no'>plot_data</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+<span class='no'>plot_data</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
 #&gt;   species   bill_length_mm
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
 #&gt; <span style='color: #BCBCBC;'>1</span> Adelie    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>     
 #&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap <span style='color: #949494;'>&lt;dbl [5]&gt;</span>     
 #&gt; <span style='color: #BCBCBC;'>3</span> Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>     </div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>bill_length_mm</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 6</span>
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>bill_length_mm</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 6</span>
 #&gt;   species     min lower middle upper   max
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> Adelie     32.1  36.8   38.8  40.8  46  

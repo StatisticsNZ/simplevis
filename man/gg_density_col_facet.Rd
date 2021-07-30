@@ -116,7 +116,7 @@ gg_density_col_facet(
 
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
-\item{col_labels}{A vector of colour labels.}
+\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Use ggplot2::waiver() to keep colour labels untransformed.}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 

@@ -119,7 +119,7 @@ gg_tile_col_facet(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks.}
+\item{col_labels}{A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.}
 
 \item{col_labels_dp}{For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.}
 

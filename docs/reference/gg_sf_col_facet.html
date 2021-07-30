@@ -272,7 +272,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks.</p></td>
+      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_labels_dp</th>
@@ -344,7 +344,7 @@
     <pre class="examples"><div class='input'><span class='fu'>gg_sf_col_facet</span>(<span class='no'>example_sf_point</span>,
                 <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
                 <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
-                <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='gg_sf_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'> 
+                <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='gg_sf_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'> 
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

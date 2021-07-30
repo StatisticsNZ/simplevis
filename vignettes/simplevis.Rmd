@@ -196,8 +196,7 @@ gg_point_col(penguins,
              subtitle = "Palmer station, Antarctica",
              x_title = "Bill length (mm)", 
              y_title = "Body mass (g)",
-             col_title = "Penguin species",
-             caption = "Source: Gorman KB, Williams TD, Fraser WR (2014)")
+             col_title = "Penguin species")
 ```
 
 You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.

@@ -44,8 +44,7 @@ gg_point_col(penguins, bill_length_mm, body_mass_g, species,
              subtitle = "Palmer station, Antarctica",
              x_title = "Bill length (mm)", 
              y_title = "Body mass (g)",
-             col_title = "Penguin species",
-             caption = "Source: Gorman KB, Williams TD, Fraser WR (2014)")
+             col_title = "Penguin species")
 ```
 
 ###  Turning off x, y and colour titles

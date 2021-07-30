@@ -145,7 +145,7 @@ gg_boxplot(penguins,
 
 plot_data <- penguins \%>\%
   group_by(species) \%>\%
-  summarise(across(bill_length_mm, ~ list(
+  summarise(across(body_mass_g, ~ list(
     rlang::set_names(
       boxplot.stats(.x)$stats,
       c('min', 'lower', 'middle', 'upper', 'max')
@@ -155,11 +155,12 @@ plot_data <- penguins \%>\%
 plot_data
 
 plot_data \%>\% 
-  tidyr::unnest_wider(bill_length_mm)
+  tidyr::unnest_wider(body_mass_g)
 
 gg_boxplot(plot_data, 
            x_var = species, 
-           y_var = bill_length_mm, 
-           stat = "identity")
+           y_var = body_mass_g, 
+           stat = "identity",
+           y_pretty_n = 4)
 
 }

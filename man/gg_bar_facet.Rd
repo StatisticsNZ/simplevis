@@ -31,7 +31,7 @@ gg_bar_facet(
   y_balance = FALSE,
   y_expand = NULL,
   y_gridlines_minor = FALSE,
-  y_labels = waiver(),
+  y_labels = scales::comma,
   y_na = TRUE,
   y_pretty_n = 4,
   y_title = NULL,
@@ -39,7 +39,7 @@ gg_bar_facet(
   y_trans = "identity",
   y_zero = TRUE,
   y_zero_line = NULL,
-  facet_labels = NULL,
+  facet_labels = stringr::str_to_sentence,
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -82,7 +82,7 @@ gg_bar_facet(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_labels}{A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
+\item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
 
@@ -104,7 +104,7 @@ gg_bar_facet(
 
 \item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
-\item{y_labels}{A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
@@ -120,7 +120,7 @@ gg_bar_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{facet_labels}{As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.}
+\item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
 \item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 

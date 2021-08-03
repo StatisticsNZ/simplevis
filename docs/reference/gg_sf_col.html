@@ -264,7 +264,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+      <td><p>A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_labels_dp</th>

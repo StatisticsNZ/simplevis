@@ -193,7 +193,7 @@
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
   <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -274,7 +274,7 @@
     </tr>
     <tr>
       <th>x_labels</th>
-      <td><p>A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
+      <td><p>A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
     </tr>
     <tr>
       <th>x_na</th>
@@ -314,7 +314,7 @@
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+      <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_na</th>
@@ -346,7 +346,7 @@
     </tr>
     <tr>
       <th>facet_labels</th>
-      <td><p>As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.</p></td>
+      <td><p>A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.</p></td>
     </tr>
     <tr>
       <th>facet_na</th>

@@ -18,19 +18,19 @@
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_rev TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.  
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -78,14 +78,14 @@ gg_tile_col <- function(data,
                        title_wrap = 100,
                        subtitle = NULL,
                        subtitle_wrap = 100,
-                       x_expand = NULL,
-                       x_labels = NULL,
+                       x_expand = waiver(),
+                       x_labels = stringr::str_to_sentence,
                        x_na = TRUE,
                        x_rev = FALSE,
                        x_title = NULL,
                        x_title_wrap = 50,
-                       y_expand = NULL,
-                       y_labels = waiver(),
+                       y_expand = waiver(),
+                       y_labels = stringr::str_to_sentence,
                        y_na = TRUE,
                        y_rev = FALSE,
                        y_title = NULL,
@@ -224,7 +224,7 @@ gg_tile_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+    if(is.null(col_labels)) col_labels <- stringr::str_to_sentence
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -245,22 +245,12 @@ gg_tile_col <- function(data,
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
   }
 
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
-    
-    plot <- plot +
-      scale_x_discrete(expand = x_expand, labels = x_labels)
-  } 
-  
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-    if(is.null(y_expand)) y_expand <- waiver()
-    if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
-    
-    plot <- plot +
-      scale_y_discrete(expand = y_expand, labels = y_labels)
-  } 
-  
+  plot <- plot +
+    scale_x_discrete(expand = x_expand, labels = x_labels)
+
+  plot <- plot +
+    scale_y_discrete(expand = y_expand, labels = y_labels)
+
   if (mobile == TRUE) col_title_wrap <- 20
 
   plot <- plot +
@@ -327,26 +317,26 @@ gg_tile_col <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_labels A function or vector to modify x scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_rev TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_labels A function or vector to modify y scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_rev TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.  
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -396,14 +386,14 @@ gg_tile_col_facet <- function(data,
                               title_wrap = 100,
                               subtitle = NULL,
                               subtitle_wrap = 100,
-                              x_expand = NULL,
-                              x_labels = NULL,
+                              x_expand = waiver(),
+                              x_labels = stringr::str_to_sentence,
                               x_na = TRUE,
                               x_rev = FALSE,
                               x_title = NULL,
                               x_title_wrap = 50,
-                              y_expand = NULL,
-                              y_labels = waiver(),
+                              y_expand = waiver(),
+                              y_labels = stringr::str_to_sentence,
                               y_na = TRUE,
                               y_rev = FALSE,
                               y_title = NULL,
@@ -416,7 +406,7 @@ gg_tile_col_facet <- function(data,
                               col_pretty_n = 4,
                               col_title = NULL,
                               col_title_wrap = 25,
-                              facet_labels = NULL,
+                              facet_labels = stringr::str_to_sentence,
                               facet_na = TRUE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
@@ -560,7 +550,7 @@ gg_tile_col_facet <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+    if(is.null(col_labels)) col_labels <- stringr::str_to_sentence
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -581,22 +571,12 @@ gg_tile_col_facet <- function(data,
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
   }
   
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- function(x) stringr::str_to_sentence(x)
-    
-    plot <- plot +
-      scale_x_discrete(expand = x_expand, labels = x_labels)
-  } 
-  
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-    if(is.null(y_expand)) y_expand <- waiver()
-    if(is.null(y_labels)) y_labels <- function(x) stringr::str_to_sentence(x)
-    
-    plot <- plot +
-      scale_y_discrete(expand = y_expand, labels = y_labels)
-  } 
-  
+  plot <- plot +
+    scale_x_discrete(expand = x_expand, labels = x_labels)
+
+  plot <- plot +
+    scale_y_discrete(expand = y_expand, labels = y_labels)
+
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -613,8 +593,6 @@ gg_tile_col_facet <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -625,7 +603,7 @@ gg_tile_col_facet <- function(data,
     ) +
     guides(fill = guide_legend(byrow = TRUE), col = guide_legend(byrow = TRUE)) +
     facet_wrap(vars(!!facet_var), 
-               labeller = facet_labels, 
+               labeller = as_labeller(facet_labels), 
                scales = facet_scales, 
                ncol = facet_ncol, 
                nrow = facet_nrow)

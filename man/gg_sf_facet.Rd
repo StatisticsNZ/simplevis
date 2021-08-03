@@ -12,7 +12,7 @@ gg_sf_facet(
   size_line = 0.5,
   alpha = 0.9,
   pal = NULL,
-  facet_labels = NULL,
+  facet_labels = stringr::str_to_sentence,
   facet_na = TRUE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -46,7 +46,7 @@ gg_sf_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{facet_labels}{As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.}
+\item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
 \item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
 

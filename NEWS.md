@@ -1,6 +1,7 @@
 # simplevis 4.5.0 
 
 * Breaking: removed col_legend_ncol and col_legend_nrow
+* Breaking: updated facet_labels method for consistency with other labels arguments.
 * Changed numeric col_method default to "bin".
 * Added col_pretty_n argument for "bin".
 

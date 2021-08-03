@@ -150,7 +150,7 @@ gg_sf <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.  
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -304,7 +304,7 @@ gg_sf_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+    if(is.null(col_labels)) col_labels <- stringr::str_to_sentence
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -403,7 +403,7 @@ gg_sf_col <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 0.9. 
 #' @param pal Character vector of hex codes. 
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
+#' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
@@ -434,7 +434,7 @@ gg_sf_facet <- function(data,
                         size_line = 0.5,
                         alpha = 0.9,
                         pal = NULL,
-                        facet_labels = NULL,
+                        facet_labels = stringr::str_to_sentence,
                         facet_na = TRUE,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
@@ -546,15 +546,13 @@ gg_sf_facet <- function(data,
     }
   }
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
       caption = stringr::str_wrap(caption, 50)
     ) +
-    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
+    facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
 
   return(plot)
 }
@@ -579,8 +577,8 @@ gg_sf_facet <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param facet_labels As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.
-#' @param col_labels A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.  
+#' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -628,7 +626,7 @@ gg_sf_col_facet <- function(data,
                             col_pretty_n = 4,
                             col_title = NULL,
                             col_title_wrap = 25,
-                            facet_labels = NULL,
+                            facet_labels = stringr::str_to_sentence,
                             facet_na = TRUE,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
@@ -742,7 +740,7 @@ gg_sf_col_facet <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) stringr::str_to_sentence(x)
+    if(is.null(col_labels)) col_labels <- stringr::str_to_sentence
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -805,8 +803,6 @@ gg_sf_col_facet <- function(data,
     }
   }
   
-  if(is.null(facet_labels)) facet_labels <- as_labeller(stringr::str_to_sentence)
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -815,7 +811,7 @@ gg_sf_col_facet <- function(data,
     ) +
     guides(col = guide_legend(byrow = TRUE)) +
     guides(fill = guide_legend(byrow = TRUE)) +
-    facet_wrap(vars(!!facet_var), labeller = facet_labels, scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
+    facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = "fixed", ncol = facet_ncol, nrow = facet_nrow)
 
   return(plot)
 }

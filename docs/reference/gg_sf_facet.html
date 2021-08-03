@@ -166,7 +166,7 @@
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
   <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -218,7 +218,7 @@
     </tr>
     <tr>
       <th>facet_labels</th>
-      <td><p>As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.</p></td>
+      <td><p>A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.</p></td>
     </tr>
     <tr>
       <th>facet_na</th>

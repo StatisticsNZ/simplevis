@@ -184,7 +184,7 @@
   <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
   <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -272,7 +272,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A function or vector to modify colour scale labels, as per the ggplot2 labels argument in ggplot2 scales functions. Note that for numeric colour methods, the breaks are factor interval breaks. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+      <td><p>A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_labels_dp</th>
@@ -300,7 +300,7 @@
     </tr>
     <tr>
       <th>facet_labels</th>
-      <td><p>As per the ggplot2 labeller argument within the ggplot facet_wrap function. If NULL, defaults to ggplot2::as_labeller(stringr::str_to_sentence). Use facet_labels = ggplot2::label_value to turn off default sentence case transformation.</p></td>
+      <td><p>A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.</p></td>
     </tr>
     <tr>
       <th>facet_na</th>

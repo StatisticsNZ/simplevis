@@ -46,7 +46,7 @@ gg_point_col(penguins,
              y_var = body_mass_g,
              col_var = species,
              y_labels = scales::comma,
-             x_labels = scales::number)
+             x_labels = scales::dollar)
 ```
 
 ```{r}

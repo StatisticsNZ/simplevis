@@ -38,33 +38,52 @@ One deviation from this logic is that colour palette is selected using a `pal` a
 
 ### Labels
 
-You can adjust x, y or colour scale labels using `x_labels`, `y_labels` or `col_labels` arguments, and functions from the `scales` package. 
+You can adjust labels by provinding a function or named vector to the `*_labels`argument. 
 
 ```{r}
 gg_point_col(penguins,
              x_var = bill_length_mm,
              y_var = body_mass_g,
              col_var = species,
-             y_labels = scales::comma_format(),
-             x_labels = scales::number_format(accuracy = 0.1))
+             y_labels = scales::comma,
+             x_labels = scales::number)
 ```
-
-Or via a function.
 
 ```{r}
 gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
                    x_labels = function(x) glue::glue("{x} mm"))
 ```
 
-Note there is a default sentence case transformation for categorical x, y or col variables. But you can use `ggplot2::waiver()` to turn this off. 
-
-The `facet_labels` argument works slightly differently in that it provides access to the ggplot2 `labeller` argument within the ggplot `facet_wrap` function. Therefore you need to use ggplot labeller functions to modify them.
 
 ```{r}
 gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, sex, 
   col_labels = ggplot2::waiver(),
-  facet_labels = ggplot2::label_value) 
+  facet_labels = ) 
 
+```
+
+```{r}
+penguin_labels <- c("Adelie" = "AD", "Chinstrap" = "CH", "Gentoo" = "GE")
+
+gg_point_facet(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             facet_var = species, 
+             facet_labels = penguin_labels)
+```
+
+All categorical variables are converted to sentence case by default using `stringr::str_to_sentence`. 
+
+Numeric x and y variables are converted using the `scales::comma` by default. Numeric colour variables are converted to bins seperated by n-dashes using an internal function. 
+
+You can turn off any simplevis default transformations to labels using `ggplot2::waiver()`. 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = sex,
+             col_labels = ggplot2::waiver())
 ```
 
 ### Numeric scales

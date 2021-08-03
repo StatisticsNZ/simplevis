@@ -2,6 +2,8 @@
 
 * Breaking: removed col_legend_ncol and col_legend_nrow
 * Breaking: updated facet_labels method for consistency with other labels arguments.
+* Added stringr::str_to_sentence default for all categorical variables.
+* Added scales::comma default for all numeric x and y variables.
 * Changed numeric col_method default to "bin".
 * Added col_pretty_n argument for "bin".
 

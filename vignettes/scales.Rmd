@@ -40,38 +40,6 @@ One deviation from this logic is that colour palette is selected using a `pal` a
 
 You can adjust labels by provinding a function or named vector to the `*_labels`argument. 
 
-```{r}
-gg_point_col(penguins,
-             x_var = bill_length_mm,
-             y_var = body_mass_g,
-             col_var = species,
-             y_labels = scales::comma,
-             x_labels = scales::dollar)
-```
-
-```{r}
-gg_point_col(penguins, bill_length_mm, body_mass_g, species, 
-                   x_labels = function(x) glue::glue("{x} mm"))
-```
-
-
-```{r}
-gg_point_col_facet(penguins, bill_length_mm, body_mass_g, sex, sex, 
-  col_labels = ggplot2::waiver(),
-  facet_labels = ) 
-
-```
-
-```{r}
-penguin_labels <- c("Adelie" = "AD", "Chinstrap" = "CH", "Gentoo" = "GE")
-
-gg_point_facet(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             facet_var = species, 
-             facet_labels = penguin_labels)
-```
-
 All categorical variables are converted to sentence case by default using `stringr::str_to_sentence`. 
 
 Numeric x and y variables are converted using the `scales::comma` by default. Numeric colour variables are converted to bins seperated by n-dashes using an internal function. 
@@ -79,12 +47,27 @@ Numeric x and y variables are converted using the `scales::comma` by default. Nu
 You can turn off any simplevis default transformations to labels using `ggplot2::waiver()`. 
 
 ```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = sex,
-             col_labels = ggplot2::waiver())
+gg_point_col_facet(penguins,
+                   x_var = bill_length_mm,
+                   y_var = body_mass_g,
+                   col_var = sex,
+                   facet_var = species)
 ```
+
+```{r}
+gg_point_col_facet(penguins,
+                   x_var = bill_length_mm,
+                   y_var = body_mass_g,
+                   col_var = sex,
+                   facet_var = species, 
+                   y_title = "Body mass (kg)",
+                   x_labels = scales::dollar, 
+                   y_labels = function(x) glue::glue("{x / 1000} kg"), 
+                   col_labels = stringr::str_to_upper,
+                   facet_labels = c("Adelie" = "A", "Chinstrap" = "C", "Gentoo" = "G"))
+
+```
+
 
 ### Numeric scales
 
@@ -100,7 +83,8 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             x_zero = TRUE, y_zero = TRUE)
+             x_zero = TRUE, 
+             y_zero = TRUE)
 ```
 
 Adjust the number of breaks for numeric x and/or y scales.

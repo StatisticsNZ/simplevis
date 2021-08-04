@@ -12,6 +12,7 @@ gg_hbar_col(
   text_var = NULL,
   position = NULL,
   pal = NULL,
+  pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   width = 0.75,
   alpha = 1,
@@ -44,11 +45,11 @@ gg_hbar_col(
   y_zero_line = NULL,
   col_cuts = NULL,
   col_labels = NULL,
-  col_labels_dp = NULL,
   col_method = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
   col_rev = FALSE,
+  col_right_closed = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
@@ -73,6 +74,8 @@ gg_hbar_col(
 \item{position}{Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".}
 
 \item{pal}{Character vector of hex codes.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
@@ -138,8 +141,6 @@ gg_hbar_col(
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
-\item{col_labels_dp}{For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.}
-
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
@@ -147,6 +148,8 @@ gg_hbar_col(
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
+
+\item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

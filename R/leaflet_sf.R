@@ -199,6 +199,7 @@ leaflet_sf <- function(data,
 #' @param label_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param pal Character vector of hex codes. 
+#' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
@@ -207,10 +208,10 @@ leaflet_sf <- function(data,
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels A vector to modify colour scale labels.  
-#' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
+#' @param col_labels_dp The dp for numeric colour scale labels. 
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -233,6 +234,7 @@ leaflet_sf_col <- function(data,
                            label_var = NULL,
                            popup_vars_vctr = NULL,
                            pal = NULL,
+                           pal_na = "#7F7F7FFF",
                            pal_rev = FALSE,
                            size_point = 2,
                            size_line = 2,
@@ -244,7 +246,7 @@ leaflet_sf_col <- function(data,
                            col_labels_dp = NULL,
                            col_method = NULL,
                            col_na = TRUE,
-                           col_pretty_n = 6,
+                           col_pretty_n = 4,
                            map_id = "map"
 ) {
   
@@ -294,7 +296,7 @@ leaflet_sf_col <- function(data,
     
     pal_fun <- colorFactor(palette = pal,
                            domain = col_var_vctr,
-                           na.color = pal_na())
+                           na.color = pal_na)
   }
   else if (col_method == "bin") {
     if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_pretty_n)
@@ -314,11 +316,10 @@ leaflet_sf_col <- function(data,
       bins = col_cuts,
       pretty = FALSE,
       right = FALSE,
-      na.color = pal_na()
+      na.color = pal_na
     )
     
-    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts) 
-    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)  
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, sv_max_dp(col_cuts))  
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -339,11 +340,10 @@ leaflet_sf_col <- function(data,
       domain = col_var_vctr,
       bins = col_cuts,
       right = FALSE,
-      na.color = pal_na()
+      na.color = pal_na
     )
     
-    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts) 
-    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)  
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, sv_max_dp(col_cuts))  
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))

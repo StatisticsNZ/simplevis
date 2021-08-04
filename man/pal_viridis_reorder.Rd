@@ -10,7 +10,7 @@ pal_viridis_reorder(col_n)
 \item{col_n}{The number of colours (excluding an NA colour).}
 }
 \value{
-A vector of hex codes.
+A character vector of hex codes.
 }
 \description{
 A function to retreive a vector of hex codes for a numeric (or ordererd) variable.

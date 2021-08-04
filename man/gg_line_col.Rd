@@ -11,6 +11,7 @@ gg_line_col(
   col_var,
   text_var = NULL,
   pal = NULL,
+  pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   size_point = 1,
   size_line = 0.5,
@@ -63,6 +64,8 @@ gg_line_col(
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

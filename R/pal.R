@@ -4,7 +4,7 @@
 #' 
 #' @param col_n The number of colours (excluding an NA colour).
 #' 
-#' @return A vector of hex codes.
+#' @return A character vector of hex codes.
 #' @export
 #' @examples 
 #' scales::show_col(pal_d3_reorder(9)) 
@@ -19,7 +19,7 @@ pal_d3_reorder <- function(col_n) {
 #' 
 #' @param col_n The number of colours (excluding an NA colour).
 #' 
-#' @return A vector of hex codes.
+#' @return A character vector of hex codes.
 #' @export 
 #' @examples 
 #' scales::show_col(pal_viridis_reorder(9)) 
@@ -34,12 +34,12 @@ pal_viridis_reorder <- function(col_n) {
 #' 
 #' @description A function to retreive a hex code for a colour to use for NA values.
 #' 
-#' @param col_n The number of NA colours. Doesn't do anything, but provided for consistency.
+#' @param pal The hex code or name of the NA colour. Defaults to "#7F7F7FFF".
 #'
-#' @return A vector of one hex code.
+#' @return A character vector.
 #' @export 
 #' @examples 
-#' scales::show_col(pal_na(9)) 
-pal_na <- function(col_n = 1) {
-  "#7F7F7FFF"
+#' scales::show_col(pal_na()) 
+pal_na <- function(pal = "#7F7F7FFF") {
+  return(pal)  
 }

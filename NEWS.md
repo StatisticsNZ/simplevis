@@ -7,6 +7,12 @@
 * Changed numeric col_method default to "bin".
 * Added col_pretty_n argument for "bin".
 
+* Removed col_labels_dp from ggplot wrapper functions.
+* Added col_right_closed to change the interval type for numeric colour variables. 
+* Supported col_labels to be supplied a manual vector of labels for numeric colour variables.
+* Added label_intervals function.
+* Added pal_na argument to allow the user to specify the NA colour.
+
 # simplevis 4.4.7
 
 * Add support for colouring numeric variables to hbar family.

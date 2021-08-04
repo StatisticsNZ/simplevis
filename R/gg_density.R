@@ -201,6 +201,7 @@ gg_density <- function(data,
 #' @param density_n The n argument of the stats::density function. Defaults to 512.
 #' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param pal Character vector of hex codes. 
+#' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The alpha of the fill. Defaults to 0.1. 
 #' @param size_line The size of the outlines of density areas.
@@ -252,6 +253,7 @@ gg_density_col <- function(data,
                            density_n = 512,
                            density_trim = FALSE,
                            pal = NULL,
+                           pal_na = "#7F7F7FFF",
                            pal_rev = FALSE,
                            alpha = 0.1,
                            size_line = 0.5,
@@ -418,14 +420,14 @@ gg_density_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
@@ -679,6 +681,7 @@ gg_density_facet <- function(data,
 #' @param density_n The n argument of the stats::density function. Defaults to 512.
 #' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param pal Character vector of hex codes. 
+#' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The alpha of the fill. Defaults to 0.1. 
 #' @param size_line The size of the outlines of density areas.
@@ -738,6 +741,7 @@ gg_density_col_facet <- function(data,
                                  density_n = 512,
                                  density_trim = FALSE,
                                  pal = NULL,
+                                 pal_na = "#7F7F7FFF",
                                  pal_rev = FALSE,
                                  alpha = 0.1,
                                  size_line = 0.5,
@@ -929,14 +933,14 @@ gg_density_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(

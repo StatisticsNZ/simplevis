@@ -14,6 +14,7 @@ gg_density_col(
   density_n = 512,
   density_trim = FALSE,
   pal = NULL,
+  pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   alpha = 0.1,
   size_line = 0.5,
@@ -66,6 +67,8 @@ gg_density_col(
 \item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

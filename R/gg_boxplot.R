@@ -336,6 +336,7 @@ gg_boxplot <- function(data,
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. 
+#' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
 #' @param width Width of the box. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -404,6 +405,7 @@ gg_boxplot_col <- function(data,
                            col_var,
                            stat = "boxplot",
                            pal = NULL,
+                           pal_na = "#7F7F7FFF",
                            pal_rev = FALSE,
                            width = 0.5,
                            alpha = 1,
@@ -666,7 +668,7 @@ gg_boxplot_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
@@ -1043,6 +1045,7 @@ gg_boxplot_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
 #' @param pal Character vector of hex codes. 
+#' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
 #' @param width Width of the box. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -1122,6 +1125,7 @@ gg_boxplot_col_facet <- function(data,
                                  facet_var,
                                  stat = "boxplot",
                                  pal = NULL,
+                                 pal_na = "#7F7F7FFF",
                                  pal_rev = FALSE,
                                  width = 0.5,
                                  alpha = 1,
@@ -1408,7 +1412,7 @@ gg_boxplot_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(

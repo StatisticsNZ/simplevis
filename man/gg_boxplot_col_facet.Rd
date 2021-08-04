@@ -12,6 +12,7 @@ gg_boxplot_col_facet(
   facet_var,
   stat = "boxplot",
   pal = NULL,
+  pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   width = 0.5,
   alpha = 1,
@@ -72,6 +73,8 @@ gg_boxplot_col_facet(
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 

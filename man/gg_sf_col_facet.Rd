@@ -10,6 +10,7 @@ gg_sf_col_facet(
   facet_var,
   text_var = NULL,
   pal = NULL,
+  pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   size_point = 1,
   size_line = 0.5,
@@ -24,10 +25,10 @@ gg_sf_col_facet(
   subtitle_wrap = 100,
   col_cuts = NULL,
   col_labels = NULL,
-  col_labels_dp = NULL,
   col_method = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
+  col_right_closed = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
   facet_labels = stringr::str_to_sentence,
@@ -51,6 +52,8 @@ gg_sf_col_facet(
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
@@ -80,13 +83,13 @@ gg_sf_col_facet(
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
-\item{col_labels_dp}{For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.}
-
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+
+\item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

@@ -7,8 +7,9 @@
 #' @param label_var Unquoted variable to label the tiles. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param pal_label Hex code for the label font colour.
+#' @param pal_na The hex code or name of the NA colour to be used.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of tiles. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
@@ -31,10 +32,10 @@
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
-#' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -68,8 +69,9 @@ gg_tile_col <- function(data,
                        label_var = NULL,
                        text_var = NULL,
                        pal = NULL,
-                       pal_rev = FALSE,
                        pal_label = NULL,
+                       pal_na = "#7F7F7FFF",
+                       pal_rev = FALSE,
                        width = 1,
                        alpha = 1,
                        size_line = 0.5,
@@ -92,10 +94,10 @@ gg_tile_col <- function(data,
                        y_title_wrap = 50,
                        col_cuts = NULL,
                        col_labels = NULL,
-                       col_labels_dp = NULL,
                        col_method = NULL,
                        col_na = TRUE,
                        col_pretty_n = 4,
+                       col_right_closed = TRUE,
                        col_title = NULL,
                        col_title_wrap = 25,
                        caption = NULL,
@@ -205,11 +207,17 @@ gg_tile_col <- function(data,
       })
     }
     
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    if (is.null(col_labels)) col_labels <- scales::comma
     
-    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
-    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~kimisc::cut_format(.x, col_cuts, 
+                                                                 right = col_right_closed, 
+                                                                 include.lowest = TRUE, 
+                                                                 dig.lab = 50, 
+                                                                 ordered_result = TRUE,
+                                                                 format_fun = col_labels)))
+    
+    col_labels <- sv_label_intervals
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
@@ -258,14 +266,14 @@ gg_tile_col <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
@@ -306,8 +314,9 @@ gg_tile_col <- function(data,
 #' @param label_var Unquoted variable to label the tiles. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param pal_label Hex code for the label font colour.
+#' @param pal_na The hex code or name of the NA colour to be used.
+#' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of tiles. Defaults to 1.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
@@ -330,10 +339,10 @@ gg_tile_col <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
-#' @param col_labels_dp For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -376,8 +385,9 @@ gg_tile_col_facet <- function(data,
                               label_var = NULL,
                               text_var = NULL,
                               pal = NULL,
-                              pal_rev = FALSE,
                               pal_label = NULL,
+                              pal_na = "#7F7F7FFF",
+                              pal_rev = FALSE,
                               width = 1,
                               alpha = 1,
                               size_line = 0.5,
@@ -400,10 +410,10 @@ gg_tile_col_facet <- function(data,
                               y_title_wrap = 50,
                               col_cuts = NULL,
                               col_labels = NULL,
-                              col_labels_dp = NULL,
                               col_method = NULL,
                               col_na = TRUE,
                               col_pretty_n = 4,
+                              col_right_closed = TRUE,
                               col_title = NULL,
                               col_title_wrap = 25,
                               facet_labels = stringr::str_to_sentence,
@@ -531,11 +541,17 @@ gg_tile_col_facet <- function(data,
       })
     }
 
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, right = FALSE, include.lowest = TRUE)))
+    if (is.null(col_labels)) col_labels <- scales::comma
     
-    if (is.null(col_labels_dp)) col_labels_dp <- sv_max_dp(col_cuts)
-    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, col_labels_dp)
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~kimisc::cut_format(.x, col_cuts, 
+                                                                 right = col_right_closed, 
+                                                                 include.lowest = TRUE, 
+                                                                 dig.lab = 50, 
+                                                                 ordered_result = TRUE,
+                                                                 format_fun = col_labels)))
+    
+    col_labels <- sv_label_intervals
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
@@ -582,14 +598,14 @@ gg_tile_col_facet <- function(data,
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_colour_manual(
       values = pal,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na(),
+      na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   

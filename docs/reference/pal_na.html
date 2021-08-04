@@ -158,23 +158,23 @@
     <p>A function to retreive a hex code for a colour to use for NA values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pal_na</span>(<span class='kw'>col_n</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>pal_na</span>(<span class='kw'>pal</span> <span class='kw'>=</span> <span class='st'>"#7F7F7FFF"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>col_n</th>
-      <td><p>The number of NA colours. Doesn't do anything, but provided for consistency.</p></td>
+      <th>pal</th>
+      <td><p>The hex code or name of the NA colour. Defaults to "#7F7F7FFF".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of one hex code.</p>
+    <p>A character vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/show_col.html'>show_col</a></span>(<span class='fu'>pal_na</span>(<span class='fl'>9</span>))</div><div class='img'><img src='pal_na-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/show_col.html'>show_col</a></span>(<span class='fu'>pal_na</span>())</div><div class='img'><img src='pal_na-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

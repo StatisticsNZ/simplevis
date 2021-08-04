@@ -164,6 +164,7 @@
   <span class='no'>facet_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7FFF"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
@@ -178,10 +179,10 @@
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels_dp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
@@ -217,6 +218,10 @@
     <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.</p></td>
+    </tr>
+    <tr>
+      <th>pal_na</th>
+      <td><p>The hex code or name of the NA colour to be used.</p></td>
     </tr>
     <tr>
       <th>pal_rev</th>
@@ -275,10 +280,6 @@
       <td><p>A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
-      <th>col_labels_dp</th>
-      <td><p>For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.</p></td>
-    </tr>
-    <tr>
       <th>col_method</th>
       <td><p>The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".</p></td>
     </tr>
@@ -289,6 +290,10 @@
     <tr>
       <th>col_pretty_n</th>
       <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
+    </tr>
+    <tr>
+      <th>col_right_closed</th>
+      <td><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>col_title</th>

@@ -10,6 +10,7 @@ leaflet_sf_col(
   label_var = NULL,
   popup_vars_vctr = NULL,
   pal = NULL,
+  pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   size_point = 2,
   size_line = 2,
@@ -21,7 +22,7 @@ leaflet_sf_col(
   col_labels_dp = NULL,
   col_method = NULL,
   col_na = TRUE,
-  col_pretty_n = 6,
+  col_pretty_n = 4,
   map_id = "map"
 )
 }
@@ -35,6 +36,8 @@ leaflet_sf_col(
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
 \item{pal}{Character vector of hex codes.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
@@ -52,13 +55,13 @@ leaflet_sf_col(
 
 \item{col_labels}{A vector to modify colour scale labels.}
 
-\item{col_labels_dp}{For numeric colour methods, the number of decimal places of numeric labels. Defaults to the maximum.}
+\item{col_labels_dp}{The dp for numeric colour scale labels.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

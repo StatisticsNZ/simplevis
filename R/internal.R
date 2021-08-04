@@ -386,3 +386,29 @@ sv_density_max_col_facet <- function(data, x_var, col_var, facet_var,
     dplyr::summarise(max_density = max(.data$max_density)) %>% 
     dplyr::pull(.data$max_density)
 }
+
+#' Convert interval labels to a simpler format. 
+#'
+#' @param breaks A vector of interval breaks. 
+#'
+#' @return Labels for the legend.
+#' @keywords internal
+sv_label_intervals <- function(breaks) {
+  
+  right_closed <- ifelse(stringr::str_sub(breaks[1], -1L, -1L) == "]", TRUE, FALSE)
+  
+  breaks <- stringr::str_replace_all(stringr::str_replace_all(breaks, ", ", "\u2013"), "\\[|\\]|\\)|\\(", "")
+  
+  sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
+  sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
+  
+  breaks[1] <- glue::glue("{sign1}{stringr::word(breaks[2], sep = '\u2013')}")
+  
+  if (stringr::str_detect(tidyr::replace_na(breaks[length(breaks)], "NA"), "NA")) {    
+    breaks[length(breaks) - 1] <- glue::glue("{sign2}{stringr::word(breaks[length(breaks) - 1], 1, sep = '\u2013')}")
+  } else {
+    breaks[length(breaks)] <- glue::glue("{sign2}{stringr::word(breaks[length(breaks)], 1, sep = '\u2013')}")
+  }
+  return(breaks)
+}
+

@@ -4,17 +4,17 @@
 \alias{pal_na}
 \title{NA palette.}
 \usage{
-pal_na(col_n = 1)
+pal_na(pal = "#7F7F7FFF")
 }
 \arguments{
-\item{col_n}{The number of NA colours. Doesn't do anything, but provided for consistency.}
+\item{pal}{The hex code or name of the NA colour. Defaults to "#7F7F7FFF".}
 }
 \value{
-A vector of one hex code.
+A character vector.
 }
 \description{
 A function to retreive a hex code for a colour to use for NA values.
 }
 \examples{
-scales::show_col(pal_na(9)) 
+scales::show_col(pal_na()) 
 }

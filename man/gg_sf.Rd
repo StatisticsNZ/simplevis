@@ -13,7 +13,7 @@ gg_sf(
   pal = NULL,
   borders = NULL,
   borders_behind = TRUE,
-  borders_pal = "#7f7f7f",
+  pal_borders = "#7F7F7FFF",
   borders_size = 0.2,
   title = NULL,
   title_wrap = 100,
@@ -44,7 +44,7 @@ gg_sf(
 
 \item{borders_behind}{TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.}
 
-\item{borders_pal}{Colour of the borders. Defaults to "#7F7F7F".}
+\item{pal_borders}{Colour of the borders. Defaults to "#7F7F7F".}
 
 \item{borders_size}{Size of the borders. Defaults to 0.2.}
 

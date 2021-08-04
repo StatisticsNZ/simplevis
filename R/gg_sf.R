@@ -8,7 +8,7 @@
 #' @param pal Character vector of hex codes. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.
@@ -34,7 +34,7 @@ gg_sf <- function(data,
                   pal = NULL,
                   borders = NULL,
                   borders_behind = TRUE,
-                  borders_pal = "#7f7f7f",
+                  pal_borders = "#7F7F7FFF",
                   borders_size = 0.2,
                   title = NULL,
                   title_wrap = 100,
@@ -71,7 +71,7 @@ gg_sf <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -104,7 +104,7 @@ gg_sf <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -144,7 +144,7 @@ gg_sf <- function(data,
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.
@@ -194,7 +194,7 @@ gg_sf_col <- function(data,
                       alpha = 0.9,
                       borders = NULL,
                       borders_behind = TRUE,
-                      borders_pal = "#7f7f7f",
+                      pal_borders = "#7F7F7FFF",
                       borders_size = 0.2,
                       title = NULL,
                       title_wrap = 100,
@@ -258,7 +258,7 @@ gg_sf_col <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -371,7 +371,7 @@ gg_sf_col <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -417,7 +417,7 @@ gg_sf_col <- function(data,
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param subtitle Subtitle string. 
@@ -448,7 +448,7 @@ gg_sf_facet <- function(data,
                         facet_nrow = NULL,
                         borders = NULL,
                         borders_behind = TRUE,
-                        borders_pal = "#7f7f7f",
+                        pal_borders = "#7F7F7FFF",
                         borders_size = 0.2,
                         title = NULL,
                         title_wrap = 100,
@@ -503,7 +503,7 @@ gg_sf_facet <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -548,7 +548,7 @@ gg_sf_facet <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -572,6 +572,7 @@ gg_sf_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points. Defaults to 0.5.
@@ -579,7 +580,6 @@ gg_sf_facet <- function(data,
 #' @param alpha The opacity of polygons. Defaults to 0.9.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. Defaults to NULL.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -615,6 +615,7 @@ gg_sf_col_facet <- function(data,
                             facet_var,
                             text_var = NULL,
                             pal = NULL,
+                            pal_borders = "#7F7F7FFF",
                             pal_na = "#7F7F7FFF",
                             pal_rev = FALSE,
                             size_point = 1,
@@ -622,7 +623,6 @@ gg_sf_col_facet <- function(data,
                             alpha = 0.9,
                             borders = NULL,
                             borders_behind = TRUE,
-                            borders_pal = "#7f7f7f",
                             borders_size = 0.2,
                             title = NULL,
                             title_wrap = 100,
@@ -702,7 +702,7 @@ gg_sf_col_facet <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }
@@ -813,7 +813,7 @@ gg_sf_col_facet <- function(data,
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = borders_pal,
+          colour = pal_borders,
           fill = "transparent"
         )
     }

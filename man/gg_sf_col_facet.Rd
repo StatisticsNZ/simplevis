@@ -10,6 +10,7 @@ gg_sf_col_facet(
   facet_var,
   text_var = NULL,
   pal = NULL,
+  pal_borders = "#7F7F7FFF",
   pal_na = "#7F7F7FFF",
   pal_rev = FALSE,
   size_point = 1,
@@ -17,7 +18,6 @@ gg_sf_col_facet(
   alpha = 0.9,
   borders = NULL,
   borders_behind = TRUE,
-  borders_pal = "#7f7f7f",
   borders_size = 0.2,
   title = NULL,
   title_wrap = 100,
@@ -53,6 +53,8 @@ gg_sf_col_facet(
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
+\item{pal_borders}{Colour of the borders. Defaults to "#7F7F7F".}
+
 \item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
@@ -66,8 +68,6 @@ gg_sf_col_facet(
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
 \item{borders_behind}{TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.}
-
-\item{borders_pal}{Colour of the borders. Defaults to "#7F7F7F".}
 
 \item{borders_size}{Size of the borders. Defaults to 0.2.}
 

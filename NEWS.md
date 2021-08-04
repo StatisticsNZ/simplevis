@@ -6,41 +6,19 @@
 * Added scales::comma default for all numeric x and y variables.
 * Changed numeric col_method default to "bin".
 * Added col_pretty_n argument for "bin".
-
 * Removed col_labels_dp from ggplot wrapper functions.
-* Added col_right_closed to change the interval type for numeric colour variables. 
+* Added col_right_closed to change the interval type for numeric colour variables. Defaulted it to right closed. 
 * Supported col_labels to be supplied a manual vector of labels for numeric colour variables.
 * Added label_intervals function.
 * Added pal_na argument to allow the user to specify the NA colour.
-
-# simplevis 4.4.7
-
-* Add support for colouring numeric variables to hbar family.
-
-# simplevis 4.4.6
-
+* Added support for colouring numeric variables to hbar family.
 * Removed support for colouring numeric variables to line family.
-
-# simplevis 4.4.5
-
-* Add support for colouring numeric variables to line family.
-
-# simplevis 4.4.4
-
-* Add comma big.mark into numeric colour labels.
-* Add support for colouring numeric variables to bar family.
-
-# simplevis 4.4.3
-
+* Added support for colouring numeric variables to line family.
+* Added comma big.mark into numeric colour labels.
+* Added support for colouring numeric variables to bar family.
 * Made gg_tile_col_facet.
-
-# simplevis 4.4.2
-
 * Added theme_no_gridlines.
 * Made gg_tile_col function.
-
-# simplevis 4.4.1
-
 * Updated themes to be complete.
 
 # simplevis 4.4.0

@@ -23,6 +23,7 @@ leaflet_sf_col(
   col_method = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
+  col_right_closed = TRUE,
   map_id = "map"
 )
 }
@@ -55,13 +56,15 @@ leaflet_sf_col(
 
 \item{col_labels}{A vector to modify colour scale labels.}
 
-\item{col_labels_dp}{The dp for numeric colour scale labels.}
+\item{col_labels_dp}{The number of decimal places to round labels to.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+
+\item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

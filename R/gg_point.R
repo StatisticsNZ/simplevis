@@ -469,7 +469,7 @@ gg_point_col <- function(data,
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
     }
-
+    
     if (is.null(col_labels)) col_labels <- scales::comma
     
     data <- data %>% 
@@ -480,7 +480,7 @@ gg_point_col <- function(data,
                                                                  ordered_result = TRUE,
                                                                  format_fun = col_labels)))
     
-    col_labels <- sv_label_intervals
+    col_labels <- sv_interval_breaks_to_interval_labels
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -1170,7 +1170,7 @@ gg_point_col_facet <-
                                                                    ordered_result = TRUE,
                                                                    format_fun = col_labels)))
       
-      col_labels <- sv_label_intervals
+      col_labels <- sv_interval_breaks_to_interval_labels
       
       col_n <- length(col_cuts) - 1
       if (is.null(pal)) pal <- pal_viridis_reorder(col_n)

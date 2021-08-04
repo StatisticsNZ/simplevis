@@ -68,25 +68,29 @@ sv_numeric_breaks_h <- function(var_vctr,
 
 #' @title Convert cuts to bin legend labels.
 #' @param cuts_vctr A numeric vector of bin cuts from which to create a vector of legend labels.
-#' @param labels_dp The number of decimal places to round numeric labels to.
-#' @param comma TRUE or FALSE of whether to convert numeric values to character values with comma seperators.
+#' @param labels_dp The number of decimal places to round labels to.
+#' @param right_closed TRUE or FALSE of whether intervals are to be cut right-closed. Defaults to TRUE.
 #' @return A vector of labels.
 #' @keywords internal
-sv_cuts_to_labels <- function(cuts_vctr, labels_dp = NULL, comma = TRUE) {
+#' sv_cuts_to_labels
+sv_cuts_to_interval_labels <- function(cuts_vctr, labels_dp = NULL, right_closed = TRUE) {
   
-  if (is.null(labels_dp)) col_labels_dp <- sv_max_dp(labels_dp) 
+  if (is.null(labels_dp)) labels_dp <- sv_max_dp(cuts_vctr) 
 
   labels <- vector("character", 0)
   
   cuts_vctr_no <- length(cuts_vctr)
   
-  cuts_vctr <- format(round(as.numeric(cuts_vctr), labels_dp), nsmall = labels_dp, big.mark = ifelse(comma == TRUE, ",", ""), trim = TRUE) 
+  cuts_vctr <- format(round(as.numeric(cuts_vctr), labels_dp), nsmall = labels_dp, big.mark = ",", trim = TRUE) 
+  
+  sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
+  sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
   
   if (cuts_vctr_no == 2) {
     labels <- c("Feature")
   }
   else if (cuts_vctr_no == 3) {
-    labels <- c(paste0("<", cuts_vctr[2]), paste0("\u2265", cuts_vctr[2]))
+    labels <- c(paste0(sign1, cuts_vctr[2]), paste0(sign2, cuts_vctr[2]))
   }
   else if (cuts_vctr_no > 3) {
     for (i in 2:(length(cuts_vctr) - 2)) {
@@ -95,9 +99,9 @@ sv_cuts_to_labels <- function(cuts_vctr, labels_dp = NULL, comma = TRUE) {
     }
     
     labels <- 
-      c(paste0("<", cuts_vctr[2]),
+      c(paste0(sign1, cuts_vctr[2]),
         labels,
-        paste0("\u2265", cuts_vctr[length(cuts_vctr) - 1]))
+        paste0(sign2, cuts_vctr[length(cuts_vctr) - 1]))
   }
   return(labels)
 }
@@ -393,7 +397,8 @@ sv_density_max_col_facet <- function(data, x_var, col_var, facet_var,
 #'
 #' @return Labels for the legend.
 #' @keywords internal
-sv_label_intervals <- function(breaks) {
+#' 
+sv_interval_breaks_to_interval_labels <- function(breaks) {
   
   right_closed <- ifelse(stringr::str_sub(breaks[1], -1L, -1L) == "]", TRUE, FALSE)
   

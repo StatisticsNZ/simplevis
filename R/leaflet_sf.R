@@ -208,10 +208,11 @@ leaflet_sf <- function(data,
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels A vector to modify colour scale labels.  
-#' @param col_labels_dp The dp for numeric colour scale labels. 
+#' @param col_labels_dp The number of decimal places to round labels to.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -247,6 +248,7 @@ leaflet_sf_col <- function(data,
                            col_method = NULL,
                            col_na = TRUE,
                            col_pretty_n = 4,
+                           col_right_closed = TRUE, 
                            map_id = "map"
 ) {
   
@@ -315,11 +317,11 @@ leaflet_sf_col <- function(data,
       domain = col_var_vctr,
       bins = col_cuts,
       pretty = FALSE,
-      right = FALSE,
+      right = col_right_closed,
       na.color = pal_na
     )
     
-    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, sv_max_dp(col_cuts))  
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_interval_labels(col_cuts, labels_dp = col_labels_dp, right_closed = col_right_closed)  
   }
   else if (col_method == "quantile") {
     if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -339,11 +341,11 @@ leaflet_sf_col <- function(data,
       palette = pal,
       domain = col_var_vctr,
       bins = col_cuts,
-      right = FALSE,
+      right = col_right_closed,
       na.color = pal_na
     )
     
-    if (is.null(col_labels)) col_labels <- sv_cuts_to_labels(col_cuts, sv_max_dp(col_cuts))  
+    if (is.null(col_labels)) col_labels <- sv_cuts_to_interval_labels(col_cuts, labels_dp = col_labels_dp, right_closed = col_right_closed)  
   }
   
   geometry_type <- unique(sf::st_geometry_type(data))
@@ -414,7 +416,7 @@ leaflet_sf_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = col_labels_dp)
+        labFormat = labelFormat(between = "&ndash;")
       )
     
   }
@@ -456,9 +458,8 @@ leaflet_sf_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = col_labels_dp)
+        labFormat = labelFormat(between = "&ndash;")
       )
-    
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     if (shiny == FALSE) {
@@ -497,7 +498,7 @@ leaflet_sf_col <- function(data,
         title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
         position = "bottomright",
         opacity = 1,
-        labFormat = labelFormat(between = "&ndash;", digits = col_labels_dp)
+        labFormat = labelFormat(between = "&ndash;")
       )
   }
 }

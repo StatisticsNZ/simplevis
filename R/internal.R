@@ -66,46 +66,6 @@ sv_numeric_breaks_h <- function(var_vctr,
   return(breaks)
 }
 
-#' @title Convert cuts to bin legend labels.
-#' @param cuts_vctr A numeric vector of bin cuts from which to create a vector of legend labels.
-#' @param labels_dp The number of decimal places to round labels to.
-#' @param right_closed TRUE or FALSE of whether intervals are to be cut right-closed. Defaults to TRUE.
-#' @return A vector of labels.
-#' @keywords internal
-#' sv_cuts_to_labels
-sv_cuts_to_interval_labels <- function(cuts_vctr, labels_dp = NULL, right_closed = TRUE) {
-  
-  if (is.null(labels_dp)) labels_dp <- sv_max_dp(cuts_vctr) 
-
-  labels <- vector("character", 0)
-  
-  cuts_vctr_no <- length(cuts_vctr)
-  
-  cuts_vctr <- format(round(as.numeric(cuts_vctr), labels_dp), nsmall = labels_dp, big.mark = ",", trim = TRUE) 
-  
-  sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
-  sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
-  
-  if (cuts_vctr_no == 2) {
-    labels <- c("Feature")
-  }
-  else if (cuts_vctr_no == 3) {
-    labels <- c(paste0(sign1, cuts_vctr[2]), paste0(sign2, cuts_vctr[2]))
-  }
-  else if (cuts_vctr_no > 3) {
-    for (i in 2:(length(cuts_vctr) - 2)) {
-      temp <- paste0(cuts_vctr[i], "\u2013", cuts_vctr[i + 1])
-      labels <- c(labels, temp)
-    }
-    
-    labels <- 
-      c(paste0(sign1, cuts_vctr[2]),
-        labels,
-        paste0(sign2, cuts_vctr[length(cuts_vctr) - 1]))
-  }
-  return(labels)
-}
-
 #' Identify the maximum decimal places in a numeric vector. 
 #'
 #' @param vctr A numeric vector. 
@@ -417,3 +377,43 @@ sv_interval_breaks_to_interval_labels <- function(breaks) {
   return(breaks)
 }
 
+#' @title Convert bin cuts to interval legend labels.
+#' @param bin_cuts A numeric vector of bin cuts from which to create a vector of legend labels.
+#' @param label_digits The number of decimal places to round labels to.
+#' @param right_closed TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @return A vector of labels.
+#' @export 
+#' @examples 
+#' bin_cuts_to_interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
+bin_cuts_to_interval_labels <- function(bin_cuts, label_digits = NULL, right_closed = TRUE) {
+  
+  if (is.null(label_digits)) label_digits <- sv_max_dp(bin_cuts) 
+  
+  labels <- vector("character", 0)
+  
+  bin_cuts_no <- length(bin_cuts)
+  
+  bin_cuts <- format(round(as.numeric(bin_cuts), label_digits), nsmall = label_digits, big.mark = ",", trim = TRUE) 
+  
+  sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
+  sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
+  
+  if (bin_cuts_no == 2) {
+    labels <- c("Feature")
+  }
+  else if (bin_cuts_no == 3) {
+    labels <- c(paste0(sign1, bin_cuts[2]), paste0(sign2, bin_cuts[2]))
+  }
+  else if (bin_cuts_no > 3) {
+    for (i in 2:(length(bin_cuts) - 2)) {
+      temp <- paste0(bin_cuts[i], "\u2013", bin_cuts[i + 1])
+      labels <- c(labels, temp)
+    }
+    
+    labels <- 
+      c(paste0(sign1, bin_cuts[2]),
+        labels,
+        paste0(sign2, bin_cuts[length(bin_cuts) - 1]))
+  }
+  return(labels)
+}

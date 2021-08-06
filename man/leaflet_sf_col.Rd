@@ -19,7 +19,6 @@ leaflet_sf_col(
   title = NULL,
   col_cuts = NULL,
   col_labels = NULL,
-  col_labels_dp = NULL,
   col_method = NULL,
   col_na = TRUE,
   col_pretty_n = 4,
@@ -55,8 +54,6 @@ leaflet_sf_col(
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_labels}{A vector to modify colour scale labels.}
-
-\item{col_labels_dp}{The number of decimal places to round labels to.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

@@ -1,3 +1,7 @@
+# simplevis 4.5.1
+
+* Reverse y variable in tile functions.
+
 # simplevis 4.5.0 
 
 * Breaking: removed col_legend_ncol and col_legend_nrow

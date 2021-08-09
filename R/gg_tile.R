@@ -164,7 +164,7 @@ gg_tile_col <- function(data,
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  if (y_rev == TRUE) {
+  if (y_rev == FALSE) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
     
@@ -498,7 +498,7 @@ gg_tile_col_facet <- function(data,
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  if (y_rev == TRUE) {
+  if (y_rev == FALSE) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
     

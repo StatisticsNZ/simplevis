@@ -220,7 +220,7 @@ gg_tile_col <- function(data,
     col_labels <- sv_interval_breaks_to_interval_labels
     
     col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
     else pal <- pal[1:col_n]
   }
   else if (col_method == "category") {
@@ -554,7 +554,7 @@ gg_tile_col_facet <- function(data,
     col_labels <- sv_interval_breaks_to_interval_labels
     
     col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n + 1)[1:col_n]
+    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
     else pal <- pal[1:col_n]
   }
   else if (col_method == "category") {

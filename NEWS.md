@@ -1,3 +1,7 @@
+# simplevis 4.5.2
+
+* Adjusted the tiles colours.
+
 # simplevis 4.5.1
 
 * Reverse y variable in tile functions.

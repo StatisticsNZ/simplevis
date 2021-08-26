@@ -14,7 +14,7 @@ gg_density_col(
   density_n = 512,
   density_trim = FALSE,
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   alpha = 0.1,
   size_line = 0.5,

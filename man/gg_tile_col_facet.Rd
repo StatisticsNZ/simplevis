@@ -13,8 +13,8 @@ gg_tile_col_facet(
   label_var = NULL,
   text_var = NULL,
   pal = NULL,
-  pal_label = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_label = "#323232",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   width = 1,
   alpha = 1,
@@ -24,13 +24,13 @@ gg_tile_col_facet(
   title_wrap = 100,
   subtitle = NULL,
   subtitle_wrap = 100,
-  x_expand = waiver(),
+  x_expand = c(0, 0),
   x_labels = stringr::str_to_sentence,
   x_na = TRUE,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
-  y_expand = waiver(),
+  y_expand = c(0, 0),
   y_labels = stringr::str_to_sentence,
   y_na = TRUE,
   y_rev = FALSE,
@@ -40,7 +40,7 @@ gg_tile_col_facet(
   col_labels = NULL,
   col_method = NULL,
   col_na = TRUE,
-  col_pretty_n = 4,
+  col_pretty_n = 6,
   col_right_closed = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
@@ -74,7 +74,7 @@ gg_tile_col_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{pal_label}{Hex code for the label font colour.}
+\item{pal_label}{Hex code for the label font colour. Defaults to "#323232".}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
 
@@ -128,7 +128,7 @@ gg_tile_col_facet(
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 

@@ -15,7 +15,7 @@ gg_point_col_facet(
   alpha = 1,
   size_point = 1,
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   title = NULL,
   title_wrap = 100,

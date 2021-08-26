@@ -1,3 +1,7 @@
+# simplevis 4.5.3
+
+* Make quick style improvements to tile functions.
+
 # simplevis 4.5.2
 
 * Adjusted the tiles colours.

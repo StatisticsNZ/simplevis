@@ -12,7 +12,7 @@ gg_boxplot_col_facet(
   facet_var,
   stat = "boxplot",
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   width = 0.5,
   alpha = 1,

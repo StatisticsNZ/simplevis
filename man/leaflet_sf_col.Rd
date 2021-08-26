@@ -10,7 +10,7 @@ leaflet_sf_col(
   label_var = NULL,
   popup_vars_vctr = NULL,
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   size_point = 2,
   size_line = 2,

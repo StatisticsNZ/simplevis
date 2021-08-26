@@ -12,7 +12,7 @@ gg_hbar_col(
   text_var = NULL,
   position = NULL,
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   width = 0.75,
   alpha = 1,

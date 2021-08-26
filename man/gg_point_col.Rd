@@ -14,7 +14,7 @@ gg_point_col(
   alpha = 1,
   size_point = 1,
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   x_balance = FALSE,
   x_expand = NULL,

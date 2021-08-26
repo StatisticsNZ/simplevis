@@ -7,7 +7,7 @@
 #' @param label_var Unquoted variable to label the tiles. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param pal_label Hex code for the label font colour.
+#' @param pal_label Hex code for the label font colour. Defaults to "#323232".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of tiles. Defaults to 1.
@@ -34,7 +34,7 @@
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -69,8 +69,8 @@ gg_tile_col <- function(data,
                        label_var = NULL,
                        text_var = NULL,
                        pal = NULL,
-                       pal_label = NULL,
-                       pal_na = "#7F7F7FFF",
+                       pal_label = "#323232",
+                       pal_na = "#7F7F7F",
                        pal_rev = FALSE,
                        width = 1,
                        alpha = 1,
@@ -80,13 +80,13 @@ gg_tile_col <- function(data,
                        title_wrap = 100,
                        subtitle = NULL,
                        subtitle_wrap = 100,
-                       x_expand = waiver(),
+                       x_expand = c(0, 0),
                        x_labels = stringr::str_to_sentence,
                        x_na = TRUE,
                        x_rev = FALSE,
                        x_title = NULL,
                        x_title_wrap = 50,
-                       y_expand = waiver(),
+                       y_expand = c(0, 0),
                        y_labels = stringr::str_to_sentence,
                        y_na = TRUE,
                        y_rev = FALSE,
@@ -96,7 +96,7 @@ gg_tile_col <- function(data,
                        col_labels = NULL,
                        col_method = NULL,
                        col_na = TRUE,
-                       col_pretty_n = 4,
+                       col_pretty_n = 6,
                        col_right_closed = TRUE,
                        col_title = NULL,
                        col_title_wrap = 25,
@@ -237,16 +237,12 @@ gg_tile_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  if(is.null(pal_label)) pal_label <- "#FFFFFF"
-
   plot <- ggplot(data) +
     theme_no_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
-             width = bar_width) +
-    theme(axis.line = element_blank()) +
-    theme(axis.ticks = element_blank())
+             width = bar_width) 
     
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -314,7 +310,7 @@ gg_tile_col <- function(data,
 #' @param label_var Unquoted variable to label the tiles. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param pal_label Hex code for the label font colour.
+#' @param pal_label Hex code for the label font colour. Defaults to "#323232".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param width Width of tiles. Defaults to 1.
@@ -341,7 +337,7 @@ gg_tile_col <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
-#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -385,8 +381,8 @@ gg_tile_col_facet <- function(data,
                               label_var = NULL,
                               text_var = NULL,
                               pal = NULL,
-                              pal_label = NULL,
-                              pal_na = "#7F7F7FFF",
+                              pal_label = "#323232",
+                              pal_na = "#7F7F7F",
                               pal_rev = FALSE,
                               width = 1,
                               alpha = 1,
@@ -396,13 +392,13 @@ gg_tile_col_facet <- function(data,
                               title_wrap = 100,
                               subtitle = NULL,
                               subtitle_wrap = 100,
-                              x_expand = waiver(),
+                              x_expand = c(0, 0),
                               x_labels = stringr::str_to_sentence,
                               x_na = TRUE,
                               x_rev = FALSE,
                               x_title = NULL,
                               x_title_wrap = 50,
-                              y_expand = waiver(),
+                              y_expand = c(0, 0),
                               y_labels = stringr::str_to_sentence,
                               y_na = TRUE,
                               y_rev = FALSE,
@@ -412,7 +408,7 @@ gg_tile_col_facet <- function(data,
                               col_labels = NULL,
                               col_method = NULL,
                               col_na = TRUE,
-                              col_pretty_n = 4,
+                              col_pretty_n = 6,
                               col_right_closed = TRUE,
                               col_title = NULL,
                               col_title_wrap = 25,
@@ -571,17 +567,13 @@ gg_tile_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  if(is.null(pal_label)) pal_label <- "#FFFFFF"
-  
   plot <- ggplot(data) +
     theme_no_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
               alpha = alpha, 
               size = size_line, 
-              width = bar_width) +
-    theme(axis.line = element_blank()) +
-    theme(axis.ticks = element_blank())
-  
+              width = bar_width) 
+
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)

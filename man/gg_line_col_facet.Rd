@@ -12,7 +12,7 @@ gg_line_col_facet(
   facet_var,
   text_var = NULL,
   pal = NULL,
-  pal_na = "#7F7F7FFF",
+  pal_na = "#7F7F7F",
   pal_rev = FALSE,
   size_point = 1,
   size_line = 0.5,

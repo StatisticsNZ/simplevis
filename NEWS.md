@@ -1,6 +1,6 @@
 # simplevis 4.5.3
 
-* Make quick style improvements to tile functions.
+* Make quick style improvements to tile function.
 
 # simplevis 4.5.2
 

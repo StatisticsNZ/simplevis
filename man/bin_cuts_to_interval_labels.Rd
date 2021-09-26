@@ -4,7 +4,8 @@
 \alias{bin_cuts_to_interval_labels}
 \title{Convert bin cuts to interval legend labels.}
 \usage{
-bin_cuts_to_interval_labels(bin_cuts, label_digits = NULL, right_closed = TRUE)
+bin_cuts_to_interval_labels(bin_cuts, label_digits = NULL,
+  right_closed = TRUE)
 }
 \arguments{
 \item{bin_cuts}{A numeric vector of bin cuts from which to create a vector of legend labels.}

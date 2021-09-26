@@ -56,17 +56,17 @@ leaflet_sf <- function(data,
   
   if(is.null(popup_vars_vctr)){
     popup_data <- data %>% 
-      sf::st_drop_geometry() %>% 
-      rlang::set_names(~snakecase::to_sentence_case(.))
+      dplyr::relocate(geometry, .after = last_col()) %>% 
+      janitor::clean_names(case = "sentence")
   }
   else {
     popup_data <- data %>% 
       dplyr::select(popup_vars_vctr) %>% 
-      sf::st_drop_geometry() %>% 
-      rlang::set_names(~snakecase::to_sentence_case(.))
+      dplyr::relocate(geometry, .after = last_col()) %>% 
+      janitor::clean_names(case = "sentence")
   }
   
-  popup <- leafpop::popupTable(popup_data, row.numbers = FALSE, feature.id = FALSE)
+  popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     
@@ -366,18 +366,18 @@ leaflet_sf_col <- function(data,
   
   if(is.null(popup_vars_vctr)){
     popup_data <- data %>% 
-      sf::st_drop_geometry() %>% 
-      rlang::set_names(~snakecase::to_sentence_case(.))
+      dplyr::relocate(geometry, .after = last_col()) %>% 
+      janitor::clean_names(case = "sentence")
   }
   else {
     popup_data <- data %>% 
       dplyr::select(popup_vars_vctr) %>% 
-      sf::st_drop_geometry() %>% 
-      rlang::set_names(~snakecase::to_sentence_case(.))
+      dplyr::relocate(geometry, .after = last_col()) %>% 
+      janitor::clean_names(case = "sentence")
   }
   
-  popup <- leafpop::popupTable(popup_data, row.numbers = FALSE, feature.id = FALSE)
-  
+  popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
+
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (shiny == FALSE) {
       

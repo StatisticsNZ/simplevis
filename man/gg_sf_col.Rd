@@ -4,39 +4,17 @@
 \alias{gg_sf_col}
 \title{Simple feature ggplot map that is coloured.}
 \usage{
-gg_sf_col(
-  data,
-  col_var,
-  text_var = NULL,
-  pal = NULL,
-  pal_na = "#7F7F7FFF",
-  pal_rev = FALSE,
-  size_point = 1,
-  size_line = 0.5,
-  alpha = 0.9,
-  borders = NULL,
-  borders_behind = TRUE,
-  pal_borders = "#7F7F7FFF",
-  borders_size = 0.2,
-  title = NULL,
-  title_wrap = 100,
-  subtitle = NULL,
-  subtitle_wrap = 100,
-  col_cuts = NULL,
-  col_labels = NULL,
-  col_na = TRUE,
-  col_pretty_n = 4,
-  col_method = NULL,
-  col_right_closed = TRUE,
-  col_title = NULL,
-  col_title_wrap = 25,
-  caption = NULL,
-  caption_wrap = 80,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
-)
+gg_sf_col(data, col_var, text_var = NULL, pal = NULL,
+  pal_na = "#7F7F7FFF", pal_rev = FALSE, size_point = 1,
+  size_line = 0.5, alpha = 0.9, borders = NULL,
+  borders_behind = TRUE, pal_borders = "#7F7F7FFF",
+  borders_size = 0.2, title = NULL, title_wrap = 100,
+  subtitle = NULL, subtitle_wrap = 100, col_cuts = NULL,
+  col_labels = NULL, col_na = TRUE, col_pretty_n = 4,
+  col_method = NULL, col_right_closed = TRUE, col_title = NULL,
+  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
+  font_family = "", font_size_title = NULL, font_size_body = NULL,
+  mobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}

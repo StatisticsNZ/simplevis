@@ -548,7 +548,7 @@ gg_hbar_col <- function(data,
   if (pal_rev == FALSE) pal <- rev(pal)
   
   if(!is.null(position)) {
-    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
+    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
   }
   
   if (is.null(position)) {
@@ -1283,7 +1283,7 @@ gg_hbar_col_facet <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   if(!is.null(position)) {
-    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'stack' or 'fill'")
+    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
   }
   
   if (is.null(position)) {

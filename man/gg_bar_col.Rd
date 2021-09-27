@@ -6,7 +6,7 @@
 \usage{
 gg_bar_col(data, x_var, y_var, col_var, text_var = NULL,
   position = NULL, pal = NULL, pal_na = "#7F7F7F", pal_rev = FALSE,
-  width = 0.75, alpha = 1, size_line = 0.5, title = NULL,
+  width = NULL, alpha = 1, size_line = 0.5, title = NULL,
   title_wrap = 100, subtitle = NULL, subtitle_wrap = 100,
   x_balance = FALSE, x_expand = NULL, x_labels = NULL, x_na = TRUE,
   x_pretty_n = 6, x_rev = FALSE, x_title = NULL, x_title_wrap = 50,

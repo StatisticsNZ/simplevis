@@ -4,7 +4,7 @@
 \alias{gg_bar}
 \title{Vertical bar ggplot.}
 \usage{
-gg_bar(data, x_var, y_var, text_var = NULL, pal = NULL, width = 0.75,
+gg_bar(data, x_var, y_var, text_var = NULL, pal = NULL, width = NULL,
   alpha = 1, size_line = 0.5, title = NULL, title_wrap = 100,
   subtitle = NULL, subtitle_wrap = 100, x_balance = FALSE,
   x_expand = NULL, x_labels = NULL, x_na = TRUE, x_pretty_n = 6,

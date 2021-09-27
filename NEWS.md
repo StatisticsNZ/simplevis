@@ -1,3 +1,7 @@
+# simplevis 4.5.5
+
+* Adjust width so that it defaults to NULL for date or datetime vars.
+
 # simplevis 4.5.4
 
 * Fix leaflet popup bug. 

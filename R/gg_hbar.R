@@ -60,7 +60,7 @@ gg_hbar <- function(data,
                     y_var,
                     text_var = NULL,
                     pal = NULL,
-                    width = 0.75,
+                    width = NULL,
                     alpha = 1,
                     size_line = 0.5,
                     title = NULL,
@@ -152,10 +152,11 @@ gg_hbar <- function(data,
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
-  if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
-  else bar_unit <- 1
-  
-  bar_width <- bar_unit * width
+  if(is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.75
+  }
   
   plot <- ggplot(data) +
     theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
@@ -164,7 +165,7 @@ gg_hbar <- function(data,
              fill = pal, 
              alpha = alpha, 
              size = size_line, 
-             width = bar_width)
+             width = width)
   
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
     
@@ -369,7 +370,7 @@ gg_hbar_col <- function(data,
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
-                        width = 0.75,
+                        width = NULL,
                         alpha = 1,
                         size_line = 0.5,
                         title = NULL,
@@ -481,10 +482,11 @@ gg_hbar_col <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
-  if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
-  else bar_unit <- 1
-  
-  bar_width <- bar_unit * width
+  if(is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.75
+  }
   
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -561,7 +563,7 @@ gg_hbar_col <- function(data,
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
-             width = bar_width, 
+             width = width, 
              position = position2)
   
   if (!is.null(position)) {
@@ -783,7 +785,7 @@ gg_hbar_facet <- function(data,
                           facet_var,
                           text_var = NULL,
                           pal = NULL,
-                          width = 0.75,
+                          width = NULL,
                           alpha = 1,
                           size_line = 0.5,
                           title = NULL,
@@ -880,10 +882,11 @@ gg_hbar_facet <- function(data,
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
-  if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
-  else bar_unit <- 1
-  
-  bar_width <- bar_unit * width
+  if(is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.75
+  }
   
   plot <- ggplot(data) +
     theme_x_gridlines(
@@ -891,7 +894,7 @@ gg_hbar_facet <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     ) +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = bar_width)
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
   
   if (facet_scales %in% c("fixed", "free_x")) {
     if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -1096,7 +1099,7 @@ gg_hbar_col_facet <- function(data,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              width = 0.75,
+                              width = NULL,
                               alpha = 1,
                               size_line = 0.5,
                               title = NULL,
@@ -1224,10 +1227,11 @@ gg_hbar_col_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
-  if (lubridate::is.Date(y_var_vctr)) bar_unit <- 365
-  else bar_unit <- 1
-  
-  bar_width <- bar_unit * width
+  if(is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.75
+  }
   
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -1300,7 +1304,7 @@ gg_hbar_col_facet <- function(data,
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
-             width = bar_width, 
+             width = width, 
              position = position2)
   
   if (!is.null(position)) {

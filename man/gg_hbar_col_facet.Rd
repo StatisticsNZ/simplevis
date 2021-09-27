@@ -6,7 +6,7 @@
 \usage{
 gg_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   text_var = NULL, position = NULL, pal = NULL, pal_na = "#7F7F7F",
-  pal_rev = FALSE, width = 0.75, alpha = 1, size_line = 0.5,
+  pal_rev = FALSE, width = NULL, alpha = 1, size_line = 0.5,
   title = NULL, title_wrap = 80, subtitle = NULL,
   subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
   x_gridlines_minor = FALSE, x_labels = scales::comma, x_na = TRUE,

@@ -5,7 +5,7 @@
 \title{Horizontal bar ggplot that is facetted.}
 \usage{
 gg_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
-  pal = NULL, width = 0.75, alpha = 1, size_line = 0.5,
+  pal = NULL, width = NULL, alpha = 1, size_line = 0.5,
   title = NULL, title_wrap = 80, subtitle = NULL,
   subtitle_wrap = 80, x_balance = FALSE, x_expand = NULL,
   x_gridlines_minor = FALSE, x_labels = scales::comma, x_na = TRUE,

@@ -5,7 +5,7 @@
 \title{Vertical bar ggplot that is facetted.}
 \usage{
 gg_bar_facet(data, x_var, y_var, facet_var, text_var = NULL,
-  pal = NULL, width = 0.75, alpha = 1, size_line = 0.5,
+  pal = NULL, width = NULL, alpha = 1, size_line = 0.5,
   title = NULL, title_wrap = 100, subtitle = NULL,
   subtitle_wrap = 100, x_balance = FALSE, x_expand = NULL,
   x_labels = NULL, x_na = TRUE, x_pretty_n = 3, x_rev = FALSE,

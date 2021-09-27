@@ -1,3 +1,7 @@
+# simplevis 4.5.4
+
+* Fix leaflet popup bug. 
+
 # simplevis 4.5.3
 
 * Make quick style improvements to tile function.

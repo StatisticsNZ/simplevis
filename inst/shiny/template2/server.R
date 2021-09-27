@@ -86,7 +86,7 @@ shinyServer(function(input, output, session) {
     # change any placeholder character values to input widgets
     # refer to a reactive map_data object as map_data()
     # use reactive radius for points that get bigger as the user zooms in, if necessary 
-    # reactive_radius <-  case_when(input$map_zoom < 7, 1, ifelse(input$map_zoom < 9, 2, ifelse(input$map_zoom < 12, 3, 4)))  
+    # reactive_size <-  ifelse(input$map_zoom < 6, 1.5, ifelse(input$map_zoom < 7, 2, ifelse(input$map_zoom < 8, 3, 4)))
 
     title <- paste0("Monitored trends, 2008\u201317")
     

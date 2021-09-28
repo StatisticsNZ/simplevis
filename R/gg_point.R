@@ -16,7 +16,6 @@
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -28,7 +27,6 @@
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -68,7 +66,6 @@ gg_point <- function(data,
                      x_gridlines_minor = FALSE,
                      x_labels = NULL,
                      x_pretty_n = 6,
-                     x_na = TRUE,
                      x_rev = FALSE,
                      x_title = NULL,
                      x_title_wrap = 50,
@@ -80,7 +77,6 @@ gg_point <- function(data,
                      y_gridlines_minor = FALSE,
                      y_labels = scales::comma,
                      y_pretty_n = 5,
-                     y_na = TRUE,
                      y_title = NULL,
                      y_title_wrap = 50,
                      y_trans = "identity",
@@ -98,15 +94,6 @@ gg_point <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   text_var <- rlang::enquo(text_var)
-  
-  if (x_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
-  }
   
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -292,7 +279,6 @@ gg_point <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -304,7 +290,6 @@ gg_point <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -351,7 +336,6 @@ gg_point_col <- function(data,
                          x_expand = NULL,
                          x_gridlines_minor = FALSE,
                          x_labels = NULL,
-                         x_na = TRUE,
                          x_pretty_n = 6,
                          x_rev = FALSE,
                          x_trans = "identity",
@@ -361,7 +345,6 @@ gg_point_col <- function(data,
                          y_expand = NULL,
                          y_gridlines_minor = FALSE,
                          y_labels = scales::comma,
-                         y_na = TRUE,
                          y_pretty_n = 5,
                          y_trans = "identity",
                          y_zero = FALSE,
@@ -396,14 +379,6 @@ gg_point_col <- function(data,
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
   
-  if (x_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
-  }
   if (col_na == FALSE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
@@ -664,7 +639,6 @@ gg_point_col <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -676,7 +650,6 @@ gg_point_col <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -721,7 +694,6 @@ gg_point_facet <- function(data,
                            x_expand = NULL,
                            x_gridlines_minor = FALSE,
                            x_labels = NULL,
-                           x_na = TRUE,
                            x_pretty_n = 3,
                            x_rev = FALSE,
                            x_title = NULL,
@@ -733,7 +705,6 @@ gg_point_facet <- function(data,
                            y_gridlines_minor = FALSE,
                            y_expand = NULL,
                            y_labels = scales::comma,
-                           y_na = TRUE,
                            y_pretty_n = 4,
                            y_title = NULL,
                            y_title_wrap = 50,
@@ -758,14 +729,6 @@ gg_point_facet <- function(data,
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
-  if (x_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
-  }
   if (facet_na == FALSE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
@@ -958,7 +921,6 @@ gg_point_facet <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -970,7 +932,6 @@ gg_point_facet <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -1028,7 +989,6 @@ gg_point_col_facet <-
            x_expand = NULL,
            x_gridlines_minor = FALSE,
            x_labels = NULL,
-           x_na = TRUE,
            x_pretty_n = 3,
            x_rev = FALSE,
            x_title = NULL,
@@ -1040,7 +1000,6 @@ gg_point_col_facet <-
            y_expand = NULL,
            y_gridlines_minor = FALSE,
            y_labels = scales::comma,
-           y_na = TRUE,
            y_pretty_n = 4,
            y_title = NULL,
            y_title_wrap = 50,
@@ -1074,14 +1033,6 @@ gg_point_col_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     text_var <- rlang::enquo(text_var)
     
-    if (x_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!x_var))
-    }
-    if (y_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!y_var))
-    }
     if (col_na == FALSE) {
       data <- data %>% 
         dplyr::filter(!is.na(!!col_var))

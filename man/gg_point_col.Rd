@@ -8,12 +8,12 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
   position = "identity", alpha = 1, size_point = 1, pal = NULL,
   pal_na = "#7F7F7F", pal_rev = FALSE, x_balance = FALSE,
   x_expand = NULL, x_gridlines_minor = FALSE, x_labels = NULL,
-  x_na = TRUE, x_pretty_n = 6, x_rev = FALSE, x_trans = "identity",
+  x_pretty_n = 6, x_rev = FALSE, x_trans = "identity",
   x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
   y_expand = NULL, y_gridlines_minor = FALSE,
-  y_labels = scales::comma, y_na = TRUE, y_pretty_n = 5,
-  y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
-  title = NULL, subtitle = NULL, x_title = NULL, y_title = NULL,
+  y_labels = scales::comma, y_pretty_n = 5, y_trans = "identity",
+  y_zero = FALSE, y_zero_line = NULL, title = NULL,
+  subtitle = NULL, x_title = NULL, y_title = NULL,
   col_title = NULL, caption = NULL, col_cuts = NULL,
   col_labels = NULL, col_method = NULL, col_na = TRUE,
   col_pretty_n = 4, col_right_closed = TRUE, font_family = "",
@@ -52,8 +52,6 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
-
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
@@ -71,8 +69,6 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 

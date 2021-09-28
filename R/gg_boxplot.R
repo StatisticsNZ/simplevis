@@ -27,7 +27,6 @@
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -98,7 +97,6 @@ gg_boxplot <- function(data,
                        y_expand = NULL,
                        y_gridlines_minor = FALSE,
                        y_labels = scales::comma,
-                       y_na = TRUE,
                        y_pretty_n = 5,
                        y_title = NULL,
                        y_title_wrap = 50,
@@ -126,10 +124,6 @@ gg_boxplot <- function(data,
   if (x_na == FALSE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
   }
 
   x_var_vctr <- dplyr::pull(data, !!x_var)
@@ -360,7 +354,6 @@ gg_boxplot <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -428,7 +421,6 @@ gg_boxplot_col <- function(data,
                            y_expand = NULL,
                            y_gridlines_minor = FALSE,
                            y_labels = scales::comma,
-                           y_na = TRUE,
                            y_pretty_n = 5,
                            x_rev = FALSE,
                            y_title = NULL,
@@ -459,10 +451,6 @@ gg_boxplot_col <- function(data,
   if (x_na == FALSE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
   }
   if (col_na == FALSE) {
     data <- data %>% 
@@ -732,7 +720,6 @@ gg_boxplot_col <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -789,7 +776,6 @@ gg_boxplot_facet <- function(data,
                              y_expand = NULL,
                              y_gridlines_minor = FALSE,
                              y_labels = scales::comma,
-                             y_na = TRUE,
                              y_pretty_n = 4,
                              y_title = NULL,
                              y_title_wrap = 50,
@@ -816,10 +802,6 @@ gg_boxplot_facet <- function(data,
     if (x_na == FALSE) {
       data <- data %>% 
         dplyr::filter(!is.na(!!x_var))
-    }
-    if (y_na == FALSE) {
-      data <- data %>% 
-        dplyr::filter(!is.na(!!y_var))
     }
     if (facet_na == FALSE) {
       data <- data %>% 
@@ -1069,7 +1051,6 @@ gg_boxplot_facet <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -1149,7 +1130,6 @@ gg_boxplot_col_facet <- function(data,
                                  y_expand = NULL,
                                  y_gridlines_minor = FALSE,
                                  y_labels = scales::comma,
-                                 y_na = TRUE,
                                  y_pretty_n = 4,
                                  y_title = NULL,
                                  y_title_wrap = 50,
@@ -1181,10 +1161,6 @@ gg_boxplot_col_facet <- function(data,
   if (x_na == FALSE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na == FALSE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
   }
   if (col_na == FALSE) {
     data <- data %>% 

@@ -12,7 +12,7 @@ gg_boxplot_col_facet(data, x_var, y_var = NULL, col_var, facet_var,
   x_na = TRUE, x_pretty_n = 3, x_expand = NULL, x_rev = FALSE,
   x_title = NULL, x_title_wrap = 50, x_zero = FALSE,
   x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
-  y_gridlines_minor = FALSE, y_labels = scales::comma, y_na = TRUE,
+  y_gridlines_minor = FALSE, y_labels = scales::comma,
   y_pretty_n = 4, y_title = NULL, y_title_wrap = 50,
   y_trans = "identity", y_zero = FALSE, y_zero_line = NULL,
   col_labels = stringr::str_to_sentence, col_na = TRUE,
@@ -84,8 +84,6 @@ gg_boxplot_col_facet(data, x_var, y_var = NULL, col_var, facet_var,
 \item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 

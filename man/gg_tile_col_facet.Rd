@@ -7,7 +7,7 @@
 gg_tile_col_facet(data, x_var, y_var, col_var, facet_var,
   label_var = NULL, text_var = NULL, pal = NULL,
   pal_label = "#323232", pal_na = "#7F7F7F", pal_rev = FALSE,
-  width = 1, alpha = 1, size_line = 0.5, size_label = 3.5,
+  width = NULL, alpha = 1, size_line = 0.5, size_label = 3.5,
   title = NULL, title_wrap = 100, subtitle = NULL,
   subtitle_wrap = 100, x_expand = c(0, 0),
   x_labels = stringr::str_to_sentence, x_na = TRUE, x_rev = FALSE,

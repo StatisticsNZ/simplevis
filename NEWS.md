@@ -1,3 +1,12 @@
+# simplevis 4.5.7
+
+* Updated bar code to make it work more nicely.
+* Updated tile width code.
+
+# simplevis 4.5.6
+
+* Remove unnecesary *_na arguments for point and boxplot families.
+
 # simplevis 4.5.5
 
 * Adjust width so that it defaults to NULL for date or datetime vars.

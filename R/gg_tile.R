@@ -72,7 +72,7 @@ gg_tile_col <- function(data,
                        pal_label = "#323232",
                        pal_na = "#7F7F7F",
                        pal_rev = FALSE,
-                       width = 1,
+                       width = NULL,
                        alpha = 1,
                        size_line = 0.5,
                        size_label = 3.5,
@@ -137,19 +137,19 @@ gg_tile_col <- function(data,
 
   if(is.logical(x_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   if(is.logical(y_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   if(is.logical(col_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
@@ -174,10 +174,11 @@ gg_tile_col <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
-  if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
-  else bar_unit <- 1
-  
-  bar_width <- bar_unit * width
+  if(is.null(width)) {
+    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+      width <- NULL
+    } else width <- 1
+  }
   
   if(!rlang::quo_is_null(label_var)) {
     data <- data %>% 
@@ -242,7 +243,7 @@ gg_tile_col <- function(data,
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
-             width = bar_width) 
+             width = width) 
     
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -384,7 +385,7 @@ gg_tile_col_facet <- function(data,
                               pal_label = "#323232",
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              width = 1,
+                              width = NULL,
                               alpha = 1,
                               size_line = 0.5,
                               size_label = 3.5,
@@ -461,25 +462,25 @@ gg_tile_col_facet <- function(data,
   
   if(is.logical(x_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!x_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   if(is.logical(y_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   if(is.logical(col_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   if(is.logical(facet_var_vctr)) {
     data <- data %>% 
-      dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
@@ -504,10 +505,11 @@ gg_tile_col_facet <- function(data,
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
-  if (lubridate::is.Date(x_var_vctr)) bar_unit <- 365
-  else bar_unit <- 1
-  
-  bar_width <- bar_unit * width
+  if(is.null(width)) {
+    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+      width <- NULL
+    } else width <- 1
+  }
   
   if(!rlang::quo_is_null(label_var)) {
     data <- data %>% 
@@ -572,7 +574,7 @@ gg_tile_col_facet <- function(data,
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
               alpha = alpha, 
               size = size_line, 
-              width = bar_width) 
+              width = width) 
 
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 

@@ -117,9 +117,9 @@ gg_hbar <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   
   if(is.logical(y_var_vctr)) {
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
-    
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!y_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
+
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
@@ -127,25 +127,24 @@ gg_hbar <- function(data,
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
 
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
-    if (y_reorder == TRUE) {
+    if (y_reorder == FALSE) {
       if(y_rev == FALSE) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       } 
-      else if(y_rev == TRUE) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
-      } 
-      y_var_vctr <- dplyr::pull(data, !!y_var)
     } 
-    else if (y_rev == FALSE) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
-      
-      y_var_vctr <- dplyr::pull(data, !!y_var)
-    }
+    if (y_reorder == TRUE) {
+      if (y_rev == FALSE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(forcats::fct_reorder(.x, !!x_var, .desc = TRUE))))
+      } else {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(forcats::fct_reorder(.x, !!x_var, .desc = FALSE))))
+      }
+    } 
+    y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   

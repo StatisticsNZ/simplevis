@@ -4,6 +4,7 @@
 #' @import leaflet
 #' @import sf
 #' @importFrom rlang !!
+#' @importFrom rlang :=
 #' @importFrom rlang .data
 
 NULL

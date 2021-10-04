@@ -304,7 +304,7 @@ leaflet_sf_col <- function(data,
         na.color = pal_na
       )
       
-      if (is.null(col_labels)) col_labels <- bin_cuts_to_interval_labels(col_cuts, right_closed = col_right_closed)  
+      if (is.null(col_labels)) col_labels <- interval_labels(col_cuts, right_closed = col_right_closed)  
     }
     else if (col_method == "quantile") {
       if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -329,7 +329,7 @@ leaflet_sf_col <- function(data,
       na.color = pal_na
     )
     
-    if (is.null(col_labels)) col_labels <- bin_cuts_to_interval_labels(col_cuts, right_closed = col_right_closed)  
+    if (is.null(col_labels)) col_labels <- interval_labels(col_cuts, right_closed = col_right_closed)  
   }
   else if (col_method == "category") {
     if (is.null(col_labels)) {

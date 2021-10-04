@@ -378,42 +378,42 @@ sv_interval_breaks_to_interval_labels <- function(breaks) {
 }
 
 #' @title Convert bin cuts to interval legend labels.
-#' @param bin_cuts A numeric vector of bin cuts from which to create a vector of legend labels.
-#' @param label_digits The number of decimal places to round labels to.
+#' @param cuts A numeric vector of bin cuts from which to create a vector of legend labels.
+#' @param digits The number of decimal places to round labels to.
 #' @param right_closed TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @return A vector of labels.
 #' @export 
 #' @examples 
-#' bin_cuts_to_interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
-bin_cuts_to_interval_labels <- function(bin_cuts, label_digits = NULL, right_closed = TRUE) {
+#' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
+interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
   
-  if (is.null(label_digits)) label_digits <- sv_max_dp(bin_cuts) 
+  if (is.null(digits)) digits <- sv_max_dp(cuts) 
   
   labels <- vector("character", 0)
   
-  bin_cuts_no <- length(bin_cuts)
+  cuts_no <- length(cuts)
   
-  bin_cuts <- format(round(as.numeric(bin_cuts), label_digits), nsmall = label_digits, big.mark = ",", trim = TRUE) 
+  cuts <- format(round(as.numeric(cuts), digits), nsmall = digits, big.mark = ",", trim = TRUE) 
   
   sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
   sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
   
-  if (bin_cuts_no == 2) {
+  if (cuts_no == 2) {
     labels <- c("Feature")
   }
-  else if (bin_cuts_no == 3) {
-    labels <- c(paste0(sign1, bin_cuts[2]), paste0(sign2, bin_cuts[2]))
+  else if (cuts_no == 3) {
+    labels <- c(paste0(sign1, cuts[2]), paste0(sign2, cuts[2]))
   }
-  else if (bin_cuts_no > 3) {
-    for (i in 2:(length(bin_cuts) - 2)) {
-      temp <- paste0(bin_cuts[i], "\u2013", bin_cuts[i + 1])
+  else if (cuts_no > 3) {
+    for (i in 2:(length(cuts) - 2)) {
+      temp <- paste0(cuts[i], "\u2013", cuts[i + 1])
       labels <- c(labels, temp)
     }
     
     labels <- 
-      c(paste0(sign1, bin_cuts[2]),
+      c(paste0(sign1, cuts[2]),
         labels,
-        paste0(sign2, bin_cuts[length(bin_cuts) - 1]))
+        paste0(sign2, cuts[length(cuts) - 1]))
   }
   return(labels)
 }

@@ -1,3 +1,7 @@
+# simplevis 4.5.9
+
+* Renamed bin_cuts_to_interval_labels to interval_labels.
+
 # simplevis 4.5.8
 
 * Updated bar code to make *_reorder arguments work better.

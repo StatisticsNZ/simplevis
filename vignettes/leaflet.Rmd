@@ -89,10 +89,10 @@ leaflet_sf_col(example_sf_point,
                col_labels = c("Better", "Same", "Worse"))
 ```
 
-Sometimes a colouring method of "quantile" will provide too many digits in your legend labels. You can modify these by specifying a vector of these bins manually or using the `bin_cuts_to_interval_labels` function.
+Sometimes a colouring method of "quantile" will provide too many digits in your legend labels. You can modify these by specifying a vector of these bins manually or using the `interval_labels` function.
 
 ```{r}
-col_labels <- bin_cuts_to_interval_labels(c(0, 0.038, 0.135, 0.380, Inf))
+col_labels <- interval_labels(c(0, 0.038, 0.135, 0.380, Inf))
 
 leaflet_sf_col(example_sf_point, 
                col_var = median, 

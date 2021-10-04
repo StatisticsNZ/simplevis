@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • simplevis</title>
+<title>Convert bin cuts to interval legend labels. — interval_labels • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:title" content="Convert bin cuts to interval legend labels. — interval_labels" />
+<meta property="og:description" content="Convert bin cuts to interval legend labels." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -149,19 +149,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/imports.R'><code>R/imports.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Convert bin cuts to interval legend labels.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/internal.R'><code>R/internal.R</code></a></small>
+    <div class="hidden name"><code>interval_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p>Convert bin cuts to interval legend labels.</p>
     </div>
 
-    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>interval_labels</span>(<span class='no'>cuts</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>cuts</th>
+      <td><p>A numeric vector of bin cuts from which to create a vector of legend labels.</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>The number of decimal places to round labels to.</p></td>
+    </tr>
+    <tr>
+      <th>right_closed</th>
+      <td><p>TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A vector of labels.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>interval_labels</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>3</span>, <span class='fl'>4.1</span>, <span class='fl'>7</span>, <span class='fl'>100</span>, <span class='fl'>Inf</span>))</div><div class='output co'>#&gt; [1] "≤0.1"      "0.1–3.0"   "3.0–4.1"   "4.1–7.0"   "7.0–100.0" "&gt;100.0"   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -126,24 +126,23 @@ gg_bar <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr) | is.logical(y_var_vctr)) {
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
+    if (x_reorder == FALSE) {
+      if(x_rev == TRUE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      } 
+    } 
     if (x_reorder == TRUE) {
-      if(x_rev == FALSE) {
+      if (x_rev == FALSE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = TRUE)))
-      } 
-      else if(x_rev == TRUE) {
+      } else {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = FALSE)))
-      } 
-      x_var_vctr <- dplyr::pull(data, !!x_var)
+      }
     } 
-    else if (x_rev == TRUE) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
@@ -453,12 +452,11 @@ gg_bar_col <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
-    if (x_rev == TRUE) {
+    if(x_rev == TRUE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
+    } 
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   if (col_rev == TRUE){
@@ -848,12 +846,11 @@ gg_bar_facet <- function(data,
   }
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
-    if (x_rev == TRUE) {
+    if(x_rev == TRUE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
+    } 
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
@@ -1175,12 +1172,11 @@ gg_bar_col_facet <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
-    if (x_rev == TRUE) {
+    if(x_rev == TRUE) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
+    } 
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   if (col_rev == TRUE){

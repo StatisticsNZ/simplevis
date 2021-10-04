@@ -1,6 +1,10 @@
+# simplevis 4.5.8
+
+* Updated bar code to make *_reorder arguments work better.
+
 # simplevis 4.5.7
 
-* Updated bar code to make it work more nicely.
+* Updated hbar code to make *_reorder arguments work better.
 * Updated tile width code.
 
 # simplevis 4.5.6

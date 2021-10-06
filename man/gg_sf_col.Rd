@@ -5,16 +5,15 @@
 \title{Simple feature ggplot map that is coloured.}
 \usage{
 gg_sf_col(data, col_var, text_var = NULL, pal = NULL,
-  pal_na = "#7F7F7FFF", pal_rev = FALSE, size_point = 1,
-  size_line = 0.5, alpha = 0.9, borders = NULL,
-  borders_behind = TRUE, pal_borders = "#7F7F7FFF",
-  borders_size = 0.2, title = NULL, title_wrap = 100,
-  subtitle = NULL, subtitle_wrap = 100, col_cuts = NULL,
-  col_labels = NULL, col_na = TRUE, col_pretty_n = 4,
-  col_method = NULL, col_right_closed = TRUE, col_title = NULL,
-  col_title_wrap = 25, caption = NULL, caption_wrap = 80,
-  font_family = "", font_size_title = NULL, font_size_body = NULL,
-  mobile = FALSE)
+  pal_na = "#7F7F7F", pal_rev = FALSE, size_point = 1,
+  size_line = 0.5, alpha = NULL, borders = NULL,
+  borders_behind = TRUE, pal_borders = "#7F7F7F", borders_size = 0.2,
+  title = NULL, title_wrap = 100, subtitle = NULL,
+  subtitle_wrap = 100, col_cuts = NULL, col_labels = NULL,
+  col_na = TRUE, col_pretty_n = 4, col_method = NULL,
+  col_right_closed = TRUE, col_title = NULL, col_title_wrap = 25,
+  caption = NULL, caption_wrap = 80, font_family = "",
+  font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -33,7 +32,7 @@ gg_sf_col(data, col_var, text_var = NULL, pal = NULL,
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{alpha}{The opacity of polygons. Defaults to 0.9.}
+\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

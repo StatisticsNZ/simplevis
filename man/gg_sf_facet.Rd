@@ -5,14 +5,13 @@
 \title{Simple feature ggplot map that is facetted.}
 \usage{
 gg_sf_facet(data, facet_var, text_var = NULL, size_point = 1,
-  size_line = 0.5, alpha = 0.9, pal = NULL,
+  size_line = 0.5, alpha = NULL, pal = NULL,
   facet_labels = stringr::str_to_sentence, facet_na = TRUE,
   facet_ncol = NULL, facet_nrow = NULL, borders = NULL,
-  borders_behind = TRUE, pal_borders = "#7F7F7FFF",
-  borders_size = 0.2, title = NULL, title_wrap = 100,
-  subtitle = NULL, subtitle_wrap = 100, caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL)
+  borders_behind = TRUE, pal_borders = "#7F7F7F", borders_size = 0.2,
+  title = NULL, title_wrap = 100, subtitle = NULL,
+  subtitle_wrap = 100, caption = NULL, caption_wrap = 80,
+  font_family = "", font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A sf object with defined coordinate reference system. Required input.}
@@ -25,7 +24,7 @@ gg_sf_facet(data, facet_var, text_var = NULL, size_point = 1,
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{alpha}{The alpha of the fill. Defaults to 0.9.}
+\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.}
 
 \item{pal}{Character vector of hex codes.}
 

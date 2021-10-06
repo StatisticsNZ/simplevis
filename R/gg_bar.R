@@ -513,7 +513,7 @@ gg_bar_col <- function(data,
                                                                  ordered_result = TRUE,
                                                                  format_fun = col_labels)))
     
-    col_labels <- sv_interval_breaks_to_interval_labels
+    col_labels <- sv_interval_labels_chr
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -1233,7 +1233,7 @@ gg_bar_col_facet <- function(data,
                                                                  ordered_result = TRUE,
                                                                  format_fun = col_labels)))
     
-    col_labels <- sv_interval_breaks_to_interval_labels
+    col_labels <- sv_interval_labels_chr
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)

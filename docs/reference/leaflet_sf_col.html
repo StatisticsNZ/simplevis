@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.10</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@
 
     <pre class="usage"><span class='fu'>leaflet_sf_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>label_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>popup_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
@@ -206,7 +206,7 @@
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>The opacity of the fill within features (i.e. fillOpacity). Defaults to 0.1.</p></td>
+      <td><p>The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.</p></td>
     </tr>
     <tr>
       <th>basemap</th>
@@ -252,17 +252,16 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>leaflet_sf_col</span>(<span class='no'>example_sf_point</span>,
-               <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>)
-
+               <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>)</div><div class='output co'>#&gt; <span class='error'>Error in leaflet_sf_col(example_sf_point, col_var = trend_category): could not find function "leaflet_sf_col"</span></div><div class='input'>
 <span class='fu'>leaflet_sf_col</span>(<span class='no'>example_sf_polygon</span>,
                <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>density</span>,
                <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
-               <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>))
-
+               <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span class='error'>Error in leaflet_sf_col(example_sf_polygon, col_var = density, col_method = "quantile",     col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1)): could not find function "leaflet_sf_col"</span></div><div class='input'>
 <span class='fu'>leaflet_sf_col</span>(<span class='no'>example_sf_polygon</span>,
                <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>density</span>,
                <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
-               <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>))</div></pre>
+               <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>))</div><div class='output co'>#&gt; <span class='error'>Error in leaflet_sf_col(example_sf_polygon, col_var = density, col_method = "bin",     col_cuts = c(0, 10, 50, 100, 150, 200, Inf)): could not find function "leaflet_sf_col"</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

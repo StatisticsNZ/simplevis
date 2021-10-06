@@ -1,3 +1,8 @@
+# simplevis 4.5.10
+
+* Updated and renamed interval label functions.
+* Updated default alpha for polygons.
+
 # simplevis 4.5.9
 
 * Renamed bin_cuts_to_interval_labels to interval_labels.

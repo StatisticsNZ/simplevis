@@ -2,7 +2,7 @@
 % Please edit documentation in R/interval_labels.R
 \name{sv_interval_labels_chr}
 \alias{sv_interval_labels_chr}
-\title{Convert bin cuts to interval legend labels.}
+\title{Convert bin cuts to simple and pretty labels.}
 \usage{
 sv_interval_labels_chr(cuts)
 }
@@ -13,7 +13,7 @@ sv_interval_labels_chr(cuts)
 A vector of character labels.
 }
 \description{
-Convert bin cuts to interval legend labels.
+Convert bin cuts to simple and pretty labels.
 }
 \examples{
 interval_labels(c(c("(0, 10]", "(10, 50]", "(50, 100]")))

@@ -1,4 +1,4 @@
-#' @title Convert numeric or interval cuts to interval legend labels.
+#' @title Convert numeric or interval cuts to simple and pretty labels.
 #' @param cuts A vector or numeric or character interval cuts.
 #' @param digits If cuts are numeric, the number of decimal places to round labels to.
 #' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
@@ -6,11 +6,15 @@
 #' @export 
 #' @examples 
 #' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
-#' interval_labels(c(c("(0, 10]", "(10, 50]", "(50, 100]")))
+#' 
+#' interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
+#' 
+#' interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
+#' 
 interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
   
   if (is.numeric(cuts)) {
-    if (is.null(digits)) digits <- sv_max_dp(cuts) 
+    if (is.null(digits)) digits <- sv_max_digits(cuts) 
     
     labels <- vector("character", 0)
     
@@ -59,7 +63,7 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
   return(labels)
 }
 
-#' @title Convert numeric bin cuts to interval legend labels.
+#' @title Convert numeric bin cuts to simple and pretty labels.
 #' @param cuts A vector of numeric cuts.
 #' @param digits If cuts are numeric, the number of decimal places to round labels to.
 #' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
@@ -70,7 +74,7 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
 #' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
 sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
   
-  if (is.null(digits)) digits <- sv_max_dp(cuts) 
+  if (is.null(digits)) digits <- sv_max_digits(cuts) 
   
   labels <- vector("character", 0)
   
@@ -102,7 +106,7 @@ sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
   return(labels)
 }
 
-#' @title Convert bin cuts to interval legend labels.
+#' @title Convert bin cuts to simple and pretty labels.
 #' @param cuts An vector of interval cuts.
 #' @return A vector of character labels.
 #' @keywords internal

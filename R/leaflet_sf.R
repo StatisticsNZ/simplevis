@@ -100,16 +100,6 @@ leaflet_sf <- function(data,
           weight = size_line
         ) 
     }
-    
-    map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal[1],
-        labels =  "Feature", 
-        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = 1
-      )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     if (is.null(alpha)) alpha <- 1
@@ -141,16 +131,6 @@ leaflet_sf <- function(data,
           weight = size_line
         ) 
     }
-    
-    map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal[1],
-        labels =  "Feature", 
-        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = 1
-      )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     if (is.null(alpha)) alpha <- 0.75
@@ -181,18 +161,19 @@ leaflet_sf <- function(data,
           weight = size_line
         )
     }
-    
-    map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal[1],
-        labels =  "Feature", 
-        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = 1
-      )
-    
   }
+  
+  map <- map %>% 
+    addLegend(
+      layerId = col_id,
+      colors = pal[1],
+      labels =  "Feature", 
+      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+      position = "bottomright",
+      opacity = alpha
+    )
+  
+  return(map)
 }
 
 #' @title Simple feature leaflet map that is coloured.
@@ -414,18 +395,6 @@ leaflet_sf_col <- function(data,
           weight = size_line
         ) 
     }
-    
-    map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal,
-        labels = col_labels,
-        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = alpha,
-        labFormat = labelFormat(between = "&ndash;")
-      )
-    
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     if (is.null(alpha)) alpha <- 1
@@ -458,17 +427,6 @@ leaflet_sf_col <- function(data,
           weight = size_line
         ) 
     }
-    
-    map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal,
-        labels = col_labels,
-        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = alpha,
-        labFormat = labelFormat(between = "&ndash;")
-      )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     if (is.null(alpha)) alpha <- 0.95
@@ -500,17 +458,17 @@ leaflet_sf_col <- function(data,
           weight = size_line
         ) 
     }
-    
-    map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal,
-        labels = col_labels,
-        title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = alpha,
-        labFormat = labelFormat(between = "&ndash;")
-      )
   }
+  
+  map <- map %>% 
+    addLegend(
+      layerId = col_id,
+      colors = pal,
+      labels = col_labels,
+      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+      position = "bottomright",
+      opacity = alpha)
+  
+  return(map)
 }
 

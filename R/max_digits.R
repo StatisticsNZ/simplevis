@@ -4,7 +4,7 @@
 #'
 #' @return a numeric value.
 #' @keywords internal
-sv_max_dp <- function(vctr) {
+sv_max_digits <- function(vctr) {
   if (length(vctr) == 0) return(numeric())
   vctr_nchr <- vctr %>% abs() %>% as.character() %>% nchar() %>% as.numeric()
   vctr_int <- floor(vctr) %>% abs() %>% nchar()

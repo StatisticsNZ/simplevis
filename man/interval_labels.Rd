@@ -2,7 +2,7 @@
 % Please edit documentation in R/interval_labels.R
 \name{interval_labels}
 \alias{interval_labels}
-\title{Convert numeric or interval cuts to interval legend labels.}
+\title{Convert numeric or interval cuts to simple and pretty labels.}
 \usage{
 interval_labels(cuts, digits = NULL, right_closed = TRUE)
 }
@@ -17,9 +17,13 @@ interval_labels(cuts, digits = NULL, right_closed = TRUE)
 A vector of character labels.
 }
 \description{
-Convert numeric or interval cuts to interval legend labels.
+Convert numeric or interval cuts to simple and pretty labels.
 }
 \examples{
 interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
-interval_labels(c(c("(0, 10]", "(10, 50]", "(50, 100]")))
+
+interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
+
+interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
+
 }

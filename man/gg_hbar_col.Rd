@@ -16,7 +16,7 @@ gg_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
   y_reorder = FALSE, y_rev = FALSE, y_title = NULL,
   y_title_wrap = 50, y_zero = FALSE, y_zero_line = NULL,
   col_cuts = NULL, col_labels = NULL, col_method = NULL,
-  col_na = TRUE, col_pretty_n = 4, col_rev = FALSE,
+  col_na = TRUE, col_pretty_n = 5, col_rev = FALSE,
   col_right_closed = TRUE, col_title = NULL, col_title_wrap = 25,
   caption = NULL, caption_wrap = 80, font_family = "",
   font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
@@ -100,13 +100,13 @@ gg_hbar_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
 
-\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 

@@ -1,3 +1,7 @@
+# simplevis 4.5.11
+
+* Updated col_labels argument to work with functions or vectors for numeric col_var's.
+
 # simplevis 4.5.10
 
 * Updated and renamed interval label functions.

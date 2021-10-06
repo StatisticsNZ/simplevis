@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.11</span>
       </span>
     </div>
 
@@ -343,7 +343,7 @@
 
 <span class='fu'>gg_boxplot</span>(<span class='no'>penguins</span>,
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
-           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot(penguins, x_var = species, y_var = body_mass_g): could not find function "gg_boxplot"</span></div><div class='input'>
+           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/across.html'>across</a></span>(<span class='no'>body_mass_g</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -370,7 +370,7 @@
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
            <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-           <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot(plot_data, x_var = species, y_var = body_mass_g, stat = "identity",     y_pretty_n = 4): could not find function "gg_boxplot"</span></div><div class='input'>
+           <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

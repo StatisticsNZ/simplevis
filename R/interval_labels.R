@@ -5,6 +5,8 @@
 #' @return A vector of character labels.
 #' @export 
 #' @examples 
+#' library(simplevis)
+#' 
 #' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
 #' 
 #' interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
@@ -71,6 +73,8 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
 #' @keywords internal
 
 #' @examples 
+#' library(simplevis)
+#' 
 #' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
 sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
   
@@ -112,7 +116,9 @@ sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
 #' @keywords internal
 #' 
 #' @examples 
-#' interval_labels(c(c("(0, 10]", "(10, 50]", "(50, 100]")))
+#' library(simplevis)
+#' 
+#' interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
 sv_interval_labels_chr <- function(cuts) {
   
   right_closed <- ifelse(stringr::str_sub(cuts[1], -1L, -1L) == "]", TRUE, FALSE)

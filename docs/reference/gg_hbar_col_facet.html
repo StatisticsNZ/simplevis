@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.11</span>
       </span>
     </div>
 
@@ -170,7 +170,7 @@
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>, <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
@@ -338,7 +338,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and an internal function for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+      <td><p>A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_method</th>
@@ -350,7 +350,7 @@
     </tr>
     <tr>
       <th>col_pretty_n</th>
-      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
+      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
     </tr>
     <tr>
       <th>col_rev</th>
@@ -427,7 +427,7 @@
                   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
                   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>island</span>,
                   <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
-                  <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_hbar_col_facet(plot_data, x_var = body_mass_g, y_var = species,     col_var = island, facet_var = sex, facet_na = FALSE): could not find function "gg_hbar_col_facet"</span></div><div class='input'>
+                  <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='gg_hbar_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

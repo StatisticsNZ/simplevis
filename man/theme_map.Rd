@@ -4,8 +4,7 @@
 \alias{theme_map}
 \title{Theme for maps.}
 \usage{
-theme_map(font_family = "", font_size_title = 11,
-  font_size_body = 10)
+theme_map(font_family = "", font_size_title = 11, font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "".}

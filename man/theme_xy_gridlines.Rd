@@ -4,8 +4,7 @@
 \alias{theme_xy_gridlines}
 \title{Theme for graphs with x and y gridlines.}
 \usage{
-theme_xy_gridlines(font_family = "", font_size_title = 11,
-  font_size_body = 10)
+theme_xy_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "".}

@@ -4,7 +4,9 @@
 \name{example_sf_point}
 \alias{example_sf_point}
 \title{Example sf point object.}
-\format{An \code{sf} object.}
+\format{
+An \code{sf} object.
+}
 \usage{
 example_sf_point
 }

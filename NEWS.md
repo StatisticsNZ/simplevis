@@ -1,3 +1,7 @@
+# simplevis 4.5.12
+
+* Update shiny app templates.
+
 # simplevis 4.5.11
 
 * Updated col_labels argument to work with functions or vectors for numeric col_var's.

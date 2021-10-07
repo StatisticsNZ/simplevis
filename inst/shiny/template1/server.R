@@ -16,13 +16,16 @@ shinyServer(function(input, output, session) {
       filter(color == .color) %>% 
       mutate(cut = stringr::str_to_sentence(cut)) %>%
       group_by(cut, clarity, .drop = FALSE) %>%
-      summarise(price = mean(price)) %>%
+      summarise(price = round(mean(price), 2)) %>%
       mutate_text(c("cut", "clarity", "price")) 
     
     return(plot_data)
-  }) %>% 
-  bindCache(input$plot_color)
+  }) #%>% 
+    # bindCache(input$plot_color)
   
+  output$plot_data <- DT::renderDT(plot_data(), filter = "top", rownames = FALSE, 
+                                   options = list(pageLength = 5, scrollX = TRUE))
+
   plot <- reactive({ # create a reactive ggplot object
     
     # add plot code from make_data_vis.R
@@ -46,25 +49,26 @@ shinyServer(function(input, output, session) {
                         mobile = input$isMobile)
 
     return(plot)
-  }) %>% 
-    bindCache(input$plot_color)
+  }) #%>% 
+    # bindCache(input$plot_color)
   
   output$plot_desktop <- plotly::renderPlotly({ 
     plotly::ggplotly(plot(), tooltip = "text") %>%
       plotly_camera() 
-  }) %>% 
-    bindCache(input$plot_color)
+  }) #%>% 
+    # bindCache(input$plot_color)
   
   output$plot_mobile <- renderPlot({
     plot() 
-  }) %>% 
-    bindCache(input$plot_color)
+  }) #%>% 
+    # bindCache(input$plot_color)
   
   ### table ###
   
   table_data <- reactive({   
     ggplot2::diamonds %>% 
-      rlang::set_names(~snakecase::to_sentence_case(.))
+      select(carat:price) %>% 
+      janitor::clean_names(case = "sentence")
   })
   
   output$table <- DT::renderDT(

@@ -378,7 +378,7 @@ gg_sf_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
   
-    if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+  if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     plot <- plot +
       scale_fill_manual(
         values = pal,

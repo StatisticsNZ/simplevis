@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert bin cuts to interval legend labels. — sv_interval_labels_chr • simplevis</title>
+<title>Convert bin cuts to simple and pretty labels. — sv_interval_labels_chr • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Convert bin cuts to interval legend labels. — sv_interval_labels_chr" />
-<meta property="og:description" content="Convert bin cuts to interval legend labels." />
+<meta property="og:title" content="Convert bin cuts to simple and pretty labels. — sv_interval_labels_chr" />
+<meta property="og:description" content="Convert bin cuts to simple and pretty labels." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.12</span>
       </span>
     </div>
 
@@ -149,13 +149,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert bin cuts to interval legend labels.</h1>
+    <h1>Convert bin cuts to simple and pretty labels.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/interval_labels.R'><code>R/interval_labels.R</code></a></small>
     <div class="hidden name"><code>sv_interval_labels_chr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert bin cuts to interval legend labels.</p>
+    <p>Convert bin cuts to simple and pretty labels.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sv_interval_labels_chr</span>(<span class='no'>cuts</span>)</pre>
@@ -174,7 +174,7 @@
     <p>A vector of character labels.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='interval_labels.html'>interval_labels</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"(0, 10]"</span>, <span class='st'>"(10, 50]"</span>, <span class='st'>"(50, 100]"</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in interval_labels(c(c("(0, 10]", "(10, 50]", "(50, 100]"))): could not find function "interval_labels"</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='interval_labels.html'>interval_labels</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"(0, 10]"</span>, <span class='st'>"(10, 50]"</span>, <span class='st'>"(50, 100]"</span>)))</div><div class='output co'>#&gt; [1] "≤10"   "10–50" "&gt;50"  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

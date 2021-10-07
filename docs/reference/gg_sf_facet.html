@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.12</span>
       </span>
     </div>
 
@@ -158,14 +158,32 @@
     <p>Map of simple features in ggplot that is facetted, but not coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_sf_facet</span>(<span class='no'>data</span>, <span class='no'>facet_var</span>, <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>, <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pal_borders</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>, <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_sf_facet</span>(
+  <span class='no'>data</span>,
+  <span class='no'>facet_var</span>,
+  <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
+  <span class='kw'>facet_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>pal_borders</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
+  <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,7 +293,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>gg_sf_facet</span>(<span class='no'>example_sf_point</span>,
             <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
-            <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_sf_facet(example_sf_point, facet_var = trend_category, borders = nz): could not find function "gg_sf_facet"</span></div><div class='input'>
+            <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='gg_sf_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

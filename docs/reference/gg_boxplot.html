@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.5.12</span>
       </span>
     </div>
 
@@ -158,18 +158,47 @@
     <p>Boxplot ggplot that is not coloured and not facetted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_boxplot</span>(<span class='no'>data</span>, <span class='no'>x_var</span>, <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
-  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_boxplot</span>(
+  <span class='no'>data</span>,
+  <span class='no'>x_var</span>,
+  <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
+  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -343,7 +372,7 @@
 
 <span class='fu'>gg_boxplot</span>(<span class='no'>penguins</span>,
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
-           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot(penguins, x_var = species, y_var = body_mass_g): could not find function "gg_boxplot"</span></div><div class='input'>
+           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/across.html'>across</a></span>(<span class='no'>body_mass_g</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -370,7 +399,7 @@
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
            <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-           <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gg_boxplot(plot_data, x_var = species, y_var = body_mass_g, stat = "identity",     y_pretty_n = 4): could not find function "gg_boxplot"</span></div><div class='input'>
+           <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

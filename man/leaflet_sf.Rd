@@ -4,9 +4,17 @@
 \alias{leaflet_sf}
 \title{Simple feature leaflet map.}
 \usage{
-leaflet_sf(data, popup_vars_vctr = NULL, pal = NULL, size_point = 2,
-  size_line = 2, alpha = NULL, basemap = "light", title = NULL,
-  map_id = "map")
+leaflet_sf(
+  data,
+  popup_vars_vctr = NULL,
+  pal = NULL,
+  size_point = 2,
+  size_line = 2,
+  alpha = NULL,
+  basemap = "light",
+  title = NULL,
+  map_id = "map"
+)
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}

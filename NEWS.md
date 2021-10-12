@@ -1,3 +1,7 @@
+# simplevis 4.5.14
+
+* Updated wrapping defaults.
+
 # simplevis 4.5.13
 
 * Updated wrapping defaults.

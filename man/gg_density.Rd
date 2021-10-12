@@ -16,9 +16,9 @@ gg_density(
   alpha = 0.1,
   size_line = 0.5,
   title = NULL,
-  title_wrap = 75,
+  title_wrap = 80,
   subtitle = NULL,
-  subtitle_wrap = 75,
+  subtitle_wrap = 80,
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
@@ -34,7 +34,7 @@ gg_density(
   y_title = NULL,
   y_title_wrap = 50,
   caption = NULL,
-  caption_wrap = 75,
+  caption_wrap = 80,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -100,7 +100,7 @@ gg_density(
 
 \item{caption}{Caption title string.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{font_family}{Font family to use. Defaults to "".}
 

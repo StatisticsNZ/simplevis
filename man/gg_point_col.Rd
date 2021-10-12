@@ -48,12 +48,12 @@ gg_point_col(
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
-  title_wrap = 75,
-  subtitle_wrap = 75,
+  title_wrap = 80,
+  subtitle_wrap = 80,
   x_title_wrap = 50,
   y_title_wrap = 50,
   col_title_wrap = 25,
-  caption_wrap = 75,
+  caption_wrap = 80,
   mobile = FALSE
 )
 }
@@ -154,7 +154,7 @@ gg_point_col(
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }

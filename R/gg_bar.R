@@ -35,7 +35,7 @@
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -64,9 +64,9 @@ gg_bar <- function(data,
                     alpha = 1,
                     size_line = 0.5,
                     title = NULL,
-                    title_wrap = 75,
+                    title_wrap = 80,
                     subtitle = NULL,
-                    subtitle_wrap = 75,
+                    subtitle_wrap = 80,
                     x_balance = FALSE,
                     x_expand = NULL,
                     x_labels = NULL,
@@ -90,7 +90,7 @@ gg_bar <- function(data,
                     y_zero = TRUE,
                     y_zero_line = NULL,
                     caption = NULL,
-                    caption_wrap = 75,
+                    caption_wrap = 80,
                     font_family = "",
                     font_size_title = NULL,
                     font_size_body = NULL,
@@ -328,7 +328,7 @@ gg_bar <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -368,9 +368,9 @@ gg_bar_col <- function(data,
                        alpha = 1,
                        size_line = 0.5,
                        title = NULL,
-                       title_wrap = 75,
+                       title_wrap = 80,
                        subtitle = NULL,
-                       subtitle_wrap = 75,
+                       subtitle_wrap = 80,
                        x_balance = FALSE,
                        x_expand = NULL,
                        x_labels = NULL,
@@ -402,7 +402,7 @@ gg_bar_col <- function(data,
                        col_title = NULL,
                        col_title_wrap = 25,
                        caption = NULL,
-                       caption_wrap = 75,
+                       caption_wrap = 80,
                        font_family = "",
                        font_size_title = NULL,
                        font_size_body = NULL,
@@ -746,7 +746,7 @@ gg_bar_col <- function(data,
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -776,9 +776,9 @@ gg_bar_facet <- function(data,
                           alpha = 1,
                           size_line = 0.5,
                           title = NULL,
-                          title_wrap = 75,
+                          title_wrap = 80,
                           subtitle = NULL,
-                          subtitle_wrap = 75,
+                          subtitle_wrap = 80,
                           x_balance = FALSE,
                           x_expand = NULL,
                           x_labels = NULL,
@@ -806,7 +806,7 @@ gg_bar_facet <- function(data,
                           facet_nrow = NULL,
                           facet_scales = "fixed",
                           caption = NULL,
-                          caption_wrap = 75,
+                          caption_wrap = 80,
                           font_family = "",
                           font_size_title = NULL,
                           font_size_body = NULL
@@ -1044,7 +1044,7 @@ gg_bar_facet <- function(data,
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -1080,9 +1080,9 @@ gg_bar_col_facet <- function(data,
                              alpha = 1,
                              size_line = 0.5,
                              title = NULL,
-                             title_wrap = 75,
+                             title_wrap = 80,
                              subtitle = NULL,
-                             subtitle_wrap = 75,
+                             subtitle_wrap = 80,
                              x_balance = FALSE,
                              x_expand = NULL,
                              x_labels = NULL,
@@ -1119,7 +1119,7 @@ gg_bar_col_facet <- function(data,
                              facet_nrow = NULL,
                              facet_scales = "fixed",
                              caption = NULL,
-                             caption_wrap = 75,
+                             caption_wrap = 80,
                              font_family = "",
                              font_size_title = NULL,
                              font_size_body = NULL)

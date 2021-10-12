@@ -18,9 +18,9 @@ gg_hbar_col(
   alpha = 1,
   size_line = 0.5,
   title = NULL,
-  title_wrap = 60,
+  title_wrap = 75,
   subtitle = NULL,
-  subtitle_wrap = 60,
+  subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = NULL,
   x_gridlines_minor = FALSE,
@@ -53,7 +53,7 @@ gg_hbar_col(
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
-  caption_wrap = 60,
+  caption_wrap = 75,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -157,7 +157,7 @@ gg_hbar_col(
 
 \item{caption}{Caption title string.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 60.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
 \item{font_family}{Font family to use. Defaults to "".}
 

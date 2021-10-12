@@ -21,9 +21,9 @@ gg_tile_col_facet(
   size_line = 0.5,
   size_label = 3.5,
   title = NULL,
-  title_wrap = 60,
+  title_wrap = 75,
   subtitle = NULL,
-  subtitle_wrap = 60,
+  subtitle_wrap = 75,
   x_expand = c(0, 0),
   x_labels = stringr::str_to_sentence,
   x_na = TRUE,
@@ -50,7 +50,7 @@ gg_tile_col_facet(
   facet_nrow = NULL,
   facet_scales = "fixed",
   caption = NULL,
-  caption_wrap = 60,
+  caption_wrap = 75,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -148,7 +148,7 @@ gg_tile_col_facet(
 
 \item{caption}{Caption title string.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 60.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
 \item{font_family}{Font family to use. Defaults to "".}
 

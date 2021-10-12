@@ -16,11 +16,11 @@ gg_sf(
   pal_borders = "#7F7F7F",
   borders_size = 0.2,
   title = NULL,
-  title_wrap = 75,
+  title_wrap = 80,
   subtitle = NULL,
-  subtitle_wrap = 75,
+  subtitle_wrap = 80,
   caption = NULL,
-  caption_wrap = 75,
+  caption_wrap = 80,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -58,7 +58,7 @@ gg_sf(
 
 \item{caption}{Caption title string.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{font_family}{Font family to use. Defaults to "".}
 

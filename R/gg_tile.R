@@ -14,10 +14,10 @@
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
 #' @param size_label The size of the of labels. Defaults to 3.5.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
@@ -39,7 +39,7 @@
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 60. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -77,9 +77,9 @@ gg_tile_col <- function(data,
                        size_line = 0.5,
                        size_label = 3.5,
                        title = NULL,
-                       title_wrap = 100,
+                       title_wrap = 60,
                        subtitle = NULL,
-                       subtitle_wrap = 100,
+                       subtitle_wrap = 60,
                        x_expand = c(0, 0),
                        x_labels = stringr::str_to_sentence,
                        x_na = TRUE,
@@ -101,7 +101,7 @@ gg_tile_col <- function(data,
                        col_title = NULL,
                        col_title_wrap = 25,
                        caption = NULL,
-                       caption_wrap = 80,
+                       caption_wrap = 60,
                        font_family = "",
                        font_size_title = NULL,
                        font_size_body = NULL,
@@ -327,10 +327,10 @@ gg_tile_col <- function(data,
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of tiles.
 #' @param size_label The size of the of labels. Defaults to 3.5.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
@@ -357,7 +357,7 @@ gg_tile_col <- function(data,
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 60. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -399,9 +399,9 @@ gg_tile_col_facet <- function(data,
                               size_line = 0.5,
                               size_label = 3.5,
                               title = NULL,
-                              title_wrap = 100,
+                              title_wrap = 60,
                               subtitle = NULL,
-                              subtitle_wrap = 100,
+                              subtitle_wrap = 60,
                               x_expand = c(0, 0),
                               x_labels = stringr::str_to_sentence,
                               x_na = TRUE,
@@ -428,7 +428,7 @@ gg_tile_col_facet <- function(data,
                               facet_nrow = NULL,
                               facet_scales = "fixed",
                               caption = NULL,
-                              caption_wrap = 80,
+                              caption_wrap = 60,
                               font_family = "",
                               font_size_title = NULL,
                               font_size_body = NULL,

@@ -16,9 +16,9 @@ gg_boxplot_facet(
   size_line = 0.5,
   size_point = 1,
   title = NULL,
-  title_wrap = 100,
+  title_wrap = 75,
   subtitle = NULL,
-  subtitle_wrap = 100,
+  subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
@@ -45,7 +45,7 @@ gg_boxplot_facet(
   facet_nrow = NULL,
   facet_scales = "fixed",
   caption = NULL,
-  caption_wrap = 80,
+  caption_wrap = 75,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL
@@ -72,13 +72,13 @@ gg_boxplot_facet(
 
 \item{size_point}{The size of the outliers. Defaults to 1.}
 
-\item{title}{Title string. Defaults to NULL.}
+\item{title}{Title string.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 75.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 

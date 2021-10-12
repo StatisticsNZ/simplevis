@@ -20,9 +20,9 @@ gg_sf_col_facet(
   borders_behind = TRUE,
   borders_size = 0.2,
   title = NULL,
-  title_wrap = 100,
+  title_wrap = 75,
   subtitle = NULL,
-  subtitle_wrap = 100,
+  subtitle_wrap = 75,
   col_cuts = NULL,
   col_labels = NULL,
   col_method = NULL,
@@ -36,7 +36,7 @@ gg_sf_col_facet(
   facet_ncol = NULL,
   facet_nrow = NULL,
   caption = NULL,
-  caption_wrap = 80,
+  caption_wrap = 75,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL
@@ -71,7 +71,7 @@ gg_sf_col_facet(
 
 \item{borders_size}{Size of the borders. Defaults to 0.2.}
 
-\item{title}{Title string. Defaults to NULL.}
+\item{title}{Title string.}
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
 

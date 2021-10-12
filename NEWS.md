@@ -1,6 +1,10 @@
+# simplevis 4.5.13
+
+* Updated wrapping defaults.
+
 # simplevis 4.5.12
 
-* Update shiny app templates.
+* Updated shiny app templates.
 
 # simplevis 4.5.11
 

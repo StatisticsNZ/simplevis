@@ -11,10 +11,10 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
@@ -30,7 +30,7 @@
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -55,9 +55,9 @@ gg_density <- function(data,
                     alpha = 0.1,
                     size_line = 0.5,
                     title = NULL,
-                    title_wrap = 100,
+                    title_wrap = 75,
                     subtitle = NULL,
-                    subtitle_wrap = 100,
+                    subtitle_wrap = 75,
                     x_balance = FALSE,
                     x_expand = NULL,
                     x_labels = NULL,
@@ -73,7 +73,7 @@ gg_density <- function(data,
                     y_title = NULL,
                     y_title_wrap = 50,
                     caption = NULL,
-                    caption_wrap = 80,
+                    caption_wrap = 75,
                     font_family = "",
                     font_size_title = NULL,
                     font_size_body = NULL,
@@ -205,10 +205,10 @@ gg_density <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The alpha of the fill. Defaults to 0.1. 
 #' @param size_line The size of the outlines of density areas.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
@@ -229,7 +229,7 @@ gg_density <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -258,9 +258,9 @@ gg_density_col <- function(data,
                            alpha = 0.1,
                            size_line = 0.5,
                            title = NULL,
-                           title_wrap = 100,
+                           title_wrap = 75,
                            subtitle = NULL,
-                           subtitle_wrap = 100,
+                           subtitle_wrap = 75,
                            x_balance = FALSE,
                            x_expand = NULL,
                            x_labels = NULL,
@@ -281,7 +281,7 @@ gg_density_col <- function(data,
                            col_title = NULL,
                            col_title_wrap = 25,
                            caption = NULL,
-                           caption_wrap = 80,
+                           caption_wrap = 75,
                            font_family = "",
                            font_size_title = NULL,
                            font_size_body = NULL,
@@ -478,10 +478,10 @@ gg_density_col <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
@@ -502,7 +502,7 @@ gg_density_col <- function(data,
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -529,9 +529,9 @@ gg_density_facet <- function(data,
                              alpha = 0.1,
                              size_line = 0.5,
                              title = NULL,
-                             title_wrap = 100,
+                             title_wrap = 75,
                              subtitle = NULL,
-                             subtitle_wrap = 100,
+                             subtitle_wrap = 75,
                              x_balance = FALSE,
                              x_expand = NULL,
                              x_labels = NULL,
@@ -552,7 +552,7 @@ gg_density_facet <- function(data,
                              facet_nrow = NULL,
                              facet_scales = "fixed",
                              caption = NULL,
-                             caption_wrap = 80,
+                             caption_wrap = 75,
                              font_family = "",
                              font_size_title = NULL,
                              font_size_body = NULL
@@ -685,10 +685,10 @@ gg_density_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The alpha of the fill. Defaults to 0.1. 
 #' @param size_line The size of the outlines of density areas.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
-#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
+#' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 75. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
@@ -714,7 +714,7 @@ gg_density_facet <- function(data,
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -746,9 +746,9 @@ gg_density_col_facet <- function(data,
                                  alpha = 0.1,
                                  size_line = 0.5,
                                  title = NULL,
-                                 title_wrap = 100,
+                                 title_wrap = 75,
                                  subtitle = NULL,
-                                 subtitle_wrap = 100,
+                                 subtitle_wrap = 75,
                                  x_balance = FALSE,
                                  x_expand = NULL,
                                  x_labels = NULL,
@@ -774,7 +774,7 @@ gg_density_col_facet <- function(data,
                                  facet_nrow = NULL,
                                  facet_scales = "fixed",
                                  caption = NULL,
-                                 caption_wrap = 80,
+                                 caption_wrap = 75,
                                  font_family = "",
                                  font_size_title = NULL,
                                  font_size_body = NULL

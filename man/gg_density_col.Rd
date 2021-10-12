@@ -19,9 +19,9 @@ gg_density_col(
   alpha = 0.1,
   size_line = 0.5,
   title = NULL,
-  title_wrap = 100,
+  title_wrap = 75,
   subtitle = NULL,
-  subtitle_wrap = 100,
+  subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
@@ -42,7 +42,7 @@ gg_density_col(
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
-  caption_wrap = 80,
+  caption_wrap = 75,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -76,13 +76,13 @@ gg_density_col(
 
 \item{size_line}{The size of the outlines of density areas.}
 
-\item{title}{Title string. Defaults to NULL.}
+\item{title}{Title string.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 75.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
@@ -124,7 +124,7 @@ gg_density_col(
 
 \item{caption}{Caption title string.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
 \item{font_family}{Font family to use. Defaults to "".}
 

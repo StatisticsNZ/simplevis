@@ -18,9 +18,9 @@ gg_point_col_facet(
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
   title = NULL,
-  title_wrap = 100,
+  title_wrap = 75,
   subtitle = NULL,
-  subtitle_wrap = 100,
+  subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = NULL,
   x_gridlines_minor = FALSE,
@@ -56,7 +56,7 @@ gg_point_col_facet(
   facet_nrow = NULL,
   facet_scales = "fixed",
   caption = NULL,
-  caption_wrap = 80,
+  caption_wrap = 75,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL
@@ -87,7 +87,7 @@ gg_point_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{title}{Title string. Defaults to NULL.}
+\item{title}{Title string.}
 
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
 

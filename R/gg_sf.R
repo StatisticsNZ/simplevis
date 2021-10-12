@@ -10,12 +10,12 @@
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -37,11 +37,11 @@ gg_sf <- function(data,
                   pal_borders = "#7F7F7F",
                   borders_size = 0.2,
                   title = NULL,
-                  title_wrap = 100,
+                  title_wrap = 75,
                   subtitle = NULL,
-                  subtitle_wrap = 100,
+                  subtitle_wrap = 75,
                   caption = NULL,
-                  caption_wrap = 80,
+                  caption_wrap = 75,
                   font_family = "",
                   font_size_title = NULL,
                   font_size_body = NULL,
@@ -152,8 +152,8 @@ gg_sf <- function(data,
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
-#' @param title Title string. Defaults to NULL.
-#' @param title_wrap Number of characters to wrap the title to. Defaults to 100. Not applicable where mobile equals TRUE.
+#' @param title Title string. 
+#' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
@@ -165,7 +165,7 @@ gg_sf <- function(data,
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. Not applicable where mobile equals TRUE.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -203,9 +203,9 @@ gg_sf_col <- function(data,
                       pal_borders = "#7F7F7F",
                       borders_size = 0.2,
                       title = NULL,
-                      title_wrap = 100,
+                      title_wrap = 75,
                       subtitle = NULL,
-                      subtitle_wrap = 100,
+                      subtitle_wrap = 75,
                       col_cuts = NULL,
                       col_labels = NULL,
                       col_na = TRUE,
@@ -215,7 +215,7 @@ gg_sf_col <- function(data,
                       col_title = NULL,
                       col_title_wrap = 25,
                       caption = NULL,
-                      caption_wrap = 80,
+                      caption_wrap = 75,
                       font_family = "",
                       font_size_title = NULL,
                       font_size_body = NULL,
@@ -443,7 +443,7 @@ gg_sf_col <- function(data,
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
-#' @param title Title string. Defaults to NULL.
+#' @param title Title string. 
 #' @param subtitle Subtitle string. 
 #' @param caption Caption title string. 
 #' @param font_family Font family to use. Defaults to "".
@@ -475,11 +475,11 @@ gg_sf_facet <- function(data,
                         pal_borders = "#7F7F7F",
                         borders_size = 0.2,
                         title = NULL,
-                        title_wrap = 100,
+                        title_wrap = 75,
                         subtitle = NULL,
-                        subtitle_wrap = 100,
+                        subtitle_wrap = 75,
                         caption = NULL,
-                        caption_wrap = 80,
+                        caption_wrap = 75,
                         font_family = "",
                         font_size_title = NULL,
                         font_size_body = NULL
@@ -614,7 +614,7 @@ gg_sf_facet <- function(data,
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
 #' @param borders_size Size of the borders. Defaults to 0.2.
-#' @param title Title string. Defaults to NULL.
+#' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
@@ -658,9 +658,9 @@ gg_sf_col_facet <- function(data,
                             borders_behind = TRUE,
                             borders_size = 0.2,
                             title = NULL,
-                            title_wrap = 100,
+                            title_wrap = 75,
                             subtitle = NULL,
-                            subtitle_wrap = 100,
+                            subtitle_wrap = 75,
                             col_cuts = NULL,
                             col_labels = NULL,
                             col_method = NULL,
@@ -674,7 +674,7 @@ gg_sf_col_facet <- function(data,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
                             caption = NULL,
-                            caption_wrap = 80,
+                            caption_wrap = 75,
                             font_family = "",
                             font_size_title = NULL,
                             font_size_body = NULL)

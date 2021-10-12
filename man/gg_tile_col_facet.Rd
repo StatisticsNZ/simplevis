@@ -21,9 +21,9 @@ gg_tile_col_facet(
   size_line = 0.5,
   size_label = 3.5,
   title = NULL,
-  title_wrap = 100,
+  title_wrap = 60,
   subtitle = NULL,
-  subtitle_wrap = 100,
+  subtitle_wrap = 60,
   x_expand = c(0, 0),
   x_labels = stringr::str_to_sentence,
   x_na = TRUE,
@@ -50,7 +50,7 @@ gg_tile_col_facet(
   facet_nrow = NULL,
   facet_scales = "fixed",
   caption = NULL,
-  caption_wrap = 80,
+  caption_wrap = 60,
   font_family = "",
   font_size_title = NULL,
   font_size_body = NULL,
@@ -88,13 +88,13 @@ gg_tile_col_facet(
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
 
-\item{title}{Title string. Defaults to NULL.}
+\item{title}{Title string.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 100.}
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 60.}
 
 \item{subtitle}{Subtitle string.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 60.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -148,7 +148,7 @@ gg_tile_col_facet(
 
 \item{caption}{Caption title string.}
 
-\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
+\item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 60.}
 
 \item{font_family}{Font family to use. Defaults to "".}
 

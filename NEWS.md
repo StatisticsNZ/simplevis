@@ -1,3 +1,7 @@
+# simplevis 4.5.15
+
+* Updated wrapping in templates.
+
 # simplevis 4.5.14
 
 * Updated wrapping defaults.

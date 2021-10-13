@@ -45,6 +45,7 @@ shinyServer(function(input, output, session) {
                         y_title = y_title,
                         x_labels = scales::comma_format(),
                         col_labels = ggplot2::waiver(),
+                        title_wrap = title_wrap,
                         font_family = "Helvetica", 
                         mobile = input$isMobile)
 

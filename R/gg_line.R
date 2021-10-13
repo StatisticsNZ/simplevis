@@ -143,7 +143,7 @@ gg_line <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_y_gridlines(
+    theme_h_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -452,7 +452,7 @@ gg_line_col <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_y_gridlines(
+    theme_h_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -761,7 +761,7 @@ gg_line_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_y_gridlines(
+    theme_h_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1089,7 +1089,7 @@ gg_line_col_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_y_gridlines(
+    theme_h_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title

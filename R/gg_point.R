@@ -129,7 +129,7 @@ gg_point <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_xy_gridlines(
+    theme_hv_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -485,7 +485,7 @@ gg_point_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_xy_gridlines(
+    theme_hv_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -785,7 +785,7 @@ gg_point_facet <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_xy_gridlines(
+    theme_hv_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1160,7 +1160,7 @@ gg_point_col_facet <-
     if (pal_rev == TRUE) pal <- rev(pal)
     
     plot <- ggplot(data) +
-      theme_xy_gridlines(
+      theme_hv_gridlines(
         font_family = font_family,
         font_size_body = font_size_body,
         font_size_title = font_size_title

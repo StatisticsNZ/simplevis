@@ -10,7 +10,7 @@
 #' scales::show_col(pal_d3_reorder(9)) 
 pal_d3_reorder <- function(col_n) {
   
-  c("#17BECFFF", "#BCBD22FF", "#8C564BFF", "#E377C2FF", "#2CA02CFF", "#1F77B4FF", "#FF7F0EFF", "#9467BDFF", "#D62728FF")[1:col_n]
+  c("#17BECFFF", "#BCBD22FF", "#8C564BFF", "#E377C2FF", "#1F77B4FF", "#2CA02CFF", "#FF7F0EFF", "#9467BDFF", "#D62728FF")[1:col_n]
 }
 
 #' Viridis palette reordered.

@@ -158,7 +158,7 @@ gg_hbar <- function(data,
   }
   
   plot <- ggplot(data) +
-    theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_v_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), 
              col = pal, 
              fill = pal, 
@@ -567,7 +567,7 @@ gg_hbar_col <- function(data,
   else position2 <- position
   
   plot <- ggplot(data) +
-    theme_x_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_v_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -897,7 +897,7 @@ gg_hbar_facet <- function(data,
   }
   
   plot <- ggplot(data) +
-    theme_x_gridlines(
+    theme_v_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1313,7 +1313,7 @@ gg_hbar_col_facet <- function(data,
   else position2 <- position
   
   plot <- ggplot(data) +
-    theme_x_gridlines(
+    theme_v_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title

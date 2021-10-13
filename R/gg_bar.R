@@ -158,7 +158,7 @@ gg_bar <- function(data,
   }
 
   plot <- ggplot(data) +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
              col = pal, 
              fill = pal, 
@@ -552,7 +552,7 @@ gg_bar_col <- function(data,
   else position2 <- position
   
   plot <- ggplot(data) +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -875,7 +875,7 @@ gg_bar_facet <- function(data,
   }
   
   plot <- ggplot(data) +
-    theme_y_gridlines(
+    theme_h_gridlines(
       font_family = font_family,
       font_size_body = font_size_body,
       font_size_title = font_size_title
@@ -1282,7 +1282,7 @@ gg_bar_col_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian() +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 

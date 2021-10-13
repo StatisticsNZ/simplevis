@@ -97,7 +97,7 @@ gg_density <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
                  col = pal, 
@@ -349,7 +349,7 @@ gg_density_col <- function(data,
   # }
 
   plot <- ggplot(data) +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
                  position = "identity",
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
@@ -583,7 +583,7 @@ gg_density_facet <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
                  col = pal, 
@@ -847,7 +847,7 @@ gg_density_col_facet <- function(data,
   # }
   
   plot <- ggplot(data) +
-    theme_y_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
                  position = "identity",
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,

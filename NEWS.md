@@ -1,63 +1,20 @@
-# simplevis 4.5.15
+# simplevis 4.6.0
 
-* Updated wrapping in templates.
-
-# simplevis 4.5.14
-
+* Rearranged default pal_d3_reorder palette slightly.
 * Updated wrapping defaults.
-
-# simplevis 4.5.13
-
-* Updated wrapping defaults.
-
-# simplevis 4.5.12
-
 * Updated shiny app templates.
-
-# simplevis 4.5.11
-
 * Updated col_labels argument to work with functions or vectors for numeric col_var's.
-
-# simplevis 4.5.10
-
 * Updated and renamed interval label functions.
 * Updated default alpha for polygons.
-
-# simplevis 4.5.9
-
 * Renamed bin_cuts_to_interval_labels to interval_labels.
-
-# simplevis 4.5.8
-
 * Updated bar code to make *_reorder arguments work better.
-
-# simplevis 4.5.7
-
 * Updated hbar code to make *_reorder arguments work better.
 * Updated tile width code.
-
-# simplevis 4.5.6
-
 * Remove unnecesary *_na arguments for point and boxplot families.
-
-# simplevis 4.5.5
-
 * Adjust width so that it defaults to NULL for date or datetime vars.
-
-# simplevis 4.5.4
-
 * Fix leaflet popup bug. 
-
-# simplevis 4.5.3
-
 * Make quick style improvements to tile function.
-
-# simplevis 4.5.2
-
 * Adjusted the tiles colours.
-
-# simplevis 4.5.1
-
 * Reverse y variable in tile functions.
 
 # simplevis 4.5.0 

@@ -7,7 +7,7 @@
 run_template(template = "template1", ...)
 }
 \arguments{
-\item{template}{template name. Available templates are "template1" for a graph and table, and "template2" and "template3" also providing maps. Defaults to "template1".}
+\item{template}{template name. Available templates are "template1" with graph and table tabs, and "template2" also with a map tab. Defaults to "template1".}
 
 \item{...}{passed to \code{shiny::runApp}}
 }

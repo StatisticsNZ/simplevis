@@ -2,9 +2,10 @@
 % Please edit documentation in R/theme.R
 \name{theme_h_gridlines}
 \alias{theme_h_gridlines}
-\title{Theme for graphs with horizontal y gridlines.}
+\title{Theme for graphs with horizontal gridlines.}
 \usage{
-theme_h_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
+theme_h_gridlines(font_family = "", font_size_title = 11,
+  font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "".}
@@ -17,7 +18,7 @@ theme_h_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
 A ggplot theme.
 }
 \description{
-Theme for graphs with horizontal y gridlines.
+Theme for graphs with horizontal gridlines.
 }
 \examples{
 library(simplevis)

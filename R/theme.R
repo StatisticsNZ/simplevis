@@ -1,4 +1,4 @@
-#' @title Theme for graphs with horizontal y gridlines.
+#' @title Theme for graphs with horizontal gridlines.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -53,7 +53,7 @@ theme_h_gridlines <-
     )
   }
 
-#' @title Theme for graphs with vertical x gridlines.
+#' @title Theme for graphs with vertical gridlines.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.
@@ -108,7 +108,7 @@ theme_v_gridlines <-
     )
   }
 
-#' @title Theme for graphs with x and y gridlines.
+#' @title Theme for graphs with horizontal and vertical gridlines.
 #' @param font_family Font family to use. Defaults to "".
 #' @param font_size_title Font size for the title text. Defaults to 11.
 #' @param font_size_body Font size for all text other than the title. Defaults to 10.

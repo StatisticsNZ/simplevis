@@ -4,27 +4,12 @@
 \alias{leaflet_sf_col}
 \title{Simple feature leaflet map that is coloured.}
 \usage{
-leaflet_sf_col(
-  data,
-  col_var,
-  label_var = NULL,
-  popup_vars_vctr = NULL,
-  pal = NULL,
-  pal_na = "#7F7F7F",
-  pal_rev = FALSE,
-  size_point = 2,
-  size_line = 2,
-  alpha = NULL,
-  basemap = "light",
-  title = NULL,
-  col_cuts = NULL,
-  col_labels = NULL,
-  col_method = NULL,
-  col_na = TRUE,
-  col_pretty_n = 4,
-  col_right_closed = TRUE,
-  map_id = "map"
-)
+leaflet_sf_col(data, col_var, label_var = NULL, popup_vars_vctr = NULL,
+  pal = NULL, pal_na = "#7F7F7F", pal_rev = FALSE, size_point = 2,
+  size_line = 2, alpha = NULL, basemap = "light", title = NULL,
+  col_cuts = NULL, col_labels = NULL, col_method = NULL,
+  col_na = TRUE, col_pretty_n = 4, col_right_closed = TRUE,
+  map_id = "map")
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}

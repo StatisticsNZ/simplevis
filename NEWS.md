@@ -1,3 +1,7 @@
+# simplevis 4.6.2 
+
+* Renamed leaflet_basemap top_layer argument to basemap for consistency.
+
 # simplevis 4.6.1
 
 * Updated bug in template 2 mobileDetect.

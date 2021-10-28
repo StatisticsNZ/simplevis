@@ -3,24 +3,24 @@
 #' @title Basemap stack in leaflet.
 #' 
 #' @description Make a stack of leaflet baselayers for use in shiny apps.
-#' @param top_layer The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".
 #' @param bounds A bbox object or numeric vector of length four, with xmin, ymin, xmax and ymax values in WGS84 (epsg 4326).
+#' @param basemap The first layer to start in the basemap stack. Either "light", "dark", "street", "satellite", or "ocean". Defaults to "light".
 
 #' @return A leaflet object.
 #' @export
 #' 
 #' @examples
-#' leaflet_basemap(top_layer = "dark")
+#' leaflet_basemap(basemap = "dark")
 #' 
 #' leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 #' 
-leaflet_basemap <- function(top_layer = "light", bounds = NULL){
+leaflet_basemap <- function(bounds = NULL, basemap = "light"){
   
-  if(top_layer == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
-  else if(top_layer == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")
-  else if(top_layer == "satellite") basemap_order <- c("Satellite", "Light", "Dark", "Street", "Ocean")
-  else if(top_layer == "street") basemap_order <- c("Street", "Light", "Dark", "Satellite", "Ocean")
-  else if(top_layer == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
+  if(basemap == "light") basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
+  else if(basemap == "dark") basemap_order <- c("Dark", "Light", "Street", "Satellite", "Ocean")
+  else if(basemap == "satellite") basemap_order <- c("Satellite", "Light", "Dark", "Street", "Ocean")
+  else if(basemap == "street") basemap_order <- c("Street", "Light", "Dark", "Satellite", "Ocean")
+  else if(basemap == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
 
   map <- leaflet() %>%

@@ -1,3 +1,10 @@
+# simplevis 4.6.1
+
+* Updated bug in template 2 mobileDetect.
+* Updated templates to make height of vis easier to adjust.
+* Added reactive points and minimap into template2.
+* Update arguments in default pals.
+
 # simplevis 4.6.0
 
 * Rearranged default pal_d3_reorder palette slightly.

@@ -15,4 +15,3 @@ data_source <- "Diamonds Association"
 # add other helpers as required
 color_vector <- sort(unique(data$color))
 title_wrap <- 50
-

@@ -15,21 +15,15 @@ html, body, .container {
 }
 
 #map {
-  height: calc(100vh - 80px) !important;
-  max-height: 670px;
-  margin: 2%;
 }
 
 #plot_desktop {
-  min-height: 500px;
   min-width: 600px;
   max-width: 1000px;
 }
 
 #plot_mobile {
-  min-height: 500px;
-  min-width: 350px;
-  max-width: 1000px;
+  min-width: 300px;
 }
 
 .shiny-output-error { visibility: hidden; }

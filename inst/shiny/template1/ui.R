@@ -15,9 +15,10 @@ mobileDetect <-
 
 shinyUI(
   fluidPage(
-    tags$div(tags$br()), # delete this line 
-    downloadButton("download_code", tags$strong("Download code")),  # delete this line 
-    tags$div(tags$br()),  # delete this line 
+    # delete the below 3 lines
+    tags$div(tags$br()),
+    downloadButton("download_code", tags$strong("Download code")),
+    tags$div(tags$br()),
     tags$head(includeCSS("www/style.css")),
     tags$head(includeScript("www/js/tag-manager.js")),
     mobileDetect("isMobile"),
@@ -30,7 +31,7 @@ shinyUI(
         sidebarLayout(
           sidebarPanel(
             width = 3,
-            #add widgets 
+            #add widgets
             radioButtons("plot_color", "Colour", color_vector),
             helpText(glue::glue("Data source: {data_source}"))
           ),
@@ -39,7 +40,7 @@ shinyUI(
             conditionalPanel(
               condition = "input.isMobile == false",
               shinycssloaders::withSpinner(
-                plotly::plotlyOutput("plot_desktop"), 
+                plotly::plotlyOutput("plot_desktop", height = "500px"),
                 type = 7,
                 color = "#A8A8A8"
               )
@@ -47,12 +48,12 @@ shinyUI(
             conditionalPanel(
               condition = "input.isMobile == true",
               shinycssloaders::withSpinner(
-                plotOutput("plot_mobile"), 
+                plotOutput("plot_mobile", height = "500px"),
                 type = 7,
                 color = "#A8A8A8"
               )
-            ),
-            DT::DTOutput("plot_data")
+            )
+            # DT::DTOutput("plot_data")
           )
         )
       ),
@@ -83,7 +84,8 @@ shinyUI(
           downloadButton("download", "Download all data"),
           tags$div(tags$br()),
           helpText(glue::glue("Data source: {data_source}"))
-      ))
+        )
+      )
       # tabPanel(
       #   "About",
       #   icon = icon("info-circle", lib = "font-awesome"),

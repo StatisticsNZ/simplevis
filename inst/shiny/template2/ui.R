@@ -3,7 +3,7 @@
 
 app_title <- "Template 2" # name app
 
-mobileDetect <- 
+mobileDetect <-
   function(inputId, value = 0) {
     tagList(
       singleton(tags$head(tags$script(src = "js/mobile.js"))),
@@ -15,9 +15,10 @@ mobileDetect <-
 
 shinyUI(
   fluidPage(
-    tags$div(tags$br()), # delete this line 
-    downloadButton("download_code", tags$strong("Download code")),  # delete this line 
-    tags$div(tags$br()),  # delete this line 
+    # delete the below 3 lines
+    tags$div(tags$br()),
+    downloadButton("download_code", tags$strong("Download code")),
+    tags$div(tags$br()),
     tags$head(includeCSS("www/style.css")),
     tags$head(includeScript("www/js/tag-manager.js")),
     mobileDetect("isMobile"),
@@ -29,7 +30,7 @@ shinyUI(
         icon = icon("chart-area", lib = "font-awesome"),
         sidebarLayout(
           sidebarPanel(
-            width = 3, 
+            width = 3,
             # add widgets
             radioButtons("plot_color", "Colour", color_vector),
             helpText(glue::glue("Data source: {data_source}"))
@@ -39,7 +40,7 @@ shinyUI(
             conditionalPanel(
               condition = "input.isMobile == false",
               shinycssloaders::withSpinner(
-                plotly::plotlyOutput("plot_desktop"), 
+                plotly::plotlyOutput("plot_desktop", height = "500px"),
                 type = 7,
                 color = "#A8A8A8"
               )
@@ -47,64 +48,79 @@ shinyUI(
             conditionalPanel(
               condition = "input.isMobile == true",
               shinycssloaders::withSpinner(
-                plotOutput("plot_mobile"), 
+                plotOutput("plot_mobile", height = "500px"),
                 type = 7,
                 color = "#A8A8A8"
               )
-            ),
-            DT::DTOutput("plot_data")
+            )
+            # DT::DTOutput("plot_data")
           )
         )
       ),
       tabPanel(
         "Map",
         icon = icon("globe-americas", lib = "font-awesome"),
+        # fluidRow(
+        #   shinycssloaders::withSpinner(leaflet::leafletOutput("map"), type = 7, color = "#A8A8A8"),
+        #   helpText(glue::glue("Data source: {data_source}"))
+        # )
         sidebarLayout(
           sidebarPanel(
             width = 3,
-            radioButtons("map_filter", "Filter", c("None", "Improving", "Indeterminate", "Worsening")),
+            # add widgets
+            radioButtons(
+              "map_filter",
+              "Filter",
+              c("None", "Improving", "Indeterminate", "Worsening")
+            ),
             helpText(glue::glue("Data source: {data_source}"))
           ),
           mainPanel(width = 9,
                     fluidRow(
-                      shinycssloaders::withSpinner(leaflet::leafletOutput("map"), type = 7, color = "#A8A8A8"),
-                      DT::DTOutput("map_data")
-                    ))
+                      shinycssloaders::withSpinner(
+                        leaflet::leafletOutput("map", height = 600),
+                        type = 7,
+                        color = "#A8A8A8"
+                      )
+                    )
+                    # DT::DTOutput("map_data")
+            )
+          )
+        ),
+        tabPanel(
+          "Table",
+          icon = icon("table", lib = "font-awesome"),
+          fluidRow(
+            shinycssloaders::withSpinner(DT::DTOutput("table"), type = 7, color = "#A8A8A8"),
+            helpText(glue::glue("Data source: {data_source}"))
+          )
+          # sidebarLayout( #use this if multiple datasets
+          #   sidebarPanel(
+          #     width = 3,
+          #     radioButtons("table_data", "Dataset", c("Diamonds", "Storms")),
+          #     helpText(glue::glue("Data source: {data_source}"))
+          #   ),
+          #   mainPanel(
+          #     width = 9,
+          #     shinycssloaders::withSpinner(DT::DTOutput("table"), type = 7, color = "#A8A8A8")
+          #   )
+          # )
+        ),
+        tabPanel(
+          "Download",
+          icon = icon("download", lib = "font-awesome"),
+          fluidRow(
+            tags$div(tags$br()),
+            downloadButton("download", "Download all data"),
+            tags$div(tags$br()),
+            helpText(glue::glue("Data source: {data_source}"))
+          )
         )
-      ),
-      tabPanel(
-        "Table",
-        icon = icon("table", lib = "font-awesome"),
-        fluidRow(
-          shinycssloaders::withSpinner(DT::DTOutput("table"), type = 7, color = "#A8A8A8"),
-          helpText(glue::glue("Data source: {data_source}"))
-        )
-        # sidebarLayout( #use this if multiple datasets
-        #   sidebarPanel(
-        #     width = 3,
-        #     radioButtons("table_data", "Dataset", c("Diamonds", "Storms")),
-        #     helpText(glue::glue("Data source: {data_source}"))
-        #   ),
-        #   mainPanel(
-        #     width = 9,
-        #     shinycssloaders::withSpinner(DT::DTOutput("table"), type = 7, color = "#A8A8A8")
-        #   )
+        # tabPanel(
+        #   "About",
+        #   icon = icon("info-circle", lib = "font-awesome"),
+        #   fluidRow(includeMarkdown("www/about.Rmd"))
         # )
-      ),
-      tabPanel(
-        "Download",
-        icon = icon("download", lib = "font-awesome"),
-        fluidRow(
-          tags$div(tags$br()),
-          downloadButton("download", "Download all data"),
-          tags$div(tags$br()),
-          helpText(glue::glue("Data source: {data_source}"))
-        ))
-      # tabPanel(
-      #   "About",
-      #   icon = icon("info-circle", lib = "font-awesome"),
-      #   fluidRow(includeMarkdown("www/about.Rmd"))
-      # )
+      )
     )
   )
-)

@@ -10,7 +10,7 @@
 #' @export
 #' 
 #' @examples
-#' leaflet_basemap("dark")
+#' leaflet_basemap(top_layer = "dark")
 #' 
 #' leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 #' 
@@ -22,7 +22,7 @@ leaflet_basemap <- function(top_layer = "light", bounds = NULL){
   else if(top_layer == "street") basemap_order <- c("Street", "Light", "Dark", "Satellite", "Ocean")
   else if(top_layer == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
-  
+
   map <- leaflet() %>%
     leaflet.extras::addResetMapButton() %>% 
     addProviderTiles(

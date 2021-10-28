@@ -4,10 +4,10 @@
 \alias{pal_viridis_reorder}
 \title{Viridis palette reordered.}
 \usage{
-pal_viridis_reorder(col_n)
+pal_viridis_reorder(n)
 }
 \arguments{
-\item{col_n}{The number of colours (excluding an NA colour).}
+\item{n}{The number of colours (excluding an NA colour).}
 }
 \value{
 A character vector of hex codes.

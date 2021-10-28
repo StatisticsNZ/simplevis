@@ -4,10 +4,10 @@
 \alias{pal_d3_reorder}
 \title{D3 palette reordered.}
 \usage{
-pal_d3_reorder(col_n)
+pal_d3_reorder(n)
 }
 \arguments{
-\item{col_n}{The number of colours (excluding an NA colour).}
+\item{n}{The number of colours (excluding an NA colour).}
 }
 \value{
 A character vector of hex codes.

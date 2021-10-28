@@ -18,7 +18,7 @@ A leaflet object.
 Make a stack of leaflet baselayers for use in shiny apps.
 }
 \examples{
-leaflet_basemap("dark")
+leaflet_basemap(top_layer = "dark")
 
 leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 

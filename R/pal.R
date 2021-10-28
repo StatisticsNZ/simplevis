@@ -39,7 +39,7 @@ pal_viridis_reorder <- function(n) {
 #' @return A character vector.
 #' @export 
 #' @examples 
-#' scales::show_col(na()) 
-na <- function(pal = "#7F7F7FFF") {
+#' scales::show_col(pal_na()) 
+pal_na <- function(pal = "#7F7F7FFF") {
   return(pal)  
 }

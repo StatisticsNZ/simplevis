@@ -1,3 +1,7 @@
+# simplevis 4.6.4
+
+* Correct pal_na error.
+
 # simplevis 4.6.3
 
 * Updated default size of minimap in app templates.

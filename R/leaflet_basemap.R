@@ -24,7 +24,10 @@ leaflet_basemap <- function(bounds = NULL, basemap = "light"){
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
 
   map <- leaflet() %>%
-    leaflet.extras::addResetMapButton() %>% 
+    leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                               title = "Reset View", 
+                                               onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+    htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
     addProviderTiles(
       leaflet::providers$CartoDB.PositronNoLabels,
       group = "Light",

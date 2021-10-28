@@ -1,3 +1,8 @@
+# simplevis 4.6.3
+
+* Updated default size of minimap in app templates.
+* Removed leaflet.extras dependency.
+
 # simplevis 4.6.2 
 
 * Renamed leaflet_basemap top_layer argument to basemap for consistency.

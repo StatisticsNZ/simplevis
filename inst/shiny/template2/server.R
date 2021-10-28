@@ -84,6 +84,8 @@ shinyServer(function(input, output, session) {
         leaflet::addMiniMap(
           tiles = leaflet::providers$CartoDB.PositronNoLabels,
           position = "bottomleft",
+          width = 100,
+          height = 100,
           autoToggleDisplay = TRUE,
           toggleDisplay = TRUE,
           minimized = TRUE

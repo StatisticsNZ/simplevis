@@ -449,7 +449,7 @@ gg_point_col <- function(data,
     
     if (is.function(col_labels)) {
       data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~kimisc::cut_format(.x, col_cuts, 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
                                                                    right = col_right_closed, 
                                                                    include.lowest = TRUE, 
                                                                    dig.lab = 50, 
@@ -1124,7 +1124,7 @@ gg_point_col_facet <-
       
       if (is.function(col_labels)) {
         data <- data %>% 
-          dplyr::mutate(dplyr::across(!!col_var, ~kimisc::cut_format(.x, col_cuts, 
+          dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
                                                                      right = col_right_closed, 
                                                                      include.lowest = TRUE, 
                                                                      dig.lab = 50, 

@@ -1,6 +1,7 @@
 # simplevis 4.6.4
 
 * Correct pal_na error.
+* Removed kimisc dependency.
 
 # simplevis 4.6.3
 

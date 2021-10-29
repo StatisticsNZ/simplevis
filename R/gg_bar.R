@@ -507,7 +507,7 @@ gg_bar_col <- function(data,
     
     if (is.function(col_labels)) {
       data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~kimisc::cut_format(.x, col_cuts, 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
                                                                    right = col_right_closed, 
                                                                    include.lowest = TRUE, 
                                                                    dig.lab = 50, 
@@ -1236,7 +1236,7 @@ gg_bar_col_facet <- function(data,
     
     if (is.function(col_labels)) {
       data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~kimisc::cut_format(.x, col_cuts, 
+        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
                                                                    right = col_right_closed, 
                                                                    include.lowest = TRUE, 
                                                                    dig.lab = 50, 

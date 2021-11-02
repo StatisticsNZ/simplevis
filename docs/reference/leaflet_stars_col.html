@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Map of an array in leaflet that is coloured. — leaflet_stars_col • simplevis</title>
+<title>Stars leaflet map that is coloured. — leaflet_stars_col • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Map of an array in leaflet that is coloured. — leaflet_stars_col" />
-<meta property="og:description" content="Map of an array in leaflet that is coloured." />
+<meta property="og:title" content="Stars leaflet map that is coloured. — leaflet_stars_col" />
+<meta property="og:description" content="Map of stars in leaflet that is coloured." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.6.5</span>
       </span>
     </div>
 
@@ -106,10 +106,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a1_plot_examples.html">Plot examples</a>
+      <a href="../articles/colour.html">Colour</a>
     </li>
     <li>
-      <a href="../articles/a2_map_sf_examples.html">Map examples: sf</a>
+      <a href="../articles/ggplotly.html">Ggplotly</a>
+    </li>
+    <li>
+      <a href="../articles/leaflet.html">Leaflet</a>
+    </li>
+    <li>
+      <a href="../articles/scales.html">Scales</a>
+    </li>
+    <li>
+      <a href="../articles/shiny.html">Shiny</a>
+    </li>
+    <li>
+      <a href="../articles/titles.html">Titles</a>
     </li>
   </ul>
 </li>
@@ -137,66 +149,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Map of an array in leaflet that is coloured.</h1>
+    <h1>Stars leaflet map that is coloured.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/leaflet_stars.R'><code>R/leaflet_stars.R</code></a></small>
     <div class="hidden name"><code>leaflet_stars_col.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Map of an array in leaflet that is coloured.</p>
+    <p>Map of stars in leaflet that is coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"[Title]"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_label_dp</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
-  <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
+    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
+  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A stars object with dimensions x and y, and 1 attribute layer with crs. Required input.</p></td>
+      <td><p>A stars object. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>col_var</th>
+      <td><p>Unquoted attribute to colour the features by. Required input.</p></td>
     </tr>
     <tr>
       <th>pal</th>
-      <td><p>Character vector of hex codes. Defaults to viridis. Use the pals package to find a suitable palette.</p></td>
+      <td><p>Character vector of hex codes.</p></td>
+    </tr>
+    <tr>
+      <th>pal_na</th>
+      <td><p>The hex code or name of the NA colour to be used.</p></td>
     </tr>
     <tr>
       <th>pal_rev</th>
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>opacity</th>
-      <td><p>Sets the opacity of the grid cells. Defaults to 0.9.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>A title string that will be wrapped into the legend. Defaults to "Title".</p></td>
-    </tr>
-    <tr>
-      <th>col_cuts</th>
-      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
-      <th>col_label_dp</th>
-      <td><p>Select the appropriate number of decimal places for the auto legend. Defaults to 1.</p></td>
-    </tr>
-    <tr>
-      <th>col_labels</th>
-      <td><p>A vector of legend label values. Defaults to NULL, which results in automatic labels.</p></td>
-    </tr>
-    <tr>
-      <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile" or "category." Defaults to "quantile". Note all numeric variables are cut to be inclusive of the min in the range, and exclusive of the max in the range (except for the final bucket which includes the highest value).</p></td>
+      <th>alpha</th>
+      <td><p>The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.</p></td>
     </tr>
     <tr>
       <th>basemap</th>
       <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
     </tr>
     <tr>
+      <th>title</th>
+      <td><p>A title string that will be wrapped into the legend.</p></td>
+    </tr>
+    <tr>
+      <th>col_cuts</th>
+      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
+    </tr>
+    <tr>
+      <th>col_labels</th>
+      <td><p>A vector to modify colour scale labels.</p></td>
+    </tr>
+    <tr>
+      <th>col_method</th>
+      <td><p>The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".</p></td>
+    </tr>
+    <tr>
+      <th>col_pretty_n</th>
+      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
+    </tr>
+    <tr>
+      <th>col_right_closed</th>
+      <td><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.</p></td>
+    </tr>
+    <tr>
       <th>map_id</th>
-      <td><p>This argument is only relevant for within apps. For single map shiny apps, the id "map" can be used. For dual map apps, "map1" and "map2" should be used. Defaults to "map".</p></td>
+      <td><p>The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".</p></td>
     </tr>
     </table>
 
@@ -205,9 +229,36 @@
     <p>A leaflet object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
-   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
-   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"River modelled median nitrate-nitrogen concentrations in g/m\u00b3, 2013\u201317"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>stars</span>)
+
+<span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
+                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span>
+
+<span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
+                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>,
+                  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
+                  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>, <span class='fl'>500</span>), <span class='fl'>Inf</span>)) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span>
+
+<span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
+                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>,
+                  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
+                  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>7</span>) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span>
+
+<span class='no'>cuts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>example_stars</span>$<span class='no'>NO3N_p50.tif</span>,
+                 <span class='kw'>probs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval_labels.html'>interval_labels</a></span>(<span class='kw'>cuts</span> <span class='kw'>=</span> <span class='no'>cuts</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+
+<span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
+                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>,
+                  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
+                  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
+                  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='no'>labels</span>) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>, -<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

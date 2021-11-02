@@ -26,3 +26,10 @@
 #' @examples
 #' example_sf_point
 "example_sf_point"
+
+#' @title Example stars object.
+#' @description Example stars object.
+#' @format An \code{stars} object.
+#' @examples
+#' example_stars
+"example_stars"

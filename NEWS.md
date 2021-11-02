@@ -1,3 +1,7 @@
+# simplevis 4.6.5
+
+* Added leaflet_stars_col function.
+
 # simplevis 4.6.4
 
 * Correct pal_na error.

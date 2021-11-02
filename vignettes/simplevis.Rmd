@@ -117,8 +117,6 @@ gg_tile_col(plot_data,
             label_var = label) 
 ```
 
-Note `tile` functions are avaialble from version 4.5 and `density` functions from version 4.4 of `simplevis`.
-
 ### Colouring, facetting, neither or both
 
 Each visualisation family generally has four functions (except `tile`, which has two).

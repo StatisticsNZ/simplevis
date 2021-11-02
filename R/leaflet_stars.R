@@ -1,5 +1,92 @@
 # leaflet sf functions
 
+#' @title Stars leaflet map.
+#' @description Map of stars in leaflet that is not coloured. 
+#' @param data A stars object. Required input.
+#' @param band The band number to be plotted.
+#' @param pal Character vector of hex codes. 
+#' @param alpha The opacity of the array values. 
+#' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
+#' @param title A title string that will be wrapped into the legend. 
+#' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
+#' @return A leaflet object.
+#' @export
+#' @examples
+#' library(simplevis)
+#' library(stars)
+#' 
+#' leaflet_stars(example_stars) 
+#'   
+leaflet_stars <- function(data,
+                          band = 1,
+                          pal = NULL,
+                          alpha = 0.5,
+                          basemap = "light",
+                          title = NULL,
+                          map_id = "map")
+{
+  
+  shiny <- shiny::isRunning()
+  
+  library(stars)
+  
+  if (class(data) != "stars") stop("Please use an stars object as data input")
+  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  
+  if (is.null(pal)) pal <- pal_viridis_reorder(1)
+  else pal <- pal[1]
+  
+  col_id <- paste0(map_id, "_legend")
+  
+  if (shiny == FALSE) {
+    
+    if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
+    else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
+    else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
+    else if(basemap == "ocean") basemap_name <- "Esri.OceanBasemap"
+    else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
+    else basemap_name <- "CartoDB.PositronNoLabels"
+  }
+  
+  if (shiny == FALSE) {
+    
+    map <- leaflet() %>%
+      addProviderTiles(basemap_name) %>%
+      leafem::addStarsImage(
+        x = data,
+        colors = pal[1],
+        opacity = alpha,
+        band = band,
+        project = TRUE
+      ) 
+  }
+  else if (shiny == TRUE) {
+    
+    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+    
+    map <- leafletProxy(map_id) %>%
+      leafem::addStarsImage(
+        x = data,
+        colors = pal[1],
+        opacity = alpha,
+        band = band,
+        project = TRUE
+      ) 
+  }
+  
+  map <- map %>% 
+    addLegend(
+      layerId = col_id,
+      colors = pal[1],
+      labels =  "Array", 
+      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+      position = "bottomright",
+      opacity = alpha
+    )
+  
+  return(map)
+}
+
 #' @title Stars leaflet map that is coloured.
 #' @description Map of stars in leaflet that is coloured. 
 #' @param data A stars object. Required input.
@@ -69,6 +156,8 @@ leaflet_stars_col <- function(data,
 ) {
   
   shiny <- shiny::isRunning()
+  
+  library(stars)
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")

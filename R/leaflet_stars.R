@@ -4,10 +4,11 @@
 #' @description Map of stars in leaflet that is coloured. 
 #' @param data A stars object. Required input.
 #' @param col_var Unquoted attribute to colour the features by. Required input.
+#' @param band The band number to be plotted.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
+#' @param alpha The opacity of features. Defaults to 1.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
@@ -23,20 +24,20 @@
 #' library(stars)
 #' 
 #' leaflet_stars_col(example_stars, 
-#'                   col_var = NO3N_p50.tif) %>%
-#'   leaflet::fitBounds(166.70047, -34.45676, 178.52966,-47.06345) #avoid raster dateline issue
+#'                   col_var = NO3N_p50.tif, 
+#'                   pal_na = "transparent")
 #' 
 #' leaflet_stars_col(example_stars, 
 #'                   col_var = NO3N_p50.tif, 
 #'                   col_method = "bin", 
-#'                   col_cuts = c(seq(0, 3000, 500), Inf)) %>%
-#'   leaflet::fitBounds(166.70047, -34.45676, 178.52966,-47.06345) #avoid raster dateline issue
+#'                   col_cuts = c(seq(0, 3000, 500), Inf),
+#'                   pal_na = "transparent") 
 #' 
 #' leaflet_stars_col(example_stars, 
 #'                   col_var = NO3N_p50.tif, 
 #'                   col_method = "bin", 
-#'                   col_pretty_n = 7) %>%
-#'   leaflet::fitBounds(166.70047, -34.45676, 178.52966,-47.06345) #avoid raster dateline issue
+#'                   col_pretty_n = 7,
+#'                   pal_na = "transparent")
 #' 
 #' cuts <- quantile(example_stars$NO3N_p50.tif,
 #'                  probs = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), na.rm = TRUE)
@@ -47,15 +48,16 @@
 #'                   col_var = NO3N_p50.tif, 
 #'                   col_method = "quantile", 
 #'                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
-#'                   col_labels = labels) %>%
-#'   leaflet::fitBounds(166.70047, -34.45676, 178.52966, -47.06345) #avoid raster dateline issue
+#'                   col_labels = labels,
+#'                   pal_na = "transparent") 
 #' 
 leaflet_stars_col <- function(data,
                               col_var,
+                              band = 1,
                               pal = NULL,
-                              pal_na = "transparent",
+                              pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              alpha = NULL,
+                              alpha = 1,
                               basemap = "light",
                               title = NULL,
                               col_cuts = NULL,
@@ -169,18 +171,17 @@ leaflet_stars_col <- function(data,
     else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
-  
-  if (is.null(alpha)) alpha <- 1
-  
+
   if (shiny == FALSE) {
     
     map <- leaflet() %>%
       addProviderTiles(basemap_name) %>%
       leafem::addStarsImage(
         x = data,
-        project = TRUE,
+        band = band,
         colors = pal_fun,
-        opacity = alpha
+        opacity = alpha,
+        project = TRUE
       )
   }
   else if (shiny == TRUE) {
@@ -190,9 +191,10 @@ leaflet_stars_col <- function(data,
     map <- leafletProxy(map_id) %>%
       leafem::addStarsImage(
         x = data,
-        project = TRUE,
+        band = band,
         colors = pal_fun,
-        opacity = alpha
+        opacity = alpha,
+        project = TRUE
       )
   }
 

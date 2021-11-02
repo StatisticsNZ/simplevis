@@ -1,3 +1,8 @@
+# simplevis 4.6.6
+
+* Changed leaflet_stars_col na default to "#7F7F7F".
+* Added band argument to leaflet_stars_col.
+
 # simplevis 4.6.5
 
 * Added leaflet_stars_col function.

@@ -4,15 +4,18 @@
 \alias{leaflet_stars_col}
 \title{Stars leaflet map that is coloured.}
 \usage{
-leaflet_stars_col(data, col_var, pal = NULL, pal_na = "transparent",
-  pal_rev = FALSE, alpha = NULL, basemap = "light", title = NULL,
-  col_cuts = NULL, col_labels = NULL, col_method = NULL,
-  col_pretty_n = 4, col_right_closed = TRUE, map_id = "map")
+leaflet_stars_col(data, col_var, band = 1, pal = NULL,
+  pal_na = "#7F7F7F", pal_rev = FALSE, alpha = 1,
+  basemap = "light", title = NULL, col_cuts = NULL,
+  col_labels = NULL, col_method = NULL, col_pretty_n = 4,
+  col_right_closed = TRUE, map_id = "map")
 }
 \arguments{
 \item{data}{A stars object. Required input.}
 
 \item{col_var}{Unquoted attribute to colour the features by. Required input.}
+
+\item{band}{The band number to be plotted.}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -20,7 +23,7 @@ leaflet_stars_col(data, col_var, pal = NULL, pal_na = "transparent",
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.}
+\item{alpha}{The opacity of features. Defaults to 1.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
@@ -49,20 +52,20 @@ library(simplevis)
 library(stars)
 
 leaflet_stars_col(example_stars, 
-                  col_var = NO3N_p50.tif) \%>\%
-  leaflet::fitBounds(166.70047, -34.45676, 178.52966,-47.06345) #avoid raster dateline issue
+                  col_var = NO3N_p50.tif, 
+                  pal_na = "transparent")
 
 leaflet_stars_col(example_stars, 
                   col_var = NO3N_p50.tif, 
                   col_method = "bin", 
-                  col_cuts = c(seq(0, 3000, 500), Inf)) \%>\%
-  leaflet::fitBounds(166.70047, -34.45676, 178.52966,-47.06345) #avoid raster dateline issue
+                  col_cuts = c(seq(0, 3000, 500), Inf),
+                  pal_na = "transparent") 
 
 leaflet_stars_col(example_stars, 
                   col_var = NO3N_p50.tif, 
                   col_method = "bin", 
-                  col_pretty_n = 7) \%>\%
-  leaflet::fitBounds(166.70047, -34.45676, 178.52966,-47.06345) #avoid raster dateline issue
+                  col_pretty_n = 7,
+                  pal_na = "transparent")
 
 cuts <- quantile(example_stars$NO3N_p50.tif,
                  probs = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), na.rm = TRUE)
@@ -73,7 +76,7 @@ leaflet_stars_col(example_stars,
                   col_var = NO3N_p50.tif, 
                   col_method = "quantile", 
                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
-                  col_labels = labels) \%>\%
-  leaflet::fitBounds(166.70047, -34.45676, 178.52966, -47.06345) #avoid raster dateline issue
+                  col_labels = labels,
+                  pal_na = "transparent") 
 
 }

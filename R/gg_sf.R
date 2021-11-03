@@ -294,7 +294,7 @@ gg_sf_col <- function(data,
       })
     }
     
-    if (is.null(col_labels)) col_labels <- scales::comma_format(x, accuracy = 10 ^ -col_label_digits)
+    if (is.null(col_labels)) col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
     
     if (is.function(col_labels)) {
       data <- data %>% 

@@ -207,6 +207,7 @@ gg_sf_col <- function(data,
                       subtitle = NULL,
                       subtitle_wrap = 80,
                       col_cuts = NULL,
+                      col_label_digits = NULL,
                       col_labels = NULL,
                       col_na = TRUE,
                       col_pretty_n = 5,
@@ -292,8 +293,8 @@ gg_sf_col <- function(data,
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
     }
-
-    if (is.null(col_labels)) col_labels <- scales::comma
+    
+    if (is.null(col_labels)) col_labels <- scales::comma_format(x, accuracy = 10 ^ -col_label_digits)
     
     if (is.function(col_labels)) {
       data <- data %>% 

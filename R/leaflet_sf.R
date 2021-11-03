@@ -191,6 +191,7 @@ leaflet_sf <- function(data,
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_label_digits If numeric colour method, the number of digits to round the labels to.
 #' @param col_labels A vector to modify colour scale labels.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
@@ -226,6 +227,7 @@ leaflet_sf_col <- function(data,
                            basemap = "light",
                            title = NULL,
                            col_cuts = NULL,
+                           col_label_digits = NULL,
                            col_labels = NULL,
                            col_method = NULL,
                            col_na = TRUE,
@@ -288,7 +290,7 @@ leaflet_sf_col <- function(data,
         na.color = pal_na
       )
       
-      if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, right_closed = col_right_closed)  
+      if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_right_closed)
     }
     else if (col_method == "quantile") {
       if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -313,7 +315,7 @@ leaflet_sf_col <- function(data,
       na.color = pal_na
     )
     
-    if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, right_closed = col_right_closed)  
+    if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_right_closed)
   }
   else if (col_method == "category") {
     if (is.null(col_labels)) {

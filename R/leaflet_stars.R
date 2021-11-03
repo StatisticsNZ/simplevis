@@ -28,8 +28,6 @@ leaflet_stars <- function(data,
   
   shiny <- shiny::isRunning()
   
-  # library(stars)
-  
   if (class(data) != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
@@ -99,8 +97,8 @@ leaflet_stars <- function(data,
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
+#' @param col_label_digits If numeric colour method, the number of digits to round the labels to.
 #' @param col_labels A vector to modify colour scale labels.  
-#' @param col_label_digits If numeric colour method, the number of digits for the labels.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
@@ -126,16 +124,11 @@ leaflet_stars <- function(data,
 #'                   col_pretty_n = 7,
 #'                   pal_na = "transparent")
 #' 
-#' cuts <- quantile(example_stars$NO3N_p50.tif,
-#'                  probs = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), na.rm = TRUE)
-#' 
-#' labels <- interval_labels(cuts = cuts, digits = 2)
-#' 
 #' leaflet_stars_col(example_stars, 
 #'                   col_var = NO3N_p50.tif, 
 #'                   col_method = "quantile", 
 #'                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
-#'                   col_labels = labels,
+#'                   col_label_digits = 2,
 #'                   pal_na = "transparent") 
 #' 
 leaflet_stars_col <- function(data,
@@ -148,8 +141,8 @@ leaflet_stars_col <- function(data,
                               basemap = "light",
                               title = NULL,
                               col_cuts = NULL,
-                              col_labels = NULL,
                               col_label_digits = NULL,
+                              col_labels = NULL,
                               col_method = NULL,
                               col_pretty_n = 4,
                               col_right_closed = TRUE, 
@@ -157,8 +150,6 @@ leaflet_stars_col <- function(data,
 ) {
   
   shiny <- shiny::isRunning()
-  
-  # library(stars)
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")

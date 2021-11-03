@@ -15,9 +15,9 @@ gg_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
   y_balance = FALSE, y_expand = NULL, y_labels = NULL, y_na = TRUE,
   y_pretty_n = 4, y_rev = FALSE, y_title = NULL, y_title_wrap = 50,
   y_zero = FALSE, y_zero_line = NULL, col_cuts = NULL,
-  col_labels = NULL, col_method = NULL, col_na = TRUE,
-  col_pretty_n = 5, col_rev = FALSE, col_right_closed = TRUE,
-  col_title = NULL, col_title_wrap = 25,
+  col_labels = NULL, col_label_digits = NULL, col_method = NULL,
+  col_na = TRUE, col_pretty_n = 5, col_rev = FALSE,
+  col_right_closed = TRUE, col_title = NULL, col_title_wrap = 25,
   facet_labels = stringr::str_to_sentence, facet_na = TRUE,
   facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
   caption = NULL, caption_wrap = 75, font_family = "",
@@ -103,6 +103,8 @@ gg_hbar_col_facet(data, x_var, y_var, col_var, facet_var,
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_label_digits}{If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

@@ -13,11 +13,11 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
   x_title = NULL, x_title_wrap = 50, y_expand = c(0, 0),
   y_labels = stringr::str_to_sentence, y_na = TRUE, y_rev = FALSE,
   y_title = NULL, y_title_wrap = 50, col_cuts = NULL,
-  col_labels = NULL, col_method = NULL, col_na = TRUE,
-  col_pretty_n = 5, col_right_closed = TRUE, col_title = NULL,
-  col_title_wrap = 25, caption = NULL, caption_wrap = 75,
-  font_family = "", font_size_title = NULL, font_size_body = NULL,
-  mobile = FALSE)
+  col_label_digits = NULL, col_labels = NULL, col_method = NULL,
+  col_na = TRUE, col_pretty_n = 5, col_right_closed = TRUE,
+  col_title = NULL, col_title_wrap = 25, caption = NULL,
+  caption_wrap = 75, font_family = "", font_size_title = NULL,
+  font_size_body = NULL, mobile = FALSE)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -81,6 +81,8 @@ gg_tile_col(data, x_var, y_var, col_var, label_var = NULL,
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 

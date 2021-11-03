@@ -9,9 +9,9 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
   size_point = 1, size_line = 0.5, alpha = NULL, borders = NULL,
   borders_behind = TRUE, borders_size = 0.2, title = NULL,
   title_wrap = 80, subtitle = NULL, subtitle_wrap = 80,
-  col_cuts = NULL, col_labels = NULL, col_method = NULL,
-  col_na = TRUE, col_pretty_n = 5, col_right_closed = TRUE,
-  col_title = NULL, col_title_wrap = 25,
+  col_cuts = NULL, col_label_digits = NULL, col_labels = NULL,
+  col_method = NULL, col_na = TRUE, col_pretty_n = 5,
+  col_right_closed = TRUE, col_title = NULL, col_title_wrap = 25,
   facet_labels = stringr::str_to_sentence, facet_na = TRUE,
   facet_ncol = NULL, facet_nrow = NULL, caption = NULL,
   caption_wrap = 80, font_family = "", font_size_title = NULL,
@@ -55,6 +55,8 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 

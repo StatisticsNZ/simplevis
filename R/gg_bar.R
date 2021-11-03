@@ -319,6 +319,7 @@ gg_bar <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
@@ -393,6 +394,7 @@ gg_bar_col <- function(data,
                        y_zero = TRUE,
                        y_zero_line = NULL,
                        col_cuts = NULL,
+                       col_label_digits = NULL,
                        col_labels = NULL,
                        col_method = NULL,
                        col_na = TRUE,
@@ -1030,6 +1032,7 @@ gg_bar_facet <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -1105,6 +1108,7 @@ gg_bar_col_facet <- function(data,
                              y_zero = TRUE,
                              y_zero_line = NULL,
                              col_cuts = NULL,
+                             col_label_digits = NULL,
                              col_labels = NULL,
                              col_method = NULL,
                              col_na = TRUE,

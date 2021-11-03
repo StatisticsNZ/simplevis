@@ -2,6 +2,8 @@
 
 * Changed leaflet_stars_col na default to "#7F7F7F".
 * Added band argument to leaflet_stars_col.
+* Added leaflet_stars function.
+* Added col_label_digits argument to all functions with numeric colour variable options.
 
 # simplevis 4.6.5
 

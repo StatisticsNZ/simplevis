@@ -15,11 +15,12 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
   y_zero = FALSE, y_zero_line = NULL, title = NULL,
   subtitle = NULL, x_title = NULL, y_title = NULL,
   col_title = NULL, caption = NULL, col_cuts = NULL,
-  col_labels = NULL, col_method = NULL, col_na = TRUE,
-  col_pretty_n = 5, col_right_closed = TRUE, font_family = "",
-  font_size_title = NULL, font_size_body = NULL, title_wrap = 80,
-  subtitle_wrap = 80, x_title_wrap = 50, y_title_wrap = 50,
-  col_title_wrap = 25, caption_wrap = 80, mobile = FALSE)
+  col_label_digits = NULL, col_labels = NULL, col_method = NULL,
+  col_na = TRUE, col_pretty_n = 5, col_right_closed = TRUE,
+  font_family = "", font_size_title = NULL, font_size_body = NULL,
+  title_wrap = 80, subtitle_wrap = 80, x_title_wrap = 50,
+  y_title_wrap = 50, col_title_wrap = 25, caption_wrap = 80,
+  mobile = FALSE)
 }
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
@@ -91,6 +92,8 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
 \item{caption}{Caption title string.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_label_digits}{If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 

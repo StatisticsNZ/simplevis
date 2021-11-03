@@ -295,8 +295,15 @@ gg_sf_col <- function(data,
       })
     }
     
-    if (is.null(col_labels)) col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
-    
+    if (is.null(col_labels)) {
+      if (is.null(col_label_digits)) {
+        col_labels <- scales::comma
+      }
+      else {
+        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
+      }
+    }
+
     if (is.function(col_labels)) {
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
@@ -768,7 +775,14 @@ gg_sf_col_facet <- function(data,
       })
     }
 
-    if (is.null(col_labels)) col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
+    if (is.null(col_labels)) {
+      if (is.null(col_label_digits)) {
+        col_labels <- scales::comma
+      }
+      else {
+        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
+      }
+    }
     
     if (is.function(col_labels)) {
       data <- data %>% 

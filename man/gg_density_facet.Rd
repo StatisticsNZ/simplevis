@@ -14,7 +14,7 @@ gg_density_facet(data, x_var, facet_var, density_bw = "nrd0",
   y_expand = NULL, y_gridlines_minor = FALSE,
   y_labels = scales::number, y_pretty_n = 4, y_title = NULL,
   y_title_wrap = 50, facet_labels = stringr::str_to_sentence,
-  facet_na = TRUE, facet_ncol = NULL, facet_nrow = NULL,
+  facet_na_rm = FALSE, facet_ncol = NULL, facet_nrow = NULL,
   facet_scales = "fixed", caption = NULL, caption_wrap = 80,
   font_family = "", font_size_title = NULL, font_size_body = NULL)
 }
@@ -79,7 +79,7 @@ gg_density_facet(data, x_var, facet_var, density_bw = "nrd0",
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
-\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
+\item{facet_na_rm}{TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

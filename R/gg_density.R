@@ -224,7 +224,7 @@ gg_density <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -276,7 +276,7 @@ gg_density_col <- function(data,
                            y_title = NULL,
                            y_title_wrap = 50,
                            col_labels = stringr::str_to_sentence,
-                           col_na = TRUE,
+                           col_na_rm = FALSE,
                            col_rev = FALSE,
                            col_title = NULL,
                            col_title_wrap = 25,
@@ -292,7 +292,7 @@ gg_density_col <- function(data,
   x_var <- rlang::enquo(x_var)
   col_var <- rlang::enquo(col_var) #categorical var
   
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
@@ -497,7 +497,7 @@ gg_density_col <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -547,7 +547,7 @@ gg_density_facet <- function(data,
                              y_title = NULL,
                              y_title_wrap = 50,
                              facet_labels = stringr::str_to_sentence,
-                             facet_na = TRUE,
+                             facet_na_rm = FALSE,
                              facet_ncol = NULL,
                              facet_nrow = NULL,
                              facet_scales = "fixed",
@@ -562,7 +562,7 @@ gg_density_facet <- function(data,
   x_var <- rlang::enquo(x_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
@@ -704,12 +704,12 @@ gg_density_facet <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -729,7 +729,7 @@ gg_density_facet <- function(data,
 #'                      col_var = sex, 
 #'                      facet_var = species, 
 #'                      x_pretty_n = 2, 
-#'                      col_na = FALSE)
+#'                      col_na_rm = FALSE)
 #' 
 gg_density_col_facet <- function(data,
                                  x_var,
@@ -764,12 +764,12 @@ gg_density_col_facet <- function(data,
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  col_labels = stringr::str_to_sentence,
-                                 col_na = TRUE,
+                                 col_na_rm = FALSE,
                                  col_rev = FALSE,
                                  col_title = NULL,
                                  col_title_wrap = 25,
                                  facet_labels = stringr::str_to_sentence,
-                                 facet_na = TRUE,
+                                 facet_na_rm = FALSE,
                                  facet_ncol = NULL,
                                  facet_nrow = NULL,
                                  facet_scales = "fixed",
@@ -785,11 +785,11 @@ gg_density_col_facet <- function(data,
   col_var <- rlang::enquo(col_var) #categorical var
   facet_var <- rlang::enquo(facet_var) #categorical var
   
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }

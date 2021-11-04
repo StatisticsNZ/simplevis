@@ -14,7 +14,7 @@ gg_density_col(data, x_var, col_var, density_bw = "nrd0",
   x_zero = FALSE, x_zero_line = NULL, y_expand = NULL,
   y_gridlines_minor = FALSE, y_labels = scales::number,
   y_pretty_n = 5, y_title = NULL, y_title_wrap = 50,
-  col_labels = stringr::str_to_sentence, col_na = TRUE,
+  col_labels = stringr::str_to_sentence, col_na_rm = FALSE,
   col_rev = FALSE, col_title = NULL, col_title_wrap = 25,
   caption = NULL, caption_wrap = 80, font_family = "",
   font_size_title = NULL, font_size_body = NULL, mobile = FALSE)
@@ -84,7 +84,7 @@ gg_density_col(data, x_var, col_var, density_bw = "nrd0",
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed.}
 
-\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 

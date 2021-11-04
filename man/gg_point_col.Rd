@@ -16,7 +16,7 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
   subtitle = NULL, x_title = NULL, y_title = NULL,
   col_title = NULL, caption = NULL, col_cuts = NULL,
   col_label_digits = NULL, col_labels = NULL, col_method = NULL,
-  col_na = TRUE, col_pretty_n = 5, col_right_closed = TRUE,
+  col_na_rm = FALSE, col_pretty_n = 5, col_right_closed = TRUE,
   font_family = "", font_size_title = NULL, font_size_body = NULL,
   title_wrap = 80, subtitle_wrap = 80, x_title_wrap = 50,
   y_title_wrap = 50, col_title_wrap = 25, caption_wrap = 80,
@@ -99,7 +99,7 @@ gg_point_col(data, x_var, y_var, col_var, text_var = NULL,
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
-\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
 

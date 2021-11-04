@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.6.8</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Scales</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-11-03</h4>
+            <h4 class="date">2021-11-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/scales.Rmd"><code>vignettes/scales.Rmd</code></a></small>
       <div class="hidden name"><code>scales.Rmd</code></div>
@@ -307,13 +307,13 @@
 <div id="na-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#na-values" class="anchor"></a>NA values</h3>
-<p>You can quickly remove NA values by setting <code>x_na</code>, <code>y_na</code>, <code>col_na</code> or <code>facet_na</code> arguments to FALSE.</p>
+<p>You can quickly remove NA values by setting <code>x_na_rm</code>, <code>y_na_rm</code>, <code>col_na_rm</code> or <code>facet_na_rm</code> arguments to TRUE.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>,
                    <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
                    <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
                    <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
                    <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">species</span>,
-                   <span class="kw">col_na</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
+                   <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
 </div>
 <div id="adding-minor-gridlines" class="section level3">

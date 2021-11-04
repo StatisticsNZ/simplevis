@@ -6,7 +6,7 @@
 \usage{
 gg_sf_facet(data, facet_var, text_var = NULL, size_point = 1,
   size_line = 0.5, alpha = NULL, pal = NULL,
-  facet_labels = stringr::str_to_sentence, facet_na = TRUE,
+  facet_labels = stringr::str_to_sentence, facet_na_rm = FALSE,
   facet_ncol = NULL, facet_nrow = NULL, borders = NULL,
   borders_behind = TRUE, pal_borders = "#7F7F7F", borders_size = 0.2,
   title = NULL, title_wrap = 80, subtitle = NULL,
@@ -30,7 +30,7 @@ gg_sf_facet(data, facet_var, text_var = NULL, size_point = 1,
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
-\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
+\item{facet_na_rm}{TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

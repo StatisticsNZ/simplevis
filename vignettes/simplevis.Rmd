@@ -107,14 +107,13 @@ tile
 ```{r}
 plot_data <- penguins %>% 
   group_by(species, sex) %>% 
-  summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) %>% 
-  mutate(label = glue::glue("{bill_length_mm} mm"))
+  summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1))
 
 gg_tile_col(plot_data, 
             x_var = sex, 
             y_var = species, 
             col_var = bill_length_mm, 
-            label_var = label) 
+            label_var = bill_length_mm) 
 ```
 
 ### Colouring, facetting, neither or both
@@ -218,7 +217,7 @@ These use consistent prefixes based on `x_*`, `y_*`, `col_*` or `facet_*`, and a
 
 Some examples of transformations available are:
 
-* `*_na` to quickly not include NA observations
+* `*_na_rm` to quickly not include NA observations
 * `*_labels` to adjust labels for any x, y, col or facet scale
 * `*_zero` to start at zero for numeric x or y scales 
 * `*_pretty_n` for the number of numeric bins of breaks for the x or y scale to aim for 
@@ -250,7 +249,7 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = sex, 
-             col_na = FALSE)
+             col_na_rm = TRUE)
 ```
 
 `bar*()` and `hbar*()` plots support a `"stack"` position as well as the default `"dodge"`.
@@ -369,7 +368,7 @@ gg_bar(plot_data,
        x_var = sex, 
        y_var = body_mass_g, 
        width = 0.66, 
-       x_na = FALSE, 
+       x_na_rm = TRUE, 
        y_pretty_n = 3) +
   facet_grid(rows = vars(species), 
              cols = vars(island), 

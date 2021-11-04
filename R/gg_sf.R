@@ -161,7 +161,7 @@ gg_sf <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -210,7 +210,7 @@ gg_sf_col <- function(data,
                       col_cuts = NULL,
                       col_label_digits = NULL,
                       col_labels = NULL,
-                      col_na = TRUE,
+                      col_na_rm = FALSE,
                       col_pretty_n = 5,
                       col_method = NULL,
                       col_right_closed = TRUE,
@@ -228,7 +228,7 @@ gg_sf_col <- function(data,
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
   
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
@@ -445,7 +445,7 @@ gg_sf_col <- function(data,
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.
 #' @param pal Character vector of hex codes. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
@@ -476,7 +476,7 @@ gg_sf_facet <- function(data,
                         alpha = NULL,
                         pal = NULL,
                         facet_labels = stringr::str_to_sentence,
-                        facet_na = TRUE,
+                        facet_na_rm = FALSE,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
                         borders = NULL,
@@ -499,7 +499,7 @@ gg_sf_facet <- function(data,
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
@@ -633,11 +633,11 @@ gg_sf_facet <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param caption Caption title string. 
@@ -675,13 +675,13 @@ gg_sf_col_facet <- function(data,
                             col_label_digits = NULL,
                             col_labels = NULL,
                             col_method = NULL,
-                            col_na = TRUE,
+                            col_na_rm = FALSE,
                             col_pretty_n = 5,
                             col_right_closed = TRUE,
                             col_title = NULL,
                             col_title_wrap = 25,
                             facet_labels = stringr::str_to_sentence,
-                            facet_na = TRUE,
+                            facet_na_rm = FALSE,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
                             caption = NULL,
@@ -696,11 +696,11 @@ gg_sf_col_facet <- function(data,
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }

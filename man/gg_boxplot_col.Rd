@@ -9,13 +9,13 @@ gg_boxplot_col(data, x_var, y_var = NULL, col_var, stat = "boxplot",
   alpha = 1, size_line = 0.5, size_point = 1, title = NULL,
   title_wrap = 80, subtitle = NULL, subtitle_wrap = 80,
   x_balance = FALSE, x_labels = NULL, x_pretty_n = 6,
-  x_expand = NULL, x_na = TRUE, x_title = NULL, x_title_wrap = 50,
-  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
-  y_expand = NULL, y_gridlines_minor = FALSE,
+  x_expand = NULL, x_na_rm = FALSE, x_title = NULL,
+  x_title_wrap = 50, x_zero = FALSE, x_zero_line = NULL,
+  y_balance = FALSE, y_expand = NULL, y_gridlines_minor = FALSE,
   y_labels = scales::comma, y_pretty_n = 5, x_rev = FALSE,
   y_title = NULL, y_title_wrap = 50, y_trans = "identity",
   y_zero = FALSE, y_zero_line = NULL,
-  col_labels = stringr::str_to_sentence, col_na = TRUE,
+  col_labels = stringr::str_to_sentence, col_na_rm = FALSE,
   col_title = NULL, col_title_wrap = 25, caption = NULL,
   caption_wrap = 80, font_family = "", font_size_title = NULL,
   font_size_body = NULL, mobile = FALSE)
@@ -61,7 +61,7 @@ gg_boxplot_col(data, x_var, y_var = NULL, col_var, stat = "boxplot",
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+\item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -95,7 +95,7 @@ gg_boxplot_col(data, x_var, y_var = NULL, col_var, stat = "boxplot",
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence. Use ggplot2::waiver() to keep colour labels untransformed.}
 
-\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

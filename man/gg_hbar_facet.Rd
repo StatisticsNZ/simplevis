@@ -8,16 +8,16 @@ gg_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
   pal = NULL, width = NULL, alpha = 1, size_line = 0.5,
   title = NULL, title_wrap = 75, subtitle = NULL,
   subtitle_wrap = 75, x_balance = FALSE, x_expand = NULL,
-  x_gridlines_minor = FALSE, x_labels = scales::comma, x_na = TRUE,
-  x_pretty_n = 3, x_title = NULL, x_title_wrap = 50,
-  x_trans = "identity", x_zero = TRUE, x_zero_line = NULL,
-  y_balance = FALSE, y_expand = NULL, y_labels = NULL, y_na = TRUE,
-  y_pretty_n = 4, y_rev = FALSE, y_title = NULL, y_title_wrap = 50,
-  y_zero = FALSE, y_zero_line = NULL,
-  facet_labels = stringr::str_to_sentence, facet_na = TRUE,
-  facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
-  caption = NULL, caption_wrap = 75, font_family = "",
-  font_size_title = NULL, font_size_body = NULL)
+  x_gridlines_minor = FALSE, x_labels = scales::comma,
+  x_na_rm = FALSE, x_pretty_n = 3, x_title = NULL,
+  x_title_wrap = 50, x_trans = "identity", x_zero = TRUE,
+  x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
+  y_labels = NULL, y_na_rm = FALSE, y_pretty_n = 4, y_rev = FALSE,
+  y_title = NULL, y_title_wrap = 50, y_zero = FALSE,
+  y_zero_line = NULL, facet_labels = stringr::str_to_sentence,
+  facet_na_rm = FALSE, facet_ncol = NULL, facet_nrow = NULL,
+  facet_scales = "fixed", caption = NULL, caption_wrap = 75,
+  font_family = "", font_size_title = NULL, font_size_body = NULL)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
@@ -54,7 +54,7 @@ gg_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+\item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
@@ -74,7 +74,7 @@ gg_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
+\item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
@@ -90,7 +90,7 @@ gg_hbar_facet(data, x_var, y_var, facet_var, text_var = NULL,
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
-\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
+\item{facet_na_rm}{TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

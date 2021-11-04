@@ -194,7 +194,7 @@ leaflet_sf <- function(data,
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to.
 #' @param col_labels A vector to modify colour scale labels.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
@@ -230,7 +230,7 @@ leaflet_sf_col <- function(data,
                            col_label_digits = NULL,
                            col_labels = NULL,
                            col_method = NULL,
-                           col_na = TRUE,
+                           col_na_rm = FALSE,
                            col_pretty_n = 4,
                            col_right_closed = TRUE, 
                            map_id = "map"
@@ -248,7 +248,7 @@ leaflet_sf_col <- function(data,
   label_var <- rlang::enquo(label_var)
   if(is.null(rlang::get_expr(label_var))) label_var <- col_var
   
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }

@@ -300,7 +300,7 @@ gg_point <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -360,7 +360,7 @@ gg_point_col <- function(data,
                          col_label_digits = NULL,
                          col_labels = NULL,
                          col_method = NULL,
-                         col_na = TRUE,
+                         col_na_rm = FALSE,
                          col_pretty_n = 5,
                          col_right_closed = TRUE,
                          font_family = "",
@@ -381,7 +381,7 @@ gg_point_col <- function(data,
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
   
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
@@ -675,7 +675,7 @@ gg_point_col <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -730,7 +730,7 @@ gg_point_facet <- function(data,
                            y_zero = FALSE,
                            y_zero_line = NULL,
                            facet_labels = stringr::str_to_sentence,
-                           facet_na = TRUE,
+                           facet_na_rm = FALSE,
                            facet_ncol = NULL,
                            facet_nrow = NULL,
                            facet_scales = "fixed",
@@ -747,7 +747,7 @@ gg_point_facet <- function(data,
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
@@ -960,13 +960,13 @@ gg_point_facet <- function(data,
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -1029,13 +1029,13 @@ gg_point_col_facet <-
            col_label_digits = NULL,
            col_labels = NULL,
            col_method = NULL,
-           col_na = TRUE,
+           col_na_rm = FALSE,
            col_pretty_n = 5,
            col_right_closed = TRUE,
            col_title = NULL,
            col_title_wrap = 25,
            facet_labels = stringr::str_to_sentence,
-           facet_na = TRUE,
+           facet_na_rm = FALSE,
            facet_ncol = NULL,
            facet_nrow = NULL,
            facet_scales = "fixed",
@@ -1053,11 +1053,11 @@ gg_point_col_facet <-
     facet_var <- rlang::enquo(facet_var) #categorical var
     text_var <- rlang::enquo(text_var)
     
-    if (col_na == FALSE) {
+    if (col_na_rm == TRUE) {
       data <- data %>% 
         dplyr::filter(!is.na(!!col_var))
     }
-    if (facet_na == FALSE) {
+    if (facet_na_rm == TRUE) {
       data <- data %>% 
         dplyr::filter(!is.na(!!facet_var))
     }

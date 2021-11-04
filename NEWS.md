@@ -1,3 +1,11 @@
+# simplevis 4.6.8
+
+* Changed _na arguments to _na_rm.
+
+# simplevis 4.6.7
+
+* Added gg_stars and gg_stars_col function
+
 # simplevis 4.6.6
 
 * Changed leaflet_stars_col na default to "#7F7F7F".

@@ -8,17 +8,17 @@ gg_bar_col_facet(data, x_var, y_var, col_var, facet_var, text_var = NULL,
   position = NULL, pal = NULL, pal_na = "#7F7F7F", pal_rev = FALSE,
   width = NULL, alpha = 1, size_line = 0.5, title = NULL,
   title_wrap = 80, subtitle = NULL, subtitle_wrap = 80,
-  x_balance = FALSE, x_expand = NULL, x_labels = NULL, x_na = TRUE,
-  x_pretty_n = 3, x_rev = FALSE, x_title = NULL, x_title_wrap = 50,
-  x_zero = FALSE, x_zero_line = NULL, y_balance = FALSE,
-  y_expand = NULL, y_gridlines_minor = FALSE,
+  x_balance = FALSE, x_expand = NULL, x_labels = NULL,
+  x_na_rm = FALSE, x_pretty_n = 3, x_rev = FALSE, x_title = NULL,
+  x_title_wrap = 50, x_zero = FALSE, x_zero_line = NULL,
+  y_balance = FALSE, y_expand = NULL, y_gridlines_minor = FALSE,
   y_labels = scales::comma, y_na = TRUE, y_pretty_n = 4,
   y_title = NULL, y_title_wrap = 50, y_trans = "identity",
   y_zero = TRUE, y_zero_line = NULL, col_cuts = NULL,
   col_label_digits = NULL, col_labels = NULL, col_method = NULL,
-  col_na = TRUE, col_pretty_n = 5, col_rev = FALSE,
+  col_na_rm = FALSE, col_pretty_n = 5, col_rev = FALSE,
   col_right_closed = TRUE, col_title = NULL, col_title_wrap = 25,
-  facet_labels = stringr::str_to_sentence, facet_na = TRUE,
+  facet_labels = stringr::str_to_sentence, facet_na_rm = FALSE,
   facet_ncol = NULL, facet_nrow = NULL, facet_scales = "fixed",
   caption = NULL, caption_wrap = 80, font_family = "",
   font_size_title = NULL, font_size_body = NULL)
@@ -64,7 +64,7 @@ gg_bar_col_facet(data, x_var, y_var, col_var, facet_var, text_var = NULL,
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+\item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
@@ -86,7 +86,7 @@ gg_bar_col_facet(data, x_var, y_var, col_var, facet_var, text_var = NULL,
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.}
+\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
@@ -108,7 +108,7 @@ gg_bar_col_facet(data, x_var, y_var, col_var, facet_var, text_var = NULL,
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
-\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -122,7 +122,7 @@ gg_bar_col_facet(data, x_var, y_var, col_var, facet_var, text_var = NULL,
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
-\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
+\item{facet_na_rm}{TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 
@@ -160,6 +160,6 @@ gg_bar_col_facet(plot_data,
                  y_var = body_mass_g, 
                  col_var = island, 
                  facet_var = sex, 
-                 facet_na = FALSE)
+                 facet_na_rm = FALSE)
 
 }

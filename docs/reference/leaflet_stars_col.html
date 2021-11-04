@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.6.8</span>
       </span>
     </div>
 
@@ -158,9 +158,10 @@
     <p>Map of stars in leaflet that is coloured.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>leaflet_stars_col</span>(<span class='no'>data</span>, <span class='no'>col_var</span>, <span class='kw'>band</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>, <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -173,6 +174,10 @@
     <tr>
       <th>col_var</th>
       <td><p>Unquoted attribute to colour the features by. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>band</th>
+      <td><p>The band number to be plotted.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -188,7 +193,7 @@
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.</p></td>
+      <td><p>The opacity of features. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>basemap</th>
@@ -201,6 +206,10 @@
     <tr>
       <th>col_cuts</th>
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
+    </tr>
+    <tr>
+      <th>col_label_digits</th>
+      <td><p>If numeric colour method, the number of digits to round the labels to.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>
@@ -233,32 +242,26 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>stars</span>)
 
 <span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
-                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span>
+                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>)
 
 <span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
                   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>,
                   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
-                  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>, <span class='fl'>500</span>), <span class='fl'>Inf</span>)) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span>
+                  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>, <span class='fl'>500</span>), <span class='fl'>Inf</span>),
+                  <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>)
 
 <span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
                   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>,
                   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
-                  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>7</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>,-<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span>
-
-<span class='no'>cuts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>example_stars</span>$<span class='no'>NO3N_p50.tif</span>,
-                 <span class='kw'>probs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='no'>labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval_labels.html'>interval_labels</a></span>(<span class='kw'>cuts</span> <span class='kw'>=</span> <span class='no'>cuts</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+                  <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+                  <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>)
 
 <span class='fu'>leaflet_stars_col</span>(<span class='no'>example_stars</span>,
                   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>NO3N_p50.tif</span>,
                   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
                   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.05</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>),
-                  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='no'>labels</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>leaflet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/leaflet/man/map-methods.html'>fitBounds</a></span>(<span class='fl'>166.70047</span>, -<span class='fl'>34.45676</span>, <span class='fl'>178.52966</span>, -<span class='fl'>47.06345</span>) <span class='co'>#avoid raster dateline issue</span></div></pre>
+                  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+                  <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

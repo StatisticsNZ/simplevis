@@ -10,9 +10,9 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
   borders_behind = TRUE, borders_size = 0.2, title = NULL,
   title_wrap = 80, subtitle = NULL, subtitle_wrap = 80,
   col_cuts = NULL, col_label_digits = NULL, col_labels = NULL,
-  col_method = NULL, col_na = TRUE, col_pretty_n = 5,
+  col_method = NULL, col_na_rm = FALSE, col_pretty_n = 5,
   col_right_closed = TRUE, col_title = NULL, col_title_wrap = 25,
-  facet_labels = stringr::str_to_sentence, facet_na = TRUE,
+  facet_labels = stringr::str_to_sentence, facet_na_rm = FALSE,
   facet_ncol = NULL, facet_nrow = NULL, caption = NULL,
   caption_wrap = 80, font_family = "", font_size_title = NULL,
   font_size_body = NULL)
@@ -62,7 +62,7 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
-\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -74,7 +74,7 @@ gg_sf_col_facet(data, col_var, facet_var, text_var = NULL, pal = NULL,
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 
-\item{facet_na}{TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.}
+\item{facet_na_rm}{TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

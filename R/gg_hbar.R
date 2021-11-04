@@ -16,7 +16,7 @@
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -26,7 +26,7 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
+#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param y_reorder For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
@@ -71,7 +71,7 @@ gg_hbar <- function(data,
                     x_expand = NULL,
                     x_gridlines_minor = FALSE,
                     x_labels = scales::comma,
-                    x_na = TRUE,
+                    x_na_rm = FALSE,
                     x_pretty_n = 5,
                     x_title = NULL,
                     x_title_wrap = 50,
@@ -81,7 +81,7 @@ gg_hbar <- function(data,
                     y_balance = FALSE,
                     y_expand = NULL,
                     y_labels = NULL,
-                    y_na = TRUE,
+                    y_na_rm = FALSE,
                     y_pretty_n = 6,
                     y_reorder = FALSE,
                     y_rev = FALSE,
@@ -102,11 +102,11 @@ gg_hbar <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   text_var <- rlang::enquo(text_var)
   
-  if (x_na == FALSE) {
+  if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
   }
-  if (y_na == FALSE) {
+  if (y_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
@@ -305,7 +305,7 @@ gg_hbar <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -315,7 +315,7 @@ gg_hbar <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
+#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_reorder For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
@@ -327,7 +327,7 @@ gg_hbar <- function(data,
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
@@ -381,7 +381,7 @@ gg_hbar_col <- function(data,
                         x_expand = NULL,
                         x_gridlines_minor = FALSE,
                         x_labels = scales::comma,
-                        x_na = TRUE,
+                        x_na_rm = FALSE,
                         x_pretty_n = 5,
                         x_title = NULL,
                         x_title_wrap = 50,
@@ -391,7 +391,7 @@ gg_hbar_col <- function(data,
                         y_balance = FALSE,
                         y_expand = NULL,
                         y_labels = NULL,
-                        y_na = TRUE,
+                        y_na_rm = FALSE,
                         y_pretty_n = 6,
                         y_reorder = FALSE,
                         y_rev = FALSE,
@@ -403,7 +403,7 @@ gg_hbar_col <- function(data,
                         col_label_digits = NULL,
                         col_labels = NULL,
                         col_method = NULL,
-                        col_na = TRUE,
+                        col_na_rm = FALSE,
                         col_pretty_n = 5,
                         col_rev = FALSE,
                         col_right_closed = TRUE,
@@ -423,15 +423,15 @@ gg_hbar_col <- function(data,
   col_var <- rlang::enquo(col_var) 
   text_var <- rlang::enquo(text_var)
   
-  if (x_na == FALSE) {
+  if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
   }
-  if (y_na == FALSE) {
+  if (y_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
@@ -592,7 +592,6 @@ gg_hbar_col <- function(data,
       
       x_var_vctr <- dplyr::pull(data_sum, !!x_var)
     }
-    # else if (position == "fill") x_var_vctr <- c(0, 1)
   }
   
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -753,7 +752,7 @@ gg_hbar_col <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -763,7 +762,7 @@ gg_hbar_col <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
+#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -771,7 +770,7 @@ gg_hbar_col <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -813,7 +812,7 @@ gg_hbar_facet <- function(data,
                           x_expand = NULL,
                           x_gridlines_minor = FALSE,
                           x_labels = scales::comma,
-                          x_na = TRUE,
+                          x_na_rm = FALSE,
                           x_pretty_n = 3,
                           x_title = NULL,
                           x_title_wrap = 50,
@@ -823,7 +822,7 @@ gg_hbar_facet <- function(data,
                           y_balance = FALSE,
                           y_expand = NULL,
                           y_labels = NULL,
-                          y_na = TRUE,
+                          y_na_rm = FALSE,
                           y_pretty_n = 4,
                           y_rev = FALSE,
                           y_title = NULL,
@@ -831,7 +830,7 @@ gg_hbar_facet <- function(data,
                           y_zero = FALSE,
                           y_zero_line = NULL,
                           facet_labels = stringr::str_to_sentence,
-                          facet_na = TRUE,
+                          facet_na_rm = FALSE,
                           facet_ncol = NULL,
                           facet_nrow = NULL,
                           facet_scales = "fixed",
@@ -848,15 +847,15 @@ gg_hbar_facet <- function(data,
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
-  if (x_na == FALSE) {
+  if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
   }
-  if (y_na == FALSE) {
+  if (y_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
@@ -1052,7 +1051,7 @@ gg_hbar_facet <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_na TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -1062,7 +1061,7 @@ gg_hbar_facet <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na TRUE or FALSE of whether to include y_var NA values. Defaults to TRUE.
+#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -1073,14 +1072,14 @@ gg_hbar_facet <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_na TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.
+#' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param facet_na TRUE or FALSE of whether to include facet_var NA values. Defaults to TRUE.
+#' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -1105,7 +1104,7 @@ gg_hbar_facet <- function(data,
 #'                   y_var = species, 
 #'                   col_var = island, 
 #'                   facet_var = sex, 
-#'                   facet_na = FALSE)
+#'                   facet_na_rm = FALSE)
 #' 
 gg_hbar_col_facet <- function(data,
                               x_var,
@@ -1128,7 +1127,7 @@ gg_hbar_col_facet <- function(data,
                               x_expand = NULL,
                               x_gridlines_minor = FALSE,
                               x_labels = scales::comma,
-                              x_na = TRUE,
+                              x_na_rm = FALSE,
                               x_pretty_n = 3,
                               x_title = NULL,
                               x_title_wrap = 50,
@@ -1138,7 +1137,7 @@ gg_hbar_col_facet <- function(data,
                               y_balance = FALSE,
                               y_expand = NULL,
                               y_labels = NULL,
-                              y_na = TRUE,
+                              y_na_rm = FALSE,
                               y_pretty_n = 4,
                               y_rev = FALSE,
                               y_title = NULL,
@@ -1149,14 +1148,14 @@ gg_hbar_col_facet <- function(data,
                               col_labels = NULL,
                               col_label_digits = NULL,
                               col_method = NULL,
-                              col_na = TRUE,
+                              col_na_rm = FALSE,
                               col_pretty_n = 5,
                               col_rev = FALSE,
                               col_right_closed = TRUE,
                               col_title = NULL,
                               col_title_wrap = 25,
                               facet_labels = stringr::str_to_sentence,
-                              facet_na = TRUE,
+                              facet_na_rm = FALSE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
                               facet_scales = "fixed",
@@ -1174,19 +1173,19 @@ gg_hbar_col_facet <- function(data,
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
-  if (x_na == FALSE) {
+  if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
   }
-  if (y_na == FALSE) {
+  if (y_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
-  if (col_na == FALSE) {
+  if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-  if (facet_na == FALSE) {
+  if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
@@ -1351,7 +1350,6 @@ gg_hbar_col_facet <- function(data,
       
       x_var_vctr <- dplyr::pull(data_sum, !!x_var)
     }
-    # else if (position == "fill") x_var_vctr <- seq(0, 1, 0.1)
   }
   
   if (facet_scales %in% c("fixed", "free_x")) {

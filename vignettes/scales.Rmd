@@ -240,7 +240,7 @@ gg_hbar_col(plot_data,
 
 ### NA values
 
-You can quickly remove NA values by setting `x_na`, `y_na`, `col_na` or `facet_na` arguments to FALSE.
+You can quickly remove NA values by setting `x_na_rm`, `y_na_rm`, `col_na_rm` or `facet_na_rm` arguments to TRUE.
 
 ```{r}
 gg_point_col_facet(penguins, 
@@ -248,7 +248,7 @@ gg_point_col_facet(penguins,
                    y_var = body_mass_g, 
                    col_var = sex, 
                    facet_var = species, 
-                   col_na = F)
+                   col_na_rm = T)
 ```
 
 ### Adding minor gridlines 

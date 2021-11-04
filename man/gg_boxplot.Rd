@@ -8,7 +8,7 @@ gg_boxplot(data, x_var, y_var = NULL, stat = "boxplot", pal = NULL,
   width = 0.5, alpha = 1, size_line = 0.5, size_point = 1,
   title = NULL, title_wrap = 80, subtitle = NULL,
   subtitle_wrap = 80, x_balance = FALSE, x_labels = NULL,
-  x_na = TRUE, x_pretty_n = 6, x_expand = NULL, x_rev = FALSE,
+  x_na_rm = FALSE, x_pretty_n = 6, x_expand = NULL, x_rev = FALSE,
   x_title = NULL, x_title_wrap = 50, x_zero = FALSE,
   x_zero_line = NULL, y_balance = FALSE, y_expand = NULL,
   y_gridlines_minor = FALSE, y_labels = scales::comma,
@@ -48,7 +48,7 @@ gg_boxplot(data, x_var, y_var = NULL, stat = "boxplot", pal = NULL,
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_na}{TRUE or FALSE of whether to include x_var NA values. Defaults to TRUE.}
+\item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 

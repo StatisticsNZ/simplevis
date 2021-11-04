@@ -8,7 +8,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, popup_vars_vctr = NULL,
   pal = NULL, pal_na = "#7F7F7F", pal_rev = FALSE, size_point = 2,
   size_line = 2, alpha = NULL, basemap = "light", title = NULL,
   col_cuts = NULL, col_label_digits = NULL, col_labels = NULL,
-  col_method = NULL, col_na = TRUE, col_pretty_n = 4,
+  col_method = NULL, col_na_rm = FALSE, col_pretty_n = 4,
   col_right_closed = TRUE, map_id = "map")
 }
 \arguments{
@@ -44,7 +44,7 @@ leaflet_sf_col(data, col_var, label_var = NULL, popup_vars_vctr = NULL,
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
-\item{col_na}{TRUE or FALSE of whether to include col_var NA values. Defaults to TRUE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 

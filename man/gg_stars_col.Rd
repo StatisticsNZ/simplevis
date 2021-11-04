@@ -50,7 +50,7 @@ gg_stars_col(data, col_var, pal = NULL, pal_na = "#7F7F7F",
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
-\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
+\item{col_na_rm}{TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
 

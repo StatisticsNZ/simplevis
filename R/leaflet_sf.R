@@ -462,6 +462,13 @@ leaflet_sf_col <- function(data,
     }
   }
   
+  if(col_na_rm == FALSE) {
+    if(any(is.na(col_var_vctr))) {
+      pal <- c(pal, pal_na)
+      col_labels <- c(col_labels, "NA")
+    }
+  }
+  
   map <- map %>% 
     addLegend(
       layerId = col_id,

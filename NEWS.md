@@ -1,3 +1,7 @@
+# simplevis 4.6.9
+
+* Update leaflet functions to deal with NAs better in legend. 
+
 # simplevis 4.6.8
 
 * Changed _na arguments to _na_rm.

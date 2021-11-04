@@ -8,7 +8,8 @@ leaflet_stars_col(data, col_var, band = 1, pal = NULL,
   pal_na = "#7F7F7F", pal_rev = FALSE, alpha = 1,
   basemap = "light", title = NULL, col_cuts = NULL,
   col_label_digits = NULL, col_labels = NULL, col_method = NULL,
-  col_pretty_n = 4, col_right_closed = TRUE, map_id = "map")
+  col_na_rm = FALSE, col_pretty_n = 4, col_right_closed = TRUE,
+  map_id = "map")
 }
 \arguments{
 \item{data}{A stars object. Required input.}
@@ -36,6 +37,8 @@ leaflet_stars_col(data, col_var, band = 1, pal = NULL,
 \item{col_labels}{A vector to modify colour scale labels.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
+
+\item{col_na_rm}{TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.}
 
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 

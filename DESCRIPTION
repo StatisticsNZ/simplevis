@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' and 'leaflet' Visualisation with Less Brainpower
-Version: 4.6.8
+Version: 4.6.8.9000
 Authors@R:
     c(person(given = "David", 
                family = "Hodge", 

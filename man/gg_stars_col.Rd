@@ -4,16 +4,37 @@
 \alias{gg_stars_col}
 \title{Stars ggplot map that is coloured.}
 \usage{
-gg_stars_col(data, col_var, pal = NULL, pal_na = "#7F7F7F",
-  pal_rev = FALSE, alpha = 1, borders = NULL,
-  borders_behind = FALSE, pal_borders = "#7F7F7F",
-  borders_size = 0.2, title = NULL, title_wrap = 80,
-  subtitle = NULL, subtitle_wrap = 80, col_cuts = NULL,
-  col_label_digits = NULL, col_labels = NULL, col_na_rm = FALSE,
-  col_pretty_n = 5, col_method = NULL, col_right_closed = TRUE,
-  col_title = NULL, col_title_wrap = 25, caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL, mobile = FALSE)
+gg_stars_col(
+  data,
+  col_var,
+  pal = NULL,
+  pal_na = "#7F7F7F",
+  pal_rev = FALSE,
+  alpha = 1,
+  borders = NULL,
+  borders_behind = FALSE,
+  pal_borders = "#7F7F7F",
+  borders_size = 0.2,
+  title = NULL,
+  title_wrap = 80,
+  subtitle = NULL,
+  subtitle_wrap = 80,
+  col_cuts = NULL,
+  col_label_digits = NULL,
+  col_labels = NULL,
+  col_na_rm = FALSE,
+  col_pretty_n = 5,
+  col_method = NULL,
+  col_right_closed = TRUE,
+  col_title = NULL,
+  col_title_wrap = 25,
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "",
+  font_size_title = NULL,
+  font_size_body = NULL,
+  mobile = FALSE
+)
 }
 \arguments{
 \item{data}{A stars object with defined coordinate reference system. Required input.}
@@ -85,7 +106,7 @@ library(simplevis)
 library(stars)
 
 gg_stars_col(example_stars,
-             col_var = NO3N_p50.tif,
+             col_var = nitrate,
              col_method = "quantile",
              col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
              col_na_rm = TRUE,

@@ -74,6 +74,10 @@ leaflet_sf <- function(data,
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
+        leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                   title = "Reset View", 
+                                                   onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+        htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data,
@@ -107,6 +111,10 @@ leaflet_sf <- function(data,
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
+        leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                   title = "Reset View", 
+                                                   onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+        htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data,
@@ -138,6 +146,10 @@ leaflet_sf <- function(data,
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
+        leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                   title = "Reset View", 
+                                                   onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+        htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data,
@@ -370,6 +382,10 @@ leaflet_sf_col <- function(data,
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
+        leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                   title = "Reset View", 
+                                                   onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+        htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data,
@@ -404,6 +420,10 @@ leaflet_sf_col <- function(data,
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
+        leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                   title = "Reset View", 
+                                                   onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+        htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data,
@@ -435,6 +455,10 @@ leaflet_sf_col <- function(data,
     
     if (shiny == FALSE) {
       map <- leaflet() %>%
+        leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                   title = "Reset View", 
+                                                   onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+        htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data,

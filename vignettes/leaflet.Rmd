@@ -21,12 +21,18 @@ library(simplevis)
 
 ### Overview
 
-`leaflet` is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. `simplevis` provides `leaflet_sf` and `leaflet_sf_col` wrapper functions to map sf objects. Arguments in these have been aligned to ggplot terminology to make things simple for the user.
+`leaflet` is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. `simplevis` provides wrapper functions to map `sf` and ``stars` objects. Arguments in these have been aligned to ggplot terminology to make things simple for the user.
 
-As per the ggplot sf functions:
+For the `sf` functions:
 
 * Data must be an `sf` object 
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type
+* Data must have a coordinate reference system (CRS) defined
+* No `x_var` and `y_var` variables are required
+
+For the `sf` functions:
+
+* Data must be a `stars` object 
 * Data must have a coordinate reference system (CRS) defined
 * No `x_var` and `y_var` variables are required
 

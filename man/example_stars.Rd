@@ -4,7 +4,9 @@
 \name{example_stars}
 \alias{example_stars}
 \title{Example stars object.}
-\format{An \code{stars} object.}
+\format{
+A \code{stars} object.
+}
 \usage{
 example_stars
 }
@@ -12,6 +14,7 @@ example_stars
 Example stars object.
 }
 \examples{
+library(stars)
 example_stars
 }
 \keyword{datasets}

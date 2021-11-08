@@ -49,6 +49,10 @@ leaflet_stars <- function(data,
   if (shiny == FALSE) {
     
     map <- leaflet() %>%
+      leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                 title = "Reset View", 
+                                                 onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+      htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
       addProviderTiles(basemap_name) %>%
       leafem::addStarsImage(
         x = data,
@@ -111,22 +115,22 @@ leaflet_stars <- function(data,
 #' library(stars)
 #' 
 #' leaflet_stars_col(example_stars, 
-#'                   col_var = NO3N_p50.tif)
+#'                   col_var = nitrate)
 #' 
 #' leaflet_stars_col(example_stars, 
-#'                   col_var = NO3N_p50.tif, 
+#'                   col_var = nitrate, 
 #'                   col_method = "bin", 
 #'                   col_cuts = c(seq(0, 3000, 500), Inf),
 #'                   col_na_rm = TRUE) 
 #' 
 #' leaflet_stars_col(example_stars, 
-#'                   col_var = NO3N_p50.tif, 
+#'                   col_var = nitrate, 
 #'                   col_method = "bin", 
 #'                   col_pretty_n = 7,
 #'                   col_na_rm = TRUE)
 #' 
 #' leaflet_stars_col(example_stars, 
-#'                   col_var = NO3N_p50.tif, 
+#'                   col_var = nitrate, 
 #'                   col_method = "quantile", 
 #'                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
 #'                   col_label_digits = 2,
@@ -260,6 +264,10 @@ leaflet_stars_col <- function(data,
   if (shiny == FALSE) {
     
     map <- leaflet() %>%
+      leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
+                                                 title = "Reset View", 
+                                                 onClick = htmlwidgets::JS("function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"))) %>% 
+      htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
       addProviderTiles(basemap_name) %>%
       leafem::addStarsImage(
         x = data,

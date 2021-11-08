@@ -151,7 +151,7 @@ gg_stars <- function(data,
 #' library(stars)
 #' 
 #' gg_stars_col(example_stars,
-#'              col_var = NO3N_p50.tif,
+#'              col_var = nitrate,
 #'              col_method = "quantile",
 #'              col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'              col_na_rm = TRUE,

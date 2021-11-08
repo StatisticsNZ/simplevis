@@ -4,12 +4,25 @@
 \alias{leaflet_stars_col}
 \title{Stars leaflet map that is coloured.}
 \usage{
-leaflet_stars_col(data, col_var, band = 1, pal = NULL,
-  pal_na = "#7F7F7F", pal_rev = FALSE, alpha = 1,
-  basemap = "light", title = NULL, col_cuts = NULL,
-  col_label_digits = NULL, col_labels = NULL, col_method = NULL,
-  col_na_rm = FALSE, col_pretty_n = 4, col_right_closed = TRUE,
-  map_id = "map")
+leaflet_stars_col(
+  data,
+  col_var,
+  band = 1,
+  pal = NULL,
+  pal_na = "#7F7F7F",
+  pal_rev = FALSE,
+  alpha = 1,
+  basemap = "light",
+  title = NULL,
+  col_cuts = NULL,
+  col_label_digits = NULL,
+  col_labels = NULL,
+  col_method = NULL,
+  col_na_rm = FALSE,
+  col_pretty_n = 4,
+  col_right_closed = TRUE,
+  map_id = "map"
+)
 }
 \arguments{
 \item{data}{A stars object. Required input.}
@@ -57,22 +70,22 @@ library(simplevis)
 library(stars)
 
 leaflet_stars_col(example_stars, 
-                  col_var = NO3N_p50.tif)
+                  col_var = nitrate)
 
 leaflet_stars_col(example_stars, 
-                  col_var = NO3N_p50.tif, 
+                  col_var = nitrate, 
                   col_method = "bin", 
                   col_cuts = c(seq(0, 3000, 500), Inf),
                   col_na_rm = TRUE) 
 
 leaflet_stars_col(example_stars, 
-                  col_var = NO3N_p50.tif, 
+                  col_var = nitrate, 
                   col_method = "bin", 
                   col_pretty_n = 7,
                   col_na_rm = TRUE)
 
 leaflet_stars_col(example_stars, 
-                  col_var = NO3N_p50.tif, 
+                  col_var = nitrate, 
                   col_method = "quantile", 
                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
                   col_label_digits = 2,

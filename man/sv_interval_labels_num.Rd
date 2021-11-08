@@ -19,9 +19,4 @@ A vector of character labels.
 \description{
 Convert numeric bin cuts to simple and pretty labels.
 }
-\examples{
-library(simplevis)
-
-interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
-}
 \keyword{internal}

@@ -4,8 +4,7 @@
 \alias{theme_h_gridlines}
 \title{Theme for graphs with horizontal gridlines.}
 \usage{
-theme_h_gridlines(font_family = "", font_size_title = 11,
-  font_size_body = 10)
+theme_h_gridlines(font_family = "", font_size_title = 11, font_size_body = 10)
 }
 \arguments{
 \item{font_family}{Font family to use. Defaults to "".}

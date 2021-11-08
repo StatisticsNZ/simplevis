@@ -4,8 +4,15 @@
 \alias{leaflet_stars}
 \title{Stars leaflet map.}
 \usage{
-leaflet_stars(data, band = 1, pal = NULL, alpha = 0.5,
-  basemap = "light", title = NULL, map_id = "map")
+leaflet_stars(
+  data,
+  band = 1,
+  pal = NULL,
+  alpha = 0.5,
+  basemap = "light",
+  title = NULL,
+  map_id = "map"
+)
 }
 \arguments{
 \item{data}{A stars object. Required input.}

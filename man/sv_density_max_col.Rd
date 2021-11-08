@@ -4,9 +4,16 @@
 \alias{sv_density_max_col}
 \title{Calculate the max density in a gg_density_col(..., position == "identity") plot.}
 \usage{
-sv_density_max_col(data, x_var, col_var, density_bw = "nrd0",
-  density_adjust = 1, density_kernel = "gaussian", density_n = 512,
-  density_trim = FALSE)
+sv_density_max_col(
+  data,
+  x_var,
+  col_var,
+  density_bw = "nrd0",
+  density_adjust = 1,
+  density_kernel = "gaussian",
+  density_n = 512,
+  density_trim = FALSE
+)
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}

@@ -15,9 +15,4 @@ A vector of character labels.
 \description{
 Convert bin cuts to simple and pretty labels.
 }
-\examples{
-library(simplevis)
-
-interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
-}
 \keyword{internal}

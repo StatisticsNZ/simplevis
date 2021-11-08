@@ -1,46 +1,19 @@
-# simplevis 4.6.9
+# simplevis 4.6.9000
 
-* Update leaflet functions to deal with NAs better in legend. 
-
-# simplevis 4.6.8
-
-* Changed _na arguments to _na_rm.
-
-# simplevis 4.6.7
-
-* Added gg_stars and gg_stars_col function
-
-# simplevis 4.6.6
-
-* Changed leaflet_stars_col na default to "#7F7F7F".
-* Added band argument to leaflet_stars_col.
-* Added leaflet_stars function.
-* Added col_label_digits argument to all functions with numeric colour variable options.
-
-# simplevis 4.6.5
-
+* Breaking: changed _na arguments to _na_rm.
+* Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.
+* Added gg_stars and gg_stars_col functions.
 * Added leaflet_stars_col function.
-
-# simplevis 4.6.4
-
-* Correct pal_na error.
+* Added col_label_digits argument to all functions with numeric colour variable options.
 * Removed kimisc dependency.
-
-# simplevis 4.6.3
-
-* Updated default size of minimap in app templates.
 * Removed leaflet.extras dependency.
-
-# simplevis 4.6.2 
-
-* Renamed leaflet_basemap top_layer argument to basemap for consistency.
-
-# simplevis 4.6.1
-
-* Updated bug in template 2 mobileDetect.
-* Updated templates to make height of vis easier to adjust.
-* Added reactive points and minimap into template2.
-* Update arguments in default pals.
+* Updated app templates to make height of vis easier to adjust.
+* Added reactive points into app template2.
+* Added minimap into app template2.
+* Fixed mobileDetect bug in app template 2.
+* Updated arguments in default pals.
+* Added reset button into leaflet for when shiny equals FALSE.
+* Updated method to estimate numeric colour label digits, when not specified.
 
 # simplevis 4.6.0
 

@@ -16,13 +16,13 @@
 interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
   
   if (is.numeric(cuts)) {
-    if (is.null(digits)) digits <- sv_max_digits(cuts) 
-    
+    if (is.null(digits)) {
+      cuts <- scales::comma(cuts)  
+    } else cuts <-   scales::comma(cuts, accuracy = 10 ^ -digits)
+
     labels <- vector("character", 0)
     
     cuts_no <- length(cuts)
-    
-    cuts <- format(round(as.numeric(cuts), digits), nsmall = digits, big.mark = ",", trim = TRUE) 
     
     sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
     sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
@@ -71,20 +71,16 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
 #' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
 #' @return A vector of character labels.
 #' @keywords internal
-
-#' @examples 
-#' library(simplevis)
 #' 
-#' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
 sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
   
-  if (is.null(digits)) digits <- sv_max_digits(cuts) 
-  
+  if (is.null(digits)) {
+    cuts <- scales::comma(cuts)  
+  } else cuts <-   scales::comma(cuts, accuracy = 10 ^ -digits)
+    
   labels <- vector("character", 0)
   
   cuts_no <- length(cuts)
-  
-  cuts <- format(round(as.numeric(cuts), digits), nsmall = digits, big.mark = ",", trim = TRUE) 
   
   sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
   sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
@@ -114,11 +110,6 @@ sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
 #' @param cuts An vector of interval cuts.
 #' @return A vector of character labels.
 #' @keywords internal
-#' 
-#' @examples 
-#' library(simplevis)
-#' 
-#' interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
 sv_interval_labels_chr <- function(cuts) {
   
   right_closed <- ifelse(stringr::str_sub(cuts[1], -1L, -1L) == "]", TRUE, FALSE)

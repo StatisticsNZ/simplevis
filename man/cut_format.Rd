@@ -4,9 +4,17 @@
 \alias{cut_format}
 \title{Convert Numeric to Factor, with custom formatting}
 \usage{
-cut_format(x, breaks, include.lowest = FALSE, right = TRUE,
-  ordered_result = FALSE, ..., format_fun = format, sep = ", ",
-  paren = c("(", "[", ")", "]"))
+cut_format(
+  x,
+  breaks,
+  include.lowest = FALSE,
+  right = TRUE,
+  ordered_result = FALSE,
+  ...,
+  format_fun = format,
+  sep = ", ",
+  paren = c("(", "[", ")", "]")
+)
 }
 \arguments{
 \item{x}{a numeric vector which is to be converted to a factor by cutting.}

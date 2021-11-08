@@ -4,12 +4,25 @@
 \alias{gg_stars}
 \title{Stars ggplot map.}
 \usage{
-gg_stars(data, alpha = 0.5, pal = NULL, borders = NULL,
-  borders_behind = FALSE, pal_borders = "#323232",
-  borders_size = 0.2, title = NULL, title_wrap = 80,
-  subtitle = NULL, subtitle_wrap = 80, caption = NULL,
-  caption_wrap = 80, font_family = "", font_size_title = NULL,
-  font_size_body = NULL, mobile = FALSE)
+gg_stars(
+  data,
+  alpha = 0.5,
+  pal = NULL,
+  borders = NULL,
+  borders_behind = FALSE,
+  pal_borders = "#323232",
+  borders_size = 0.2,
+  title = NULL,
+  title_wrap = 80,
+  subtitle = NULL,
+  subtitle_wrap = 80,
+  caption = NULL,
+  caption_wrap = 80,
+  font_family = "",
+  font_size_title = NULL,
+  font_size_body = NULL,
+  mobile = FALSE
+)
 }
 \arguments{
 \item{data}{A stars object with defined coordinate reference system. Required input.}

@@ -72,7 +72,7 @@ leaflet_stars_col(example_stars,
 leaflet_stars_col(example_stars, 
                   col_var = nitrate, 
                   col_method = "bin", 
-                  col_cuts = c(seq(0, 3000, 500), Inf),
+                  col_cuts = c(0, 500, 1000, 2000, Inf),
                   col_na_rm = TRUE) 
 
 leaflet_stars_col(example_stars, 
@@ -85,7 +85,6 @@ leaflet_stars_col(example_stars,
                   col_var = nitrate, 
                   col_method = "quantile", 
                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
-                  col_label_digits = 2,
                   col_na_rm = TRUE) 
 
 }

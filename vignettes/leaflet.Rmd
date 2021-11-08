@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(simplevis)
+library(stars)
 ```
 
 ### Overview
@@ -30,7 +31,7 @@ For the `sf` functions:
 * Data must have a coordinate reference system (CRS) defined
 * No `x_var` and `y_var` variables are required
 
-For the `sf` functions:
+For the `stars` functions:
 
 * Data must be a `stars` object 
 * Data must have a coordinate reference system (CRS) defined
@@ -51,14 +52,23 @@ leaflet_sf_col(example_sf_polygon,
 
 
 ```{r}
-leaflet_sf_col(example_sf_polygon, 
-               col_var = density, 
-               col_method = "bin", 
-               col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
+leaflet_stars_col(example_stars,
+                  col_var = nitrate,
+                  col_method = "bin",
+                  col_cuts = c(0, 500, 1000, 2000, Inf),
+                  col_na_rm = TRUE)
 ```
 
 
-### Popups and hover text
+```{r}
+leaflet_stars_col(example_stars,
+                  col_var = nitrate,
+                  col_method = "bin",
+                  col_pretty_n = 7,
+                  col_na_rm = TRUE)
+```
+
+### sf popups and hover text
 
 The clickable popup will default to a `leafpop::popupTable` of all variables, but popups can be adjusted to a subset of column using the `popup_vars_vctr` argument.
 
@@ -85,9 +95,9 @@ leaflet_sf(example_sf_point,
            basemap = "dark")
 ```
 
-### Labels
+### Legend labels
 
-Labels are not as flexible as in the ggplot2 wrapper functions. You must provide a manual vector of breaks, and if you use a function it cannot access the colour variable breaks. Note you have only changed the colour legend labels, and so the hover labels and popups will remain based on the underlying data.
+Legend labels are not as flexible as in the ggplot2 wrapper functions. You can adjust by using the `col_labels` argument, and providing a manual vector of breaks. The `col_label_digits` can also provide a shortcut to round the labels.
 
 ```{r}
 leaflet_sf_col(example_sf_point, 
@@ -95,14 +105,12 @@ leaflet_sf_col(example_sf_point,
                col_labels = c("Better", "Same", "Worse"))
 ```
 
-Sometimes a colouring method of "quantile" will provide too many digits in your legend labels. You can modify these by specifying a vector of these bins manually or using the `interval_labels` function.
 
 ```{r}
 leaflet_sf_col(example_sf_polygon, 
                col_var = density, 
-               col_method = "bin", 
-               col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
-               col_labels = interval_labels(c(0, 10, 50, 100, 150, 200, Inf)))
+               col_method = "quantile", 
+               col_label_digits = 2)
 ```
 
 ### Adding additional layers

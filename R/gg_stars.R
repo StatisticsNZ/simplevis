@@ -155,7 +155,6 @@ gg_stars <- function(data,
 #'              col_method = "quantile",
 #'              col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
 #'              col_na_rm = TRUE,
-#'              col_title = "Nitrate",
 #'              borders = nz)
 #'           
 gg_stars_col <- function(data,

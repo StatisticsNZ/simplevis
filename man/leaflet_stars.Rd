@@ -10,7 +10,6 @@ leaflet_stars(
   pal = NULL,
   alpha = 0.5,
   basemap = "light",
-  title = NULL,
   map_id = "map"
 )
 }
@@ -24,8 +23,6 @@ leaflet_stars(
 \item{alpha}{The opacity of the array values.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
-
-\item{title}{A title string that will be wrapped into the legend.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

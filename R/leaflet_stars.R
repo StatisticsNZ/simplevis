@@ -7,7 +7,6 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of the array values. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -22,7 +21,6 @@ leaflet_stars <- function(data,
                           pal = NULL,
                           alpha = 0.5,
                           basemap = "light",
-                          title = NULL,
                           map_id = "map")
 {
   
@@ -76,16 +74,6 @@ leaflet_stars <- function(data,
       ) 
   }
   
-  map <- map %>% 
-    addLegend(
-      layerId = col_id,
-      colors = pal[1],
-      labels =  "Array", 
-      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-      position = "bottomright",
-      opacity = alpha
-    )
-  
   return(map)
 }
 
@@ -99,7 +87,6 @@ leaflet_stars <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The opacity of features. Defaults to 1.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to.
 #' @param col_labels A vector to modify colour scale labels.  
@@ -107,6 +94,7 @@ leaflet_stars <- function(data,
 #' @param col_na_rm TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -144,7 +132,6 @@ leaflet_stars_col <- function(data,
                               pal_rev = FALSE,
                               alpha = 1,
                               basemap = "light",
-                              title = NULL,
                               col_cuts = NULL,
                               col_label_digits = NULL,
                               col_labels = NULL,
@@ -152,6 +139,7 @@ leaflet_stars_col <- function(data,
                               col_na_rm = FALSE,
                               col_pretty_n = 4,
                               col_right_closed = TRUE, 
+                              col_title = NULL,
                               map_id = "map"
 ) {
   
@@ -297,13 +285,15 @@ leaflet_stars_col <- function(data,
       col_labels <- c(col_labels, "NA")
     }
   }
+  
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
 
   map <- map %>%
     addLegend(
       layerId = col_id,
       colors = pal,
       labels = col_labels,
-      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+      title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
       position = "bottomright",
       opacity = alpha)
   

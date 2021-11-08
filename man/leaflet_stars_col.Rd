@@ -13,7 +13,6 @@ leaflet_stars_col(
   pal_rev = FALSE,
   alpha = 1,
   basemap = "light",
-  title = NULL,
   col_cuts = NULL,
   col_label_digits = NULL,
   col_labels = NULL,
@@ -21,6 +20,7 @@ leaflet_stars_col(
   col_na_rm = FALSE,
   col_pretty_n = 4,
   col_right_closed = TRUE,
+  col_title = NULL,
   map_id = "map"
 )
 }
@@ -41,8 +41,6 @@ leaflet_stars_col(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{title}{A title string that will be wrapped into the legend.}
-
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_label_digits}{If numeric colour method, the number of digits to round the labels to.}
@@ -56,6 +54,8 @@ leaflet_stars_col(
 \item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
+
+\item{col_title}{A title string that will be wrapped into the legend.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

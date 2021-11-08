@@ -1,7 +1,8 @@
 # simplevis 4.6.9000
 
-* Breaking: changed _na arguments to _na_rm.
+* Breaking: Renamed *_na arguments to _na_rm.
 * Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.
+* Breaking: Renamed leaflet_* title arguments to col_title.
 * Added gg_stars and gg_stars_col functions.
 * Added leaflet_stars_col function.
 * Added col_label_digits argument to all functions with numeric colour variable options.

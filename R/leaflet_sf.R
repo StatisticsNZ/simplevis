@@ -9,7 +9,6 @@
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.75 for polygons.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -25,7 +24,6 @@ leaflet_sf <- function(data,
                        size_line = 2,
                        alpha = NULL,
                        basemap = "light",
-                       title = NULL,
                        map_id = "map")
 {
   
@@ -175,16 +173,6 @@ leaflet_sf <- function(data,
     }
   }
   
-  map <- map %>% 
-    addLegend(
-      layerId = col_id,
-      colors = pal[1],
-      labels =  "Feature", 
-      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
-      position = "bottomright",
-      opacity = alpha
-    )
-  
   return(map)
 }
 
@@ -201,7 +189,6 @@ leaflet_sf <- function(data,
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param title A title string that will be wrapped into the legend. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_label_digits If numeric colour method, the number of digits to round the labels to.
 #' @param col_labels A vector to modify colour scale labels.  
@@ -209,6 +196,7 @@ leaflet_sf <- function(data,
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -237,7 +225,6 @@ leaflet_sf_col <- function(data,
                            size_line = 2,
                            alpha = NULL,
                            basemap = "light",
-                           title = NULL,
                            col_cuts = NULL,
                            col_label_digits = NULL,
                            col_labels = NULL,
@@ -245,6 +232,7 @@ leaflet_sf_col <- function(data,
                            col_na_rm = FALSE,
                            col_pretty_n = 4,
                            col_right_closed = TRUE, 
+                           col_title = NULL,
                            map_id = "map"
 ) {
   
@@ -493,12 +481,14 @@ leaflet_sf_col <- function(data,
     }
   }
   
+  if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
+
   map <- map %>% 
     addLegend(
       layerId = col_id,
       colors = pal,
       labels = col_labels,
-      title = stringr::str_replace_all(stringr::str_wrap(title, 20), "\n", "</br>"),
+      title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
       position = "bottomright",
       opacity = alpha)
   

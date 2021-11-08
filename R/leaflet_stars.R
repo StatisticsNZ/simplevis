@@ -3,7 +3,6 @@
 #' @title Stars leaflet map.
 #' @description Map of stars in leaflet that is not coloured. 
 #' @param data A stars object. Required input.
-#' @param band The band number to be plotted.
 #' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of the array values. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
@@ -17,7 +16,6 @@
 #' leaflet_stars(example_stars) 
 #'   
 leaflet_stars <- function(data,
-                          band = 1,
                           pal = NULL,
                           alpha = 0.5,
                           basemap = "light",
@@ -56,7 +54,6 @@ leaflet_stars <- function(data,
         x = data,
         colors = pal[1],
         opacity = alpha,
-        band = band,
         project = TRUE
       ) 
   }
@@ -69,7 +66,6 @@ leaflet_stars <- function(data,
         x = data,
         colors = pal[1],
         opacity = alpha,
-        band = band,
         project = TRUE
       ) 
   }
@@ -81,7 +77,6 @@ leaflet_stars <- function(data,
 #' @description Map of stars in leaflet that is coloured. 
 #' @param data A stars object. Required input.
 #' @param col_var Unquoted attribute to colour the features by. Required input.
-#' @param band The band number to be plotted.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -126,7 +121,6 @@ leaflet_stars <- function(data,
 #' 
 leaflet_stars_col <- function(data,
                               col_var,
-                              band = 1,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
@@ -259,7 +253,6 @@ leaflet_stars_col <- function(data,
       addProviderTiles(basemap_name) %>%
       leafem::addStarsImage(
         x = data,
-        band = band,
         colors = pal_fun,
         opacity = alpha,
         project = TRUE
@@ -272,7 +265,6 @@ leaflet_stars_col <- function(data,
     map <- leafletProxy(map_id) %>%
       leafem::addStarsImage(
         x = data,
-        band = band,
         colors = pal_fun,
         opacity = alpha,
         project = TRUE

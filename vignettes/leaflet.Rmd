@@ -54,8 +54,7 @@ leaflet_sf_col(example_sf_polygon,
 leaflet_sf_col(example_sf_polygon, 
                col_var = density, 
                col_method = "bin", 
-               col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
-               title = "Modelled density, 2017")
+               col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
 ```
 
 
@@ -103,8 +102,7 @@ leaflet_sf_col(example_sf_polygon,
                col_var = density, 
                col_method = "bin", 
                col_cuts = c(0, 10, 50, 100, 150, 200, Inf), 
-               col_labels = interval_labels(c(0, 10, 50, 100, 150, 200, Inf)),
-               title = "Modelled density, 2017")
+               col_labels = interval_labels(c(0, 10, 50, 100, 150, 200, Inf)))
 ```
 
 ### Adding additional layers

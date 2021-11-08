@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.6.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.7.0</span>
       </span>
     </div>
 
@@ -152,84 +152,26 @@
       <small>Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="simplevis-4-6-9" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.9">
-<a href="#simplevis-4-6-9" class="anchor"></a>simplevis 4.6.9<small> Unreleased </small>
+    <div id="simplevis-4-7-0" class="section level1">
+<h1 class="page-header" data-toc-text="4.7.0">
+<a href="#simplevis-4-7-0" class="anchor"></a>simplevis 4.7.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>Update leaflet functions to deal with NAs better in legend.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-8" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.8">
-<a href="#simplevis-4-6-8" class="anchor"></a>simplevis 4.6.8<small> Unreleased </small>
-</h1>
-<ul>
-<li>Changed _na arguments to _na_rm.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-7" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.7">
-<a href="#simplevis-4-6-7" class="anchor"></a>simplevis 4.6.7<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added gg_stars and gg_stars_col function</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-6" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.6">
-<a href="#simplevis-4-6-6" class="anchor"></a>simplevis 4.6.6<small> Unreleased </small>
-</h1>
-<ul>
-<li>Changed leaflet_stars_col na default to “<a href='https://github.com/statisticsNZ/simplevis/issues/7'>#7</a>F7F7F”.</li>
-<li>Added band argument to leaflet_stars_col.</li>
-<li>Added leaflet_stars function.</li>
-<li>Added col_label_digits argument to all functions with numeric colour variable options.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-5" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.5">
-<a href="#simplevis-4-6-5" class="anchor"></a>simplevis 4.6.5<small> Unreleased </small>
-</h1>
-<ul>
+<li>Breaking: Renamed *_na arguments to _na_rm.</li>
+<li>Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.</li>
+<li>Breaking: Renamed leaflet_* title arguments to col_title.</li>
+<li>Added gg_stars and gg_stars_col functions.</li>
 <li>Added leaflet_stars_col function.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-4" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.4">
-<a href="#simplevis-4-6-4" class="anchor"></a>simplevis 4.6.4<small> Unreleased </small>
-</h1>
-<ul>
-<li>Correct pal_na error.</li>
+<li>Added col_label_digits argument to all functions with numeric colour variable options.</li>
 <li>Removed kimisc dependency.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-3" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.3">
-<a href="#simplevis-4-6-3" class="anchor"></a>simplevis 4.6.3<small> Unreleased </small>
-</h1>
-<ul>
-<li>Updated default size of minimap in app templates.</li>
 <li>Removed leaflet.extras dependency.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-2" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.2">
-<a href="#simplevis-4-6-2" class="anchor"></a>simplevis 4.6.2<small> Unreleased </small>
-</h1>
-<ul>
-<li>Renamed leaflet_basemap top_layer argument to basemap for consistency.</li>
-</ul>
-</div>
-    <div id="simplevis-4-6-1" class="section level1">
-<h1 class="page-header" data-toc-text="4.6.1">
-<a href="#simplevis-4-6-1" class="anchor"></a>simplevis 4.6.1<small> Unreleased </small>
-</h1>
-<ul>
-<li>Updated bug in template 2 mobileDetect.</li>
-<li>Updated templates to make height of vis easier to adjust.</li>
-<li>Added reactive points and minimap into template2.</li>
-<li>Update arguments in default pals.</li>
+<li>Updated app templates to make height of vis easier to adjust.</li>
+<li>Added reactive points into app template2.</li>
+<li>Added minimap into app template2.</li>
+<li>Fixed mobileDetect bug in app template 2.</li>
+<li>Updated arguments in default pals.</li>
+<li>Added reset button into leaflet for when shiny equals FALSE.</li>
+<li>Updated method to estimate numeric colour label digits, when not specified.</li>
 </ul>
 </div>
     <div id="simplevis-4-6-0" class="section level1">

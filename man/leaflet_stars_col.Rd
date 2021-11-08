@@ -7,7 +7,6 @@
 leaflet_stars_col(
   data,
   col_var,
-  band = 1,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -28,8 +27,6 @@ leaflet_stars_col(
 \item{data}{A stars object. Required input.}
 
 \item{col_var}{Unquoted attribute to colour the features by. Required input.}
-
-\item{band}{The band number to be plotted.}
 
 \item{pal}{Character vector of hex codes.}
 

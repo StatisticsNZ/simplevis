@@ -4,19 +4,10 @@
 \alias{leaflet_stars}
 \title{Stars leaflet map.}
 \usage{
-leaflet_stars(
-  data,
-  band = 1,
-  pal = NULL,
-  alpha = 0.5,
-  basemap = "light",
-  map_id = "map"
-)
+leaflet_stars(data, pal = NULL, alpha = 0.5, basemap = "light", map_id = "map")
 }
 \arguments{
 \item{data}{A stars object. Required input.}
-
-\item{band}{The band number to be plotted.}
 
 \item{pal}{Character vector of hex codes.}
 

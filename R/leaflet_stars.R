@@ -100,24 +100,6 @@ leaflet_stars <- function(data,
 #' leaflet_stars_col(example_stars, 
 #'                   col_var = nitrate)
 #' 
-#' leaflet_stars_col(example_stars, 
-#'                   col_var = nitrate, 
-#'                   col_method = "bin", 
-#'                   col_cuts = c(0, 500, 1000, 2000, Inf),
-#'                   col_na_rm = TRUE) 
-#' 
-#' leaflet_stars_col(example_stars, 
-#'                   col_var = nitrate, 
-#'                   col_method = "bin", 
-#'                   col_pretty_n = 7,
-#'                   col_na_rm = TRUE)
-#' 
-#' leaflet_stars_col(example_stars, 
-#'                   col_var = nitrate, 
-#'                   col_method = "quantile", 
-#'                   col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1), 
-#'                   col_na_rm = TRUE) 
-#' 
 leaflet_stars_col <- function(data,
                               col_var,
                               pal = NULL,

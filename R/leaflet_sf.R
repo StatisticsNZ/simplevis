@@ -55,13 +55,13 @@ leaflet_sf <- function(data,
   if(is.null(popup_vars_vctr)){
     popup_data <- data %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      janitor::clean_names(case = "sentence") 
+      dplyr::rename_with(snakecase::to_sentence_case) 
   }
   else {
     popup_data <- data %>%
       dplyr::select(popup_vars_vctr) %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      janitor::clean_names(case = "sentence") 
+      dplyr::rename_with(snakecase::to_sentence_case) 
   }
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
@@ -353,13 +353,13 @@ leaflet_sf_col <- function(data,
   if(is.null(popup_vars_vctr)){
     popup_data <- data %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      janitor::clean_names(case = "sentence") 
+      dplyr::rename_with(snakecase::to_sentence_case) 
   }
   else {
     popup_data <- data %>%
       dplyr::select(popup_vars_vctr) %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      janitor::clean_names(case = "sentence") 
+      dplyr::rename_with(snakecase::to_sentence_case) 
   }
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)

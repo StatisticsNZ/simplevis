@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' and 'leaflet' Visualisation with Less Brainpower
-Version: 5.0.0
+Version: 4.9.9000
 Authors@R:
     c(person(given = "David", 
                family = "Hodge", 
@@ -17,9 +17,9 @@ BugReports: https://github.com/statisticsNZ/simplevis/issues/
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: dplyr, DT, forcats, ggplot2, htmltools, htmlwidgets, janitor, leaflet, leafem,     
-         leafpop, lubridate, magrittr, plotly, purrr, readr, rlang, scales, sf,  shiny,  
-         shinycssloaders, snakecase, stars, stringr, tibble, tidyr, tidyselect, viridis
-Suggests: knitr, glue, palmerpenguins, rgdal, rgeos, rmarkdown, s2 
+Imports: dplyr, forcats, ggplot2, htmlwidgets, janitor, leaflet, leafem,     
+         leafpop, lubridate, magrittr, purrr, rlang, scales, sf,  
+         snakecase, stars, stringr, tidyr, tidyselect, viridis
+Suggests: DT, glue, knitr, palmerpenguins, plotly, rgdal, rgeos, rmarkdown, s2, shiny, shinycssloaders, tibble, webshot
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr

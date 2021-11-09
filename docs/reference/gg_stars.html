@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.9.9000</span>
       </span>
     </div>
 
@@ -163,8 +163,8 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>pal_borders</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
+  <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
   <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -198,11 +198,11 @@
       <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
     </tr>
     <tr>
-      <th>borders_behind</th>
-      <td><p>TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to FALSE.</p></td>
+      <th>borders_on_top</th>
+      <td><p>TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.</p></td>
     </tr>
     <tr>
-      <th>pal_borders</th>
+      <th>borders_pal</th>
       <td><p>Colour of the borders. Defaults to "#323232".</p></td>
     </tr>
     <tr>
@@ -260,7 +260,7 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>stars</span>)
 
 <span class='fu'>gg_stars</span>(<span class='no'>example_stars</span>,
-     <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></div><div class='img'><img src='gg_stars-1.png' alt='' width='700' height='433' /></div><div class='input'>     
+     <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='message'>Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></div><div class='img'><img src='gg_stars-1.png' alt='' width='700' height='433' /></div><div class='input'>     
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

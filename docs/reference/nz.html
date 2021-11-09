@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.9.9000</span>
       </span>
     </div>
 
@@ -169,18 +169,19 @@
     <pre class="examples"><div class='input'><span class='no'>nz</span></div><div class='output co'>#&gt; Simple feature collection with 7 features and 1 field
 #&gt; Geometry type: MULTIPOLYGON
 #&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: 166.4262 ymin: -47.28988 xmax: 178.5505 ymax: -34.39357</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; CRS:           EPSG:4326
+#&gt; Bounding box:  xmin: 1089971 ymin: 4748130 xmax: 2089541 ymax: 6194204
+#&gt; CRS:           EPSG:2193
 #&gt;                                       name                       geometry
-#&gt; 1            South Island or Te Waipounamu MULTIPOLYGON (((166.5461 -4...
-#&gt; 2            North Island or Te Ika-a-Maui MULTIPOLYGON (((173.014 -34...
-#&gt; 3                   Stewart Island/Rakiura MULTIPOLYGON (((167.8694 -4...
-#&gt; 4      Great Barrier Island (Aotea Island) MULTIPOLYGON (((175.3966 -3...
-#&gt; 5                        Resolution Island MULTIPOLYGON (((166.6788 -4...
-#&gt; 6 Rangitoto ke te tonga (D'Urville Island) MULTIPOLYGON (((173.9532 -4...
-#&gt; 7                         Secretary Island MULTIPOLYGON (((166.9634 -4...</div><div class='input'>
-<span class='fu'><a href='gg_sf.html'>gg_sf</a></span>(<span class='no'>nz</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='nz-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='gg_sf.html'>gg_sf</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/slice.html'>slice</a></span>(<span class='no'>nz</span>, <span class='fl'>2</span>, <span class='fl'>4</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='nz-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='gg_sf.html'>gg_sf</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/slice.html'>slice</a></span>(<span class='no'>nz</span>, <span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>7</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='nz-3.png' alt='' width='700' height='433' /></div></pre>
+#&gt; 1            South Island or Te Waipounamu MULTIPOLYGON (((1100129 488...
+#&gt; 2            North Island or Te Ika-a-Maui MULTIPOLYGON (((1601285 619...
+#&gt; 3                   Stewart Island/Rakiura MULTIPOLYGON (((1207675 481...
+#&gt; 4      Great Barrier Island (Aotea Island) MULTIPOLYGON (((1815888 600...
+#&gt; 5                        Resolution Island MULTIPOLYGON (((1107048 493...
+#&gt; 6 Rangitoto ke te tonga (D'Urville Island) MULTIPOLYGON (((1680538 549...
+#&gt; 7                         Secretary Island MULTIPOLYGON (((1125480 498...</div><div class='input'>
+<span class='fu'><a href='gg_sf.html'>gg_sf</a></span>(<span class='no'>nz</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='nz-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='gg_sf.html'>gg_sf</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='no'>nz</span>, <span class='fl'>2</span>, <span class='fl'>4</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='nz-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='gg_sf.html'>gg_sf</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='no'>nz</span>, <span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>7</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='nz-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

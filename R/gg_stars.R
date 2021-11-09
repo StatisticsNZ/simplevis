@@ -4,8 +4,8 @@
 #' @param alpha The opacity of the array. Defaults to 0.5.
 #' @param pal Character vector of hex codes. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to FALSE.
-#' @param pal_borders Colour of the borders. Defaults to "#323232".
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
+#' @param borders_pal Colour of the borders. Defaults to "#323232".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -30,8 +30,8 @@ gg_stars <- function(data,
                   alpha = 0.5,
                   pal = NULL,
                   borders = NULL,
-                  borders_behind = FALSE,
-                  pal_borders = "#323232",
+                  borders_on_top = TRUE,
+                  borders_pal = "#323232",
                   borders_size = 0.2,
                   title = NULL,
                   title_wrap = 80,
@@ -62,13 +62,13 @@ gg_stars <- function(data,
     coord_equal()
 
   if (!is.null(borders)) {
-    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
-    if (borders_behind == TRUE) {
+    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -81,12 +81,12 @@ gg_stars <- function(data,
     stars::geom_stars(aes(x = .data$x, y = .data$y), fill = pal, alpha = alpha, data = data)
 
   if (!is.null(borders)) {
-    if (borders_behind == FALSE) {
+    if (borders_on_top == TRUE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -122,8 +122,8 @@ gg_stars <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to FALSE.
-#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -164,8 +164,8 @@ gg_stars_col <- function(data,
                       pal_rev = FALSE,
                       alpha = 1,
                       borders = NULL,
-                      borders_behind = FALSE,
-                      pal_borders = "#7F7F7F",
+                      borders_on_top = TRUE,
+                      borders_pal = "#7F7F7F",
                       borders_size = 0.2,
                       title = NULL,
                       title_wrap = 80,
@@ -223,13 +223,13 @@ gg_stars_col <- function(data,
     coord_equal()
   
   if (!is.null(borders)) {
-    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
-    if (borders_behind == TRUE) {
+    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -324,12 +324,12 @@ gg_stars_col <- function(data,
     )
   
   if (!is.null(borders)) {
-    if (borders_behind == FALSE) {
+    if (borders_on_top == TRUE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }

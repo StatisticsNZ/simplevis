@@ -7,8 +7,8 @@
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.
 #' @param pal Character vector of hex codes. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -33,8 +33,8 @@ gg_sf <- function(data,
                   alpha = NULL,
                   pal = NULL,
                   borders = NULL,
-                  borders_behind = TRUE,
-                  pal_borders = "#7F7F7F",
+                  borders_on_top = NULL,
+                  borders_pal = "#7F7F7F",
                   borders_size = 0.2,
                   title = NULL,
                   title_wrap = 80,
@@ -54,6 +54,20 @@ gg_sf <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
   
+  geometry_type <- unique(sf::st_geometry_type(data))
+  
+  if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
+    stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
+  }
+
+  if (is.null(borders_on_top)) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+      borders_on_top <- FALSE
+    } else ({
+      borders_on_top <- TRUE
+    })
+  }
+
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
@@ -63,15 +77,15 @@ gg_sf <- function(data,
       font_size_body = font_size_body,
       font_size_title = font_size_title
     )
-  
+
   if (!is.null(borders)) {
-    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
-    if (borders_behind == TRUE) {
+    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -80,19 +94,19 @@ gg_sf <- function(data,
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
-  if (unique(sf::st_geometry_type(data)) %in% c("POINT", "MULTIPOINT")) {
+  if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if(is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(aes(text = !!text_var), size = size_point, col = pal, alpha = alpha)
   }
-  else if (unique(sf::st_geometry_type(data)) %in% c("LINESTRING", "MULTILINESTRING")) {
+  else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
     if(is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(aes(text = !!text_var), size = size_line, col = pal, alpha = alpha)
   }
-  else if (unique(sf::st_geometry_type(data)) %in% c("POLYGON", "MULTIPOLYGON")) {
+  else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
     if(is.null(alpha)) alpha <- 0.5
     
     plot <- plot +
@@ -105,12 +119,12 @@ gg_sf <- function(data,
   }
   
   if (!is.null(borders)) {
-    if (borders_behind == FALSE) {
+    if (borders_on_top == TRUE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -149,8 +163,8 @@ gg_sf <- function(data,
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -200,8 +214,8 @@ gg_sf_col <- function(data,
                       size_line = 0.5,
                       alpha = NULL,
                       borders = NULL,
-                      borders_behind = TRUE,
-                      pal_borders = "#7F7F7F",
+                      borders_on_top = NULL,
+                      borders_pal = "#7F7F7F",
                       borders_size = 0.2,
                       title = NULL,
                       title_wrap = 80,
@@ -245,12 +259,24 @@ gg_sf_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  geometry_type <- unique(sf::st_geometry_type(data))
+  
+  if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
+    stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
+  }
+  
+  if (is.null(borders_on_top)) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+      borders_on_top <- FALSE
+    } else ({
+      borders_on_top <- TRUE
+    })
+  }
+  
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
-  geometry_type <- unique(sf::st_geometry_type(data))
   
   plot <- ggplot(data) +
     theme_map(
@@ -260,13 +286,13 @@ gg_sf_col <- function(data,
     )
   
   if (!is.null(borders)) {
-    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
-    if (borders_behind == TRUE) {
+    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -371,7 +397,6 @@ gg_sf_col <- function(data,
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
         alpha = alpha,
         size = size_line,
-        alpha = alpha,
         data = data
       )
   }
@@ -399,12 +424,12 @@ gg_sf_col <- function(data,
   }
   
   if (!is.null(borders)) {
-    if (borders_behind == FALSE) {
+    if (borders_on_top == TRUE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -449,8 +474,8 @@ gg_sf_col <- function(data,
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
-#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param subtitle Subtitle string. 
@@ -480,8 +505,8 @@ gg_sf_facet <- function(data,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
                         borders = NULL,
-                        borders_behind = TRUE,
-                        pal_borders = "#7F7F7F",
+                        borders_on_top = NULL,
+                        borders_pal = "#7F7F7F",
                         borders_size = 0.2,
                         title = NULL,
                         title_wrap = 80,
@@ -517,10 +542,22 @@ gg_sf_facet <- function(data,
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
+  geometry_type <- unique(sf::st_geometry_type(data))
+  
+  if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
+    stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
+  }
+  
+  if (is.null(borders_on_top)) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+      borders_on_top <- FALSE
+    } else ({
+      borders_on_top <- TRUE
+    })
+  }
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
-  geometry_type <- unique(sf::st_geometry_type(data))
   
   plot <- ggplot(data) +
     theme_map(
@@ -530,13 +567,13 @@ gg_sf_facet <- function(data,
     )
   
   if (!is.null(borders)) {
-    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
-    if (borders_behind == TRUE) {
+    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -579,18 +616,17 @@ gg_sf_facet <- function(data,
         fill = pal,
         alpha = alpha,
         size = size_line,
-        alpha = alpha,
         data = data
       )
   }
   
   if (!is.null(borders)) {
-    if (borders_behind == FALSE) {
+    if (borders_on_top == TRUE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -614,14 +650,14 @@ gg_sf_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
-#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_behind TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -658,14 +694,14 @@ gg_sf_col_facet <- function(data,
                             facet_var,
                             text_var = NULL,
                             pal = NULL,
-                            pal_borders = "#7F7F7F",
+                            borders_pal = "#7F7F7F",
                             pal_na = "#7F7F7F",
                             pal_rev = FALSE,
                             size_point = 1,
                             size_line = 0.5,
                             alpha = NULL,
                             borders = NULL,
-                            borders_behind = TRUE,
+                            borders_on_top = NULL,
                             borders_size = 0.2,
                             title = NULL,
                             title_wrap = 80,
@@ -727,10 +763,22 @@ gg_sf_col_facet <- function(data,
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  geometry_type <- unique(sf::st_geometry_type(data))
+  
+  if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
+    stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
+  }
+  
+  if (is.null(borders_on_top)) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+      borders_on_top <- FALSE
+    } else ({
+      borders_on_top <- TRUE
+    })
+  }
+  
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
-  geometry_type <- unique(sf::st_geometry_type(data))
   
   plot <- ggplot(data) +
     theme_map(
@@ -740,13 +788,13 @@ gg_sf_col_facet <- function(data,
     )
   
   if (!is.null(borders)) {
-    if (sf::st_is_longlat(data) == FALSE) borders <- sf::st_transform(borders, sf::st_crs(data))
-    if (borders_behind == TRUE) {
+    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }
@@ -876,12 +924,12 @@ gg_sf_col_facet <- function(data,
   }
   
   if (!is.null(borders)) {
-    if (borders_behind == FALSE) {
+    if (borders_on_top == TRUE) {
       plot <- plot +
         geom_sf(
           data = borders,
           size = borders_size, 
-          colour = pal_borders,
+          colour = borders_pal,
           fill = "transparent"
         )
     }

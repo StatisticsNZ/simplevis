@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.9.9000</span>
       </span>
     </div>
 
@@ -169,8 +169,8 @@
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_behind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>pal_borders</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
+  <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -237,11 +237,11 @@
       <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
     </tr>
     <tr>
-      <th>borders_behind</th>
-      <td><p>TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to TRUE.</p></td>
+      <th>borders_on_top</th>
+      <td><p>TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..</p></td>
     </tr>
     <tr>
-      <th>pal_borders</th>
+      <th>borders_pal</th>
       <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
     </tr>
     <tr>
@@ -333,17 +333,17 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>gg_sf_col</span>(<span class='no'>example_sf_point</span>,
           <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
-          <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='gg_sf_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+          <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>)</div><div class='img'><img src='gg_sf_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>gg_sf_col</span>(<span class='no'>example_sf_polygon</span>,
           <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>density</span>,
           <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>,
           <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
-          <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>))</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Duplicated aesthetics after name standardisation: alpha</span></div><div class='img'><img src='gg_sf_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
+          <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>))</div><div class='img'><img src='gg_sf_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>gg_sf_col</span>(<span class='no'>example_sf_polygon</span>,
           <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>density</span>,
           <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>nz</span>,
           <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
-          <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Duplicated aesthetics after name standardisation: alpha</span></div><div class='img'><img src='gg_sf_col-3.png' alt='' width='700' height='433' /></div><div class='input'>          
+          <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>0.95</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("depth"): no applicable method for 'depth' applied to an object of class "NULL"</span></div><div class='img'><img src='gg_sf_col-3.png' alt='' width='700' height='433' /></div><div class='input'>          
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -9,8 +9,8 @@ gg_stars(
   alpha = 0.5,
   pal = NULL,
   borders = NULL,
-  borders_behind = FALSE,
-  pal_borders = "#323232",
+  borders_on_top = TRUE,
+  borders_pal = "#323232",
   borders_size = 0.2,
   title = NULL,
   title_wrap = 80,
@@ -33,9 +33,9 @@ gg_stars(
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
-\item{borders_behind}{TRUE or FALSE  as to whether the borders is to be behind the sf object defined in the data argument. Defaults to FALSE.}
+\item{borders_on_top}{TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.}
 
-\item{pal_borders}{Colour of the borders. Defaults to "#323232".}
+\item{borders_pal}{Colour of the borders. Defaults to "#323232".}
 
 \item{borders_size}{Size of the borders. Defaults to 0.2.}
 

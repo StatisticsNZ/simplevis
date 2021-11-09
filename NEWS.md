@@ -3,6 +3,9 @@
 * Breaking: Renamed *_na arguments to _na_rm.
 * Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.
 * Breaking: Renamed leaflet_* title arguments to col_title.
+* Breaking: Renamed borders_behind argument to borders_on_top.
+* Breaking: Renamed pal_borders to borders_pal.
+* Fixed the borders sf to transform to the data where they are not the same.
 * Added gg_stars and gg_stars_col functions.
 * Added leaflet_stars_col function.
 * Changed leaflet col_title default behaviour to convert the variable name to sentence case.

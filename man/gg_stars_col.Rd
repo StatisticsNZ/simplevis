@@ -7,6 +7,7 @@
 gg_stars_col(
   data,
   col_var,
+  downsample = 0,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -40,6 +41,8 @@ gg_stars_col(
 \item{data}{A stars object with defined coordinate reference system. Required input.}
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
+
+\item{downsample}{downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 

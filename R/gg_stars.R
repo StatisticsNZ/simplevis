@@ -1,8 +1,9 @@
 #' @title Stars ggplot map.
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with defined coordinate reference system. Required input.
-#' @param alpha The opacity of the array. Defaults to 0.5.
+#' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. 
+#' @param alpha The opacity of the array. Defaults to 0.5.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#323232".
@@ -27,8 +28,9 @@
 #'      borders = nz)
 #'      
 gg_stars <- function(data,
-                  alpha = 0.5,
+                  downsample = 0,
                   pal = NULL,
+                  alpha = 0.5,
                   borders = NULL,
                   borders_on_top = TRUE,
                   borders_pal = "#323232",
@@ -78,7 +80,7 @@ gg_stars <- function(data,
   else pal <- pal[1]
   
   plot <- plot +
-    stars::geom_stars(aes(x = .data$x, y = .data$y), fill = pal, alpha = alpha, data = data)
+    stars::geom_stars(aes(x = .data$x, y = .data$y), fill = pal, alpha = alpha, downsample = downsample, data = data)
 
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
@@ -117,6 +119,7 @@ gg_stars <- function(data,
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
 #' @param data A stars object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
+#' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -159,6 +162,7 @@ gg_stars <- function(data,
 #'           
 gg_stars_col <- function(data,
                       col_var,
+                      downsample = 0,
                       pal = NULL,
                       pal_na = "#7F7F7F",
                       pal_rev = FALSE,
@@ -308,6 +312,7 @@ gg_stars_col <- function(data,
     stars::geom_stars(
       aes(x = .data$x, y = .data$y, fill = !!col_var),
       alpha = alpha,
+      downsample = downsample,
       data = data
     )
 

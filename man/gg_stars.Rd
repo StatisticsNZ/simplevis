@@ -6,8 +6,9 @@
 \usage{
 gg_stars(
   data,
-  alpha = 0.5,
+  downsample = 0,
   pal = NULL,
+  alpha = 0.5,
   borders = NULL,
   borders_on_top = TRUE,
   borders_pal = "#323232",
@@ -27,9 +28,11 @@ gg_stars(
 \arguments{
 \item{data}{A stars object with defined coordinate reference system. Required input.}
 
-\item{alpha}{The opacity of the array. Defaults to 0.5.}
+\item{downsample}{downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.}
 
 \item{pal}{Character vector of hex codes.}
+
+\item{alpha}{The opacity of the array. Defaults to 0.5.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

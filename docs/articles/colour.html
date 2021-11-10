@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Colour</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2021-11-10</h4>
+            <h4 class="date">2021-11-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/colour.Rmd"><code>vignettes/colour.Rmd</code></a></small>
       <div class="hidden name"><code>colour.Rmd</code></div>
@@ -131,8 +131,9 @@
 <li>If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code>
 </li>
 <li>If the <code>col_var</code> is numeric, the <code>col_method</code> of <code>bin</code> or <code>quantile</code>, and the <code>col_cuts</code> to use.</li>
+<li>If <code>col_method</code> equals <code>bin</code>, then alternatively you can use the <code>col_pretty_n</code>argument to adjust number of pretty breaks.</li>
 </ul>
-<p>In simplevis, there is one colour concept, which includes all aspects of points, lines and polygons that is relevant to the visualisation family type.</p>
+<p>In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type.</p>
 <p>This is a consistent method across all functions, which is intended to simplify colouring.</p>
 </div>
 <div id="always-define-the-colours-to-use-via-the-pal-argument" class="section level3">
@@ -220,7 +221,19 @@
              <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>),
              <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/continuous.html">parula</a></span>(<span class="fl">6</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
-<p>From version 4.5, you will be able to select a <code>col_pretty_n</code> to use the <code>pretty</code> algorithm to get it to aim for a number of pretty bin breaks.</p>
+</div>
+<div id="if-col_method-equals-bin-then-alternatively-you-can-use-the-col_pretty_nargument-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#if-col_method-equals-bin-then-alternatively-you-can-use-the-col_pretty_nargument-" class="anchor"></a>If <code>col_method</code> equals <code>bin</code>, then alternatively you can use the <code>col_pretty_n</code>argument.</h3>
+<p>The <code>col_pretty_n</code> argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks.</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">flipper_length_mm</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
+             <span class="kw">col_pretty_n</span> <span class="kw">=</span> <span class="fl">10</span>,
+             <span class="kw">col_label_digits</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 </div>
   </div>
 

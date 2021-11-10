@@ -27,9 +27,10 @@ In simplevis, users adhere to the following rules for adjusting colour:
 
 * Always define the colours to use via the `pal` argument 
 * If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
-* If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use.  
+* If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use. 
+* If `col_method` equals `bin`, then alternatively you can use the `col_pretty_n`argument to adjust number of pretty breaks. 
 
-In simplevis, there is one colour concept, which includes all aspects of points, lines and polygons that is relevant to the visualisation family type.
+In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type.
 
 This is a consistent method across all functions, which is intended to simplify colouring.
 
@@ -136,4 +137,19 @@ gg_point_col(plot_data,
              pal = pals::parula(6))
 ```
 
-From version 4.5, you will be able to select a `col_pretty_n` to use the `pretty` algorithm to get it to aim for a number of pretty bin breaks. 
+### If `col_method` equals `bin`, then alternatively you can use the `col_pretty_n`argument. 
+
+The `col_pretty_n` argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = flipper_length_mm, 
+             col_method = "bin",
+             col_pretty_n = 10,
+             col_label_digits = 0)
+```
+
+
+

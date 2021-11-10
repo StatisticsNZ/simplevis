@@ -25,7 +25,7 @@ leaflet_stars <- function(data,
   shiny <- shiny::isRunning()
   
   if (class(data) != "stars") stop("Please use an stars object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
@@ -121,7 +121,7 @@ leaflet_stars_col <- function(data,
   shiny <- shiny::isRunning()
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   col_var <- rlang::enquo(col_var)
   

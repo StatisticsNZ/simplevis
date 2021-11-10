@@ -160,8 +160,9 @@
 
     <pre class="usage"><span class='fu'>gg_stars</span>(
   <span class='no'>data</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>downsample</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
@@ -183,15 +184,19 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A stars object with defined coordinate reference system. Required input.</p></td>
+      <td><p>A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>The opacity of the array. Defaults to 0.5.</p></td>
+      <th>downsample</th>
+      <td><p>downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.</p></td>
     </tr>
     <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>The opacity of the array. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>borders</th>

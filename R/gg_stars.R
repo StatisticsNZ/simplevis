@@ -1,6 +1,6 @@
 #' @title Stars ggplot map.
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
-#' @param data A stars object with defined coordinate reference system. Required input.
+#' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
 #' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of the array. Defaults to 0.5.
@@ -48,7 +48,12 @@ gg_stars <- function(data,
 ) {
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
+  }
   
   if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
   if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
@@ -117,7 +122,7 @@ gg_stars <- function(data,
 
 #' @title Stars ggplot map that is coloured.
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
-#' @param data A stars object with defined coordinate reference system. Required input.
+#' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
@@ -202,7 +207,12 @@ gg_stars_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
+  }
   
   if(is.logical(col_var_vctr)) {
     data <- data %>% 

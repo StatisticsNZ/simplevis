@@ -52,7 +52,12 @@ gg_sf <- function(data,
   text_var <- rlang::enquo(text_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
+  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -250,7 +255,12 @@ gg_sf_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
+  }
   
   if(is.logical(col_var_vctr)) {
     data <- data %>% 
@@ -532,8 +542,13 @@ gg_sf_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
+  }
   
   if(is.logical(facet_var_vctr)) {
     data <- data %>% 
@@ -650,7 +665,6 @@ gg_sf_facet <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param size_point Size of points. Defaults to 0.5.
@@ -658,6 +672,7 @@ gg_sf_facet <- function(data,
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
+#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -694,7 +709,6 @@ gg_sf_col_facet <- function(data,
                             facet_var,
                             text_var = NULL,
                             pal = NULL,
-                            borders_pal = "#7F7F7F",
                             pal_na = "#7F7F7F",
                             pal_rev = FALSE,
                             size_point = 1,
@@ -702,6 +716,7 @@ gg_sf_col_facet <- function(data,
                             alpha = NULL,
                             borders = NULL,
                             borders_on_top = NULL,
+                            borders_pal = "#7F7F7F",
                             borders_size = 0.2,
                             title = NULL,
                             title_wrap = 80,
@@ -745,8 +760,13 @@ gg_sf_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
+  }
   
   if(is.logical(col_var_vctr)) {
     data <- data %>% 

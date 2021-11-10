@@ -164,7 +164,6 @@
   <span class='no'>facet_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -172,6 +171,7 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -186,7 +186,7 @@
   <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
+  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
   <span class='kw'>facet_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -221,10 +221,6 @@
       <td><p>Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.</p></td>
     </tr>
     <tr>
-      <th>borders_pal</th>
-      <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
-    </tr>
-    <tr>
       <th>pal_na</th>
       <td><p>The hex code or name of the NA colour to be used.</p></td>
     </tr>
@@ -251,6 +247,10 @@
     <tr>
       <th>borders_on_top</th>
       <td><p>TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..</p></td>
+    </tr>
+    <tr>
+      <th>borders_pal</th>
+      <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
     </tr>
     <tr>
       <th>borders_size</th>

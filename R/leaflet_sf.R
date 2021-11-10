@@ -31,7 +31,7 @@ leaflet_sf <- function(data,
   shiny <- shiny::isRunning()
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   
@@ -240,7 +240,7 @@ leaflet_sf_col <- function(data,
   shiny <- shiny::isRunning()
   
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
-  if (is.na(sf::st_crs(data))) stop("Please assign a coordinate reference system")
+  if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   

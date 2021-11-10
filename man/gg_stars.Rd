@@ -26,7 +26,7 @@ gg_stars(
 )
 }
 \arguments{
-\item{data}{A stars object with defined coordinate reference system. Required input.}
+\item{data}{A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.}
 
 \item{downsample}{downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.}
 

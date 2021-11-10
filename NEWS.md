@@ -1,4 +1,4 @@
-# simplevis 4.9.9000
+# simplevis 5.0.0
 
 * Breaking: Renamed *_na arguments to _na_rm.
 * Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.

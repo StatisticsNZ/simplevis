@@ -1,3 +1,7 @@
+# simplevis 5.0.1
+
+* Increase space between labels and ticks slightly.
+
 # simplevis 5.0.0
 
 * Breaking: Renamed *_na arguments to _na_rm.

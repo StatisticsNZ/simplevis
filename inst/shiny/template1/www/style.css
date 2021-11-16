@@ -15,6 +15,7 @@ html, body, .container {
 }
 
 #map {
+  margin-left: 5%;
 }
 
 #plot_desktop {

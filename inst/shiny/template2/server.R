@@ -155,12 +155,13 @@ shinyServer(function(input, output, session) {
   })
   
   output$table <- DT::renderDT(
-    table_data(),
+    table_data(), 
     filter = "top",
     rownames = FALSE,
     options = list(
-      pageLength = ifelse(input$isMobile == FALSE, 10, 5),
-      scrollX = TRUE
+      pageLength = 10,
+      scrollX = TRUE,
+      lengthChange = FALSE
     )
   )
   

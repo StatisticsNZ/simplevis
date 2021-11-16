@@ -1,6 +1,7 @@
 # simplevis 5.0.1
 
 * Increase space between labels and ticks slightly.
+* Adjust app templates.
 
 # simplevis 5.0.0
 

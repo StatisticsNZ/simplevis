@@ -23,13 +23,16 @@ shinyServer(function(input, output, session) {
   }) #%>%
   # bindCache(input$plot_color)
   
-  output$plot_data <-
-    DT::renderDT(
-      plot_data(),
-      filter = "top",
-      rownames = FALSE,
-      options = list(pageLength = 5, scrollX = TRUE)
+  output$table <- DT::renderDT(
+    table_data(), 
+    filter = "top",
+    rownames = FALSE,
+    options = list(
+      pageLength = 10,
+      scrollX = TRUE,
+      lengthChange = FALSE
     )
+  )
   
   plot <- reactive({
     # create a reactive ggplot object

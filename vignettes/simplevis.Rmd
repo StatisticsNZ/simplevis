@@ -232,9 +232,8 @@ Some examples of transformations available are:
 * `*_na_rm` to quickly not include NA observations
 * `*_labels` to adjust labels for any x, y, col or facet scale
 * `*_zero` to start at zero for numeric x or y scales 
-* `*_pretty_n` for the number of numeric bins of breaks for the x or y scale to aim for 
+* `*_pretty_n` for the number of numeric bins of breaks for the x, y or col scale to aim for 
 * `*_rev` to reverse the order of categorical x, y or col scales in bars 
-* `*_gridlines_minor` whether to add minor gridlines.
 * `*_expand` to add padding to an x or y scale.
 
 ```{r}
@@ -252,7 +251,6 @@ gg_bar_col(plot_data,
         y_labels = function(x) scales::comma(x, accuracy = 0.1), 
         y_zero = T, 
         y_pretty_n = 10,
-        y_gridlines_minor = T,
         y_expand = ggplot2::expansion(mult = c(0.025, 0.025)))
 ```
 

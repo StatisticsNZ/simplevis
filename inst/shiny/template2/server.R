@@ -123,7 +123,7 @@ shinyServer(function(input, output, session) {
     # refer to a reactive map_data object as map_data()
     # use reactive radius for points that get bigger as the user zooms in, if necessary
     
-    reactive_size <-
+    size_reactive <-
       ifelse(input$map_zoom < 6,
              1.5,
              ifelse(input$map_zoom < 7, 2, ifelse(input$map_zoom < 8, 3, 4)))
@@ -132,7 +132,7 @@ shinyServer(function(input, output, session) {
     
     leaflet_sf_col(map_data(),
                    col_var = trend_category,
-                   size_point = reactive_size,
+                   size_point = size_reactive,
                    title = title)
   }
   

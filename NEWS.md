@@ -1,7 +1,15 @@
+# simplevis 5.0.3
+
+* Test how it looks if font size is the same for mobile and not.
+
+# simplevis 5.0.2
+
+* Fixed font size internal function.
+
 # simplevis 5.0.1
 
-* Increase space between labels and ticks slightly.
-* Adjust app templates.
+* Increased space between labels and ticks slightly.
+* Adjusted app templates.
 
 # simplevis 5.0.0
 

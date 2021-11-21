@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.4</span>
       </span>
     </div>
 
@@ -178,13 +178,13 @@
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
   <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -401,9 +401,9 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='kw'>bill_length_mm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>bill_length_mm</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='fl'>0</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='kw pkg'>glue</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/glue/man/glue.html'>glue</a></span>(<span class='st'>"{bill_length_mm} mm"</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>species</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>bill_length_mm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>bill_length_mm</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='fl'>0</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='kw pkg'>glue</span><span class='kw ns'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span>(<span class='st'>"{bill_length_mm} mm"</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
 <span class='fu'>gg_tile_col</span>(<span class='no'>plot_data</span>,
   <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,

@@ -19,13 +19,4 @@ A ggplot theme.
 \description{
 Theme for maps.
 }
-\examples{
-library(simplevis)
-library(ggplot2)
-
-ggplot(nz) +
-  geom_sf() +
-  theme_map("Courier", 9, 7) +
-  ggtitle("This is a title with a specified font family and size") 
-  
-}
+\keyword{internal}

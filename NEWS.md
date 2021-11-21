@@ -1,6 +1,10 @@
+# simplevis 5.0.4
+
+* Created new simple and flexible theme functions.
+
 # simplevis 5.0.3
 
-* Test how it looks if font size is the same for mobile and not.
+* Update mobile and non-mobile fonts.
 
 # simplevis 5.0.2
 

@@ -19,14 +19,4 @@ A ggplot theme.
 \description{
 Theme for graphs with horizontal gridlines.
 }
-\examples{
-library(simplevis)
-library(ggplot2)
-
-ggplot() +
-  scale_x_continuous(breaks = seq(0, 10, 2), limits = c(0, 10), expand = c(0, 0)) +
-  scale_y_continuous(breaks = seq(0, 10, 2), limits = c(0, 10), expand = c(0, 0)) +
-  ggtitle("This is a title with a specified font family and size") +
-  theme_h_gridlines("Courier", 9, 7) 
-  
-}
+\keyword{internal}

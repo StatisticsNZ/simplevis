@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.4</span>
       </span>
     </div>
 
@@ -185,7 +185,7 @@
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/label_number.html'>comma</a></span>,
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -374,9 +374,9 @@
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/across.html'>across</a></span>(<span class='no'>body_mass_g</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rlang/man/set_names.html'>set_names</a></span>(
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>species</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span>(<span class='no'>body_mass_g</span>, ~ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    <span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/set_names.html'>set_names</a></span>(
       <span class='fu'><a href='https://rdrr.io/r/grDevices/boxplot.stats.html'>boxplot.stats</a></span>(<span class='no'>.x</span>)$<span class='no'>stats</span>,
       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'min'</span>, <span class='st'>'lower'</span>, <span class='st'>'middle'</span>, <span class='st'>'upper'</span>, <span class='st'>'max'</span>)
     )
@@ -389,7 +389,7 @@
 #&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
 #&gt; <span style='color: #BCBCBC;'>3</span> Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  </div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tidyr/man/hoist.html'>unnest_wider</a></span>(<span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 6</span>
+  <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span>(<span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 6</span>
 #&gt;   species     min lower middle upper   max
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> Adelie     <span style='text-decoration: underline;'>2</span>850  <span style='text-decoration: underline;'>3</span>350   <span style='text-decoration: underline;'>3</span>700  <span style='text-decoration: underline;'>4</span>000  <span style='text-decoration: underline;'>4</span>775

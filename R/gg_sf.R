@@ -16,10 +16,8 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param theme A ggplot2 theme.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -42,9 +40,7 @@ gg_sf <- function(data,
                   subtitle_wrap = 80,
                   caption = NULL,
                   caption_wrap = 80,
-                  font_family = "",
-                  font_size_title = NULL,
-                  font_size_body = NULL,
+                  theme = gg_theme_map(),
                   mobile = FALSE
 ) {
   
@@ -73,15 +69,8 @@ gg_sf <- function(data,
     })
   }
 
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   plot <- ggplot(data) +
-    theme_map(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+    theme
 
   if (!is.null(borders)) {
     if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
@@ -186,10 +175,9 @@ gg_sf <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param theme A ggplot2 theme.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -237,9 +225,7 @@ gg_sf_col <- function(data,
                       col_title_wrap = 25,
                       caption = NULL,
                       caption_wrap = 80,
-                      font_family = "",
-                      font_size_title = NULL,
-                      font_size_body = NULL,
+                      theme = gg_theme_map(),
                       mobile = FALSE
 ) {
   
@@ -285,15 +271,8 @@ gg_sf_col <- function(data,
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   plot <- ggplot(data) +
-    theme_map(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+    theme
   
   if (!is.null(borders)) {
     if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
@@ -488,14 +467,13 @@ gg_sf_col <- function(data,
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
 #' @param borders_size Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
-#' @param subtitle Subtitle string. 
-#' @param caption Caption title string. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
+#' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param caption Caption title string. 
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80.
+#' @param theme A ggplot2 theme. 
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -524,11 +502,7 @@ gg_sf_facet <- function(data,
                         subtitle_wrap = 80,
                         caption = NULL,
                         caption_wrap = 80,
-                        font_family = "",
-                        font_size_title = NULL,
-                        font_size_body = NULL
-                        
-) {
+                        theme = gg_theme_map()) {
   
   data <- dplyr::ungroup(data)
   facet_var <- rlang::enquo(facet_var) #categorical var
@@ -571,15 +545,8 @@ gg_sf_facet <- function(data,
     })
   }
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   plot <- ggplot(data) +
-    theme_map(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+    theme
   
   if (!is.null(borders)) {
     if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
@@ -693,9 +660,8 @@ gg_sf_facet <- function(data,
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme. 
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -737,9 +703,7 @@ gg_sf_col_facet <- function(data,
                             facet_nrow = NULL,
                             caption = NULL,
                             caption_wrap = 80,
-                            font_family = "",
-                            font_size_title = NULL,
-                            font_size_body = NULL)
+                            theme = gg_theme_map())
 {
   
   data <- dplyr::ungroup(data)
@@ -797,15 +761,8 @@ gg_sf_col_facet <- function(data,
     })
   }
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   plot <- ggplot(data) +
-    theme_map(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+    theme
   
   if (!is.null(borders)) {
     if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))

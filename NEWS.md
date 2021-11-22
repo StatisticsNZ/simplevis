@@ -1,6 +1,8 @@
 # simplevis 5.0.5 
 
-* Incorporate new themes into graph functions.
+* Breaking: Removed *_gridlines_minor arguments.
+* Breaking: Removed font_family, font_size_title and font_size_body arguments.
+* Incorporated new theme method into gg functions.
 
 # simplevis 5.0.4
 

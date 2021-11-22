@@ -20,16 +20,23 @@ shinyServer(function(input, output, session) {
       mutate_text(c("cut", "clarity", "price"))
     
     return(plot_data)
-  }) #%>%
-  # bindCache()
+  }) 
   
-  output$plot_data <-
-    DT::renderDT(
-      plot_data(),
-      filter = "top",
-      rownames = FALSE,
-      options = list(pageLength = 5, scrollX = TRUE)
+  # output$plot_data <- DT::renderDT(
+  #   plot_data(), 
+  #   filter = "top",
+  #   rownames = FALSE,
+  #   options = list(pageLength = 5, scrollX = TRUE, lengthChange = FALSE)
+  # )
+  
+  theme <- reactive({
+    gg_theme(
+      gridlines = "vertical", 
+      family  = "helvetica", 
+      title_size = ifelse(input$isMobile == FALSE, 11, 16), 
+      body_size = ifelse(input$isMobile == FALSE, 10, 15) 
     )
+  }) 
   
   plot <- reactive({
     # create a reactive ggplot object
@@ -40,8 +47,7 @@ shinyServer(function(input, output, session) {
     
     .color <- input$plot_color
     
-    title <-
-      glue::glue("Average diamond price of colour {.color} by cut and clarity")
+    title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
     x_title <- "Average price ($US thousands)"
     y_title <- "Cut"
     
@@ -57,24 +63,21 @@ shinyServer(function(input, output, session) {
       x_labels = scales::comma_format(),
       col_labels = ggplot2::waiver(),
       title_wrap = title_wrap,
-      font_family = "Helvetica",
+      theme = theme(),
       mobile = input$isMobile
     )
     
     return(plot)
-  }) #%>%
-  # bindCache(input$plot_color)
+  })
   
   output$plot_desktop <- plotly::renderPlotly({
     plotly::ggplotly(plot(), tooltip = "text") %>%
       plotly_camera()
-  }) #%>%
-  # bindCache(input$plot_color)
+  }) 
   
   output$plot_mobile <- renderPlot({
     plot()
-  }) #%>%
-  # bindCache(input$plot_color)
+  }) 
   
   ### map ###
   output$map <- leaflet::renderLeaflet({
@@ -107,15 +110,14 @@ shinyServer(function(input, output, session) {
     }
     
     return(map_data)
-  }) #%>%
-  # bindCache(input$map_filter)
+  }) 
   
-  output$map_data <- DT::renderDT(
-    sf::st_drop_geometry(map_data()),
-    filter = "top",
-    rownames = FALSE,
-    options = list(pageLength = 5, scrollX = TRUE)
-  )
+  # output$map_data <- DT::renderDT(
+  #   map_data(), 
+  #   filter = "top",
+  #   rownames = FALSE,
+  #   options = list(pageLength = 5, scrollX = TRUE, lengthChange = FALSE)
+  # )
   
   draw_map <- function() {
     # add leaflet code from make_data_vis.R
@@ -123,17 +125,16 @@ shinyServer(function(input, output, session) {
     # refer to a reactive map_data object as map_data()
     # use reactive radius for points that get bigger as the user zooms in, if necessary
     
-    size_reactive <-
-      ifelse(input$map_zoom < 6,
-             1.5,
-             ifelse(input$map_zoom < 7, 2, ifelse(input$map_zoom < 8, 3, 4)))
+    size_reactive <- ifelse(input$map_zoom < 6, 1.5,
+             ifelse(input$map_zoom < 7, 2, 
+                    ifelse(input$map_zoom < 8, 3, 4)))
     
     title <- paste0("Monitored trends, 2008\u201317")
     
     leaflet_sf_col(map_data(),
                    col_var = trend_category,
                    size_point = size_reactive,
-                   title = title)
+                   col_title = title)
   }
   
   observe({
@@ -155,14 +156,10 @@ shinyServer(function(input, output, session) {
   })
   
   output$table <- DT::renderDT(
-    table_data(), 
+    table_data(),
     filter = "top",
     rownames = FALSE,
-    options = list(
-      pageLength = 10,
-      scrollX = TRUE,
-      lengthChange = FALSE
-    )
+    options = list(pageLength = 10, scrollX = TRUE, lengthChange = FALSE)
   )
   
   ### download ###

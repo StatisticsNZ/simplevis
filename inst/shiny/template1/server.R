@@ -20,19 +20,23 @@ shinyServer(function(input, output, session) {
       mutate_text(c("cut", "clarity", "price"))
     
     return(plot_data)
-  }) #%>%
-  # bindCache(input$plot_color)
+  }) 
   
-  output$table <- DT::renderDT(
-    table_data(), 
-    filter = "top",
-    rownames = FALSE,
-    options = list(
-      pageLength = 10,
-      scrollX = TRUE,
-      lengthChange = FALSE
-    )
-  )
+  # output$plot_data <- DT::renderDT(
+  #   plot_data(), 
+  #   filter = "top",
+  #   rownames = FALSE,
+  #   options = list(pageLength = 5, scrollX = TRUE, lengthChange = FALSE)
+  # )
+
+  theme <- reactive({
+    gg_theme(
+      gridlines = "vertical", 
+      family  = "helvetica", 
+      title_size = ifelse(input$isMobile == FALSE, 11, 16), 
+      body_size = ifelse(input$isMobile == FALSE, 10, 15) 
+      )
+  })
   
   plot <- reactive({
     # create a reactive ggplot object
@@ -43,8 +47,7 @@ shinyServer(function(input, output, session) {
     
     .color <- input$plot_color
     
-    title <-
-      glue::glue("Average diamond price of colour {.color} by cut and clarity")
+    title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
     x_title <- "Average price ($US thousands)"
     y_title <- "Cut"
     
@@ -60,24 +63,22 @@ shinyServer(function(input, output, session) {
       x_labels = scales::comma_format(),
       col_labels = ggplot2::waiver(),
       title_wrap = title_wrap,
-      font_family = "Helvetica",
+      theme = theme(), 
       mobile = input$isMobile
     )
     
     return(plot)
-  }) #%>%
-  # bindCache(input$plot_color)
+  }) %>%
+    bindCache(input$plot_color, input$isMobile)
   
   output$plot_desktop <- plotly::renderPlotly({
     plotly::ggplotly(plot(), tooltip = "text") %>%
       plotly_camera()
-  }) #%>%
-  # bindCache(input$plot_color)
+  }) 
   
   output$plot_mobile <- renderPlot({
     plot()
-  }) #%>%
-  # bindCache(input$plot_color)
+  }) 
   
   ### table ###
   
@@ -91,12 +92,9 @@ shinyServer(function(input, output, session) {
     table_data(),
     filter = "top",
     rownames = FALSE,
-    options = list(
-      pageLength = ifelse(input$isMobile == FALSE, 10, 5),
-      scrollX = TRUE
+      options = list(pageLength = 10, scrollX = TRUE, lengthChange = FALSE)
     )
-  )
-  
+
   ### download ###
   
   output$download <- downloadHandler(filename <- function() {

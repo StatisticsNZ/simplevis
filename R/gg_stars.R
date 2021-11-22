@@ -14,10 +14,9 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param theme A ggplot2 theme.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -41,11 +40,8 @@ gg_stars <- function(data,
                   subtitle_wrap = 80,
                   caption = NULL,
                   caption_wrap = 80,
-                  font_family = "",
-                  font_size_title = NULL,
-                  font_size_body = NULL,
-                  mobile = FALSE
-) {
+                  theme = gg_theme_map(),
+                  mobile = FALSE) {
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
@@ -55,15 +51,8 @@ gg_stars <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   plot <- ggplot() +
-    theme_map(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     scale_x_continuous(expand = c(0, 0), name = NULL) +
     scale_y_continuous(expand = c(0, 0), name = NULL) +
     coord_equal()
@@ -148,10 +137,9 @@ gg_stars <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param theme A ggplot2 theme.
+#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -191,11 +179,8 @@ gg_stars_col <- function(data,
                       col_title_wrap = 25,
                       caption = NULL,
                       caption_wrap = 80,
-                      font_family = "",
-                      font_size_title = NULL,
-                      font_size_body = NULL,
-                      mobile = FALSE
-) {
+                      theme = gg_theme_map(),
+                      mobile = FALSE) {
   
   col_var <- rlang::enquo(col_var)
 
@@ -223,15 +208,8 @@ gg_stars_col <- function(data,
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   plot <- ggplot() +
-    theme_map(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     scale_x_continuous(expand = c(0, 0), name = NULL) +
     scale_y_continuous(expand = c(0, 0), name = NULL) +
     coord_equal()

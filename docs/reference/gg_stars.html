@@ -173,9 +173,7 @@
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme_map.html'>gg_theme_map</a></span>(),
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -239,20 +237,12 @@
       <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     <tr>
-      <th>font_family</th>
-      <td><p>Font family to use. Defaults to "".</p></td>
-    </tr>
-    <tr>
-      <th>font_size_title</th>
-      <td><p>Font size for the title text. Defaults to 11.</p></td>
-    </tr>
-    <tr>
-      <th>font_size_body</th>
-      <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
+      <th>theme</th>
+      <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
       <th>mobile</th>
-      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.</p></td>
+      <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE.</p></td>
     </tr>
     </table>
 

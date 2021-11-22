@@ -34,7 +34,7 @@ gg_point_col(penguins,
              subtitle = "And a subtitle")
 ```
 
-A ggtheme function will be provided to quickly adjust simplevis themes. 
+A `ggtheme` function will be provided to quickly create a theme. 
 
 ```{r}
 gg_point_col(penguins, 
@@ -47,34 +47,36 @@ gg_point_col(penguins,
                               title_size = 20)) 
 ```
 
-This is reasonably flexible.
+This has some flexibility.
 
 ```{r}
+custom_theme <- gg_theme(
+  family = "lato",
+  title_pal = "darkgreen",
+  title_face = "plain",
+  title_size = 15,
+  subtitle_pal = "lightgreen",
+  subtitle_face = "bold",
+  subtitle_size = 16,
+  body_pal = "darkblue",
+  body_face = "italic",
+  body_size = 9,
+  gridlines = "vertical",
+  gridlines_pal = "pink", 
+  gridlines_size = 0.7,
+  ticks_pal = "red",
+  ticks_size = 1)
+
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
              title = "A nice long title", 
              subtitle = "And a subtitle", 
-             theme = gg_theme(
-               family = "lato",
-               title_pal = "red",
-               title_face = "plain",
-               title_size = 15,
-               subtitle_pal = "orange",
-               subtitle_face = "bold",
-               subtitle_size = 16,
-               body_pal = "green",
-               body_face = "italic",
-               body_size = 9,
-               gridlines = "vertical",
-               gridlines_pal = "yellow", 
-               gridlines_size = 0.7,
-               ticks_pal = "red",
-               ticks_size = 1)) 
+             theme = custom_theme) 
 ```
 
-Users create there own custom themes or use other themes that other packages provide.
+Users can also create there own custom themes or use other themes that other packages provide.
 
 ```{r}
 gg_point_col(penguins, 

@@ -22,6 +22,8 @@ plot_data <- data %>%
   summarise(price = mean(price)) %>%
   mutate_text(c("cut", "clarity", "price")) 
 
+theme <- gg_theme(family = "helvetica", gridlines = "vertical")
+
 title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
 x_title <- "Average price ($US thousands)"
 y_title <- "Cut"
@@ -33,10 +35,9 @@ plot <- gg_hbar_col(plot_data, price, cut, clarity,
                     y_title = y_title,
                     x_labels = scales::comma_format(),
                     col_labels = ggplot2::waiver(),
-                    font_family = "Helvetica", 
-                    mobile = F)
-
-plot
+                    title_wrap = title_wrap,
+                    theme = theme,
+                    mobile = T)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera() %>% 

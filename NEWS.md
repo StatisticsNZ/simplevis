@@ -1,3 +1,5 @@
+# simplevis 5.0.7
+
 # simplevis 5.0.6
 
 * Renamed run_template to shiny_template with template names 1 and 2.

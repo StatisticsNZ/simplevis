@@ -44,3 +44,4 @@ A ggplot theme.
 \description{
 Create a simple theme for a map.
 }
+\keyword{internal}

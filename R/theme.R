@@ -205,7 +205,7 @@ gg_theme <-
 #' @param body_size The size of all font other than the title or subtitle. Defaults to 10.
 #'
 #' @return A ggplot theme.
-#' @export
+#' @keywords internal
 #' 
 gg_theme_map <-
   function(family = "",

@@ -76,7 +76,7 @@ gg_point_col(penguins,
              theme = custom_theme) 
 ```
 
-Users can also create there own custom themes or use other themes that other packages provide.
+Users can also create their own custom themes using the `ggplot2::theme` function, or use other themes that other packages provide.
 
 ```{r}
 gg_point_col(penguins, 
@@ -96,8 +96,7 @@ gg_point_col(penguins,
              title = "A nice long title", 
              subtitle = "And a subtitle",
              col_title = "",
-             pal = ggthemes::economist_pal(fill = F)(3),
-             theme = ggthemes::theme_economist())
+             theme = hrbrthemes::theme_ipsum())
 ```
 
 ```{r}
@@ -108,5 +107,6 @@ gg_point_col(penguins,
              title = "A nice long title", 
              subtitle = "And a subtitle",
              col_title = "",
-             theme = hrbrthemes::theme_ipsum())
+             pal = ggthemes::economist_pal(fill = F)(3),
+             theme = ggthemes::theme_economist())
 ```

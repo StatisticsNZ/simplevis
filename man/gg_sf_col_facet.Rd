@@ -38,7 +38,7 @@ gg_sf_col_facet(
   facet_nrow = NULL,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme_map()
+  theme = NULL
 )
 }
 \arguments{

@@ -4,10 +4,10 @@
 \alias{shiny_template}
 \title{shiny_template}
 \usage{
-shiny_template(template = "template1", ...)
+shiny_template(template = 1, ...)
 }
 \arguments{
-\item{template}{template name. Available templates are "template1" with graph and table tabs, and "template2" also with a map tab. Defaults to "template1".}
+\item{template}{template name. Available templates are 1 with graph and table tabs, and 2 also with a map tab. Defaults to "template1".}
 
 \item{...}{passed to \code{shiny::runApp}}
 }

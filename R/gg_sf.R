@@ -40,7 +40,7 @@ gg_sf <- function(data,
                   subtitle_wrap = 80,
                   caption = NULL,
                   caption_wrap = 80,
-                  theme = gg_theme_map(),
+                  theme = NULL,
                   mobile = FALSE
 ) {
   
@@ -68,6 +68,8 @@ gg_sf <- function(data,
       borders_on_top <- TRUE
     })
   }
+  
+  if (is.null(theme)) theme <- gg_theme_map()
 
   plot <- ggplot(data) +
     theme
@@ -225,7 +227,7 @@ gg_sf_col <- function(data,
                       col_title_wrap = 25,
                       caption = NULL,
                       caption_wrap = 80,
-                      theme = gg_theme_map(),
+                      theme = NULL,
                       mobile = FALSE
 ) {
   
@@ -270,6 +272,8 @@ gg_sf_col <- function(data,
   }
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
+  
+  if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot(data) +
     theme
@@ -502,7 +506,7 @@ gg_sf_facet <- function(data,
                         subtitle_wrap = 80,
                         caption = NULL,
                         caption_wrap = 80,
-                        theme = gg_theme_map()) {
+                        theme = NULL) {
   
   data <- dplyr::ungroup(data)
   facet_var <- rlang::enquo(facet_var) #categorical var
@@ -544,6 +548,8 @@ gg_sf_facet <- function(data,
       borders_on_top <- TRUE
     })
   }
+  
+  if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot(data) +
     theme
@@ -703,7 +709,7 @@ gg_sf_col_facet <- function(data,
                             facet_nrow = NULL,
                             caption = NULL,
                             caption_wrap = 80,
-                            theme = gg_theme_map())
+                            theme = NULL)
 {
   
   data <- dplyr::ungroup(data)
@@ -760,6 +766,8 @@ gg_sf_col_facet <- function(data,
       borders_on_top <- TRUE
     })
   }
+  
+  if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot(data) +
     theme

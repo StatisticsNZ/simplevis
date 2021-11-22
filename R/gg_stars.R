@@ -40,7 +40,7 @@ gg_stars <- function(data,
                   subtitle_wrap = 80,
                   caption = NULL,
                   caption_wrap = 80,
-                  theme = gg_theme_map(),
+                  theme = NULL,
                   mobile = FALSE) {
   
   if (class(data) != "stars") stop("Please use a stars object as data input")
@@ -50,6 +50,8 @@ gg_stars <- function(data,
     if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
+  
+  if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot() +
     theme +
@@ -179,7 +181,7 @@ gg_stars_col <- function(data,
                       col_title_wrap = 25,
                       caption = NULL,
                       caption_wrap = 80,
-                      theme = gg_theme_map(),
+                      theme = NULL,
                       mobile = FALSE) {
   
   col_var <- rlang::enquo(col_var)
@@ -207,6 +209,8 @@ gg_stars_col <- function(data,
   }
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
+  
+  if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot() +
     theme +

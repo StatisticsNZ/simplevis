@@ -1,0 +1,110 @@
+---
+title: "Themes"
+author: "David Hodge"
+date: "`r Sys.Date()`"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.height = 3.5, 
+  fig.width = 6
+)
+```
+
+```{r setup}
+library(simplevis)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+From version 5.1.0, `simplevis` will support all ggplot2 themes with all `gg_*` plot functions providing a theme argument. 
+
+All graphs will have the same default undelying `simplevis` themes.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle")
+```
+
+A ggtheme function will be provided to quickly adjust simplevis themes. 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle", 
+             theme = gg_theme(gridlines = "horizontal", 
+                              title_size = 20)) 
+```
+
+This is reasonably flexible.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle", 
+             theme = gg_theme(
+               family = "lato",
+               title_pal = "red",
+               title_face = "plain",
+               title_size = 15,
+               subtitle_pal = "orange",
+               subtitle_face = "bold",
+               subtitle_size = 16,
+               body_pal = "green",
+               body_face = "italic",
+               body_size = 9,
+               gridlines = "vertical",
+               gridlines_pal = "yellow", 
+               gridlines_size = 0.7,
+               ticks_pal = "red",
+               ticks_size = 1)) 
+```
+
+Users create there own custom themes or use other themes that other packages provide.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle",
+             theme = ggplot2::theme_grey())
+```
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle",
+             col_title = "",
+             pal = ggthemes::economist_pal(fill = F)(3),
+             theme = ggthemes::theme_economist())
+```
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle",
+             col_title = "",
+             theme = hrbrthemes::theme_ipsum())
+```

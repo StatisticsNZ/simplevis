@@ -276,6 +276,21 @@ gg_hbar_col(plot_data,
         position = "stack")
 ```
 
+### Themes
+
+From `simplevis` version 5.1.0, there will be able to adjust the themes of any simplevis plot by providing a ggplot2 theme to the theme argument.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "A nice long title", 
+             subtitle = "And a subtitle",
+             theme = ggplot2::theme_grey())
+```
+
+
 ### `sf` and `stars` maps
 
 `simplevis` provides `sf` and `stars`  maps.

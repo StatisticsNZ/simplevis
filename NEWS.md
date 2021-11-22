@@ -3,6 +3,8 @@
 * Breaking: Removed *_gridlines_minor arguments.
 * Breaking: Removed font_family, font_size_title and font_size_body arguments.
 * Incorporated new theme method into gg functions.
+* Updated shiny templates for new methods.
+* Renamed run_template to shiny_template.
 
 # simplevis 5.0.4
 

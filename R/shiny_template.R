@@ -1,14 +1,12 @@
-# run_app_fun
+#' @title shiny_template
 
-# run_template
-
-#' Run shiny template with option to download.
+#' @description Run a shiny template with option to download.
 #'
 #' @param template template name. Available templates are "template1" with graph and table tabs, and "template2" also with a map tab. Defaults to "template1".
 #' @param ... passed to \code{shiny::runApp}
 #'
 #' @export
-run_template <- function(template = "template1", ...) {
+shiny_template <- function(template = "template1", ...) {
   suppressWarnings({
     
     templatedir <- system.file("shiny", package = "simplevis")

@@ -13,3 +13,4 @@
 ^vignettes/scales\.Rmd$
 ^vignettes/shiny\.Rmd$
 ^vignettes/titles\.Rmd$
+^vignettes/themes\.Rmd$

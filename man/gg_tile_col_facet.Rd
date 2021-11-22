@@ -52,10 +52,7 @@ gg_tile_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
-  mobile = FALSE
+  theme = gg_theme(gridlines = "none")
 )
 }
 \arguments{
@@ -153,13 +150,7 @@ gg_tile_col_facet(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
-\item{font_family}{Font family to use. Defaults to "".}
-
-\item{font_size_title}{Font size for the title text. Defaults to 11.}
-
-\item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
-\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
+\item{theme}{A ggplot2 theme.}
 }
 \value{
 A ggplot object.

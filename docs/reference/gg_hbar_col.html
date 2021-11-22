@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.5</span>
       </span>
     </div>
 
@@ -177,8 +177,7 @@
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/label_number.html'>comma</a></span>,
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -209,9 +208,7 @@
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(<span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>),
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -289,10 +286,6 @@
     <tr>
       <th>x_expand</th>
       <td><p>A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
-    </tr>
-    <tr>
-      <th>x_gridlines_minor</th>
-      <td><p>TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>x_labels</th>
@@ -419,16 +412,8 @@
       <td><p>Number of characters to wrap the caption to. Defaults to 75.</p></td>
     </tr>
     <tr>
-      <th>font_family</th>
-      <td><p>Font family to use. Defaults to "".</p></td>
-    </tr>
-    <tr>
-      <th>font_size_title</th>
-      <td><p>Font size for the title text. Defaults to 11.</p></td>
-    </tr>
-    <tr>
-      <th>font_size_body</th>
-      <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
+      <th>theme</th>
+      <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
       <th>mobile</th>
@@ -446,8 +431,8 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>species</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
 <span class='fu'>gg_hbar_col</span>(<span class='no'>plot_data</span>,
             <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
             <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,

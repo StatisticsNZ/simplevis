@@ -31,7 +31,6 @@ gg_line_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = NULL,
-  y_gridlines_minor = FALSE,
   y_labels = scales::comma,
   y_na_rm = FALSE,
   y_pretty_n = 5,
@@ -46,9 +45,7 @@ gg_line_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
+  theme = gg_theme(),
   mobile = FALSE
 )
 }
@@ -105,8 +102,6 @@ gg_line_col(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
-
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
@@ -135,11 +130,7 @@ gg_line_col(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
-\item{font_family}{Font family to use. Defaults to "".}
-
-\item{font_size_title}{Font size for the title text. Defaults to 11.}
-
-\item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
+\item{theme}{A ggplot2 theme.}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }

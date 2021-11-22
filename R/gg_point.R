@@ -14,7 +14,6 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -25,7 +24,6 @@
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -34,10 +32,8 @@
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. 
-#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80.
+#' @param theme A ggplot2 theme.  
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -63,7 +59,6 @@ gg_point <- function(data,
                      subtitle_wrap = 80,
                      x_balance = FALSE,
                      x_expand = NULL,
-                     x_gridlines_minor = FALSE,
                      x_labels = NULL,
                      x_pretty_n = 6,
                      x_rev = FALSE,
@@ -74,7 +69,6 @@ gg_point <- function(data,
                      x_zero_line = NULL,
                      y_balance = FALSE,
                      y_expand = NULL,
-                     y_gridlines_minor = FALSE,
                      y_labels = scales::comma,
                      y_pretty_n = 5,
                      y_title = NULL,
@@ -84,11 +78,8 @@ gg_point <- function(data,
                      y_zero_line = NULL,
                      caption = NULL,
                      caption_wrap = 80,
-                     font_family = "",
-                     font_size_title = NULL,
-                     font_size_body = NULL,
-                     mobile = FALSE
-) {
+                     theme = gg_theme(gridlines = "both"),
+                     mobile = FALSE) {
 
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -110,9 +101,6 @@ gg_point <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr)){
       data <- data %>%
@@ -129,11 +117,7 @@ gg_point <- function(data,
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_hv_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     coord_cartesian(clip = "off") +
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
   
@@ -224,15 +208,6 @@ gg_point <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -277,7 +252,6 @@ gg_point <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -288,7 +262,6 @@ gg_point <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -307,9 +280,7 @@ gg_point <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.  
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -335,7 +306,6 @@ gg_point_col <- function(data,
                          pal_rev = FALSE,
                          x_balance = FALSE,
                          x_expand = NULL,
-                         x_gridlines_minor = FALSE,
                          x_labels = NULL,
                          x_pretty_n = 6,
                          x_rev = FALSE,
@@ -344,7 +314,6 @@ gg_point_col <- function(data,
                          x_zero_line = NULL,
                          y_balance = FALSE,
                          y_expand = NULL,
-                         y_gridlines_minor = FALSE,
                          y_labels = scales::comma,
                          y_pretty_n = 5,
                          y_trans = "identity",
@@ -363,17 +332,14 @@ gg_point_col <- function(data,
                          col_na_rm = FALSE,
                          col_pretty_n = 5,
                          col_right_closed = TRUE,
-                         font_family = "",
-                         font_size_title = NULL,
-                         font_size_body = NULL,
                          title_wrap = 80,
                          subtitle_wrap = 80,
                          x_title_wrap = 50,
                          y_title_wrap = 50,
                          col_title_wrap = 25,
                          caption_wrap = 80,
-                         mobile = FALSE)
-{
+                         theme = gg_theme(gridlines = "both"),
+                         mobile = FALSE){
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -420,9 +386,6 @@ gg_point_col <- function(data,
     }
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -494,11 +457,7 @@ gg_point_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_hv_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     coord_cartesian(clip = "off")
   
   plot <- plot +
@@ -591,15 +550,6 @@ gg_point_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  
   if (mobile == TRUE) col_title_wrap <- 20
 
   plot <- plot +
@@ -655,7 +605,6 @@ gg_point_col <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -666,7 +615,6 @@ gg_point_col <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -681,9 +629,7 @@ gg_point_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.  
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -710,7 +656,6 @@ gg_point_facet <- function(data,
                            subtitle_wrap = 80,
                            x_balance = FALSE,
                            x_expand = NULL,
-                           x_gridlines_minor = FALSE,
                            x_labels = NULL,
                            x_pretty_n = 3,
                            x_rev = FALSE,
@@ -720,7 +665,6 @@ gg_point_facet <- function(data,
                            x_zero = FALSE,
                            x_zero_line = NULL,
                            y_balance = FALSE,
-                           y_gridlines_minor = FALSE,
                            y_expand = NULL,
                            y_labels = scales::comma,
                            y_pretty_n = 4,
@@ -736,10 +680,7 @@ gg_point_facet <- function(data,
                            facet_scales = "fixed",
                            caption = NULL,
                            caption_wrap = 80,
-                           font_family = "",
-                           font_size_title = NULL,
-                           font_size_body = NULL
-) {
+                           theme = gg_theme(gridlines = "both")) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -787,18 +728,11 @@ gg_point_facet <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_hv_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     coord_cartesian(clip = "off") +
     geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
   
@@ -895,15 +829,6 @@ gg_point_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -937,7 +862,6 @@ gg_point_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -948,7 +872,6 @@ gg_point_facet <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -972,9 +895,7 @@ gg_point_facet <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.  
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -1006,7 +927,6 @@ gg_point_col_facet <-
            subtitle_wrap = 80,
            x_balance = FALSE,
            x_expand = NULL,
-           x_gridlines_minor = FALSE,
            x_labels = NULL,
            x_pretty_n = 3,
            x_rev = FALSE,
@@ -1017,7 +937,6 @@ gg_point_col_facet <-
            x_zero_line = NULL,
            y_balance = FALSE,
            y_expand = NULL,
-           y_gridlines_minor = FALSE,
            y_labels = scales::comma,
            y_pretty_n = 4,
            y_title = NULL,
@@ -1041,10 +960,7 @@ gg_point_col_facet <-
            facet_scales = "fixed",
            caption = NULL,
            caption_wrap = 80,
-           font_family = "",
-           font_size_title = NULL,
-           font_size_body = NULL
-  ) {
+           theme = gg_theme(gridlines = "both")) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) #numeric var
@@ -1104,9 +1020,6 @@ gg_point_col_facet <-
       }
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
     
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -1178,11 +1091,7 @@ gg_point_col_facet <-
     if (pal_rev == TRUE) pal <- rev(pal)
     
     plot <- ggplot(data) +
-      theme_hv_gridlines(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
+      theme +
       coord_cartesian(clip = "off") +
       geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point, alpha = alpha, position = position)
     
@@ -1279,15 +1188,6 @@ gg_point_col_facet <-
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (x_gridlines_minor == TRUE) {
-      plot <- plot +
-        theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-    }
-    if (y_gridlines_minor == TRUE) {
-      plot <- plot +
-        theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-    }
-
     plot <- plot +
       scale_colour_manual(
         values = pal,

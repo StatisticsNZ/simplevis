@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.5</span>
       </span>
     </div>
 
@@ -186,8 +186,7 @@
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_gridlines_minor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org/reference/label_number.html'>comma</a></span>,
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -195,15 +194,13 @@
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_sentence</a></span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>font_family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>font_size_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>font_size_body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -319,10 +316,6 @@
       <td><p>A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
     <tr>
-      <th>y_gridlines_minor</th>
-      <td><p>TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
       <th>y_labels</th>
       <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
@@ -379,16 +372,8 @@
       <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     <tr>
-      <th>font_family</th>
-      <td><p>Font family to use. Defaults to "".</p></td>
-    </tr>
-    <tr>
-      <th>font_size_title</th>
-      <td><p>Font size for the title text. Defaults to 11.</p></td>
-    </tr>
-    <tr>
-      <th>font_size_body</th>
-      <td><p>Font size for all text other than the title. Defaults to 10.</p></td>
+      <th>theme</th>
+      <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
       <th>mobile</th>

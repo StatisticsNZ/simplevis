@@ -40,8 +40,7 @@ The `plotly::ggplotly` function provides the ability to convert the ggplot to an
 plot <- gg_point_col(penguins, 
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
-                     col_var = species, 
-                     font_family = "Helvetica")
+                     col_var = species)
 
 plotly::ggplotly(plot) 
 ```
@@ -54,8 +53,7 @@ The `plotly_camera` function turns off all widgets other than the camera to make
 plot <- gg_point_col(penguins, 
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
-                     col_var = species, 
-                     font_family = "Helvetica")
+                     col_var = species)
 
 plotly::ggplotly(plot) %>% 
   plotly_camera()
@@ -79,8 +77,7 @@ plot <- gg_point_col(plot_data,
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
                      col_var = species, 
-                     text_var = text, 
-                     font_family = "Helvetica")
+                     text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -96,8 +93,7 @@ plot <- gg_point_col(plot_data,
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
                      col_var = species, 
-                     text_var = text, 
-                     font_family = "Helvetica")
+                     text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -113,8 +109,7 @@ plot_data <- dplyr::sample_frac(ggplot2::diamonds, 0.05)
 plot <- gg_point_col(plot_data, 
                      x_var = carat, 
                      y_var = price, 
-                     col_var = color, 
-                     font_family = "Helvetica")
+                     col_var = color)
  
 plotly::ggplotly(plot) %>% 
    plotly_camera() %>% 
@@ -132,8 +127,7 @@ plot_data <- example_sf_point %>%
 plot <- gg_sf_col(plot_data, 
                   col_var = trend_category, 
                   text_var = text,
-                  borders = nz, 
-                  font_family = "Helvetica")
+                  borders = nz)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -154,8 +148,7 @@ plot <- gg_sf_col_facet(plot_data,
                         col_var = trend_category, 
                         facet_var = quartile, 
                         text_var = text,
-                        borders = nz,
-                        font_family = "Helvetica")
+                        borders = nz)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

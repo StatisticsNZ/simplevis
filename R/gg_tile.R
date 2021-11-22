@@ -41,9 +41,7 @@
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -104,11 +102,8 @@ gg_tile_col <- function(data,
                        col_title_wrap = 25,
                        caption = NULL,
                        caption_wrap = 75,
-                       font_family = "",
-                       font_size_title = NULL,
-                       font_size_body = NULL,
-                       mobile = FALSE)
-{
+                       theme = gg_theme(gridlines = "none"),
+                       mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   y_var <- rlang::enquo(y_var) #categorical var
@@ -173,9 +168,6 @@ gg_tile_col <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
 
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   if(is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
       width <- NULL
@@ -257,7 +249,7 @@ gg_tile_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_no_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -368,10 +360,7 @@ gg_tile_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' @param theme A ggplot2 theme.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -440,10 +429,7 @@ gg_tile_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              font_family = "",
-                              font_size_title = NULL,
-                              font_size_body = NULL,
-                              mobile = FALSE)
+                              theme = gg_theme(gridlines = "none"))
 {
   
   data <- dplyr::ungroup(data)
@@ -521,9 +507,6 @@ gg_tile_col_facet <- function(data,
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   if(is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
@@ -606,7 +589,7 @@ gg_tile_col_facet <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   plot <- ggplot(data) +
-    theme_no_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
               alpha = alpha, 
               size = size_line, 

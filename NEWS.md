@@ -1,3 +1,7 @@
+# simplevis 5.0.5 
+
+* Incorporate new themes into graph functions.
+
 # simplevis 5.0.4
 
 * Created new simple and flexible theme functions.

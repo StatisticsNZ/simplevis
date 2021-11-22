@@ -14,7 +14,6 @@
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -36,10 +35,9 @@
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -69,7 +67,6 @@ gg_hbar <- function(data,
                     subtitle_wrap = 75,
                     x_balance = FALSE,
                     x_expand = NULL,
-                    x_gridlines_minor = FALSE,
                     x_labels = scales::comma,
                     x_na_rm = FALSE,
                     x_pretty_n = 5,
@@ -91,11 +88,8 @@ gg_hbar <- function(data,
                     y_zero_line = NULL,
                     caption = NULL,
                     caption_wrap = 75,
-                    font_family = "",
-                    font_size_title = NULL,
-                    font_size_body = NULL,
-                    mobile = FALSE
-) {
+                    theme = gg_theme(gridlines = "vertical"),
+                    mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   y_var <- rlang::enquo(y_var)
@@ -145,9 +139,6 @@ gg_hbar <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
 
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
@@ -158,7 +149,7 @@ gg_hbar <- function(data,
   }
   
   plot <- ggplot(data) +
-    theme_v_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), 
              col = pal, 
              fill = pal, 
@@ -253,11 +244,6 @@ gg_hbar <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -303,7 +289,6 @@ gg_hbar <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
@@ -335,10 +320,9 @@ gg_hbar <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -379,7 +363,6 @@ gg_hbar_col <- function(data,
                         subtitle_wrap = 75,
                         x_balance = FALSE,
                         x_expand = NULL,
-                        x_gridlines_minor = FALSE,
                         x_labels = scales::comma,
                         x_na_rm = FALSE,
                         x_pretty_n = 5,
@@ -411,11 +394,8 @@ gg_hbar_col <- function(data,
                         col_title_wrap = 25,
                         caption = NULL,
                         caption_wrap = 75,
-                        font_family = "",
-                        font_size_title = NULL,
-                        font_size_body = NULL,
-                        mobile = FALSE
-) {
+                        theme = gg_theme(gridlines = "vertical"),
+                        mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -479,9 +459,6 @@ gg_hbar_col <- function(data,
     }
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
-  
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
   
   if(is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -576,7 +553,7 @@ gg_hbar_col <- function(data,
   else position2 <- position
   
   plot <- ggplot(data) +
-    theme_v_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -681,11 +658,6 @@ gg_hbar_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot +
@@ -750,7 +722,6 @@ gg_hbar_col <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
@@ -776,9 +747,8 @@ gg_hbar_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
-#' @param font_family Font family to use. Defaults "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -810,7 +780,6 @@ gg_hbar_facet <- function(data,
                           subtitle_wrap = 75,
                           x_balance = FALSE,
                           x_expand = NULL,
-                          x_gridlines_minor = FALSE,
                           x_labels = scales::comma,
                           x_na_rm = FALSE,
                           x_pretty_n = 3,
@@ -836,10 +805,7 @@ gg_hbar_facet <- function(data,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
-                          font_family = "",
-                          font_size_title = NULL,
-                          font_size_body = NULL)
-{
+                          theme = gg_theme(gridlines = "vertical")) {
   
   data <- dplyr::ungroup(data)
   y_var <- rlang::enquo(y_var) #categorical var
@@ -892,9 +858,6 @@ gg_hbar_facet <- function(data,
     }
   }
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
@@ -905,11 +868,7 @@ gg_hbar_facet <- function(data,
   }
   
   plot <- ggplot(data) +
-    theme_v_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
   
   if (facet_scales %in% c("fixed", "free_x")) {
@@ -1010,11 +969,6 @@ gg_hbar_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -1049,7 +1003,6 @@ gg_hbar_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param x_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -1085,9 +1038,8 @@ gg_hbar_facet <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
-#' @param font_family Font family to use. Defaults "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -1125,7 +1077,6 @@ gg_hbar_col_facet <- function(data,
                               subtitle_wrap = 75,
                               x_balance = FALSE,
                               x_expand = NULL,
-                              x_gridlines_minor = FALSE,
                               x_labels = scales::comma,
                               x_na_rm = FALSE,
                               x_pretty_n = 3,
@@ -1161,10 +1112,7 @@ gg_hbar_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              font_family = "",
-                              font_size_title = NULL,
-                              font_size_body = NULL
-) {
+                              theme = gg_theme(gridlines = "vertical")) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) #numeric var
@@ -1241,9 +1189,6 @@ gg_hbar_col_facet <- function(data,
     }
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
-  
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
   
   if(is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -1330,11 +1275,7 @@ gg_hbar_col_facet <- function(data,
   else position2 <- position
   
   plot <- ggplot(data) +
-    theme_v_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) +
+    theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
@@ -1450,11 +1391,6 @@ gg_hbar_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (x_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.x = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  
   legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
   
   plot <- plot +
@@ -1484,5 +1420,3 @@ gg_hbar_col_facet <- function(data,
   
   return(plot)
 }
-
-

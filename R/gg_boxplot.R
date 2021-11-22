@@ -25,7 +25,6 @@
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -35,9 +34,7 @@
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #' @return A ggplot object.
 #' @export
@@ -95,7 +92,6 @@ gg_boxplot <- function(data,
                        x_zero_line = NULL,
                        y_balance = FALSE,
                        y_expand = NULL,
-                       y_gridlines_minor = FALSE,
                        y_labels = scales::comma,
                        y_pretty_n = 5,
                        y_title = NULL,
@@ -105,14 +101,8 @@ gg_boxplot <- function(data,
                        y_zero_line = NULL,
                        caption = NULL,
                        caption_wrap = 80,
-                       font_family = "",
-                       font_size_title = NULL,
-                       font_size_body = NULL,
-                       mobile = FALSE
-) {
-  
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
+                       mobile = FALSE, 
+                       theme = gg_theme()) {
   
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
@@ -163,11 +153,7 @@ gg_boxplot <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_h_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+    theme
   
   if (stat == "boxplot") {
     plot <- plot +
@@ -289,11 +275,6 @@ gg_boxplot <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   if (mobile == FALSE){
     plot <- plot +
       labs(
@@ -352,7 +333,6 @@ gg_boxplot <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -366,9 +346,7 @@ gg_boxplot <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
 #'
 #' @return A ggplot object.
@@ -419,7 +397,6 @@ gg_boxplot_col <- function(data,
                            x_zero_line = NULL,
                            y_balance = FALSE,
                            y_expand = NULL,
-                           y_gridlines_minor = FALSE,
                            y_labels = scales::comma,
                            y_pretty_n = 5,
                            x_rev = FALSE,
@@ -434,14 +411,8 @@ gg_boxplot_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
-                           font_family = "",
-                           font_size_title = NULL,
-                           font_size_body = NULL,
-                           mobile = FALSE
-) {
-  
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
+                           theme = gg_theme(),
+                           mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) 
@@ -517,11 +488,7 @@ gg_boxplot_col <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_h_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    )
+    theme
   
   if (stat == "boxplot") {
     plot <- plot +
@@ -644,11 +611,6 @@ gg_boxplot_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot +
@@ -718,7 +680,6 @@ gg_boxplot_col <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -733,9 +694,8 @@ gg_boxplot_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -774,7 +734,6 @@ gg_boxplot_facet <- function(data,
                              x_zero_line = NULL,
                              y_balance = FALSE,
                              y_expand = NULL,
-                             y_gridlines_minor = FALSE,
                              y_labels = scales::comma,
                              y_pretty_n = 4,
                              y_title = NULL,
@@ -789,10 +748,7 @@ gg_boxplot_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             font_family = "",
-                             font_size_title = NULL,
-                             font_size_body = NULL)
-{
+                             theme = gg_theme()) {
     
     data <- dplyr::ungroup(data)
     x_var <- rlang::enquo(x_var) 
@@ -840,9 +796,6 @@ gg_boxplot_facet <- function(data,
     if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
     if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
     
-    if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-    if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-    
     if (x_rev == TRUE) {
       if (is.factor(x_var_vctr)){
         data <- data %>%
@@ -863,11 +816,7 @@ gg_boxplot_facet <- function(data,
     
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme_h_gridlines(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) 
+      theme 
     
     if (stat == "boxplot") {
       plot <- plot +
@@ -885,11 +834,7 @@ gg_boxplot_facet <- function(data,
     else if (stat == "identity") {
       plot <- ggplot(data) +
         coord_cartesian(clip = "off") +
-        theme_h_gridlines(
-          font_family = font_family,
-          font_size_body = font_size_body,
-          font_size_title = font_size_title
-        ) +
+        theme +
         geom_boxplot(
           aes(
             x = !!x_var,
@@ -1000,11 +945,6 @@ gg_boxplot_facet <- function(data,
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    if (y_gridlines_minor == TRUE) {
-      plot <- plot +
-        theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-    }
-
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -1049,7 +989,6 @@ gg_boxplot_facet <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -1068,10 +1007,8 @@ gg_boxplot_facet <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
-#'
+#' @param theme A ggplot2 theme.
+#' 
 #' @return A ggplot object.
 #' @export
 #'
@@ -1128,7 +1065,6 @@ gg_boxplot_col_facet <- function(data,
                                  x_zero_line = NULL,
                                  y_balance = FALSE,
                                  y_expand = NULL,
-                                 y_gridlines_minor = FALSE,
                                  y_labels = scales::comma,
                                  y_pretty_n = 4,
                                  y_title = NULL,
@@ -1147,10 +1083,7 @@ gg_boxplot_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80,
-                                 font_family = "",
-                                 font_size_title = NULL,
-                                 font_size_body = NULL
-) {
+                                 theme = gg_theme()) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var) 
@@ -1224,9 +1157,6 @@ gg_boxplot_col_facet <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  if(is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if(is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
   }
@@ -1242,11 +1172,7 @@ gg_boxplot_col_facet <- function(data,
   
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme_h_gridlines(
-      font_family = font_family,
-      font_size_body = font_size_body,
-      font_size_title = font_size_title
-    ) 
+    theme
   
   if (stat == "boxplot") {
     plot <- plot +
@@ -1263,11 +1189,7 @@ gg_boxplot_col_facet <- function(data,
   else if (stat == "identity") {
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme_h_gridlines(
-        font_family = font_family,
-        font_size_body = font_size_body,
-        font_size_title = font_size_title
-      ) +
+      theme +
       geom_boxplot(
         aes(
           x = !!x_var,
@@ -1378,11 +1300,6 @@ gg_boxplot_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   plot <- plot +
     scale_fill_manual(
       values = pal,

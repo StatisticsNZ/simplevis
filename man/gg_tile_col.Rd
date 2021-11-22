@@ -46,9 +46,7 @@ gg_tile_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 75,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
+  theme = gg_theme(gridlines = "none"),
   mobile = FALSE
 )
 }
@@ -135,11 +133,7 @@ gg_tile_col(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
-\item{font_family}{Font family to use. Defaults to "".}
-
-\item{font_size_title}{Font size for the title text. Defaults to 11.}
-
-\item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
+\item{theme}{A ggplot2 theme.}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }

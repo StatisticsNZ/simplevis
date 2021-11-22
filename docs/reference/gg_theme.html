@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a simple clean theme. — gg_theme • simplevis</title>
+<title>Create a simple clean theme. Defaults to no gridlines. — gg_theme • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Create a simple clean theme. — gg_theme" />
-<meta property="og:description" content="Create a simple clean theme." />
+<meta property="og:title" content="Create a simple clean theme. Defaults to no gridlines. — gg_theme" />
+<meta property="og:description" content="Create a simple clean theme. Defaults to no gridlines." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.5</span>
       </span>
     </div>
 
@@ -149,13 +149,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a simple clean theme.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/theme2.R'><code>R/theme2.R</code></a></small>
+    <h1>Create a simple clean theme. Defaults to no gridlines.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/theme3.R'><code>R/theme3.R</code></a></small>
     <div class="hidden name"><code>gg_theme.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a simple clean theme.</p>
+    <p>Create a simple clean theme. Defaults to no gridlines.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gg_theme</span>(
@@ -173,14 +173,9 @@
   <span class='kw'>axis_size</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
   <span class='kw'>ticks_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
   <span class='kw'>ticks_size</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>grid_h_major_pal</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
-  <span class='kw'>grid_h_major_size</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>grid_v_major_pal</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
-  <span class='kw'>grid_v_major_size</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>grid_h_minor_pal</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
-  <span class='kw'>grid_h_minor_size</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>grid_v_minor_pal</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
-  <span class='kw'>grid_v_minor_size</span> <span class='kw'>=</span> <span class='fl'>0</span>
+  <span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>,
+  <span class='kw'>gridlines_pal</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
+  <span class='kw'>gridlines_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -243,36 +238,16 @@
       <td><p>The size of the ticks. Defaults to 0.3.</p></td>
     </tr>
     <tr>
-      <th>grid_h_major_pal</th>
-      <td><p>The colour palette for the horizontal major gridlines. Defaults to "#D3D3D3".</p></td>
+      <th>gridlines</th>
+      <td><p>Whether gridlines are "horizontal", "vertical", "both" or "none".</p></td>
     </tr>
     <tr>
-      <th>grid_h_major_size</th>
-      <td><p>The size of the horizontal major gridlines. Defaults to 0.</p></td>
-    </tr>
-    <tr>
-      <th>grid_v_major_pal</th>
+      <th>gridlines_pal</th>
       <td><p>The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".</p></td>
     </tr>
     <tr>
-      <th>grid_v_major_size</th>
-      <td><p>The size of the vertical major gridlines. Defaults to 0.</p></td>
-    </tr>
-    <tr>
-      <th>grid_h_minor_pal</th>
-      <td><p>The colour palette for the horizontal minor gridlines. Defaults to "#D3D3D3".</p></td>
-    </tr>
-    <tr>
-      <th>grid_h_minor_size</th>
-      <td><p>The size of the horizontal minor gridlines. Defaults to 0.</p></td>
-    </tr>
-    <tr>
-      <th>grid_v_minor_pal</th>
-      <td><p>The colour palette for the horizontal minor gridlines. Defaults to "#D3D3D3".</p></td>
-    </tr>
-    <tr>
-      <th>grid_v_minor_size</th>
-      <td><p>The size of the horizontal minor gridlines. Defaults to 0.</p></td>
+      <th>gridlines_size</th>
+      <td><p>The size of the vertical major gridlines. Defaults to 0.2.</p></td>
     </tr>
     </table>
 

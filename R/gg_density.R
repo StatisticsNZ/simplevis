@@ -24,17 +24,15 @@
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -67,18 +65,14 @@ gg_density <- function(data,
                     x_zero = FALSE,
                     x_zero_line = NULL,
                     y_expand = NULL,
-                    y_gridlines_minor = FALSE,
                     y_labels = scales::number,
                     y_pretty_n = 5,
                     y_title = NULL,
                     y_title_wrap = 50,
                     caption = NULL,
                     caption_wrap = 80,
-                    font_family = "",
-                    font_size_title = NULL,
-                    font_size_body = NULL,
-                    mobile = FALSE
-) {
+                    theme = gg_theme(),
+                    mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
@@ -90,14 +84,11 @@ gg_density <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- "Density"
   
-  if (is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if (is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
                  col = pal, 
@@ -159,11 +150,6 @@ gg_density <- function(data,
       )
   })
   
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -218,7 +204,6 @@ gg_density <- function(data,
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -230,10 +215,9 @@ gg_density <- function(data,
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -270,7 +254,6 @@ gg_density_col <- function(data,
                            x_zero = FALSE,
                            x_zero_line = NULL,
                            y_expand = NULL,
-                           y_gridlines_minor = FALSE,
                            y_labels = scales::number,
                            y_pretty_n = 5,
                            y_title = NULL,
@@ -282,11 +265,8 @@ gg_density_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
-                           font_family = "",
-                           font_size_title = NULL,
-                           font_size_body = NULL,
-                           mobile = FALSE
-) {
+                           theme = gg_theme(),
+                           mobile = FALSE) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
@@ -330,9 +310,6 @@ gg_density_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
-  if (is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = mobile)
-  if (is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = mobile)
-  
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
   }
@@ -349,7 +326,7 @@ gg_density_col <- function(data,
   # }
 
   plot <- ggplot(data) +
-    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
                  position = "identity",
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
@@ -431,11 +408,6 @@ gg_density_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -491,7 +463,6 @@ gg_density_col <- function(data,
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -503,9 +474,8 @@ gg_density_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -541,7 +511,6 @@ gg_density_facet <- function(data,
                              x_zero = FALSE,
                              x_zero_line = NULL,
                              y_expand = NULL,
-                             y_gridlines_minor = FALSE,
                              y_labels = scales::number,
                              y_pretty_n = 4,
                              y_title = NULL,
@@ -553,10 +522,7 @@ gg_density_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             font_family = "",
-                             font_size_title = NULL,
-                             font_size_body = NULL
-) {
+                             theme = gg_theme()) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
@@ -576,14 +542,11 @@ gg_density_facet <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- "Density"
   
-  if (is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if (is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
   plot <- ggplot(data) +
-    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
                  col = pal, 
@@ -650,11 +613,6 @@ gg_density_facet <- function(data,
                          oob = scales::squish)
   }
   
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
-  }
-  
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -698,7 +656,6 @@ gg_density_facet <- function(data,
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_gridlines_minor TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -715,9 +672,7 @@ gg_density_facet <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
-#' @param font_family Font family to use. Defaults to "".
-#' @param font_size_title Font size for the title text. Defaults to 11.
-#' @param font_size_body Font size for all text other than the title. Defaults to 10.
+#' @param theme A ggplot2 theme.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -758,7 +713,6 @@ gg_density_col_facet <- function(data,
                                  x_zero = FALSE,
                                  x_zero_line = NULL,
                                  y_expand = NULL,
-                                 y_gridlines_minor = FALSE,
                                  y_labels = scales::number,
                                  y_pretty_n = 4,
                                  y_title = NULL,
@@ -774,11 +728,8 @@ gg_density_col_facet <- function(data,
                                  facet_nrow = NULL,
                                  facet_scales = "fixed",
                                  caption = NULL,
-                                 caption_wrap = 80,
-                                 font_family = "",
-                                 font_size_title = NULL,
-                                 font_size_body = NULL
-) {
+                                 caption_wrap = 80, 
+                                 theme = gg_theme()) {
   
   data <- dplyr::ungroup(data)
   x_var <- rlang::enquo(x_var)
@@ -828,9 +779,6 @@ gg_density_col_facet <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
-  if (is.null(font_size_title)) font_size_title <- sv_font_size_title(mobile = FALSE)
-  if (is.null(font_size_body)) font_size_body <- sv_font_size_body(mobile = FALSE)
-  
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
   }
@@ -847,7 +795,7 @@ gg_density_col_facet <- function(data,
   # }
   
   plot <- ggplot(data) +
-    theme_h_gridlines(font_family = font_family, font_size_body = font_size_body, font_size_title = font_size_title) +
+    theme +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
                  position = "identity",
                  bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
@@ -921,11 +869,6 @@ gg_density_col_facet <- function(data,
       scale_y_continuous(expand = y_expand,
                          labels = y_labels,
                          oob = scales::squish)
-  }
-  
-  if (y_gridlines_minor == TRUE) {
-    plot <- plot +
-      theme(panel.grid.minor.y = element_line(colour = "#D3D3D3", size = 0.2))
   }
   
   plot <- plot +

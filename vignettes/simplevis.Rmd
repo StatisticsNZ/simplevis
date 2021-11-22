@@ -455,8 +455,7 @@ plot <- gg_point_col(plot_data,
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
                      col_var = species, 
-                     text_var = text, 
-                     font_family = "Helvetica")
+                     text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

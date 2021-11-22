@@ -20,7 +20,6 @@ gg_hbar_facet(
   subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = NULL,
-  x_gridlines_minor = FALSE,
   x_labels = scales::comma,
   x_na_rm = FALSE,
   x_pretty_n = 3,
@@ -46,9 +45,7 @@ gg_hbar_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL
+  theme = gg_theme(gridlines = "vertical")
 )
 }
 \arguments{
@@ -81,8 +78,6 @@ gg_hbar_facet(
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
-
-\item{x_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.}
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
@@ -134,11 +129,7 @@ gg_hbar_facet(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
-\item{font_family}{Font family to use. Defaults "".}
-
-\item{font_size_title}{Font size for the title text. Defaults to 11.}
-
-\item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
+\item{theme}{A ggplot2 theme.}
 }
 \value{
 A ggplot object.

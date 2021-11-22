@@ -18,7 +18,6 @@ gg_point_col(
   pal_rev = FALSE,
   x_balance = FALSE,
   x_expand = NULL,
-  x_gridlines_minor = FALSE,
   x_labels = NULL,
   x_pretty_n = 6,
   x_rev = FALSE,
@@ -27,7 +26,6 @@ gg_point_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = NULL,
-  y_gridlines_minor = FALSE,
   y_labels = scales::comma,
   y_pretty_n = 5,
   y_trans = "identity",
@@ -46,15 +44,13 @@ gg_point_col(
   col_na_rm = FALSE,
   col_pretty_n = 5,
   col_right_closed = TRUE,
-  font_family = "",
-  font_size_title = NULL,
-  font_size_body = NULL,
   title_wrap = 80,
   subtitle_wrap = 80,
   x_title_wrap = 50,
   y_title_wrap = 50,
   col_title_wrap = 25,
   caption_wrap = 80,
+  theme = gg_theme(gridlines = "both"),
   mobile = FALSE
 )
 }
@@ -85,8 +81,6 @@ gg_point_col(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the x scale. Defaults to FALSE.}
-
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
@@ -102,8 +96,6 @@ gg_point_col(
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
-
-\item{y_gridlines_minor}{TRUE or FALSE of whether to add minor gridlines to the y scale. Defaults to FALSE.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
@@ -141,12 +133,6 @@ gg_point_col(
 
 \item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
-\item{font_family}{Font family to use. Defaults to "".}
-
-\item{font_size_title}{Font size for the title text. Defaults to 11.}
-
-\item{font_size_body}{Font size for all text other than the title. Defaults to 10.}
-
 \item{title_wrap}{Number of characters to wrap the title to. Defaults to 75.}
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.}
@@ -158,6 +144,8 @@ gg_point_col(
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
+
+\item{theme}{A ggplot2 theme.}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE. If within a shiny app with the mobileDetect function, then use mobile = input$isMobile.}
 }

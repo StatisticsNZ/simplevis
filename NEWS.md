@@ -1,3 +1,7 @@
+# simplevis 5.0.8
+
+Add x_label digits and y_label_digits for numeric vars.
+
 # simplevis 5.0.7
 
 Renamed nz with example_sf_borders.

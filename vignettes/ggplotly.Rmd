@@ -127,7 +127,7 @@ plot_data <- example_sf_point %>%
 plot <- gg_sf_col(plot_data, 
                   col_var = trend_category, 
                   text_var = text,
-                  borders = nz)
+                  borders = example_sf_borders)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -148,7 +148,7 @@ plot <- gg_sf_col_facet(plot_data,
                         col_var = trend_category, 
                         facet_var = quartile, 
                         text_var = text,
-                        borders = nz)
+                        borders = example_sf_borders)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

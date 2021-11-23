@@ -67,6 +67,6 @@ library(simplevis)
 library(stars)
 
 gg_stars(example_stars, 
-     borders = nz)
+     borders = example_sf_borders)
      
 }

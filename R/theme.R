@@ -266,9 +266,9 @@ theme_mobile_extra <- function() {
   theme(
     plot.title.position = "plot",
     plot.margin = margin(t = 2, l = 2, b = 0, r = 10),
+    legend.position = "bottom",
     legend.direction = "vertical",
     legend.justification = "left",
-    legend.position = "bottom",
     legend.margin = margin(t = 0, b = 0, l = 0, r = 0),
     axis.text.x = element_text(hjust = 0.75)
   )
@@ -283,9 +283,9 @@ theme_mobile_extra_map <- function() {
   theme(
     plot.title.position = "plot",
     plot.margin = margin(t = 2, l = 2, b = 0, r = 10),
+    legend.position = "bottom",
     legend.direction = "vertical",
     legend.justification = "left",
-    legend.position = "bottom",
     legend.margin = margin(t = 0, b = 0, l = 0, r = 0)
   )
 }

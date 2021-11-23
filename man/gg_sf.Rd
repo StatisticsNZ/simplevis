@@ -70,6 +70,6 @@ Map of simple features in ggplot that is not coloured and not facetted.
 }
 \examples{
 gg_sf(example_sf_point, 
-     borders = nz)
+     borders = example_sf_borders)
      
 }

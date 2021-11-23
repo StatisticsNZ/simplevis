@@ -120,7 +120,7 @@ As a leaflet object is produced, you can add additional layers with leaflet - al
 ```{r}
 leaflet_sf_col(example_sf_point, 
                col_var = trend_category) %>% 
-  leaflet::addPolygons(data = nz, 
+  leaflet::addPolygons(data = example_sf_borders, 
                        color = "#35B779", 
                        weight = 3, 
                        fillOpacity = 0, 

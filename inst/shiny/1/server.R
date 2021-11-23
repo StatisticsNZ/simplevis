@@ -31,10 +31,10 @@ shinyServer(function(input, output, session) {
 
   theme <- reactive({
     gg_theme(
-      gridlines = "vertical", 
       family  = "helvetica", 
       title_size = ifelse(input$isMobile == FALSE, 11, 16), 
-      body_size = ifelse(input$isMobile == FALSE, 10, 15) 
+      body_size = ifelse(input$isMobile == FALSE, 10, 15),
+      gridlines = "vertical" 
       )
   })
   

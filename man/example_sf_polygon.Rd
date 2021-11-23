@@ -14,6 +14,6 @@ example_sf_polygon
 Example sf polygon object.
 }
 \examples{
-example_sf_polygon
+gg_sf_col(example_sf_point, col_var = trend_category, borders = example_sf_borders)
 }
 \keyword{datasets}

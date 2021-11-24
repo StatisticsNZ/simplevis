@@ -29,7 +29,7 @@ shinyServer(function(input, output, session) {
   #   options = list(pageLength = 5, scrollX = TRUE, lengthChange = FALSE)
   # )
   
-  theme <- reactive({
+  plot_theme <- reactive({
     gg_theme(
       gridlines = "vertical", 
       family  = "helvetica", 
@@ -63,7 +63,7 @@ shinyServer(function(input, output, session) {
       x_labels = scales::comma_format(),
       col_labels = ggplot2::waiver(),
       title_wrap = title_wrap,
-      theme = theme(),
+      theme = plot_theme(),
       mobile = input$isMobile
     )
     

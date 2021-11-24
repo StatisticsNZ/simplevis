@@ -1,6 +1,6 @@
 # simplevis 5.0.8
 
-Add x_label digits and y_label_digits for numeric vars.
+* Updated app reactive theme name to avoid namespace collisions.
 
 # simplevis 5.0.7
 

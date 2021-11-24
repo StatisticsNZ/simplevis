@@ -25,7 +25,7 @@ plot_data <- data %>%
   summarise(price = mean(price)) %>%
   mutate_text(c("cut", "clarity", "price")) 
 
-theme <- gg_theme(family = "helvetica", gridlines = "vertical")
+plot_theme <- gg_theme(family = "helvetica", gridlines = "vertical")
 
 title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
 x_title <- "Average price ($US thousands)"
@@ -39,7 +39,7 @@ plot <- gg_hbar_col(plot_data, price, cut, clarity,
                     x_labels = scales::comma_format(),
                     col_labels = ggplot2::waiver(),
                     title_wrap = title_wrap,
-                    theme = theme,
+                    theme = plot_theme,
                     mobile = F)
 
 plot

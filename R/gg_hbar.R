@@ -15,6 +15,7 @@
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param x_label_digits The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -66,8 +67,9 @@ gg_hbar <- function(data,
                     subtitle = NULL,
                     subtitle_wrap = 75,
                     x_balance = FALSE,
-                    x_expand = NULL,
-                    x_labels = scales::comma,
+                    x_expand = c(0, 0),
+                    x_labels = NULL,
+                    x_label_digits = NULL,
                     x_na_rm = FALSE,
                     x_pretty_n = 5,
                     x_title = NULL,
@@ -218,7 +220,10 @@ gg_hbar <- function(data,
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if(is.null(x_expand)) x_expand <- c(0, 0)
+  if (is.null(x_labels)) {
+    if (is.null(x_label_digits)) x_labels <- scales::comma
+    else x_labels <- scales::comma_format(accuracy = 10 ^ -x_label_digits)
+  }
   
   if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -290,6 +295,7 @@ gg_hbar <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param x_label_digits The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -309,7 +315,7 @@ gg_hbar <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
+#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
@@ -362,8 +368,9 @@ gg_hbar_col <- function(data,
                         subtitle = NULL,
                         subtitle_wrap = 75,
                         x_balance = FALSE,
-                        x_expand = NULL,
-                        x_labels = scales::comma,
+                        x_expand = c(0, 0),
+                        x_labels = NULL,
+                        x_label_digits = NULL,
                         x_na_rm = FALSE,
                         x_pretty_n = 5,
                         x_title = NULL,
@@ -632,7 +639,10 @@ gg_hbar_col <- function(data,
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if(is.null(x_expand)) x_expand <- c(0, 0)
+  if (is.null(x_labels)) {
+    if (is.null(x_label_digits)) x_labels <- scales::comma
+    else x_labels <- scales::comma_format(accuracy = 10 ^ -x_label_digits)
+  }
   
   if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -723,6 +733,7 @@ gg_hbar_col <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param x_label_digits The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -779,8 +790,9 @@ gg_hbar_facet <- function(data,
                           subtitle = NULL,
                           subtitle_wrap = 75,
                           x_balance = FALSE,
-                          x_expand = NULL,
-                          x_labels = scales::comma,
+                          x_expand = c(0, 0),
+                          x_labels = NULL,
+                          x_label_digits = NULL,
                           x_na_rm = FALSE,
                           x_pretty_n = 3,
                           x_title = NULL,
@@ -929,7 +941,10 @@ gg_hbar_facet <- function(data,
   if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if(is.null(x_expand)) x_expand <- c(0, 0)
+  if (is.null(x_labels)) {
+    if (is.null(x_label_digits)) x_labels <- scales::comma
+    else x_labels <- scales::comma_format(accuracy = 10 ^ -x_label_digits)
+  }
   
   if (facet_scales %in% c("fixed", "free_y")) {
     if (all(x_var_vctr == 0, na.rm = TRUE)) {
@@ -1004,6 +1019,7 @@ gg_hbar_facet <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param x_label_digits The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -1023,7 +1039,7 @@ gg_hbar_facet <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
-#' @param col_label_digits If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.
+#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -1076,8 +1092,9 @@ gg_hbar_col_facet <- function(data,
                               subtitle = NULL,
                               subtitle_wrap = 75,
                               x_balance = FALSE,
-                              x_expand = NULL,
-                              x_labels = scales::comma,
+                              x_expand = c(0, 0),
+                              x_labels = NULL,
+                              x_label_digits = NULL,
                               x_na_rm = FALSE,
                               x_pretty_n = 3,
                               x_title = NULL,
@@ -1351,8 +1368,11 @@ gg_hbar_col_facet <- function(data,
   if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if(is.null(x_expand)) x_expand <- c(0, 0)
-  
+  if (is.null(x_labels)) {
+    if (is.null(x_label_digits)) x_labels <- scales::comma
+    else x_labels <- scales::comma_format(accuracy = 10 ^ -x_label_digits)
+  }
+
   if (facet_scales %in% c("fixed", "free_y")) {
     if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +

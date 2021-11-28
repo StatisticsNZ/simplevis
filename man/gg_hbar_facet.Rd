@@ -19,8 +19,9 @@ gg_hbar_facet(
   subtitle = NULL,
   subtitle_wrap = 75,
   x_balance = FALSE,
-  x_expand = NULL,
-  x_labels = scales::comma,
+  x_expand = c(0, 0),
+  x_labels = NULL,
+  x_label_digits = NULL,
   x_na_rm = FALSE,
   x_pretty_n = 3,
   x_title = NULL,
@@ -80,6 +81,8 @@ gg_hbar_facet(
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
+
+\item{x_label_digits}{The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 

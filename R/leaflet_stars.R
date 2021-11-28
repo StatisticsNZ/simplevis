@@ -83,7 +83,7 @@ leaflet_stars <- function(data,
 #' @param alpha The opacity of features. Defaults to 1.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits If numeric colour method, the number of digits to round the labels to.
+#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to.
 #' @param col_labels A vector to modify colour scale labels.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.

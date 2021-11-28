@@ -20,6 +20,7 @@ gg_point(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
+  x_label_digits = NULL,
   x_pretty_n = 6,
   x_rev = FALSE,
   x_title = NULL,
@@ -28,8 +29,9 @@ gg_point(
   x_zero = FALSE,
   x_zero_line = NULL,
   y_balance = FALSE,
-  y_expand = NULL,
-  y_labels = scales::comma,
+  y_expand = c(0, 0),
+  y_labels = NULL,
+  y_label_digits = NULL,
   y_pretty_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
@@ -73,6 +75,8 @@ gg_point(
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
+\item{x_label_digits}{The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.}
+
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
@@ -92,6 +96,8 @@ gg_point(
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+
+\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 

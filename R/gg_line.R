@@ -24,6 +24,7 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -74,8 +75,9 @@ gg_line <- function(data,
                     x_zero = FALSE,
                     x_zero_line = NULL,
                     y_balance = FALSE,
-                    y_expand = NULL,
-                    y_labels = scales::comma,
+                    y_expand = c(0, 0),
+                    y_labels = NULL,
+                    y_label_digits = NULL,
                     y_na_rm = FALSE,
                     y_pretty_n = 5,
                     y_title = NULL,
@@ -196,12 +198,15 @@ gg_line <- function(data,
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
   
-  if(is.null(y_expand)) y_expand <- c(0, 0)  
-  
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
+  if (is.null(y_labels)) {
+    if (is.null(y_label_digits)) y_labels <- scales::comma
+    else y_labels <- scales::comma_format(accuracy = 10 ^ -y_label_digits)
+  }
+
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -280,6 +285,7 @@ gg_line <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -338,8 +344,9 @@ gg_line_col <- function(data,
                         x_zero = FALSE,
                         x_zero_line = NULL,
                         y_balance = FALSE,
-                        y_expand = NULL,
-                        y_labels = scales::comma,
+                        y_expand = c(0, 0),
+                        y_labels = NULL,
+                        y_label_digits = NULL,
                         y_na_rm = FALSE,
                         y_pretty_n = 5,
                         y_title = NULL,
@@ -488,11 +495,14 @@ gg_line_col <- function(data,
       scale_x_discrete(expand = x_expand, labels = x_labels)
   }
   
-  if(is.null(y_expand)) y_expand <- c(0, 0)
-  
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
+  
+  if (is.null(y_labels)) {
+    if (is.null(y_label_digits)) y_labels <- scales::comma
+    else y_labels <- scales::comma_format(accuracy = 10 ^ -y_label_digits)
+  }
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -583,6 +593,7 @@ gg_line_col <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -638,8 +649,9 @@ gg_line_facet <- function(data,
                           x_zero = FALSE,
                           x_zero_line = NULL,
                           y_balance = FALSE,
-                          y_expand = NULL,
-                          y_labels = scales::comma,
+                          y_expand = c(0, 0),
+                          y_labels = NULL,
+                          y_label_digits = NULL,
                           y_na_rm = FALSE,
                           y_pretty_n = 4,
                           y_title = NULL,
@@ -778,7 +790,10 @@ gg_line_facet <- function(data,
   if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if(is.null(y_expand)) y_expand <- c(0, 0)
+  if (is.null(y_labels)) {
+    if (is.null(y_label_digits)) y_labels <- scales::comma
+    else y_labels <- scales::comma_format(accuracy = 10 ^ -y_label_digits)
+  }
   
   if (facet_scales %in% c("fixed", "free_x")) {
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
@@ -856,6 +871,7 @@ gg_line_facet <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -920,8 +936,9 @@ gg_line_col_facet <- function(data,
                               x_zero = FALSE,
                               x_zero_line = NULL,
                               y_balance = FALSE,
-                              y_expand = NULL,
-                              y_labels = scales::comma,
+                              y_expand = c(0, 0),
+                              y_labels = NULL,
+                              y_label_digits = NULL,
                               y_na_rm = FALSE,
                               y_pretty_n = 4,
                               y_trans = "identity",
@@ -1089,7 +1106,10 @@ gg_line_col_facet <- function(data,
   if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if(is.null(y_expand)) y_expand <- c(0, 0)
+  if (is.null(y_labels)) {
+    if (is.null(y_label_digits)) y_labels <- scales::comma
+    else y_labels <- scales::comma_format(accuracy = 10 ^ -y_label_digits)
+  }
   
   if (facet_scales %in% c("fixed", "free_x")) {
     if (all(y_var_vctr == 0, na.rm = TRUE)) {

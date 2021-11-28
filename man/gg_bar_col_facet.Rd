@@ -33,8 +33,9 @@ gg_bar_col_facet(
   x_zero = FALSE,
   x_zero_line = NULL,
   y_balance = FALSE,
-  y_expand = NULL,
-  y_labels = scales::comma,
+  y_expand = c(0, 0),
+  y_labels = NULL,
+  y_label_digits = NULL,
   y_na = TRUE,
   y_pretty_n = 4,
   y_title = NULL,
@@ -123,6 +124,8 @@ gg_bar_col_facet(
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
+\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
+
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
@@ -139,7 +142,7 @@ gg_bar_col_facet(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_label_digits}{If numeric colour method, the number of digits to round the labels to. Only applicable where col_labels equals NULL.}
+\item{col_label_digits}{If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 

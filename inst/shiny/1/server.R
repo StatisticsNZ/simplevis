@@ -85,7 +85,7 @@ shinyServer(function(input, output, session) {
   table_data <- reactive({
     ggplot2::diamonds %>%
       select(carat:price) %>%
-      janitor::clean_names(case = "sentence")
+      rename_with(snakecase::to_sentence_case)
   })
   
   output$table <- DT::renderDT(

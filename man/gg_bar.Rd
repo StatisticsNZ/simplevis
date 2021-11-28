@@ -29,8 +29,9 @@ gg_bar(
   x_zero = FALSE,
   x_zero_line = NULL,
   y_balance = FALSE,
-  y_expand = NULL,
-  y_labels = scales::comma,
+  y_expand = c(0, 0),
+  y_labels = NULL,
+  y_label_digits = NULL,
   y_na = TRUE,
   y_pretty_n = 5,
   y_title = NULL,
@@ -96,6 +97,8 @@ gg_bar(
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+
+\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
 
 \item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 

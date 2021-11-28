@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.9</span>
       </span>
     </div>
 
@@ -176,8 +176,9 @@
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -271,6 +272,10 @@
     <tr>
       <th>x_labels</th>
       <td><p>A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
+    </tr>
+    <tr>
+      <th>x_label_digits</th>
+      <td><p>The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.</p></td>
     </tr>
     <tr>
       <th>x_na_rm</th>
@@ -389,7 +394,7 @@
 <span class='fu'>gg_hbar_facet</span>(<span class='no'>plot_data</span>,
               <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
               <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
-              <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>species</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("depth"): no applicable method for 'depth' applied to an object of class "NULL"</span></div><div class='img'><img src='gg_hbar_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+              <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>species</span>)</div><div class='img'><img src='gg_hbar_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

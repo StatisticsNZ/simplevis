@@ -24,6 +24,7 @@
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -64,8 +65,9 @@ gg_density <- function(data,
                     x_title_wrap = 50,
                     x_zero = FALSE,
                     x_zero_line = NULL,
-                    y_expand = NULL,
-                    y_labels = scales::number,
+                    y_expand = c(0, 0),
+                    y_labels = NULL,
+                    y_label_digits = NULL,
                     y_pretty_n = 5,
                     y_title = NULL,
                     y_title_wrap = 50,
@@ -128,9 +130,12 @@ gg_density <- function(data,
   }
   
   y_var_vctr <- c(0, sv_density_max(data, !!x_var))
-
-  if (is.null(y_expand)) y_expand <- c(0, 0)
   
+  if (is.null(y_labels)) {
+    if (is.null(y_label_digits)) y_labels <- scales::number
+    else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+  }
+
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -205,6 +210,7 @@ gg_density <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -253,8 +259,9 @@ gg_density_col <- function(data,
                            x_title_wrap = 50,
                            x_zero = FALSE,
                            x_zero_line = NULL,
-                           y_expand = NULL,
-                           y_labels = scales::number,
+                           y_expand = c(0, 0),
+                           y_labels = NULL,
+                           y_label_digits = NULL,
                            y_pretty_n = 5,
                            y_title = NULL,
                            y_title_wrap = 50,
@@ -369,7 +376,10 @@ gg_density_col <- function(data,
   # if (position == "stack") y_var_vctr <- c(0, sv_density_max_col_stack(data, !!x_var, !!col_var))
   # if (position == "fill") y_var_vctr <- c(0, 1)
   
-  if (is.null(y_expand)) y_expand <- c(0, 0)
+  if (is.null(y_labels)) {
+    if (is.null(y_label_digits)) y_labels <- scales::number
+    else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+  }
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -457,6 +467,7 @@ gg_density_col <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param x_pretty_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -510,8 +521,9 @@ gg_density_facet <- function(data,
                              x_title_wrap = 50,
                              x_zero = FALSE,
                              x_zero_line = NULL,
-                             y_expand = NULL,
-                             y_labels = scales::number,
+                             y_expand = c(0, 0),
+                             y_labels = NULL,
+                             y_label_digits = NULL,
                              y_pretty_n = 4,
                              y_title = NULL,
                              y_title_wrap = 50,
@@ -582,10 +594,13 @@ gg_density_facet <- function(data,
     }
   }
   
-  if (is.null(y_expand)) y_expand <- c(0, 0)
-  
   if (facet_scales %in% c("fixed", "free_x")) {
     y_var_vctr <- c(0, sv_density_max_facet(data, !!x_var, !!facet_var))
+    
+    if (is.null(y_labels)) {
+      if (is.null(y_label_digits)) y_labels <- scales::number
+      else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+    }
     
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
@@ -657,6 +672,7 @@ gg_density_facet <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -712,8 +728,9 @@ gg_density_col_facet <- function(data,
                                  x_title_wrap = 50,
                                  x_zero = FALSE,
                                  x_zero_line = NULL,
-                                 y_expand = NULL,
-                                 y_labels = scales::number,
+                                 y_expand = c(0, 0),
+                                 y_labels = NULL,
+                                 y_label_digits = NULL,
                                  y_pretty_n = 4,
                                  y_title = NULL,
                                  y_title_wrap = 50,
@@ -830,8 +847,6 @@ gg_density_col_facet <- function(data,
     }
   }
   
-  if (is.null(y_expand)) y_expand <- c(0, 0)
-  
   if (facet_scales %in% c("fixed", "free_x")) {
     
     if(rlang::as_name(col_var) == rlang::as_name(facet_var)) {
@@ -844,6 +859,11 @@ gg_density_col_facet <- function(data,
     # if (position == "stack") y_var_vctr <- c(0, sv_density_max_col_facet_stack(data, !!x_var, !!col_var, !!facet_var))
     # if (position == "fill") y_var_vctr <- c(0, 1)
     
+    if (is.null(y_labels)) {
+      if (is.null(y_label_digits)) y_labels <- scales::number
+      else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+    }
+
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))

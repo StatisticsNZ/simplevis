@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.9</span>
       </span>
     </div>
 
@@ -190,8 +190,9 @@
   <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>comma</a></span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -334,6 +335,10 @@
     <tr>
       <th>y_labels</th>
       <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+    </tr>
+    <tr>
+      <th>y_label_digits</th>
+      <td><p>The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.</p></td>
     </tr>
     <tr>
       <th>y_pretty_n</th>

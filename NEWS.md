@@ -1,3 +1,7 @@
+# simplevis 5.0.9
+
+* Added x and y label digits arguments where numeric.
+
 # simplevis 5.0.8
 
 * Updated app reactive theme name to avoid namespace collisions.

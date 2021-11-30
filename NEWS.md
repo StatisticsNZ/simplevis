@@ -1,3 +1,7 @@
+# simplevis 5.0.10
+
+* Updated point to remove digit arguments and tidy code.
+ 
 # simplevis 5.0.9
 
 * Added x and y label digits arguments where numeric.

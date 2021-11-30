@@ -56,7 +56,7 @@ gg_point_col(
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
+\item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
 

@@ -1,7 +1,7 @@
 #' @title Point ggplot.
 #' @description Point ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
@@ -135,11 +135,7 @@ gg_point <- function(data,
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
   
   #x scale
-  if (is.numeric(x_var_vctr) | 
-      lubridate::is.Date(x_var_vctr) | 
-      lubridate::is.POSIXt(x_var_vctr) | 
-      lubridate::is.POSIXct(x_var_vctr) | 
-      lubridate::is.POSIXlt(x_var_vctr)) {
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
     
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
@@ -150,7 +146,7 @@ gg_point <- function(data,
     
     if (is.null(x_labels)) {
       if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
-      else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date_short()
+      else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
     
@@ -173,7 +169,7 @@ gg_point <- function(data,
     plot <- plot +
       scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
-  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+  else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
       scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
@@ -236,7 +232,7 @@ gg_point <- function(data,
 #' @title Point ggplot that is coloured.
 #' @description Point ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -465,11 +461,7 @@ gg_point_col <- function(data,
     geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point, alpha = alpha, position = position)
   
   #x scale
-  if (is.numeric(x_var_vctr) | 
-      lubridate::is.Date(x_var_vctr) | 
-      lubridate::is.POSIXt(x_var_vctr) | 
-      lubridate::is.POSIXct(x_var_vctr) | 
-      lubridate::is.POSIXlt(x_var_vctr)) {
+  if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
     
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
@@ -480,7 +472,7 @@ gg_point_col <- function(data,
     
     if (is.null(x_labels)) {
       if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
-      else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date_short()
+      else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
     
@@ -503,7 +495,7 @@ gg_point_col <- function(data,
     plot <- plot +
       scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
-  else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+  else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
       scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
@@ -580,7 +572,7 @@ gg_point_col <- function(data,
 #' @title Point ggplot that is facetted.
 #' @description Point ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -740,11 +732,7 @@ gg_point_facet <- function(data,
 
   #x scale 
   if (facet_scales %in% c("fixed", "free_y")) {
-    if (is.numeric(x_var_vctr) | 
-        lubridate::is.Date(x_var_vctr) | 
-        lubridate::is.POSIXt(x_var_vctr) | 
-        lubridate::is.POSIXct(x_var_vctr) | 
-        lubridate::is.POSIXlt(x_var_vctr)) {
+    if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
       
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
@@ -755,7 +743,7 @@ gg_point_facet <- function(data,
       
       if (is.null(x_labels)) {
         if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
-        else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date_short()
+        else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
         else x_labels <- waiver()
       }
     }
@@ -773,7 +761,7 @@ gg_point_facet <- function(data,
       plot <- plot +
         scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
-    else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
         scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
@@ -831,7 +819,7 @@ gg_point_facet <- function(data,
 #' @title Point ggplot that is coloured and facetted.
 #' @description Point ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or dataframe. Required input.
-#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
+#' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -1085,11 +1073,7 @@ gg_point_col_facet <- function(data,
     
     #x scale 
     if (facet_scales %in% c("fixed", "free_y")) {
-      if (is.numeric(x_var_vctr) | 
-          lubridate::is.Date(x_var_vctr) | 
-          lubridate::is.POSIXt(x_var_vctr) | 
-          lubridate::is.POSIXct(x_var_vctr) | 
-          lubridate::is.POSIXlt(x_var_vctr)) {
+      if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
         
         x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
         x_zero <- x_zero_list[[1]]
@@ -1100,7 +1084,7 @@ gg_point_col_facet <- function(data,
         
         if (is.null(x_labels)) {
           if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
-          else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date_short()
+          else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
           else x_labels <- waiver()
         }
       }
@@ -1118,7 +1102,7 @@ gg_point_col_facet <- function(data,
         plot <- plot +
           scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       }
-      else if (lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+      else if (lubridate::is.POSIXt(x_var_vctr)) {
         plot <- plot +
           scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       }

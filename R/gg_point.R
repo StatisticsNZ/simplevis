@@ -89,6 +89,10 @@ gg_point <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   text_var <- rlang::enquo(text_var)
   
+  #na's
+  data <- data %>% 
+    dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
+  
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -345,11 +349,14 @@ gg_point_col <- function(data,
   text_var <- rlang::enquo(text_var)
   
   #na's
+  data <- data %>% 
+    dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
+  
   if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-  
+
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -674,6 +681,9 @@ gg_point_facet <- function(data,
   text_var <- rlang::enquo(text_var)
   
   #na's
+  data <- data %>% 
+    dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
+  
   if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
@@ -946,6 +956,9 @@ gg_point_col_facet <- function(data,
     text_var <- rlang::enquo(text_var)
     
     #na's
+    data <- data %>% 
+      dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
+    
     if (col_na_rm == TRUE) {
       data <- data %>% 
         dplyr::filter(!is.na(!!col_var))

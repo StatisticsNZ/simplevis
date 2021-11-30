@@ -230,6 +230,51 @@ Opening and closing parentheses in two variants. Default:
 
     <p>kimisc package https://github.com/krlmlr/kimisc</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
+<span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span>(<span class='no'>flipper_length_mm</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(
+    <span class='kw'>flipper_length_mm2</span> <span class='kw'>=</span> <span class='kw pkg'>simplevis</span><span class='kw ns'>:::</span><span class='fu'>cut_format</span>(
+      <span class='no'>flipper_length_mm</span>,
+      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>150</span>, <span class='fl'>175</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>),
+      <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+      <span class='kw'>include.lowest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+      <span class='kw'>dig.lab</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+      <span class='kw'>ordered_result</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    )
+  ) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(
+    <span class='kw'>flipper_length_mm3</span> <span class='kw'>=</span> <span class='kw pkg'>simplevis</span><span class='kw ns'>:::</span><span class='fu'>cut_format</span>(
+      <span class='no'>flipper_length_mm</span>,
+      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>150</span>, <span class='fl'>175</span>, <span class='fl'>200</span>, <span class='fl'>Inf</span>),
+      <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+      <span class='kw'>include.lowest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+      <span class='kw'>dig.lab</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+      <span class='kw'>ordered_result</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+      <span class='kw'>format_fun</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_dollar.html'>label_dollar</a></span>(<span class='kw'>accuracy</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+    )
+  )</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 344 × 3</span>
+#&gt;    flipper_length_mm flipper_length_mm2 flipper_length_mm3
+#&gt;                <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>             
+#&gt; <span style='color: #BCBCBC;'> 1</span>               181 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 2</span>               186 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 3</span>               195 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 4</span>                <span style='color: #BB0000;'>NA</span> <span style='color: #BB0000;'>NA</span>                 <span style='color: #BB0000;'>NA</span>                
+#&gt; <span style='color: #BCBCBC;'> 5</span>               193 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 6</span>               190 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 7</span>               181 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 8</span>               195 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'> 9</span>               193 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #BCBCBC;'>10</span>               190 (175, 200]         ($175.0, $200.0]  
+#&gt; <span style='color: #949494;'># … with 334 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

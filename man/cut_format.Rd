@@ -49,6 +49,35 @@ Opening and closing parentheses in two variants. Default:
 This is an enhanced version of [base::cut()] that allows a custom
 formatting to be applied to the values.
 }
+\examples{
+library(simplevis)
+library(palmerpenguins)
+library(dplyr)
+
+penguins \%>\%
+  select(flipper_length_mm) \%>\%
+  mutate(
+    flipper_length_mm2 = simplevis:::cut_format(
+      flipper_length_mm,
+      c(0, 150, 175, 200, Inf),
+      right = TRUE,
+      include.lowest = TRUE,
+      dig.lab = 50,
+      ordered_result = TRUE
+    )
+  ) \%>\%
+  mutate(
+    flipper_length_mm3 = simplevis:::cut_format(
+      flipper_length_mm,
+      c(0, 150, 175, 200, Inf),
+      right = TRUE,
+      include.lowest = TRUE,
+      dig.lab = 50,
+      ordered_result = TRUE,
+      format_fun = scales::label_dollar(accuracy = 0.1)
+    )
+  )
+}
 \references{
 kimisc package https://github.com/krlmlr/kimisc
 }

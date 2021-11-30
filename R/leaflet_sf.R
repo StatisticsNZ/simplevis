@@ -275,22 +275,6 @@ leaflet_sf_col <- function(data,
         if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       }
-      
-      if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
-      else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
-      if (pal_rev == TRUE) pal <- rev(pal)
-      pal <- stringr::str_sub(pal, 1, 7)
-      
-      pal_fun <- colorBin(
-        palette = pal,
-        domain = col_var_vctr,
-        bins = col_cuts,
-        pretty = FALSE,
-        right = col_right_closed,
-        na.color = pal_na
-      )
-      
-      if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_right_closed)
     }
     else if (col_method == "quantile") {
       if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -298,14 +282,15 @@ leaflet_sf_col <- function(data,
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
       }  
-      if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
-      else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
-      if (pal_rev == TRUE) pal <- rev(pal)
-      pal <- stringr::str_sub(pal, 1, 7)
       
       col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     }
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+    
+    if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
+    else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
+    if (pal_rev == TRUE) pal <- rev(pal)
+    pal <- stringr::str_sub(pal, 1, 7)
     
     pal_fun <- colorBin(
       palette = pal,

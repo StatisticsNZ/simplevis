@@ -19,7 +19,6 @@ gg_point_col(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
-  x_label_digits = NULL,
   x_pretty_n = 6,
   x_rev = FALSE,
   x_trans = "identity",
@@ -27,8 +26,7 @@ gg_point_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = NULL,
-  y_label_digits = NULL,
+  y_labels = scales::label_comma(),
   y_pretty_n = 5,
   y_trans = "identity",
   y_zero = FALSE,
@@ -40,7 +38,6 @@ gg_point_col(
   col_title = NULL,
   caption = NULL,
   col_cuts = NULL,
-  col_label_digits = NULL,
   col_labels = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
@@ -85,8 +82,6 @@ gg_point_col(
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_label_digits}{The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.}
-
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
@@ -102,8 +97,6 @@ gg_point_col(
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -126,8 +119,6 @@ gg_point_col(
 \item{caption}{Caption title string.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_label_digits}{If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 

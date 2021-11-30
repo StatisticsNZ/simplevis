@@ -19,6 +19,34 @@
 #' @keywords internal
 #' @importFrom utils head tail
 #' @references kimisc package https://github.com/krlmlr/kimisc
+#' @examples 
+#' library(simplevis)
+#' library(palmerpenguins)
+#' library(dplyr)
+#' 
+#' penguins %>%
+#'   select(flipper_length_mm) %>%
+#'   mutate(
+#'     flipper_length_mm2 = simplevis:::cut_format(
+#'       flipper_length_mm,
+#'       c(0, 150, 175, 200, Inf),
+#'       right = TRUE,
+#'       include.lowest = TRUE,
+#'       dig.lab = 50,
+#'       ordered_result = TRUE
+#'     )
+#'   ) %>%
+#'   mutate(
+#'     flipper_length_mm3 = simplevis:::cut_format(
+#'       flipper_length_mm,
+#'       c(0, 150, 175, 200, Inf),
+#'       right = TRUE,
+#'       include.lowest = TRUE,
+#'       dig.lab = 50,
+#'       ordered_result = TRUE,
+#'       format_fun = scales::label_dollar(accuracy = 0.1)
+#'     )
+#'   )
 cut_format <- function(x, breaks, include.lowest = FALSE, right = TRUE,
                        ordered_result = FALSE, ...,
                        format_fun = format, sep = ", ",

@@ -13,7 +13,7 @@ gg_point_facet(
   position = "identity",
   alpha = 1,
   size_point = 1,
-  pal = NULL,
+  pal = pal_viridis_reorder(1),
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -21,7 +21,6 @@ gg_point_facet(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
-  x_label_digits = NULL,
   x_pretty_n = 3,
   x_rev = FALSE,
   x_title = NULL,
@@ -31,15 +30,14 @@ gg_point_facet(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = NULL,
-  y_label_digits = NULL,
+  y_labels = scales::label_comma(),
   y_pretty_n = 4,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = function(x) stringr::str_to_sentence(x),
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -82,8 +80,6 @@ gg_point_facet(
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_label_digits}{The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.}
-
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
@@ -103,8 +99,6 @@ gg_point_facet(
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 

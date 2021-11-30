@@ -563,7 +563,7 @@ gg_point_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       )  +
       guides(col = guide_legend(ncol = 1)) +
-      theme_mobile_extra()
+      theme_mobile_extra() #extra mobile theme components
   }
   
   return(plot)

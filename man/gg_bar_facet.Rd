@@ -39,7 +39,7 @@ gg_bar_facet(
   y_trans = "identity",
   y_zero = TRUE,
   y_zero_line = NULL,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,

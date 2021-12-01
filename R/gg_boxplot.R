@@ -241,7 +241,7 @@ gg_boxplot <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+    if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -346,7 +346,7 @@ gg_boxplot <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -412,7 +412,7 @@ gg_boxplot_col <- function(data,
                            y_trans = "identity",
                            y_zero = FALSE,
                            y_zero_line = NULL,
-                           col_labels = stringr::str_to_sentence,
+                           col_labels = snakecase::to_sentence_case,
                            col_na_rm = FALSE,
                            col_title = NULL,
                            col_title_wrap = 25,
@@ -582,7 +582,7 @@ gg_boxplot_col <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+    if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -753,7 +753,7 @@ gg_boxplot_facet <- function(data,
                              y_trans = "identity",
                              y_zero = FALSE,
                              y_zero_line = NULL,
-                             facet_labels = stringr::str_to_sentence,
+                             facet_labels = snakecase::to_sentence_case,
                              facet_na_rm = FALSE,
                              facet_ncol = NULL,
                              facet_nrow = NULL,
@@ -911,7 +911,7 @@ gg_boxplot_facet <- function(data,
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
         if(is.null(x_expand)) x_expand <- waiver()
-        if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+        if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
         
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -1012,7 +1012,7 @@ gg_boxplot_facet <- function(data,
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_labels A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -1089,11 +1089,11 @@ gg_boxplot_col_facet <- function(data,
                                  y_trans = "identity",
                                  y_zero = FALSE,
                                  y_zero_line = NULL,
-                                 col_labels = stringr::str_to_sentence,
+                                 col_labels = snakecase::to_sentence_case,
                                  col_na_rm = FALSE,
                                  col_title = NULL,
                                  col_title_wrap = 25,
-                                 facet_labels = stringr::str_to_sentence,
+                                 facet_labels = snakecase::to_sentence_case,
                                  facet_na_rm = FALSE,
                                  facet_ncol = NULL,
                                  facet_nrow = NULL,
@@ -1271,7 +1271,7 @@ gg_boxplot_col_facet <- function(data,
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
-      if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+      if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)

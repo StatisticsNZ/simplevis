@@ -40,7 +40,7 @@ gg_line_col(
   y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
-  col_labels = stringr::str_to_sentence,
+  col_labels = snakecase::to_sentence_case,
   col_na_rm = FALSE,
   col_title = NULL,
   col_title_wrap = 25,

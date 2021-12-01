@@ -192,7 +192,7 @@ gg_line <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+    if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -354,7 +354,7 @@ gg_line_col <- function(data,
                         y_trans = "identity",
                         y_zero = FALSE,
                         y_zero_line = NULL,
-                        col_labels = stringr::str_to_sentence,
+                        col_labels = snakecase::to_sentence_case,
                         col_na_rm = FALSE,
                         col_title = NULL,
                         col_title_wrap = 25,
@@ -489,7 +489,7 @@ gg_line_col <- function(data,
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+    if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -659,7 +659,7 @@ gg_line_facet <- function(data,
                           y_trans = "identity",
                           y_zero = FALSE,
                           y_zero_line = NULL,
-                          facet_labels = stringr::str_to_sentence,
+                          facet_labels = snakecase::to_sentence_case,
                           facet_na_rm = FALSE,
                           facet_ncol = NULL,
                           facet_nrow = NULL,
@@ -779,7 +779,7 @@ gg_line_facet <- function(data,
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
-      if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+      if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -946,11 +946,11 @@ gg_line_col_facet <- function(data,
                               y_title_wrap = 50,
                               y_zero = FALSE,
                               y_zero_line = NULL,
-                              col_labels = stringr::str_to_sentence,
+                              col_labels = snakecase::to_sentence_case,
                               col_na_rm = FALSE,
                               col_title = NULL,
                               col_title_wrap = 25,
-                              facet_labels = stringr::str_to_sentence,
+                              facet_labels = snakecase::to_sentence_case,
                               facet_na_rm = FALSE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
@@ -1095,7 +1095,7 @@ gg_line_col_facet <- function(data,
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
       if(is.null(x_expand)) x_expand <- waiver()
-      if(is.null(x_labels)) x_labels <- stringr::str_to_sentence
+      if(is.null(x_labels)) x_labels <- snakecase::to_sentence_case
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)

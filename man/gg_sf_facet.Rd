@@ -12,7 +12,7 @@ gg_sf_facet(
   size_line = 0.5,
   alpha = NULL,
   pal = NULL,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,

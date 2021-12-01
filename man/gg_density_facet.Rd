@@ -34,7 +34,7 @@ gg_density_facet(
   y_pretty_n = 4,
   y_title = NULL,
   y_title_wrap = 50,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,

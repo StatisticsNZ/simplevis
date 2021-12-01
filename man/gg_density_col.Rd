@@ -36,7 +36,7 @@ gg_density_col(
   y_pretty_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
-  col_labels = stringr::str_to_sentence,
+  col_labels = snakecase::to_sentence_case,
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,

@@ -39,7 +39,7 @@ gg_hbar_facet(
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,

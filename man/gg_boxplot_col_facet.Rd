@@ -42,11 +42,11 @@ gg_boxplot_col_facet(
   y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
-  col_labels = stringr::str_to_sentence,
+  col_labels = snakecase::to_sentence_case,
   col_na_rm = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -131,7 +131,7 @@ gg_boxplot_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

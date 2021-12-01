@@ -25,13 +25,13 @@ gg_tile_col_facet(
   subtitle = NULL,
   subtitle_wrap = 75,
   x_expand = c(0, 0),
-  x_labels = stringr::str_to_sentence,
+  x_labels = snakecase::to_sentence_case,
   x_na_rm = FALSE,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
   y_expand = c(0, 0),
-  y_labels = stringr::str_to_sentence,
+  y_labels = snakecase::to_sentence_case,
   y_na_rm = FALSE,
   y_rev = FALSE,
   y_title = NULL,
@@ -45,7 +45,7 @@ gg_tile_col_facet(
   col_right_closed = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
-  facet_labels = stringr::str_to_sentence,
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -122,7 +122,7 @@ gg_tile_col_facet(
 
 \item{col_label_digits}{If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

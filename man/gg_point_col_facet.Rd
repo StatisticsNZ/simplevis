@@ -48,7 +48,7 @@ gg_point_col_facet(
   col_right_closed = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
-  facet_labels = function(x) stringr::str_to_sentence(x),
+  facet_labels = function(x) snakecase::to_sentence_case(x),
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -131,7 +131,7 @@ gg_point_col_facet(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

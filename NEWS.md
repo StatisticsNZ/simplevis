@@ -1,3 +1,7 @@
+# simplevis 5.0.11
+
+* Updated title and categorical label default transformations to use snakecase::to_sentence_case.
+
 # simplevis 5.0.10
 
 * Updated point to remove digit arguments and tidy code.

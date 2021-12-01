@@ -32,7 +32,7 @@ gg_boxplot_facet(
   y_balance = FALSE,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
-  y_label_digits = NULL,
+  y_na_rm = FALSE,
   y_pretty_n = 4,
   y_title = NULL,
   y_title_wrap = 50,
@@ -104,7 +104,7 @@ gg_boxplot_facet(
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
+\item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 

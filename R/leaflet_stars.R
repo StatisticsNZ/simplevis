@@ -130,7 +130,7 @@ leaflet_stars_col <- function(data,
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
 
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -144,7 +144,7 @@ leaflet_stars_col <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_pretty_n)
       else if (!is.null(col_cuts)) {
@@ -169,7 +169,7 @@ leaflet_stars_col <- function(data,
       if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_right_closed)
     }
     else if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -252,7 +252,7 @@ leaflet_stars_col <- function(data,
       )
   }
   
-  if(col_na_rm == FALSE) {
+  if (col_na_rm == FALSE) {
     if(any(is.na(col_var_vctr))) {
       pal <- c(pal, pal_na)
       col_labels <- c(col_labels, "NA")

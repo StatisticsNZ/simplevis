@@ -125,7 +125,7 @@ gg_point <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  #colours
+  #colour
   pal <- pal[1]
   
   #fundamentals
@@ -149,33 +149,33 @@ gg_point <- function(data,
       else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
-    
-    if(mobile == TRUE) {
-      x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-    }
   }
   
   if (is.numeric(x_var_vctr)) {
-    plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::squish)
+    if (mobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
+    }
     
-    if(x_zero_line == TRUE) {
+    plot <- plot +
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::oob_squish)
+
+    if (x_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+    if (is.null(x_expand)) x_expand <- waiver()
+    if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
 
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -195,15 +195,15 @@ gg_point <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::rescale_none)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
   })
   
-  if(y_zero_line == TRUE) {
+  if (y_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #title wrapping 
+  #titles 
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -393,15 +393,15 @@ gg_point_col <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  #colours
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -449,7 +449,7 @@ gg_point_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -475,33 +475,33 @@ gg_point_col <- function(data,
       else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
-    
-    if(mobile == TRUE) {
-      x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-    }
   }
   
   if (is.numeric(x_var_vctr)) {
-    plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::squish)
+    if (mobile == TRUE) {
+      x_breaks <- x_limits
+      if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
+    }
     
-    if(x_zero_line == TRUE) {
+    plot <- plot +
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::oob_squish)
+    
+    if (x_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-    if(is.null(x_expand)) x_expand <- waiver()
-    if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+    if (is.null(x_expand)) x_expand <- waiver()
+    if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
     
     plot <- plot +
       scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -521,15 +521,15 @@ gg_point_col <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::rescale_none)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
   })
   
-  if(y_zero_line == TRUE) {
+  if (y_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
 
-  #colours
+  #colour
   if (mobile == TRUE) col_title_wrap <- 20
 
   plot <- plot +
@@ -541,7 +541,7 @@ gg_point_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
-  #title wrapping
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -654,7 +654,7 @@ gg_point_facet <- function(data,
                            y_trans = "identity",
                            y_zero = FALSE,
                            y_zero_line = NULL,
-                           facet_labels = function(x) snakecase::to_sentence_case(x),
+                           facet_labels = snakecase::to_sentence_case,
                            facet_na_rm = FALSE,
                            facet_ncol = NULL,
                            facet_nrow = NULL,
@@ -691,13 +691,13 @@ gg_point_facet <- function(data,
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
   
   #logical to factor
-  if(is.logical(x_var_vctr)) {
+  if (is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  if(is.logical(facet_var_vctr)) {
+  if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -721,7 +721,7 @@ gg_point_facet <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  #colours
+  #colour
   pal <- pal[1]
   
   #fundamentals
@@ -750,24 +750,24 @@ gg_point_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::oob_squish)
       
-      if(x_zero_line == TRUE) {
+      if (x_zero_line == TRUE) {
         plot <- plot +
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
     }
     else if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     }
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     }
     else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-      if(is.null(x_expand)) x_expand <- waiver()
-      if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+      if (is.null(x_expand)) x_expand <- waiver()
+      if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
       
       plot <- plot +
         scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -776,7 +776,7 @@ gg_point_facet <- function(data,
   
   #y scale
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-  if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+  if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
   if (facet_scales %in% c("fixed", "free_x")) {
@@ -789,20 +789,20 @@ gg_point_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::rescale_none)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::rescale_none)
+      scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
   }
   
-  if(y_zero_line == TRUE) {
+  if (y_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #title wrapping & facetting
+  #titles & facetting
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -924,7 +924,7 @@ gg_point_col_facet <- function(data,
                                col_right_closed = TRUE,
                                col_title = NULL,
                                col_title_wrap = 25,
-                               facet_labels = function(x) snakecase::to_sentence_case(x),
+                               facet_labels = snakecase::to_sentence_case,
                                facet_na_rm = FALSE,
                                facet_ncol = NULL,
                                facet_nrow = NULL,
@@ -967,19 +967,19 @@ gg_point_col_facet <- function(data,
     if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a point plot")
     
     #logical to factor
-    if(is.logical(x_var_vctr)) {
+    if (is.logical(x_var_vctr)) {
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
       
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    if(is.logical(col_var_vctr)) {
+    if (is.logical(col_var_vctr)) {
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
       
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    if(is.logical(facet_var_vctr)) {
+    if (is.logical(facet_var_vctr)) {
       data <- data %>% 
         dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
       
@@ -1004,15 +1004,15 @@ gg_point_col_facet <- function(data,
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
     
-    #colours
+    #colour
     if (is.null(col_method)) {
       if (!is.numeric(col_var_vctr)) col_method <- "category"
       else if (is.numeric(col_var_vctr)) col_method <- "bin"
     }
     
-    if(col_method %in% c("quantile", "bin")) {
+    if (col_method %in% c("quantile", "bin")) {
       if (col_method == "quantile") {
-        if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
         else {
           if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
           if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -1060,7 +1060,7 @@ gg_point_col_facet <- function(data,
       if (is.null(pal)) pal <- pal_d3_reorder(col_n)
       else pal <- pal[1:col_n]
       
-      if(is.null(col_labels)) col_labels <- function(x) snakecase::to_sentence_case(x)
+      if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
     }
     
     if (pal_rev == TRUE) pal <- rev(pal)
@@ -1091,24 +1091,24 @@ gg_point_col_facet <- function(data,
       
       if (is.numeric(x_var_vctr)) {
         plot <- plot +
-          scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::squish)
+          scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = x_trans, oob = scales::oob_squish)
         
-        if(x_zero_line == TRUE) {
+        if (x_zero_line == TRUE) {
           plot <- plot +
             geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
         }
       }
       else if (lubridate::is.Date(x_var_vctr)) {
         plot <- plot +
-          scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+          scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
       }
       else if (lubridate::is.POSIXt(x_var_vctr)) {
         plot <- plot +
-          scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+          scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
       }
       else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-        if(is.null(x_expand)) x_expand <- waiver()
-        if(is.null(x_labels)) x_labels <- function(x) snakecase::to_sentence_case(x)
+        if (is.null(x_expand)) x_expand <- waiver()
+        if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
         
         plot <- plot +
           scale_x_discrete(expand = x_expand, labels = x_labels)
@@ -1117,7 +1117,7 @@ gg_point_col_facet <- function(data,
     
     #y scale
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
-    if(facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
+    if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     
     if (facet_scales %in% c("fixed", "free_x")) {
@@ -1130,20 +1130,20 @@ gg_point_col_facet <- function(data,
         y_limits <- c(min(y_breaks), max(y_breaks))
         
         plot <- plot +
-          scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::rescale_none)
+          scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
       })
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::rescale_none)
+        scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
     }
     
-    if(y_zero_line == TRUE) {
+    if (y_zero_line == TRUE) {
       plot <- plot +
         geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
     }
     
-    #colours, title wrapping & facetting
+    #colour, titles & facetting
     plot <- plot +
       scale_colour_manual(
         values = pal,

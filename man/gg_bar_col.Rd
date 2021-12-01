@@ -35,7 +35,7 @@ gg_bar_col(
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_label_digits = NULL,
-  y_na = TRUE,
+  y_na_rm = FALSE,
   y_pretty_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
@@ -119,7 +119,7 @@ gg_bar_col(
 
 \item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
 
-\item{y_na}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
+\item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_pretty_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 

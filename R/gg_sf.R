@@ -91,19 +91,19 @@ gg_sf <- function(data,
   else pal <- pal[1]
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(aes(text = !!text_var), size = size_point, col = pal, alpha = alpha)
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(aes(text = !!text_var), size = size_line, col = pal, alpha = alpha)
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if(is.null(alpha)) alpha <- 0.5
+    if (is.null(alpha)) alpha <- 0.5
     
     plot <- plot +
       geom_sf(aes(text = !!text_var), 
@@ -250,7 +250,7 @@ gg_sf_col <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -296,9 +296,9 @@ gg_sf_col <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -355,13 +355,13 @@ gg_sf_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
 
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf( 
@@ -372,7 +372,7 @@ gg_sf_col <- function(data,
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf( 
@@ -383,7 +383,7 @@ gg_sf_col <- function(data,
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if(is.null(alpha)) alpha <- 0.95
+    if (is.null(alpha)) alpha <- 0.95
     
     plot <- plot +
       geom_sf( 
@@ -528,7 +528,7 @@ gg_sf_facet <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
-  if(is.logical(facet_var_vctr)) {
+  if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -571,7 +571,7 @@ gg_sf_facet <- function(data,
   else pal <- pal[1]
 
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(
@@ -583,7 +583,7 @@ gg_sf_facet <- function(data,
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(
@@ -595,7 +595,7 @@ gg_sf_facet <- function(data,
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if(is.null(alpha)) alpha <- 0.5
+    if (is.null(alpha)) alpha <- 0.5
     
     plot <- plot +
       geom_sf(
@@ -738,13 +738,13 @@ gg_sf_col_facet <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
-  if(is.logical(facet_var_vctr)) {
+  if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -790,9 +790,9 @@ gg_sf_col_facet <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -849,13 +849,13 @@ gg_sf_col_facet <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf(
@@ -866,7 +866,7 @@ gg_sf_col_facet <- function(data,
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if(is.null(alpha)) alpha <- 1
+    if (is.null(alpha)) alpha <- 1
     
     plot <- plot +
       geom_sf( 
@@ -877,7 +877,7 @@ gg_sf_col_facet <- function(data,
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if(is.null(alpha)) alpha <- 0.95
+    if (is.null(alpha)) alpha <- 0.95
     
     plot <- plot +
       geom_sf(

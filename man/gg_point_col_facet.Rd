@@ -48,7 +48,7 @@ gg_point_col_facet(
   col_right_closed = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
-  facet_labels = function(x) snakecase::to_sentence_case(x),
+  facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,

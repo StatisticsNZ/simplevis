@@ -112,7 +112,7 @@ gg_hbar <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   
-  if(is.logical(y_var_vctr)) {
+  if (is.logical(y_var_vctr)) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!y_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
 
@@ -124,7 +124,7 @@ gg_hbar <- function(data,
 
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
     if (y_reorder == FALSE) {
-      if(y_rev == FALSE) {
+      if (y_rev == FALSE) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       } 
@@ -144,7 +144,7 @@ gg_hbar <- function(data,
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
-  if(is.null(width)) {
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       width <- NULL
     } else width <- 0.75
@@ -167,8 +167,8 @@ gg_hbar <- function(data,
     
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
     y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    if(is.null(y_labels)) y_labels <- waiver()
+    if (is.null(y_expand)) y_expand <- c(0, 0)
+    if (is.null(y_labels)) y_labels <- waiver()
 
     if(mobile == TRUE) {
       y_breaks <- y_limits
@@ -184,7 +184,7 @@ gg_hbar <- function(data,
                       labels = y_labels,
                       oob = scales::squish)
     
-    if(y_zero_line == TRUE) {
+    if (y_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -208,8 +208,8 @@ gg_hbar <- function(data,
       )
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-    if(is.null(y_expand)) y_expand <- waiver()
-    if(is.null(y_labels)) y_labels <- snakecase::to_sentence_case
+    if (is.null(y_expand)) y_expand <- waiver()
+    if (is.null(y_labels)) y_labels <- snakecase::to_sentence_case
     
       plot <- plot +
         coord_flip() +
@@ -244,7 +244,7 @@ gg_hbar <- function(data,
       )
   })
   
-  if(x_zero_line == TRUE) {
+  if (x_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -429,13 +429,13 @@ gg_hbar_col <- function(data,
   
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
 
-  if(is.logical(y_var_vctr)) {
+  if (is.logical(y_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
@@ -467,7 +467,7 @@ gg_hbar_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
-  if(is.null(width)) {
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       width <- NULL
     } else width <- 0.75
@@ -482,9 +482,9 @@ gg_hbar_col <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -541,7 +541,7 @@ gg_hbar_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -586,8 +586,8 @@ gg_hbar_col <- function(data,
     
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
     y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-    if(is.null(y_expand)) y_expand <- c(0, 0)
-    if(is.null(y_labels)) y_labels <- waiver()
+    if (is.null(y_expand)) y_expand <- c(0, 0)
+    if (is.null(y_labels)) y_labels <- waiver()
     
     if(mobile == TRUE) {
       y_breaks <- y_limits
@@ -603,7 +603,7 @@ gg_hbar_col <- function(data,
                       labels = y_labels,
                       oob = scales::squish)
     
-    if(y_zero_line == TRUE) {
+    if (y_zero_line == TRUE) {
       plot <- plot +
         geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
@@ -627,8 +627,8 @@ gg_hbar_col <- function(data,
       )
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-    if(is.null(y_expand)) y_expand <- waiver()
-    if(is.null(y_labels)) y_labels <- snakecase::to_sentence_case
+    if (is.null(y_expand)) y_expand <- waiver()
+    if (is.null(y_labels)) y_labels <- snakecase::to_sentence_case
     
     plot <- plot +
       coord_flip() +
@@ -663,7 +663,7 @@ gg_hbar_col <- function(data,
       )
   })
   
-  if(x_zero_line == TRUE) {
+  if (x_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -845,13 +845,13 @@ gg_hbar_facet <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
   
-  if(is.logical(y_var_vctr)) {
+  if (is.logical(y_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  if(is.logical(facet_var_vctr)) {
+  if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
@@ -873,7 +873,7 @@ gg_hbar_facet <- function(data,
   if (is.null(pal)) pal <- pal_viridis_reorder(1)
   else pal <- pal[1]
   
-  if(is.null(width)) {
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       width <- NULL
     } else width <- 0.75
@@ -892,8 +892,8 @@ gg_hbar_facet <- function(data,
       
       y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
       y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-      if(is.null(y_expand)) y_expand <- c(0, 0)
-      if(is.null(y_labels)) y_labels <- waiver()
+      if (is.null(y_expand)) y_expand <- c(0, 0)
+      if (is.null(y_labels)) y_labels <- waiver()
     }
     
     if (is.numeric(y_var_vctr)) {
@@ -904,7 +904,7 @@ gg_hbar_facet <- function(data,
                         labels = y_labels,
                         oob = scales::squish)
       
-      if(y_zero_line == TRUE) {
+      if (y_zero_line == TRUE) {
         plot <- plot +
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
@@ -928,8 +928,8 @@ gg_hbar_facet <- function(data,
         )
     }
     else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-      if(is.null(y_expand)) y_expand <- waiver()
-      if(is.null(y_labels)) y_labels <- snakecase::to_sentence_case
+      if (is.null(y_expand)) y_expand <- waiver()
+      if (is.null(y_labels)) y_labels <- snakecase::to_sentence_case
       
       plot <- plot +
         coord_flip() +
@@ -938,7 +938,7 @@ gg_hbar_facet <- function(data,
   }
   
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-  if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+  if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
   if (is.null(x_labels)) {
@@ -974,12 +974,12 @@ gg_hbar_facet <- function(data,
                          oob = scales::squish)
   }
   
-  if(facet_scales %in% c("free_y", "free")) {
+  if (facet_scales %in% c("free_y", "free")) {
     plot <- plot +
       coord_flip()
   }
   
-  if(x_zero_line == TRUE) {
+  if (x_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
@@ -1163,19 +1163,19 @@ gg_hbar_col_facet <- function(data,
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal bar plot")
   
-  if(is.logical(y_var_vctr)) {
+  if (is.logical(y_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!y_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
-  if(is.logical(facet_var_vctr)) {
+  if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(., levels = c("TRUE", "FALSE"))))
     
@@ -1207,7 +1207,7 @@ gg_hbar_col_facet <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
-  if(is.null(width)) {
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
       width <- NULL
     } else width <- 0.75
@@ -1218,9 +1218,9 @@ gg_hbar_col_facet <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -1277,7 +1277,7 @@ gg_hbar_col_facet <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -1319,8 +1319,8 @@ gg_hbar_col_facet <- function(data,
       
       y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, pretty_n = y_pretty_n, trans = "identity", zero = y_zero)
       y_limits <- c(min(y_var_vctr), max(y_var_vctr))
-      if(is.null(y_expand)) y_expand <- c(0, 0)
-      if(is.null(y_labels)) y_labels <- waiver()
+      if (is.null(y_expand)) y_expand <- c(0, 0)
+      if (is.null(y_labels)) y_labels <- waiver()
     }
     
     if (is.numeric(y_var_vctr)) {
@@ -1331,7 +1331,7 @@ gg_hbar_col_facet <- function(data,
                         labels = y_labels,
                         oob = scales::squish)
       
-      if(y_zero_line == TRUE) {
+      if (y_zero_line == TRUE) {
         plot <- plot +
           geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
       }
@@ -1355,8 +1355,8 @@ gg_hbar_col_facet <- function(data,
         )
     }
     else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
-      if(is.null(y_expand)) y_expand <- waiver()
-      if(is.null(y_labels)) y_labels <- snakecase::to_sentence_case
+      if (is.null(y_expand)) y_expand <- waiver()
+      if (is.null(y_labels)) y_labels <- snakecase::to_sentence_case
       
       plot <- plot +
         coord_flip() +
@@ -1365,7 +1365,7 @@ gg_hbar_col_facet <- function(data,
   }
   
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-  if(facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
+  if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
   if (is.null(x_labels)) {
@@ -1401,12 +1401,12 @@ gg_hbar_col_facet <- function(data,
                          oob = scales::squish)
   }
   
-  if(facet_scales %in% c("free_y", "free")) {
+  if (facet_scales %in% c("free_y", "free")) {
     plot <- plot +
       coord_flip()
   }
   
-  if(x_zero_line == TRUE) {
+  if (x_zero_line == TRUE) {
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }

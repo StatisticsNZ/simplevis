@@ -131,19 +131,19 @@ gg_tile_col <- function(data,
   if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a tile plot")
   if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a tile plot")
 
-  if(is.logical(x_var_vctr)) {
+  if (is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  if(is.logical(y_var_vctr)) {
+  if (is.logical(y_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!y_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -167,7 +167,7 @@ gg_tile_col <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
 
-  if(is.null(width)) {
+  if (is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
       width <- NULL
     } else width <- 1
@@ -183,9 +183,9 @@ gg_tile_col <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -242,7 +242,7 @@ gg_tile_col <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -463,25 +463,25 @@ gg_tile_col_facet <- function(data,
   if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a tile plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a tile plot")
   
-  if(is.logical(x_var_vctr)) {
+  if (is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  if(is.logical(y_var_vctr)) {
+  if (is.logical(y_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!y_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  if(is.logical(col_var_vctr)) {
+  if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
-  if(is.logical(facet_var_vctr)) {
+  if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
@@ -505,7 +505,7 @@ gg_tile_col_facet <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
-  if(is.null(width)) {
+  if (is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
       width <- NULL
     } else width <- 1
@@ -521,9 +521,9 @@ gg_tile_col_facet <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if(col_method %in% c("quantile", "bin")) {
+  if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if(is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -580,7 +580,7 @@ gg_tile_col_facet <- function(data,
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
     else pal <- pal[1:col_n]
     
-    if(is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)

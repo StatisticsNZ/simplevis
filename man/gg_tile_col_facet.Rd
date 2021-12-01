@@ -165,16 +165,14 @@ library(palmerpenguins)
 
 plot_data <- penguins \%>\% 
     group_by(species, sex, island) \%>\% 
-    summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) \%>\% 
-    mutate(label = glue::glue("{bill_length_mm} mm"))
+    summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1)) 
     
 gg_tile_col_facet(plot_data,
     x_var = sex,
     y_var = island,
     col_var = bill_length_mm,
     facet_var = species,
-    label_var = label, 
-    x_na_rm = FALSE, 
+    label_var = bill_length_mm, 
     pal_rev = TRUE)
     
 }

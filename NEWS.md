@@ -1,3 +1,7 @@
+# simplevis 5.0.12
+
+* Tidied point, bar and boxplot code. 
+
 # simplevis 5.0.11
 
 * Updated title and categorical label default transformations to use snakecase::to_sentence_case.

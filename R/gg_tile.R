@@ -52,14 +52,13 @@
 #' 
 #' plot_data <- penguins %>% 
 #'   group_by(species, sex) %>% 
-#'   summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) %>% 
-#'   mutate(label = glue::glue("{bill_length_mm} mm"))
+#'   summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1)) 
 #'   
 #' gg_tile_col(plot_data, 
 #'   x_var = sex, 
 #'   y_var = species, 
 #'   col_var = bill_length_mm, 
-#'   label_var = label) 
+#'   label_var = bill_length_mm) 
 #'             
 gg_tile_col <- function(data,
                        x_var,
@@ -370,16 +369,14 @@ gg_tile_col <- function(data,
 #' 
 #' plot_data <- penguins %>% 
 #'     group_by(species, sex, island) %>% 
-#'     summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0)) %>% 
-#'     mutate(label = glue::glue("{bill_length_mm} mm"))
+#'     summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1)) 
 #'     
 #' gg_tile_col_facet(plot_data,
 #'     x_var = sex,
 #'     y_var = island,
 #'     col_var = bill_length_mm,
 #'     facet_var = species,
-#'     label_var = label, 
-#'     x_na_rm = FALSE, 
+#'     label_var = bill_length_mm, 
 #'     pal_rev = TRUE)
 #'     
 gg_tile_col_facet <- function(data,

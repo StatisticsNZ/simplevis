@@ -32,7 +32,7 @@ gg_boxplot_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = NULL,
+  y_labels = scales::label_comma(),
   y_label_digits = NULL,
   y_pretty_n = 5,
   x_rev = FALSE,

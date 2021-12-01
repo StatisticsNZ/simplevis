@@ -32,7 +32,7 @@ gg_density_col_facet(
   x_zero = FALSE,
   x_zero_line = NULL,
   y_expand = c(0, 0),
-  y_labels = NULL,
+  y_labels = scales::label_number(),
   y_label_digits = NULL,
   y_pretty_n = 4,
   y_title = NULL,

@@ -23,7 +23,7 @@ gg_hbar_col(
   subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = c(0, 0),
-  x_labels = NULL,
+  x_labels = scales::label_comma(),
   x_label_digits = NULL,
   x_na_rm = FALSE,
   x_pretty_n = 5,

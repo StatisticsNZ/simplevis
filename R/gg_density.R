@@ -132,8 +132,8 @@ gg_density <- function(data,
   y_var_vctr <- c(0, sv_density_max(data, !!x_var))
   
   if (is.null(y_labels)) {
-    if (is.null(y_label_digits)) y_labels <- scales::number
-    else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+    if (is.null(y_label_digits)) y_labels <- scales::label_number()
+    else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
   }
 
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
@@ -377,8 +377,8 @@ gg_density_col <- function(data,
   # if (position == "fill") y_var_vctr <- c(0, 1)
   
   if (is.null(y_labels)) {
-    if (is.null(y_label_digits)) y_labels <- scales::number
-    else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+    if (is.null(y_label_digits)) y_labels <- scales::label_number()
+    else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
   }
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
@@ -598,8 +598,8 @@ gg_density_facet <- function(data,
     y_var_vctr <- c(0, sv_density_max_facet(data, !!x_var, !!facet_var))
     
     if (is.null(y_labels)) {
-      if (is.null(y_label_digits)) y_labels <- scales::number
-      else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+      if (is.null(y_label_digits)) y_labels <- scales::label_number()
+      else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
     }
     
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
@@ -860,8 +860,8 @@ gg_density_col_facet <- function(data,
     # if (position == "fill") y_var_vctr <- c(0, 1)
     
     if (is.null(y_labels)) {
-      if (is.null(y_label_digits)) y_labels <- scales::number
-      else y_labels <- scales::number_format(accuracy = 10 ^ -y_label_digits)
+      if (is.null(y_label_digits)) y_labels <- scales::label_number()
+      else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
     }
 
     if (all(y_var_vctr == 0, na.rm = TRUE)) {

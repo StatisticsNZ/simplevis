@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.10</span>
       </span>
     </div>
 
@@ -205,7 +205,7 @@
   <span class='kw'>col_right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>(<span class='no'>x</span>),
+  <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>(<span class='no'>x</span>),
   <span class='kw'>facet_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -224,7 +224,7 @@
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.</p></td>
+      <td><p>Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
@@ -292,7 +292,7 @@
     </tr>
     <tr>
       <th>x_labels</th>
-      <td><p>A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
+      <td><p>A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
     </tr>
     <tr>
       <th>x_pretty_n</th>
@@ -332,7 +332,7 @@
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+      <td><p>A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_pretty_n</th>
@@ -364,7 +364,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A function or named vector to modify colour scale labels. Defaults to stringr::str_to_sentence for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+      <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_method</th>
@@ -436,7 +436,7 @@
                    <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>bill_length_mm</span>,
                    <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
                    <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
-                   <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>species</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_point).</span></div><div class='img'><img src='gg_point_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+                   <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>species</span>)</div><div class='img'><img src='gg_point_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

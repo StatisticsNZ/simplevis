@@ -147,8 +147,7 @@ gg_point_col(penguins,
              y_var = body_mass_g, 
              col_var = flipper_length_mm, 
              col_method = "bin",
-             col_pretty_n = 10,
-             col_label_digits = 0)
+             col_pretty_n = 10)
 ```
 
 

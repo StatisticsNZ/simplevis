@@ -97,20 +97,12 @@ leaflet_sf(example_sf_point,
 
 ### Legend labels
 
-Legend labels are not as flexible as in the ggplot2 wrapper functions. You can adjust by using the `col_labels` argument, and providing a manual vector of breaks. The `col_label_digits` can also provide a shortcut to round the labels.
+Legend labels are not as flexible as in the ggplot2 wrapper functions. You can adjust by using the `col_labels` argument, and providing a manual vector of breaks. 
 
 ```{r}
 leaflet_sf_col(example_sf_point, 
                col_var = trend_category, 
                col_labels = c("Better", "Same", "Worse"))
-```
-
-
-```{r}
-leaflet_sf_col(example_sf_polygon, 
-               col_var = density, 
-               col_method = "quantile", 
-               col_label_digits = 2)
 ```
 
 ### Adding additional layers

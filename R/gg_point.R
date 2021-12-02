@@ -386,7 +386,7 @@ gg_point_col <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -714,7 +714,7 @@ gg_point_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -997,7 +997,7 @@ gg_point_col_facet <- function(data,
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
       }
-      else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+      else if (is.character(x_var_vctr)){
         data <- data %>%
           dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
       }

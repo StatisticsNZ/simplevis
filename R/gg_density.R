@@ -44,51 +44,58 @@
 #'            x_var = body_mass_g)
 #' 
 gg_density <- function(data,
-                    x_var,
-                    density_bw = "nrd0",
-                    density_adjust = 1,
-                    density_kernel = "gaussian",
-                    density_n = 512,
-                    density_trim = FALSE,
-                    pal = pal_viridis_reorder(1),
-                    alpha = 0.1,
-                    size_line = 0.5,
-                    title = NULL,
-                    title_wrap = 80,
-                    subtitle = NULL,
-                    subtitle_wrap = 80,
-                    x_balance = FALSE,
-                    x_expand = NULL,
-                    x_labels = NULL,
-                    x_pretty_n = 6,
-                    x_title = NULL,
-                    x_title_wrap = 50,
-                    x_zero = FALSE,
-                    x_zero_line = NULL,
-                    y_expand = c(0, 0),
-                    y_labels = scales::label_number(big.mark = ""),
-                    y_label_digits = NULL,
-                    y_pretty_n = 5,
-                    y_title = NULL,
-                    y_title_wrap = 50,
-                    caption = NULL,
-                    caption_wrap = 80,
-                    theme = gg_theme(),
-                    mobile = FALSE) {
+                       x_var,
+                       density_bw = "nrd0",
+                       density_adjust = 1,
+                       density_kernel = "gaussian",
+                       density_n = 512,
+                       density_trim = FALSE,
+                       pal = pal_viridis_reorder(1),
+                       alpha = 0.1,
+                       size_line = 0.5,
+                       title = NULL,
+                       title_wrap = 80,
+                       subtitle = NULL,
+                       subtitle_wrap = 80,
+                       x_balance = FALSE,
+                       x_expand = NULL,
+                       x_labels = NULL,
+                       x_pretty_n = 6,
+                       x_title = NULL,
+                       x_title_wrap = 50,
+                       x_zero = FALSE,
+                       x_zero_line = NULL,
+                       y_expand = c(0, 0),
+                       y_labels = scales::label_number(big.mark = ""),
+                       y_label_digits = NULL,
+                       y_pretty_n = 5,
+                       y_title = NULL,
+                       y_title_wrap = 50,
+                       caption = NULL,
+                       caption_wrap = 80,
+                       theme = gg_theme(),
+                       mobile = FALSE) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   x_var <- rlang::enquo(x_var)
-
+  
+  #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   
+  #warning
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a density plot")
-
+  
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- "Density"
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  #colour
+  pal <- pal[1]
   
+  #fundamentals
   plot <- ggplot(data) +
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
@@ -97,45 +104,32 @@ gg_density <- function(data,
                  fill = pal, 
                  alpha = alpha, 
                  size = size_line) 
-    
-  if (is.numeric(x_var_vctr)) {
-    
-    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-    x_zero <- x_zero_list[[1]]
-    x_zero_line <- x_zero_list[[2]]
-    
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
-    if (is.null(x_expand)) x_expand <- c(0, 0)
-    if (is.null(x_labels)) x_labels <- waiver()
+  #x scale  
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero <- x_zero_list[[1]]
+  x_zero_line <- x_zero_list[[2]]
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_limits <- c(min(x_breaks), max(x_breaks))
+  if (is.null(x_expand)) x_expand <- c(0, 0)
+      
+  x_labels <- scales::label_number(big.mark = "")
 
-    if (mobile == TRUE) {
-      x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-    }
+  if (mobile == TRUE) {
+    x_breaks <- x_limits
+    if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
   }
   
-  if (is.numeric(x_var_vctr)) {
+  plot <- plot +
+    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+  
+  if (x_zero_line == TRUE) {
     plot <- plot +
-      scale_x_continuous(expand = x_expand,
-                         breaks = x_breaks,
-                         limits = x_limits,
-                         labels = x_labels,
-                         oob = scales::squish)
-    
-    if (x_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-    }
+      geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  #y scale
   y_var_vctr <- c(0, sv_density_max(data, !!x_var))
   
-  if (is.null(y_labels)) {
-    if (is.null(y_label_digits)) y_labels <- scales::label_number(big.mark = "")
-    else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
-  }
-
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -145,16 +139,10 @@ gg_density <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(
-        expand = y_expand,
-        breaks = y_breaks,
-        limits = y_limits,
-        trans = "identity",
-        labels = y_labels,
-        oob = scales::squish
-      )
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
   })
   
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -275,26 +263,28 @@ gg_density_col <- function(data,
                            theme = gg_theme(),
                            mobile = FALSE) {
   
-  
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   x_var <- rlang::enquo(x_var)
   col_var <- rlang::enquo(col_var) #categorical var
   
+  #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
   
+  #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
+  #warnings
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a density plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a density plot")
   
-  # if (!is.null(position)) {
-  #   if (!position %in% c("identity", "stack")) stop("Please use a position of either 'identity' or 'stack'")
-  # }
-    
+  #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -302,22 +292,25 @@ gg_density_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- "Density"
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #reverse
   if (col_rev == TRUE){
     if (is.factor(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+    else if (is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
     }
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
   }
@@ -328,11 +321,7 @@ gg_density_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  # if (is.null(alpha)) {
-  #   if (position == "identity") alpha <- 0.1   
-  #   else alpha <- 1    
-  # }
-
+  #fundamentals
   plot <- ggplot(data) +
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
@@ -341,46 +330,31 @@ gg_density_col <- function(data,
                  alpha = alpha, 
                  size = size_line) 
   
-  if (is.numeric(x_var_vctr)) {
-    
-    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-    x_zero <- x_zero_list[[1]]
-    x_zero_line <- x_zero_list[[2]]
-    
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
-    if (is.null(x_expand)) x_expand <- c(0, 0)
-    if (is.null(x_labels)) x_labels <- waiver()
-    
-    if (mobile == TRUE) {
-      x_breaks <- x_limits
-      if (min(x_limits) < 0 & max(x_limits > 0)) x_breaks <- c(x_limits[1], 0, x_limits[2])
-    }
+  #x scale  
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero <- x_zero_list[[1]]
+  x_zero_line <- x_zero_list[[2]]
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_limits <- c(min(x_breaks), max(x_breaks))
+  if (is.null(x_expand)) x_expand <- c(0, 0)
+  
+  x_labels <- scales::label_number(big.mark = "")
+  
+  if (mobile == TRUE) {
+    x_breaks <- x_limits
+    if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
   }
   
-  if (is.numeric(x_var_vctr)) {
+  plot <- plot +
+    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+  
+  if (x_zero_line == TRUE) {
     plot <- plot +
-      scale_x_continuous(expand = x_expand,
-                         breaks = x_breaks,
-                         limits = x_limits,
-                         labels = x_labels,
-                         oob = scales::squish)
-    
-    if (x_zero_line == TRUE) {
-      plot <- plot +
-        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-    }
+      geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  #y scale
   y_var_vctr <- c(0, sv_density_max_col(data, !!x_var, !!col_var))
-  # if (position == "identity") y_var_vctr <- c(0, sv_density_max_col(data, !!x_var, !!col_var))
-  # if (position == "stack") y_var_vctr <- c(0, sv_density_max_col_stack(data, !!x_var, !!col_var))
-  # if (position == "fill") y_var_vctr <- c(0, 1)
-  
-  if (is.null(y_labels)) {
-    if (is.null(y_label_digits)) y_labels <- scales::label_number(big.mark = "")
-    else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
-  }
   
   if (all(y_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
@@ -391,16 +365,10 @@ gg_density_col <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(
-        expand = y_expand,
-        breaks = y_breaks,
-        limits = y_limits,
-        trans = "identity",
-        labels = y_labels,
-        oob = scales::squish
-      )
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
   })
-  
+
+  #colour
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot +
@@ -419,6 +387,7 @@ gg_density_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -445,7 +414,6 @@ gg_density_col <- function(data,
   
   return(plot)
 }
-
 
 #' @title Smoothed density ggplot that is facetted.
 #' 
@@ -537,27 +505,35 @@ gg_density_facet <- function(data,
                              caption_wrap = 80,
                              theme = gg_theme()) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   x_var <- rlang::enquo(x_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   
+  #na's
   if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
   
+  #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
+  #warnings
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a density plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a smoothed density plot")
   
+  #titles
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- "Density"
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  #colour
+  pal <- pal[1]
   
+  #fundamentals
   plot <- ggplot(data) +
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
@@ -567,41 +543,29 @@ gg_density_facet <- function(data,
                  alpha = alpha, 
                  size = size_line) 
   
+  #x scale
   if (facet_scales %in% c("fixed", "free_y")) {
-    if (is.numeric(x_var_vctr)) {
-      
-      x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-      x_zero <- x_zero_list[[1]]
-      x_zero_line <- x_zero_list[[2]]
-      
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
-      if (is.null(x_expand)) x_expand <- c(0, 0)
-      if (is.null(x_labels)) x_labels <- waiver()
-    }
+    x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+    x_zero <- x_zero_list[[1]]
+    x_zero_line <- x_zero_list[[2]]
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_limits <- c(min(x_breaks), max(x_breaks))
+    if (is.null(x_expand)) x_expand <- c(0, 0)
     
-    if (is.numeric(x_var_vctr)) {
+    x_labels <- scales::label_number(big.mark = "")
+    
+    plot <- plot +
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+    
+    if (x_zero_line == TRUE) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand,
-                           breaks = x_breaks,
-                           limits = x_limits,
-                           labels = x_labels,
-                           oob = scales::squish)
-      
-      if (x_zero_line == TRUE) {
-        plot <- plot +
-          geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-      }
+        geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
     }
-  }
+   }
   
+  #y scale
   if (facet_scales %in% c("fixed", "free_x")) {
     y_var_vctr <- c(0, sv_density_max_facet(data, !!x_var, !!facet_var))
-    
-    if (is.null(y_labels)) {
-      if (is.null(y_label_digits)) y_labels <- scales::label_number(big.mark = "")
-      else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
-    }
     
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
@@ -612,21 +576,14 @@ gg_density_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(
-          expand = y_expand,
-          breaks = y_breaks,
-          limits = y_limits,
-          trans = "identity",
-          labels = y_labels,
-          oob = scales::squish
-        )
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
       scale_y_continuous(expand = y_expand,
                          labels = y_labels,
-                         oob = scales::squish)
+                         oob = scales::oob_squish)
   }
   
   plot <- plot +
@@ -749,11 +706,15 @@ gg_density_col_facet <- function(data,
                                  caption_wrap = 80, 
                                  theme = gg_theme()) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   x_var <- rlang::enquo(x_var)
   col_var <- rlang::enquo(col_var) #categorical var
   facet_var <- rlang::enquo(facet_var) #categorical var
   
+  #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
@@ -763,17 +724,16 @@ gg_density_col_facet <- function(data,
       dplyr::filter(!is.na(!!facet_var))
   }
   
+  #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
+  #warnings
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a density plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a density plot")
   
-  # if (!is.null(position)) {
-  #   if (!position %in% c("identity", "stack")) stop("Please use a position of either 'identity' or 'stack'")
-  # }
-  
+  #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -781,22 +741,25 @@ gg_density_col_facet <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- "Density"
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #reverse
   if (col_rev == TRUE){
     if (is.factor(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+    else if (is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
     }
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
   }
@@ -807,11 +770,7 @@ gg_density_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  # if (is.null(alpha)) {
-  #   if (position == "identity") alpha <- 0.1   
-  #   else alpha <- 1    
-  # }
-  
+  #fundamentals
   plot <- ggplot(data) +
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
@@ -820,34 +779,12 @@ gg_density_col_facet <- function(data,
                  alpha = alpha, 
                  size = size_line) 
   
+  #x scale
   if (facet_scales %in% c("fixed", "free_y")) {
-    if (is.numeric(x_var_vctr)) {
-      
-      x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-      x_zero <- x_zero_list[[1]]
-      x_zero_line <- x_zero_list[[2]]
-      
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
-      if (is.null(x_expand)) x_expand <- c(0, 0)
-      if (is.null(x_labels)) x_labels <- waiver()
-    }
-    
-    if (is.numeric(x_var_vctr)) {
-      plot <- plot +
-        scale_x_continuous(expand = x_expand,
-                           breaks = x_breaks,
-                           limits = x_limits,
-                           labels = x_labels,
-                           oob = scales::squish)
-      
-      if (x_zero_line == TRUE) {
-        plot <- plot +
-          geom_vline(xintercept = 0, colour = "#323232", size = 0.3)
-      }
-    }
+
   }
   
+  #y scale
   if (facet_scales %in% c("fixed", "free_x")) {
     
     if(rlang::as_name(col_var) == rlang::as_name(facet_var)) {
@@ -856,15 +793,7 @@ gg_density_col_facet <- function(data,
     else({
       y_var_vctr <- c(0, sv_density_max_col_facet(data, !!x_var, !!col_var, !!facet_var))      
     })
-    # if (position == "identity") y_var_vctr <- c(0, sv_density_max_col_facet(data, !!x_var, !!col_var, !!facet_var))
-    # if (position == "stack") y_var_vctr <- c(0, sv_density_max_col_facet_stack(data, !!x_var, !!col_var, !!facet_var))
-    # if (position == "fill") y_var_vctr <- c(0, 1)
     
-    if (is.null(y_labels)) {
-      if (is.null(y_label_digits)) y_labels <- scales::label_number(big.mark = "")
-      else y_labels <- scales::label_number(accuracy = 10 ^ -y_label_digits)
-    }
-
     if (all(y_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
@@ -874,24 +803,17 @@ gg_density_col_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(
-          expand = y_expand,
-          breaks = y_breaks,
-          limits = y_limits,
-          trans = "identity",
-          labels = y_labels,
-          oob = scales::squish
-        )
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
     })
-    
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
       scale_y_continuous(expand = y_expand,
                          labels = y_labels,
-                         oob = scales::squish)
+                         oob = scales::oob_squish)
   }
   
+  #colour, titles & facetting
   plot <- plot +
     scale_fill_manual(
       values = pal,

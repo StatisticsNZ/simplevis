@@ -7,7 +7,7 @@
 gg_stars(
   data,
   downsample = 0,
-  pal = NULL,
+  pal = pal_viridis_reorder(1),
   alpha = 0.5,
   borders = NULL,
   borders_on_top = TRUE,

@@ -93,11 +93,15 @@ gg_hbar <- function(data,
                     theme = gg_theme(gridlines = "vertical"),
                     mobile = FALSE) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
-  y_var <- rlang::enquo(y_var)
+  
+  #quote
   x_var <- rlang::enquo(x_var) #numeric var
+  y_var <- rlang::enquo(y_var)
   text_var <- rlang::enquo(text_var)
   
+  #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
@@ -106,6 +110,8 @@ gg_hbar <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
   }
+  
+  #vectors
 
   y_var_vctr <- dplyr::pull(data, !!y_var)
   x_var_vctr <- dplyr::pull(data, !!x_var)
@@ -141,8 +147,7 @@ gg_hbar <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
 
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -460,7 +465,7 @@ gg_hbar_col <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+    else if (is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -870,8 +875,7 @@ gg_hbar_facet <- function(data,
     }
   }
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr) | lubridate::is.POSIXct(y_var_vctr) | lubridate::is.POSIXlt(y_var_vctr)) {
@@ -1200,7 +1204,7 @@ gg_hbar_col_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+    else if (is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
     }

@@ -150,8 +150,7 @@ gg_bar <- function(data,
   }
   
   #colour
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   #width
   if (is.null(width)) {
@@ -462,7 +461,7 @@ gg_bar_col <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+    else if (is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -843,8 +842,7 @@ gg_bar_facet <- function(data,
   }
   
   #colour
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   #width
   if (is.null(width)) {
@@ -1158,7 +1156,7 @@ gg_bar_col_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(col_var_vctr) | is.logical(col_var_vctr)){
+    else if (is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -1332,7 +1330,7 @@ gg_bar_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #colour, title wrapping & facetting
+  #colour, titles & facetting
   plot <- plot +
     scale_fill_manual(
       values = pal,

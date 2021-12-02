@@ -10,7 +10,7 @@ gg_sf(
   size_point = 1,
   size_line = 0.5,
   alpha = NULL,
-  pal = NULL,
+  pal = pal_viridis_reorder(1),
   borders = NULL,
   borders_on_top = NULL,
   borders_pal = "#7F7F7F",

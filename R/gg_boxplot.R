@@ -156,7 +156,7 @@ gg_boxplot <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -482,7 +482,7 @@ gg_boxplot_col <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -501,9 +501,10 @@ gg_boxplot_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   #fundamentals
-  plot <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!col_var, remove = FALSE) %>% 
-    ggplot() +
+  data <- data %>% 
+    tidyr::unite(col = "group_var",  !!x_var, !!col_var, remove = FALSE) 
+  
+  plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme
   
@@ -819,7 +820,7 @@ gg_boxplot_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -827,16 +828,16 @@ gg_boxplot_facet <- function(data,
   }
   
   #colour
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   #fundamentals
-  plot <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE) %>% 
-    ggplot() +
+  data <- data %>% 
+    tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE) 
+  
+  plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
-    theme 
-    
+    theme
+
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
@@ -1168,7 +1169,7 @@ gg_boxplot_col_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -1185,14 +1186,15 @@ gg_boxplot_col_facet <- function(data,
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
-  
+
   #fundamentals
-  plot <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE) %>% 
-    ggplot() +
-    coord_cartesian(clip = "off") +
-    theme 
+  data <- data %>% 
+    tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE) 
   
+  plot <- ggplot(data) +
+    coord_cartesian(clip = "off") +
+    theme
+
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
@@ -1302,7 +1304,7 @@ gg_boxplot_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #colour, title wrapping & facetting
+  #colour, titles & facetting
   plot <- plot +
     scale_fill_manual(
       values = pal,

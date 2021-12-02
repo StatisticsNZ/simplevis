@@ -11,7 +11,7 @@ gg_sf_facet(
   size_point = 1,
   size_line = 0.5,
   alpha = NULL,
-  pal = NULL,
+  pal = pal_viridis_reorder(1),
   facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,

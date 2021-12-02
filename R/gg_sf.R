@@ -29,7 +29,7 @@ gg_sf <- function(data,
                   size_point = 1,
                   size_line = 0.5,
                   alpha = NULL,
-                  pal = NULL,
+                  pal = pal_viridis_reorder(1),
                   borders = NULL,
                   borders_on_top = NULL,
                   borders_pal = "#7F7F7F",
@@ -87,8 +87,7 @@ gg_sf <- function(data,
     }
   }
 
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal[1]
   
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
@@ -491,7 +490,7 @@ gg_sf_facet <- function(data,
                         size_point = 1,
                         size_line = 0.5,
                         alpha = NULL,
-                        pal = NULL,
+                        pal = pal_viridis_reorder(1),
                         facet_labels = snakecase::to_sentence_case,
                         facet_na_rm = FALSE,
                         facet_ncol = NULL,
@@ -567,8 +566,7 @@ gg_sf_facet <- function(data,
     }
   }
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
 
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1

@@ -133,7 +133,7 @@ gg_line <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -141,8 +141,7 @@ gg_line <- function(data,
   }
   
   #colour
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   #fundamentals
   plot <- ggplot(data) +
@@ -414,7 +413,7 @@ gg_line_col <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -709,7 +708,7 @@ gg_line_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }
@@ -717,8 +716,7 @@ gg_line_facet <- function(data,
   }
   
   #colour
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   #fundamentals
   plot <- ggplot(data) +
@@ -1005,7 +1003,7 @@ gg_line_col_facet <- function(data,
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
     }
-    else if (is.character(x_var_vctr) | is.logical(x_var_vctr)){
+    else if (is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
     }

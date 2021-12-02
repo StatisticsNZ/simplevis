@@ -1,3 +1,11 @@
+#simplevis 5.0.14 
+
+* Fixed boxplot bug.
+
+#simplevis 5.0.13
+
+* Tidied density and tile code
+
 # simplevis 5.0.12
 
 * Tidied line code.

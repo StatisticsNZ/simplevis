@@ -28,7 +28,7 @@
 #'      
 gg_stars <- function(data,
                   downsample = 0,
-                  pal = NULL,
+                  pal = pal_viridis_reorder(1),
                   alpha = 0.5,
                   borders = NULL,
                   borders_on_top = TRUE,
@@ -72,8 +72,7 @@ gg_stars <- function(data,
     }
   }
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
+  pal <- pal[1]
   
   plot <- plot +
     stars::geom_stars(aes(x = .data$x, y = .data$y), fill = pal, alpha = alpha, downsample = downsample, data = data)

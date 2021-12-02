@@ -104,13 +104,17 @@ gg_tile_col <- function(data,
                        theme = gg_theme(gridlines = "none"),
                        mobile = FALSE) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
-  y_var <- rlang::enquo(y_var) #categorical var
+  
+  #quote
   x_var <- rlang::enquo(x_var) #categorical var
+  y_var <- rlang::enquo(y_var) #categorical var
   col_var <- rlang::enquo(col_var) 
   label_var <- rlang::enquo(label_var)
   text_var <- rlang::enquo(text_var)
   
+  #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
@@ -124,13 +128,16 @@ gg_tile_col <- function(data,
       dplyr::filter(!is.na(!!col_var))
   }
   
+  #vectors
   y_var_vctr <- dplyr::pull(data, !!y_var)
   x_var_vctr <- dplyr::pull(data, !!x_var)
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
+  #warnings
   if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a tile plot")
   if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a tile plot")
-
+  
+  #logical to factor
   if (is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -150,10 +157,12 @@ gg_tile_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #reverse
   if (x_rev == TRUE) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -167,17 +176,20 @@ gg_tile_col <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
 
+  #width
   if (is.null(width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
       width <- NULL
     } else width <- 1
   }
   
+  #labels
   if(!rlang::quo_is_null(label_var)) {
     data <- data %>% 
       dplyr::mutate(label_var2 = !!label_var) 
   }
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -201,33 +213,24 @@ gg_tile_col <- function(data,
       })
     }
     
-    if (is.null(col_labels)) {
-      if (is.null(col_label_digits)) {
-        col_labels <- scales::comma
-      }
-      else {
-        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
-      }
-    }
-
+    if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
+    
     if (is.function(col_labels)) {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
-                                                                   right = col_right_closed, 
-                                                                   include.lowest = TRUE, 
-                                                                   dig.lab = 50, 
-                                                                   ordered_result = TRUE, 
-                                                                   format_fun = col_labels)))
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
       
       col_labels <- sv_interval_labels_chr
-    } else {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, 
-                                                    right = col_right_closed, 
-                                                    include.lowest = TRUE, 
-                                                    dig.lab = 50, 
-                                                    ordered_result = TRUE)))
     }
+    else ({
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+    })
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -247,6 +250,7 @@ gg_tile_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  #fundamentals
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
@@ -258,13 +262,13 @@ gg_tile_col <- function(data,
     plot <- plot + 
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
   }
-
+  
+  #x and y scales
   plot <- plot +
-    scale_x_discrete(expand = x_expand, labels = x_labels)
-
-  plot <- plot +
+    scale_x_discrete(expand = x_expand, labels = x_labels) +
     scale_y_discrete(expand = y_expand, labels = y_labels)
-
+  
+  #colour
   if (mobile == TRUE) col_title_wrap <- 20
 
   plot <- plot +
@@ -283,6 +287,7 @@ gg_tile_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -429,14 +434,18 @@ gg_tile_col_facet <- function(data,
                               theme = gg_theme(gridlines = "none"))
 {
   
+  #ungroup
   data <- dplyr::ungroup(data)
-  y_var <- rlang::enquo(y_var) #categorical var
+  
+  #quote
   x_var <- rlang::enquo(x_var) #categorical var
+  y_var <- rlang::enquo(y_var) #categorical var
   col_var <- rlang::enquo(col_var) 
   facet_var <- rlang::enquo(facet_var) 
   label_var <- rlang::enquo(label_var)
   text_var <- rlang::enquo(text_var)
   
+  #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
@@ -454,15 +463,18 @@ gg_tile_col_facet <- function(data,
       dplyr::filter(!is.na(!!facet_var))
   }
   
+  #vectors
   y_var_vctr <- dplyr::pull(data, !!y_var)
   x_var_vctr <- dplyr::pull(data, !!x_var)
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
+  #warnings
   if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a tile plot")
   if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a tile plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a tile plot")
   
+  #logical to factor
   if (is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -488,10 +500,12 @@ gg_tile_col_facet <- function(data,
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #reverse
   if (x_rev == TRUE) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
@@ -505,17 +519,20 @@ gg_tile_col_facet <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
+  #width
   if (is.null(width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr) | lubridate::is.POSIXct(x_var_vctr) | lubridate::is.POSIXlt(x_var_vctr)) {
+    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
       width <- NULL
     } else width <- 1
   }
   
+  #labels
   if(!rlang::quo_is_null(label_var)) {
     data <- data %>% 
       dplyr::mutate(label_var2 = !!label_var) 
   }
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -538,34 +555,25 @@ gg_tile_col_facet <- function(data,
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
     }
-
-    if (is.null(col_labels)) {
-      if (is.null(col_label_digits)) {
-        col_labels <- scales::comma
-      }
-      else {
-        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
-      }
-    }
-
+    
+    if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
+    
     if (is.function(col_labels)) {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
-                                                                   right = col_right_closed, 
-                                                                   include.lowest = TRUE, 
-                                                                   dig.lab = 50, 
-                                                                   ordered_result = TRUE, 
-                                                                   format_fun = col_labels)))
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
       
       col_labels <- sv_interval_labels_chr
-    } else {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, 
-                                                    right = col_right_closed, 
-                                                    include.lowest = TRUE, 
-                                                    dig.lab = 50, 
-                                                    ordered_result = TRUE)))
     }
+    else ({
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+    })
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -585,6 +593,7 @@ gg_tile_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  #fundamentals
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
@@ -597,13 +606,10 @@ gg_tile_col_facet <- function(data,
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
   }
   
+  #scales, titles and facetting
   plot <- plot +
-    scale_x_discrete(expand = x_expand, labels = x_labels)
-
-  plot <- plot +
-    scale_y_discrete(expand = y_expand, labels = y_labels)
-
-  plot <- plot +
+    scale_x_discrete(expand = x_expand, labels = x_labels) +
+    scale_y_discrete(expand = y_expand, labels = y_labels) +
     scale_fill_manual(
       values = pal,
       drop = FALSE,
@@ -617,9 +623,7 @@ gg_tile_col_facet <- function(data,
       labels = col_labels,
       na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
-    ) 
-  
-  plot <- plot +
+    ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

@@ -26,7 +26,7 @@ gg_point_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = scales::label_comma(),
+  y_labels = scales::label_number(big.mark = ""),
   y_pretty_n = 5,
   y_trans = "identity",
   y_zero = FALSE,

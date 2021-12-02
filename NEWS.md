@@ -1,5 +1,10 @@
 # simplevis 5.0.12
 
+* Tidied line code.
+* Changed numeric label defaults to label_number(big.mark = ""). 
+
+# simplevis 5.0.12
+
 * Tidied point, bar and boxplot code. 
 
 # simplevis 5.0.11

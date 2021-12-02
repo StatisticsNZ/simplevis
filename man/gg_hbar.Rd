@@ -19,7 +19,7 @@ gg_hbar(
   subtitle_wrap = 75,
   x_balance = FALSE,
   x_expand = c(0, 0),
-  x_labels = scales::label_comma(),
+  x_labels = scales::label_number(big.mark = ""),
   x_label_digits = NULL,
   x_na_rm = FALSE,
   x_pretty_n = 5,

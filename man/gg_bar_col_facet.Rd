@@ -34,7 +34,7 @@ gg_bar_col_facet(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = scales::label_comma(),
+  y_labels = scales::label_number(big.mark = ""),
   y_label_digits = NULL,
   y_na_rm = FALSE,
   y_pretty_n = 4,

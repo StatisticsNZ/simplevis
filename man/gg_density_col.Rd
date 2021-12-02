@@ -31,7 +31,7 @@ gg_density_col(
   x_zero = FALSE,
   x_zero_line = NULL,
   y_expand = c(0, 0),
-  y_labels = scales::label_number(),
+  y_labels = scales::label_number(big.mark = ""),
   y_label_digits = NULL,
   y_pretty_n = 5,
   y_title = NULL,

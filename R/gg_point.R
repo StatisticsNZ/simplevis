@@ -69,7 +69,7 @@ gg_point <- function(data,
                      x_zero_line = NULL,
                      y_balance = FALSE,
                      y_expand = c(0, 0),
-                     y_labels = scales::label_comma(),
+                     y_labels = scales::label_number(big.mark = ""),
                      y_pretty_n = 5,
                      y_title = NULL,
                      y_title_wrap = 50,
@@ -108,7 +108,7 @@ gg_point <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  #title sentence case
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
@@ -145,7 +145,7 @@ gg_point <- function(data,
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     if (is.null(x_labels)) {
-      if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+      if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
       else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
@@ -309,7 +309,7 @@ gg_point_col <- function(data,
                          x_zero_line = NULL,
                          y_balance = FALSE,
                          y_expand = c(0, 0),
-                         y_labels = scales::label_comma(),
+                         y_labels = scales::label_number(big.mark = ""),
                          y_pretty_n = 5,
                          y_trans = "identity",
                          y_zero = FALSE,
@@ -375,7 +375,7 @@ gg_point_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
-  ##title sentence case
+  ##titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
@@ -417,7 +417,7 @@ gg_point_col <- function(data,
       })
     }
     
-    if (is.null(col_labels)) col_labels <- scales::label_comma()
+    if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
     
     if (is.function(col_labels)) {
       data <- data %>%
@@ -471,7 +471,7 @@ gg_point_col <- function(data,
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     if (is.null(x_labels)) {
-      if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+      if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
       else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
@@ -647,7 +647,7 @@ gg_point_facet <- function(data,
                            x_zero_line = NULL,
                            y_balance = FALSE,
                            y_expand = c(0, 0),
-                           y_labels = scales::label_comma(),
+                           y_labels = scales::label_number(big.mark = ""),
                            y_pretty_n = 4,
                            y_title = NULL,
                            y_title_wrap = 50,
@@ -704,7 +704,7 @@ gg_point_facet <- function(data,
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
-  #title sentence case
+  #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
@@ -742,7 +742,7 @@ gg_point_facet <- function(data,
       if (is.null(x_expand)) x_expand <- c(0, 0)
       
       if (is.null(x_labels)) {
-        if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+        if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
         else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
         else x_labels <- waiver()
       }
@@ -909,7 +909,7 @@ gg_point_col_facet <- function(data,
                                x_zero_line = NULL,
                                y_balance = FALSE,
                                y_expand = c(0, 0),
-                               y_labels = scales::label_comma(),
+                               y_labels = scales::label_number(big.mark = ""),
                                y_pretty_n = 4,
                                y_title = NULL,
                                y_title_wrap = 50,
@@ -986,7 +986,7 @@ gg_point_col_facet <- function(data,
       facet_var_vctr <- dplyr::pull(data, !!facet_var)
     }
     
-    #title sentence case
+    #titles sentence case
     if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
     if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
     if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
@@ -1028,7 +1028,7 @@ gg_point_col_facet <- function(data,
         })
       }
       
-      if (is.null(col_labels)) col_labels <- scales::label_comma()
+      if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
       
       if (is.function(col_labels)) {
         data <- data %>%
@@ -1083,7 +1083,7 @@ gg_point_col_facet <- function(data,
         if (is.null(x_expand)) x_expand <- c(0, 0)
         
         if (is.null(x_labels)) {
-          if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+          if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
           else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
           else x_labels <- waiver()
         }

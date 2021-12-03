@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.15</span>
       </span>
     </div>
 
@@ -192,7 +192,6 @@
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_number</a></span>(<span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>""</span>),
-  <span class='kw'>y_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -201,7 +200,6 @@
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -344,10 +342,6 @@
       <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
-      <th>y_label_digits</th>
-      <td><p>The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.</p></td>
-    </tr>
-    <tr>
       <th>y_na_rm</th>
       <td><p>TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.</p></td>
     </tr>
@@ -378,10 +372,6 @@
     <tr>
       <th>col_cuts</th>
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
-      <th>col_label_digits</th>
-      <td><p>If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>
@@ -465,8 +455,7 @@
                  <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
                  <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>island</span>,
-                 <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
-                 <span class='kw'>facet_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='gg_bar_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>sex</span>)</div><div class='img'><img src='gg_bar_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -36,7 +36,6 @@ gg_tile_col(
   y_title = NULL,
   y_title_wrap = 50,
   col_cuts = NULL,
-  col_label_digits = NULL,
   col_labels = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
@@ -112,8 +111,6 @@ gg_tile_col(
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_label_digits}{If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 

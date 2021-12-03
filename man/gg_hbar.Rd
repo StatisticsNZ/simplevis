@@ -20,7 +20,6 @@ gg_hbar(
   x_balance = FALSE,
   x_expand = c(0, 0),
   x_labels = scales::label_number(big.mark = ""),
-  x_label_digits = NULL,
   x_na_rm = FALSE,
   x_pretty_n = 5,
   x_title = NULL,
@@ -75,8 +74,6 @@ gg_hbar(
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
-
-\item{x_label_digits}{The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 

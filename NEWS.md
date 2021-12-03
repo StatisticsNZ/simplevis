@@ -1,10 +1,14 @@
+#simplevis 5.0.15
+
+* Tidied hbar code.
+
 #simplevis 5.0.14 
 
 * Fixed boxplot bug.
 
 #simplevis 5.0.13
 
-* Tidied density and tile code
+* Tidied density and tile code.
 
 # simplevis 5.0.12
 

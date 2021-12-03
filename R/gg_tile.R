@@ -31,7 +31,6 @@
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
@@ -61,48 +60,47 @@
 #'   label_var = bill_length_mm) 
 #'             
 gg_tile_col <- function(data,
-                       x_var,
-                       y_var,
-                       col_var,
-                       label_var = NULL,
-                       text_var = NULL,
-                       pal = NULL,
-                       pal_label = "#323232",
-                       pal_na = "#7F7F7F",
-                       pal_rev = FALSE,
-                       width = NULL,
-                       alpha = 1,
-                       size_line = 0.5,
-                       size_label = 3.5,
-                       title = NULL,
-                       title_wrap = 75,
-                       subtitle = NULL,
-                       subtitle_wrap = 75,
-                       x_expand = c(0, 0),
-                       x_labels = snakecase::to_sentence_case,
-                       x_na_rm = FALSE,
-                       x_rev = FALSE,
-                       x_title = NULL,
-                       x_title_wrap = 50,
-                       y_expand = c(0, 0),
-                       y_labels = snakecase::to_sentence_case,
-                       y_na_rm = FALSE,
-                       y_rev = FALSE,
-                       y_title = NULL,
-                       y_title_wrap = 50,
-                       col_cuts = NULL,
-                       col_label_digits = NULL,
-                       col_labels = NULL,
-                       col_method = NULL,
-                       col_na_rm = FALSE,
-                       col_pretty_n = 5,
-                       col_right_closed = TRUE,
-                       col_title = NULL,
-                       col_title_wrap = 25,
-                       caption = NULL,
-                       caption_wrap = 75,
-                       theme = gg_theme(gridlines = "none"),
-                       mobile = FALSE) {
+                        x_var,
+                        y_var,
+                        col_var,
+                        label_var = NULL,
+                        text_var = NULL,
+                        pal = NULL,
+                        pal_label = "#323232",
+                        pal_na = "#7F7F7F",
+                        pal_rev = FALSE,
+                        width = NULL,
+                        alpha = 1,
+                        size_line = 0.5,
+                        size_label = 3.5,
+                        title = NULL,
+                        title_wrap = 75,
+                        subtitle = NULL,
+                        subtitle_wrap = 75,
+                        x_expand = c(0, 0),
+                        x_labels = snakecase::to_sentence_case,
+                        x_na_rm = FALSE,
+                        x_rev = FALSE,
+                        x_title = NULL,
+                        x_title_wrap = 50,
+                        y_expand = c(0, 0),
+                        y_labels = snakecase::to_sentence_case,
+                        y_na_rm = FALSE,
+                        y_rev = FALSE,
+                        y_title = NULL,
+                        y_title_wrap = 50,
+                        col_cuts = NULL,
+                        col_labels = NULL,
+                        col_method = NULL,
+                        col_na_rm = FALSE,
+                        col_pretty_n = 5,
+                        col_right_closed = TRUE,
+                        col_title = NULL,
+                        col_title_wrap = 25,
+                        caption = NULL,
+                        caption_wrap = 75,
+                        theme = gg_theme(gridlines = "none"),
+                        mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -175,7 +173,7 @@ gg_tile_col <- function(data,
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-
+  
   #width
   if (is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -254,10 +252,10 @@ gg_tile_col <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-             alpha = alpha, 
-             size = size_line, 
-             width = width) 
-    
+              alpha = alpha, 
+              size = size_line, 
+              width = width) 
+  
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
@@ -270,7 +268,7 @@ gg_tile_col <- function(data,
   
   #colour
   if (mobile == TRUE) col_title_wrap <- 20
-
+  
   plot <- plot +
     scale_fill_manual(
       values = pal,
@@ -349,7 +347,6 @@ gg_tile_col <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
-#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
@@ -416,7 +413,6 @@ gg_tile_col_facet <- function(data,
                               y_title = NULL,
                               y_title_wrap = 50,
                               col_cuts = NULL,
-                              col_label_digits = NULL,
                               col_labels = NULL,
                               col_method = NULL,
                               col_na_rm = FALSE,
@@ -600,7 +596,7 @@ gg_tile_col_facet <- function(data,
               alpha = alpha, 
               size = size_line, 
               width = width) 
-
+  
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
       geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)

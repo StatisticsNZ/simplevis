@@ -33,7 +33,6 @@ gg_density_col_facet(
   x_zero_line = NULL,
   y_expand = c(0, 0),
   y_labels = scales::label_number(big.mark = ""),
-  y_label_digits = NULL,
   y_pretty_n = 4,
   y_title = NULL,
   y_title_wrap = 50,
@@ -109,8 +108,6 @@ gg_density_col_facet(
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_label_digits}{The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.}
-
 \item{y_pretty_n}{For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
@@ -157,7 +154,6 @@ gg_density_col_facet(penguins,
                      x_var = body_mass_g, 
                      col_var = sex, 
                      facet_var = species, 
-                     x_pretty_n = 2, 
-                     col_na_rm = FALSE)
+                     x_pretty_n = 2)
 
 }

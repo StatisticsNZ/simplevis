@@ -8,9 +8,9 @@
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to NULL. 
 #' @return A vector of breaks
 #' @keywords internal
-sv_numeric_breaks_v <- function(var_vctr, 
+sv_numeric_breaks_v <- function(var_vctr,
                                 balance = FALSE, 
-                                pretty_n = 5, 
+                                pretty_n = 5,
                                 trans = "identity", 
                                 zero = TRUE) {
   

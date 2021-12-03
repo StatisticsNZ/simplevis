@@ -24,7 +24,6 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -77,7 +76,6 @@ gg_line <- function(data,
                     y_balance = FALSE,
                     y_expand = c(0, 0),
                     y_labels = scales::label_number(big.mark = ""),
-                    y_label_digits = NULL,
                     y_na_rm = FALSE,
                     y_pretty_n = 5,
                     y_title = NULL,
@@ -274,7 +272,6 @@ gg_line <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -335,7 +332,6 @@ gg_line_col <- function(data,
                         y_balance = FALSE,
                         y_expand = c(0, 0),
                         y_labels = scales::label_number(big.mark = ""),
-                        y_label_digits = NULL,
                         y_na_rm = FALSE,
                         y_pretty_n = 5,
                         y_title = NULL,
@@ -577,7 +573,6 @@ gg_line_col <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -635,7 +630,6 @@ gg_line_facet <- function(data,
                           y_balance = FALSE,
                           y_expand = c(0, 0),
                           y_labels = scales::label_number(big.mark = ""),
-                          y_label_digits = NULL,
                           y_na_rm = FALSE,
                           y_pretty_n = 4,
                           y_title = NULL,
@@ -726,9 +720,15 @@ gg_line_facet <- function(data,
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = 1)
   
   #x scale 
-  if (facet_scales %in% c("fixed", "free_y")) {
-    if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if (is.null(x_expand)) x_expand <- waiver()
+    if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
+    
+    plot <- plot +
+      scale_x_discrete(expand = x_expand, labels = x_labels)
+  }
+  else if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
+    if (facet_scales %in% c("fixed", "free_y")) {
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
@@ -759,13 +759,6 @@ gg_line_facet <- function(data,
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
         scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
-    }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-      if (is.null(x_expand)) x_expand <- waiver()
-      if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
-      
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
     }
   }
   
@@ -841,7 +834,6 @@ gg_line_facet <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_label_digits The number of decimal places to round the y labels to. Only applicable where y_labels equals NULL.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_pretty_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -908,7 +900,6 @@ gg_line_col_facet <- function(data,
                               y_balance = FALSE,
                               y_expand = c(0, 0),
                               y_labels = scales::label_number(big.mark = ""),
-                              y_label_digits = NULL,
                               y_na_rm = FALSE,
                               y_pretty_n = 4,
                               y_trans = "identity",
@@ -1030,9 +1021,15 @@ gg_line_col_facet <- function(data,
                size = size_point, alpha = 1)
   
   #x scale 
-  if (facet_scales %in% c("fixed", "free_y")) {
-    if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
+    if (is.null(x_expand)) x_expand <- waiver()
+    if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
+    
+    plot <- plot +
+      scale_x_discrete(expand = x_expand, labels = x_labels)
+  }
+  else if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
+    if (facet_scales %in% c("fixed", "free_y")) {
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
@@ -1063,13 +1060,6 @@ gg_line_col_facet <- function(data,
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
         scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
-    }
-    else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
-      if (is.null(x_expand)) x_expand <- waiver()
-      if (is.null(x_labels)) x_labels <- snakecase::to_sentence_case
-      
-      plot <- plot +
-        scale_x_discrete(expand = x_expand, labels = x_labels)
     }
   }
   

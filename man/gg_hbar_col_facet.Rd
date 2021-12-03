@@ -25,7 +25,6 @@ gg_hbar_col_facet(
   x_balance = FALSE,
   x_expand = c(0, 0),
   x_labels = scales::label_number(big.mark = ""),
-  x_label_digits = NULL,
   x_na_rm = FALSE,
   x_pretty_n = 3,
   x_title = NULL,
@@ -45,7 +44,6 @@ gg_hbar_col_facet(
   y_zero_line = NULL,
   col_cuts = NULL,
   col_labels = NULL,
-  col_label_digits = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
   col_pretty_n = 5,
@@ -104,8 +102,6 @@ gg_hbar_col_facet(
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_label_digits}{The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.}
-
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
 \item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
@@ -143,8 +139,6 @@ gg_hbar_col_facet(
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
-
-\item{col_label_digits}{If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 

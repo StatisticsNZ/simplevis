@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.15</span>
       </span>
     </div>
 
@@ -182,7 +182,6 @@
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_number</a></span>(<span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>""</span>),
-  <span class='kw'>x_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -202,7 +201,6 @@
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_pretty_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
@@ -304,10 +302,6 @@
       <td><p>A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
     </tr>
     <tr>
-      <th>x_label_digits</th>
-      <td><p>The number of decimal places to round the x labels to. Only applicable where x_labels equals NULL.</p></td>
-    </tr>
-    <tr>
       <th>x_na_rm</th>
       <td><p>TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.</p></td>
     </tr>
@@ -382,10 +376,6 @@
     <tr>
       <th>col_labels</th>
       <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
-    </tr>
-    <tr>
-      <th>col_label_digits</th>
-      <td><p>If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.</p></td>
     </tr>
     <tr>
       <th>col_method</th>

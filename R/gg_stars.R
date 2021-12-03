@@ -27,30 +27,32 @@
 #'      borders = example_sf_borders)
 #'      
 gg_stars <- function(data,
-                  downsample = 0,
-                  pal = pal_viridis_reorder(1),
-                  alpha = 0.5,
-                  borders = NULL,
-                  borders_on_top = TRUE,
-                  borders_pal = "#323232",
-                  borders_size = 0.2,
-                  title = NULL,
-                  title_wrap = 80,
-                  subtitle = NULL,
-                  subtitle_wrap = 80,
-                  caption = NULL,
-                  caption_wrap = 80,
-                  theme = NULL,
-                  mobile = FALSE) {
+                     downsample = 0,
+                     pal = pal_viridis_reorder(1),
+                     alpha = 0.5,
+                     borders = NULL,
+                     borders_on_top = TRUE,
+                     borders_pal = "#323232",
+                     borders_size = 0.2,
+                     title = NULL,
+                     title_wrap = 80,
+                     subtitle = NULL,
+                     subtitle_wrap = 80,
+                     caption = NULL,
+                     caption_wrap = 80,
+                     theme = NULL,
+                     mobile = FALSE) {
   
+  #warnings
   if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
-  
+
   if (!is.null(borders)) {
     if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot() +
@@ -58,9 +60,13 @@ gg_stars <- function(data,
     scale_x_continuous(expand = c(0, 0), name = NULL) +
     scale_y_continuous(expand = c(0, 0), name = NULL) +
     coord_equal()
-
+  
+  #borders
   if (!is.null(borders)) {
-    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (sf::st_crs(data) != sf::st_crs(borders)) {
+      borders <- sf::st_transform(borders, sf::st_crs(data))
+    }
+    
     if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
@@ -72,11 +78,14 @@ gg_stars <- function(data,
     }
   }
   
+  #colour
   pal <- pal[1]
   
+  #fundamentals
   plot <- plot +
     stars::geom_stars(aes(x = .data$x, y = .data$y), fill = pal, alpha = alpha, downsample = downsample, data = data)
-
+  
+  #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
       plot <- plot +
@@ -88,7 +97,8 @@ gg_stars <- function(data,
         )
     }
   }
-
+  
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -128,7 +138,6 @@ gg_stars <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -155,43 +164,46 @@ gg_stars <- function(data,
 #'              borders = example_sf_borders)
 #'           
 gg_stars_col <- function(data,
-                      col_var,
-                      downsample = 0,
-                      pal = NULL,
-                      pal_na = "#7F7F7F",
-                      pal_rev = FALSE,
-                      alpha = 1,
-                      borders = NULL,
-                      borders_on_top = TRUE,
-                      borders_pal = "#7F7F7F",
-                      borders_size = 0.2,
-                      title = NULL,
-                      title_wrap = 80,
-                      subtitle = NULL,
-                      subtitle_wrap = 80,
-                      col_cuts = NULL,
-                      col_label_digits = NULL,
-                      col_labels = NULL,
-                      col_na_rm = FALSE,
-                      col_pretty_n = 5,
-                      col_method = NULL,
-                      col_right_closed = TRUE,
-                      col_title = NULL,
-                      col_title_wrap = 25,
-                      caption = NULL,
-                      caption_wrap = 80,
-                      theme = NULL,
-                      mobile = FALSE) {
+                         col_var,
+                         downsample = 0,
+                         pal = NULL,
+                         pal_na = "#7F7F7F",
+                         pal_rev = FALSE,
+                         alpha = 1,
+                         borders = NULL,
+                         borders_on_top = TRUE,
+                         borders_pal = "#7F7F7F",
+                         borders_size = 0.2,
+                         title = NULL,
+                         title_wrap = 80,
+                         subtitle = NULL,
+                         subtitle_wrap = 80,
+                         col_cuts = NULL,
+                         col_labels = NULL,
+                         col_na_rm = FALSE,
+                         col_pretty_n = 5,
+                         col_method = NULL,
+                         col_right_closed = TRUE,
+                         col_title = NULL,
+                         col_title_wrap = 25,
+                         caption = NULL,
+                         caption_wrap = 80,
+                         theme = NULL,
+                         mobile = FALSE) {
   
+  #quote
   col_var <- rlang::enquo(col_var)
-
+  
+  #na's
   if (col_na_rm == TRUE) {
     na_translate <- FALSE
     pal_na <- "transparent"
   } else na_translate <- TRUE
   
+  #vectors
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
+  #warnings
   if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
   
@@ -200,6 +212,7 @@ gg_stars_col <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -207,8 +220,10 @@ gg_stars_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #titles
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot() +
@@ -217,8 +232,11 @@ gg_stars_col <- function(data,
     scale_y_continuous(expand = c(0, 0), name = NULL) +
     coord_equal()
   
+  #borders
   if (!is.null(borders)) {
-    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (sf::st_crs(data) != sf::st_crs(borders)) {
+      borders <- sf::st_transform(borders, sf::st_crs(data))
+    } 
     if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
@@ -230,6 +248,7 @@ gg_stars_col <- function(data,
     }
   }
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -253,33 +272,24 @@ gg_stars_col <- function(data,
       })
     }
     
-    if (is.null(col_labels)) {
-      if (is.null(col_label_digits)) {
-        col_labels <- scales::comma
-      }
-      else {
-        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
-      }
-    }
+    if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
     
     if (is.function(col_labels)) {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
-                                                           right = col_right_closed, 
-                                                           include.lowest = TRUE, 
-                                                           dig.lab = 50, 
-                                                           ordered_result = TRUE, 
-                                                           format_fun = col_labels)))
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
       
       col_labels <- sv_interval_labels_chr
-    } else {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, 
-                                                    right = col_right_closed, 
-                                                    include.lowest = TRUE, 
-                                                    dig.lab = 50, 
-                                                    ordered_result = TRUE)))
     }
+    else ({
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+    })
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -299,6 +309,7 @@ gg_stars_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  #fundamentals
   plot <- plot +
     stars::geom_stars(
       aes(x = .data$x, y = .data$y, fill = !!col_var),
@@ -306,7 +317,8 @@ gg_stars_col <- function(data,
       downsample = downsample,
       data = data
     )
-
+  
+  #colour
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot + 
@@ -319,6 +331,7 @@ gg_stars_col <- function(data,
       na.translate = na_translate
     )
   
+  #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
       plot <- plot +
@@ -331,6 +344,7 @@ gg_stars_col <- function(data,
     }
   }
   
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(

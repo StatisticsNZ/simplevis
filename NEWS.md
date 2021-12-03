@@ -1,5 +1,10 @@
 #simplevis 5.0.15
 
+* Tidied gg_sf* and gg_stars* code.
+* Breaking removed *_digits arguments from gg functions.
+
+#simplevis 5.0.15
+
 * Tidied hbar code.
 
 #simplevis 5.0.14 

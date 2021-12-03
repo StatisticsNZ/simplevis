@@ -44,38 +44,47 @@ gg_sf <- function(data,
                   mobile = FALSE
 ) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   text_var <- rlang::enquo(text_var)
   
+  #warnings
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
-  
-  if (!is.null(borders)) {
-    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
-    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
-  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
   if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
     stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
   }
-
-  if (is.null(borders_on_top)) {
-    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
-      borders_on_top <- FALSE
-    } else ({
-      borders_on_top <- TRUE
-    })
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()
 
   plot <- ggplot(data) +
     theme
-
+  
+  #borders
   if (!is.null(borders)) {
-    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (is.null(borders_on_top)) {
+      if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+        borders_on_top <- FALSE
+      } else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+        borders_on_top <- TRUE
+      }
+    }
+    
+    if (sf::st_crs(data) != sf::st_crs(borders)) {
+      borders <- sf::st_transform(borders, sf::st_crs(data))
+    }
+
     if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
@@ -87,8 +96,10 @@ gg_sf <- function(data,
     }
   }
 
-  pal[1]
+  #colour
+  pal <- pal[1]
   
+  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
     
@@ -113,6 +124,7 @@ gg_sf <- function(data,
       )
   }
   
+  #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
       plot <- plot +
@@ -124,7 +136,8 @@ gg_sf <- function(data,
         )
     }
   }
-
+  
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -166,7 +179,6 @@ gg_sf <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -216,7 +228,6 @@ gg_sf_col <- function(data,
                       subtitle = NULL,
                       subtitle_wrap = 80,
                       col_cuts = NULL,
-                      col_label_digits = NULL,
                       col_labels = NULL,
                       col_na_rm = FALSE,
                       col_pretty_n = 5,
@@ -230,31 +241,24 @@ gg_sf_col <- function(data,
                       mobile = FALSE
 ) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
   
+  #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-
+  
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
+  #warnings
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
-  
-  if (!is.null(borders)) {
-    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
-    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
-  }
-  
-  if (is.logical(col_var_vctr)) {
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
-    
-    col_var_vctr <- dplyr::pull(data, !!col_var)
-  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -262,23 +266,42 @@ gg_sf_col <- function(data,
     stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
   }
   
-  if (is.null(borders_on_top)) {
-    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
-      borders_on_top <- FALSE
-    } else ({
-      borders_on_top <- TRUE
-    })
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  #logical to factor
+  if (is.logical(col_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
+    
+    col_var_vctr <- dplyr::pull(data, !!col_var)
+  }
+  
+  #titles
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot(data) +
     theme
   
+  #borders
   if (!is.null(borders)) {
-    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (is.null(borders_on_top)) {
+      if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+        borders_on_top <- FALSE
+      } else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+        borders_on_top <- TRUE
+      }
+    }
+    
+    if (sf::st_crs(data) != sf::st_crs(borders)) {
+      borders <- sf::st_transform(borders, sf::st_crs(data))
+    }
+    
     if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
@@ -290,6 +313,7 @@ gg_sf_col <- function(data,
     }
   }
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -313,33 +337,24 @@ gg_sf_col <- function(data,
       })
     }
     
-    if (is.null(col_labels)) {
-      if (is.null(col_label_digits)) {
-        col_labels <- scales::comma
-      }
-      else {
-        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
-      }
-    }
-
+    if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
+    
     if (is.function(col_labels)) {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
-                                                                   right = col_right_closed, 
-                                                                   include.lowest = TRUE, 
-                                                                   dig.lab = 50, 
-                                                                   ordered_result = TRUE, 
-                                                                   format_fun = col_labels)))
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
       
       col_labels <- sv_interval_labels_chr
-    } else {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, 
-                                                    right = col_right_closed, 
-                                                    include.lowest = TRUE, 
-                                                    dig.lab = 50, 
-                                                    ordered_result = TRUE)))
     }
+    else ({
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+    })
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -358,7 +373,8 @@ gg_sf_col <- function(data,
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
-
+  
+  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
     
@@ -393,8 +409,9 @@ gg_sf_col <- function(data,
       )
   }
   
+  #colour
   if (mobile == TRUE) col_title_wrap <- 20
-
+  
   plot <- plot +
     scale_colour_manual(
       values = pal,
@@ -415,6 +432,7 @@ gg_sf_col <- function(data,
       )
   }
   
+  #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
       plot <- plot +
@@ -427,6 +445,7 @@ gg_sf_col <- function(data,
     }
   }
   
+  #titles
   if (mobile == FALSE) {
     plot <- plot +
       labs(
@@ -507,32 +526,25 @@ gg_sf_facet <- function(data,
                         caption_wrap = 80,
                         theme = NULL) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
+  #na's
   if (facet_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
   
+  #vectors
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
+  #warnings
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
-  
-  if (!is.null(borders)) {
-    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
-    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
-  }
-  
-  if (is.logical(facet_var_vctr)) {
-    data <- data %>% 
-      dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
-    
-    facet_var_vctr <- dplyr::pull(data, !!facet_var)
-  }
   
   geometry_type <- unique(sf::st_geometry_type(data))
   
@@ -540,21 +552,41 @@ gg_sf_facet <- function(data,
     stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
   }
   
-  if (is.null(borders_on_top)) {
-    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
-      borders_on_top <- FALSE
-    } else ({
-      borders_on_top <- TRUE
-    })
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
+  
+  if (!is.null(borders)) {
+    if (class(borders)[1] != "sf") stop("Please use an sf object as borders input")
+    if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  #logical to factor
+  if (is.logical(facet_var_vctr)) {
+    data <- data %>% 
+      dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
+  #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot(data) +
     theme
   
+  #borders
   if (!is.null(borders)) {
-    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (is.null(borders_on_top)) {
+      if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+        borders_on_top <- FALSE
+      } else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+        borders_on_top <- TRUE
+      }
+    }
+    
+    if (sf::st_crs(data) != sf::st_crs(borders)) {
+      borders <- sf::st_transform(borders, sf::st_crs(data))
+    }
+    
     if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
@@ -566,8 +598,10 @@ gg_sf_facet <- function(data,
     }
   }
   
+  #colour
   pal <- pal[1]
-
+  
+  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
     
@@ -606,6 +640,7 @@ gg_sf_facet <- function(data,
       )
   }
   
+  #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
       plot <- plot +
@@ -618,6 +653,7 @@ gg_sf_facet <- function(data,
     }
   }
   
+  #titles & facetting
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -651,7 +687,6 @@ gg_sf_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
-#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to. Only applicable where col_labels equals NULL.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
@@ -693,7 +728,6 @@ gg_sf_col_facet <- function(data,
                             subtitle = NULL,
                             subtitle_wrap = 80,
                             col_cuts = NULL,
-                            col_label_digits = NULL,
                             col_labels = NULL,
                             col_method = NULL,
                             col_na_rm = FALSE,
@@ -710,11 +744,15 @@ gg_sf_col_facet <- function(data,
                             theme = NULL)
 {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #quote
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
   
+  #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
@@ -724,11 +762,20 @@ gg_sf_col_facet <- function(data,
       dplyr::filter(!is.na(!!facet_var))
   }
   
+  #vectors
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
+  #warnings
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
+  
+  geometry_type <- unique(sf::st_geometry_type(data))
+  
+  if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
+    stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
+  }
+  
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable")
   
   if (!is.null(borders)) {
@@ -736,6 +783,7 @@ gg_sf_col_facet <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -749,29 +797,29 @@ gg_sf_col_facet <- function(data,
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
+  #titles
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  geometry_type <- unique(sf::st_geometry_type(data))
-  
-  if (!geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING", "POLYGON", "MULTIPOLYGON")) {
-    stop("Please use an sf object with geometry type of POINT, MULTIPOINT, LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON")
-  }
-  
-  if (is.null(borders_on_top)) {
-    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
-      borders_on_top <- FALSE
-    } else ({
-      borders_on_top <- TRUE
-    })
-  }
-  
+  #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()
   
   plot <- ggplot(data) +
     theme
   
+  #borders
   if (!is.null(borders)) {
-    if (sf::st_crs(data) != sf::st_crs(borders)) borders <- sf::st_transform(borders, sf::st_crs(data))
+    if (is.null(borders_on_top)) {
+      if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+        borders_on_top <- FALSE
+      } else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+        borders_on_top <- TRUE
+      }
+    }
+    
+    if (sf::st_crs(data) != sf::st_crs(borders)) {
+      borders <- sf::st_transform(borders, sf::st_crs(data))
+    }
+    
     if (borders_on_top == FALSE) {
       plot <- plot +
         geom_sf(
@@ -783,6 +831,7 @@ gg_sf_col_facet <- function(data,
     }
   }
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -805,34 +854,25 @@ gg_sf_col_facet <- function(data,
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       })
     }
-
-    if (is.null(col_labels)) {
-      if (is.null(col_label_digits)) {
-        col_labels <- scales::comma
-      }
-      else {
-        col_labels <- scales::comma_format(accuracy = 10 ^ -col_label_digits)
-      }
-    }
+    
+    if (is.null(col_labels)) col_labels <- scales::label_number(big.mark = "")
     
     if (is.function(col_labels)) {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut_format(.x, col_cuts, 
-                                                                   right = col_right_closed, 
-                                                                   include.lowest = TRUE, 
-                                                                   dig.lab = 50, 
-                                                                   ordered_result = TRUE, 
-                                                                   format_fun = col_labels)))
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
       
       col_labels <- sv_interval_labels_chr
-    } else {
-      data <- data %>% 
-        dplyr::mutate(dplyr::across(!!col_var, ~cut(.x, col_cuts, 
-                                                    right = col_right_closed, 
-                                                    include.lowest = TRUE, 
-                                                    dig.lab = 50, 
-                                                    ordered_result = TRUE)))
     }
+    else ({
+      data <- data %>%
+        dplyr::mutate(
+          dplyr::across(!!col_var, 
+                        ~ cut_format(.x, col_cuts,
+                                     right = col_right_closed, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+    })
     
     col_n <- length(col_cuts) - 1
     if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
@@ -851,7 +891,8 @@ gg_sf_col_facet <- function(data,
   }
   
   if (pal_rev == TRUE) pal <- rev(pal)
-  
+
+  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
     
@@ -886,6 +927,7 @@ gg_sf_col_facet <- function(data,
       )
   }
   
+  #colour
   plot <- plot +
     scale_colour_manual(
       values = pal,
@@ -906,6 +948,7 @@ gg_sf_col_facet <- function(data,
       )
   }
   
+  #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
       plot <- plot +
@@ -918,6 +961,7 @@ gg_sf_col_facet <- function(data,
     }
   }
   
+  #titles & facetting
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),

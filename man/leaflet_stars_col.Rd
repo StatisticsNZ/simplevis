@@ -17,8 +17,8 @@ leaflet_stars_col(
   col_labels = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
-  col_pretty_n = 4,
-  col_right_closed = TRUE,
+  col_breaks_n = 5,
+  col_intervals_right = TRUE,
   col_title = NULL,
   map_id = "map"
 )
@@ -48,9 +48,9 @@ leaflet_stars_col(
 
 \item{col_na_rm}{TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.}
 
-\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
 
-\item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
+\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_title}{A title string that will be wrapped into the legend.}
 

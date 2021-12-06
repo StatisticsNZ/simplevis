@@ -7,7 +7,7 @@
 sv_numeric_breaks_v(
   var_vctr,
   balance = FALSE,
-  pretty_n = 5,
+  breaks_n = 5,
   trans = "identity",
   zero = TRUE
 )
@@ -17,7 +17,7 @@ sv_numeric_breaks_v(
 
 \item{balance}{Add balance to the vertical axis so that zero is in the centre of the vertical scale.}
 
-\item{pretty_n}{The desired number of intervals on the vertical axis, as calculated by the pretty algorithm. Defaults to 5.}
+\item{breaks_n}{The desired number of intervals on the vertical axis, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{trans}{A string specifying a transformation for the vertical axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 

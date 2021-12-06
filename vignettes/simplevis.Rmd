@@ -232,7 +232,7 @@ Some examples of transformations available are:
 * `*_na_rm` to quickly not include NA observations
 * `*_labels` to adjust labels for any x, y, col or facet scale
 * `*_zero` to start at zero for numeric x or y scales 
-* `*_pretty_n` for the number of numeric bins of breaks for the x, y or col scale to aim for 
+* `*_breaks_n` for the number of numeric bins of breaks for the x, y or col scale to aim for 
 * `*_rev` to reverse the order of categorical x, y or col scales in bars 
 * `*_expand` to add padding to an x or y scale.
 
@@ -246,11 +246,11 @@ gg_bar_col(plot_data,
         y_var = wind, 
         col_var = status,
         position = "stack",
-        x_pretty_n = 4,
+        x_breaks_n = 4,
         x_labels = function(x) stringr::str_sub(x, 3, 4),
         y_labels = function(x) scales::comma(x, accuracy = 0.1), 
         y_zero = T, 
-        y_pretty_n = 10,
+        y_breaks_n = 10,
         y_expand = ggplot2::expansion(mult = c(0.025, 0.025)))
 ```
 
@@ -423,7 +423,7 @@ gg_bar(plot_data,
        y_var = body_mass_g, 
        width = 0.66, 
        x_na_rm = TRUE, 
-       y_pretty_n = 3) +
+       y_breaks_n = 3) +
   facet_grid(rows = vars(species), 
              cols = vars(island), 
              labeller = as_labeller(snakecase::to_sentence_case))

@@ -25,7 +25,7 @@ gg_boxplot_col_facet(
   x_balance = FALSE,
   x_labels = NULL,
   x_na_rm = FALSE,
-  x_pretty_n = 3,
+  x_breaks_n = 2,
   x_expand = NULL,
   x_rev = FALSE,
   x_title = NULL,
@@ -34,9 +34,9 @@ gg_boxplot_col_facet(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = scales::label_number(big.mark = ""),
+  y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_pretty_n = 4,
+  y_breaks_n = 3,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
@@ -97,7 +97,7 @@ gg_boxplot_col_facet(
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -115,11 +115,11 @@ gg_boxplot_col_facet(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -169,17 +169,13 @@ library(palmerpenguins)
 plot_data <- penguins \%>\% 
   mutate(year = as.character(year))
 
-gg_boxplot_col_facet(plot_data, 
-                     x_var = year, 
-                     y_var = body_mass_g, 
-                     col_var = sex, 
-                     facet_var = species)
-
 plot <- gg_boxplot_col_facet(plot_data, 
                              x_var = year, 
                              y_var = body_mass_g, 
                              col_var = sex, 
                              facet_var = species)
+                             
+plot
 
 plotly::ggplotly(plot) \%>\%
   plotly::layout(boxmode = "group") \%>\%

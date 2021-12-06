@@ -3,15 +3,13 @@
 #' @param digits If cuts are numeric, the number of decimal places to round labels to.
 #' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
 #' @return A vector of character labels.
-#' @export 
+#' @keywords internal 
 #' @examples 
-#' library(simplevis)
+#' simplevis:::interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
 #' 
-#' interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
+#' simplevis:::interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
 #' 
-#' interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
-#' 
-#' interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
+#' simplevis:::interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
 #' 
 interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
   

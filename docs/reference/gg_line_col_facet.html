@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.17</span>
       </span>
     </div>
 
@@ -171,6 +171,7 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -181,7 +182,7 @@
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_pretty_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>x_breaks_n</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -189,9 +190,9 @@
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_number</a></span>(<span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>""</span>),
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_pretty_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -291,7 +292,7 @@
       <td><p>TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>x_pretty_n</th>
+      <th>x_breaks_n</th>
       <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.</p></td>
     </tr>
     <tr>
@@ -324,14 +325,14 @@
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+      <td><p>A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_na_rm</th>
       <td><p>TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>y_pretty_n</th>
+      <th>y_breaks_n</th>
       <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
     </tr>
     <tr>
@@ -415,8 +416,7 @@
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>year</span>, <span class='no'>species</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>year</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'year', 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'year', 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
 <span class='fu'>gg_line_col_facet</span>(<span class='no'>plot_data</span>,
                   <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>,
                   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,

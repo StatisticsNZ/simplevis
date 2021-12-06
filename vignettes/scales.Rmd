@@ -94,8 +94,8 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             x_pretty_n = 6, 
-             y_pretty_n = 10)
+             x_breaks_n = 6, 
+             y_breaks_n = 10)
 ```
 
 Transform numeric x and y scales.

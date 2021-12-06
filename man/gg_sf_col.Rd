@@ -25,9 +25,9 @@ gg_sf_col(
   col_cuts = NULL,
   col_labels = NULL,
   col_na_rm = FALSE,
-  col_pretty_n = 5,
+  col_breaks_n = 5,
   col_method = NULL,
-  col_right_closed = TRUE,
+  col_intervals_right = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
@@ -77,11 +77,11 @@ gg_sf_col(
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
-\item{col_pretty_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
-\item{col_right_closed}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
+\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

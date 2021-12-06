@@ -1,3 +1,11 @@
+#simplevis 5.0.17
+
+* Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
+* Renamed col_right_closed to col_intervals_right.
+* Updated breaks defaults.
+* Changed numeric label defaults back to label_comma(). 
+* Added alpha in to line.
+
 #simplevis 5.0.15
 
 * Tidied gg_sf* and gg_stars* code.

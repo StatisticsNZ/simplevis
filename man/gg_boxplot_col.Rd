@@ -23,7 +23,7 @@ gg_boxplot_col(
   subtitle_wrap = 80,
   x_balance = FALSE,
   x_labels = NULL,
-  x_pretty_n = 6,
+  x_breaks_n = 5,
   x_expand = NULL,
   x_na_rm = FALSE,
   x_title = NULL,
@@ -32,9 +32,9 @@ gg_boxplot_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = scales::label_number(big.mark = ""),
+  y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_pretty_n = 5,
+  y_breaks_n = 5,
   x_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
@@ -88,7 +88,7 @@ gg_boxplot_col(
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -106,11 +106,11 @@ gg_boxplot_col(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 

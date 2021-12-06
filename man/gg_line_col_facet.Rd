@@ -14,6 +14,7 @@ gg_line_col_facet(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
+  alpha = 1,
   size_point = 1,
   size_line = 0.5,
   title = NULL,
@@ -24,7 +25,7 @@ gg_line_col_facet(
   x_expand = NULL,
   x_labels = NULL,
   x_na_rm = FALSE,
-  x_pretty_n = 3,
+  x_breaks_n = 2,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
@@ -32,9 +33,9 @@ gg_line_col_facet(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = scales::label_number(big.mark = ""),
+  y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_pretty_n = 4,
+  y_breaks_n = 3,
   y_trans = "identity",
   y_title = NULL,
   y_title_wrap = 50,
@@ -73,6 +74,8 @@ gg_line_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
+\item{alpha}{The opacity of lines and points. Defaults to 1.}
+
 \item{size_point}{Size of points. Defaults to 1.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
@@ -93,7 +96,7 @@ gg_line_col_facet(
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -109,11 +112,11 @@ gg_line_col_facet(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_trans}{For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".}
 
@@ -162,8 +165,7 @@ library(palmerpenguins)
 
 plot_data <- penguins \%>\% 
   group_by(year, species, sex) \%>\% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\% 
-  mutate(year = as.character(year))
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) 
 
 gg_line_col_facet(plot_data, 
                   x_var = year, 

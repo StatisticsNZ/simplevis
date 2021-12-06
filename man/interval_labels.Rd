@@ -20,12 +20,11 @@ A vector of character labels.
 Convert numeric or interval cuts to simple and pretty labels.
 }
 \examples{
-library(simplevis)
+simplevis:::interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
 
-interval_labels(c(0, 0.1, 3, 4.1, 7, 100, Inf))
+simplevis:::interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
 
-interval_labels(c("(0, 10]", "(10, 50]", "(50, 100]"))
-
-interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
+simplevis:::interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
 
 }
+\keyword{internal}

@@ -18,14 +18,14 @@
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_pretty_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_breaks_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param caption Caption title string. 
@@ -59,14 +59,14 @@ gg_density <- function(data,
                        x_balance = FALSE,
                        x_expand = NULL,
                        x_labels = NULL,
-                       x_pretty_n = 6,
+                       x_breaks_n = 5,
                        x_title = NULL,
                        x_title_wrap = 50,
                        x_zero = FALSE,
                        x_zero_line = NULL,
                        y_expand = c(0, 0),
                        y_labels = scales::label_number(big.mark = ""),
-                       y_pretty_n = 5,
+                       y_breaks_n = 5,
                        y_title = NULL,
                        y_title_wrap = 50,
                        caption = NULL,
@@ -106,7 +106,7 @@ gg_density <- function(data,
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
-  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
   
@@ -133,7 +133,7 @@ gg_density <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, pretty_n = y_pretty_n, trans = "identity", zero = TRUE)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -189,14 +189,14 @@ gg_density <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_pretty_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param x_breaks_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -239,14 +239,14 @@ gg_density_col <- function(data,
                            x_balance = FALSE,
                            x_expand = NULL,
                            x_labels = NULL,
-                           x_pretty_n = 6,
+                           x_breaks_n = 5,
                            x_title = NULL,
                            x_title_wrap = 50,
                            x_zero = FALSE,
                            x_zero_line = NULL,
                            y_expand = c(0, 0),
                            y_labels = scales::label_number(big.mark = ""),
-                           y_pretty_n = 5,
+                           y_breaks_n = 5,
                            y_title = NULL,
                            y_title_wrap = 50,
                            col_labels = snakecase::to_sentence_case,
@@ -330,7 +330,7 @@ gg_density_col <- function(data,
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
-  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
   
@@ -357,7 +357,7 @@ gg_density_col <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, pretty_n = y_pretty_n, trans = "identity", zero = TRUE)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -432,14 +432,14 @@ gg_density_col <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_pretty_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
+#' @param x_breaks_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -459,8 +459,7 @@ gg_density_col <- function(data,
 #' 
 #' gg_density_facet(penguins, 
 #'                  x_var = body_mass_g, 
-#'                  facet_var = species, 
-#'                  x_pretty_n = 2)
+#'                  facet_var = species)
 #' 
 gg_density_facet <- function(data,
                              x_var,
@@ -480,14 +479,14 @@ gg_density_facet <- function(data,
                              x_balance = FALSE,
                              x_expand = NULL,
                              x_labels = NULL,
-                             x_pretty_n = 3,
+                             x_breaks_n = 2,
                              x_title = NULL,
                              x_title_wrap = 50,
                              x_zero = FALSE,
                              x_zero_line = NULL,
                              y_expand = c(0, 0),
                              y_labels = scales::label_number(big.mark = ""),
-                             y_pretty_n = 4,
+                             y_breaks_n = 3,
                              y_title = NULL,
                              y_title_wrap = 50,
                              facet_labels = snakecase::to_sentence_case,
@@ -542,7 +541,7 @@ gg_density_facet <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
@@ -566,7 +565,7 @@ gg_density_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, pretty_n = y_pretty_n, trans = "identity", zero = TRUE)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
@@ -617,14 +616,14 @@ gg_density_facet <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
-#' @param x_pretty_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
+#' @param x_breaks_n For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_pretty_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -649,8 +648,7 @@ gg_density_facet <- function(data,
 #' gg_density_col_facet(penguins, 
 #'                      x_var = body_mass_g, 
 #'                      col_var = sex, 
-#'                      facet_var = species, 
-#'                      x_pretty_n = 2)
+#'                      facet_var = species)
 #' 
 gg_density_col_facet <- function(data,
                                  x_var,
@@ -673,14 +671,14 @@ gg_density_col_facet <- function(data,
                                  x_balance = FALSE,
                                  x_expand = NULL,
                                  x_labels = NULL,
-                                 x_pretty_n = 3,
+                                 x_breaks_n = 2,
                                  x_title = NULL,
                                  x_title_wrap = 50,
                                  x_zero = FALSE,
                                  x_zero_line = NULL,
                                  y_expand = c(0, 0),
                                  y_labels = scales::label_number(big.mark = ""),
-                                 y_pretty_n = 4,
+                                 y_breaks_n = 3,
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  col_labels = snakecase::to_sentence_case,
@@ -775,7 +773,7 @@ gg_density_col_facet <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, pretty_n = x_pretty_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
@@ -805,7 +803,7 @@ gg_density_col_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, pretty_n = y_pretty_n, trans = "identity", zero = TRUE)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +

@@ -20,7 +20,7 @@ gg_point(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
-  x_pretty_n = 6,
+  x_breaks_n = 5,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
@@ -29,8 +29,8 @@ gg_point(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_expand = c(0, 0),
-  y_labels = scales::label_number(big.mark = ""),
-  y_pretty_n = 5,
+  y_labels = scales::label_comma(),
+  y_breaks_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
@@ -73,7 +73,7 @@ gg_point(
 
 \item{x_labels}{A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -93,7 +93,7 @@ gg_point(
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_pretty_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

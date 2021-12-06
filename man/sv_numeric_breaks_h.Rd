@@ -7,7 +7,7 @@
 sv_numeric_breaks_h(
   var_vctr,
   balance = FALSE,
-  pretty_n = 6,
+  breaks_n = 6,
   trans = "identity",
   zero = TRUE,
   mobile = FALSE
@@ -18,7 +18,7 @@ sv_numeric_breaks_h(
 
 \item{balance}{Add balance to the y axis so that zero is in the centre of the horizontal scale.}
 
-\item{pretty_n}{The desired number of intervals on the horizontal axis, as calculated by the pretty algorithm. Defaults to 6.}
+\item{breaks_n}{The desired number of intervals on the horizontal axis, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{trans}{A string specifying a transformation for the horizontal axis scale, such as "log10" or "sqrt". Defaults to "identity".}
 

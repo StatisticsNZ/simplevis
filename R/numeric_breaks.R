@@ -2,7 +2,7 @@
 #' 
 #' @param var_vctr A numeric vector for the vertical scale from which to determine breaks from. 
 #' @param balance Add balance to the vertical axis so that zero is in the centre of the vertical scale.
-#' @param pretty_n The desired number of intervals on the vertical axis, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param breaks_n The desired number of intervals on the vertical axis, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param trans A string specifying a transformation for the vertical axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param zero TRUE or FALSE of whether the minimum of the vertical scale is zero. Defaults to TRUE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to NULL. 
@@ -10,7 +10,7 @@
 #' @keywords internal
 sv_numeric_breaks_v <- function(var_vctr,
                                 balance = FALSE, 
-                                pretty_n = 5,
+                                breaks_n = 5,
                                 trans = "identity", 
                                 zero = TRUE) {
   
@@ -21,7 +21,7 @@ sv_numeric_breaks_v <- function(var_vctr,
   if (zero == TRUE) min_max <- c(0, min_max)
   if (balance == TRUE) min_max <- c(-min_max, min_max)
   
-  breaks <- pretty(min_max, n = pretty_n)
+  breaks <- pretty(min_max, n = breaks_n)
   if(trans == "log10" | trans == "log") {
     if(breaks[1] == 0) breaks[1] <- 1
   }
@@ -33,7 +33,7 @@ sv_numeric_breaks_v <- function(var_vctr,
 #' 
 #' @param var_vctr A numeric vector for the horizontal scale from which to determine breaks from. 
 #' @param balance Add balance to the y axis so that zero is in the centre of the horizontal scale.
-#' @param pretty_n The desired number of intervals on the horizontal axis, as calculated by the pretty algorithm. Defaults to 6. 
+#' @param breaks_n The desired number of intervals on the horizontal axis, as calculated by the pretty algorithm. Defaults to 6. 
 #' @param trans A string specifying a transformation for the horizontal axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param zero TRUE or FALSE of whether the minimum of the horizontal scale is zero. Defaults to TRUE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
@@ -41,7 +41,7 @@ sv_numeric_breaks_v <- function(var_vctr,
 #' @keywords internal
 sv_numeric_breaks_h <- function(var_vctr, 
                                 balance = FALSE, 
-                                pretty_n = 6, 
+                                breaks_n = 6, 
                                 trans = "identity", 
                                 zero = TRUE,
                                 mobile = FALSE) {
@@ -53,7 +53,7 @@ sv_numeric_breaks_h <- function(var_vctr,
   if (zero == TRUE) min_max <- c(0, min_max)
   if (balance == TRUE) min_max <- c(-min_max, min_max)
   
-  breaks <- pretty(min_max, n = pretty_n)
+  breaks <- pretty(min_max, n = breaks_n)
   if(trans == "log10" | trans == "log") {
     if(breaks[1] == 0) breaks[1] <- 1 
   }

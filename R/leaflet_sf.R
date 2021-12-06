@@ -194,8 +194,8 @@ leaflet_sf <- function(data,
 #' @param col_labels A vector to modify colour scale labels.  
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_pretty_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
-#' @param col_right_closed For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_breaks_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
+#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -230,8 +230,8 @@ leaflet_sf_col <- function(data,
                            col_labels = NULL,
                            col_method = NULL,
                            col_na_rm = FALSE,
-                           col_pretty_n = 4,
-                           col_right_closed = TRUE, 
+                           col_breaks_n = 5,
+                           col_intervals_right = TRUE, 
                            col_title = NULL,
                            map_id = "map"
 ) {
@@ -270,7 +270,7 @@ leaflet_sf_col <- function(data,
   
   if (col_method %in% c("quantile", "bin")) {
     if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_pretty_n)
+      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
       else if (!is.null(col_cuts)) {
         if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
@@ -296,11 +296,11 @@ leaflet_sf_col <- function(data,
       palette = pal,
       domain = col_var_vctr,
       bins = col_cuts,
-      right = col_right_closed,
+      right = col_intervals_right,
       na.color = pal_na
     )
     
-    if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_right_closed)
+    if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_intervals_right)
   }
   else if (col_method == "category") {
     if (is.null(col_labels)) {

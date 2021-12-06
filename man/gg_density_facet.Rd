@@ -23,14 +23,14 @@ gg_density_facet(
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
-  x_pretty_n = 3,
+  x_breaks_n = 2,
   x_title = NULL,
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
   y_expand = c(0, 0),
   y_labels = scales::label_number(big.mark = ""),
-  y_pretty_n = 4,
+  y_breaks_n = 3,
   y_title = NULL,
   y_title_wrap = 50,
   facet_labels = snakecase::to_sentence_case,
@@ -80,7 +80,7 @@ gg_density_facet(
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
-\item{x_pretty_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
+\item{x_breaks_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -94,7 +94,7 @@ gg_density_facet(
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_pretty_n}{For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
+\item{y_breaks_n}{For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -128,7 +128,6 @@ library(palmerpenguins)
 
 gg_density_facet(penguins, 
                  x_var = body_mass_g, 
-                 facet_var = species, 
-                 x_pretty_n = 2)
+                 facet_var = species)
 
 }

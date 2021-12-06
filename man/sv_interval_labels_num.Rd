@@ -4,12 +4,12 @@
 \alias{sv_interval_labels_num}
 \title{Convert numeric bin cuts to simple and pretty labels.}
 \usage{
-sv_interval_labels_num(cuts, digits = NULL, right_closed = TRUE)
+sv_interval_labels_num(cuts, format = NULL, right_closed = TRUE)
 }
 \arguments{
 \item{cuts}{A vector of numeric cuts.}
 
-\item{digits}{If cuts are numeric, the number of decimal places to round labels to.}
+\item{format}{A function to apply to the numeric values, e.g. scales::label_comma().}
 
 \item{right_closed}{If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.}
 }

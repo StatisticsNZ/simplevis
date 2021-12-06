@@ -1,6 +1,6 @@
 #' @title Convert numeric or interval cuts to simple and pretty labels.
 #' @param cuts A vector or numeric or character interval cuts.
-#' @param digits If cuts are numeric, the number of decimal places to round labels to.
+#' @param format A function to apply to the numeric values, e.g. scales::label_comma().
 #' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
 #' @return A vector of character labels.
 #' @keywords internal 
@@ -17,7 +17,7 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
     if (is.null(digits)) {
       cuts <- scales::comma(cuts)  
     } else cuts <-   scales::comma(cuts, accuracy = 10 ^ -digits)
-
+    
     labels <- vector("character", 0)
     
     cuts_no <- length(cuts)
@@ -65,17 +65,17 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
 
 #' @title Convert numeric bin cuts to simple and pretty labels.
 #' @param cuts A vector of numeric cuts.
-#' @param digits If cuts are numeric, the number of decimal places to round labels to.
+#' @param format A function to apply to the numeric values, e.g. scales::label_comma().
 #' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
 #' @return A vector of character labels.
 #' @keywords internal
 #' 
-sv_interval_labels_num <- function(cuts, digits = NULL, right_closed = TRUE) {
+sv_interval_labels_num <- function(cuts, format = NULL, right_closed = TRUE) {
   
-  if (is.null(digits)) {
-    cuts <- scales::comma(cuts)  
-  } else cuts <-   scales::comma(cuts, accuracy = 10 ^ -digits)
-    
+  if (is.null(format)) {
+    cuts <- scales::number(cuts, big.mark = ",")  
+  } else cuts <- format(cuts)
+  
   labels <- vector("character", 0)
   
   cuts_no <- length(cuts)

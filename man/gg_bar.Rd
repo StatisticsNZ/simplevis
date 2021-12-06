@@ -29,10 +29,10 @@ gg_bar(
   x_zero = FALSE,
   x_zero_line = NULL,
   y_balance = FALSE,
+  y_breaks_n = 5,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_breaks_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
@@ -77,7 +77,7 @@ gg_bar(
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
-\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{x_reorder}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.}
 
@@ -93,13 +93,13 @@ gg_bar(
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
+\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
-
-\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

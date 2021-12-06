@@ -23,17 +23,17 @@ gg_density_col_facet(
   title_wrap = 80,
   subtitle = NULL,
   subtitle_wrap = 80,
+  x_breaks_n = 2,
   x_balance = FALSE,
   x_expand = NULL,
   x_labels = NULL,
-  x_breaks_n = 2,
   x_title = NULL,
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
+  y_breaks_n = 3,
   y_expand = c(0, 0),
   y_labels = scales::label_number(big.mark = ""),
-  y_breaks_n = 3,
   y_title = NULL,
   y_title_wrap = 50,
   col_labels = snakecase::to_sentence_case,
@@ -88,13 +88,13 @@ gg_density_col_facet(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
+\item{x_breaks_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.}
+
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
-
-\item{x_breaks_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -104,11 +104,11 @@ gg_density_col_facet(
 
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
+\item{y_breaks_n}{For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
+
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_breaks_n}{For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

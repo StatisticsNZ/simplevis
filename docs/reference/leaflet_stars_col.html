@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.18</span>
       </span>
     </div>
 
@@ -169,13 +169,12 @@
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+  <span class='kw'>col_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_label_digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_intervals_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>col_intervals_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>
 )</pre>
@@ -212,16 +211,20 @@
       <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
     </tr>
     <tr>
+      <th>col_breaks_n</th>
+      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+    </tr>
+    <tr>
       <th>col_cuts</th>
       <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
     </tr>
     <tr>
-      <th>col_label_digits</th>
-      <td><p>If numeric colour method, the number of decimal places to round the labels to.</p></td>
+      <th>col_intervals_right</th>
+      <td><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A vector to modify colour scale labels.</p></td>
+      <td><p>A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric.</p></td>
     </tr>
     <tr>
       <th>col_method</th>
@@ -230,14 +233,6 @@
     <tr>
       <th>col_na_rm</th>
       <td><p>TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>col_breaks_n</th>
-      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
-    </tr>
-    <tr>
-      <th>col_intervals_right</th>
-      <td><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>col_title</th>

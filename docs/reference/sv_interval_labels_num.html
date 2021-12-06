@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.18</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@
     <p>Convert numeric bin cuts to simple and pretty labels.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sv_interval_labels_num</span>(<span class='no'>cuts</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>sv_interval_labels_num</span>(<span class='no'>cuts</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right_closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,8 +171,8 @@
       <td><p>A vector of numeric cuts.</p></td>
     </tr>
     <tr>
-      <th>digits</th>
-      <td><p>If cuts are numeric, the number of decimal places to round labels to.</p></td>
+      <th>format</th>
+      <td><p>A function to apply to the numeric values, e.g. scales::label_comma().</p></td>
     </tr>
     <tr>
       <th>right_closed</th>

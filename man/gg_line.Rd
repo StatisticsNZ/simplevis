@@ -18,20 +18,20 @@ gg_line(
   subtitle = NULL,
   subtitle_wrap = 80,
   x_balance = FALSE,
+  x_breaks_n = 5,
   x_expand = NULL,
   x_labels = NULL,
   x_na_rm = FALSE,
-  x_breaks_n = 5,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
   y_balance = FALSE,
+  y_breaks_n = 5,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_breaks_n = 5,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
@@ -70,13 +70,13 @@ gg_line(
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
-
-\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -90,13 +90,13 @@ gg_line(
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
+\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
-
-\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

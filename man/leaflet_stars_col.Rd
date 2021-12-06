@@ -12,13 +12,12 @@ leaflet_stars_col(
   pal_rev = FALSE,
   alpha = 1,
   basemap = "light",
+  col_breaks_n = 5,
   col_cuts = NULL,
-  col_label_digits = NULL,
+  col_intervals_right = TRUE,
   col_labels = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
-  col_breaks_n = 5,
-  col_intervals_right = TRUE,
   col_title = NULL,
   map_id = "map"
 )
@@ -38,19 +37,17 @@ leaflet_stars_col(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
+\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_label_digits}{If numeric colour method, the number of decimal places to round the labels to.}
+\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
-\item{col_labels}{A vector to modify colour scale labels.}
+\item{col_labels}{A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
 \item{col_na_rm}{TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.}
-
-\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4.}
-
-\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_title}{A title string that will be wrapped into the legend.}
 

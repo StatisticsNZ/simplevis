@@ -1,3 +1,7 @@
+#simplevis 5.0.18
+
+* Redesigned col_labels argument in leaflet to accept a function.
+
 #simplevis 5.0.17
 
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.

@@ -82,13 +82,12 @@ leaflet_stars <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha The opacity of features. Defaults to 1.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
+#' @param col_breaks_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_label_digits If numeric colour method, the number of decimal places to round the labels to.
-#' @param col_labels A vector to modify colour scale labels.  
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
-#' @param col_na_rm TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.
-#' @param col_breaks_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
+#' @param col_labels A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric.
+#' @param col_na_rm TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -107,13 +106,12 @@ leaflet_stars_col <- function(data,
                               pal_rev = FALSE,
                               alpha = 1,
                               basemap = "light",
+                              col_breaks_n = 5,
                               col_cuts = NULL,
-                              col_label_digits = NULL,
+                              col_intervals_right = TRUE, 
                               col_labels = NULL,
                               col_method = NULL,
                               col_na_rm = FALSE,
-                              col_breaks_n = 5,
-                              col_intervals_right = TRUE, 
                               col_title = NULL,
                               map_id = "map"
 ) {
@@ -129,7 +127,7 @@ leaflet_stars_col <- function(data,
     dplyr::select(!!col_var)
   
   col_var_vctr <- dplyr::pull(data, !!col_var)
-
+  
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -138,7 +136,7 @@ leaflet_stars_col <- function(data,
   }
   
   if (col_na_rm == TRUE) pal_na <- "transparent"
-
+  
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -151,22 +149,6 @@ leaflet_stars_col <- function(data,
         if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
         if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
       }
-      
-      if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
-      else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
-      if (pal_rev == TRUE) pal <- rev(pal)
-      pal <- stringr::str_sub(pal, 1, 7)
-      
-      pal_fun <- colorBin(
-        palette = pal,
-        domain = col_var_vctr,
-        bins = col_cuts,
-        pretty = FALSE,
-        right = col_intervals_right,
-        na.color = pal_na
-      )
-      
-      if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_intervals_right)
     }
     else if (col_method == "quantile") {
       if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
@@ -174,14 +156,14 @@ leaflet_stars_col <- function(data,
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
       }  
-      if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
-      else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
-      if (pal_rev == TRUE) pal <- rev(pal)
-      pal <- stringr::str_sub(pal, 1, 7)
       
       col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
     }
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+    
+    if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
+    else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
+    if (pal_rev == TRUE) pal <- rev(pal)
     
     pal_fun <- colorBin(
       palette = pal,
@@ -191,21 +173,27 @@ leaflet_stars_col <- function(data,
       na.color = pal_na
     )
     
-    if (is.null(col_labels)) col_labels <- sv_interval_labels_num(col_cuts, digits = col_label_digits, right_closed = col_intervals_right)
+    if (is.function(col_labels) | is.null(col_labels)) {
+      col_labels <- sv_interval_labels_num(col_cuts, format = col_labels, right_closed = col_intervals_right)
+    }
   }
   else if (col_method == "category") {
-    if (is.null(col_labels)) {
-      if (is.factor(col_var_vctr)) col_labels <- levels(col_var_vctr)
-      else if (is.character(col_var_vctr)) col_labels <- sort(unique(col_var_vctr))
+    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+      col_labels2 <- levels(col_var_vctr)
+      col_n <- length(col_labels2)
     }
-    
-    col_n <- length(col_labels)
+    else ({
+      col_labels2 <- unique(col_var_vctr)
+      col_n <- length(col_labels2)
+    }) 
     
     if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-    else if (!is.null(pal)) pal <- pal[1:col_n]
+    else pal <- pal[1:col_n]
+    
+    if (is.function(col_labels)) col_labels <- col_labels(col_labels2)
+    else if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case(col_labels2)
     
     if (pal_rev == TRUE) pal <- rev(pal)
-    pal <- stringr::str_sub(pal, 1, 7)
     
     pal_fun <- colorFactor(palette = pal,
                            domain = col_var_vctr,
@@ -223,7 +211,7 @@ leaflet_stars_col <- function(data,
     else if(basemap == "street") basemap_name <- "OpenStreetMap.Mapnik"
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
-
+  
   if (shiny == FALSE) {
     
     map <- leaflet() %>%
@@ -260,7 +248,7 @@ leaflet_stars_col <- function(data,
   }
   
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
-
+  
   map <- map %>%
     addLegend(
       layerId = col_id,
@@ -272,4 +260,5 @@ leaflet_stars_col <- function(data,
   
   return(map)
 }
+
 

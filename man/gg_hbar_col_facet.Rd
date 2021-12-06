@@ -22,33 +22,33 @@ gg_hbar_col_facet(
   title_wrap = 75,
   subtitle = NULL,
   subtitle_wrap = 75,
+  x_breaks_n = 2,
   x_balance = FALSE,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_na_rm = FALSE,
-  x_breaks_n = 2,
   x_title = NULL,
   x_title_wrap = 50,
   x_trans = "identity",
   x_zero = TRUE,
   x_zero_line = NULL,
   y_balance = FALSE,
+  y_breaks_n = 3,
   y_expand = NULL,
   y_labels = NULL,
   y_na_rm = FALSE,
-  y_breaks_n = 3,
   y_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
+  col_breaks_n = 5,
   col_cuts = NULL,
+  col_intervals_right = TRUE,
   col_labels = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
-  col_breaks_n = 5,
   col_rev = FALSE,
-  col_intervals_right = TRUE,
   col_title = NULL,
   col_title_wrap = 25,
   facet_labels = snakecase::to_sentence_case,
@@ -96,6 +96,8 @@ gg_hbar_col_facet(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 60.}
 
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
@@ -103,8 +105,6 @@ gg_hbar_col_facet(
 \item{x_labels}{A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
-
-\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -118,13 +118,13 @@ gg_hbar_col_facet(
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
 
+\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
-
-\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 6.}
 
 \item{y_rev}{For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
 
@@ -136,7 +136,11 @@ gg_hbar_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
+\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
+
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
 
@@ -144,11 +148,7 @@ gg_hbar_col_facet(
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
-\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
-
 \item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
-
-\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

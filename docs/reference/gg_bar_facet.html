@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.18</span>
       </span>
     </div>
 
@@ -176,10 +176,10 @@
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x_breaks_n</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_breaks_n</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -187,9 +187,9 @@
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -265,6 +265,10 @@
       <td><p>For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.</p></td>
     </tr>
     <tr>
+      <th>x_breaks_n</th>
+      <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.</p></td>
+    </tr>
+    <tr>
       <th>x_expand</th>
       <td><p>A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
@@ -275,10 +279,6 @@
     <tr>
       <th>x_na_rm</th>
       <td><p>TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>x_breaks_n</th>
-      <td><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.</p></td>
     </tr>
     <tr>
       <th>x_rev</th>
@@ -309,16 +309,16 @@
       <td><p>A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
     <tr>
+      <th>y_breaks_n</th>
+      <td><p>For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
+    </tr>
+    <tr>
       <th>y_labels</th>
       <td><p>A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_na_rm</th>
       <td><p>TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>y_breaks_n</th>
-      <td><p>For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
     </tr>
     <tr>
       <th>y_title</th>

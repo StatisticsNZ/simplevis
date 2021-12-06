@@ -19,31 +19,35 @@
 #' 
 leaflet_sf <- function(data,
                        popup_vars_vctr = NULL,
-                       pal = NULL,
+                       pal = pal_viridis_reorder(1),
                        size_point = 2,
                        size_line = 2,
                        alpha = NULL,
                        basemap = "light",
                        map_id = "map")
 {
-  
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #shiny
   shiny <- shiny::isRunning()
   
+  #warnings
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
+  #transform
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   
+  #geometry
   geometry_type <- unique(sf::st_geometry_type(data))
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
-  
+  #colour
+  pal <- pal[1]
   col_id <- paste0(map_id, "_legend")
   
+  #basemap
   if (shiny == FALSE) {
-    
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
     else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
     else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
@@ -52,6 +56,7 @@ leaflet_sf <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
+  #popup
   if (is.null(popup_vars_vctr)){
     popup_data <- data %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
@@ -66,6 +71,7 @@ leaflet_sf <- function(data,
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   
+  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
     
@@ -234,26 +240,38 @@ leaflet_sf_col <- function(data,
                            map_id = "map"
 ) {
   
+  #ungroup
   data <- dplyr::ungroup(data)
+  
+  #shiny
   shiny <- shiny::isRunning()
   
+  #warnings
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
+  #transform
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   
+  #geometry
+  geometry_type <- unique(sf::st_geometry_type(data))
+  
+  #quote
   col_var <- rlang::enquo(col_var)
   label_var <- rlang::enquo(label_var)
   if (is.null(rlang::get_expr(label_var))) label_var <- col_var
   
+  #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
   
+  #vectors
   col_var_vctr <- dplyr::pull(data, !!col_var)
   label_var_vctr <- dplyr::pull(data, !!label_var)
   
+  #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -261,6 +279,7 @@ leaflet_sf_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -324,12 +343,10 @@ leaflet_sf_col <- function(data,
                            na.color = pal_na)
   }
   
-  geometry_type <- unique(sf::st_geometry_type(data))
-  
   col_id <- paste0(map_id, "_legend")
   
+  #basemap
   if (shiny == FALSE) {
-    
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
     else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
     else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
@@ -338,6 +355,7 @@ leaflet_sf_col <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
+  #popup
   if (is.null(popup_vars_vctr)){
     popup_data <- data %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
@@ -352,6 +370,7 @@ leaflet_sf_col <- function(data,
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   
+  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha)) alpha <- 1
     
@@ -462,6 +481,7 @@ leaflet_sf_col <- function(data,
     }
   }
   
+  #legend NA
   if (col_na_rm == FALSE) {
     if(any(is.na(col_var_vctr))) {
       pal <- c(pal, pal_na)
@@ -469,8 +489,10 @@ leaflet_sf_col <- function(data,
     }
   }
   
+  #titles
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #legend
   map <- map %>% 
     addLegend(
       layerId = col_id,

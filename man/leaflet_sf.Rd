@@ -7,7 +7,7 @@
 leaflet_sf(
   data,
   popup_vars_vctr = NULL,
-  pal = NULL,
+  pal = pal_viridis_reorder(1),
   size_point = 2,
   size_line = 2,
   alpha = NULL,

@@ -39,13 +39,13 @@ library(ggplot2)
 bar
 
 ```{r}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
+plot_data <- penguins %>% 
+  group_by(species) %>% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
 gg_bar(plot_data, 
-       x_var = year, 
-       y_var = wind)
+       x_var = species, 
+       y_var = body_mass_g)
 ```
 
 point
@@ -65,7 +65,8 @@ plot_data <- storms %>%
 
 gg_line(plot_data, 
         x_var = year, 
-        y_var = wind)
+        y_var = wind, 
+        x_labels = scales::label_number(big.mark = ""))
 ```
 
 hbar (i.e horizontal bar)
@@ -99,7 +100,8 @@ boxplot
 ```{r}
 gg_boxplot(storms, 
            x_var = year, 
-           y_var = wind)
+           y_var = wind,
+           x_labels = scales::label_number(big.mark = ""))
 ```
 
 density

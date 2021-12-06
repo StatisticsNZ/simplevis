@@ -16,24 +16,25 @@
 #' leaflet_stars(example_stars) 
 #'   
 leaflet_stars <- function(data,
-                          pal = NULL,
+                          pal = pal_viridis_reorder(1),
                           alpha = 0.5,
                           basemap = "light",
                           map_id = "map")
 {
   
+  #shiny
   shiny <- shiny::isRunning()
   
+  #warnings
   if (class(data) != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
-  if (is.null(pal)) pal <- pal_viridis_reorder(1)
-  else pal <- pal[1]
-  
+  #colour
+  pal <- pal[1]
   col_id <- paste0(map_id, "_legend")
   
+  #basemap
   if (shiny == FALSE) {
-    
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
     else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
     else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
@@ -42,8 +43,8 @@ leaflet_stars <- function(data,
     else basemap_name <- "CartoDB.PositronNoLabels"
   }
   
+  #fundamentals
   if (shiny == FALSE) {
-    
     map <- leaflet() %>%
       leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                  title = "Reset View", 
@@ -116,18 +117,24 @@ leaflet_stars_col <- function(data,
                               map_id = "map"
 ) {
   
+  #shiny
   shiny <- shiny::isRunning()
   
+  #warnings
   if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
+  #quote
   col_var <- rlang::enquo(col_var)
   
+  #select
   data <- data %>% 
     dplyr::select(!!col_var)
   
+  #vectors
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
+  #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!col_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
@@ -135,8 +142,10 @@ leaflet_stars_col <- function(data,
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
+  #na
   if (col_na_rm == TRUE) pal_na <- "transparent"
   
+  #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
@@ -202,8 +211,8 @@ leaflet_stars_col <- function(data,
   
   col_id <- paste0(map_id, "_legend")
   
+  #basemap
   if (shiny == FALSE) {
-    
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
     else if(basemap == "dark") basemap_name <- "CartoDB.DarkMatterNoLabels"
     else if(basemap == "satellite") basemap_name <- "Esri.WorldImagery"
@@ -213,7 +222,6 @@ leaflet_stars_col <- function(data,
   }
   
   if (shiny == FALSE) {
-    
     map <- leaflet() %>%
       leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                  title = "Reset View", 
@@ -240,6 +248,7 @@ leaflet_stars_col <- function(data,
       )
   }
   
+  #legend na
   if (col_na_rm == FALSE) {
     if(any(is.na(col_var_vctr))) {
       pal <- c(pal, pal_na)
@@ -247,8 +256,10 @@ leaflet_stars_col <- function(data,
     }
   }
   
+  #titles
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
+  #legend
   map <- map %>%
     addLegend(
       layerId = col_id,

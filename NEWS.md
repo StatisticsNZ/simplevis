@@ -1,6 +1,7 @@
-# simplevis 5.0.10 
+# simplevis 5.0.20 
 
 * Fix bug with hbar x scale.
+* Changed x_labels to default to scales::comma() for density.
 
 #simplevis 5.0.19
 

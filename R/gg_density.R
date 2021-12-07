@@ -59,14 +59,14 @@ gg_density <- function(data,
                        x_balance = FALSE,
                        x_breaks_n = 5,
                        x_expand = NULL,
-                       x_labels = NULL,
+                       x_labels = scales::label_comma(),
                        x_title = NULL,
                        x_title_wrap = 50,
                        x_zero = FALSE,
                        x_zero_line = NULL,
                        y_breaks_n = 5,
                        y_expand = c(0, 0),
-                       y_labels = scales::label_number(big.mark = ""),
+                       y_labels = scales::label_number(big.mark = ","),
                        y_title = NULL,
                        y_title_wrap = 50,
                        caption = NULL,
@@ -109,9 +109,7 @@ gg_density <- function(data,
   x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
-  
-  x_labels <- scales::label_number(big.mark = "")
-  
+
   if (mobile == TRUE) {
     x_breaks <- x_limits
     if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
@@ -239,14 +237,14 @@ gg_density_col <- function(data,
                            x_balance = FALSE,
                            x_breaks_n = 5,
                            x_expand = NULL,
-                           x_labels = NULL,
+                           x_labels = scales::label_comma(),
                            x_title = NULL,
                            x_title_wrap = 50,
                            x_zero = FALSE,
                            x_zero_line = NULL,
                            y_breaks_n = 5,
                            y_expand = c(0, 0),
-                           y_labels = scales::label_number(big.mark = ""),
+                           y_labels = scales::label_number(big.mark = ","),
                            y_title = NULL,
                            y_title_wrap = 50,
                            col_labels = snakecase::to_sentence_case,
@@ -333,8 +331,6 @@ gg_density_col <- function(data,
   x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
-  
-  x_labels <- scales::label_number(big.mark = "")
   
   if (mobile == TRUE) {
     x_breaks <- x_limits
@@ -479,14 +475,14 @@ gg_density_facet <- function(data,
                              x_balance = FALSE,
                              x_breaks_n = 2,
                              x_expand = NULL,
-                             x_labels = NULL,
+                             x_labels = scales::label_comma(),
                              x_title = NULL,
                              x_title_wrap = 50,
                              x_zero = FALSE,
                              x_zero_line = NULL,
                              y_breaks_n = 3,
                              y_expand = c(0, 0),
-                             y_labels = scales::label_number(big.mark = ""),
+                             y_labels = scales::label_number(big.mark = ","),
                              y_title = NULL,
                              y_title_wrap = 50,
                              facet_labels = snakecase::to_sentence_case,
@@ -544,8 +540,6 @@ gg_density_facet <- function(data,
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
-    
-    x_labels <- scales::label_number(big.mark = "")
     
     plot <- plot +
       scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
@@ -671,14 +665,14 @@ gg_density_col_facet <- function(data,
                                  x_breaks_n = 2,
                                  x_balance = FALSE,
                                  x_expand = NULL,
-                                 x_labels = NULL,
+                                 x_labels = scales::label_comma(),
                                  x_title = NULL,
                                  x_title_wrap = 50,
                                  x_zero = FALSE,
                                  x_zero_line = NULL,
                                  y_breaks_n = 3,
                                  y_expand = c(0, 0),
-                                 y_labels = scales::label_number(big.mark = ""),
+                                 y_labels = scales::label_number(big.mark = ","),
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  col_labels = snakecase::to_sentence_case,
@@ -776,8 +770,6 @@ gg_density_col_facet <- function(data,
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
-    
-    x_labels <- scales::label_number(big.mark = "")
     
     plot <- plot +
       scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)

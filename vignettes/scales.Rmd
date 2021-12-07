@@ -40,9 +40,9 @@ One deviation from this logic is that colour palette is selected using a `pal` a
 
 You can adjust labels by provinding a function or named vector to the `*_labels`argument. 
 
-All categorical variables are converted to sentence case by default using `stringr::str_to_sentence`. 
+All categorical variables are converted to sentence case by default using `snakecase::to_sentence_case`. 
 
-Numeric x and y variables are converted using the `scales::comma` by default. Numeric colour variables are converted to bins seperated by n-dashes using an internal function. 
+Numeric variables are generally converted using the `scales::label_comma()` by default, but sometimes converted to `scales::label_number()`. Numeric colour variables are converted to bins seperated by n-dashes using an internal function. 
 
 You can turn off any simplevis default transformations to labels using `ggplot2::waiver()`. 
 
@@ -61,10 +61,10 @@ gg_point_col_facet(penguins,
                    col_var = sex,
                    facet_var = species, 
                    y_title = "Body mass (kg)",
-                   x_labels = scales::dollar, 
+                   x_labels = scales::label_dollar(), 
                    y_labels = function(x) glue::glue("{x / 1000} kg"), 
                    col_labels = stringr::str_to_upper,
-                   facet_labels = c("Adelie" = "A", "Chinstrap" = "C", "Gentoo" = "G"))
+                   facet_labels = function(x) stringr::str_to_upper(stringr::str_sub(x, 1, 1)))
 
 ```
 

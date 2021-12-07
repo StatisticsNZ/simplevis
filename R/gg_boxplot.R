@@ -219,7 +219,7 @@ gg_boxplot <- function(data,
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     if (is.null(x_labels)) {
-      if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+      if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
       else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
@@ -554,7 +554,7 @@ gg_boxplot_col <- function(data,
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     if (is.null(x_labels)) {
-      if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+      if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
       else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
       else x_labels <- waiver()
     }
@@ -891,7 +891,7 @@ gg_boxplot_facet <- function(data,
       if (is.null(x_expand)) x_expand <- c(0, 0)
       
       if (is.null(x_labels)) {
-        if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+        if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
         else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
         else x_labels <- waiver()
       }
@@ -1242,7 +1242,7 @@ gg_boxplot_col_facet <- function(data,
         if (is.null(x_expand)) x_expand <- c(0, 0)
         
         if (is.null(x_labels)) {
-          if (is.numeric(x_var_vctr)) x_labels <- scales::label_comma()
+          if (is.numeric(x_var_vctr)) x_labels <- scales::label_number(big.mark = "")
           else if (lubridate::is.Date(x_var_vctr)) x_labels <- scales::label_date()
           else x_labels <- waiver()
         }

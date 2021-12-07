@@ -1,3 +1,8 @@
+#simplevis 5.0.19
+
+* Changed x_labels to default to scales::number(big.mark = "") for bar, boxplot and line.
+* Changed y_labels to default to scales::number(big.mark = "") for hbar.
+
 #simplevis 5.0.18
 
 * Redesigned col_labels argument in leaflet to accept a function.

@@ -147,7 +147,7 @@ gg_hbar <- function(data,
     } 
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
-  
+
   #colour
   pal <- pal[1]
   
@@ -180,7 +180,7 @@ gg_hbar <- function(data,
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
     if (is.null(y_labels)) {
-      if (is.numeric(y_var_vctr)) y_labels <- scales::label_comma()
+      if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
       else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
       else y_labels <- waiver()
     }
@@ -573,7 +573,7 @@ gg_hbar_col <- function(data,
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
     if (is.null(y_labels)) {
-      if (is.numeric(y_var_vctr)) y_labels <- scales::label_comma()
+      if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
       else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
       else y_labels <- waiver()
     }
@@ -879,7 +879,7 @@ gg_hbar_facet <- function(data,
         if (is.null(y_expand)) y_expand <- c(0, 0)
         
         if (is.null(y_labels)) {
-          if (is.numeric(y_var_vctr)) y_labels <- scales::label_comma()
+          if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
           else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
           else y_labels <- waiver()
         }
@@ -1277,7 +1277,7 @@ gg_hbar_col_facet <- function(data,
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
       if (is.null(y_labels)) {
-        if (is.numeric(y_var_vctr)) y_labels <- scales::label_comma()
+        if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
         else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
         else y_labels <- waiver()
       }

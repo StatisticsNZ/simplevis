@@ -39,13 +39,13 @@ library(ggplot2)
 bar
 
 ```{r}
-plot_data <- penguins %>% 
-  group_by(species) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
 
-gg_bar(plot_data, 
-       x_var = species, 
-       y_var = body_mass_g)
+gg_bar(plot_data,
+       x_var = year,
+       y_var = wind)
 ```
 
 point
@@ -65,8 +65,7 @@ plot_data <- storms %>%
 
 gg_line(plot_data, 
         x_var = year, 
-        y_var = wind, 
-        x_labels = scales::label_number(big.mark = ""))
+        y_var = wind)
 ```
 
 hbar (i.e horizontal bar)
@@ -100,8 +99,7 @@ boxplot
 ```{r}
 gg_boxplot(storms, 
            x_var = year, 
-           y_var = wind,
-           x_labels = scales::label_number(big.mark = ""))
+           y_var = wind)
 ```
 
 density
@@ -250,7 +248,8 @@ gg_bar_col(plot_data,
         position = "stack",
         x_breaks_n = 4,
         x_labels = function(x) stringr::str_sub(x, 3, 4),
-        y_labels = function(x) scales::comma(x, accuracy = 0.1), 
+        y_labels = scales::label_comma(accuracy = 0.1), 
+        col_labels = c("H", "TD", "TS"),
         y_zero = T, 
         y_breaks_n = 10,
         y_expand = ggplot2::expansion(mult = c(0.025, 0.025)))

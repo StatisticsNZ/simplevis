@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.19</span>
       </span>
     </div>
 
@@ -147,8 +147,8 @@
 <h3 class="hasAnchor">
 <a href="#labels" class="anchor"></a>Labels</h3>
 <p>You can adjust labels by provinding a function or named vector to the <code>*_labels</code>argument.</p>
-<p>All categorical variables are converted to sentence case by default using <code><a href="https://rdrr.io/pkg/stringr/man/case.html">stringr::str_to_sentence</a></code>.</p>
-<p>Numeric x and y variables are converted using the <code><a href="https://rdrr.io/pkg/scales/man/label_number.html">scales::comma</a></code> by default. Numeric colour variables are converted to bins seperated by n-dashes using an internal function.</p>
+<p>All categorical variables are converted to sentence case by default using <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html">snakecase::to_sentence_case</a></code>.</p>
+<p>Numeric variables are generally converted using the <code><a href="https://rdrr.io/pkg/scales/man/label_number.html">scales::label_comma()</a></code> by default, but sometimes converted to <code><a href="https://rdrr.io/pkg/scales/man/label_number.html">scales::label_number()</a></code>. Numeric colour variables are converted to bins seperated by n-dashes using an internal function.</p>
 <p>You can turn off any simplevis default transformations to labels using <code><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html">ggplot2::waiver()</a></code>.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>,
                    <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
@@ -162,10 +162,10 @@
                    <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
                    <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">species</span>,
                    <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Body mass (kg)"</span>,
-                   <span class="kw">x_labels</span> <span class="kw">=</span> <span class="kw pkg">scales</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/scales/man/label_dollar.html">dollar</a></span>,
+                   <span class="kw">x_labels</span> <span class="kw">=</span> <span class="kw pkg">scales</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_dollar.html">label_dollar</a></span>(),
                    <span class="kw">y_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/glue/man/glue.html">glue</a></span>(<span class="st">"{x / 1000} kg"</span>),
                    <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/stringr/man/case.html">str_to_upper</a></span>,
-                   <span class="kw">facet_labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Adelie"</span> <span class="kw">=</span> <span class="st">"A"</span>, <span class="st">"Chinstrap"</span> <span class="kw">=</span> <span class="st">"C"</span>, <span class="st">"Gentoo"</span> <span class="kw">=</span> <span class="st">"G"</span>))</pre></body></html></div>
+                   <span class="kw">facet_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/case.html">str_to_upper</a></span>(<span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_sub.html">str_sub</a></span>(<span class="no">x</span>, <span class="fl">1</span>, <span class="fl">1</span>)))</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
 <div id="numeric-scales" class="section level3">

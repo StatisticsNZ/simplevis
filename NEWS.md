@@ -1,7 +1,11 @@
+# simplevis 5.0.21
+
+* Allowed col_breaks_n to be used for quantile colour method.
+
 # simplevis 5.0.20 
 
 * Fix bug with hbar x scale.
-* Changed x_labels to default to scales::comma() for density.
+* Changed x_labels to default to scales::label_comma() for density.
 
 #simplevis 5.0.19
 

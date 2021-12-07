@@ -12,7 +12,7 @@ leaflet_stars_col(
   pal_rev = FALSE,
   alpha = 1,
   basemap = "light",
-  col_breaks_n = 5,
+  col_breaks_n = 4,
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,
@@ -37,7 +37,7 @@ leaflet_stars_col(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{col_breaks_n}{For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 

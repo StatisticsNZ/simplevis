@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.21</span>
       </span>
     </div>
 
@@ -199,7 +199,7 @@
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>col_breaks_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_intervals_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -371,7 +371,7 @@
     </tr>
     <tr>
       <th>col_breaks_n</th>
-      <td><p>For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.</p></td>
+      <td><p>For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.</p></td>
     </tr>
     <tr>
       <th>col_cuts</th>

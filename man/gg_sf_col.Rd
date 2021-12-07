@@ -22,7 +22,7 @@ gg_sf_col(
   title_wrap = 80,
   subtitle = NULL,
   subtitle_wrap = 80,
-  col_breaks_n = 5,
+  col_breaks_n = 4,
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,
@@ -71,7 +71,7 @@ gg_sf_col(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.}
 
-\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{col_breaks_n}{For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 

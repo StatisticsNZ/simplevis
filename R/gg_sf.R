@@ -178,7 +178,7 @@ gg_sf <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
-#' @param col_breaks_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5. 
+#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
@@ -227,7 +227,7 @@ gg_sf_col <- function(data,
                       title_wrap = 80,
                       subtitle = NULL,
                       subtitle_wrap = 80,
-                      col_breaks_n = 5,
+                      col_breaks_n = 4,
                       col_cuts = NULL,
                       col_intervals_right = TRUE,
                       col_labels = NULL,
@@ -321,7 +321,7 @@ gg_sf_col <- function(data,
   
   if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -685,7 +685,7 @@ gg_sf_facet <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
-#' @param col_breaks_n For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.
+#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
@@ -727,7 +727,7 @@ gg_sf_col_facet <- function(data,
                             title_wrap = 80,
                             subtitle = NULL,
                             subtitle_wrap = 80,
-                            col_breaks_n = 5,
+                            col_breaks_n = 4,
                             col_cuts = NULL,
                             col_intervals_right = TRUE,
                             col_labels = NULL,
@@ -839,7 +839,7 @@ gg_sf_col_facet <- function(data,
   
   if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")

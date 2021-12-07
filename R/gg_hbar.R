@@ -180,7 +180,7 @@ gg_hbar <- function(data,
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
     if (is.null(y_labels)) {
-      if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
+      if (is.numeric(y_var_vctr)) y_labels <- scales::label_number(big.mark = "")
       else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
       else y_labels <- waiver()
     }
@@ -194,7 +194,7 @@ gg_hbar <- function(data,
     }
     
     plot <- plot +
-      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
     
     if (y_zero_line == TRUE) {
       plot <- plot +
@@ -573,7 +573,7 @@ gg_hbar_col <- function(data,
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
     if (is.null(y_labels)) {
-      if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
+      if (is.numeric(y_var_vctr)) y_labels <- scales::label_number(big.mark = "")
       else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
       else y_labels <- waiver()
     }
@@ -587,7 +587,7 @@ gg_hbar_col <- function(data,
     }
     
     plot <- plot +
-      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
     
     if (y_zero_line == TRUE) {
       plot <- plot +
@@ -879,7 +879,7 @@ gg_hbar_facet <- function(data,
         if (is.null(y_expand)) y_expand <- c(0, 0)
         
         if (is.null(y_labels)) {
-          if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
+          if (is.numeric(y_var_vctr)) y_labels <- scales::label_number(big.mark = "")
           else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
           else y_labels <- waiver()
         }
@@ -887,7 +887,7 @@ gg_hbar_facet <- function(data,
       
       if (is.numeric(y_var_vctr)) {
         plot <- plot +
-          scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, trans = "identity", oob = scales::oob_squish)
+          scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
         
         if (y_zero_line == TRUE) {
           plot <- plot +
@@ -1277,7 +1277,7 @@ gg_hbar_col_facet <- function(data,
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
       if (is.null(y_labels)) {
-        if (is.numeric(y_var_vctr)) y_labels <- label_number(big.mark = "")
+        if (is.numeric(y_var_vctr)) y_labels <- scales::label_number(big.mark = "")
         else if (lubridate::is.Date(y_var_vctr)) y_labels <- scales::label_date()
         else y_labels <- waiver()
       }
@@ -1285,7 +1285,7 @@ gg_hbar_col_facet <- function(data,
     
     if (is.numeric(y_var_vctr)) {
       plot <- plot +
-        scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, trans = "identity", oob = scales::oob_squish)
+        scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
       
       if (y_zero_line == TRUE) {
         plot <- plot +

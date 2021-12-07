@@ -1,3 +1,7 @@
+# simplevis 5.0.10 
+
+* Fix bug with hbar x scale.
+
 #simplevis 5.0.19
 
 * Changed x_labels to default to scales::number(big.mark = "") for bar, boxplot and line.

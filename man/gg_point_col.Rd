@@ -11,16 +11,22 @@ gg_point_col(
   col_var,
   text_var = NULL,
   position = "identity",
-  alpha = 1,
-  size_point = 1,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  x_breaks_n = 5,
+  alpha = 1,
+  size_point = 1,
+  title = NULL,
+  title_wrap = 80,
+  subtitle = NULL,
+  subtitle_wrap = 80,
   x_balance = FALSE,
+  x_breaks_n = 5,
   x_expand = NULL,
   x_labels = NULL,
   x_rev = FALSE,
+  x_title = NULL,
+  x_title_wrap = 50,
   x_trans = "identity",
   x_zero = FALSE,
   x_zero_line = NULL,
@@ -28,26 +34,20 @@ gg_point_col(
   y_breaks_n = 5,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
+  y_title = NULL,
+  y_title_wrap = 50,
   y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
-  title = NULL,
-  subtitle = NULL,
-  x_title = NULL,
-  y_title = NULL,
-  col_title = NULL,
-  caption = NULL,
   col_breaks_n = 4,
   col_cuts = NULL,
   col_labels = NULL,
   col_method = NULL,
-  col_na_rm = FALSE,
   col_intervals_right = TRUE,
-  title_wrap = 80,
-  subtitle_wrap = 80,
-  x_title_wrap = 50,
-  y_title_wrap = 50,
+  col_na_rm = FALSE,
+  col_title = NULL,
   col_title_wrap = 25,
+  caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(gridlines = "both"),
   mobile = FALSE
@@ -64,11 +64,7 @@ gg_point_col(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether bars are positioned by "identity" or "jitter". Defaults to "identity".}
-
-\item{alpha}{The opacity of points. Defaults to 1.}
-
-\item{size_point}{Size of points. Defaults to 1.}
+\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -76,15 +72,31 @@ gg_point_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{alpha}{The opacity of points. Defaults to 1.}
+
+\item{size_point}{Size of points. Defaults to 1.}
+
+\item{title}{Title string.}
+
+\item{title_wrap}{Number of characters to wrap the title to. Defaults to 75.}
+
+\item{subtitle}{Subtitle string.}
+
+\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.}
 
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
+
+\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{x_labels}{A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
+
+\item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+
+\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
 \item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
 
@@ -100,23 +112,15 @@ gg_point_col(
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
+\item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+
+\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+
 \item{y_trans}{For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
-
-\item{title}{Title string.}
-
-\item{subtitle}{Subtitle string.}
-
-\item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
-
-\item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
-
-\item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
-
-\item{caption}{Caption title string.}
 
 \item{col_breaks_n}{For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.}
 
@@ -126,19 +130,15 @@ gg_point_col(
 
 \item{col_method}{The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".}
 
-\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
-
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
-\item{title_wrap}{Number of characters to wrap the title to. Defaults to 75.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
-\item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.}
-
-\item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
-
-\item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
+\item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
+
+\item{caption}{Caption title string.}
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 

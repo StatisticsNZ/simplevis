@@ -11,9 +11,9 @@ gg_point_facet(
   facet_var,
   text_var = NULL,
   position = "identity",
+  pal = pal_viridis_reorder(1),
   alpha = 1,
   size_point = 1,
-  pal = pal_viridis_reorder(1),
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -58,13 +58,13 @@ gg_point_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether bars are positioned by "identity" or "jitter". Defaults to "identity".}
+\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
+
+\item{pal}{Character vector of hex codes.}
 
 \item{alpha}{The opacity of points. Defaults to 1.}
 
 \item{size_point}{Size of points. Defaults to 1.}
-
-\item{pal}{Character vector of hex codes.}
 
 \item{title}{Title string.}
 

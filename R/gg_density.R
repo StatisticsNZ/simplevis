@@ -3,11 +3,6 @@
 #' @description Smoothed density ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param pal Character vector of hex codes. 
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
@@ -31,6 +26,11 @@
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
@@ -44,11 +44,6 @@
 #' 
 gg_density <- function(data,
                        x_var,
-                       density_bw = "nrd0",
-                       density_adjust = 1,
-                       density_kernel = "gaussian",
-                       density_n = 512,
-                       density_trim = FALSE,
                        pal = pal_viridis_reorder(1),
                        alpha = 0.1,
                        size_line = 0.5,
@@ -72,6 +67,11 @@ gg_density <- function(data,
                        caption = NULL,
                        caption_wrap = 80,
                        theme = gg_theme(),
+                       algo_bw = "nrd0",
+                       algo_adjust = 1,
+                       algo_kernel = "gaussian",
+                       algo_n = 512,
+                       algo_trim = FALSE,
                        mobile = FALSE) {
   
   #ungroup
@@ -97,7 +97,7 @@ gg_density <- function(data,
   plot <- ggplot(data) +
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = algo_bw, adjust = algo_adjust, kernel = algo_kernel, n = algo_n, trim = algo_trim,
                  col = pal, 
                  fill = pal, 
                  alpha = alpha, 
@@ -170,11 +170,6 @@ gg_density <- function(data,
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -199,12 +194,16 @@ gg_density <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
@@ -220,11 +219,6 @@ gg_density <- function(data,
 gg_density_col <- function(data,
                            x_var,
                            col_var,
-                           density_bw = "nrd0",
-                           density_adjust = 1,
-                           density_kernel = "gaussian",
-                           density_n = 512,
-                           density_trim = FALSE,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
@@ -249,12 +243,16 @@ gg_density_col <- function(data,
                            y_title_wrap = 50,
                            col_labels = snakecase::to_sentence_case,
                            col_na_rm = FALSE,
-                           col_rev = FALSE,
                            col_title = NULL,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
                            theme = gg_theme(),
+                           algo_bw = "nrd0",
+                           algo_adjust = 1,
+                           algo_kernel = "gaussian",
+                           algo_n = 512,
+                           algo_trim = FALSE,
                            mobile = FALSE) {
   
   #ungroup
@@ -291,19 +289,6 @@ gg_density_col <- function(data,
   if (is.null(y_title)) y_title <- "Density"
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  #reverse
-  if (col_rev == TRUE){
-    if (is.factor(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
-    }
-    else if (is.character(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-    }
-    col_var_vctr <- dplyr::pull(data, !!col_var)
-  }
-  
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -320,7 +305,7 @@ gg_density_col <- function(data,
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
                  position = "identity",
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = algo_bw, adjust = algo_adjust, kernel = algo_kernel, n = algo_n, trim = algo_trim,
                  alpha = alpha, 
                  size = size_line) 
   
@@ -413,11 +398,6 @@ gg_density_col <- function(data,
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param pal Character vector of hex codes. 
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
@@ -446,6 +426,11 @@ gg_density_col <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -460,11 +445,6 @@ gg_density_col <- function(data,
 gg_density_facet <- function(data,
                              x_var,
                              facet_var,
-                             density_bw = "nrd0",
-                             density_adjust = 1,
-                             density_kernel = "gaussian",
-                             density_n = 512,
-                             density_trim = FALSE,
                              pal = pal_viridis_reorder(1),
                              alpha = 0.1,
                              size_line = 0.5,
@@ -492,7 +472,12 @@ gg_density_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme()) {
+                             theme = gg_theme(), 
+                             algo_bw = "nrd0",
+                             algo_adjust = 1,
+                             algo_kernel = "gaussian",
+                             algo_n = 512,
+                             algo_trim = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -526,7 +511,7 @@ gg_density_facet <- function(data,
   plot <- ggplot(data) +
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density..), 
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = algo_bw, adjust = algo_adjust, kernel = algo_kernel, n = algo_n, trim = algo_trim,
                  col = pal, 
                  fill = pal, 
                  alpha = alpha, 
@@ -573,6 +558,7 @@ gg_density_facet <- function(data,
                          oob = scales::oob_squish)
   }
   
+  #titles & facetting
   plot <- plot +
     labs(
       title = stringr::str_wrap(title, title_wrap),
@@ -593,11 +579,6 @@ gg_density_facet <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -622,7 +603,6 @@ gg_density_facet <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -633,6 +613,12 @@ gg_density_facet <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' 
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -648,11 +634,6 @@ gg_density_col_facet <- function(data,
                                  x_var,
                                  col_var,
                                  facet_var,
-                                 density_bw = "nrd0",
-                                 density_adjust = 1,
-                                 density_kernel = "gaussian",
-                                 density_n = 512,
-                                 density_trim = FALSE,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
@@ -677,7 +658,6 @@ gg_density_col_facet <- function(data,
                                  y_title_wrap = 50,
                                  col_labels = snakecase::to_sentence_case,
                                  col_na_rm = FALSE,
-                                 col_rev = FALSE,
                                  col_title = NULL,
                                  col_title_wrap = 25,
                                  facet_labels = snakecase::to_sentence_case,
@@ -687,7 +667,12 @@ gg_density_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80, 
-                                 theme = gg_theme()) {
+                                 theme = gg_theme(), 
+                                 algo_bw = "nrd0",
+                                 algo_adjust = 1,
+                                 algo_kernel = "gaussian",
+                                 algo_n = 512,
+                                 algo_trim = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -729,19 +714,6 @@ gg_density_col_facet <- function(data,
   if (is.null(y_title)) y_title <- "Density"
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  #reverse
-  if (col_rev == TRUE){
-    if (is.factor(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
-    }
-    else if (is.character(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-    }
-    col_var_vctr <- dplyr::pull(data, !!col_var)
-  }
-  
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -758,7 +730,7 @@ gg_density_col_facet <- function(data,
     theme +
     stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
                  position = "identity",
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = algo_bw, adjust = algo_adjust, kernel = algo_kernel, n = algo_n, trim = algo_trim,
                  alpha = alpha, 
                  size = size_line) 
   

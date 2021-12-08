@@ -2,19 +2,19 @@
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #'
 #' @keywords internal
 sv_density_max <- function(data, x_var, 
-                           density_bw = "nrd0",
-                           density_adjust = 1,
-                           density_kernel = "gaussian",
-                           density_n = 512,
-                           density_trim = FALSE) {
+                           algo_bw = "nrd0",
+                           algo_adjust = 1,
+                           algo_kernel = "gaussian",
+                           algo_n = 512,
+                           algo_trim = FALSE) {
   
   x_var <- rlang::enquo(x_var)
   
@@ -25,11 +25,11 @@ sv_density_max <- function(data, x_var,
   suppressWarnings(max(
     stats::density(
       vctr,
-      bw = density_bw,
-      adjust = density_adjust,
-      kernel = density_kernel,
-      n = density_n,
-      trim = density_trim,
+      bw = algo_bw,
+      adjust = algo_adjust,
+      kernel = algo_kernel,
+      n = algo_n,
+      trim = algo_trim,
       na.rm = TRUE
     )[[2]]
   ))
@@ -40,19 +40,19 @@ sv_density_max <- function(data, x_var,
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #'
 #' @keywords internal
 sv_density_max_col <- function(data, x_var, col_var, 
-                               density_bw = "nrd0",
-                               density_adjust = 1,
-                               density_kernel = "gaussian",
-                               density_n = 512,
-                               density_trim = FALSE) {
+                               algo_bw = "nrd0",
+                               algo_adjust = 1,
+                               algo_kernel = "gaussian",
+                               algo_n = 512,
+                               algo_trim = FALSE) {
   
   x_var <- rlang::enquo(x_var)
   col_var <- rlang::enquo(col_var)
@@ -64,11 +64,11 @@ sv_density_max_col <- function(data, x_var, col_var,
     purrr::map( ~ suppressWarnings(
       stats::density(
         .,
-        bw = density_bw,
-        adjust = density_adjust,
-        kernel = density_kernel,
-        n = density_n,
-        trim = density_trim,
+        bw = algo_bw,
+        adjust = algo_adjust,
+        kernel = algo_kernel,
+        n = algo_n,
+        trim = algo_trim,
         na.rm = TRUE
       )[[2]]
     )) %>%
@@ -81,19 +81,19 @@ sv_density_max_col <- function(data, x_var, col_var,
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet by. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #'
 #' @keywords internal
 sv_density_max_facet <- function(data, x_var, facet_var, 
-                                 density_bw = "nrd0",
-                                 density_adjust = 1,
-                                 density_kernel = "gaussian",
-                                 density_n = 512,
-                                 density_trim = FALSE) {
+                                 algo_bw = "nrd0",
+                                 algo_adjust = 1,
+                                 algo_kernel = "gaussian",
+                                 algo_n = 512,
+                                 algo_trim = FALSE) {
   
   x_var <- rlang::enquo(x_var)
   facet_var <- rlang::enquo(facet_var)
@@ -105,11 +105,11 @@ sv_density_max_facet <- function(data, x_var, facet_var,
     purrr::map( ~ suppressWarnings(
       stats::density(
         .,
-        bw = density_bw,
-        adjust = density_adjust,
-        kernel = density_kernel,
-        n = density_n,
-        trim = density_trim,
+        bw = algo_bw,
+        adjust = algo_adjust,
+        kernel = algo_kernel,
+        n = algo_n,
+        trim = algo_trim,
         na.rm = TRUE
       )[[2]]
     )) %>%
@@ -123,19 +123,19 @@ sv_density_max_facet <- function(data, x_var, facet_var,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
 #' @param facet_var Unquoted categorical variable to facet by. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #'
 #' @keywords internal
 sv_density_max_col_facet <- function(data, x_var, col_var, facet_var, 
-                                     density_bw = "nrd0",
-                                     density_adjust = 1,
-                                     density_kernel = "gaussian",
-                                     density_n = 512,
-                                     density_trim = FALSE) {
+                                     algo_bw = "nrd0",
+                                     algo_adjust = 1,
+                                     algo_kernel = "gaussian",
+                                     algo_n = 512,
+                                     algo_trim = FALSE) {
   
   data %>% 
     dplyr::group_split( {{col_var}}, {{facet_var}} ) %>% 
@@ -144,11 +144,11 @@ sv_density_max_col_facet <- function(data, x_var, col_var, facet_var,
     purrr::map( ~ suppressWarnings(
       stats::density(
         .,
-        bw = density_bw,
-        adjust = density_adjust,
-        kernel = density_kernel,
-        n = density_n,
-        trim = density_trim,
+        bw = algo_bw,
+        adjust = algo_adjust,
+        kernel = algo_kernel,
+        n = algo_n,
+        trim = algo_trim,
         na.rm = TRUE
       )[[2]]
     )) %>%
@@ -163,19 +163,19 @@ sv_density_max_col_facet <- function(data, x_var, col_var, facet_var,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
 #' @param facet_var Unquoted categorical variable to facet by. Required input.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param algo_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param algo_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param algo_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param algo_n The n argument of the stats::density function. Defaults to 512.
+#' @param algo_trim The trim argument of the stats::density function. Defaults to FALSE.
 #'
 #' @keywords internal
 sv_density_max_col_facet <- function(data, x_var, col_var, facet_var, 
-                                     density_bw = "nrd0",
-                                     density_adjust = 1,
-                                     density_kernel = "gaussian",
-                                     density_n = 512,
-                                     density_trim = FALSE) {
+                                     algo_bw = "nrd0",
+                                     algo_adjust = 1,
+                                     algo_kernel = "gaussian",
+                                     algo_n = 512,
+                                     algo_trim = FALSE) {
   
   x_var <- rlang::enquo(x_var)
   col_var <- rlang::enquo(col_var)
@@ -188,11 +188,11 @@ sv_density_max_col_facet <- function(data, x_var, col_var, facet_var,
     dplyr::mutate(max_density = suppressWarnings(purrr::map_dbl(data, ~ max(
       stats::density(
         .x$density_var,
-        bw = density_bw,
-        adjust = density_adjust,
-        kernel = density_kernel,
-        n = density_n,
-        trim = density_trim,
+        bw = algo_bw,
+        adjust = algo_adjust,
+        kernel = algo_kernel,
+        n = algo_n,
+        trim = algo_trim,
         na.rm = TRUE
       )[[2]]
     )))) %>%

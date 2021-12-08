@@ -520,7 +520,7 @@ gg_line_col <- function(data,
       na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
-  
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +

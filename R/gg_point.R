@@ -4,10 +4,10 @@
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of points. Defaults to 1.
 #' @param size_point Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -50,9 +50,9 @@ gg_point <- function(data,
                      y_var,
                      text_var = NULL,
                      position = "identity", 
+                     pal = pal_viridis_reorder(1),
                      alpha = 1,
                      size_point = 1,
-                     pal = pal_viridis_reorder(1),
                      title = NULL,
                      title_wrap = 80,
                      subtitle = NULL,
@@ -85,7 +85,7 @@ gg_point <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  x_var <- rlang::enquo(x_var) #numeric var
+  x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   text_var <- rlang::enquo(text_var)
   
@@ -236,12 +236,12 @@ gg_point <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
-#' @param alpha The opacity of points. Defaults to 1.
-#' @param size_point Size of points. Defaults to 1.
+#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param alpha The opacity of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -267,10 +267,10 @@ gg_point <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric.    
 #' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -294,16 +294,22 @@ gg_point_col <- function(data,
                          col_var,
                          text_var = NULL,
                          position = "identity", 
-                         alpha = 1,
-                         size_point = 1,
                          pal = NULL,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
-                         x_breaks_n = 5,
+                         alpha = 1,
+                         size_point = 1,
+                         title = NULL,
+                         title_wrap = 80,
+                         subtitle = NULL,
+                         subtitle_wrap = 80,
                          x_balance = FALSE,
+                         x_breaks_n = 5,
                          x_expand = NULL,
                          x_labels = NULL,
                          x_rev = FALSE,
+                         x_title = NULL,
+                         x_title_wrap = 50,
                          x_trans = "identity",
                          x_zero = FALSE,
                          x_zero_line = NULL,
@@ -311,26 +317,20 @@ gg_point_col <- function(data,
                          y_breaks_n = 5,
                          y_expand = c(0, 0),
                          y_labels = scales::label_comma(),
+                         y_title = NULL,
+                         y_title_wrap = 50,
                          y_trans = "identity",
                          y_zero = FALSE,
                          y_zero_line = NULL,
-                         title = NULL,
-                         subtitle = NULL,
-                         x_title = NULL,
-                         y_title = NULL,
-                         col_title = NULL,
-                         caption = NULL,
                          col_breaks_n = 4,
                          col_cuts = NULL,
                          col_labels = NULL,
                          col_method = NULL,
-                         col_na_rm = FALSE,
                          col_intervals_right = TRUE,
-                         title_wrap = 80,
-                         subtitle_wrap = 80,
-                         x_title_wrap = 50,
-                         y_title_wrap = 50,
+                         col_na_rm = FALSE,
+                         col_title = NULL,
                          col_title_wrap = 25,
+                         caption = NULL,
                          caption_wrap = 80,
                          theme = gg_theme(gridlines = "both"),
                          mobile = FALSE){
@@ -339,7 +339,7 @@ gg_point_col <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  x_var <- rlang::enquo(x_var) #numeric var
+  x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var)
   text_var <- rlang::enquo(text_var)
@@ -576,10 +576,10 @@ gg_point_col <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
+#' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of points. Defaults to 1.
 #' @param size_point Size of points. Defaults to 1.
-#' @param pal Character vector of hex codes. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -628,9 +628,9 @@ gg_point_facet <- function(data,
                            facet_var,
                            text_var = NULL,
                            position = "identity", 
+                           pal = pal_viridis_reorder(1),
                            alpha = 1,
                            size_point = 1,
-                           pal = pal_viridis_reorder(1),
                            title = NULL,
                            title_wrap = 80,
                            subtitle = NULL,
@@ -667,7 +667,7 @@ gg_point_facet <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  x_var <- rlang::enquo(x_var) #numeric var
+  x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   facet_var <- rlang::enquo(facet_var) #categorical var
   text_var <- rlang::enquo(text_var)
@@ -823,12 +823,12 @@ gg_point_facet <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "identity" or "jitter". Defaults to "identity".
-#' @param alpha The opacity of points. Defaults to 1.
-#' @param size_point Size of points. Defaults to 1.
+#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param alpha The opacity of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -887,11 +887,11 @@ gg_point_col_facet <- function(data,
                                facet_var,
                                text_var = NULL,
                                position = "identity",
-                               alpha = 1,
-                               size_point = 1,
                                pal = NULL,
                                pal_na = "#7F7F7F",
                                pal_rev = FALSE,
+                               alpha = 1,
+                               size_point = 1,
                                title = NULL,
                                title_wrap = 80,
                                subtitle = NULL,
@@ -936,7 +936,7 @@ gg_point_col_facet <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  x_var <- rlang::enquo(x_var) #numeric var
+  x_var <- rlang::enquo(x_var) 
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var

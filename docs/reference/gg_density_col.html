@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.24</span>
       </span>
     </div>
 
@@ -165,11 +165,6 @@
   <span class='no'>data</span>,
   <span class='no'>x_var</span>,
   <span class='no'>col_var</span>,
-  <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
-  <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
-  <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
-  <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -194,12 +189,16 @@
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
+  <span class='kw'>algo_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>algo_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>algo_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
+  <span class='kw'>algo_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
+  <span class='kw'>algo_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -217,26 +216,6 @@
     <tr>
       <th>col_var</th>
       <td><p>Unquoted categorical variable to colour density areas. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>density_bw</th>
-      <td><p>The bw argument of the stats::density function. Defaults to "nrd0".</p></td>
-    </tr>
-    <tr>
-      <th>density_adjust</th>
-      <td><p>The adjust argument of the stats::density function. Defaults to 1.</p></td>
-    </tr>
-    <tr>
-      <th>density_kernel</th>
-      <td><p>The kernel argument of the stats::density function. Defaults to "gaussian".</p></td>
-    </tr>
-    <tr>
-      <th>density_n</th>
-      <td><p>The n argument of the stats::density function. Defaults to 512.</p></td>
-    </tr>
-    <tr>
-      <th>density_trim</th>
-      <td><p>The trim argument of the stats::density function. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -335,10 +314,6 @@
       <td><p>TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>col_rev</th>
-      <td><p>TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
       <th>col_title</th>
       <td><p>Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
@@ -357,6 +332,26 @@
     <tr>
       <th>theme</th>
       <td><p>A ggplot2 theme.</p></td>
+    </tr>
+    <tr>
+      <th>algo_bw</th>
+      <td><p>The bw argument of the stats::density function. Defaults to "nrd0".</p></td>
+    </tr>
+    <tr>
+      <th>algo_adjust</th>
+      <td><p>The adjust argument of the stats::density function. Defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>algo_kernel</th>
+      <td><p>The kernel argument of the stats::density function. Defaults to "gaussian".</p></td>
+    </tr>
+    <tr>
+      <th>algo_n</th>
+      <td><p>The n argument of the stats::density function. Defaults to 512.</p></td>
+    </tr>
+    <tr>
+      <th>algo_trim</th>
+      <td><p>The trim argument of the stats::density function. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>mobile</th>

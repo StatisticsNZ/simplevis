@@ -8,11 +8,6 @@ gg_density_facet(
   data,
   x_var,
   facet_var,
-  density_bw = "nrd0",
-  density_adjust = 1,
-  density_kernel = "gaussian",
-  density_n = 512,
-  density_trim = FALSE,
   pal = pal_viridis_reorder(1),
   alpha = 0.1,
   size_line = 0.5,
@@ -40,7 +35,12 @@ gg_density_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme()
+  theme = gg_theme(),
+  algo_bw = "nrd0",
+  algo_adjust = 1,
+  algo_kernel = "gaussian",
+  algo_n = 512,
+  algo_trim = FALSE
 )
 }
 \arguments{
@@ -49,16 +49,6 @@ gg_density_facet(
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
-
-\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
-
-\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
-
-\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
-
-\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -115,6 +105,16 @@ gg_density_facet(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{algo_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+
+\item{algo_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+
+\item{algo_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+
+\item{algo_n}{The n argument of the stats::density function. Defaults to 512.}
+
+\item{algo_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 }
 \value{
 A ggplot object.

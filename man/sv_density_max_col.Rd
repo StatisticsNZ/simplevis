@@ -8,11 +8,11 @@ sv_density_max_col(
   data,
   x_var,
   col_var,
-  density_bw = "nrd0",
-  density_adjust = 1,
-  density_kernel = "gaussian",
-  density_n = 512,
-  density_trim = FALSE
+  algo_bw = "nrd0",
+  algo_adjust = 1,
+  algo_kernel = "gaussian",
+  algo_n = 512,
+  algo_trim = FALSE
 )
 }
 \arguments{
@@ -22,15 +22,15 @@ sv_density_max_col(
 
 \item{col_var}{Unquoted categorical variable to colour density areas. Required input.}
 
-\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+\item{algo_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
 
-\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+\item{algo_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
 
-\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+\item{algo_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
 
-\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
+\item{algo_n}{The n argument of the stats::density function. Defaults to 512.}
 
-\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
+\item{algo_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 }
 \description{
 Calculate the max density in a gg_density_col(..., position == "identity") plot.

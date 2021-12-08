@@ -12,11 +12,11 @@ gg_point_col_facet(
   facet_var,
   text_var = NULL,
   position = "identity",
-  alpha = 1,
-  size_point = 1,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
+  alpha = 1,
+  size_point = 1,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -71,17 +71,17 @@ gg_point_col_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether bars are positioned by "identity" or "jitter". Defaults to "identity".}
-
-\item{alpha}{The opacity of points. Defaults to 1.}
-
-\item{size_point}{Size of points. Defaults to 1.}
+\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
+
+\item{alpha}{The opacity of points. Defaults to 1.}
+
+\item{size_point}{Size of points. Defaults to 1.}
 
 \item{title}{Title string.}
 

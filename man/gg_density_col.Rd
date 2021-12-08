@@ -8,11 +8,6 @@ gg_density_col(
   data,
   x_var,
   col_var,
-  density_bw = "nrd0",
-  density_adjust = 1,
-  density_kernel = "gaussian",
-  density_n = 512,
-  density_trim = FALSE,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -37,12 +32,16 @@ gg_density_col(
   y_title_wrap = 50,
   col_labels = snakecase::to_sentence_case,
   col_na_rm = FALSE,
-  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(),
+  algo_bw = "nrd0",
+  algo_adjust = 1,
+  algo_kernel = "gaussian",
+  algo_n = 512,
+  algo_trim = FALSE,
   mobile = FALSE
 )
 }
@@ -52,16 +51,6 @@ gg_density_col(
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{col_var}{Unquoted categorical variable to colour density areas. Required input.}
-
-\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
-
-\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
-
-\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
-
-\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
-
-\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -111,8 +100,6 @@ gg_density_col(
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
-\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
-
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
@@ -122,6 +109,16 @@ gg_density_col(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{algo_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+
+\item{algo_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+
+\item{algo_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+
+\item{algo_n}{The n argument of the stats::density function. Defaults to 512.}
+
+\item{algo_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }

@@ -1,3 +1,7 @@
+# simplevis 5.0.23
+
+* Renamed density argument prefixes to algo_.
+
 # simplevis 5.0.22
 
 * Fixed hbar adding coord_flip back in.

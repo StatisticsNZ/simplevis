@@ -36,11 +36,11 @@ gg_density_facet(
   caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(),
-  algo_bw = "nrd0",
-  algo_adjust = 1,
-  algo_kernel = "gaussian",
-  algo_n = 512,
-  algo_trim = FALSE
+  alg_bw = "nrd0",
+  alg_adjust = 1,
+  alg_kernel = "gaussian",
+  alg_n = 512,
+  alg_trim = FALSE
 )
 }
 \arguments{
@@ -106,15 +106,15 @@ gg_density_facet(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{algo_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+\item{alg_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
 
-\item{algo_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+\item{alg_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
 
-\item{algo_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+\item{alg_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
 
-\item{algo_n}{The n argument of the stats::density function. Defaults to 512.}
+\item{alg_n}{The n argument of the stats::density function. Defaults to 512.}
 
-\item{algo_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
+\item{alg_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 }
 \value{
 A ggplot object.

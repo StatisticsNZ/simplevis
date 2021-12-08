@@ -1,3 +1,8 @@
+# simplevis 5.0.24
+
+* Renamed density argument prefixes to alg_.
+* Added snooth functions in.
+
 # simplevis 5.0.23
 
 * Renamed density argument prefixes to algo_.

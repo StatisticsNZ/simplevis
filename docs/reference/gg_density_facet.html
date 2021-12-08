@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.25</span>
       </span>
     </div>
 
@@ -175,14 +175,14 @@
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_breaks_n</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
+  <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_number.html'>label_comma</a></span>(),
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_number</a></span>(<span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>),
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_number.html'>label_number</a></span>(<span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>),
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
@@ -193,11 +193,11 @@
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
-  <span class='kw'>algo_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
-  <span class='kw'>algo_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>algo_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
-  <span class='kw'>algo_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
-  <span class='kw'>algo_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>alg_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>alg_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alg_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
+  <span class='kw'>alg_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
+  <span class='kw'>alg_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -328,23 +328,23 @@
       <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
-      <th>algo_bw</th>
+      <th>alg_bw</th>
       <td><p>The bw argument of the stats::density function. Defaults to "nrd0".</p></td>
     </tr>
     <tr>
-      <th>algo_adjust</th>
+      <th>alg_adjust</th>
       <td><p>The adjust argument of the stats::density function. Defaults to 1.</p></td>
     </tr>
     <tr>
-      <th>algo_kernel</th>
+      <th>alg_kernel</th>
       <td><p>The kernel argument of the stats::density function. Defaults to "gaussian".</p></td>
     </tr>
     <tr>
-      <th>algo_n</th>
+      <th>alg_n</th>
       <td><p>The n argument of the stats::density function. Defaults to 512.</p></td>
     </tr>
     <tr>
-      <th>algo_trim</th>
+      <th>alg_trim</th>
       <td><p>The trim argument of the stats::density function. Defaults to FALSE.</p></td>
     </tr>
     </table>

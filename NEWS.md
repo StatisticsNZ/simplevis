@@ -15,16 +15,16 @@
 * Fix bug with hbar x scale.
 * Changed x_labels to default to scales::label_comma() for density.
 
-#simplevis 5.0.19
+# simplevis 5.0.19
 
 * Changed x_labels to default to scales::number(big.mark = "") for bar, boxplot and line.
 * Changed y_labels to default to scales::number(big.mark = "") for hbar.
 
-#simplevis 5.0.18
+# simplevis 5.0.18
 
 * Redesigned col_labels argument in leaflet to accept a function.
 
-#simplevis 5.0.17
+# simplevis 5.0.17
 
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
 * Renamed col_right_closed to col_intervals_right.
@@ -32,12 +32,12 @@
 * Changed numeric label defaults back to label_comma(). 
 * Added alpha in to line.
 
-#simplevis 5.0.15
+# simplevis 5.0.15
 
 * Tidied gg_sf* and gg_stars* code.
 * Breaking removed *_digits arguments from gg functions.
 
-#simplevis 5.0.15
+# simplevis 5.0.15
 
 * Tidied hbar code.
 

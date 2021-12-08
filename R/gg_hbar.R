@@ -1029,8 +1029,7 @@ gg_hbar_facet <- function(data,
 #'                   x_var = body_mass_g, 
 #'                   y_var = species, 
 #'                   col_var = island, 
-#'                   facet_var = sex, 
-#'                   facet_na_rm = FALSE)
+#'                   facet_var = sex)
 #' 
 gg_hbar_col_facet <- function(data,
                               x_var,

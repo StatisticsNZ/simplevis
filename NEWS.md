@@ -1,7 +1,11 @@
+# simplevis 5.0.25
+
+* Removed text_var from smooth functions.
+
 # simplevis 5.0.24
 
 * Renamed density argument prefixes to alg_.
-* Added snooth functions in.
+* Added smooth functions in.
 
 # simplevis 5.0.23
 

@@ -8,7 +8,6 @@ gg_smooth(
   data,
   x_var,
   y_var,
-  text_var = NULL,
   pal = pal_viridis_reorder(1),
   alpha = 0.5,
   size_line = 0.5,
@@ -52,8 +51,6 @@ gg_smooth(
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
-
-\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes.}
 

@@ -10,7 +10,6 @@ gg_smooth_col_facet(
   y_var,
   col_var,
   facet_var,
-  text_var = NULL,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -68,8 +67,6 @@ gg_smooth_col_facet(
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes.}
 

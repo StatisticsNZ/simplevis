@@ -3,7 +3,6 @@
 #' @param data An ungrouped tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of ribbons. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5. 
@@ -53,7 +52,6 @@
 gg_smooth <- function(data,
                      x_var,
                      y_var,
-                     text_var = NULL,
                      pal = pal_viridis_reorder(1),
                      alpha = 0.5,
                      size_line = 0.5,
@@ -96,8 +94,7 @@ gg_smooth <- function(data,
   #quote
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -202,7 +199,6 @@ gg_smooth <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -259,7 +255,6 @@ gg_smooth_col <- function(data,
                          x_var,
                          y_var,
                          col_var,
-                         text_var = NULL,
                          pal = NULL,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
@@ -309,8 +304,7 @@ gg_smooth_col <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var)
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -452,7 +446,6 @@ gg_smooth_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param alpha The opacity of ribbons. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5. 
@@ -508,7 +501,6 @@ gg_smooth_facet <- function(data,
                            x_var,
                            y_var,
                            facet_var,
-                           text_var = NULL,
                            pal = pal_viridis_reorder(1),
                            alpha = 0.5,
                            size_line = 0.5,
@@ -556,8 +548,7 @@ gg_smooth_facet <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   facet_var <- rlang::enquo(facet_var) #categorical var
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -669,7 +660,6 @@ gg_smooth_facet <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -734,7 +724,6 @@ gg_smooth_col_facet <- function(data,
                                y_var,
                                col_var,
                                facet_var,
-                               text_var = NULL,
                                pal = NULL,
                                pal_na = "#7F7F7F",
                                pal_rev = FALSE,
@@ -789,8 +778,7 @@ gg_smooth_col_facet <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))

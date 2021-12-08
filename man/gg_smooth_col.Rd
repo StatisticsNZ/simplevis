@@ -9,7 +9,6 @@ gg_smooth_col(
   x_var,
   y_var,
   col_var,
-  text_var = NULL,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -61,8 +60,6 @@ gg_smooth_col(
 \item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
-
-\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{pal}{Character vector of hex codes.}
 

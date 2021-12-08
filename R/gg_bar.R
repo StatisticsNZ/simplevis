@@ -373,7 +373,7 @@ gg_bar_col <- function(data,
                        y_trans = "identity",
                        y_zero = TRUE,
                        y_zero_line = NULL,
-                       col_breaks_n = 5,
+                       col_breaks_n = 4,
                        col_cuts = NULL,
                        col_intervals_right = TRUE,
                        col_labels = NULL,
@@ -477,7 +477,7 @@ gg_bar_col <- function(data,
   
   if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
@@ -1043,7 +1043,7 @@ gg_bar_col_facet <- function(data,
                              y_trans = "identity",
                              y_zero = TRUE,
                              y_zero_line = NULL,
-                             col_breaks_n = 5,
+                             col_breaks_n = 4,
                              col_cuts = NULL,
                              col_labels = NULL,
                              col_intervals_right = TRUE,
@@ -1164,7 +1164,7 @@ gg_bar_col_facet <- function(data,
   
   if (col_method %in% c("quantile", "bin")) {
     if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 0.25)
+      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
       else {
         if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
         if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")

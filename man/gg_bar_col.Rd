@@ -41,7 +41,7 @@ gg_bar_col(
   y_trans = "identity",
   y_zero = TRUE,
   y_zero_line = NULL,
-  col_breaks_n = 5,
+  col_breaks_n = 4,
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,

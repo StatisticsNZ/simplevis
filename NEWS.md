@@ -1,3 +1,11 @@
+# simplevis 5.0.22
+
+* Fixed hbar adding coord_flip back in.
+
+# simplevis 5.0.22
+
+* Fixed hbar facetting bug in free_x and free_y facet_scales.
+
 # simplevis 5.0.21
 
 * Allowed col_breaks_n to be used for quantile colour method.

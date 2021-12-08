@@ -917,10 +917,10 @@ gg_hbar_facet <- function(data,
   }
   
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-  if (facet_scales %in% c("fixed", "free_x")) x_zero <- x_zero_list[[1]]
+  if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if (facet_scales %in% c("fixed", "free_x")) {
+  if (facet_scales %in% c("fixed", "free_y")) {
     if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
@@ -933,7 +933,7 @@ gg_hbar_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
     })
   }
-  else if (facet_scales %in% c("free", "free_y")) {
+  else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
   }
@@ -1257,7 +1257,8 @@ gg_hbar_col_facet <- function(data,
              alpha = alpha, 
              size = size_line, 
              width = width, 
-             position = position2)
+             position = position2) +
+    coord_flip() 
   
   #y scale
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
@@ -1315,10 +1316,10 @@ gg_hbar_col_facet <- function(data,
   }
   
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
-  if (facet_scales %in% c("fixed", "free_x")) x_zero <- x_zero_list[[1]]
+  if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if (facet_scales %in% c("fixed", "free_x")) {
+  if (facet_scales %in% c("fixed", "free_y")) {
     if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
@@ -1331,7 +1332,7 @@ gg_hbar_col_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
     })
   }
-  else if (facet_scales %in% c("free", "free_y")) {
+  else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
   }

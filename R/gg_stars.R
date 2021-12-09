@@ -212,6 +212,10 @@ gg_stars_col <- function(data,
     if (is.na(sf::st_crs(borders)$proj4string)) stop("Please assign a coordinate reference system to borders object")
   }
   
+  if (!is.null(col_method)) {
+    if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
+  }
+  
   #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
@@ -249,63 +253,72 @@ gg_stars_col <- function(data,
   }
   
   #colour
+  if (mobile == TRUE) col_title_wrap <- 20
+  
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "bin"
+    else if (is.numeric(col_var_vctr)) col_method <- "continuous"
   }
   
-  if (col_method %in% c("quantile", "bin")) {
-    if (col_method == "quantile") {
-      if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
-      else {
-        if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-        if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-      }  
-      col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-      if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-    }
-    else if (col_method == "bin") {
-      if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
-      else({
-        if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-        if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-      })
-    }
-    
+  if (col_method == "continuous") {
+    if (is.null(pal)) pal <- viridis::viridis(20)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
     if (is.null(col_labels)) col_labels <- scales::label_comma()
-    
-    if (is.function(col_labels)) {
-      data <- data %>%
-        dplyr::mutate(
-          dplyr::across(!!col_var, 
-                        ~ cut_format(.x, col_cuts,
-                                     right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    if (col_method %in% c("quantile", "bin")) {
+      if (col_method == "quantile") {
+        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
+        else {
+          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+        }  
+        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      }
+      else if (col_method == "bin") {
+        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
+        else {
+          if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+        }
+      }
       
-      col_labels <- sv_interval_labels_chr
+      if (is.null(col_labels)) col_labels <- scales::label_comma()
+      
+      if (is.function(col_labels)) {
+        data <- data %>%
+          dplyr::mutate(
+            dplyr::across(!!col_var, 
+                          ~ cut_format(.x, col_cuts,
+                                       right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
+        
+        col_labels <- sv_interval_labels_chr
+      }
+      else {
+        data <- data %>%
+          dplyr::mutate(
+            dplyr::across(!!col_var, 
+                          ~ cut_format(.x, col_cuts,
+                                       right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+      }
+      
+      col_n <- length(col_cuts) - 1
+      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      else pal <- pal[1:col_n]
     }
-    else ({
-      data <- data %>%
-        dplyr::mutate(
-          dplyr::across(!!col_var, 
-                        ~ cut_format(.x, col_cuts,
-                                     right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
-    })
-    
-    col_n <- length(col_cuts) - 1
-    if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
-    else pal <- pal[1:col_n]
-  }
-  else if (col_method == "category") {
-    if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-      col_n <- length(levels(col_var_vctr))
+    else if (col_method == "category") {
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        col_n <- length(levels(col_var_vctr))
+      }
+      else col_n <- length(unique(col_var_vctr))
+      
+      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      else pal <- pal[1:col_n]
+      
+      if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
     }
-    else col_n <- length(unique(col_var_vctr))
-    
-    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-    else pal <- pal[1:col_n]
-    
-    if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
-  }
+  }  
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -319,17 +332,34 @@ gg_stars_col <- function(data,
     )
   
   #colour
-  if (mobile == TRUE) col_title_wrap <- 20
-  
-  plot <- plot + 
-    scale_fill_manual(
-      values = pal,
-      drop = FALSE,
-      labels = col_labels,
-      na.value = pal_na,
-      name = stringr::str_wrap(col_title, col_title_wrap), 
-      na.translate = na_translate
-    )
+  if (col_method == "continuous") {
+    plot <- plot +
+      scale_fill_gradientn(
+        colors = pal,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na,
+        name = stringr::str_wrap(col_title, col_title_wrap) 
+        # na.translate = na_translate
+        ) 
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    plot <- plot +
+      scale_fill_manual(
+        values = pal,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na,
+        name = stringr::str_wrap(col_title, col_title_wrap), 
+        na.translate = na_translate
+      )
+    
+    if (mobile == TRUE) {
+      plot <- plot +
+        guides(col = guide_legend(ncol = 1),
+               fill = guide_legend(ncol = 1))
+    }
+  }
   
   #borders
   if (!is.null(borders)) {
@@ -351,9 +381,7 @@ gg_stars_col <- function(data,
         title = stringr::str_wrap(title, title_wrap),
         subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      guides(col = guide_legend(byrow = TRUE)) +
-      guides(fill = guide_legend(byrow = TRUE))
+      ) 
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -362,8 +390,6 @@ gg_stars_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         caption = stringr::str_wrap(caption, 50)
       )  +
-      guides(col = guide_legend(ncol = 1)) +
-      guides(col = guide_legend(ncol = 1)) +
       theme_mobile_extra_map()
   }
   

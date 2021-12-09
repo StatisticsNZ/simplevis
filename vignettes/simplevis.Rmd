@@ -367,14 +367,15 @@ A stat of `identity` refers to the value being plotted as it is. A stat of `boxp
 tibble::tribble(
   ~family, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
   "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "identity",
+  "boxplot", "tibble or data.frame", "Any*", "Numeric", "Categorical", "Categorical", "boxplot (or identity)",
+  "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
   "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
   "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "identity",
   "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity",
-  "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
-  "boxplot", "tibble or data.frame", "Any*", "Numeric", "Categorical", "Categorical", "boxplot (or identity)",
-  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical", "identity",
   "sf", "sf", NA, NA, "Categorical or numeric", "Categorical", "identity",
+  "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "stars", "stars", NA, NA, "Categorical or numeric", NA, "identity",
+  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical", "identity"
   ) %>% 
   DT::datatable()
 ```

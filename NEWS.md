@@ -1,3 +1,7 @@
+# simplevis 5.0.26
+
+* Added col_method = continuous for bar, hbar, point and tile. 
+
 # simplevis 5.0.25
 
 * Removed text_var from smooth functions.

@@ -199,7 +199,7 @@ leaflet_sf <- function(data,
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to snakecase::to_sentence_case if categorical, and scales::label_comma if numeric. 
-#' @param col_method The method of colouring features, either "bin", "quantile" or "category." If numeric, defaults to "bin".
+#' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
@@ -250,6 +250,10 @@ leaflet_sf_col <- function(data,
   if (class(data)[1] != "sf") stop("Please use an sf object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
+  if (!is.null(col_method)) {
+    if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
+  }
+  
   #transform
   if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
   
@@ -285,7 +289,18 @@ leaflet_sf_col <- function(data,
     else if (is.numeric(col_var_vctr)) col_method <- "bin"
   }
   
-  if (col_method %in% c("quantile", "bin")) {
+  if (col_method == "continuous") {
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
+    if (is.null(pal)) pal <- viridis::viridis(20)
+    if (pal_rev == TRUE) pal <- rev(pal)
+    
+    pal_fun <- colorNumeric(
+      palette = pal,
+      domain = col_var_vctr,
+      na.color = pal_na
+    )
+  }
+  else if (col_method %in% c("quantile", "bin")) {
     if (col_method == "bin") {
       if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
       else if (!is.null(col_cuts)) {
@@ -482,10 +497,12 @@ leaflet_sf_col <- function(data,
   }
   
   #legend NA
-  if (col_na_rm == FALSE) {
-    if(any(is.na(col_var_vctr))) {
-      pal <- c(pal, pal_na)
-      col_labels <- c(col_labels, "NA")
+  if (col_method %in% c("bin", "quantile", "category")) {
+    if (col_na_rm == FALSE) {
+      if(any(is.na(col_var_vctr))) {
+        pal <- c(pal, pal_na)
+        col_labels <- c(col_labels, "NA")
+      }
     }
   }
   
@@ -493,14 +510,27 @@ leaflet_sf_col <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #legend
-  map <- map %>% 
-    addLegend(
-      layerId = col_id,
-      colors = pal,
-      labels = col_labels,
-      title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
-      position = "bottomright",
-      opacity = alpha)
+  if (col_method == "continuous") {
+    map <- map %>% 
+      addLegend(
+        layerId = col_id,
+        pal = pal_fun,
+        values = col_var_vctr,
+        bins = col_cuts,
+        title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = alpha)
+  }
+  else if (col_method %in% c("bin", "quantile", "category")) {
+    map <- map %>% 
+      addLegend(
+        layerId = col_id,
+        colors = pal,
+        labels = col_labels,
+        title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
+        position = "bottomright",
+        opacity = alpha)
+  }
   
   return(map)
 }

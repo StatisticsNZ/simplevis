@@ -1,3 +1,7 @@
+# simplevis 5.0.27
+
+* Added col_method = continuous for leaflet functions. 
+
 # simplevis 5.0.26
 
 * Added col_method = continuous for bar, hbar, point and tile. 

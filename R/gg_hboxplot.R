@@ -329,6 +329,7 @@ gg_hboxplot <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -389,6 +390,7 @@ gg_hboxplot_col <- function(data,
                         col_labels = NULL,
                         col_method = NULL,
                         col_na_rm = FALSE,
+                        col_rev = FALSE,
                         col_title = NULL,
                         col_title_wrap = 25,
                         caption = NULL,
@@ -465,6 +467,15 @@ gg_hboxplot_col <- function(data,
     }
   }
   
+  if (col_rev == FALSE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
+  }
+
   #width
   if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
@@ -534,7 +545,7 @@ gg_hboxplot_col <- function(data,
       else col_n <- length(unique(col_var_vctr))
       
       if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-      else pal <- pal[1:col_n]
+      pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
     }
@@ -1074,12 +1085,13 @@ gg_hboxplot_facet <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
+#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -1146,6 +1158,7 @@ gg_hboxplot_col_facet <- function(data,
                               col_labels = NULL,
                               col_method = NULL,
                               col_na_rm = FALSE,
+                              col_rev = FALSE,
                               col_title = NULL,
                               col_title_wrap = 25,
                               facet_labels = snakecase::to_sentence_case,
@@ -1239,6 +1252,15 @@ gg_hboxplot_col_facet <- function(data,
     }
   }
   
+  if (col_rev == FALSE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
+  }
+  
   #width
   if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
@@ -1306,7 +1328,7 @@ gg_hboxplot_col_facet <- function(data,
       else col_n <- length(unique(col_var_vctr))
       
       if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-      else pal <- pal[1:col_n]
+      pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
     }

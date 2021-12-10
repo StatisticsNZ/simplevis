@@ -535,7 +535,7 @@ gg_hbar_col <- function(data,
       else col_n <- length(unique(col_var_vctr))
       
       if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-      else pal <- pal[1:col_n]
+      pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
     }
@@ -1276,7 +1276,7 @@ gg_hbar_col_facet <- function(data,
       else col_n <- length(unique(col_var_vctr))
       
       if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-      else pal <- pal[1:col_n]
+      pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
     }

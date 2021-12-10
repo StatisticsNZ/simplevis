@@ -47,6 +47,7 @@ gg_hboxplot_col(
   col_labels = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
+  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
@@ -139,6 +140,8 @@ gg_hboxplot_col(
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
+
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

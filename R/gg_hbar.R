@@ -137,12 +137,12 @@ gg_hbar <- function(data,
       } 
     } 
     if (y_reorder == TRUE) {
-      if (y_rev == FALSE) {
+      if (y_rev == TRUE) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(forcats::fct_reorder(.x, !!x_var, .desc = TRUE))))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = TRUE)))
       } else {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(forcats::fct_reorder(.x, !!x_var, .desc = FALSE))))
+          dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_reorder(.x, !!x_var, .desc = FALSE)))
       }
     } 
     y_var_vctr <- dplyr::pull(data, !!y_var)
@@ -160,15 +160,15 @@ gg_hbar <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
+    coord_flip(clip = "off") +
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), 
              col = pal, 
              fill = pal, 
              alpha = alpha, 
              size = size_line, 
-             width = width) +
-    coord_flip() 
-  
+             width = width) 
+
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     
@@ -298,7 +298,6 @@ gg_hbar <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
-#' @param y_reorder For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -371,7 +370,6 @@ gg_hbar_col <- function(data,
                         y_expand = NULL,
                         y_labels = NULL,
                         y_na_rm = FALSE,
-                        y_reorder = FALSE,
                         y_rev = FALSE,
                         y_title = NULL,
                         y_title_wrap = 50,
@@ -450,8 +448,8 @@ gg_hbar_col <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #reverse
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
-    if (y_rev == FALSE) {
+  if (y_rev == FALSE) {
+    if (is.factor(y_var_vctr) | is.character(y_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       
@@ -459,16 +457,13 @@ gg_hbar_col <- function(data,
     }
   }
   
-  if (col_rev == FALSE){
-    if (is.factor(col_var_vctr)){
+  if (col_rev == FALSE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    else if (is.character(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-    }
-    col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
   #width
@@ -556,13 +551,13 @@ gg_hbar_col <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
+    coord_flip(clip = "off") +
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
              width = width, 
-             position = position2) +
-    coord_flip()
+             position = position2) 
   
   if (!is.null(position)) {
     if (position == "stack") {
@@ -873,15 +868,15 @@ gg_hbar_facet <- function(data,
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   #reverse
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
-    if (y_rev == FALSE) {
+  if (y_rev == FALSE) {
+    if (is.factor(y_var_vctr) | is.character(y_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       
       y_var_vctr <- dplyr::pull(data, !!y_var)
     }
   }
-  
+
   #colour
   pal <- pal[1]
   
@@ -894,10 +889,10 @@ gg_hbar_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
+    coord_flip(clip = "off") +
     theme +
-    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width) +
-    coord_flip()
-  
+    geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width) 
+
   #y scale
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if (is.null(y_expand)) y_expand <- waiver()
@@ -1194,9 +1189,9 @@ gg_hbar_col_facet <- function(data,
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
-  #reverse & reorder
-  if (is.character(y_var_vctr) | is.factor(y_var_vctr)) {
-    if (y_rev == FALSE) {
+  #reverse
+  if (y_rev == FALSE) {
+    if (is.factor(y_var_vctr) | is.character(y_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
       
@@ -1204,17 +1199,15 @@ gg_hbar_col_facet <- function(data,
     }
   }
   
-  if (col_rev == FALSE){
-    if (is.factor(col_var_vctr)){
+  if (col_rev == FALSE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    else if (is.character(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-    }
-    col_var_vctr <- dplyr::pull(data, !!col_var)
   }
+  
   
   #width
   if (is.null(width)) {
@@ -1299,14 +1292,14 @@ gg_hbar_col_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
+    coord_flip(clip = "off") + 
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              alpha = alpha, 
              size = size_line, 
              width = width, 
-             position = position2) +
-    coord_flip() 
-  
+             position = position2) 
+
   #y scale
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if (is.null(y_expand)) y_expand <- waiver()

@@ -454,16 +454,13 @@ gg_bar_col <- function(data,
     x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
-  if (col_rev == TRUE){
-    if (is.factor(col_var_vctr)){
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    else if (is.character(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-    }
-    col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
   #width
@@ -671,14 +668,14 @@ gg_bar_col <- function(data,
         na.value = pal_na,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
-
+    
     if (mobile == TRUE) {
       plot <- plot +
         guides(col = guide_legend(ncol = 1),
                fill = guide_legend(ncol = 1))
     }
   }
-
+  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -857,12 +854,13 @@ gg_bar_facet <- function(data,
   }
   
   #reverse
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
-    if (x_rev == TRUE) {
+  if (x_rev == TRUE) {
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-    } 
-    x_var_vctr <- dplyr::pull(data, !!x_var)
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
   }
   
   #colour
@@ -1165,24 +1163,22 @@ gg_bar_col_facet <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #reverse
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
-    if (x_rev == TRUE) {
+  if (x_rev == TRUE) {
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-    } 
-    x_var_vctr <- dplyr::pull(data, !!x_var)
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
   }
   
-  if (col_rev == TRUE){
-    if (is.factor(col_var_vctr)){
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
-    else if (is.character(col_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(factor(.x))))
-    }
-    col_var_vctr <- dplyr::pull(data, !!col_var)
   }
   
   #width

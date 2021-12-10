@@ -13,7 +13,7 @@ gg_boxplot_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  width = 0.5,
+  width = NULL,
   alpha = 1,
   size_line = 0.5,
   size_point = 1,
@@ -33,7 +33,6 @@ gg_boxplot_col(
   y_balance = FALSE,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
-  y_na_rm = FALSE,
   y_breaks_n = 5,
   x_rev = FALSE,
   y_title = NULL,
@@ -68,7 +67,7 @@ gg_boxplot_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{width}{Width of the box. Defaults to 0.5.}
+\item{width}{Width of boxes. Defaults to 0.5.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
@@ -107,8 +106,6 @@ gg_boxplot_col(
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 

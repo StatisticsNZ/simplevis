@@ -5,7 +5,7 @@
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. 
-#' @param width Width of the box. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
@@ -27,7 +27,6 @@
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -73,7 +72,7 @@ gg_boxplot <- function(data,
                        y_var = NULL,
                        stat = "boxplot",
                        pal = pal_viridis_reorder(1),
-                       width = 0.5,
+                       width = NULL,
                        alpha = 1,
                        size_line = 0.5,
                        size_point = 1,
@@ -95,7 +94,6 @@ gg_boxplot <- function(data,
                        y_breaks_n = 5,
                        y_expand = c(0, 0),
                        y_labels = scales::label_comma(),
-                       y_na_rm = FALSE,
                        y_title = NULL,
                        y_title_wrap = 50,
                        y_trans = "identity",
@@ -118,11 +116,7 @@ gg_boxplot <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
   }
-  if (y_na_rm == TRUE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
-  }
-  
+
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
   
@@ -152,19 +146,23 @@ gg_boxplot <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
   pal <- pal[1]
+  
+  #width
+  if (is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.5
+  }
   
   #fundamentals
   plot <- ggplot(data) +
@@ -314,7 +312,7 @@ gg_boxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param width Width of the box. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
@@ -336,7 +334,6 @@ gg_boxplot <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -377,7 +374,7 @@ gg_boxplot_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           width = 0.5,
+                           width = NULL,
                            alpha = 1,
                            size_line = 0.5,
                            size_point = 1,
@@ -397,7 +394,6 @@ gg_boxplot_col <- function(data,
                            y_balance = FALSE,
                            y_expand = c(0, 0),
                            y_labels = scales::label_comma(),
-                           y_na_rm = FALSE,
                            y_breaks_n = 5,
                            x_rev = FALSE,
                            y_title = NULL,
@@ -426,10 +422,6 @@ gg_boxplot_col <- function(data,
   if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na_rm == TRUE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
   }
   if (col_na_rm == TRUE) {
     data <- data %>% 
@@ -475,15 +467,12 @@ gg_boxplot_col <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
@@ -496,6 +485,13 @@ gg_boxplot_col <- function(data,
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
+  
+  #width
+  if (is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.5
+  }
   
   #fundamentals
   data <- data %>% 
@@ -661,7 +657,7 @@ gg_boxplot_col <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
 #' @param pal Character vector of hex codes. 
-#' @param width Width of the box. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_point The size of the outliers. Defaults to 1.
@@ -683,7 +679,6 @@ gg_boxplot_col <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -716,7 +711,7 @@ gg_boxplot_facet <- function(data,
                              facet_var,
                              stat = "boxplot",
                              pal = pal_viridis_reorder(1),
-                             width = 0.5,
+                             width = NULL,
                              alpha = 1,
                              size_line = 0.5,
                              size_point = 1,
@@ -738,7 +733,6 @@ gg_boxplot_facet <- function(data,
                              y_breaks_n = 3,
                              y_expand = c(0, 0),
                              y_labels = scales::label_comma(),
-                             y_na_rm = FALSE,
                              y_title = NULL,
                              y_title_wrap = 50,
                              y_trans = "identity",
@@ -765,10 +759,6 @@ gg_boxplot_facet <- function(data,
   if (x_na_rm == TRUE) {
     data <- data %>%
       dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na_rm == TRUE) {
-    data <- data %>%
-      dplyr::filter(!is.na(!!y_var))
   }
   if (facet_na_rm == TRUE) {
     data <- data %>%
@@ -811,21 +801,25 @@ gg_boxplot_facet <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
-  #reverse  
+  #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
   pal <- pal[1]
+  
+  #width
+  if (is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.5
+  }
   
   #fundamentals
   data <- data %>% 
@@ -969,7 +963,7 @@ gg_boxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param width Width of the box. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
@@ -991,7 +985,6 @@ gg_boxplot_facet <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
@@ -1042,7 +1035,7 @@ gg_boxplot_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 width = 0.5,
+                                 width = NULL,
                                  alpha = 1,
                                  size_line = 0.5,
                                  size_point = 1,
@@ -1064,7 +1057,6 @@ gg_boxplot_col_facet <- function(data,
                                  y_breaks_n = 3,
                                  y_expand = c(0, 0),
                                  y_labels = scales::label_comma(),
-                                 y_na_rm = FALSE,
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  y_trans = "identity",
@@ -1096,10 +1088,6 @@ gg_boxplot_col_facet <- function(data,
   if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
-  }
-  if (y_na_rm == TRUE) {
-    data <- data %>% 
-      dplyr::filter(!is.na(!!y_var))
   }
   if (col_na_rm == TRUE) {
     data <- data %>% 
@@ -1157,17 +1145,14 @@ gg_boxplot_col_facet <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
-  
+
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -1178,7 +1163,14 @@ gg_boxplot_col_facet <- function(data,
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
-
+  
+  #width
+  if (is.null(width)) {
+    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
+      width <- NULL
+    } else width <- 0.5
+  }
+  
   #fundamentals
   data <- data %>% 
     tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE) 

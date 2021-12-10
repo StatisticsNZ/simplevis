@@ -114,15 +114,12 @@ gg_point <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
@@ -386,15 +383,12 @@ gg_point_col <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
@@ -735,15 +729,12 @@ gg_point_facet <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
@@ -1021,15 +1012,12 @@ gg_point_col_facet <- function(data,
   
   #reverse
   if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr)){
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      
+      x_var_vctr <- dplyr::pull(data, !!x_var)
     }
-    else if (is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(factor(.x))))
-    }
-    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour

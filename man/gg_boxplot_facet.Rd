@@ -11,7 +11,7 @@ gg_boxplot_facet(
   facet_var,
   stat = "boxplot",
   pal = pal_viridis_reorder(1),
-  width = 0.5,
+  width = NULL,
   alpha = 1,
   size_line = 0.5,
   size_point = 1,
@@ -33,7 +33,6 @@ gg_boxplot_facet(
   y_breaks_n = 3,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
-  y_na_rm = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
   y_trans = "identity",
@@ -62,7 +61,7 @@ gg_boxplot_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{width}{Width of the box. Defaults to 0.5.}
+\item{width}{Width of boxes. Defaults to 0.5.}
 
 \item{alpha}{The alpha of the fill. Defaults to 1.}
 
@@ -105,8 +104,6 @@ gg_boxplot_facet(
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
-
-\item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

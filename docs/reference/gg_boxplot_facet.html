@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.30</span>
       </span>
     </div>
 
@@ -168,7 +168,7 @@
   <span class='no'>facet_var</span>,
   <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -190,7 +190,6 @@
   <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
-  <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -235,7 +234,7 @@
     </tr>
     <tr>
       <th>width</th>
-      <td><p>Width of the box. Defaults to 0.5.</p></td>
+      <td><p>Width of boxes. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -320,10 +319,6 @@
     <tr>
       <th>y_labels</th>
       <td><p>A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
-    </tr>
-    <tr>
-      <th>y_na_rm</th>
-      <td><p>TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_title</th>

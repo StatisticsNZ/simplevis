@@ -1,3 +1,11 @@
+# simplevis 5.0.29
+
+* Updated reverse code.
+
+# simplevis 5.0.28
+
+* Made hboxplot family of functions. 
+
 # simplevis 5.0.27
 
 * Added col_method = continuous for leaflet functions. 

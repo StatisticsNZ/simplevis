@@ -36,7 +36,6 @@ gg_hbar_col(
   y_expand = NULL,
   y_labels = NULL,
   y_na_rm = FALSE,
-  y_reorder = FALSE,
   y_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
@@ -119,8 +118,6 @@ gg_hbar_col(
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
-
-\item{y_reorder}{For a categorical y variable, TRUE or FALSE of whether the y variable variable is to be reordered by the y variable. Defaults to FALSE.}
 
 \item{y_rev}{For a categorical variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
 

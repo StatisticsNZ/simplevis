@@ -36,7 +36,6 @@ gg_line_col_facet(
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_trans = "identity",
   y_title = NULL,
   y_title_wrap = 50,
   y_zero = FALSE,
@@ -117,8 +116,6 @@ gg_line_col_facet(
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
-
-\item{y_trans}{For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

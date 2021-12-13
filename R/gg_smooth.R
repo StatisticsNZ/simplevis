@@ -16,7 +16,6 @@
 #' @param x_labels A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
@@ -25,7 +24,6 @@
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. 
@@ -65,7 +63,6 @@ gg_smooth <- function(data,
                       x_labels = scales::label_comma(),
                       x_title = NULL,
                       x_title_wrap = 50,
-                      x_trans = "identity",
                       x_zero = FALSE,
                       x_zero_line = NULL,
                       y_balance = FALSE,
@@ -74,7 +71,6 @@ gg_smooth <- function(data,
                       y_labels = scales::label_comma(),
                       y_title = NULL,
                       y_title_wrap = 50,
-                      y_trans = "identity",
                       y_zero = FALSE,
                       y_zero_line = NULL,
                       caption = NULL,
@@ -128,7 +124,7 @@ gg_smooth <- function(data,
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
-  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
   
@@ -138,7 +134,7 @@ gg_smooth <- function(data,
   }
   
   plot <- plot +
-    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   
   if (x_zero_line == TRUE) {
     plot <- plot +
@@ -155,11 +151,11 @@ gg_smooth <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
   })
   
   if (y_zero_line == TRUE) {
@@ -214,7 +210,6 @@ gg_smooth <- function(data,
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
@@ -223,7 +218,6 @@ gg_smooth <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -270,7 +264,6 @@ gg_smooth_col <- function(data,
                           x_labels = scales::label_comma(),
                           x_title = NULL,
                           x_title_wrap = 50,
-                          x_trans = "identity",
                           x_zero = FALSE,
                           x_zero_line = NULL,
                           y_balance = FALSE,
@@ -279,7 +272,6 @@ gg_smooth_col <- function(data,
                           y_labels = scales::label_comma(),
                           y_title = NULL,
                           y_title_wrap = 50,
-                          y_trans = "identity",
                           y_zero = FALSE,
                           y_zero_line = NULL,
                           col_labels = snakecase::to_sentence_case,
@@ -361,7 +353,7 @@ gg_smooth_col <- function(data,
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
-  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
   
@@ -371,7 +363,7 @@ gg_smooth_col <- function(data,
   }
   
   plot <- plot +
-    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   
   if (x_zero_line == TRUE) {
     plot <- plot +
@@ -388,11 +380,11 @@ gg_smooth_col <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
   })
   
   if (y_zero_line == TRUE) {
@@ -459,7 +451,6 @@ gg_smooth_col <- function(data,
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
@@ -468,7 +459,6 @@ gg_smooth_col <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -514,7 +504,6 @@ gg_smooth_facet <- function(data,
                             x_labels = scales::label_comma(),
                             x_title = NULL,
                             x_title_wrap = 50,
-                            x_trans = "identity",
                             x_zero = FALSE,
                             x_zero_line = NULL,
                             y_balance = FALSE,
@@ -523,7 +512,6 @@ gg_smooth_facet <- function(data,
                             y_labels = scales::label_comma(),
                             y_title = NULL,
                             y_title_wrap = 50,
-                            y_trans = "identity",
                             y_zero = FALSE,
                             y_zero_line = NULL,
                             facet_labels = snakecase::to_sentence_case,
@@ -598,12 +586,12 @@ gg_smooth_facet <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -622,16 +610,16 @@ gg_smooth_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
   }
   
   if (y_zero_line == TRUE) {
@@ -675,7 +663,6 @@ gg_smooth_facet <- function(data,
 #' @param x_labels A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
@@ -684,7 +671,6 @@ gg_smooth_facet <- function(data,
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -739,7 +725,6 @@ gg_smooth_col_facet <- function(data,
                                 x_labels = scales::label_comma(),
                                 x_title = NULL,
                                 x_title_wrap = 50,
-                                x_trans = "identity",
                                 x_zero = FALSE,
                                 x_zero_line = NULL,
                                 y_balance = FALSE,
@@ -748,7 +733,6 @@ gg_smooth_col_facet <- function(data,
                                 y_labels = scales::label_comma(),
                                 y_title = NULL,
                                 y_title_wrap = 50,
-                                y_trans = "identity",
                                 y_zero = FALSE,
                                 y_zero_line = NULL,
                                 col_labels = snakecase::to_sentence_case,
@@ -848,12 +832,12 @@ gg_smooth_col_facet <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -872,16 +856,16 @@ gg_smooth_col_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
   }
   
   if (y_zero_line == TRUE) {

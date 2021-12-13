@@ -29,7 +29,6 @@
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. 
@@ -82,7 +81,6 @@ gg_line <- function(data,
                     y_na_rm = FALSE,
                     y_title = NULL,
                     y_title_wrap = 50,
-                    y_trans = "identity",
                     y_zero = FALSE,
                     y_zero_line = NULL,
                     caption = NULL,
@@ -153,7 +151,7 @@ gg_line <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
@@ -171,7 +169,7 @@ gg_line <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -204,11 +202,11 @@ gg_line <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
   })
   
   if (y_zero_line == TRUE) {
@@ -276,7 +274,6 @@ gg_line <- function(data,
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -336,7 +333,6 @@ gg_line_col <- function(data,
                         y_na_rm = FALSE,
                         y_title = NULL,
                         y_title_wrap = 50,
-                        y_trans = "identity",
                         y_zero = FALSE,
                         y_zero_line = NULL,
                         col_labels = snakecase::to_sentence_case,
@@ -440,7 +436,7 @@ gg_line_col <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
@@ -458,7 +454,7 @@ gg_line_col <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -491,11 +487,11 @@ gg_line_col <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
   })
   
   if (y_zero_line == TRUE) {
@@ -575,7 +571,6 @@ gg_line_col <- function(data,
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -633,7 +628,6 @@ gg_line_facet <- function(data,
                           y_na_rm = FALSE,
                           y_title = NULL,
                           y_title_wrap = 50,
-                          y_trans = "identity",
                           y_zero = FALSE,
                           y_zero_line = NULL,
                           facet_labels = snakecase::to_sentence_case,
@@ -728,7 +722,7 @@ gg_line_facet <- function(data,
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       if (is.null(x_expand)) x_expand <- c(0, 0)
       
@@ -741,7 +735,7 @@ gg_line_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -769,16 +763,16 @@ gg_line_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
   }
   
   if (y_zero_line == TRUE) {
@@ -835,7 +829,6 @@ gg_line_facet <- function(data,
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
-#' @param y_trans For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -899,7 +892,6 @@ gg_line_col_facet <- function(data,
                               y_expand = c(0, 0),
                               y_labels = scales::label_comma(),
                               y_na_rm = FALSE,
-                              y_trans = "identity",
                               y_title = NULL,
                               y_title_wrap = 50,
                               y_zero = FALSE,
@@ -1027,7 +1019,7 @@ gg_line_col_facet <- function(data,
       x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       if (is.null(x_expand)) x_expand <- c(0, 0)
       
@@ -1040,7 +1032,7 @@ gg_line_col_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -1068,16 +1060,16 @@ gg_line_col_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = y_trans, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, trans = y_trans, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
   }
   
   if (y_zero_line == TRUE) {

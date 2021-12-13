@@ -223,7 +223,7 @@ gg_point(iris,
 
 ### Scales
 
-simplevis makes it easy to make easy scale transformations.
+simplevis makes it easy to modify scales.
 
 These use consistent prefixes based on `x_*`, `y_*`, `col_*` or `facet_*`, and as such the autocomplete can help identify what you need.
 

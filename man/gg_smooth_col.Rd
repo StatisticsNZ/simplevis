@@ -24,7 +24,6 @@ gg_smooth_col(
   x_labels = scales::label_comma(),
   x_title = NULL,
   x_title_wrap = 50,
-  x_trans = "identity",
   x_zero = FALSE,
   x_zero_line = NULL,
   y_balance = FALSE,
@@ -33,7 +32,6 @@ gg_smooth_col(
   y_labels = scales::label_comma(),
   y_title = NULL,
   y_title_wrap = 50,
-  y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
   col_labels = snakecase::to_sentence_case,
@@ -91,8 +89,6 @@ gg_smooth_col(
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{x_trans}{For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".}
-
 \item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.}
 
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
@@ -108,8 +104,6 @@ gg_smooth_col(
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
-
-\item{y_trans}{For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 

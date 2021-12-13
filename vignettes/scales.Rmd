@@ -98,18 +98,6 @@ gg_point_col(penguins,
              y_breaks_n = 10)
 ```
 
-Transform numeric x and y scales.
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = species, 
-             x_trans = "sqrt", 
-             x_zero = T,
-             y_trans = "log10")
-```
-
 Balance a numeric scale so that it has equivalence between positive and negative values.
 
 ```{r}
@@ -129,6 +117,19 @@ gg_point_col(penguins,
              col_var = species, 
              y_balance = T, 
              y_zero_line = F)
+```
+
+
+Transform numeric x and y scales by adding a `ggplot2` `scale_*_continuous` layer.
+
+```{r}
+gg_point(penguins,
+       x_var = flipper_length_mm,
+       y_var = body_mass_g) +
+  ggplot2::scale_y_continuous(trans = "log10", 
+                     expand = c(0, 0), 
+                     labels = scales::label_comma(), 
+                     breaks = function(x) pretty(x, n = 6))
 ```
 
 ### Discrete scales

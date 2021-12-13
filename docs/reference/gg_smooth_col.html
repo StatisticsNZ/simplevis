@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.34</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.35</span>
       </span>
     </div>
 
@@ -181,7 +181,6 @@
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -190,7 +189,6 @@
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
@@ -202,7 +200,7 @@
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
   <span class='kw'>stat_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>stat_formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat_confidence</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>stat_se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>stat_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
   <span class='kw'>stat_span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>stat_n</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -289,10 +287,6 @@
       <td><p>Number of characters to wrap the x title to. Defaults to 50.</p></td>
     </tr>
     <tr>
-      <th>x_trans</th>
-      <td><p>For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
-    </tr>
-    <tr>
       <th>x_zero</th>
       <td><p>For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.</p></td>
     </tr>
@@ -323,10 +317,6 @@
     <tr>
       <th>y_title_wrap</th>
       <td><p>Number of characters to wrap the y title to. Defaults to 50.</p></td>
-    </tr>
-    <tr>
-      <th>y_trans</th>
-      <td><p>For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".</p></td>
     </tr>
     <tr>
       <th>y_zero</th>
@@ -373,8 +363,8 @@
       <td><p>Formula to use in smoothing function. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>stat_confidence</th>
-      <td><p>TRUE or FALSE of whether to show condidence as a ribbon.</p></td>
+      <th>stat_se</th>
+      <td><p>TRUE or FALSE of whether to show confidence as a ribbon.</p></td>
     </tr>
     <tr>
       <th>stat_level</th>

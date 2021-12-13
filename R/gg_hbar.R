@@ -19,7 +19,6 @@
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
@@ -72,7 +71,6 @@ gg_hbar <- function(data,
                     x_na_rm = FALSE,
                     x_title = NULL,
                     x_title_wrap = 50,
-                    x_trans = "identity",
                     x_zero = TRUE,
                     x_zero_line = NULL,
                     y_balance = FALSE,
@@ -175,7 +173,7 @@ gg_hbar <- function(data,
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = "identity", zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -227,11 +225,11 @@ gg_hbar <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = x_trans, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   })
   
   if (x_zero_line == TRUE) {
@@ -290,7 +288,6 @@ gg_hbar <- function(data,
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
@@ -362,7 +359,6 @@ gg_hbar_col <- function(data,
                         x_na_rm = FALSE,
                         x_title = NULL,
                         x_title_wrap = 50,
-                        x_trans = "identity",
                         x_zero = TRUE,
                         x_zero_line = NULL,
                         y_balance = FALSE,
@@ -576,7 +572,7 @@ gg_hbar_col <- function(data,
     y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = "identity", zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -628,11 +624,11 @@ gg_hbar_col <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = x_trans, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   })
   
   if (x_zero_line == TRUE) {
@@ -736,7 +732,6 @@ gg_hbar_col <- function(data,
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
@@ -795,7 +790,6 @@ gg_hbar_facet <- function(data,
                           x_na_rm = FALSE,
                           x_title = NULL,
                           x_title_wrap = 50,
-                          x_trans = "identity",
                           x_zero = TRUE,
                           x_zero_line = NULL,
                           y_balance = FALSE,
@@ -906,7 +900,7 @@ gg_hbar_facet <- function(data,
         y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
         y_zero <- y_zero_list[[1]]
         y_zero_line <- y_zero_list[[2]]
-        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = "identity", zero = y_zero)
+        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
         y_limits <- c(min(y_breaks), max(y_breaks))
         if (is.null(y_expand)) y_expand <- c(0, 0)
         
@@ -958,16 +952,16 @@ gg_hbar_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = x_trans, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, labels = x_labels, oob = scales::oob_squish)
   }
   
   if (x_zero_line == TRUE) {
@@ -1015,7 +1009,6 @@ gg_hbar_facet <- function(data,
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param x_trans For a numeric x variable, a string specifying a transformation for the x scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
@@ -1087,7 +1080,6 @@ gg_hbar_col_facet <- function(data,
                               x_na_rm = FALSE,
                               x_title = NULL,
                               x_title_wrap = 50,
-                              x_trans = "identity",
                               x_zero = TRUE,
                               x_zero_line = NULL,
                               y_balance = FALSE,
@@ -1313,7 +1305,7 @@ gg_hbar_col_facet <- function(data,
       y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, trans = "identity", zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
@@ -1365,16 +1357,16 @@ gg_hbar_col_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = x_trans, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, trans = x_trans, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, labels = x_labels, oob = scales::oob_squish)
   }
   
   if (x_zero_line == TRUE) {

@@ -106,7 +106,7 @@ gg_density <- function(data,
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
-  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
   
@@ -116,7 +116,7 @@ gg_density <- function(data,
   }
   
   plot <- plot +
-    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   
   if (x_zero_line == TRUE) {
     plot <- plot +
@@ -131,11 +131,11 @@ gg_density <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, zero = TRUE)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
   })
   
   #titles
@@ -313,7 +313,7 @@ gg_density_col <- function(data,
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
-  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = mobile)
+  x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
   if (is.null(x_expand)) x_expand <- c(0, 0)
   
@@ -323,7 +323,7 @@ gg_density_col <- function(data,
   }
   
   plot <- plot +
-    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+    scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   
   if (x_zero_line == TRUE) {
     plot <- plot +
@@ -338,11 +338,11 @@ gg_density_col <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, zero = TRUE)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
   })
   
   #colour
@@ -522,12 +522,12 @@ gg_density_facet <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -544,11 +544,11 @@ gg_density_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, zero = TRUE)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
@@ -739,12 +739,12 @@ gg_density_col_facet <- function(data,
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
     x_zero <- x_zero_list[[1]]
     x_zero_line <- x_zero_list[[2]]
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, trans = "identity", zero = x_zero, mobile = FALSE)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
     if (is.null(x_expand)) x_expand <- c(0, 0)
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, trans = "identity", oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -767,11 +767,11 @@ gg_density_col_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, trans = "identity", zero = TRUE)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = FALSE, breaks_n = y_breaks_n, zero = TRUE)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, trans = "identity", labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {

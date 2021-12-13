@@ -36,7 +36,6 @@ gg_boxplot_col(
   x_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
-  y_trans = "identity",
   y_zero = FALSE,
   y_zero_line = NULL,
   col_labels = snakecase::to_sentence_case,
@@ -113,8 +112,6 @@ gg_boxplot_col(
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
-
-\item{y_trans}{For a numeric y variable, a string specifying a transformation for the y scale, such as "log10" or "sqrt". Defaults to "identity".}
 
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 

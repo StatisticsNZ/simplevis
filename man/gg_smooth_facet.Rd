@@ -44,7 +44,7 @@ gg_smooth_facet(
   theme = gg_theme(),
   stat_method = NULL,
   stat_formula = NULL,
-  stat_se = TRUE,
+  stat_confidence = TRUE,
   stat_level = 0.95,
   stat_span = 0.75,
   stat_n = 80
@@ -129,7 +129,7 @@ gg_smooth_facet(
 
 \item{stat_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
 
-\item{stat_se}{TRUE or FALSE of whether to show condidence as a ribbon.}
+\item{stat_confidence}{TRUE or FALSE of whether to show condidence as a ribbon.}
 
 \item{stat_level}{The level of confidence to calculate for the ribbon.}
 

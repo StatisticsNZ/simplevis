@@ -1,10 +1,14 @@
+# simplevis 5.0.34 
+
+* Changed stat_se argument in smooth functions to stat_confidence. 
+
 # simplevis 5.0.33
 
 * Changed alg_ prefix to stat_ to align with ggplot2.
 
 # simplevis 5.0.32
 
-* Tweak shiny templates. 
+* Tweaked shiny templates. 
 
 # simplevis 5.0.31
 

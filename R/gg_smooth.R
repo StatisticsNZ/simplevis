@@ -34,7 +34,7 @@
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
 #' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_confidence TRUE or FALSE of whether to show condidence as a ribbon. 
 #' @param stat_level The level of confidence to calculate for the ribbon.
 #' @param stat_n Number of points at which to evaluate smoother. 
 #' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
@@ -82,7 +82,7 @@ gg_smooth <- function(data,
                       theme = gg_theme(),
                       stat_method = NULL,
                       stat_formula = NULL,
-                      stat_se = TRUE,
+                      stat_confidence = TRUE,
                       stat_level = 0.95,
                       stat_span = 0.75, 
                       stat_n = 80,
@@ -121,7 +121,7 @@ gg_smooth <- function(data,
     geom_smooth(aes(!!x_var, !!y_var, group = 1),
                 col = pal,
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = stat_se, level = stat_level, 
+                se = stat_confidence, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
   #x scale  
@@ -235,7 +235,7 @@ gg_smooth <- function(data,
 #' @param theme A ggplot2 theme.  
 #' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
 #' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_confidence TRUE or FALSE of whether to show condidence as a ribbon. 
 #' @param stat_level The level of confidence to calculate for the ribbon.
 #' @param stat_n Number of points at which to evaluate smoother. 
 #' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
@@ -291,7 +291,7 @@ gg_smooth_col <- function(data,
                           theme = gg_theme(),
                           stat_method = NULL,
                           stat_formula = NULL,
-                          stat_se = TRUE,
+                          stat_confidence = TRUE,
                           stat_level = 0.95,
                           stat_span = 0.75, 
                           stat_n = 80,
@@ -354,7 +354,7 @@ gg_smooth_col <- function(data,
     coord_cartesian(clip = "off") +
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var),
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = stat_se, level = stat_level, 
+                se = stat_confidence, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
   #x scale  
@@ -481,7 +481,7 @@ gg_smooth_col <- function(data,
 #' @param theme A ggplot2 theme.  
 #' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
 #' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_confidence TRUE or FALSE of whether to show condidence as a ribbon. 
 #' @param stat_level The level of confidence to calculate for the ribbon.
 #' @param stat_n Number of points at which to evaluate smoother. 
 #' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
@@ -536,7 +536,7 @@ gg_smooth_facet <- function(data,
                             theme = gg_theme(), 
                             stat_method = NULL,
                             stat_formula = NULL,
-                            stat_se = TRUE,
+                            stat_confidence = TRUE,
                             stat_level = 0.95,
                             stat_span = 0.75, 
                             stat_n = 80) {
@@ -590,7 +590,7 @@ gg_smooth_facet <- function(data,
     geom_smooth(aes(!!x_var, !!y_var, group = 1),
                 col = pal,
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = stat_se, level = stat_level, 
+                se = stat_confidence, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
   #x scale
@@ -701,7 +701,7 @@ gg_smooth_facet <- function(data,
 #' @param theme A ggplot2 theme.  
 #' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
 #' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_confidence TRUE or FALSE of whether to show condidence as a ribbon. 
 #' @param stat_level The level of confidence to calculate for the ribbon.
 #' @param stat_n Number of points at which to evaluate smoother. 
 #' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
@@ -765,7 +765,7 @@ gg_smooth_col_facet <- function(data,
                                 theme = gg_theme(), 
                                 stat_method = NULL,
                                 stat_formula = NULL,
-                                stat_se = TRUE,
+                                stat_confidence = TRUE,
                                 stat_level = 0.95,
                                 stat_span = 0.75, 
                                 stat_n = 80) {
@@ -840,7 +840,7 @@ gg_smooth_col_facet <- function(data,
     coord_cartesian(clip = "off") +
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var),
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = stat_se, level = stat_level, 
+                se = stat_confidence, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
   #x scale

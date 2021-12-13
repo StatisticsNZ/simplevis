@@ -18,6 +18,7 @@
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
+#' @param x_reorder For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -85,6 +86,7 @@ gg_boxplot <- function(data,
                        x_expand = NULL,
                        x_labels = NULL,
                        x_na_rm = FALSE,
+                       x_reorder = FALSE,
                        x_rev = FALSE,
                        x_title = NULL,
                        x_title_wrap = 50,
@@ -144,14 +146,34 @@ gg_boxplot <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
-  #reverse
-  if (x_rev == TRUE) {
-    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      
-      x_var_vctr <- dplyr::pull(data, !!x_var)
-    }
+  # #reverse
+  # if (x_rev == TRUE) {
+  #   if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
+  #     data <- data %>%
+  #       dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+  #     
+  #     x_var_vctr <- dplyr::pull(data, !!x_var)
+  #   }
+  # }
+  
+  #reverse & reorder
+  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
+    if (x_reorder == FALSE) {
+      if (x_rev == TRUE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+      } 
+    } 
+    if (x_reorder == TRUE) {
+      if (x_rev == FALSE) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = TRUE)))
+      } else {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = FALSE)))
+      }
+    } 
+    x_var_vctr <- dplyr::pull(data, !!x_var)
   }
   
   #colour
@@ -620,7 +642,7 @@ gg_boxplot_col <- function(data,
       na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
-  
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -630,8 +652,7 @@ gg_boxplot_col <- function(data,
         x = stringr::str_wrap(x_title, x_title_wrap),
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      guides(fill = guide_legend(byrow = TRUE)) 
+      ) 
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -1303,8 +1324,7 @@ gg_boxplot_col_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
-    guides(fill = guide_legend(byrow = TRUE)) 
-    
+    facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) 
+
     return(plot)
   }

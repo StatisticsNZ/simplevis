@@ -166,7 +166,6 @@
   <span class='no'>x_var</span>,
   <span class='no'>y_var</span>,
   <span class='no'>col_var</span>,
-  <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
@@ -198,11 +197,7 @@
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_breaks_n</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_intervals_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -231,10 +226,6 @@
     <tr>
       <th>col_var</th>
       <td><p>Unquoted categorical or numeric variable to colour the boxplots. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>text_var</th>
-      <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>stat</th>
@@ -361,24 +352,8 @@
       <td><p>For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>col_breaks_n</th>
-      <td><p>For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.</p></td>
-    </tr>
-    <tr>
-      <th>col_cuts</th>
-      <td><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></td>
-    </tr>
-    <tr>
-      <th>col_intervals_right</th>
-      <td><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.</p></td>
-    </tr>
-    <tr>
       <th>col_labels</th>
       <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
-    </tr>
-    <tr>
-      <th>col_method</th>
-      <td><p>The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".</p></td>
     </tr>
     <tr>
       <th>col_na_rm</th>

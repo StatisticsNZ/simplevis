@@ -1,5 +1,9 @@
 # simplevis 5.0.29
 
+* Remove numeric colouring options from hboxplot.
+
+# simplevis 5.0.29
+
 * Updated reverse code.
 
 # simplevis 5.0.28

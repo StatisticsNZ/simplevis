@@ -3,7 +3,6 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param width Width of boxes. Defaults to 0.5.
@@ -51,7 +50,6 @@
 gg_hboxplot <- function(data,
                     x_var,
                     y_var,
-                    text_var = NULL,
                     stat = "boxplot",
                     pal = pal_viridis_reorder(1),
                     width = NULL,
@@ -92,8 +90,7 @@ gg_hboxplot <- function(data,
   #quote
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var)
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -291,7 +288,6 @@ gg_hboxplot <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
@@ -323,11 +319,7 @@ gg_hboxplot <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
-#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4. 
-#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
-#' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -352,7 +344,6 @@ gg_hboxplot_col <- function(data,
                         x_var,
                         y_var,
                         col_var,
-                        text_var = NULL,
                         stat = "boxplot",
                         pal = NULL,
                         pal_na = "#7F7F7F",
@@ -384,11 +375,7 @@ gg_hboxplot_col <- function(data,
                         y_title_wrap = 50,
                         y_zero = FALSE,
                         y_zero_line = NULL,
-                        col_breaks_n = 4,
-                        col_cuts = NULL,
-                        col_intervals_right = TRUE,
-                        col_labels = NULL,
-                        col_method = NULL,
+                        col_labels = stringr::str_to_sentence,
                         col_na_rm = FALSE,
                         col_rev = FALSE,
                         col_title = NULL,
@@ -405,8 +392,7 @@ gg_hboxplot_col <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) 
   col_var <- rlang::enquo(col_var) 
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -433,10 +419,7 @@ gg_hboxplot_col <- function(data,
   
   #warnings
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
-  
-  if (!is.null(col_method)) {
-    if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
-  }
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal boxplot")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -471,7 +454,7 @@ gg_hboxplot_col <- function(data,
     if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
-      
+
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
   }
@@ -484,72 +467,13 @@ gg_hboxplot_col <- function(data,
   }
   
   #colour
-  if (mobile == TRUE) col_title_wrap <- 20
-  
-  if (is.null(col_method)) {
-    if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "bin"
+  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+    col_n <- length(levels(col_var_vctr))
   }
+  else col_n <- length(unique(col_var_vctr))
   
-  if (col_method == "continuous") {
-    if (is.null(pal)) pal <- viridis::viridis(20)
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
-    if (is.null(col_labels)) col_labels <- scales::label_comma()
-  }
-  else if (col_method %in% c("quantile", "bin", "category")) {
-    if (col_method %in% c("quantile", "bin")) {
-      if (col_method == "quantile") {
-        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
-        else {
-          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-        }  
-        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      }
-      else if (col_method == "bin") {
-        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
-        else {
-          if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-        }
-      }
-      
-      if (is.null(col_labels)) col_labels <- scales::label_comma()
-      
-      if (is.function(col_labels)) {
-        data <- data %>%
-          dplyr::mutate(
-            dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
-                                       right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
-        
-        col_labels <- sv_interval_labels_chr
-      }
-      else {
-        data <- data %>%
-          dplyr::mutate(
-            dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
-                                       right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
-      }
-      
-      col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
-      else pal <- pal[1:col_n]
-    }
-    else if (col_method == "category") {
-      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        col_n <- length(levels(col_var_vctr))
-      }
-      else col_n <- length(unique(col_var_vctr))
-      
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-      pal <- pal[col_n:1] #different because horizontal!
-      
-      if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
-    }
-  }  
+  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -670,51 +594,16 @@ gg_hboxplot_col <- function(data,
   }
   
   #colour
-  if (col_method == "continuous") {
-    plot <- plot +
-      scale_colour_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) +
-      scale_fill_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
-  }
-  else if (col_method %in% c("quantile", "bin", "category")) {
-    plot <- plot +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      ) +
-      scale_fill_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      )
-    
-    legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
-    
-    if (mobile == FALSE) {
-      plot <- plot +
-        guides(col = guide_legend(reverse = legend_reverse), 
-               fill = guide_legend(reverse = legend_reverse))
-    }
-    else if (mobile == TRUE) {
-      plot <- plot +
-        guides(col = guide_legend(ncol = 1, reverse = legend_reverse), 
-               fill = guide_legend(ncol = 1, reverse = legend_reverse))
-    }
-  }
+  if (mobile == TRUE) col_title_wrap <- 20
+  
+  plot <- plot +
+    scale_fill_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) 
   
   #titles
   if (mobile == FALSE) {
@@ -725,7 +614,8 @@ gg_hboxplot_col <- function(data,
         x = stringr::str_wrap(y_title, y_title_wrap),
         y = stringr::str_wrap(x_title, x_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) 
+      ) +
+      guides(fill = guide_legend(reverse = TRUE))
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -736,6 +626,7 @@ gg_hboxplot_col <- function(data,
         y = stringr::str_wrap(x_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
+      guides(fill = guide_legend(ncol = 1, reverse = TRUE)) +
       theme_mobile_extra()
   }
   
@@ -748,7 +639,6 @@ gg_hboxplot_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param width Width of boxes. Defaults to 0.5.
@@ -802,7 +692,6 @@ gg_hboxplot_facet <- function(data,
                           x_var,
                           y_var,
                           facet_var,
-                          text_var = NULL,
                           stat = "boxplot",
                           pal = pal_viridis_reorder(1),
                           width = NULL,
@@ -848,8 +737,7 @@ gg_hboxplot_facet <- function(data,
   y_var <- rlang::enquo(y_var) #categorical var
   x_var <- rlang::enquo(x_var) #numeric var
   facet_var <- rlang::enquo(facet_var) #categorical var
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -1053,7 +941,6 @@ gg_hboxplot_facet <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
@@ -1085,12 +972,8 @@ gg_hboxplot_facet <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
-#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4. 
-#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
-#' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -1120,7 +1003,6 @@ gg_hboxplot_col_facet <- function(data,
                               y_var,
                               col_var,
                               facet_var,
-                              text_var = NULL,
                               stat = "boxplot",
                               pal = NULL,
                               pal_na = "#7F7F7F",
@@ -1152,11 +1034,7 @@ gg_hboxplot_col_facet <- function(data,
                               y_title_wrap = 50,
                               y_zero = FALSE,
                               y_zero_line = NULL,
-                              col_breaks_n = 4,
-                              col_cuts = NULL,
-                              col_intervals_right = TRUE,
-                              col_labels = NULL,
-                              col_method = NULL,
+                              col_labels = stringr::str_to_sentence,
                               col_na_rm = FALSE,
                               col_rev = FALSE,
                               col_title = NULL,
@@ -1178,8 +1056,7 @@ gg_hboxplot_col_facet <- function(data,
   y_var <- rlang::enquo(y_var) 
   col_var <- rlang::enquo(col_var) 
   facet_var <- rlang::enquo(facet_var) #categorical var
-  text_var <- rlang::enquo(text_var)
-  
+
   #na's
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -1211,12 +1088,9 @@ gg_hboxplot_col_facet <- function(data,
   
   #warnings
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal boxplot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal boxplot")
-  
-  if (!is.null(col_method)) {
-    if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
-  }
-  
+
   #logical to factor
   if (is.logical(y_var_vctr)) {
     data <- data %>% 
@@ -1269,70 +1143,13 @@ gg_hboxplot_col_facet <- function(data,
   }
   
   #colour
-  if (is.null(col_method)) {
-    if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "bin"
+  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+    col_n <- length(levels(col_var_vctr))
   }
+  else col_n <- length(unique(col_var_vctr))
   
-  if (col_method == "continuous") {
-    if (is.null(pal)) pal <- viridis::viridis(20)
-    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
-    if (is.null(col_labels)) col_labels <- scales::label_comma()
-  }
-  else if (col_method %in% c("quantile", "bin", "category")) {
-    if (col_method %in% c("quantile", "bin")) {
-      if (col_method == "quantile") {
-        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
-        else {
-          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
-          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
-        }  
-        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
-        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
-      }
-      else if (col_method == "bin") {
-        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
-        else {
-          if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
-          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
-        }
-      }
-      
-      if (is.null(col_labels)) col_labels <- scales::label_comma()
-      
-      if (is.function(col_labels)) {
-        data <- data %>%
-          dplyr::mutate(
-            dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
-                                       right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
-        
-        col_labels <- sv_interval_labels_chr
-      }
-      else {
-        data <- data %>%
-          dplyr::mutate(
-            dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
-                                       right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
-      }
-      
-      col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
-      else pal <- pal[1:col_n]
-    }
-    else if (col_method == "category") {
-      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-        col_n <- length(levels(col_var_vctr))
-      }
-      else col_n <- length(unique(col_var_vctr))
-      
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-      pal <- pal[col_n:1] #different because horizontal!
-      
-      if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
-    }
-  }  
+  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -1347,7 +1164,7 @@ gg_hboxplot_col_facet <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!y_var, y = !!x_var, fill = !!col_var, group = .data$group_var),
+        aes(x = !!y_var, y = !!x_var, fill = !!col_var, group = .data$group_var), 
         stat = stat,
         position = position_dodge2(preserve = "single"),
         col = "#323232", 
@@ -1453,48 +1270,16 @@ gg_hboxplot_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #colour
-  if (col_method == "continuous") {
-    plot <- plot +
-      scale_colour_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) +
-      scale_fill_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
-  }
-  else if (col_method %in% c("quantile", "bin", "category")) {
-    plot <- plot +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      ) +
-      scale_fill_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      )
-    
-    legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
-    
-    plot <- plot +
-      guides(col = guide_legend(reverse = legend_reverse), 
-             fill = guide_legend(reverse = legend_reverse))
-  }
-  
-  #titles & facetting
+  #colour, titles & facetting
   plot <- plot +
+    scale_fill_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
+    guides(fill = guide_legend(reverse = TRUE)) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

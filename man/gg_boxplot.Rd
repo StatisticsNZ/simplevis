@@ -23,6 +23,7 @@ gg_boxplot(
   x_expand = NULL,
   x_labels = NULL,
   x_na_rm = FALSE,
+  x_reorder = FALSE,
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
@@ -79,6 +80,8 @@ gg_boxplot(
 \item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
+
+\item{x_reorder}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 

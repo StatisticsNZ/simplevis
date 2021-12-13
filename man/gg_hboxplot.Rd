@@ -8,7 +8,6 @@ gg_hboxplot(
   data,
   x_var,
   y_var,
-  text_var = NULL,
   stat = "boxplot",
   pal = pal_viridis_reorder(1),
   width = NULL,
@@ -50,8 +49,6 @@ gg_hboxplot(
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
-
-\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 

@@ -10,7 +10,6 @@ gg_hboxplot_col_facet(
   y_var,
   col_var,
   facet_var,
-  text_var = NULL,
   stat = "boxplot",
   pal = NULL,
   pal_na = "#7F7F7F",
@@ -42,11 +41,7 @@ gg_hboxplot_col_facet(
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
-  col_breaks_n = 4,
-  col_cuts = NULL,
-  col_intervals_right = TRUE,
-  col_labels = NULL,
-  col_method = NULL,
+  col_labels = stringr::str_to_sentence,
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,
@@ -71,8 +66,6 @@ gg_hboxplot_col_facet(
 \item{col_var}{Unquoted categorical or numeric variable to colour the boxplots. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
@@ -136,15 +129,7 @@ gg_hboxplot_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_breaks_n}{For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.}
-
-\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
-
-\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
-
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
-
-\item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

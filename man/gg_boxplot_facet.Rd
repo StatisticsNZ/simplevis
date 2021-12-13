@@ -9,7 +9,6 @@ gg_boxplot_facet(
   x_var,
   y_var = NULL,
   facet_var,
-  stat = "boxplot",
   pal = pal_viridis_reorder(1),
   width = NULL,
   alpha = 1,
@@ -45,7 +44,8 @@ gg_boxplot_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme()
+  theme = gg_theme(),
+  stat = "boxplot"
 )
 }
 \arguments{
@@ -56,8 +56,6 @@ gg_boxplot_facet(
 \item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -130,6 +128,8 @@ gg_boxplot_facet(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 }
 \value{
 A ggplot object.

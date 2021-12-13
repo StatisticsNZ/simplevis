@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.33</span>
       </span>
     </div>
 
@@ -166,7 +166,6 @@
   <span class='no'>x_var</span>,
   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>facet_var</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -202,7 +201,8 @@
   <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>()
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -223,10 +223,6 @@
     <tr>
       <th>facet_var</th>
       <td><p>Unquoted categorical variable to facet the data by. Required input.</p></td>
-    </tr>
-    <tr>
-      <th>stat</th>
-      <td><p>String of "boxplot" or "identity". Defaults to "boxplot".</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -371,6 +367,10 @@
     <tr>
       <th>theme</th>
       <td><p>A ggplot2 theme.</p></td>
+    </tr>
+    <tr>
+      <th>stat</th>
+      <td><p>String of "boxplot" or "identity". Defaults to "boxplot".</p></td>
     </tr>
     </table>
 

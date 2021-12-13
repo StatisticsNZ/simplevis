@@ -3,7 +3,6 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. 
 #' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -36,6 +35,7 @@
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' @return A ggplot object.
 #' @export
@@ -71,7 +71,6 @@
 gg_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
-                       stat = "boxplot",
                        pal = pal_viridis_reorder(1),
                        width = NULL,
                        alpha = 1,
@@ -103,8 +102,9 @@ gg_boxplot <- function(data,
                        y_zero_line = NULL,
                        caption = NULL,
                        caption_wrap = 80,
-                       mobile = FALSE, 
-                       theme = gg_theme()) {
+                       theme = gg_theme(),
+                       stat = "boxplot",
+                       mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -147,14 +147,14 @@ gg_boxplot <- function(data,
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   # #reverse
-  # if (x_rev == TRUE) {
-  #   if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
-  #     data <- data %>%
-  #       dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-  #     
-  #     x_var_vctr <- dplyr::pull(data, !!x_var)
-  #   }
-  # }
+  if (x_rev == TRUE) {
+    if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
+
+      x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
+  }
   
   #reverse & reorder
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
@@ -194,7 +194,7 @@ gg_boxplot <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, group = !!x_var),
+        aes(x = !!x_var, y = !!y_var), #, group = !!x_var
         stat = stat,
         col = "#323232", 
         fill = pal,
@@ -214,8 +214,7 @@ gg_boxplot <- function(data,
           lower = .data$lower,
           middle = .data$middle,
           upper = .data$upper,
-          ymax = .data$max, 
-          group = !!x_var
+          ymax = .data$max
         ),
         stat = stat,
         col = "#323232", 
@@ -330,7 +329,6 @@ gg_boxplot <- function(data,
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
@@ -363,11 +361,13 @@ gg_boxplot <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #'
 #' @return A ggplot object.
@@ -392,7 +392,6 @@ gg_boxplot_col <- function(data,
                            x_var,
                            y_var = NULL,
                            col_var,
-                           stat = "boxplot",
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
@@ -425,11 +424,13 @@ gg_boxplot_col <- function(data,
                            y_zero_line = NULL,
                            col_labels = snakecase::to_sentence_case,
                            col_na_rm = FALSE,
+                           col_rev = FALSE,
                            col_title = NULL,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
                            theme = gg_theme(),
+                           stat = "boxplot",
                            mobile = FALSE) {
   
   #ungroup
@@ -497,6 +498,15 @@ gg_boxplot_col <- function(data,
     }
   }
   
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
+  }
+  
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -516,9 +526,6 @@ gg_boxplot_col <- function(data,
   }
   
   #fundamentals
-  data <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!col_var, remove = FALSE) 
-  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme
@@ -526,7 +533,7 @@ gg_boxplot_col <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
+        aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
         stat = stat,
         position = position_dodge2(preserve = "single"),
         col = "#323232", 
@@ -547,8 +554,7 @@ gg_boxplot_col <- function(data,
           middle = .data$middle,
           upper = .data$upper,
           ymax = .data$max, 
-          fill = !!col_var,
-          group = .data$group_var
+          fill = !!col_var
         ),
         stat = stat,
         position = position_dodge2(preserve = "single"),
@@ -642,7 +648,7 @@ gg_boxplot_col <- function(data,
       na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
-
+  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -676,7 +682,6 @@ gg_boxplot_col <- function(data,
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
 #' @param pal Character vector of hex codes. 
 #' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -712,6 +717,7 @@ gg_boxplot_col <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param theme A ggplot2 theme.
 #' 
 #' @return A ggplot object.
@@ -730,7 +736,6 @@ gg_boxplot_facet <- function(data,
                              x_var,
                              y_var = NULL,
                              facet_var,
-                             stat = "boxplot",
                              pal = pal_viridis_reorder(1),
                              width = NULL,
                              alpha = 1,
@@ -766,7 +771,8 @@ gg_boxplot_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme()) {
+                             theme = gg_theme(), 
+                             stat = "boxplot") {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -843,9 +849,6 @@ gg_boxplot_facet <- function(data,
   }
   
   #fundamentals
-  data <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE) 
-  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme
@@ -853,7 +856,7 @@ gg_boxplot_facet <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, group = .data$group_var),
+        aes(x = !!x_var, y = !!y_var), 
         stat = stat,
         col = "#323232", 
         fill = pal,
@@ -874,8 +877,7 @@ gg_boxplot_facet <- function(data,
           lower = .data$lower,
           middle = .data$middle,
           upper = .data$upper,
-          ymax = .data$max, 
-          group = .data$group_var
+          ymax = .data$max
         ),
         stat = stat,
         col = "#323232", 
@@ -980,7 +982,6 @@ gg_boxplot_facet <- function(data,
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".  
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
@@ -1013,6 +1014,7 @@ gg_boxplot_facet <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -1022,6 +1024,7 @@ gg_boxplot_facet <- function(data,
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
 #' @param theme A ggplot2 theme.
 #' 
 #' @return A ggplot object.
@@ -1052,7 +1055,6 @@ gg_boxplot_col_facet <- function(data,
                                  y_var = NULL,
                                  col_var,
                                  facet_var,
-                                 stat = "boxplot",
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
@@ -1085,6 +1087,7 @@ gg_boxplot_col_facet <- function(data,
                                  y_zero_line = NULL,
                                  col_labels = snakecase::to_sentence_case,
                                  col_na_rm = FALSE,
+                                 col_rev = FALSE,
                                  col_title = NULL,
                                  col_title_wrap = 25,
                                  facet_labels = snakecase::to_sentence_case,
@@ -1094,7 +1097,8 @@ gg_boxplot_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80,
-                                 theme = gg_theme()) {
+                                 theme = gg_theme(), 
+                                 stat = "boxplot") {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1173,6 +1177,15 @@ gg_boxplot_col_facet <- function(data,
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
   }
+  
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
+  }
 
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
@@ -1193,9 +1206,6 @@ gg_boxplot_col_facet <- function(data,
   }
   
   #fundamentals
-  data <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE) 
-  
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme
@@ -1203,7 +1213,7 @@ gg_boxplot_col_facet <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var),
+        aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
         stat = stat,
         col = "#323232", 
         width = width,
@@ -1224,8 +1234,7 @@ gg_boxplot_col_facet <- function(data,
           middle = .data$middle,
           upper = .data$upper,
           ymax = .data$max, 
-          fill = !!col_var,
-          group = .data$group_var
+          fill = !!col_var
         ),
         stat = stat,
         col = "#323232", 

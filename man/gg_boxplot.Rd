@@ -8,7 +8,6 @@ gg_boxplot(
   data,
   x_var,
   y_var = NULL,
-  stat = "boxplot",
   pal = pal_viridis_reorder(1),
   width = NULL,
   alpha = 1,
@@ -40,8 +39,9 @@ gg_boxplot(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 80,
-  mobile = FALSE,
-  theme = gg_theme()
+  theme = gg_theme(),
+  stat = "boxplot",
+  mobile = FALSE
 )
 }
 \arguments{
@@ -50,8 +50,6 @@ gg_boxplot(
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 
 \item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -115,9 +113,11 @@ gg_boxplot(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
-\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
-
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
+
+\item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }
 \value{
 A ggplot object.

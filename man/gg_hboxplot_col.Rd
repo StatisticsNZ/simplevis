@@ -9,7 +9,6 @@ gg_hboxplot_col(
   x_var,
   y_var,
   col_var,
-  stat = "boxplot",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -48,6 +47,7 @@ gg_hboxplot_col(
   caption = NULL,
   caption_wrap = 75,
   theme = gg_theme(gridlines = "vertical"),
+  stat = "boxplot",
   mobile = FALSE
 )
 }
@@ -59,8 +59,6 @@ gg_hboxplot_col(
 \item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
 
 \item{col_var}{Unquoted categorical or numeric variable to colour the boxplots. Required input.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -137,6 +135,8 @@ gg_hboxplot_col(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }

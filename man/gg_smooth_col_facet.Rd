@@ -49,12 +49,12 @@ gg_smooth_col_facet(
   caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(),
-  alg_method = NULL,
-  alg_formula = NULL,
-  alg_se = TRUE,
-  alg_level = 0.95,
-  alg_span = 0.75,
-  alg_n = 80
+  stat_method = NULL,
+  stat_formula = NULL,
+  stat_se = TRUE,
+  stat_level = 0.95,
+  stat_span = 0.75,
+  stat_n = 80
 )
 }
 \arguments{
@@ -146,17 +146,17 @@ gg_smooth_col_facet(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{alg_method}{Smoothing algorithm to use. See ggplot2::geom_smooth for further details.}
+\item{stat_method}{Smoothing algorithm to use. See ggplot2::geom_smooth for further details.}
 
-\item{alg_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
+\item{stat_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
 
-\item{alg_se}{TRUE or FALSE of whether to show condidence as a ribbon.}
+\item{stat_se}{TRUE or FALSE of whether to show condidence as a ribbon.}
 
-\item{alg_level}{The level of confidence to calculate for the ribbon.}
+\item{stat_level}{The level of confidence to calculate for the ribbon.}
 
-\item{alg_span}{Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.}
+\item{stat_span}{Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.}
 
-\item{alg_n}{Number of points at which to evaluate smoother.}
+\item{stat_n}{Number of points at which to evaluate smoother.}
 }
 \value{
 A ggplot object.

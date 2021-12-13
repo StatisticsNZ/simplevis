@@ -45,6 +45,9 @@ shinyServer(function(input, output, session) {
     # change any placeholder character values to input widgets
     # refer to a reactive plot_data object as plot_data()
     
+    req(plot_data())
+    req(plot_theme())
+    
     .color <- input$plot_color
     
     title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
@@ -138,6 +141,7 @@ shinyServer(function(input, output, session) {
   }
   
   observe({
+    req(map_data())
     req(input$map_zoom) # wait for basemap before plotting.
     
     withProgress(message = "Loading", {

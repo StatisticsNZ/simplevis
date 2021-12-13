@@ -3,7 +3,6 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1. 
@@ -35,6 +34,7 @@
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
@@ -50,7 +50,6 @@
 gg_hboxplot <- function(data,
                     x_var,
                     y_var,
-                    stat = "boxplot",
                     pal = pal_viridis_reorder(1),
                     width = NULL,
                     alpha = 1,
@@ -82,6 +81,7 @@ gg_hboxplot <- function(data,
                     caption = NULL,
                     caption_wrap = 75,
                     theme = gg_theme(gridlines = "vertical"),
+                    stat = "boxplot",
                     mobile = FALSE) {
   
   #ungroup
@@ -288,7 +288,6 @@ gg_hboxplot <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -327,6 +326,7 @@ gg_hboxplot <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
@@ -344,7 +344,6 @@ gg_hboxplot_col <- function(data,
                         x_var,
                         y_var,
                         col_var,
-                        stat = "boxplot",
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
@@ -383,6 +382,7 @@ gg_hboxplot_col <- function(data,
                         caption = NULL,
                         caption_wrap = 75,
                         theme = gg_theme(gridlines = "vertical"),
+                        stat = "boxplot",
                         mobile = FALSE) {
   
   #ungroup
@@ -473,14 +473,11 @@ gg_hboxplot_col <- function(data,
   else col_n <- length(unique(col_var_vctr))
   
   if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  else pal <- pal[1:col_n]
+  pal <- pal[col_n:1] #different because horizontal!
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
   #fundamentals
-  data <- data %>% 
-    tidyr::unite(col = "group_var",  !!y_var, !!col_var, remove = FALSE) 
-  
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme 
@@ -488,7 +485,7 @@ gg_hboxplot_col <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!y_var, y = !!x_var, fill = !!col_var, group = .data$group_var),
+        aes(x = !!y_var, y = !!x_var, fill = !!col_var),
         stat = stat,
         position = position_dodge2(preserve = "single"),
         col = "#323232", 
@@ -509,8 +506,7 @@ gg_hboxplot_col <- function(data,
           middle = .data$middle,
           upper = .data$upper,
           ymax = .data$max, 
-          fill = !!col_var,
-          group = .data$group_var
+          fill = !!col_var
         ),
         stat = stat,
         position = position_dodge2(preserve = "single"),
@@ -639,7 +635,6 @@ gg_hboxplot_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param width Width of boxes. Defaults to 0.5.
 #' @param alpha The alpha of the fill. Defaults to 1.
@@ -676,6 +671,7 @@ gg_hboxplot_col <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' 
 #' @return A ggplot object.
 #' @export
@@ -692,7 +688,6 @@ gg_hboxplot_facet <- function(data,
                           x_var,
                           y_var,
                           facet_var,
-                          stat = "boxplot",
                           pal = pal_viridis_reorder(1),
                           width = NULL,
                           alpha = 1,
@@ -728,7 +723,8 @@ gg_hboxplot_facet <- function(data,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
-                          theme = gg_theme(gridlines = "vertical")) {
+                          theme = gg_theme(gridlines = "vertical"),
+                          stat = "boxplot") {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -805,9 +801,6 @@ gg_hboxplot_facet <- function(data,
   }
   
   #fundamentals
-  data <- data %>% 
-    tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE) 
-  
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme   
@@ -941,7 +934,6 @@ gg_hboxplot_facet <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
-#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
@@ -985,6 +977,7 @@ gg_hboxplot_facet <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
+#' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
 #' 
 #' @return A ggplot object.
 #' @export
@@ -1003,7 +996,6 @@ gg_hboxplot_col_facet <- function(data,
                               y_var,
                               col_var,
                               facet_var,
-                              stat = "boxplot",
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
@@ -1046,7 +1038,8 @@ gg_hboxplot_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              theme = gg_theme(gridlines = "vertical")) {
+                              theme = gg_theme(gridlines = "vertical"), 
+                              stat = "boxplot") {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1149,14 +1142,11 @@ gg_hboxplot_col_facet <- function(data,
   else col_n <- length(unique(col_var_vctr))
   
   if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  else pal <- pal[1:col_n]
+  pal <- pal[col_n:1] #different because horizontal!
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
   #fundamentals
-  data <- data %>% 
-    tidyr::unite(col = "group_var",  !!y_var, !!col_var, !!facet_var, remove = FALSE) 
-  
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme 
@@ -1164,7 +1154,7 @@ gg_hboxplot_col_facet <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!y_var, y = !!x_var, fill = !!col_var, group = .data$group_var), 
+        aes(x = !!y_var, y = !!x_var, fill = !!col_var), 
         stat = stat,
         position = position_dodge2(preserve = "single"),
         col = "#323232", 
@@ -1185,8 +1175,7 @@ gg_hboxplot_col_facet <- function(data,
           middle = .data$middle,
           upper = .data$upper,
           ymax = .data$max, 
-          fill = !!col_var,
-          group = .data$group_var
+          fill = !!col_var
         ),
         stat = stat,
         position = position_dodge2(preserve = "single"),

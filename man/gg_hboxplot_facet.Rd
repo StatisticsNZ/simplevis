@@ -9,7 +9,6 @@ gg_hboxplot_facet(
   x_var,
   y_var,
   facet_var,
-  stat = "boxplot",
   pal = pal_viridis_reorder(1),
   width = NULL,
   alpha = 1,
@@ -45,7 +44,8 @@ gg_hboxplot_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical")
+  theme = gg_theme(gridlines = "vertical"),
+  stat = "boxplot"
 )
 }
 \arguments{
@@ -56,8 +56,6 @@ gg_hboxplot_facet(
 \item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -130,6 +128,8 @@ gg_hboxplot_facet(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 }
 \value{
 A ggplot object.

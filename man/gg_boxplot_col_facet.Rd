@@ -10,7 +10,6 @@ gg_boxplot_col_facet(
   y_var = NULL,
   col_var,
   facet_var,
-  stat = "boxplot",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -43,6 +42,7 @@ gg_boxplot_col_facet(
   y_zero_line = NULL,
   col_labels = snakecase::to_sentence_case,
   col_na_rm = FALSE,
+  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   facet_labels = snakecase::to_sentence_case,
@@ -52,7 +52,8 @@ gg_boxplot_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme()
+  theme = gg_theme(),
+  stat = "boxplot"
 )
 }
 \arguments{
@@ -65,8 +66,6 @@ gg_boxplot_col_facet(
 \item{col_var}{Unquoted categorical variable to colour the fill of the boxes. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -132,6 +131,8 @@ gg_boxplot_col_facet(
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
@@ -151,6 +152,8 @@ gg_boxplot_col_facet(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 }
 \value{
 A ggplot object.

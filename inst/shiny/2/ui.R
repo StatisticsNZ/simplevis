@@ -78,7 +78,7 @@ shinyUI(
           mainPanel(width = 9,
                     fluidRow(
                       shinycssloaders::withSpinner(
-                        leaflet::leafletOutput("map", height = 550),
+                        leaflet::leafletOutput("map", width = "95%", height = 550),
                         type = 7,
                         color = "#A8A8A8"
                       )

@@ -1,3 +1,15 @@
+# simplevis 5.0.33
+
+* Changed alg_ prefix to stat_ to align with ggplot2.
+
+# simplevis 5.0.32
+
+* Tweak shiny templates. 
+
+# simplevis 5.0.31
+
+* Fix col_rev bug in boxplot.
+
 # simplevis 5.0.29
 
 * Remove numeric colouring options from hboxplot.

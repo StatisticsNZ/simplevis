@@ -32,12 +32,12 @@
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80.
 #' @param theme A ggplot2 theme.  
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
-#' @param alg_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param alg_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param alg_se TRUE or FALSE of whether to show condidence as a ribbon. 
-#' @param alg_level The level of confidence to calculate for the ribbon.
-#' @param alg_n Number of points at which to evaluate smoother. 
-#' @param alg_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_level The level of confidence to calculate for the ribbon.
+#' @param stat_n Number of points at which to evaluate smoother. 
+#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 
 #' @return A ggplot object.
 #' @export
@@ -50,43 +50,43 @@
 #'          y_var = body_mass_g)
 #' 
 gg_smooth <- function(data,
-                     x_var,
-                     y_var,
-                     pal = pal_viridis_reorder(1),
-                     alpha = 0.5,
-                     size_line = 0.5,
-                     title = NULL,
-                     title_wrap = 80,
-                     subtitle = NULL,
-                     subtitle_wrap = 80,
-                     x_balance = FALSE,
-                     x_breaks_n = 5,
-                     x_expand = NULL,
-                     x_labels = scales::label_comma(),
-                     x_title = NULL,
-                     x_title_wrap = 50,
-                     x_trans = "identity",
-                     x_zero = FALSE,
-                     x_zero_line = NULL,
-                     y_balance = FALSE,
-                     y_breaks_n = 5,
-                     y_expand = c(0, 0),
-                     y_labels = scales::label_comma(),
-                     y_title = NULL,
-                     y_title_wrap = 50,
-                     y_trans = "identity",
-                     y_zero = FALSE,
-                     y_zero_line = NULL,
-                     caption = NULL,
-                     caption_wrap = 80,
-                     theme = gg_theme(),
-                     alg_method = NULL,
-                     alg_formula = NULL,
-                     alg_se = TRUE,
-                     alg_level = 0.95,
-                     alg_span = 0.75, 
-                     alg_n = 80,
-                     mobile = FALSE) {
+                      x_var,
+                      y_var,
+                      pal = pal_viridis_reorder(1),
+                      alpha = 0.5,
+                      size_line = 0.5,
+                      title = NULL,
+                      title_wrap = 80,
+                      subtitle = NULL,
+                      subtitle_wrap = 80,
+                      x_balance = FALSE,
+                      x_breaks_n = 5,
+                      x_expand = NULL,
+                      x_labels = scales::label_comma(),
+                      x_title = NULL,
+                      x_title_wrap = 50,
+                      x_trans = "identity",
+                      x_zero = FALSE,
+                      x_zero_line = NULL,
+                      y_balance = FALSE,
+                      y_breaks_n = 5,
+                      y_expand = c(0, 0),
+                      y_labels = scales::label_comma(),
+                      y_title = NULL,
+                      y_title_wrap = 50,
+                      y_trans = "identity",
+                      y_zero = FALSE,
+                      y_zero_line = NULL,
+                      caption = NULL,
+                      caption_wrap = 80,
+                      theme = gg_theme(),
+                      stat_method = NULL,
+                      stat_formula = NULL,
+                      stat_se = TRUE,
+                      stat_level = 0.95,
+                      stat_span = 0.75, 
+                      stat_n = 80,
+                      mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -94,7 +94,7 @@ gg_smooth <- function(data,
   #quote
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
-
+  
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -121,9 +121,9 @@ gg_smooth <- function(data,
     geom_smooth(aes(!!x_var, !!y_var, group = 1),
                 col = pal,
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = alg_se, level = alg_level, 
-                method = alg_method, formula = alg_formula, span = alg_span, n = alg_n) 
-
+                se = stat_se, level = stat_level, 
+                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
+  
   #x scale  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
@@ -233,12 +233,12 @@ gg_smooth <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.  
-#' @param alg_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param alg_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param alg_se TRUE or FALSE of whether to show condidence as a ribbon. 
-#' @param alg_level The level of confidence to calculate for the ribbon.
-#' @param alg_n Number of points at which to evaluate smoother. 
-#' @param alg_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_level The level of confidence to calculate for the ribbon.
+#' @param stat_n Number of points at which to evaluate smoother. 
+#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' @return A ggplot object.
 #' @export
@@ -252,50 +252,50 @@ gg_smooth <- function(data,
 #'              col_var = species)
 #' 
 gg_smooth_col <- function(data,
-                         x_var,
-                         y_var,
-                         col_var,
-                         pal = NULL,
-                         pal_na = "#7F7F7F",
-                         pal_rev = FALSE,
-                         alpha = 0.5,
-                         size_line = 0.5,
-                         title = NULL,
-                         title_wrap = 80,
-                         subtitle = NULL,
-                         subtitle_wrap = 80,
-                         x_balance = FALSE,
-                         x_breaks_n = 5,
-                         x_expand = NULL,
-                         x_labels = scales::label_comma(),
-                         x_title = NULL,
-                         x_title_wrap = 50,
-                         x_trans = "identity",
-                         x_zero = FALSE,
-                         x_zero_line = NULL,
-                         y_balance = FALSE,
-                         y_breaks_n = 5,
-                         y_expand = c(0, 0),
-                         y_labels = scales::label_comma(),
-                         y_title = NULL,
-                         y_title_wrap = 50,
-                         y_trans = "identity",
-                         y_zero = FALSE,
-                         y_zero_line = NULL,
-                         col_labels = snakecase::to_sentence_case,
-                         col_na_rm = FALSE,
-                         col_title = NULL,
-                         col_title_wrap = 25,
-                         caption = NULL,
-                         caption_wrap = 80,
-                         theme = gg_theme(),
-                         alg_method = NULL,
-                         alg_formula = NULL,
-                         alg_se = TRUE,
-                         alg_level = 0.95,
-                         alg_span = 0.75, 
-                         alg_n = 80,
-                         mobile = FALSE){
+                          x_var,
+                          y_var,
+                          col_var,
+                          pal = NULL,
+                          pal_na = "#7F7F7F",
+                          pal_rev = FALSE,
+                          alpha = 0.5,
+                          size_line = 0.5,
+                          title = NULL,
+                          title_wrap = 80,
+                          subtitle = NULL,
+                          subtitle_wrap = 80,
+                          x_balance = FALSE,
+                          x_breaks_n = 5,
+                          x_expand = NULL,
+                          x_labels = scales::label_comma(),
+                          x_title = NULL,
+                          x_title_wrap = 50,
+                          x_trans = "identity",
+                          x_zero = FALSE,
+                          x_zero_line = NULL,
+                          y_balance = FALSE,
+                          y_breaks_n = 5,
+                          y_expand = c(0, 0),
+                          y_labels = scales::label_comma(),
+                          y_title = NULL,
+                          y_title_wrap = 50,
+                          y_trans = "identity",
+                          y_zero = FALSE,
+                          y_zero_line = NULL,
+                          col_labels = snakecase::to_sentence_case,
+                          col_na_rm = FALSE,
+                          col_title = NULL,
+                          col_title_wrap = 25,
+                          caption = NULL,
+                          caption_wrap = 80,
+                          theme = gg_theme(),
+                          stat_method = NULL,
+                          stat_formula = NULL,
+                          stat_se = TRUE,
+                          stat_level = 0.95,
+                          stat_span = 0.75, 
+                          stat_n = 80,
+                          mobile = FALSE){
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -304,7 +304,7 @@ gg_smooth_col <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var)
-
+  
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -331,7 +331,7 @@ gg_smooth_col <- function(data,
     
     col_var_vctr <- dplyr::pull(data, !!col_var)
   }
-
+  
   ##titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
@@ -347,15 +347,15 @@ gg_smooth_col <- function(data,
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
-
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var),
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = alg_se, level = alg_level, 
-                method = alg_method, formula = alg_formula, span = alg_span, n = alg_n) 
+                se = stat_se, level = stat_level, 
+                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
   #x scale  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -479,12 +479,12 @@ gg_smooth_col <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.  
-#' @param alg_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param alg_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param alg_se TRUE or FALSE of whether to show condidence as a ribbon. 
-#' @param alg_level The level of confidence to calculate for the ribbon.
-#' @param alg_n Number of points at which to evaluate smoother. 
-#' @param alg_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_level The level of confidence to calculate for the ribbon.
+#' @param stat_n Number of points at which to evaluate smoother. 
+#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -498,48 +498,48 @@ gg_smooth_col <- function(data,
 #'                facet_var = species)
 #' 
 gg_smooth_facet <- function(data,
-                           x_var,
-                           y_var,
-                           facet_var,
-                           pal = pal_viridis_reorder(1),
-                           alpha = 0.5,
-                           size_line = 0.5,
-                           title = NULL,
-                           title_wrap = 80,
-                           subtitle = NULL,
-                           subtitle_wrap = 80,
-                           x_balance = FALSE,
-                           x_breaks_n = 2,
-                           x_expand = NULL,
-                           x_labels = scales::label_comma(),
-                           x_title = NULL,
-                           x_title_wrap = 50,
-                           x_trans = "identity",
-                           x_zero = FALSE,
-                           x_zero_line = NULL,
-                           y_balance = FALSE,
-                           y_breaks_n = 3,
-                           y_expand = c(0, 0),
-                           y_labels = scales::label_comma(),
-                           y_title = NULL,
-                           y_title_wrap = 50,
-                           y_trans = "identity",
-                           y_zero = FALSE,
-                           y_zero_line = NULL,
-                           facet_labels = snakecase::to_sentence_case,
-                           facet_na_rm = FALSE,
-                           facet_ncol = NULL,
-                           facet_nrow = NULL,
-                           facet_scales = "fixed",
-                           caption = NULL,
-                           caption_wrap = 80,
-                           theme = gg_theme(), 
-                           alg_method = NULL,
-                           alg_formula = NULL,
-                           alg_se = TRUE,
-                           alg_level = 0.95,
-                           alg_span = 0.75, 
-                           alg_n = 80) {
+                            x_var,
+                            y_var,
+                            facet_var,
+                            pal = pal_viridis_reorder(1),
+                            alpha = 0.5,
+                            size_line = 0.5,
+                            title = NULL,
+                            title_wrap = 80,
+                            subtitle = NULL,
+                            subtitle_wrap = 80,
+                            x_balance = FALSE,
+                            x_breaks_n = 2,
+                            x_expand = NULL,
+                            x_labels = scales::label_comma(),
+                            x_title = NULL,
+                            x_title_wrap = 50,
+                            x_trans = "identity",
+                            x_zero = FALSE,
+                            x_zero_line = NULL,
+                            y_balance = FALSE,
+                            y_breaks_n = 3,
+                            y_expand = c(0, 0),
+                            y_labels = scales::label_comma(),
+                            y_title = NULL,
+                            y_title_wrap = 50,
+                            y_trans = "identity",
+                            y_zero = FALSE,
+                            y_zero_line = NULL,
+                            facet_labels = snakecase::to_sentence_case,
+                            facet_na_rm = FALSE,
+                            facet_ncol = NULL,
+                            facet_nrow = NULL,
+                            facet_scales = "fixed",
+                            caption = NULL,
+                            caption_wrap = 80,
+                            theme = gg_theme(), 
+                            stat_method = NULL,
+                            stat_formula = NULL,
+                            stat_se = TRUE,
+                            stat_level = 0.95,
+                            stat_span = 0.75, 
+                            stat_n = 80) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -548,7 +548,7 @@ gg_smooth_facet <- function(data,
   x_var <- rlang::enquo(x_var) #numeric var
   y_var <- rlang::enquo(y_var) #numeric var
   facet_var <- rlang::enquo(facet_var) #categorical var
-
+  
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -590,8 +590,8 @@ gg_smooth_facet <- function(data,
     geom_smooth(aes(!!x_var, !!y_var, group = 1),
                 col = pal,
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = alg_se, level = alg_level, 
-                method = alg_method, formula = alg_formula, span = alg_span, n = alg_n) 
+                se = stat_se, level = stat_level, 
+                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
   #x scale
   if (facet_scales %in% c("fixed", "free_y")) {
@@ -699,12 +699,12 @@ gg_smooth_facet <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.  
-#' @param alg_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param alg_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param alg_se TRUE or FALSE of whether to show condidence as a ribbon. 
-#' @param alg_level The level of confidence to calculate for the ribbon.
-#' @param alg_n Number of points at which to evaluate smoother. 
-#' @param alg_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param stat_se TRUE or FALSE of whether to show condidence as a ribbon. 
+#' @param stat_level The level of confidence to calculate for the ribbon.
+#' @param stat_n Number of points at which to evaluate smoother. 
+#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -720,55 +720,55 @@ gg_smooth_facet <- function(data,
 #'                    col_na_rm = TRUE)
 #' 
 gg_smooth_col_facet <- function(data,
-                               x_var,
-                               y_var,
-                               col_var,
-                               facet_var,
-                               pal = NULL,
-                               pal_na = "#7F7F7F",
-                               pal_rev = FALSE,
-                               alpha = 0.5,
-                               size_line = 0.5,
-                               title = NULL,
-                               title_wrap = 80,
-                               subtitle = NULL,
-                               subtitle_wrap = 80,
-                               x_balance = FALSE,
-                               x_breaks_n = 2,
-                               x_expand = NULL,
-                               x_labels = scales::label_comma(),
-                               x_title = NULL,
-                               x_title_wrap = 50,
-                               x_trans = "identity",
-                               x_zero = FALSE,
-                               x_zero_line = NULL,
-                               y_balance = FALSE,
-                               y_breaks_n = 3,
-                               y_expand = c(0, 0),
-                               y_labels = scales::label_comma(),
-                               y_title = NULL,
-                               y_title_wrap = 50,
-                               y_trans = "identity",
-                               y_zero = FALSE,
-                               y_zero_line = NULL,
-                               col_labels = snakecase::to_sentence_case,
-                               col_na_rm = FALSE,
-                               col_title = NULL,
-                               col_title_wrap = 25,
-                               facet_labels = snakecase::to_sentence_case,
-                               facet_na_rm = FALSE,
-                               facet_ncol = NULL,
-                               facet_nrow = NULL,
-                               facet_scales = "fixed",
-                               caption = NULL,
-                               caption_wrap = 80,
-                               theme = gg_theme(), 
-                               alg_method = NULL,
-                               alg_formula = NULL,
-                               alg_se = TRUE,
-                               alg_level = 0.95,
-                               alg_span = 0.75, 
-                               alg_n = 80) {
+                                x_var,
+                                y_var,
+                                col_var,
+                                facet_var,
+                                pal = NULL,
+                                pal_na = "#7F7F7F",
+                                pal_rev = FALSE,
+                                alpha = 0.5,
+                                size_line = 0.5,
+                                title = NULL,
+                                title_wrap = 80,
+                                subtitle = NULL,
+                                subtitle_wrap = 80,
+                                x_balance = FALSE,
+                                x_breaks_n = 2,
+                                x_expand = NULL,
+                                x_labels = scales::label_comma(),
+                                x_title = NULL,
+                                x_title_wrap = 50,
+                                x_trans = "identity",
+                                x_zero = FALSE,
+                                x_zero_line = NULL,
+                                y_balance = FALSE,
+                                y_breaks_n = 3,
+                                y_expand = c(0, 0),
+                                y_labels = scales::label_comma(),
+                                y_title = NULL,
+                                y_title_wrap = 50,
+                                y_trans = "identity",
+                                y_zero = FALSE,
+                                y_zero_line = NULL,
+                                col_labels = snakecase::to_sentence_case,
+                                col_na_rm = FALSE,
+                                col_title = NULL,
+                                col_title_wrap = 25,
+                                facet_labels = snakecase::to_sentence_case,
+                                facet_na_rm = FALSE,
+                                facet_ncol = NULL,
+                                facet_nrow = NULL,
+                                facet_scales = "fixed",
+                                caption = NULL,
+                                caption_wrap = 80,
+                                theme = gg_theme(), 
+                                stat_method = NULL,
+                                stat_formula = NULL,
+                                stat_se = TRUE,
+                                stat_level = 0.95,
+                                stat_span = 0.75, 
+                                stat_n = 80) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -778,7 +778,7 @@ gg_smooth_col_facet <- function(data,
   y_var <- rlang::enquo(y_var) #numeric var
   col_var <- rlang::enquo(col_var)
   facet_var <- rlang::enquo(facet_var) #categorical var
-
+  
   #na's
   data <- data %>% 
     dplyr::filter(!is.na(!!x_var), !is.na(!!y_var))
@@ -840,9 +840,9 @@ gg_smooth_col_facet <- function(data,
     coord_cartesian(clip = "off") +
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var),
                 fill = "#D3D3D3", size = size_line, alpha = alpha,
-                se = alg_se, level = alg_level, 
-                method = alg_method, formula = alg_formula, span = alg_span, n = alg_n) 
-
+                se = stat_se, level = stat_level, 
+                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
+  
   #x scale
   if (facet_scales %in% c("fixed", "free_y")) {
     x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -888,7 +888,7 @@ gg_smooth_col_facet <- function(data,
     plot <- plot +
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
-
+  
   #colour, titles & facetting
   plot <- plot +
     scale_colour_manual(

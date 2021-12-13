@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.33</span>
       </span>
     </div>
 
@@ -200,12 +200,12 @@
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
-  <span class='kw'>alg_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alg_formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alg_se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alg_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>alg_span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>alg_n</span> <span class='kw'>=</span> <span class='fl'>80</span>,
+  <span class='kw'>stat_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat_formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat_se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>stat_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>stat_span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>stat_n</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -365,27 +365,27 @@
       <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
-      <th>alg_method</th>
+      <th>stat_method</th>
       <td><p>Smoothing algorithm to use. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>alg_formula</th>
+      <th>stat_formula</th>
       <td><p>Formula to use in smoothing function. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>alg_se</th>
+      <th>stat_se</th>
       <td><p>TRUE or FALSE of whether to show condidence as a ribbon.</p></td>
     </tr>
     <tr>
-      <th>alg_level</th>
+      <th>stat_level</th>
       <td><p>The level of confidence to calculate for the ribbon.</p></td>
     </tr>
     <tr>
-      <th>alg_span</th>
+      <th>stat_span</th>
       <td><p>Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>alg_n</th>
+      <th>stat_n</th>
       <td><p>Number of points at which to evaluate smoother.</p></td>
     </tr>
     <tr>

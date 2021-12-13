@@ -10,7 +10,6 @@ gg_hboxplot_col_facet(
   y_var,
   col_var,
   facet_var,
-  stat = "boxplot",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -53,7 +52,8 @@ gg_hboxplot_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical")
+  theme = gg_theme(gridlines = "vertical"),
+  stat = "boxplot"
 )
 }
 \arguments{
@@ -66,8 +66,6 @@ gg_hboxplot_col_facet(
 \item{col_var}{Unquoted categorical or numeric variable to colour the boxplots. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -154,6 +152,8 @@ gg_hboxplot_col_facet(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 75.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 }
 \value{
 A ggplot object.

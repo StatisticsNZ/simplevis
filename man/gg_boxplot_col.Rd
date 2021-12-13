@@ -9,7 +9,6 @@ gg_boxplot_col(
   x_var,
   y_var = NULL,
   col_var,
-  stat = "boxplot",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -42,11 +41,13 @@ gg_boxplot_col(
   y_zero_line = NULL,
   col_labels = snakecase::to_sentence_case,
   col_na_rm = FALSE,
+  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(),
+  stat = "boxplot",
   mobile = FALSE
 )
 }
@@ -58,8 +59,6 @@ gg_boxplot_col(
 \item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
 
 \item{col_var}{Unquoted categorical variable to colour the fill of the boxes. Required input.}
-
-\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -125,6 +124,8 @@ gg_boxplot_col(
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
+
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
@@ -134,6 +135,8 @@ gg_boxplot_col(
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }

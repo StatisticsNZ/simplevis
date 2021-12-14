@@ -101,7 +101,7 @@ gg_bar_col_facet(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
+\item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
@@ -121,7 +121,7 @@ gg_bar_col_facet(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
@@ -133,11 +133,11 @@ gg_bar_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
-\item{col_breaks_n}{For a numeric colour variable of "bin" col_method, the desired number of intervals on the colour scale, as calculated by the pretty algorithm. Defaults to 5.}
+\item{col_breaks_n}{For a numeric colour variable, the desired number of intervals on the colour scale.}
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
 
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
@@ -151,7 +151,7 @@ gg_bar_col_facet(
 
 \item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
 
-\item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
+\item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.}
 
 \item{facet_na_rm}{TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.}
 

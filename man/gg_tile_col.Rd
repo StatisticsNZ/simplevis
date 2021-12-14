@@ -88,7 +88,7 @@ gg_tile_col(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.}
+\item{x_labels}{A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
@@ -100,7 +100,7 @@ gg_tile_col(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.}
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
@@ -114,13 +114,13 @@ gg_tile_col(
 
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
-\item{col_breaks_n}{For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.}
+\item{col_breaks_n}{For a numeric colour variable, the desired number of intervals on the colour scale.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

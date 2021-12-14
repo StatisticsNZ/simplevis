@@ -88,7 +88,7 @@ gg_point_col(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_labels}{A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.}
+\item{x_labels}{A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -106,7 +106,7 @@ gg_point_col(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -120,7 +120,7 @@ gg_point_col(
 
 \item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
 
-\item{col_labels}{A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric.}
+\item{col_labels}{A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma() if numeric.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 

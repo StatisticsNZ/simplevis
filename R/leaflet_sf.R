@@ -195,10 +195,10 @@ leaflet_sf <- function(data,
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param col_breaks_n For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4. 
+#' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels A function or named vector to modify the colour scale labels. Defaults to snakecase::to_sentence_case if categorical, and scales::label_comma if numeric. 
+#' @param col_labels A function or named vector to modify the colour scale labels. Defaults to snakecase::to_sentence_case if categorical, and scales::label_comma() if numeric. Use function(x) x to keep labels untransformed.  
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
@@ -286,7 +286,7 @@ leaflet_sf_col <- function(data,
   #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
-    else if (is.numeric(col_var_vctr)) col_method <- "bin"
+    else if (is.numeric(col_var_vctr)) col_method <- "continuous"
   }
   
   if (col_method == "continuous") {

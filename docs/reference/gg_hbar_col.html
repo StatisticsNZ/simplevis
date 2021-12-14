@@ -293,7 +293,7 @@
     </tr>
     <tr>
       <th>x_labels</th>
-      <td><p>A function or named vector to modify x scale labels. Use ggplot2::waiver() to keep x labels untransformed.</p></td>
+      <td><p>A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.</p></td>
     </tr>
     <tr>
       <th>x_na_rm</th>
@@ -329,7 +329,7 @@
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+      <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_na_rm</th>
@@ -357,7 +357,7 @@
     </tr>
     <tr>
       <th>col_breaks_n</th>
-      <td><p>For a numeric colour variable. If "bin" col_method, the intervals on the colour scale for the pretty algorithm to aim for. If "quantile" col_method, the number of equal quantiles. Defaults to 4.</p></td>
+      <td><p>For a numeric colour variable, the desired number of intervals on the colour scale.</p></td>
     </tr>
     <tr>
       <th>col_cuts</th>
@@ -369,7 +369,7 @@
     </tr>
     <tr>
       <th>col_labels</th>
-      <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+      <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.</p></td>
     </tr>
     <tr>
       <th>col_method</th>

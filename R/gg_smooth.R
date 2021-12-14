@@ -51,7 +51,7 @@ gg_smooth <- function(data,
                       x_var,
                       y_var,
                       pal = pal_viridis_reorder(1),
-                      alpha = 0.5,
+                      alpha = 0.2,
                       size_line = 0.5,
                       title = NULL,
                       title_wrap = 80,
@@ -115,8 +115,8 @@ gg_smooth <- function(data,
     theme +
     coord_cartesian(clip = "off") +
     geom_smooth(aes(!!x_var, !!y_var, group = 1),
-                col = pal,
-                fill = "#D3D3D3", size = size_line, alpha = alpha,
+                col = pal, fill = pal, 
+                size = size_line, alpha = alpha,
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -252,7 +252,7 @@ gg_smooth_col <- function(data,
                           pal = NULL,
                           pal_na = "#7F7F7F",
                           pal_rev = FALSE,
-                          alpha = 0.5,
+                          alpha = 0.2,
                           size_line = 0.5,
                           title = NULL,
                           title_wrap = 80,
@@ -344,8 +344,8 @@ gg_smooth_col <- function(data,
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var),
-                fill = "#D3D3D3", size = size_line, alpha = alpha,
+    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var, group = !!col_var),
+                size = size_line, alpha = alpha,
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -402,8 +402,15 @@ gg_smooth_col <- function(data,
       labels = col_labels,
       na.value = pal_na, 
       name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
+    scale_fill_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na, 
+      name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
-  
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -413,8 +420,7 @@ gg_smooth_col <- function(data,
         x = stringr::str_wrap(x_title, x_title_wrap),
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      guides(col = guide_legend(byrow = TRUE))
+      ) 
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -425,7 +431,7 @@ gg_smooth_col <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       )  +
-      guides(col = guide_legend(ncol = 1)) +
+      guides(col = guide_legend(ncol = 1), fill = guide_legend(ncol = 1)) +
       theme_mobile_extra() #extra mobile theme components
   }
   
@@ -492,7 +498,7 @@ gg_smooth_facet <- function(data,
                             y_var,
                             facet_var,
                             pal = pal_viridis_reorder(1),
-                            alpha = 0.5,
+                            alpha = 0.2,
                             size_line = 0.5,
                             title = NULL,
                             title_wrap = 80,
@@ -576,8 +582,8 @@ gg_smooth_facet <- function(data,
     theme +
     coord_cartesian(clip = "off") +
     geom_smooth(aes(!!x_var, !!y_var, group = 1),
-                col = pal,
-                fill = "#D3D3D3", size = size_line, alpha = alpha,
+                col = pal, fill = pal, 
+                size = size_line, alpha = alpha,
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -713,7 +719,7 @@ gg_smooth_col_facet <- function(data,
                                 pal = NULL,
                                 pal_na = "#7F7F7F",
                                 pal_rev = FALSE,
-                                alpha = 0.5,
+                                alpha = 0.2,
                                 size_line = 0.5,
                                 title = NULL,
                                 title_wrap = 80,
@@ -822,8 +828,8 @@ gg_smooth_col_facet <- function(data,
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var),
-                fill = "#D3D3D3", size = size_line, alpha = alpha,
+    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var, group = !!col_var),
+                size = size_line, alpha = alpha,
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -882,6 +888,13 @@ gg_smooth_col_facet <- function(data,
       na.value = pal_na,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
+    scale_fill_manual(
+      values = pal,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),
@@ -889,7 +902,6 @@ gg_smooth_col_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(col = guide_legend(byrow = TRUE)) +
     facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
   
   

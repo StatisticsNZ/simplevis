@@ -12,7 +12,7 @@ gg_smooth_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha = 0.5,
+  alpha = 0.2,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,

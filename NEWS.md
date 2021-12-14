@@ -1,3 +1,7 @@
+# simplevis 5.0.37
+
+* Update smooth to fill by an aesthetic.
+
 # simplevis 5.0.36
 
 * Fix boxplots with numeric x variable.

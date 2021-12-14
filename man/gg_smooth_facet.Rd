@@ -10,7 +10,7 @@ gg_smooth_facet(
   y_var,
   facet_var,
   pal = pal_viridis_reorder(1),
-  alpha = 0.5,
+  alpha = 0.2,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,

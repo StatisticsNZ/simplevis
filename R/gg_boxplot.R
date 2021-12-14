@@ -17,7 +17,6 @@
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
-#' @param x_reorder For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
@@ -56,16 +55,13 @@
 #'     )
 #'   )))
 #'   
-#' plot_data
-#' 
 #' plot_data %>% 
 #'   tidyr::unnest_wider(body_mass_g)
 #' 
 #' gg_boxplot(plot_data, 
 #'            x_var = species, 
 #'            y_var = body_mass_g, 
-#'            stat = "identity",
-#'            y_breaks_n = 3)
+#'            stat = "identity")
 #' 
 gg_boxplot <- function(data,
                        x_var,
@@ -84,7 +80,6 @@ gg_boxplot <- function(data,
                        x_expand = NULL,
                        x_labels = NULL,
                        x_na_rm = FALSE,
-                       x_reorder = FALSE,
                        x_rev = FALSE,
                        x_title = NULL,
                        x_title_wrap = 50,
@@ -154,26 +149,6 @@ gg_boxplot <- function(data,
     }
   }
   
-  #reverse & reorder
-  if (is.character(x_var_vctr) | is.factor(x_var_vctr)) {
-    if (x_reorder == FALSE) {
-      if (x_rev == TRUE) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-      } 
-    } 
-    if (x_reorder == TRUE) {
-      if (x_rev == FALSE) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = TRUE)))
-      } else {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_reorder(.x, !!y_var, .desc = FALSE)))
-      }
-    } 
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-  }
-  
   #colour
   pal <- pal[1]
   
@@ -192,7 +167,7 @@ gg_boxplot <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var), #, group = !!x_var
+        aes(x = !!x_var, y = !!y_var, group = !!x_var), 
         stat = stat,
         col = "#323232", 
         fill = pal,
@@ -212,7 +187,8 @@ gg_boxplot <- function(data,
           lower = .data$lower,
           middle = .data$middle,
           upper = .data$upper,
-          ymax = .data$max
+          ymax = .data$max, 
+          group = !!x_var
         ),
         stat = stat,
         col = "#323232", 
@@ -224,7 +200,7 @@ gg_boxplot <- function(data,
         outlier.size = size_point
       )
   }
-  
+
   #x scale 
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
     
@@ -522,47 +498,95 @@ gg_boxplot_col <- function(data,
   }
   
   #fundamentals
-  plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
-    theme
-  
-  if (stat == "boxplot") {
-    plot <- plot +
-      geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
-        stat = stat,
-        position = position_dodge2(preserve = "single"),
-        col = "#323232", 
-        width = width,
-        size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1, 
-        outlier.size = size_point 
-      )
+  if (!(is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr))) {
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme
+
+    if (stat == "boxplot") {
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
+          stat = stat,
+          position = position_dodge2(preserve = "single"),
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point 
+        )
+    }
+    else if (stat == "identity") {
+      plot <- plot +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$min,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$max, 
+            fill = !!col_var
+          ),
+          stat = stat,
+          position = position_dodge2(preserve = "single"),
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point
+        )
+    }
   }
-  else if (stat == "identity") {
-    plot <- plot +
-      geom_boxplot(
-        aes(
-          x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max, 
-          fill = !!col_var
-        ),
-        stat = stat,
-        position = position_dodge2(preserve = "single"),
-        col = "#323232", 
-        width = width,
-        size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1, 
-        outlier.size = size_point
-      )
+  else {
+    data <- data %>%
+      tidyr::unite(col = "group_var",  !!x_var, !!col_var, remove = FALSE)
+
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme
+    
+    if (stat == "boxplot") {
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var), 
+          stat = stat,
+          position = position_dodge2(preserve = "single"),
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point 
+        )
+    }
+    else if (stat == "identity") {
+      plot <- plot +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$min,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$max, 
+            fill = !!col_var, 
+            group = .data$group_var
+          ),
+          stat = stat,
+          position = position_dodge2(preserve = "single"),
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point
+        )
+    }
   }
-  
+
   #x scale 
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
     
@@ -843,47 +867,95 @@ gg_boxplot_facet <- function(data,
   }
   
   #fundamentals
-  plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
-    theme
-  
-  if (stat == "boxplot") {
-    plot <- plot +
-      geom_boxplot(
-        aes(x = !!x_var, y = !!y_var), 
-        stat = stat,
-        col = "#323232", 
-        fill = pal,
-        width = width,
-        size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1
-      )
-  }
-  else if (stat == "identity") {
+  if (!(is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr))) {
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme +
-      geom_boxplot(
-        aes(
-          x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max
-        ),
-        stat = stat,
-        col = "#323232", 
-        fill = pal,
-        width = width,
-        size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1, 
-        outlier.size = size_point
-      )
+      theme
+    
+    if (stat == "boxplot") {
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var), 
+          stat = stat,
+          col = "#323232", 
+          fill = pal,
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1
+        )
+    }
+    else if (stat == "identity") {
+      plot <- ggplot(data) +
+        coord_cartesian(clip = "off") +
+        theme +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$min,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$max
+          ),
+          stat = stat,
+          col = "#323232", 
+          fill = pal,
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point
+        )
+    }
   }
-  
+  else {
+    data <- data %>% 
+      tidyr::unite(col = "group_var",  !!x_var, !!facet_var, remove = FALSE) 
+
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme
+    
+    if (stat == "boxplot") {
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, group = .data$group_var), 
+          stat = stat,
+          col = "#323232", 
+          fill = pal,
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1
+        )
+    }
+    else if (stat == "identity") {
+      plot <- ggplot(data) +
+        coord_cartesian(clip = "off") +
+        theme +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$min,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$max, 
+            group = .data$group_var
+          ),
+          stat = stat,
+          col = "#323232", 
+          fill = pal,
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point
+        )
+    }
+  }
+
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -1198,44 +1270,91 @@ gg_boxplot_col_facet <- function(data,
   }
   
   #fundamentals
-  plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
-    theme
-
-  if (stat == "boxplot") {
-    plot <- plot +
-      geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
-        stat = stat,
-        col = "#323232", 
-        width = width,
-        size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1
-      )
-  }
-  else if (stat == "identity") {
+  if (!(is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr))) {
     plot <- ggplot(data) +
       coord_cartesian(clip = "off") +
-      theme +
-      geom_boxplot(
-        aes(
-          x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max, 
-          fill = !!col_var
-        ),
-        stat = stat,
-        col = "#323232", 
-        width = width,
-        size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1, 
-        outlier.size = size_point
-      )
+      theme
+    
+    if (stat == "boxplot") {
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
+          stat = stat,
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1
+        )
+    }
+    else if (stat == "identity") {
+      plot <- ggplot(data) +
+        coord_cartesian(clip = "off") +
+        theme +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$min,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$max, 
+            fill = !!col_var
+          ),
+          stat = stat,
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point
+        )
+    }
+  }
+  else {
+    data <- data %>% 
+      tidyr::unite(col = "group_var",  !!x_var, !!col_var, !!facet_var, remove = FALSE) 
+    
+    plot <- ggplot(data) +
+      coord_cartesian(clip = "off") +
+      theme
+    
+    if (stat == "boxplot") {
+      plot <- plot +
+        geom_boxplot(
+          aes(x = !!x_var, y = !!y_var, fill = !!col_var, group = .data$group_var), 
+          stat = stat,
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1
+        )
+    }
+    else if (stat == "identity") {
+      plot <- ggplot(data) +
+        coord_cartesian(clip = "off") +
+        theme +
+        geom_boxplot(
+          aes(
+            x = !!x_var,
+            ymin = .data$min,
+            lower = .data$lower,
+            middle = .data$middle,
+            upper = .data$upper,
+            ymax = .data$max, 
+            fill = !!col_var, 
+            group = .data$group_var
+          ),
+          stat = stat,
+          col = "#323232", 
+          width = width,
+          size = size_line, 
+          alpha = alpha,
+          outlier.alpha = 1, 
+          outlier.size = size_point
+        )
+    }
   }
   
   #x scale 

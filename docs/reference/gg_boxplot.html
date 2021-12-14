@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.35</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.36</span>
       </span>
     </div>
 
@@ -179,7 +179,6 @@
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_reorder</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -270,10 +269,6 @@
     <tr>
       <th>x_na_rm</th>
       <td><p>TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>x_reorder</th>
-      <td><p>For a categorical x variable, TRUE or FALSE of whether the x variable variable is to be reordered by the x variable. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>x_rev</th>
@@ -370,12 +365,6 @@
     )
   )))
 
-<span class='no'>plot_data</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
-#&gt;   species   body_mass_g
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'>1</span> Adelie    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>3</span> Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  </div><div class='input'>
 <span class='no'>plot_data</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tidyr/man/hoist.html'>unnest_wider</a></span>(<span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 6</span>
 #&gt;   species     min lower middle upper   max
@@ -386,8 +375,7 @@
 <span class='fu'>gg_boxplot</span>(<span class='no'>plot_data</span>,
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
-           <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-           <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+           <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

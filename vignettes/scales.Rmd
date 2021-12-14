@@ -129,7 +129,7 @@ gg_point(penguins,
   ggplot2::scale_y_continuous(trans = "log10", 
                      expand = c(0, 0), 
                      labels = scales::label_comma(), 
-                     breaks = function(x) pretty(x, n = 6))
+                     breaks = function(x) pretty(x, n = 5))
 ```
 
 ### Discrete scales

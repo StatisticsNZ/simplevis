@@ -1,3 +1,11 @@
+# simplevis 5.0.36
+
+* Fix boxplots with numeric x variable.
+
+# simplevis 5.0.35
+
+* Removed trans arguments from functions.
+
 # simplevis 5.0.34 
 
 * Changed stat_se argument in smooth functions to stat_confidence. 

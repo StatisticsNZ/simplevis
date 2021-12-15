@@ -9,6 +9,7 @@ leaflet_sf_col(
   col_var,
   label_var = NULL,
   popup_vars_vctr = NULL,
+  popup_vars_rename = snakecase::to_sentence_case,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -34,6 +35,8 @@ leaflet_sf_col(
 \item{label_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
+
+\item{popup_vars_rename}{Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.}
 
 \item{pal}{Character vector of hex codes.}
 

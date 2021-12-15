@@ -10,10 +10,12 @@ gg_boxplot_facet(
   y_var = NULL,
   facet_var,
   pal = pal_viridis_reorder(1),
-  width = NULL,
-  alpha = 1,
+  alpha_fill = NA,
+  alpha_line = NA,
+  alpha_point = NA,
   size_line = 0.5,
   size_point = 1,
+  width = NULL,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -58,13 +60,17 @@ gg_boxplot_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{width}{Width of boxes. Defaults to 0.5.}
+\item{alpha_fill}{The alpha of the fill.}
 
-\item{alpha}{The alpha of the fill. Defaults to 1.}
+\item{alpha_line}{The alpha of the outline.}
+
+\item{alpha_point}{The alpha of the points.}
 
 \item{size_line}{The size of the outlines of boxplots. Defaults to 0.5.}
 
 \item{size_point}{The size of the outliers. Defaults to 1.}
+
+\item{width}{Width of boxes. Defaults to 0.5.}
 
 \item{title}{Title string.}
 

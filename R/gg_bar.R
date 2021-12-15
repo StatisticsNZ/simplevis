@@ -5,8 +5,9 @@
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -56,8 +57,9 @@ gg_bar <- function(data,
                    y_var,
                    text_var = NULL,
                    pal = pal_viridis_reorder(1),
+                   alpha_fill = NA,
+                   alpha_line = NA,
                    width = NULL,
-                   alpha = 1,
                    size_line = 0.5,
                    title = NULL,
                    title_wrap = 80,
@@ -147,7 +149,9 @@ gg_bar <- function(data,
   
   #colour
   pal <- pal[1]
-  
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+
   #width
   if (is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -159,9 +163,8 @@ gg_bar <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
-             col = pal, 
-             fill = pal, 
-             alpha = alpha, 
+             col = pal_line, 
+             fill = pal_fill, 
              size = size_line, 
              width = width)
   
@@ -272,8 +275,9 @@ gg_bar <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -343,8 +347,9 @@ gg_bar_col <- function(data,
                        pal = NULL,
                        pal_na = "#7F7F7F",
                        pal_rev = FALSE,
+                       alpha_fill = NA,
+                       alpha_line = NA,
                        width = NULL,
-                       alpha = 1,
                        size_line = 0.5,
                        title = NULL,
                        title_wrap = 80,
@@ -536,6 +541,11 @@ gg_bar_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+
   # position
   if (is.null(position)) {
     position2 <- position_dodge2(preserve = "single")
@@ -546,7 +556,6 @@ gg_bar_col <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-             alpha = alpha, 
              size = size_line, 
              width = width, 
              position = position2)
@@ -636,32 +645,32 @@ gg_bar_col <- function(data,
   if (col_method == "continuous") {
     plot <- plot +
       scale_colour_gradientn(
-        colors = pal,
+        colors = pal_line,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_line,
         name = stringr::str_wrap(col_title, col_title_wrap)) +
       scale_fill_gradientn(
-        colors = pal,
+        colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) 
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
       scale_colour_manual(
-        values = pal,
+        values = pal_line,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_line,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) +
       scale_fill_manual(
-        values = pal,
+        values = pal_fill,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
@@ -706,8 +715,9 @@ gg_bar_col <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1.
 #' @param size_line The size of the outlines of bars. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -762,8 +772,9 @@ gg_bar_facet <- function(data,
                          facet_var,
                          text_var = NULL,
                          pal = pal_viridis_reorder(1),
+                         alpha_fill = NA,
+                         alpha_line = NA,
                          width = NULL,
-                         alpha = 1,
                          size_line = 0.5,
                          title = NULL,
                          title_wrap = 80,
@@ -859,6 +870,8 @@ gg_bar_facet <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
   
   #width
   if (is.null(width)) {
@@ -870,7 +883,11 @@ gg_bar_facet <- function(data,
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, fill = pal, alpha = alpha, size = size_line, width = width)
+    geom_col(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
+             col = pal_line, 
+             fill = pal_fill, 
+             size = size_line, 
+             width = width)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -969,8 +986,9 @@ gg_bar_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param width Width of bars. Defaults to 0.75.
-#' @param alpha The alpha of the fill. Defaults to 1. 
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -1039,8 +1057,9 @@ gg_bar_col_facet <- function(data,
                              pal = NULL,
                              pal_na = "#7F7F7F",
                              pal_rev = FALSE,
+                             alpha_fill = NA,
+                             alpha_line = NA,
                              width = NULL,
-                             alpha = 1,
                              size_line = 0.5,
                              title = NULL,
                              title_wrap = 80,
@@ -1248,6 +1267,11 @@ gg_bar_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #position
   if (is.null(position)) {
     position2 <- position_dodge2(preserve = "single")
@@ -1259,7 +1283,6 @@ gg_bar_col_facet <- function(data,
     coord_cartesian() +
     theme +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-             alpha = alpha, 
              size = size_line, 
              width = width, 
              position = position2)
@@ -1350,32 +1373,32 @@ gg_bar_col_facet <- function(data,
   if (col_method == "continuous") {
     plot <- plot +
       scale_colour_gradientn(
-        colors = pal,
+        colors = pal_line,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_line,
         name = stringr::str_wrap(col_title, col_title_wrap)) +
       scale_fill_gradientn(
-        colors = pal,
+        colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) 
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
       scale_colour_manual(
-        values = pal,
+        values = pal_line,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_line,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) +
       scale_fill_manual(
-        values = pal,
+        values = pal_fill,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
   }

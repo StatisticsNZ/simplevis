@@ -4,10 +4,12 @@
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param pal Character vector of hex codes. 
-#' @param width Width of boxes. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha_fill The alpha of the fill. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -67,10 +69,12 @@ gg_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
                        pal = pal_viridis_reorder(1),
-                       width = NULL,
-                       alpha = 1,
+                       alpha_fill = NA,
+                       alpha_line = NA,
+                       alpha_point = NA,
                        size_line = 0.5,
                        size_point = 1,
+                       width = NULL,
                        title = NULL,
                        title_wrap = 80,
                        subtitle = NULL,
@@ -151,6 +155,9 @@ gg_boxplot <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha("#232323", alpha = alpha_line)
+  pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
   #width
   if (is.null(width)) {
@@ -169,13 +176,12 @@ gg_boxplot <- function(data,
       geom_boxplot(
         aes(x = !!x_var, y = !!y_var, group = !!x_var), 
         stat = stat,
-        col = "#323232", 
-        fill = pal,
-        width = width,
+        fill = pal_fill,
+        col = pal_line, 
+        outlier.colour = pal_point,
         size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1, 
-        outlier.size = size_point 
+        outlier.size = size_point,
+        width = width
       )
   }
   else if (stat == "identity") {
@@ -191,13 +197,12 @@ gg_boxplot <- function(data,
           group = !!x_var
         ),
         stat = stat,
-        col = "#323232", 
-        fill = pal,
-        width = width,
+        fill = pal_fill,
+        col = pal_line, 
+        outlier.colour = pal_point,
         size = size_line, 
-        alpha = alpha,
-        outlier.alpha = 1, 
-        outlier.size = size_point
+        outlier.size = size_point,
+        width = width
       )
   }
 
@@ -306,10 +311,12 @@ gg_boxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param width Width of boxes. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha_fill The alpha of the fill. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -368,10 +375,12 @@ gg_boxplot_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           width = NULL,
-                           alpha = 1,
+                           alpha_fill = NA,
+                           alpha_line = NA,
+                           alpha_point = NA,
                            size_line = 0.5,
                            size_point = 1,
+                           width = NULL,
                            title = NULL,
                            title_wrap = 80,
                            subtitle = NULL,
@@ -490,6 +499,10 @@ gg_boxplot_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha("#232323", alpha = alpha_line)
+  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  
   #width
   if (is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -507,14 +520,13 @@ gg_boxplot_col <- function(data,
       plot <- plot +
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
-          stat = stat,
           position = position_dodge2(preserve = "single"),
-          col = "#323232", 
-          width = width,
+          stat = stat,
+          col = pal_line, 
+          outlier.colour = pal_point,
           size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point 
+          outlier.size = size_point,
+          width = width
         )
     }
     else if (stat == "identity") {
@@ -529,14 +541,13 @@ gg_boxplot_col <- function(data,
             ymax = .data$max, 
             fill = !!col_var
           ),
-          stat = stat,
           position = position_dodge2(preserve = "single"),
-          col = "#323232", 
-          width = width,
+          stat = stat,
+          col = pal_line, 
+          outlier.colour = pal_point,
           size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point
+          outlier.size = size_point,
+          width = width
         )
     }
   }
@@ -703,10 +714,12 @@ gg_boxplot_col <- function(data,
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param width Width of boxes. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha_fill The alpha of the fill. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_point The size of the outliers. Defaults to 1.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -756,10 +769,12 @@ gg_boxplot_facet <- function(data,
                              y_var = NULL,
                              facet_var,
                              pal = pal_viridis_reorder(1),
-                             width = NULL,
-                             alpha = 1,
+                             alpha_fill = NA,
+                             alpha_line = NA,
+                             alpha_point = NA,
                              size_line = 0.5,
                              size_point = 1,
+                             width = NULL,
                              title = NULL,
                              title_wrap = 80,
                              subtitle = NULL,
@@ -858,6 +873,9 @@ gg_boxplot_facet <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha("#232323", alpha = alpha_line)
+  pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
   #width
   if (is.null(width)) {
@@ -877,12 +895,12 @@ gg_boxplot_facet <- function(data,
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var), 
           stat = stat,
-          col = "#323232", 
-          fill = pal,
-          width = width,
+          fill = pal_fill,
+          col = pal_line, 
+          outlier.colour = pal_point,
           size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1
+          outlier.size = size_point,
+          width = width
         )
     }
     else if (stat == "identity") {
@@ -899,13 +917,12 @@ gg_boxplot_facet <- function(data,
             ymax = .data$max
           ),
           stat = stat,
-          col = "#323232", 
-          fill = pal,
-          width = width,
+          fill = pal_fill,
+          col = pal_line, 
+          outlier.colour = pal_point,
           size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point
+          outlier.size = size_point,
+          width = width
         )
     }
   }
@@ -1051,10 +1068,12 @@ gg_boxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param width Width of boxes. Defaults to 0.5.
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha_fill The alpha of the fill. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -1123,10 +1142,12 @@ gg_boxplot_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 width = NULL,
-                                 alpha = 1,
+                                 alpha_fill = NA,
+                                 alpha_line = NA,
+                                 alpha_point = NA,
                                  size_line = 0.5,
                                  size_point = 1,
+                                 width = NULL,
                                  title = NULL,
                                  title_wrap = 80,
                                  subtitle = NULL,
@@ -1262,6 +1283,10 @@ gg_boxplot_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha("#232323", alpha = alpha_line)
+  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  
   #width
   if (is.null(width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -1279,12 +1304,13 @@ gg_boxplot_col_facet <- function(data,
       plot <- plot +
         geom_boxplot(
           aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
+          position = position_dodge2(preserve = "single"),
           stat = stat,
-          col = "#323232", 
-          width = width,
+          col = pal_line, 
+          outlier.colour = pal_point,
           size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1
+          outlier.size = size_point,
+          width = width
         )
     }
     else if (stat == "identity") {
@@ -1301,13 +1327,13 @@ gg_boxplot_col_facet <- function(data,
             ymax = .data$max, 
             fill = !!col_var
           ),
+          position = position_dodge2(preserve = "single"),
           stat = stat,
-          col = "#323232", 
-          width = width,
+          col = pal_line, 
+          outlier.colour = pal_point,
           size = size_line, 
-          alpha = alpha,
-          outlier.alpha = 1, 
-          outlier.size = size_point
+          outlier.size = size_point,
+          width = width
         )
     }
   }

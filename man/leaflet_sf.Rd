@@ -7,6 +7,7 @@
 leaflet_sf(
   data,
   popup_vars_vctr = NULL,
+  popup_vars_rename = snakecase::to_sentence_case,
   pal = pal_viridis_reorder(1),
   size_point = 2,
   size_line = 2,
@@ -19,6 +20,8 @@ leaflet_sf(
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
+
+\item{popup_vars_rename}{Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.}
 
 \item{pal}{Character vector of hex codes.}
 

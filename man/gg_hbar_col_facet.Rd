@@ -15,8 +15,9 @@ gg_hbar_col_facet(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
+  alpha_fill = NA,
+  alpha_line = NA,
   width = NULL,
-  alpha = 1,
   size_line = 0.5,
   title = NULL,
   title_wrap = 75,
@@ -81,9 +82,11 @@ gg_hbar_col_facet(
 
 \item{pal_rev}{TRUE or FALSE of whether to reverse the pal.}
 
-\item{width}{Width of bars. Defaults to 0.75.}
+\item{alpha_fill}{The alpha of the fill.}
 
-\item{alpha}{The alpha of the fill. Defaults to 1.}
+\item{alpha_line}{The alpha of the outline.}
+
+\item{width}{Width of bars. Defaults to 0.75.}
 
 \item{size_line}{The size of the outlines of bars.}
 

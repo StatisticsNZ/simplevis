@@ -4,6 +4,7 @@
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
+#' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
 #' @param pal Character vector of hex codes. 
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
@@ -19,6 +20,7 @@
 #' 
 leaflet_sf <- function(data,
                        popup_vars_vctr = NULL,
+                       popup_vars_rename = snakecase::to_sentence_case,
                        pal = pal_viridis_reorder(1),
                        size_point = 2,
                        size_line = 2,
@@ -60,13 +62,13 @@ leaflet_sf <- function(data,
   if (is.null(popup_vars_vctr)){
     popup_data <- data %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(snakecase::to_sentence_case) 
+      dplyr::rename_with(popup_vars_rename) 
   }
   else {
     popup_data <- data %>%
       dplyr::select(popup_vars_vctr) %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(snakecase::to_sentence_case) 
+      dplyr::rename_with(popup_vars_rename) 
   }
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
@@ -188,6 +190,7 @@ leaflet_sf <- function(data,
 #' @param col_var Unquoted variable to colour the features by. Required input.
 #' @param label_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
+#' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -223,6 +226,7 @@ leaflet_sf_col <- function(data,
                            col_var,
                            label_var = NULL,
                            popup_vars_vctr = NULL,
+                           popup_vars_rename = snakecase::to_sentence_case,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
@@ -374,13 +378,13 @@ leaflet_sf_col <- function(data,
   if (is.null(popup_vars_vctr)){
     popup_data <- data %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(snakecase::to_sentence_case) 
+      dplyr::rename_with(popup_vars_rename) 
   }
   else {
     popup_data <- data %>%
       dplyr::select(popup_vars_vctr) %>%
       dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(snakecase::to_sentence_case) 
+      dplyr::rename_with(popup_vars_rename) 
   }
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)

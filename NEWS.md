@@ -1,3 +1,8 @@
+# simplevis 5.0.38
+
+* Updated leaflet_sf* to incorporate popup_vars_rename argument.
+* Updated alpha arguments in bar, hbar and boxplot.
+
 # simplevis 5.0.37
 
 * Update smooth to fill by an aesthetic.

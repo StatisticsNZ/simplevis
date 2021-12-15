@@ -12,7 +12,7 @@ gg_point_facet(
   text_var = NULL,
   position = "identity",
   pal = pal_viridis_reorder(1),
-  alpha = 1,
+  alpha_point = 1,
   size_point = 1,
   title = NULL,
   title_wrap = 80,
@@ -60,7 +60,7 @@ gg_point_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha}{The opacity of points. Defaults to 1.}
+\item{alpha_point}{The opacity of points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

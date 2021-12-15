@@ -500,6 +500,7 @@ gg_boxplot_col <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
@@ -673,10 +674,10 @@ gg_boxplot_col <- function(data,
   
   plot <- plot +
     scale_fill_manual(
-      values = pal,
+      values = pal_fill,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
@@ -1284,6 +1285,7 @@ gg_boxplot_col_facet <- function(data,
   if (pal_rev == TRUE) pal <- rev(pal)
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
@@ -1457,10 +1459,10 @@ gg_boxplot_col_facet <- function(data,
   #colour, titles & facetting
   plot <- plot +
     scale_fill_manual(
-      values = pal,
+      values = pal_fill,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(
@@ -1473,4 +1475,4 @@ gg_boxplot_col_facet <- function(data,
     facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) 
 
     return(plot)
-  }
+}

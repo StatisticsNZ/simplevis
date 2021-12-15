@@ -6,7 +6,7 @@
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of points. Defaults to 1.
+#' @param alpha_point The opacity of points. 
 #' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -49,7 +49,7 @@ gg_point <- function(data,
                      text_var = NULL,
                      position = "identity", 
                      pal = pal_viridis_reorder(1),
-                     alpha = 1,
+                     alpha_point = 1,
                      size_point = 1,
                      title = NULL,
                      title_wrap = 80,
@@ -120,12 +120,16 @@ gg_point <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), 
+               col = pal_point, 
+               size = size_point, 
+               position = position)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -233,7 +237,7 @@ gg_point <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of points. Defaults to 1.
+#' @param alpha_point The opacity of points. 
 #' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -288,7 +292,7 @@ gg_point_col <- function(data,
                          pal = NULL,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
-                         alpha = 1,
+                         alpha_point = 1,
                          size_point = 1,
                          title = NULL,
                          title_wrap = 80,
@@ -453,11 +457,16 @@ gg_point_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
+  pal_na_point <- scales::alpha(pal_na, alpha = alpha_point)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point, alpha = alpha, position = position)
+    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), 
+               size = size_point, 
+               position = position)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -532,19 +541,19 @@ gg_point_col <- function(data,
   if (col_method == "continuous") {
     plot <- plot +
       scale_colour_gradientn(
-        colors = pal,
+        colors = pal_point,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_point,
         name = stringr::str_wrap(col_title, col_title_wrap)) 
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
       scale_colour_manual(
-        values = pal,
+        values = pal_point,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_point,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) 
     
@@ -589,7 +598,7 @@ gg_point_col <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of points. Defaults to 1.
+#' @param alpha_point The opacity of points. 
 #' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -638,7 +647,7 @@ gg_point_facet <- function(data,
                            text_var = NULL,
                            position = "identity", 
                            pal = pal_viridis_reorder(1),
-                           alpha = 1,
+                           alpha_point = 1,
                            size_point = 1,
                            title = NULL,
                            title_wrap = 80,
@@ -727,12 +736,16 @@ gg_point_facet <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha, position = position)
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
+               col = pal_point, 
+               size = size_point, 
+               position = position)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -831,7 +844,7 @@ gg_point_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of points. Defaults to 1.
+#' @param alpha_point The opacity of points. 
 #' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -892,7 +905,7 @@ gg_point_col_facet <- function(data,
                                pal = NULL,
                                pal_na = "#7F7F7F",
                                pal_rev = FALSE,
-                               alpha = 1,
+                               alpha_point = 1,
                                size_point = 1,
                                title = NULL,
                                title_wrap = 80,
@@ -1072,11 +1085,16 @@ gg_point_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
+  pal_na_point <- scales::alpha(pal_na, alpha = alpha_point)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), size = size_point, alpha = alpha, position = position)
+    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), 
+               size = size_point, 
+               position = position)
   
   #x scale 
     if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -1153,19 +1171,19 @@ gg_point_col_facet <- function(data,
     if (col_method == "continuous") {
       plot <- plot +
         scale_colour_gradientn(
-          colors = pal,
+          colors = pal_point,
           labels = col_labels,
           breaks = col_cuts,
-          na.value = pal_na,
+          na.value = pal_na_point,
           name = stringr::str_wrap(col_title, col_title_wrap))  
     }
     else if (col_method %in% c("quantile", "bin", "category")) {
       plot <- plot +
         scale_colour_manual(
-          values = pal,
+          values = pal_point,
           drop = FALSE,
           labels = col_labels,
-          na.value = pal_na,
+          na.value = pal_na_point,
           name = stringr::str_wrap(col_title, col_title_wrap)
         ) 
     }

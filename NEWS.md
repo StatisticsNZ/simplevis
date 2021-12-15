@@ -1,3 +1,11 @@
+# simplevis 5.0.40
+
+* Added alpha arguments to point.
+
+# simplevis 5.0.39
+
+* Updated alpha arguments in hboxplot.
+
 # simplevis 5.0.38
 
 * Updated leaflet_sf* to incorporate popup_vars_rename argument.

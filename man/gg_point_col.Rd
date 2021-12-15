@@ -14,7 +14,7 @@ gg_point_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha = 1,
+  alpha_point = 1,
   size_point = 1,
   title = NULL,
   title_wrap = 80,
@@ -70,7 +70,7 @@ gg_point_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The opacity of points. Defaults to 1.}
+\item{alpha_point}{The opacity of points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

@@ -4,7 +4,8 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -45,7 +46,8 @@
 gg_density <- function(data,
                        x_var,
                        pal = pal_viridis_reorder(1),
-                       alpha = 0.2,
+                       alpha_fill = 0.2,
+                       alpha_line = NA,
                        size_line = 0.5,
                        title = NULL,
                        title_wrap = 80,
@@ -92,15 +94,16 @@ gg_density <- function(data,
   
   #colour
   pal <- pal[1]
-  
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    stat_density(aes(x = !!x_var, y = .data$..density..), 
+    geom_density(aes(x = !!x_var), 
                  bw = stat_bw, adjust = stat_adjust, kernel = stat_kernel, n = stat_n, trim = stat_trim,
-                 col = pal, 
-                 fill = pal, 
-                 alpha = alpha, 
+                 col = pal_line, 
+                 fill = pal_fill, 
                  size = size_line) 
   #x scale  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -173,7 +176,8 @@ gg_density <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The alpha of the fill. Defaults to 0.1. 
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -222,7 +226,8 @@ gg_density_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           alpha = 0.2,
+                           alpha_fill = 0.2,
+                           alpha_line = NA,
                            size_line = 0.5,
                            title = NULL,
                            title_wrap = 80,
@@ -300,13 +305,17 @@ gg_density_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
+    geom_density(aes(x = !!x_var, col = !!col_var, fill = !!col_var), 
                  position = "identity",
                  bw = stat_bw, adjust = stat_adjust, kernel = stat_kernel, n = stat_n, trim = stat_trim,
-                 alpha = alpha, 
                  size = size_line) 
   
   #x scale  
@@ -349,20 +358,20 @@ gg_density_col <- function(data,
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot +
-    scale_fill_manual(
-      values = pal,
+    scale_colour_manual(
+      values = pal_line,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
-    scale_colour_manual(
-      values = pal,
+    scale_fill_manual(
+      values = pal_fill,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
-    ) 
+    )
   
   #titles
   if (mobile == FALSE) {
@@ -373,8 +382,7 @@ gg_density_col <- function(data,
         x = stringr::str_wrap(x_title, x_title_wrap),
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      guides(fill = guide_legend(byrow = TRUE), col = guide_legend(byrow = TRUE))
+      ) 
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -399,7 +407,8 @@ gg_density_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The alpha of the fill. Defaults to 1. 
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -446,7 +455,8 @@ gg_density_facet <- function(data,
                              x_var,
                              facet_var,
                              pal = pal_viridis_reorder(1),
-                             alpha = 0.2,
+                             alpha_fill = 0.2,
+                             alpha_line = NA,
                              size_line = 0.5,
                              title = NULL,
                              title_wrap = 80,
@@ -506,15 +516,16 @@ gg_density_facet <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
   
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    stat_density(aes(x = !!x_var, y = .data$..density..), 
+    geom_density(aes(x = !!x_var), 
                  bw = stat_bw, adjust = stat_adjust, kernel = stat_kernel, n = stat_n, trim = stat_trim,
-                 col = pal, 
-                 fill = pal, 
-                 alpha = alpha, 
+                 col = pal_line, 
+                 fill = pal_fill, 
                  size = size_line) 
   
   #x scale
@@ -582,7 +593,8 @@ gg_density_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The alpha of the fill. Defaults to 0.1. 
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -637,7 +649,8 @@ gg_density_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 alpha = 0.2,
+                                 alpha_fill = 0.2,
+                                 alpha_line = NA,
                                  size_line = 0.5,
                                  title = NULL,
                                  title_wrap = 80,
@@ -725,13 +738,17 @@ gg_density_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    stat_density(aes(x = !!x_var, y = .data$..density.., col = !!col_var, fill = !!col_var), 
+    geom_density(aes(x = !!x_var, col = !!col_var, fill = !!col_var), 
                  position = "identity",
                  bw = stat_bw, adjust = stat_adjust, kernel = stat_kernel, n = stat_n, trim = stat_trim,
-                 alpha = alpha, 
                  size = size_line) 
   
   #x scale
@@ -783,18 +800,18 @@ gg_density_col_facet <- function(data,
   
   #colour, titles & facetting
   plot <- plot +
-    scale_fill_manual(
-      values = pal,
+    scale_colour_manual(
+      values = pal_line,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
-    scale_colour_manual(
-      values = pal,
+    scale_fill_manual(
+      values = pal_fill,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(

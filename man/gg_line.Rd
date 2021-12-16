@@ -10,7 +10,8 @@ gg_line(
   y_var,
   text_var = NULL,
   pal = pal_viridis_reorder(1),
-  alpha = 1,
+  alpha_line = NA,
+  alpha_point = NA,
   size_point = 1,
   size_line = 0.5,
   title = NULL,
@@ -53,7 +54,9 @@ gg_line(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha}{The opacity of lines and points. Defaults to 1.}
+\item{alpha_line}{The alpha of the outline.}
+
+\item{alpha_point}{The alpha of the points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

@@ -475,8 +475,6 @@ gg_hbar_col <- function(data,
   }
   
   #colour
-  if (mobile == TRUE) col_title_wrap <- 20
-  
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "continuous"
@@ -645,6 +643,9 @@ gg_hbar_col <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  #colour
+  if (mobile == TRUE) col_title_wrap <- 20
+
   if (col_method == "continuous") {
     plot <- plot +
       scale_colour_gradientn(

@@ -14,7 +14,8 @@ gg_line_col_facet(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha = 1,
+  alpha_line = NA,
+  alpha_point = NA,
   size_point = 1,
   size_line = 0.5,
   title = NULL,
@@ -73,7 +74,9 @@ gg_line_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The opacity of lines and points. Defaults to 1.}
+\item{alpha_line}{The alpha of the outline.}
+
+\item{alpha_point}{The alpha of the points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

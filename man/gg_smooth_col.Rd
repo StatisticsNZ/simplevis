@@ -12,7 +12,8 @@ gg_smooth_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha = 0.2,
+  alpha_fill = 0.2,
+  alpha_line = NA,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,
@@ -65,7 +66,9 @@ gg_smooth_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The opacity of ribbons. Defaults to 0.5.}
+\item{alpha_fill}{The alpha of the fill.}
+
+\item{alpha_line}{The alpha of the outline.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 

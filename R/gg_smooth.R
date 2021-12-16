@@ -4,7 +4,8 @@
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of ribbons. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -51,7 +52,8 @@ gg_smooth <- function(data,
                       x_var,
                       y_var,
                       pal = pal_viridis_reorder(1),
-                      alpha = 0.2,
+                      alpha_fill = 0.2, 
+                      alpha_line = NA,
                       size_line = 0.5,
                       title = NULL,
                       title_wrap = 80,
@@ -109,14 +111,18 @@ gg_smooth <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
   
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_smooth(aes(!!x_var, !!y_var, group = 1),
-                col = pal, fill = pal, 
-                size = size_line, alpha = alpha,
+    geom_smooth(aes(!!x_var, !!y_var),
+                col = pal_line, 
+                fill = pal_fill,  
+                alpha = alpha_fill,
+                size = size_line, 
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -198,7 +204,8 @@ gg_smooth <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of ribbons. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline.  
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -252,7 +259,8 @@ gg_smooth_col <- function(data,
                           pal = NULL,
                           pal_na = "#7F7F7F",
                           pal_rev = FALSE,
-                          alpha = 0.2,
+                          alpha_fill = 0.2, 
+                          alpha_line = NA,
                           size_line = 0.5,
                           title = NULL,
                           title_wrap = 80,
@@ -340,12 +348,18 @@ gg_smooth_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var, group = !!col_var),
-                size = size_line, alpha = alpha,
+    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var),
+                alpha = alpha_fill,
+                size = size_line, 
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -397,20 +411,20 @@ gg_smooth_col <- function(data,
   
   plot <- plot +
     scale_colour_manual(
-      values = pal,
+      values = pal_line,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na, 
+      na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_fill_manual(
-      values = pal,
+      values = pal_fill,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na, 
+      na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
-    ) 
-
+    )
+  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -445,7 +459,8 @@ gg_smooth_col <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of ribbons. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline.  
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -498,7 +513,8 @@ gg_smooth_facet <- function(data,
                             y_var,
                             facet_var,
                             pal = pal_viridis_reorder(1),
-                            alpha = 0.2,
+                            alpha_fill = 0.2, 
+                            alpha_line = NA,
                             size_line = 0.5,
                             title = NULL,
                             title_wrap = 80,
@@ -576,14 +592,18 @@ gg_smooth_facet <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
   
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_smooth(aes(!!x_var, !!y_var, group = 1),
-                col = pal, fill = pal, 
-                size = size_line, alpha = alpha,
+    geom_smooth(aes(!!x_var, !!y_var),
+                col = pal_line, 
+                fill = pal_fill, 
+                alpha = alpha_fill,  
+                size = size_line, 
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -657,7 +677,8 @@ gg_smooth_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of ribbons. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill.  
+#' @param alpha_line The alpha of the outline. 
 #' @param size_line Size of lines. Defaults to 0.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -719,7 +740,8 @@ gg_smooth_col_facet <- function(data,
                                 pal = NULL,
                                 pal_na = "#7F7F7F",
                                 pal_rev = FALSE,
-                                alpha = 0.2,
+                                alpha_fill = 0.2, 
+                                alpha_line = NA,
                                 size_line = 0.5,
                                 title = NULL,
                                 title_wrap = 80,
@@ -824,12 +846,18 @@ gg_smooth_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
     coord_cartesian(clip = "off") +
-    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var, group = !!col_var),
-                size = size_line, alpha = alpha,
+    geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var),
+                alpha = alpha_fill,
+                size = size_line, 
                 se = stat_se, level = stat_level, 
                 method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
   
@@ -882,17 +910,17 @@ gg_smooth_col_facet <- function(data,
   #colour, titles & facetting
   plot <- plot +
     scale_colour_manual(
-      values = pal,
+      values = pal_line,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     scale_fill_manual(
-      values = pal,
+      values = pal_fill,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(

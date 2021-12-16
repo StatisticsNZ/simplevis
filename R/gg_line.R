@@ -5,9 +5,10 @@
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of lines and points. Defaults to 1.
-#' @param size_point Size of points. Defaults to 1. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -57,7 +58,8 @@ gg_line <- function(data,
                     y_var,
                     text_var = NULL,
                     pal = pal_viridis_reorder(1),
-                    alpha = 1,
+                    alpha_line = NA,
+                    alpha_point = NA,
                     size_point = 1,
                     size_line = 0.5,
                     title = NULL,
@@ -137,13 +139,15 @@ gg_line <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_line <- scales::alpha("#232323", alpha = alpha_line)
+  pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme +
-    geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1], alpha = alpha) +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha)
+    geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal_line) +
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal_point, size = size_point, alpha = alpha_point)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -250,9 +254,10 @@ gg_line <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of lines and points. Defaults to 1.
-#' @param size_point Size of points. Defaults to 1. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -309,7 +314,8 @@ gg_line_col <- function(data,
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
-                        alpha = 1,
+                        alpha_line = NA,
+                        alpha_point = NA,
                         size_point = 1,
                         size_line = 0.5,
                         title = NULL,
@@ -420,15 +426,20 @@ gg_line_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
+  pal_na_point <- scales::alpha(pal_na, alpha = alpha_point)
+
   #fundamentals
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme 
   
   plot <- plot +
-    geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line, alpha = alpha) +
+    geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
     geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-               size = size_point, alpha = alpha)
+               size = size_point, alpha = alpha_point)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -504,10 +515,10 @@ gg_line_col <- function(data,
   
   plot <- plot +
     scale_colour_manual(
-      values = pal,
+      values = pal_line,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
 
@@ -520,8 +531,7 @@ gg_line_col <- function(data,
         x = stringr::str_wrap(x_title, x_title_wrap),
         y = stringr::str_wrap(y_title, y_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      guides(col = guide_legend(byrow = TRUE))
+      ) 
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -547,9 +557,10 @@ gg_line_col <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of lines and points. Defaults to 1.
-#' @param size_point Size of points. Defaults to 1. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -604,7 +615,8 @@ gg_line_facet <- function(data,
                           facet_var,
                           text_var = NULL,
                           pal = pal_viridis_reorder(1),
-                          alpha = 1,
+                          alpha_line = NA,
+                          alpha_point = NA,
                           size_point = 1,
                           size_line = 0.5,
                           title = NULL,
@@ -701,13 +713,15 @@ gg_line_facet <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_line <- scales::alpha("#232323", alpha = alpha_line)
+  pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme +
-    geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal[1], alpha = alpha) + 
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha)
+    geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal_line) + 
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha_point)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -805,9 +819,10 @@ gg_line_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of lines and points. Defaults to 1.
-#' @param size_point Size of points. Defaults to 1. 
+#' @param alpha_line The alpha of the outline. 
+#' @param alpha_point The alpha of the points. 
 #' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -870,7 +885,8 @@ gg_line_col_facet <- function(data,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              alpha = 1,
+                              alpha_line = NA,
+                              alpha_point = NA,
                               size_point = 1,
                               size_line = 0.5,
                               title = NULL,
@@ -998,13 +1014,18 @@ gg_line_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
+  pal_na_point <- scales::alpha(pal_na, alpha = alpha_point)
+  
   #fundamentals
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme +
-    geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line, alpha = alpha) +
+    geom_line(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var), size = size_line) +
     geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-               size = size_point, alpha = alpha)
+               size = size_point, alpha = alpha_point)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -1080,10 +1101,10 @@ gg_line_col_facet <- function(data,
   #colour, titles & facetting
   plot <- plot +
     scale_colour_manual(
-      values = pal,
+      values = pal_line,
       drop = FALSE,
       labels = col_labels,
-      na.value = pal_na,
+      na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
     labs(
@@ -1093,8 +1114,7 @@ gg_line_col_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) +
-    guides(col = guide_legend(byrow = TRUE)) 
-  
+    facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) 
+
   return(plot)
 }

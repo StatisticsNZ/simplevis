@@ -169,7 +169,8 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -239,8 +240,8 @@
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>The opacity of ribbons. Defaults to 0.5.</p></td>
+      <th>alpha_line</th>
+      <td><p>The alpha of the outline.</p></td>
     </tr>
     <tr>
       <th>size_line</th>
@@ -381,6 +382,10 @@
     <tr>
       <th>mobile</th>
       <td><p>Whether the plot is to be displayed on a mobile device. Defaults to FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_point</th>
+      <td><p>The alpha of the points.</p></td>
     </tr>
     </table>
 

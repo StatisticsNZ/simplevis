@@ -8,7 +8,8 @@ gg_density(
   data,
   x_var,
   pal = pal_viridis_reorder(1),
-  alpha = 0.2,
+  alpha_fill = 0.2,
+  alpha_line = NA,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,
@@ -45,7 +46,9 @@ gg_density(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha}{The alpha of the fill. Defaults to 1.}
+\item{alpha_fill}{The alpha of the fill.}
+
+\item{alpha_line}{The alpha of the outline.}
 
 \item{size_line}{The size of the outlines of density areas.}
 

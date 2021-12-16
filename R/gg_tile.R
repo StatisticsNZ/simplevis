@@ -190,8 +190,6 @@ gg_tile_col <- function(data,
   # }
   
   #colour
-  if (mobile == TRUE) col_title_wrap <- 20
-  
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
     else if (is.numeric(col_var_vctr)) col_method <- "continuous"
@@ -279,6 +277,8 @@ gg_tile_col <- function(data,
     scale_y_discrete(expand = y_expand, labels = y_labels)
   
   #colour
+  if (mobile == TRUE) col_title_wrap <- 20
+  
   if (col_method == "continuous") {
     plot <- plot +
       scale_fill_gradientn(

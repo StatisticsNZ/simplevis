@@ -10,7 +10,8 @@ gg_smooth_facet(
   y_var,
   facet_var,
   pal = pal_viridis_reorder(1),
-  alpha = 0.2,
+  alpha_fill = 0.2,
+  alpha_line = NA,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,
@@ -59,7 +60,9 @@ gg_smooth_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha}{The opacity of ribbons. Defaults to 0.5.}
+\item{alpha_fill}{The alpha of the fill.}
+
+\item{alpha_line}{The alpha of the outline.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 

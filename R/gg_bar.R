@@ -655,7 +655,8 @@ gg_bar_col <- function(data,
         labels = col_labels,
         breaks = col_cuts,
         na.value = pal_na_fill,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
+        name = stringr::str_wrap(col_title, col_title_wrap)) +
+      guides(colour = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
@@ -1383,7 +1384,8 @@ gg_bar_col_facet <- function(data,
         labels = col_labels,
         breaks = col_cuts,
         na.value = pal_na_fill,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
+        name = stringr::str_wrap(col_title, col_title_wrap)) +
+      guides(colour = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +

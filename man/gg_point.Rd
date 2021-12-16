@@ -11,7 +11,7 @@ gg_point(
   text_var = NULL,
   position = "identity",
   pal = pal_viridis_reorder(1),
-  alpha_point = 1,
+  alpha_point = NA,
   size_point = 1,
   title = NULL,
   title_wrap = 80,

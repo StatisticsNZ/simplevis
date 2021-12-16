@@ -10,10 +10,9 @@
 #' @param pal_label Hex code for the label font colour. Defaults to "#323232".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param width Width of tiles. Defaults to 1.
-#' @param alpha The alpha of the fill. Defaults to 1. 
-#' @param size_line The size of the outlines of tiles.
+#' @param alpha_fill The alpha of the fill.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
+#' @param width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -69,10 +68,9 @@ gg_tile_col <- function(data,
                         pal_label = "#323232",
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
-                        width = NULL,
-                        alpha = 1,
-                        size_line = 0.5,
+                        alpha_fill = NA,
                         size_label = 3.5,
+                        width = NULL,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -185,11 +183,11 @@ gg_tile_col <- function(data,
     } else width <- 1
   }
   
-  #labels
-  if(!rlang::quo_is_null(label_var)) {
-    data <- data %>% 
-      dplyr::mutate(label_var2 = !!label_var) 
-  }
+  # #labels
+  # if(!rlang::quo_is_null(label_var)) {
+  #   data <- data %>% 
+  #     dplyr::mutate(label_var2 = !!label_var) 
+  # }
   
   #colour
   if (mobile == TRUE) col_title_wrap <- 20
@@ -261,17 +259,18 @@ gg_tile_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-              alpha = alpha, 
-              size = size_line, 
+    geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
               width = width) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
+      geom_text(aes(x = !!x_var, y = !!y_var, label = !!label_var), size = size_label, col = pal_label)
   }
   
   #x and y scales
@@ -282,33 +281,20 @@ gg_tile_col <- function(data,
   #colour
   if (col_method == "continuous") {
     plot <- plot +
-      scale_colour_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) +
       scale_fill_gradientn(
-        colors = pal,
+        colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) 
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      ) +
       scale_fill_manual(
-        values = pal,
+        values = pal_fill,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
@@ -318,7 +304,7 @@ gg_tile_col <- function(data,
                fill = guide_legend(ncol = 1))
     }
   }
-
+  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -358,10 +344,9 @@ gg_tile_col <- function(data,
 #' @param pal_label Hex code for the label font colour. Defaults to "#323232".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param width Width of tiles. Defaults to 1.
-#' @param alpha The alpha of the fill. Defaults to 1. 
-#' @param size_line The size of the outlines of tiles.
+#' @param alpha_fill The alpha of the fill.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
+#' @param width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -423,10 +408,9 @@ gg_tile_col_facet <- function(data,
                               pal_label = "#323232",
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              width = NULL,
-                              alpha = 1,
-                              size_line = 0.5,
+                              alpha_fill = NA,
                               size_label = 3.5,
+                              width = NULL,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -558,10 +542,10 @@ gg_tile_col_facet <- function(data,
   }
   
   #labels
-  if(!rlang::quo_is_null(label_var)) {
-    data <- data %>% 
-      dplyr::mutate(label_var2 = !!label_var) 
-  }
+  # if(!rlang::quo_is_null(label_var)) {
+  #   data <- data %>% 
+  #     dplyr::mutate(label_var2 = !!label_var) 
+  # }
   
   #colour
   if (is.null(col_method)) {
@@ -631,53 +615,41 @@ gg_tile_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-              alpha = alpha, 
-              size = size_line, 
+    geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
               width = width) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$label_var2), size = size_label, col = pal_label)
+      geom_text(aes(x = !!x_var, y = !!y_var, label = !!label_var), size = size_label, col = pal_label)
   }
   
   #colour
   if (col_method == "continuous") {
     plot <- plot +
-      scale_colour_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) +
       scale_fill_gradientn(
-        colors = pal,
+        colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) 
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      ) +
       scale_fill_manual(
-        values = pal,
+        values = pal_fill,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
   }
-  
+
   #x & y scales, titles, and facetting
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels) +

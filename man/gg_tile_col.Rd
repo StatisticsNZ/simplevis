@@ -15,10 +15,9 @@ gg_tile_col(
   pal_label = "#323232",
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  width = NULL,
-  alpha = 1,
-  size_line = 0.5,
+  alpha_fill = NA,
   size_label = 3.5,
+  width = NULL,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -70,13 +69,11 @@ gg_tile_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{width}{Width of tiles. Defaults to 1.}
-
-\item{alpha}{The alpha of the fill. Defaults to 1.}
-
-\item{size_line}{The size of the outlines of tiles.}
+\item{alpha_fill}{The alpha of the fill.}
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
+
+\item{width}{Width of tiles. Defaults to 1.}
 
 \item{title}{Title string.}
 

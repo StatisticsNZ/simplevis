@@ -1,5 +1,9 @@
 # simplevis 5.0.42
 
+* Renamed width to size_width.
+
+# simplevis 5.0.42
+
 * Added alpha arguments to sf and stars.
 
 # simplevis 5.0.41

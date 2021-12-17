@@ -423,7 +423,7 @@ plot_data <- penguins %>%
 gg_bar(plot_data, 
        x_var = sex, 
        y_var = body_mass_g, 
-       width = 0.66, 
+       size_width = 0.66, 
        x_na_rm = TRUE, 
        y_breaks_n = 3) +
   facet_grid(rows = vars(species), 

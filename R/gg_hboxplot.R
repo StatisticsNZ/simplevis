@@ -9,7 +9,7 @@
 #' @param alpha_point The alpha of the points. 
 #' @param size_line The size of the outlines of boxplots.
 #' @param size_point The size of the outliers. Defaults to 1.
-#' @param width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -57,7 +57,7 @@ gg_hboxplot <- function(data,
                     alpha_point = NA,
                     size_line = 0.5,
                     size_point = 1,
-                    width = NULL,
+                    size_width = NULL,
                     title = NULL,
                     title_wrap = 75,
                     subtitle = NULL,
@@ -142,11 +142,11 @@ gg_hboxplot <- function(data,
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
 
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      width <- NULL
-    } else width <- 0.5
+      size_width <- NULL
+    } else size_width <- 0.5
   }
   
   #fundamentals
@@ -164,7 +164,7 @@ gg_hboxplot <- function(data,
         outlier.colour = pal_point,
         size = size_line, 
         outlier.size = size_point,
-        width = width
+        width = size_width
       )
   }
   else if (stat == "identity") {
@@ -185,7 +185,7 @@ gg_hboxplot <- function(data,
         outlier.colour = pal_point,
         size = size_line, 
         outlier.size = size_point,
-        width = width
+        width = size_width
       )
   }
 
@@ -299,7 +299,7 @@ gg_hboxplot <- function(data,
 #' @param alpha_point The alpha of the points. 
 #' @param size_line The size of the outlines of boxplots.
 #' @param size_point The size of the outliers. Defaults to 1.
-#' @param width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -356,7 +356,7 @@ gg_hboxplot_col <- function(data,
                         alpha_point = NA,
                         size_line = 0.5,
                         size_point = 1,
-                        width = NULL,
+                        size_width = NULL,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -464,11 +464,11 @@ gg_hboxplot_col <- function(data,
     }
   }
 
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      width <- NULL
-    } else width <- 0.5
+      size_width <- NULL
+    } else size_width <- 0.5
   }
   
   #colour
@@ -503,7 +503,7 @@ gg_hboxplot_col <- function(data,
           outlier.colour = pal_point,
           size = size_line, 
           outlier.size = size_point,
-          width = width
+          width = size_width
         )
     }
     else if (stat == "identity") {
@@ -524,7 +524,7 @@ gg_hboxplot_col <- function(data,
           outlier.colour = pal_point,
           size = size_line, 
           outlier.size = size_point,
-          width = width
+          width = size_width
         )
     }
   } 
@@ -543,7 +543,7 @@ gg_hboxplot_col <- function(data,
           stat = stat,
           position = position_dodge2(preserve = "single"),
           col = "#323232", 
-          width = width,
+          width = size_width,
           size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
@@ -566,7 +566,7 @@ gg_hboxplot_col <- function(data,
           stat = stat,
           position = position_dodge2(preserve = "single"),
           col = "#323232", 
-          width = width,
+          width = size_width,
           size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
@@ -697,7 +697,7 @@ gg_hboxplot_col <- function(data,
 #' @param alpha_point The alpha of the points. 
 #' @param size_line The size of the outlines of boxplots. 
 #' @param size_point The size of the outliers. Defaults to 1.
-#' @param width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -751,7 +751,7 @@ gg_hboxplot_facet <- function(data,
                           alpha_point = NA,
                           size_line = 0.5,
                           size_point = 1,
-                          width = NULL,
+                          size_width = NULL,
                           title = NULL,
                           title_wrap = 75,
                           subtitle = NULL,
@@ -855,11 +855,11 @@ gg_hboxplot_facet <- function(data,
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      width <- NULL
-    } else width <- 0.5
+      size_width <- NULL
+    } else size_width <- 0.5
   }
   
   #fundamentals
@@ -878,7 +878,7 @@ gg_hboxplot_facet <- function(data,
           outlier.colour = pal_point,
           size = size_line, 
           outlier.size = size_point,
-          width = width
+          width = size_width
         )
     }
     else if (stat == "identity") {
@@ -898,7 +898,7 @@ gg_hboxplot_facet <- function(data,
           outlier.colour = pal_point,
           size = size_line, 
           outlier.size = size_point,
-          width = width
+          width = size_width
         )
     }
   }
@@ -917,7 +917,7 @@ gg_hboxplot_facet <- function(data,
           stat = stat,
           col = "#323232", 
           fill = pal,
-          width = width,
+          width = size_width,
           size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
@@ -939,7 +939,7 @@ gg_hboxplot_facet <- function(data,
           stat = stat,
           col = "#323232", 
           fill = pal,
-          width = width,
+          width = size_width,
           size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
@@ -1046,7 +1046,7 @@ gg_hboxplot_facet <- function(data,
 #' @param alpha_fill The alpha of the fill. 
 #' @param alpha_line The alpha of the outline. 
 #' @param alpha_point The alpha of the points. 
-#' @param width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.5.
 #' @param size_line The size of the outlines of boxplots. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param title Title string. 
@@ -1111,7 +1111,7 @@ gg_hboxplot_col_facet <- function(data,
                               alpha_point = NA,
                               size_line = 0.5,
                               size_point = 1,
-                              width = NULL,
+                              size_width = NULL,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -1236,11 +1236,11 @@ gg_hboxplot_col_facet <- function(data,
     }
   }
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      width <- NULL
-    } else width <- 0.5
+      size_width <- NULL
+    } else size_width <- 0.5
   }
   
   #colour
@@ -1275,7 +1275,7 @@ gg_hboxplot_col_facet <- function(data,
           outlier.colour = pal_point,
           size = size_line, 
           outlier.size = size_point,
-          width = width
+          width = size_width
         )
     }
     else if (stat == "identity") {
@@ -1296,7 +1296,7 @@ gg_hboxplot_col_facet <- function(data,
           outlier.colour = pal_point,
           size = size_line, 
           outlier.size = size_point,
-          width = width
+          width = size_width
         )
     }
   }
@@ -1315,7 +1315,7 @@ gg_hboxplot_col_facet <- function(data,
           stat = stat,
           position = position_dodge2(preserve = "single"),
           col = "#323232", 
-          width = width,
+          width = size_width,
           size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 
@@ -1338,7 +1338,7 @@ gg_hboxplot_col_facet <- function(data,
           stat = stat,
           position = position_dodge2(preserve = "single"),
           col = "#323232", 
-          width = width,
+          width = size_width,
           size = size_line, 
           alpha = alpha,
           outlier.alpha = 1, 

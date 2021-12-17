@@ -17,8 +17,8 @@ gg_bar_col_facet(
   pal_rev = FALSE,
   alpha_fill = NA,
   alpha_line = NA,
-  width = NULL,
   size_line = 0.5,
+  size_width = NULL,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -86,9 +86,9 @@ gg_bar_col_facet(
 
 \item{alpha_line}{The alpha of the outline.}
 
-\item{width}{Width of bars. Defaults to 0.75.}
-
 \item{size_line}{The size of the outlines of bars.}
+
+\item{size_width}{Width of bars. Defaults to 0.75.}
 
 \item{title}{Title string.}
 

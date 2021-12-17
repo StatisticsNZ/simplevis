@@ -7,8 +7,8 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The alpha of the fill.  
 #' @param alpha_line The alpha of the outline. 
-#' @param width Width of bars. Defaults to 0.75.
 #' @param size_line The size of the outlines of bars.
+#' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -59,8 +59,8 @@ gg_bar <- function(data,
                    pal = pal_viridis_reorder(1),
                    alpha_fill = NA,
                    alpha_line = NA,
-                   width = NULL,
                    size_line = 0.5,
+                   size_width = NULL,
                    title = NULL,
                    title_wrap = 80,
                    subtitle = NULL,
@@ -152,11 +152,11 @@ gg_bar <- function(data,
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha(pal, alpha = alpha_line)
 
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      width <- NULL
-    } else width <- 0.75
+      size_width <- NULL
+    } else size_width <- 0.75
   }
   
   #fundamentals
@@ -166,7 +166,7 @@ gg_bar <- function(data,
              col = pal_line, 
              fill = pal_fill, 
              size = size_line, 
-             width = width)
+             width = size_width)
   
   #x scale 
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -277,8 +277,8 @@ gg_bar <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The alpha of the fill.  
 #' @param alpha_line The alpha of the outline. 
-#' @param width Width of bars. Defaults to 0.75.
 #' @param size_line The size of the outlines of bars.
+#' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -349,8 +349,8 @@ gg_bar_col <- function(data,
                        pal_rev = FALSE,
                        alpha_fill = NA,
                        alpha_line = NA,
-                       width = NULL,
                        size_line = 0.5,
+                       size_width = NULL,
                        title = NULL,
                        title_wrap = 80,
                        subtitle = NULL,
@@ -464,11 +464,11 @@ gg_bar_col <- function(data,
     }
   }
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      width <- NULL
-    } else width <- 0.75
+      size_width <- NULL
+    } else size_width <- 0.75
   }
   
   #colour
@@ -555,7 +555,7 @@ gg_bar_col <- function(data,
     theme +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
-             width = width, 
+             width = size_width, 
              position = position2)
   
   #x scale 
@@ -718,8 +718,8 @@ gg_bar_col <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The alpha of the fill.  
 #' @param alpha_line The alpha of the outline. 
-#' @param width Width of bars. Defaults to 0.75.
 #' @param size_line The size of the outlines of bars. 
+#' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -775,8 +775,8 @@ gg_bar_facet <- function(data,
                          pal = pal_viridis_reorder(1),
                          alpha_fill = NA,
                          alpha_line = NA,
-                         width = NULL,
                          size_line = 0.5,
+                         size_width = NULL,
                          title = NULL,
                          title_wrap = 80,
                          subtitle = NULL,
@@ -874,11 +874,11 @@ gg_bar_facet <- function(data,
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha(pal, alpha = alpha_line)
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      width <- NULL
-    } else width <- 0.75
+      size_width <- NULL
+    } else size_width <- 0.75
   }
   
   #fundamentals
@@ -888,7 +888,7 @@ gg_bar_facet <- function(data,
              col = pal_line, 
              fill = pal_fill, 
              size = size_line, 
-             width = width)
+             width = size_width)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -989,8 +989,8 @@ gg_bar_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The alpha of the fill.  
 #' @param alpha_line The alpha of the outline. 
-#' @param width Width of bars. Defaults to 0.75.
 #' @param size_line The size of the outlines of bars.
+#' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -1060,8 +1060,8 @@ gg_bar_col_facet <- function(data,
                              pal_rev = FALSE,
                              alpha_fill = NA,
                              alpha_line = NA,
-                             width = NULL,
                              size_line = 0.5,
+                             size_width = NULL,
                              title = NULL,
                              title_wrap = 80,
                              subtitle = NULL,
@@ -1193,11 +1193,11 @@ gg_bar_col_facet <- function(data,
     }
   }
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      width <- NULL
-    } else width <- 0.75
+      size_width <- NULL
+    } else size_width <- 0.75
   }
   
   #colour
@@ -1285,7 +1285,7 @@ gg_bar_col_facet <- function(data,
     theme +
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
-             width = width, 
+             width = size_width, 
              position = position2)
   
   #x scale

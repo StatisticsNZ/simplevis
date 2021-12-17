@@ -18,7 +18,7 @@ gg_tile_col_facet(
   pal_rev = FALSE,
   alpha_fill = NA,
   size_label = 3.5,
-  width = NULL,
+  size_width = NULL,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -80,7 +80,7 @@ gg_tile_col_facet(
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
 
-\item{width}{Width of tiles. Defaults to 1.}
+\item{size_width}{Width of tiles. Defaults to 1.}
 
 \item{title}{Title string.}
 

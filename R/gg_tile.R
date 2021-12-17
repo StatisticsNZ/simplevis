@@ -12,7 +12,7 @@
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The alpha of the fill.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
-#' @param width Width of tiles. Defaults to 1.
+#' @param size_width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -70,7 +70,7 @@ gg_tile_col <- function(data,
                         pal_rev = FALSE,
                         alpha_fill = NA,
                         size_label = 3.5,
-                        width = NULL,
+                        size_width = NULL,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -176,11 +176,11 @@ gg_tile_col <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      width <- NULL
-    } else width <- 1
+      size_width <- NULL
+    } else size_width <- 1
   }
   
   # #labels
@@ -264,7 +264,7 @@ gg_tile_col <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
-              width = width) 
+              width = size_width) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -346,7 +346,7 @@ gg_tile_col <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The alpha of the fill.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
-#' @param width Width of tiles. Defaults to 1.
+#' @param size_width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -410,7 +410,7 @@ gg_tile_col_facet <- function(data,
                               pal_rev = FALSE,
                               alpha_fill = NA,
                               size_label = 3.5,
-                              width = NULL,
+                              size_width = NULL,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -534,11 +534,11 @@ gg_tile_col_facet <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
-  #width
-  if (is.null(width)) {
+  #size_width
+  if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      width <- NULL
-    } else width <- 1
+      size_width <- NULL
+    } else size_width <- 1
   }
   
   #labels
@@ -622,7 +622,7 @@ gg_tile_col_facet <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
-              width = width) 
+              width = size_width) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 

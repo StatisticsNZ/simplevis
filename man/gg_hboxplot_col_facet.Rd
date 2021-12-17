@@ -18,7 +18,7 @@ gg_hboxplot_col_facet(
   alpha_point = NA,
   size_line = 0.5,
   size_point = 1,
-  width = NULL,
+  size_width = NULL,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -84,7 +84,7 @@ gg_hboxplot_col_facet(
 
 \item{size_point}{The size of the outliers. Defaults to 1.}
 
-\item{width}{Width of boxes. Defaults to 0.5.}
+\item{size_width}{Width of boxes. Defaults to 0.5.}
 
 \item{title}{Title string.}
 

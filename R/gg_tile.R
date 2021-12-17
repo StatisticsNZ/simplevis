@@ -12,6 +12,7 @@
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The alpha of the fill.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
+#' @param size_height Height of tiles. Defaults to 1.
 #' @param size_width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -70,7 +71,8 @@ gg_tile_col <- function(data,
                         pal_rev = FALSE,
                         alpha_fill = NA,
                         size_label = 3.5,
-                        size_width = NULL,
+                        size_height = 1, 
+                        size_width = 1,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -176,19 +178,6 @@ gg_tile_col <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 1
-  }
-  
-  # #labels
-  # if(!rlang::quo_is_null(label_var)) {
-  #   data <- data %>% 
-  #     dplyr::mutate(label_var2 = !!label_var) 
-  # }
-  
   #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -264,7 +253,7 @@ gg_tile_col <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
-              width = size_width) 
+              width = size_width, height = size_height) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -346,6 +335,7 @@ gg_tile_col <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The alpha of the fill.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
+#' @param size_height Height of tiles. Defaults to 1.
 #' @param size_width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -410,7 +400,8 @@ gg_tile_col_facet <- function(data,
                               pal_rev = FALSE,
                               alpha_fill = NA,
                               size_label = 3.5,
-                              size_width = NULL,
+                              size_height = 1,
+                              size_width = 1,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -534,19 +525,6 @@ gg_tile_col_facet <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 1
-  }
-  
-  #labels
-  # if(!rlang::quo_is_null(label_var)) {
-  #   data <- data %>% 
-  #     dplyr::mutate(label_var2 = !!label_var) 
-  # }
-  
   #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -622,7 +600,7 @@ gg_tile_col_facet <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
-              width = size_width) 
+              width = size_width, height = size_height) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 

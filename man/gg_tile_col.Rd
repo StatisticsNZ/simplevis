@@ -17,7 +17,8 @@ gg_tile_col(
   pal_rev = FALSE,
   alpha_fill = NA,
   size_label = 3.5,
-  size_width = NULL,
+  size_height = 1,
+  size_width = 1,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -72,6 +73,8 @@ gg_tile_col(
 \item{alpha_fill}{The alpha of the fill.}
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
+
+\item{size_height}{Height of tiles. Defaults to 1.}
 
 \item{size_width}{Width of tiles. Defaults to 1.}
 

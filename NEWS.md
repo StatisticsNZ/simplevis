@@ -1,6 +1,7 @@
 # simplevis 5.0.42
 
 * Renamed width to size_width.
+* Added to tile size_height.
 
 # simplevis 5.0.42
 

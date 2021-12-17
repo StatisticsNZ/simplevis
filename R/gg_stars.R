@@ -3,7 +3,7 @@
 #' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
 #' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of the array. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill. Defaults to 0.5.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#323232".
@@ -29,7 +29,7 @@
 gg_stars <- function(data,
                      downsample = 0,
                      pal = pal_viridis_reorder(1),
-                     alpha = 0.5,
+                     alpha_fill = 0.5,
                      borders = NULL,
                      borders_on_top = TRUE,
                      borders_pal = "#323232",
@@ -80,10 +80,14 @@ gg_stars <- function(data,
   
   #colour
   pal <- pal[1]
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   
   #fundamentals
   plot <- plot +
-    stars::geom_stars(aes(x = .data$x, y = .data$y), fill = pal, alpha = alpha, downsample = downsample, data = data)
+    stars::geom_stars(aes(x = .data$x, y = .data$y), 
+                      fill = pal_fill, 
+                      downsample = downsample, 
+                      data = data)
   
   #borders
   if (!is.null(borders)) {
@@ -128,7 +132,7 @@ gg_stars <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
+#' @param alpha_fill The alpha of the fill. Defaults to 1.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -169,7 +173,7 @@ gg_stars_col <- function(data,
                          pal = NULL,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
-                         alpha = 1,
+                         alpha_fill = 1,
                          borders = NULL,
                          borders_on_top = TRUE,
                          borders_pal = "#7F7F7F",
@@ -320,11 +324,13 @@ gg_stars_col <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
+  pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+  pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+
   #fundamentals
   plot <- plot +
     stars::geom_stars(
       aes(x = .data$x, y = .data$y, fill = !!col_var),
-      alpha = alpha,
       downsample = downsample,
       data = data
     )
@@ -335,21 +341,21 @@ gg_stars_col <- function(data,
   if (col_method == "continuous") {
     plot <- plot +
       scale_fill_gradientn(
-        colors = pal,
+        colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap) 
+        na.value = pal_na_fill,
+        name = stringr::str_wrap(col_title, col_title_wrap)
         # na.translate = na_translate
         ) 
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
       scale_fill_manual(
-        values = pal,
+        values = pal_fill,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap), 
         na.translate = na_translate
       )

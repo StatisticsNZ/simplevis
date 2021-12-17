@@ -7,10 +7,12 @@
 gg_sf(
   data,
   text_var = NULL,
-  size_point = 1,
-  size_line = 0.5,
-  alpha = NULL,
   pal = pal_viridis_reorder(1),
+  alpha_fill = 0.2,
+  alpha_line = NA,
+  alpha_point = NA,
+  size_line = 0.5,
+  size_point = 1,
   borders = NULL,
   borders_on_top = NULL,
   borders_pal = "#7F7F7F",
@@ -30,13 +32,17 @@ gg_sf(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{size_point}{Size of points. Defaults to 0.5.}
+\item{pal}{Character vector of hex codes.}
+
+\item{alpha_fill}{The alpha of the fill.}
+
+\item{alpha_line}{The alpha of lines and outlines.}
+
+\item{alpha_point}{The alpha of points.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.}
-
-\item{pal}{Character vector of hex codes.}
+\item{size_point}{Size of points. Defaults to 0.5.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

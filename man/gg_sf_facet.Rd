@@ -8,10 +8,12 @@ gg_sf_facet(
   data,
   facet_var,
   text_var = NULL,
-  size_point = 1,
-  size_line = 0.5,
-  alpha = NULL,
   pal = pal_viridis_reorder(1),
+  alpha_fill = 0.2,
+  alpha_line = NA,
+  alpha_point = NA,
+  size_line = 0.5,
+  size_point = 1,
   facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
@@ -36,13 +38,17 @@ gg_sf_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{size_point}{Size of points. Defaults to 0.5.}
+\item{pal}{Character vector of hex codes.}
+
+\item{alpha_fill}{The alpha of the fill.}
+
+\item{alpha_line}{The alpha of lines and outlines.}
+
+\item{alpha_point}{The alpha of points.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.}
-
-\item{pal}{Character vector of hex codes.}
+\item{size_point}{Size of points. Defaults to 0.5.}
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 

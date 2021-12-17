@@ -139,8 +139,8 @@ gg_line <- function(data,
   
   #colour
   pal <- pal[1]
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
@@ -713,8 +713,8 @@ gg_line_facet <- function(data,
   
   #colour
   pal <- pal[1]
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +

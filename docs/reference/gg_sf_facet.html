@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.40</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.41</span>
       </span>
     </div>
 
@@ -165,10 +165,12 @@
   <span class='no'>data</span>,
   <span class='no'>facet_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>facet_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
   <span class='kw'>facet_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -202,20 +204,28 @@
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
     </tr>
     <tr>
-      <th>size_point</th>
-      <td><p>Size of points. Defaults to 0.5.</p></td>
+      <th>pal</th>
+      <td><p>Character vector of hex codes.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_fill</th>
+      <td><p>The alpha of the fill.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_line</th>
+      <td><p>The alpha of lines and outlines.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_point</th>
+      <td><p>The alpha of points.</p></td>
     </tr>
     <tr>
       <th>size_line</th>
       <td><p>Size of lines. Defaults to 0.5.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.</p></td>
-    </tr>
-    <tr>
-      <th>pal</th>
-      <td><p>Character vector of hex codes.</p></td>
+      <th>size_point</th>
+      <td><p>Size of points. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>facet_labels</th>

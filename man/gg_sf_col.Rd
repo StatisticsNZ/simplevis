@@ -11,9 +11,11 @@ gg_sf_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  size_point = 1,
+  alpha_fill = 0.2,
+  alpha_line = NA,
+  alpha_point = NA,
   size_line = 0.5,
-  alpha = NULL,
+  size_point = 1,
   borders = NULL,
   borders_on_top = NULL,
   borders_pal = "#7F7F7F",
@@ -49,11 +51,15 @@ gg_sf_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{size_point}{Size of points. Defaults to 0.5.}
+\item{alpha_fill}{The alpha of the fill.}
+
+\item{alpha_line}{The alpha of lines and outlines.}
+
+\item{alpha_point}{The alpha of points.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.}
+\item{size_point}{Size of points. Defaults to 0.5.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

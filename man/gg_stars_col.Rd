@@ -11,7 +11,7 @@ gg_stars_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha = 1,
+  alpha_fill = 1,
   borders = NULL,
   borders_on_top = TRUE,
   borders_pal = "#7F7F7F",
@@ -47,7 +47,7 @@ gg_stars_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.}
+\item{alpha_fill}{The alpha of the fill. Defaults to 1.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

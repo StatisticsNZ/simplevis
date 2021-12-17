@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.40</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.41</span>
       </span>
     </div>
 
@@ -169,9 +169,11 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
@@ -229,16 +231,24 @@
       <td><p>Reverses the palette. Defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>size_point</th>
-      <td><p>Size of points. Defaults to 0.5.</p></td>
+      <th>alpha_fill</th>
+      <td><p>The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_line</th>
+      <td><p>The alpha of lines and outlines.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_point</th>
+      <td><p>The alpha of points.</p></td>
     </tr>
     <tr>
       <th>size_line</th>
       <td><p>Size of lines. Defaults to 0.5.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.</p></td>
+      <th>size_point</th>
+      <td><p>Size of points. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>borders</th>
@@ -342,7 +352,7 @@
     <pre class="examples"><div class='input'><span class='fu'>gg_sf_col_facet</span>(<span class='no'>example_sf_point</span>,
                 <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
                 <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>trend_category</span>,
-                <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>example_sf_borders</span>)</div><div class='img'><img src='gg_sf_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'> 
+                <span class='kw'>borders</span> <span class='kw'>=</span> <span class='no'>example_sf_borders</span>)</div><div class='output co'>#&gt; <span class='error'>Error in rep(value[[k]], length.out = n): attempt to replicate an object of type 'closure'</span></div><div class='img'><img src='gg_sf_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'> 
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

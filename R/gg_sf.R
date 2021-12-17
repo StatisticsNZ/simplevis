@@ -2,10 +2,12 @@
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param data A sf object with defined coordinate reference system. Required input.
-#' @param size_point Size of points. Defaults to 0.5.
-#' @param size_line Size of lines. Defaults to 0.5.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.
 #' @param pal Character vector of hex codes. 
+#' @param alpha_fill The alpha of the fill.
+#' @param alpha_line The alpha of lines and outlines. 
+#' @param alpha_point The alpha of points. 
+#' @param size_line Size of lines. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.5.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -26,10 +28,12 @@
 #'      
 gg_sf <- function(data,
                   text_var = NULL,
-                  size_point = 1,
-                  size_line = 0.5,
-                  alpha = NULL,
                   pal = pal_viridis_reorder(1),
+                  alpha_fill = 0.2,
+                  alpha_line = NA,
+                  alpha_point = NA,
+                  size_line = 0.5,
+                  size_point = 1,
                   borders = NULL,
                   borders_on_top = NULL,
                   borders_pal = "#7F7F7F",
@@ -101,26 +105,30 @@ gg_sf <- function(data,
   
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if (is.null(alpha)) alpha <- 1
-    
+    pal_point <- scales::alpha(pal, alpha = alpha_point)
+
     plot <- plot +
-      geom_sf(aes(text = !!text_var), size = size_point, col = pal, alpha = alpha)
+      geom_sf(aes(text = !!text_var), 
+              size = size_point, 
+              col = pal_point)
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if (is.null(alpha)) alpha <- 1
-    
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+
     plot <- plot +
-      geom_sf(aes(text = !!text_var), size = size_line, col = pal, alpha = alpha)
+      geom_sf(aes(text = !!text_var), 
+              size = size_line, 
+              col = pal_line)
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if (is.null(alpha)) alpha <- 0.5
-    
+    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+
     plot <- plot +
       geom_sf(aes(text = !!text_var), 
         size = size_line,
-        col = pal,
-        fill = pal,
-        alpha = alpha
+        col = pal_line,
+        fill = pal_fill
       )
   }
   
@@ -167,9 +175,11 @@ gg_sf <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size_point Size of points. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill.
+#' @param alpha_line The alpha of lines and outlines. 
+#' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
+#' @param size_point Size of points. Defaults to 0.5.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -216,9 +226,11 @@ gg_sf_col <- function(data,
                       pal = NULL,
                       pal_na = "#7F7F7F",
                       pal_rev = FALSE,
-                      size_point = 1,
+                      alpha_fill = 0.2,
+                      alpha_line = NA,
+                      alpha_point = NA,
                       size_line = 0.5,
-                      alpha = NULL,
+                      size_point = 1,
                       borders = NULL,
                       borders_on_top = NULL,
                       borders_pal = "#7F7F7F",
@@ -387,34 +399,36 @@ gg_sf_col <- function(data,
   
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if (is.null(alpha)) alpha <- 1
-    
+    pal_point <- scales::alpha(pal, alpha = alpha_point)
+    pal_na_point <- scales::alpha(pal_na, alpha = alpha_point)
+
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        alpha = alpha,
         size = size_point,
         data = data
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if (is.null(alpha)) alpha <- 1
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
     
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        alpha = alpha,
         size = size_line,
         data = data
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if (is.null(alpha)) alpha <- 0.95
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+    pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
     
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
-        alpha = alpha,
         size = size_line,
         data = data
       )
@@ -424,45 +438,78 @@ gg_sf_col <- function(data,
   if (mobile == TRUE) col_title_wrap <- 20
   
   if (col_method == "continuous") {
-    plot <- plot +
-      scale_colour_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
-    
-    if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT")) {
       plot <- plot +
-        scale_fill_gradientn(
-          colors = pal,
+        scale_colour_gradientn(
+          colors = pal_point,
           labels = col_labels,
           breaks = col_cuts,
-          na.value = pal_na,
+          na.value = pal_na_point,
           name = stringr::str_wrap(col_title, col_title_wrap)) 
+    }
+    else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+      plot <- plot +
+        scale_colour_gradientn(
+          colors = pal_line,
+          labels = col_labels,
+          breaks = col_cuts,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)) 
+    }
+    else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+      plot <- plot +
+        scale_colour_gradientn(
+          colors = pal_line,
+          labels = col_labels,
+          breaks = col_cuts,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)) +
+        scale_fill_gradientn(
+          colors = pal_fill,
+          labels = col_labels,
+          breaks = col_cuts,
+          na.value = pal_na_fill,
+          name = stringr::str_wrap(col_title, col_title_wrap)) +
+        guides(colour = "none")
     }
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
-    plot <- plot +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      ) 
-    
-    if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT")) {
       plot <- plot +
-        scale_fill_manual(
-          values = pal,
+        scale_colour_manual(
+          values = pal_point,
           drop = FALSE,
           labels = col_labels,
-          na.value = pal_na,
+          na.value = pal_na_point,
           name = stringr::str_wrap(col_title, col_title_wrap)
-        )
+        )       
     }
-    
+    else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+      plot <- plot +
+        scale_colour_manual(
+          values = pal_line,
+          drop = FALSE,
+          labels = col_labels,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)
+        )       
+    }
+    else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+      plot <- plot +
+        scale_colour_manual(
+          values = pal_line,
+          drop = FALSE,
+          labels = col_labels,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)) +      
+        scale_fill_manual(
+          values = pal_fill,
+          drop = FALSE,
+          labels = col_labels,
+          na.value = pal_na_fill,
+          name = stringr::str_wrap(col_title, col_title_wrap))
+    }
+
     if (mobile == TRUE) {
       plot <- plot +
         guides(col = guide_legend(ncol = 1),
@@ -510,10 +557,13 @@ gg_sf_col <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param size_point Size of points. Defaults to 0.5.
-#' @param size_line Size of lines. Defaults to 0.5.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.5 for polygons.
+#' @param alpha_fill The opacity of features. 
 #' @param pal Character vector of hex codes. 
+#' @param alpha_fill The alpha of the fill.
+#' @param alpha_line The alpha of lines and outlines. 
+#' @param alpha_point The alpha of points. 
+#' @param size_line Size of lines. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.5.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
@@ -540,10 +590,12 @@ gg_sf_col <- function(data,
 gg_sf_facet <- function(data,
                         facet_var,
                         text_var = NULL,
-                        size_point = 1,
-                        size_line = 0.5,
-                        alpha = NULL,
                         pal = pal_viridis_reorder(1),
+                        alpha_fill = 0.2,
+                        alpha_line = NA,
+                        alpha_point = NA,
+                        size_line = 0.5,
+                        size_point = 1,
                         facet_labels = snakecase::to_sentence_case,
                         facet_na_rm = FALSE,
                         facet_ncol = NULL,
@@ -637,41 +689,30 @@ gg_sf_facet <- function(data,
   
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if (is.null(alpha)) alpha <- 1
+    pal_point <- scales::alpha(pal, alpha = alpha_point)
     
     plot <- plot +
-      geom_sf(
-        aes(text = !!text_var), 
-        col = pal,
-        alpha = alpha,
-        size = size_point,
-        data = data
-      )
+      geom_sf(aes(text = !!text_var), 
+              size = size_point, 
+              col = pal_point)
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if (is.null(alpha)) alpha <- 1
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
     
     plot <- plot +
-      geom_sf(
-        aes(text = !!text_var), 
-        col = pal,
-        alpha = alpha,
-        size = size_line,
-        data = data
-      )
+      geom_sf(aes(text = !!text_var), 
+              size = size_line, 
+              col = pal_line)
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if (is.null(alpha)) alpha <- 0.5
+    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
     
     plot <- plot +
-      geom_sf(
-        aes(text = !!text_var), 
-        col = pal,
-        fill = pal,
-        alpha = alpha,
-        size = size_line,
-        data = data
-      )
+      geom_sf(aes(text = !!text_var), 
+              size = size_line,
+              col = pal_line,
+              fill = pal_fill)
   }
   
   #borders
@@ -708,9 +749,12 @@ gg_sf_facet <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param size_point Size of points. Defaults to 0.5.
+#' @param alpha_fill The alpha of the fill.
+#' @param alpha_line The alpha of lines and outlines. 
+#' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
+#' @param size_point Size of points. Defaults to 0.5.
+#' @param alpha_fill The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -750,9 +794,11 @@ gg_sf_col_facet <- function(data,
                             pal = NULL,
                             pal_na = "#7F7F7F",
                             pal_rev = FALSE,
-                            size_point = 1,
+                            alpha_fill = 0.2,
+                            alpha_line = NA,
+                            alpha_point = NA,
                             size_line = 0.5,
-                            alpha = NULL,
+                            size_point = 1,
                             borders = NULL,
                             borders_on_top = NULL,
                             borders_pal = "#7F7F7F",
@@ -937,36 +983,37 @@ gg_sf_col_facet <- function(data,
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
-  #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if (is.null(alpha)) alpha <- 1
+    pal_point <- scales::alpha(pal, alpha = alpha_point)
+    pal_na_point <- scales::alpha(pal_na, alpha = alpha_point)
     
     plot <- plot +
-      geom_sf(
+      geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        alpha = alpha,
         size = size_point,
         data = data
       )
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if (is.null(alpha)) alpha <- 1
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
     
     plot <- plot +
       geom_sf( 
         aes(col = !!col_var, text = !!text_var),
-        alpha = alpha,
         size = size_line,
         data = data
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if (is.null(alpha)) alpha <- 0.95
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+    pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
     
     plot <- plot +
-      geom_sf(
+      geom_sf( 
         aes(col = !!col_var, fill = !!col_var, text = !!text_var),
-        alpha = alpha,
         size = size_line,
         data = data
       )
@@ -974,43 +1021,76 @@ gg_sf_col_facet <- function(data,
   
   #colour
   if (col_method == "continuous") {
-    plot <- plot +
-      scale_colour_gradientn(
-        colors = pal,
-        labels = col_labels,
-        breaks = col_cuts,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
-    
-    if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT")) {
       plot <- plot +
-        scale_fill_gradientn(
-          colors = pal,
+        scale_colour_gradientn(
+          colors = pal_point,
           labels = col_labels,
           breaks = col_cuts,
-          na.value = pal_na,
+          na.value = pal_na_point,
           name = stringr::str_wrap(col_title, col_title_wrap)) 
+    }
+    else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+      plot <- plot +
+        scale_colour_gradientn(
+          colors = pal_line,
+          labels = col_labels,
+          breaks = col_cuts,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)) 
+    }
+    else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+      plot <- plot +
+        scale_colour_gradientn(
+          colors = pal_line,
+          labels = col_labels,
+          breaks = col_cuts,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)) +
+        scale_fill_gradientn(
+          colors = pal_fill,
+          labels = col_labels,
+          breaks = col_cuts,
+          na.value = pal_na_fill,
+          name = stringr::str_wrap(col_title, col_title_wrap)) +
+        guides(colour = "none")
     }
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
-    plot <- plot +
-      scale_colour_manual(
-        values = pal,
-        drop = FALSE,
-        labels = col_labels,
-        na.value = pal_na,
-        name = stringr::str_wrap(col_title, col_title_wrap)
-      ) 
-    
-    if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    if (geometry_type %in% c("POINT", "MULTIPOINT")) {
       plot <- plot +
-        scale_fill_manual(
-          values = pal,
+        scale_colour_manual(
+          values = pal_point,
           drop = FALSE,
           labels = col_labels,
-          na.value = pal_na,
+          na.value = pal_na_point,
           name = stringr::str_wrap(col_title, col_title_wrap)
-        )
+        )       
+    }
+    else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+      plot <- plot +
+        scale_colour_manual(
+          values = pal_line,
+          drop = FALSE,
+          labels = col_labels,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)
+        )       
+    }
+    else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+      plot <- plot +
+        scale_colour_manual(
+          values = pal_line,
+          drop = FALSE,
+          labels = col_labels,
+          na.value = pal_na_line,
+          name = stringr::str_wrap(col_title, col_title_wrap)) +      
+        scale_fill_manual(
+          values = pal_fill,
+          drop = FALSE,
+          labels = col_labels,
+          na.value = pal_na_fill,
+          name = stringr::str_wrap(col_title, col_title_wrap))
     }
   }
   

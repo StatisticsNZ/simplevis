@@ -1,3 +1,7 @@
+# simplevis 5.0.43
+
+* Rewrote gg_theme.
+
 # simplevis 5.0.42
 
 * Renamed width to size_width.

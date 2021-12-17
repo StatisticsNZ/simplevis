@@ -6,37 +6,37 @@
 \usage{
 gg_theme_map(
   family = "",
-  title_face = "bold",
-  title_pal = "#000000",
-  title_size = 11,
-  subtitle_face = "plain",
-  subtitle_pal = "#000000",
-  subtitle_size = 10,
-  body_face = "plain",
-  body_pal = "#323232",
-  body_size = 10
+  size_title = 11,
+  size_subtitle = 10,
+  size_body = 10,
+  face_title = "bold",
+  face_subtitle = "plain",
+  face_body = "plain",
+  pal_title = "#000000",
+  pal_subtitle = "#000000",
+  pal_body = "#323232"
 )
 }
 \arguments{
 \item{family}{The font for all text to use. Defaults to "".}
 
-\item{title_face}{The face of the title font. Defaults to "bold".}
+\item{size_title}{The size of the title font. Defaults to 11.}
 
-\item{title_pal}{The colour palette for the title font. Defaults to "#000000".}
+\item{size_subtitle}{The size of the subtitle font. Defaults to 10.}
 
-\item{title_size}{The size of the title font. Defaults to 11.}
+\item{size_body}{The size of all font other than the title or subtitle. Defaults to 10.}
 
-\item{subtitle_face}{The face of the subtitle font. Defaults to "plain".}
+\item{face_title}{The face of the title font. Defaults to "bold".}
 
-\item{subtitle_pal}{The colour palette for the subtitle font. Defaults to "#000000".}
+\item{face_subtitle}{The face of the subtitle font. Defaults to "plain".}
 
-\item{subtitle_size}{The size of the subtitle font. Defaults to 10.}
+\item{face_body}{The face of all font other than the title or subtitle. Defaults to "plain".}
 
-\item{body_face}{The face of all font other than the title or subtitle. Defaults to "plain".}
+\item{pal_title}{The colour palette for the title font. Defaults to "#000000".}
 
-\item{body_pal}{The colour palette for all font other than the title or subtitle. Defaults to "#323232".}
+\item{pal_subtitle}{The colour palette for the subtitle font. Defaults to "#000000".}
 
-\item{body_size}{The size of all font other than the title or subtitle. Defaults to 10.}
+\item{pal_body}{The colour palette for all font other than the title or subtitle. Defaults to "#323232".}
 }
 \value{
 A ggplot theme.

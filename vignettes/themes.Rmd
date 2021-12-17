@@ -44,7 +44,7 @@ gg_point_col(penguins,
              title = "A nice long title", 
              subtitle = "And a subtitle", 
              theme = gg_theme(gridlines = "horizontal", 
-                              title_size = 20)) 
+                              size_title = 20)) 
 ```
 
 This has some flexibility.
@@ -52,20 +52,22 @@ This has some flexibility.
 ```{r}
 custom_theme <- gg_theme(
   family = "lato",
-  title_pal = "darkgreen",
-  title_face = "plain",
-  title_size = 15,
-  subtitle_pal = "lightgreen",
-  subtitle_face = "bold",
-  subtitle_size = 16,
-  body_pal = "darkblue",
-  body_face = "italic",
-  body_size = 9,
-  gridlines = "vertical",
-  gridlines_pal = "pink", 
-  gridlines_size = 0.7,
-  ticks_pal = "red",
-  ticks_size = 1)
+  size_title = 15,
+  size_subtitle = 16,
+  size_body = 9,
+  size_axis = 1,
+  size_gridlines = 0.7,
+  size_ticks = 1,
+  face_title = "plain",
+  face_subtitle = "bold",
+  face_body = "italic",
+  pal_title = "darkgreen",
+  pal_subtitle = "lightgreen",
+  pal_body = "darkblue",
+  pal_axis = "grey",
+  pal_ticks = "red",
+  pal_gridlines = "pink", 
+  gridlines = "vertical")
 
 gg_point_col(penguins, 
              x_var = bill_length_mm, 

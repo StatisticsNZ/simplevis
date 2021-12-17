@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.44</span>
       </span>
     </div>
 
@@ -163,22 +163,22 @@
 
     <pre class="usage"><span class='fu'>gg_theme</span>(
   <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>title_face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>,
-  <span class='kw'>title_pal</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
-  <span class='kw'>title_size</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>subtitle_face</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
-  <span class='kw'>subtitle_pal</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
-  <span class='kw'>subtitle_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>body_face</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
-  <span class='kw'>body_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
-  <span class='kw'>body_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>axis_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
-  <span class='kw'>axis_size</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>ticks_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
-  <span class='kw'>ticks_size</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>,
-  <span class='kw'>gridlines_pal</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
-  <span class='kw'>gridlines_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
+  <span class='kw'>size_title</span> <span class='kw'>=</span> <span class='fl'>11</span>,
+  <span class='kw'>size_subtitle</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>size_body</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>size_axis</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>size_ticks</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
+  <span class='kw'>size_gridlines</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>face_title</span> <span class='kw'>=</span> <span class='st'>"bold"</span>,
+  <span class='kw'>face_subtitle</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
+  <span class='kw'>face_body</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
+  <span class='kw'>pal_title</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
+  <span class='kw'>pal_subtitle</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
+  <span class='kw'>pal_body</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
+  <span class='kw'>pal_axis</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
+  <span class='kw'>pal_ticks</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
+  <span class='kw'>pal_gridlines</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
+  <span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -189,68 +189,68 @@
       <td><p>The font for all text to use. Defaults to "".</p></td>
     </tr>
     <tr>
-      <th>title_face</th>
-      <td><p>The face of the title font. Defaults to "bold".</p></td>
-    </tr>
-    <tr>
-      <th>title_pal</th>
-      <td><p>The colour palette for the title font. Defaults to "#000000".</p></td>
-    </tr>
-    <tr>
-      <th>title_size</th>
+      <th>size_title</th>
       <td><p>The size of the title font. Defaults to 11.</p></td>
     </tr>
     <tr>
-      <th>subtitle_face</th>
-      <td><p>The face of the subtitle font. Defaults to "plain".</p></td>
-    </tr>
-    <tr>
-      <th>subtitle_pal</th>
-      <td><p>The colour palette for the subtitle font. Defaults to "#000000".</p></td>
-    </tr>
-    <tr>
-      <th>subtitle_size</th>
+      <th>size_subtitle</th>
       <td><p>The size of the subtitle font. Defaults to 10.</p></td>
     </tr>
     <tr>
-      <th>body_face</th>
-      <td><p>The face of all font other than the title or subtitle. Defaults to "plain".</p></td>
-    </tr>
-    <tr>
-      <th>body_pal</th>
-      <td><p>The colour palette for all font other than the title or subtitle. Defaults to "#323232".</p></td>
-    </tr>
-    <tr>
-      <th>body_size</th>
+      <th>size_body</th>
       <td><p>The size of all font other than the title or subtitle. Defaults to 10.</p></td>
     </tr>
     <tr>
-      <th>axis_pal</th>
-      <td><p>The colour palette for the axis. Defaults to "#323232".</p></td>
-    </tr>
-    <tr>
-      <th>axis_size</th>
+      <th>size_axis</th>
       <td><p>The size of the axis. Defaults to 0.3.</p></td>
     </tr>
     <tr>
-      <th>ticks_pal</th>
+      <th>size_ticks</th>
+      <td><p>The size of the ticks. Defaults to 0.3.</p></td>
+    </tr>
+    <tr>
+      <th>size_gridlines</th>
+      <td><p>The size of the vertical major gridlines. Defaults to 0.2.</p></td>
+    </tr>
+    <tr>
+      <th>face_title</th>
+      <td><p>The face of the title font. Defaults to "bold".</p></td>
+    </tr>
+    <tr>
+      <th>face_subtitle</th>
+      <td><p>The face of the subtitle font. Defaults to "plain".</p></td>
+    </tr>
+    <tr>
+      <th>face_body</th>
+      <td><p>The face of all font other than the title or subtitle. Defaults to "plain".</p></td>
+    </tr>
+    <tr>
+      <th>pal_title</th>
+      <td><p>The colour palette for the title font. Defaults to "#000000".</p></td>
+    </tr>
+    <tr>
+      <th>pal_subtitle</th>
+      <td><p>The colour palette for the subtitle font. Defaults to "#000000".</p></td>
+    </tr>
+    <tr>
+      <th>pal_body</th>
+      <td><p>The colour palette for all font other than the title or subtitle. Defaults to "#323232".</p></td>
+    </tr>
+    <tr>
+      <th>pal_axis</th>
+      <td><p>The colour palette for the axis. Defaults to "#323232".</p></td>
+    </tr>
+    <tr>
+      <th>pal_ticks</th>
       <td><p>The colour palette for the ticks. Defaults to "#323232".</p></td>
     </tr>
     <tr>
-      <th>ticks_size</th>
-      <td><p>The size of the ticks. Defaults to 0.3.</p></td>
+      <th>pal_gridlines</th>
+      <td><p>The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".</p></td>
     </tr>
     <tr>
       <th>gridlines</th>
       <td><p>Whether gridlines are "horizontal", "vertical", "both" or "none".</p></td>
-    </tr>
-    <tr>
-      <th>gridlines_pal</th>
-      <td><p>The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".</p></td>
-    </tr>
-    <tr>
-      <th>gridlines_size</th>
-      <td><p>The size of the vertical major gridlines. Defaults to 0.2.</p></td>
     </tr>
     </table>
 

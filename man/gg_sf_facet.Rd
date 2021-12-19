@@ -40,7 +40,7 @@ gg_sf_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The alpha of the fill.}
+\item{alpha_fill}{The opacity of the fill.}
 
 \item{alpha_line}{The alpha of lines and outlines.}
 

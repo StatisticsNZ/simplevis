@@ -10,7 +10,7 @@ leaflet_stars_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha = 1,
+  alpha_fill = 1,
   basemap = "light",
   col_breaks_n = 4,
   col_cuts = NULL,
@@ -33,7 +33,7 @@ leaflet_stars_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha}{The opacity of features. Defaults to 1.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

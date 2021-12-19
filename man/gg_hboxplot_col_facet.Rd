@@ -74,11 +74,11 @@ gg_hboxplot_col_facet(
 
 \item{pal_rev}{TRUE or FALSE of whether to reverse the pal.}
 
-\item{alpha_fill}{The alpha of the fill.}
+\item{alpha_fill}{The opacity of the fill.}
 
-\item{alpha_line}{The alpha of the outline.}
+\item{alpha_line}{The opacity of the outline.}
 
-\item{alpha_point}{The alpha of the points.}
+\item{alpha_point}{The opacity of the points.}
 
 \item{size_line}{The size of the outlines of boxplots.}
 

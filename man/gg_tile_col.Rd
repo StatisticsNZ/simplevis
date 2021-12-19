@@ -70,7 +70,7 @@ gg_tile_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The alpha of the fill.}
+\item{alpha_fill}{The opacity of the fill.}
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
 

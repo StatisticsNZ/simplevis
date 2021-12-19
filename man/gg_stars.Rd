@@ -30,7 +30,7 @@ gg_stars(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The alpha of the fill. Defaults to 0.5.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

@@ -11,7 +11,9 @@ leaflet_sf(
   pal = pal_viridis_reorder(1),
   size_point = 2,
   size_line = 2,
-  alpha = NULL,
+  alpha_point = NULL,
+  alpha_line = NULL,
+  alpha_fill = NULL,
   basemap = "light",
   map_id = "map"
 )
@@ -29,7 +31,11 @@ leaflet_sf(
 
 \item{size_line}{Size of lines around features (i.e. weight). Defaults to 2.}
 
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.75 for polygons.}
+\item{alpha_point}{The opacity of the points.}
+
+\item{alpha_line}{The opacity of the outline.}
+
+\item{alpha_fill}{The opacity of the fill.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

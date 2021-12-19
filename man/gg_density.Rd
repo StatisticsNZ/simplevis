@@ -46,9 +46,9 @@ gg_density(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The alpha of the fill.}
+\item{alpha_fill}{The opacity of the fill.}
 
-\item{alpha_line}{The alpha of the outline.}
+\item{alpha_line}{The opacity of the outline.}
 
 \item{size_line}{The size of the outlines of density areas.}
 

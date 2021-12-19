@@ -3,7 +3,7 @@
 #' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
 #' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill. Defaults to 0.5.
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#323232".
@@ -132,7 +132,7 @@ gg_stars <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill. Defaults to 1.
+#' @param alpha_fill The opacity of the fill. Defaults to 1.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".

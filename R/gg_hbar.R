@@ -5,8 +5,8 @@
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_width Width of bars. Defaults to 0.75.
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. 
@@ -277,8 +277,8 @@ gg_hbar <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of bars.
 #' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
@@ -728,8 +728,8 @@ gg_hbar_col <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of bars. 
 #' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
@@ -1013,8 +1013,8 @@ gg_hbar_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of bars. 
 #' @param size_width Width of bars. Defaults to 0.75.
 #' @param title Title string. 

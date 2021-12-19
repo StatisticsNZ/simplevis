@@ -5,10 +5,12 @@
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
-#' @param pal Character vector of hex codes. 
+#' @param pal Character vector of hex codes.
+#' @param alpha_point The opacity of the points. 
+#' @param alpha_line The opacity of the outline. 
+#' @param alpha_fill The opacity of the fill. 
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.75 for polygons.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -24,7 +26,9 @@ leaflet_sf <- function(data,
                        pal = pal_viridis_reorder(1),
                        size_point = 2,
                        size_line = 2,
-                       alpha = NULL,
+                       alpha_point = NULL,
+                       alpha_line = NULL,
+                       alpha_fill = NULL,
                        basemap = "light",
                        map_id = "map")
 {
@@ -75,8 +79,16 @@ leaflet_sf <- function(data,
   
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if (is.null(alpha)) alpha <- 1
-    
+    if (is.null(alpha_point)) {
+      if(is.null(alpha_line) & is.null(alpha_fill)) {
+        alpha_line <- 1
+        alpha_fill <- 1
+      }
+    } else {
+      alpha_line <- alpha_point
+      alpha_fill <- alpha_point
+    }
+
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
@@ -90,8 +102,8 @@ leaflet_sf <- function(data,
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_fill,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -105,15 +117,15 @@ leaflet_sf <- function(data,
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_fill,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if (is.null(alpha)) alpha <- 1
-    
+    if (is.null(alpha_line)) alpha_line <- 1
+
     if (shiny == FALSE) {
       
       map <- leaflet() %>%
@@ -126,8 +138,8 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_line,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -140,14 +152,15 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_line,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if (is.null(alpha)) alpha <- 0.75
+    if (is.null(alpha_line)) alpha_line <- 1
+    if (is.null(alpha_fill)) alpha_fill <- 0.2
     
     if (shiny == FALSE) {
       
@@ -161,8 +174,8 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = alpha, 
-          opacity = alpha,
+          fillOpacity = alpha_fill, 
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -174,8 +187,8 @@ leaflet_sf <- function(data,
           data = data,
           popup = ~ popup,
           color = pal[1],
-          fillOpacity = alpha, 
-          opacity = alpha,
+          fillOpacity = alpha_fill, 
+          opacity = alpha_line,
           weight = size_line
         )
     }
@@ -194,9 +207,11 @@ leaflet_sf <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param alpha_point The opacity of the points. 
+#' @param alpha_line The opacity of the outline. 
+#' @param alpha_fill The opacity of the fill. 
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
-#' @param alpha The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
@@ -230,9 +245,11 @@ leaflet_sf_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
+                           alpha_point = NULL,
+                           alpha_line = NULL,
+                           alpha_fill = NULL,
                            size_point = 2,
                            size_line = 2,
-                           alpha = NULL,
                            basemap = "light",
                            col_breaks_n = 4,
                            col_cuts = NULL,
@@ -346,6 +363,7 @@ leaflet_sf_col <- function(data,
     }
     else ({
       col_labels2 <- unique(col_var_vctr)
+      col_labels2 <- col_labels2[!is.na(col_labels2)]
       col_n <- length(col_labels2)
     }) 
     
@@ -391,7 +409,15 @@ leaflet_sf_col <- function(data,
   
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-    if (is.null(alpha)) alpha <- 1
+    if (is.null(alpha_point)) {
+      if(is.null(alpha_line) & is.null(alpha_fill)) {
+        alpha_line <- 1
+        alpha_fill <- 1
+      }
+    } else {
+      alpha_line <- alpha_point
+      alpha_fill <- alpha_point
+    }
     
     if (shiny == FALSE) {
       
@@ -407,8 +433,8 @@ leaflet_sf_col <- function(data,
           label = ~ label_var_vctr,
           popup = ~ popup,
           radius = size_point,
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_fill,
+          opacity = alpha_line,
           weight = size_line
         )
     }
@@ -422,8 +448,8 @@ leaflet_sf_col <- function(data,
           label = ~ label_var_vctr,
           popup = ~ popup,
           radius = size_point,
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_fill,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -444,8 +470,8 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_fill,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -458,15 +484,16 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
-          fillOpacity = alpha,
-          opacity = alpha,
+          fillOpacity = alpha_fill,
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    if (is.null(alpha)) alpha <- 0.95
-    
+    if (is.null(alpha_line)) alpha_line <- 1
+    if (is.null(alpha_fill)) alpha_fill <- 0.2
+
     if (shiny == FALSE) {
       map <- leaflet() %>%
         leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
@@ -479,8 +506,8 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
-          fillOpacity = alpha, 
-          opacity = alpha,
+          fillOpacity = alpha_fill, 
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -493,8 +520,8 @@ leaflet_sf_col <- function(data,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
-          fillOpacity = alpha, 
-          opacity = alpha,
+          fillOpacity = alpha_fill, 
+          opacity = alpha_line,
           weight = size_line
         ) 
     }
@@ -523,7 +550,7 @@ leaflet_sf_col <- function(data,
         bins = col_cuts,
         title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = alpha)
+        opacity = alpha_line)  # ideally have fillOpacity = alpha_fill argument here
   }
   else if (col_method %in% c("bin", "quantile", "category")) {
     map <- map %>% 
@@ -533,7 +560,7 @@ leaflet_sf_col <- function(data,
         labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = alpha)
+        opacity = alpha_line) # ideally have fillOpacity = alpha_fill argument here
   }
   
   return(map)

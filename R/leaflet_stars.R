@@ -4,7 +4,7 @@
 #' @description Map of stars in leaflet that is not coloured. 
 #' @param data A stars object. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha The opacity of the array values. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
@@ -17,7 +17,7 @@
 #'   
 leaflet_stars <- function(data,
                           pal = pal_viridis_reorder(1),
-                          alpha = 0.5,
+                          alpha_fill = 0.5,
                           basemap = "light",
                           map_id = "map")
 {
@@ -54,7 +54,7 @@ leaflet_stars <- function(data,
       leafem::addStarsImage(
         x = data,
         colors = pal[1],
-        opacity = alpha,
+        opacity = alpha_fill,
         project = TRUE
       ) 
   }
@@ -66,7 +66,7 @@ leaflet_stars <- function(data,
       leafem::addStarsImage(
         x = data,
         colors = pal[1],
-        opacity = alpha,
+        opacity = alpha_fill,
         project = TRUE
       ) 
   }
@@ -81,7 +81,7 @@ leaflet_stars <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha The opacity of features. Defaults to 1.
+#' @param alpha_fill The opacity of the fill. Defaults to 1.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
@@ -105,7 +105,7 @@ leaflet_stars_col <- function(data,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              alpha = 1,
+                              alpha_fill = 1,
                               basemap = "light",
                               col_breaks_n = 4,
                               col_cuts = NULL,
@@ -246,7 +246,7 @@ leaflet_stars_col <- function(data,
       leafem::addStarsImage(
         x = data,
         colors = pal_fun,
-        opacity = alpha,
+        opacity = alpha_fill,
         project = TRUE
       )
   }
@@ -258,7 +258,7 @@ leaflet_stars_col <- function(data,
       leafem::addStarsImage(
         x = data,
         colors = pal_fun,
-        opacity = alpha,
+        opacity = alpha_fill,
         project = TRUE
       )
   }
@@ -286,7 +286,7 @@ leaflet_stars_col <- function(data,
         bins = col_cuts,
         title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = alpha)
+        opacity = alpha_fill)
   }
   else if (col_method %in% c("bin", "quantile", "category")) {
     map <- map %>% 
@@ -296,7 +296,7 @@ leaflet_stars_col <- function(data,
         labels = col_labels,
         title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
         position = "bottomright",
-        opacity = alpha)
+        opacity = alpha_fill)
   }
   
   return(map)

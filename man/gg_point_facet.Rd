@@ -60,7 +60,7 @@ gg_point_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_point}{The opacity of points.}
+\item{alpha_point}{The opacity of the points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

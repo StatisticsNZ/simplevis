@@ -70,7 +70,7 @@ gg_point_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_point}{The opacity of points.}
+\item{alpha_point}{The opacity of the points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

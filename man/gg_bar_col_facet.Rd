@@ -82,9 +82,9 @@ gg_bar_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The alpha of the fill.}
+\item{alpha_fill}{The opacity of the fill.}
 
-\item{alpha_line}{The alpha of the outline.}
+\item{alpha_line}{The opacity of the outline.}
 
 \item{size_line}{The size of the outlines of bars.}
 

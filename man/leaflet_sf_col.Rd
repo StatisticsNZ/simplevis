@@ -13,9 +13,11 @@ leaflet_sf_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
+  alpha_point = NULL,
+  alpha_line = NULL,
+  alpha_fill = NULL,
   size_point = 2,
   size_line = 2,
-  alpha = NULL,
   basemap = "light",
   col_breaks_n = 4,
   col_cuts = NULL,
@@ -44,11 +46,15 @@ leaflet_sf_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
+\item{alpha_point}{The opacity of the points.}
+
+\item{alpha_line}{The opacity of the outline.}
+
+\item{alpha_fill}{The opacity of the fill.}
+
 \item{size_point}{Size of points (i.e. radius). Defaults to 2.}
 
 \item{size_line}{Size of lines around features (i.e. weight). Defaults to 2.}
-
-\item{alpha}{The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

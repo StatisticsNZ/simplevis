@@ -1,3 +1,7 @@
+# simplevis 5.0.45
+
+* Fix how leaflet functions interact with alpha.
+
 # simplevis 5.0.43
 
 * Rewrote gg_theme.

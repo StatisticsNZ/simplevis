@@ -51,7 +51,7 @@ gg_sf_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The alpha of the fill.}
+\item{alpha_fill}{The opacity of the fill.}
 
 \item{alpha_line}{The alpha of lines and outlines.}
 

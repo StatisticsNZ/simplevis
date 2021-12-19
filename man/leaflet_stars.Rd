@@ -7,7 +7,7 @@
 leaflet_stars(
   data,
   pal = pal_viridis_reorder(1),
-  alpha = 0.5,
+  alpha_fill = 0.5,
   basemap = "light",
   map_id = "map"
 )
@@ -17,7 +17,7 @@ leaflet_stars(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha}{The opacity of the array values.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 

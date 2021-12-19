@@ -4,9 +4,9 @@
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill. 
-#' @param alpha_line The alpha of the outline. 
-#' @param alpha_point The alpha of the points. 
+#' @param alpha_fill The opacity of the fill. 
+#' @param alpha_line The opacity of the outline. 
+#' @param alpha_point The opacity of the points. 
 #' @param size_line The size of the outlines of boxplots.
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_width Width of boxes. Defaults to 0.5.
@@ -294,9 +294,9 @@ gg_hboxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill. 
-#' @param alpha_line The alpha of the outline. 
-#' @param alpha_point The alpha of the points. 
+#' @param alpha_fill The opacity of the fill. 
+#' @param alpha_line The opacity of the outline. 
+#' @param alpha_point The opacity of the points. 
 #' @param size_line The size of the outlines of boxplots.
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_width Width of boxes. Defaults to 0.5.
@@ -692,9 +692,9 @@ gg_hboxplot_col <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill. 
-#' @param alpha_line The alpha of the outline. 
-#' @param alpha_point The alpha of the points. 
+#' @param alpha_fill The opacity of the fill. 
+#' @param alpha_line The opacity of the outline. 
+#' @param alpha_point The opacity of the points. 
 #' @param size_line The size of the outlines of boxplots. 
 #' @param size_point The size of the outliers. Defaults to 1.
 #' @param size_width Width of boxes. Defaults to 0.5.
@@ -1043,9 +1043,9 @@ gg_hboxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
-#' @param alpha_fill The alpha of the fill. 
-#' @param alpha_line The alpha of the outline. 
-#' @param alpha_point The alpha of the points. 
+#' @param alpha_fill The opacity of the fill. 
+#' @param alpha_line The opacity of the outline. 
+#' @param alpha_point The opacity of the points. 
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param size_line The size of the outlines of boxplots. 
 #' @param size_point The size of the outliers. Defaults to 1.

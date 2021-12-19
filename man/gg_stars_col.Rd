@@ -47,7 +47,7 @@ gg_stars_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The alpha of the fill. Defaults to 1.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

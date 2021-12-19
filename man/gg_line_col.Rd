@@ -67,9 +67,9 @@ gg_line_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_line}{The alpha of the outline.}
+\item{alpha_line}{The opacity of the outline.}
 
-\item{alpha_point}{The alpha of the points.}
+\item{alpha_point}{The opacity of the points.}
 
 \item{size_point}{Size of points. Defaults to 1.}
 

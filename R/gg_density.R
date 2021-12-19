@@ -4,8 +4,8 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -176,8 +176,8 @@ gg_density <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -407,8 +407,8 @@ gg_density_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -593,8 +593,8 @@ gg_density_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill.  
-#' @param alpha_line The alpha of the outline. 
+#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_line The opacity of the outline. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 

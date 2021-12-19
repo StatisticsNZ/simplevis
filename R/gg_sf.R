@@ -3,7 +3,7 @@
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill.
+#' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
@@ -175,7 +175,7 @@ gg_sf <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill.
+#' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
@@ -559,7 +559,7 @@ gg_sf_col <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param alpha_fill The opacity of features. 
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The alpha of the fill.
+#' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
@@ -749,7 +749,7 @@ gg_sf_facet <- function(data,
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The alpha of the fill.
+#' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.

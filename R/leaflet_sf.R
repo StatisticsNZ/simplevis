@@ -455,8 +455,8 @@ leaflet_sf_col <- function(data,
     }
   }
   else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-    if (is.null(alpha)) alpha <- 1
-    
+    if (is.null(alpha_line)) alpha_line <- 1
+
     if (shiny == FALSE) {
       
       map <- leaflet() %>%

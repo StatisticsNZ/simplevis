@@ -15,7 +15,7 @@ gg_tile_col(
   pal_label = "#323232",
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha_fill = NA,
+  alpha_fill = 1,
   size_label = 3.5,
   size_height = 1,
   size_width = 1,

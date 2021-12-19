@@ -12,7 +12,7 @@ gg_density_col(
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
   alpha_fill = 0.2,
-  alpha_line = NA,
+  alpha_line = 1,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,

@@ -9,7 +9,7 @@ gg_density(
   x_var,
   pal = pal_viridis_reorder(1),
   alpha_fill = 0.2,
-  alpha_line = NA,
+  alpha_line = 1,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,

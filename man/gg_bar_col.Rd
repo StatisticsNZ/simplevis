@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_bar.R
 \name{gg_bar_col}
 \alias{gg_bar_col}
-\title{Vertical bar ggplot that is coloured.}
+\title{Bar ggplot that is coloured.}
 \usage{
 gg_bar_col(
   data,
@@ -162,7 +162,7 @@ gg_bar_col(
 A ggplot object.
 }
 \description{
-Vertical bar ggplot that is coloured, but not facetted.
+Bar ggplot that is coloured, but not facetted.
 }
 \examples{
 library(dplyr)

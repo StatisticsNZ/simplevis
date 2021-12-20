@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_bar.R
 \name{gg_bar_col_facet}
 \alias{gg_bar_col_facet}
-\title{Vertical bar ggplot that is coloured and facetted.}
+\title{Bar ggplot that is coloured and facetted.}
 \usage{
 gg_bar_col_facet(
   data,
@@ -177,7 +177,7 @@ gg_bar_col_facet(
 A ggplot object.
 }
 \description{
-Vertical bar ggplot that is coloured and facetted.
+Bar ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)

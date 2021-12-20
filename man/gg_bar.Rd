@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_bar.R
 \name{gg_bar}
 \alias{gg_bar}
-\title{Vertical bar ggplot.}
+\title{Bar ggplot.}
 \usage{
 gg_bar(
   data,
@@ -123,7 +123,7 @@ gg_bar(
 A ggplot object.
 }
 \description{
-Vertical bar ggplot that is not coloured and not facetted.
+Bar ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

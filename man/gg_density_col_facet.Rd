@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_density.R
 \name{gg_density_col_facet}
 \alias{gg_density_col_facet}
-\title{Smoothed density ggplot that is coloured and facetted.}
+\title{Density ggplot that is coloured and facetted.}
 \usage{
 gg_density_col_facet(
   data,
@@ -147,7 +147,7 @@ gg_density_col_facet(
 A ggplot object.
 }
 \description{
-Smoothed density ggplot that is coloured and facetted.
+Density ggplot that is coloured and facetted.
 }
 \examples{
 library(simplevis)

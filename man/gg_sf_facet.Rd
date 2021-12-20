@@ -12,7 +12,7 @@ gg_sf_facet(
   pal_borders = "#7F7F7F",
   borders = NULL,
   borders_on_top = NULL,
-  alpha_fill = 0.2,
+  alpha_fill = NULL,
   alpha_line = 1,
   alpha_point = 1,
   alpha_borders = 1,

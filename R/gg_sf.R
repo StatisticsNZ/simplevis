@@ -33,7 +33,7 @@ gg_sf <- function(data,
                   borders_on_top = NULL,
                   pal = pal_viridis_reorder(1),
                   pal_borders = "#7F7F7F",
-                  alpha_fill = 0.2,
+                  alpha_fill = NULL,
                   alpha_line = 1,
                   alpha_point = 1,
                   alpha_borders = 1,
@@ -125,6 +125,7 @@ gg_sf <- function(data,
               col = pal_line)
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    if (is.null(alpha_fill)) alpha_fill <- 1
     pal_fill <- scales::alpha(pal, alpha = alpha_fill)
     pal_line <- scales::alpha(pal, alpha = alpha_line)
 
@@ -210,22 +211,38 @@ gg_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf_col(example_sf_point, 
+#' gg_sf_col(example_sf_point,
 #'           col_var = trend_category, 
 #'           borders = example_sf_borders)
-#'    
-#' gg_sf_col(example_sf_polygon, 
+#' 
+#' gg_sf_col(example_sf_polygon,
 #'           col_var = density, 
-#'           borders = example_sf_borders, 
-#'           col_method = "bin", 
-#'           col_cuts = c(0, 10, 50, 100, 150, 200, Inf))
-#'
-#' gg_sf_col(example_sf_polygon, 
-#'           col_var = density, 
-#'           borders = example_sf_borders, 
-#'           col_method = "quantile", 
-#'           col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
+#'           borders = example_sf_borders)
+#' 
+#' gg_sf_col(example_sf_polygon,
+#'           col_var = density,
+#'           col_method = "bin",
+#'           col_breaks_n = 5, 
+#'           borders = example_sf_borders)
+#' 
+#' gg_sf_col(example_sf_polygon,
+#'           col_var = density,
+#'           col_method = "bin",
+#'           col_cuts = c(0, 10, 50, 100, 150, 200, Inf),
+#'           borders = example_sf_borders)
 #'           
+#' gg_sf_col(example_sf_polygon,
+#'           col_var = density,
+#'           col_method = "quantile",
+#'           col_breaks_n = 4, 
+#'           borders = example_sf_borders)
+#' 
+#' gg_sf_col(example_sf_polygon,
+#'           col_var = density,
+#'           col_method = "quantile",
+#'           col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1), 
+#'           borders = example_sf_borders)
+#' 
 gg_sf_col <- function(data,
                       col_var,
                       text_var = NULL,
@@ -235,7 +252,7 @@ gg_sf_col <- function(data,
                       pal_na = "#7F7F7F",
                       pal_rev = FALSE,
                       pal_borders = "#7F7F7F",
-                      alpha_fill = 0.2,
+                      alpha_fill = NULL,
                       alpha_line = 1,
                       alpha_point = 1,
                       alpha_borders = 1,
@@ -431,10 +448,11 @@ gg_sf_col <- function(data,
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    pal_line <- scales::alpha(pal, alpha = alpha_line)
-    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+    if (is.null(alpha_fill)) alpha_fill <- 1
     pal_fill <- scales::alpha(pal, alpha = alpha_fill)
     pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
     
     plot <- plot +
       geom_sf( 
@@ -608,7 +626,7 @@ gg_sf_facet <- function(data,
                         pal_borders = "#7F7F7F",
                         borders = NULL,
                         borders_on_top = NULL,
-                        alpha_fill = 0.2,
+                        alpha_fill = NULL,
                         alpha_line = 1,
                         alpha_point = 1,
                         alpha_borders = 1,
@@ -722,6 +740,7 @@ gg_sf_facet <- function(data,
               col = pal_line)
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
+    if (is.null(alpha_fill)) alpha_fill <- 1
     pal_fill <- scales::alpha(pal, alpha = alpha_fill)
     pal_line <- scales::alpha(pal, alpha = alpha_line)
     
@@ -815,7 +834,7 @@ gg_sf_col_facet <- function(data,
                             pal_na = "#7F7F7F",
                             pal_rev = FALSE,
                             pal_borders = "#7F7F7F",
-                            alpha_fill = 0.2,
+                            alpha_fill = NULL,
                             alpha_line = 1,
                             alpha_point = 1,
                             alpha_borders = 1,
@@ -1028,10 +1047,11 @@ gg_sf_col_facet <- function(data,
       )
   }
   else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
-    pal_line <- scales::alpha(pal, alpha = alpha_line)
-    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+    if (is.null(alpha_fill)) alpha_fill <- 1
     pal_fill <- scales::alpha(pal, alpha = alpha_fill)
     pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+    pal_line <- scales::alpha(pal, alpha = alpha_line)
+    pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
     
     plot <- plot +
       geom_sf( 

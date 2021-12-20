@@ -1,6 +1,6 @@
-#' @title Smoothed density ggplot.
+#' @title Density ggplot.
 #' 
-#' @description Smoothed density ggplot that is not coloured and not facetted.
+#' @description Density ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
@@ -167,9 +167,9 @@ gg_density <- function(data,
   return(plot)
 }
 
-#' @title Smoothed density ggplot that is coloured.
+#' @title Density ggplot that is coloured.
 #' 
-#' @description Smoothed density ggplot that is coloured but not facetted.
+#' @description Density ggplot that is coloured but not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
@@ -410,9 +410,9 @@ gg_density_col <- function(data,
   return(plot)
 }
 
-#' @title Smoothed density ggplot that is facetted.
+#' @title Density ggplot that is facetted.
 #' 
-#' @description Smoothed density ggplot that is facetted, but not coloured.
+#' @description Density ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -593,9 +593,9 @@ gg_density_facet <- function(data,
   return(plot)
 }
 
-#' @title Smoothed density ggplot that is coloured and facetted.
+#' @title Density ggplot that is coloured and facetted.
 #' 
-#' @description Smoothed density ggplot that is coloured and facetted.
+#' @description Density ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.

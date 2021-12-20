@@ -11,7 +11,7 @@ gg_sf(
   borders_on_top = NULL,
   pal = pal_viridis_reorder(1),
   pal_borders = "#7F7F7F",
-  alpha_fill = 0.2,
+  alpha_fill = NULL,
   alpha_line = 1,
   alpha_point = 1,
   alpha_borders = 1,

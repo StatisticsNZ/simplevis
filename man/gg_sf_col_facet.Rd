@@ -15,7 +15,7 @@ gg_sf_col_facet(
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
   pal_borders = "#7F7F7F",
-  alpha_fill = 0.2,
+  alpha_fill = NULL,
   alpha_line = 1,
   alpha_point = 1,
   alpha_borders = 1,

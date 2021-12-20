@@ -2,6 +2,7 @@
 
 * Rewrote borders arguments to start with pal, alpha and size prefix.
 * Added alpha_borders argument.
+* Fix alpha_fill in sf functions.
 
 # simplevis 5.0.49
 

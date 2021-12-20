@@ -16,6 +16,7 @@ leaflet_stars_col(
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,
+  col_legend_none = FALSE,
   col_method = NULL,
   col_na_rm = FALSE,
   col_title = NULL,
@@ -44,6 +45,8 @@ leaflet_stars_col(
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_labels}{A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric. Use function(x) x to keep labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 

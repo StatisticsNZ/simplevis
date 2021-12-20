@@ -197,6 +197,7 @@ gg_density <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -247,6 +248,7 @@ gg_density_col <- function(data,
                            y_title = NULL,
                            y_title_wrap = 50,
                            col_labels = snakecase::to_sentence_case,
+                           col_legend_none = FALSE,
                            col_na_rm = FALSE,
                            col_title = NULL,
                            col_title_wrap = 25,
@@ -373,6 +375,15 @@ gg_density_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
   
+  if (mobile == TRUE & col_legend_none == TRUE) {
+    plot <- plot +
+      guides(col = guide_legend(ncol = 1), 
+             fill = guide_legend(ncol = 1))
+  }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -393,7 +404,6 @@ gg_density_col <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      guides(fill = guide_legend(ncol = 1), col = guide_legend(ncol = 1)) +
       theme_mobile_extra()
   }
   
@@ -614,6 +624,7 @@ gg_density_facet <- function(data,
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -670,6 +681,7 @@ gg_density_col_facet <- function(data,
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  col_labels = snakecase::to_sentence_case,
+                                 col_legend_none = FALSE,
                                  col_na_rm = FALSE,
                                  col_title = NULL,
                                  col_title_wrap = 25,
@@ -799,6 +811,9 @@ gg_density_col_facet <- function(data,
   }
   
   #colour, titles & facetting
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   plot <- plot +
     scale_colour_manual(
       values = pal_line,
@@ -821,7 +836,6 @@ gg_density_col_facet <- function(data,
       y = stringr::str_wrap(y_title, y_title_wrap),
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
-    guides(fill = guide_legend(byrow = TRUE), col = guide_legend(byrow = TRUE)) +
     facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
   
   return(plot)

@@ -33,6 +33,7 @@
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.  
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
@@ -92,6 +93,7 @@ gg_tile_col <- function(data,
                         col_cuts = NULL,
                         col_intervals_right = TRUE,
                         col_labels = NULL,
+                        col_legend_none = FALSE,
                         col_method = NULL,
                         col_na_rm = FALSE,
                         col_breaks_n = 4,
@@ -289,11 +291,13 @@ gg_tile_col <- function(data,
     
     if (mobile == TRUE) {
       plot <- plot +
-        guides(col = guide_legend(ncol = 1),
-               fill = guide_legend(ncol = 1))
+        guides(fill = guide_legend(ncol = 1))
     }
   }
   
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -357,6 +361,7 @@ gg_tile_col <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.  
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -422,6 +427,7 @@ gg_tile_col_facet <- function(data,
                               col_cuts = NULL,
                               col_intervals_right = TRUE,
                               col_labels = NULL,
+                              col_legend_none = FALSE,
                               col_method = NULL,
                               col_na_rm = FALSE,
                               col_title = NULL,
@@ -627,6 +633,9 @@ gg_tile_col_facet <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
   }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
 
   #x & y scales, titles, and facetting
   plot <- plot +

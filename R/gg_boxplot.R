@@ -7,7 +7,7 @@
 #' @param alpha_fill The opacity of the fill. 
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outliers. Defaults to 0.75.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -73,7 +73,7 @@ gg_boxplot <- function(data,
                        alpha_line = 1,
                        alpha_point = 1,
                        size_line = 0.5,
-                       size_point = 1,
+                       size_point = 0.75,
                        size_width = NULL,
                        title = NULL,
                        title_wrap = 80,
@@ -314,7 +314,7 @@ gg_boxplot <- function(data,
 #' @param alpha_fill The opacity of the fill. 
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outliers. Defaults to 0.75.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -339,7 +339,8 @@ gg_boxplot <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
-#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed.
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.  
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -379,7 +380,7 @@ gg_boxplot_col <- function(data,
                            alpha_line = 1,
                            alpha_point = 1,
                            size_line = 0.5,
-                           size_point = 1,
+                           size_point = 0.75,
                            size_width = NULL,
                            title = NULL,
                            title_wrap = 80,
@@ -404,6 +405,7 @@ gg_boxplot_col <- function(data,
                            y_zero = FALSE,
                            y_zero_line = NULL,
                            col_labels = snakecase::to_sentence_case,
+                           col_legend_none = FALSE,
                            col_na_rm = FALSE,
                            col_rev = FALSE,
                            col_title = NULL,
@@ -681,6 +683,14 @@ gg_boxplot_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
+  if (mobile == TRUE & col_legend_none == TRUE) {
+    plot <- plot +
+      guides(fill = guide_legend(ncol = 1))
+  }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -701,7 +711,6 @@ gg_boxplot_col <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      guides(fill = guide_legend(ncol = 1)) +
       theme_mobile_extra() 
   }
   
@@ -719,7 +728,7 @@ gg_boxplot_col <- function(data,
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outliers. Defaults to 0.75.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -774,7 +783,7 @@ gg_boxplot_facet <- function(data,
                              alpha_line = 1,
                              alpha_point = 1,
                              size_line = 0.5,
-                             size_point = 1,
+                             size_point = 0.75,
                              size_width = NULL,
                              title = NULL,
                              title_wrap = 80,
@@ -1072,7 +1081,7 @@ gg_boxplot_facet <- function(data,
 #' @param alpha_fill The opacity of the fill. 
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outliers. Defaults to 0.75.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -1098,6 +1107,7 @@ gg_boxplot_facet <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -1147,7 +1157,7 @@ gg_boxplot_col_facet <- function(data,
                                  alpha_line = 1,
                                  alpha_point = 1,
                                  size_line = 0.5,
-                                 size_point = 1,
+                                 size_point = 0.75,
                                  size_width = NULL,
                                  title = NULL,
                                  title_wrap = 80,
@@ -1172,6 +1182,7 @@ gg_boxplot_col_facet <- function(data,
                                  y_zero = FALSE,
                                  y_zero_line = NULL,
                                  col_labels = snakecase::to_sentence_case,
+                                 col_legend_none = FALSE,
                                  col_na_rm = FALSE,
                                  col_rev = FALSE,
                                  col_title = NULL,
@@ -1457,6 +1468,9 @@ gg_boxplot_col_facet <- function(data,
   }
   
   #colour, titles & facetting
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   plot <- plot +
     scale_fill_manual(
       values = pal_fill,

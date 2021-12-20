@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.45</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.47</span>
       </span>
     </div>
 
@@ -174,7 +174,7 @@
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>size_width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
@@ -199,6 +199,7 @@
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
+  <span class='kw'>col_legend_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -267,7 +268,7 @@
     </tr>
     <tr>
       <th>size_point</th>
-      <td><p>The size of the outliers. Defaults to 1.</p></td>
+      <td><p>The size of the outliers. Defaults to 0.75.</p></td>
     </tr>
     <tr>
       <th>size_width</th>
@@ -364,6 +365,10 @@
     <tr>
       <th>col_labels</th>
       <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
+    </tr>
+    <tr>
+      <th>col_legend_none</th>
+      <td><p>TRUE or FALSE of whether to remove the legend.</p></td>
     </tr>
     <tr>
       <th>col_na_rm</th>

@@ -323,6 +323,7 @@ gg_hboxplot <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -380,6 +381,7 @@ gg_hboxplot_col <- function(data,
                         y_zero = FALSE,
                         y_zero_line = NULL,
                         col_labels = stringr::str_to_sentence,
+                        col_legend_none = FALSE,
                         col_na_rm = FALSE,
                         col_rev = FALSE,
                         col_title = NULL,
@@ -657,6 +659,20 @@ gg_hboxplot_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
   
+  if (col_legend_none == FALSE) {
+    if (mobile == FALSE) {
+      plot <- plot +
+        guides(fill = guide_legend(reverse = TRUE))
+    }
+    else if (mobile == TRUE) {
+      plot <- plot +
+        guides(fill = guide_legend(ncol = 1, reverse = TRUE))
+    }
+  }
+
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -666,8 +682,7 @@ gg_hboxplot_col <- function(data,
         x = stringr::str_wrap(y_title, y_title_wrap),
         y = stringr::str_wrap(x_title, x_title_wrap),
         caption = stringr::str_wrap(caption, caption_wrap)
-      ) +
-      guides(fill = guide_legend(reverse = TRUE))
+      ) 
   }
   else if (mobile == TRUE) {
     plot <- plot +
@@ -678,7 +693,6 @@ gg_hboxplot_col <- function(data,
         y = stringr::str_wrap(x_title, 30),
         caption = stringr::str_wrap(caption, 50)
       ) +
-      guides(fill = guide_legend(ncol = 1, reverse = TRUE)) +
       theme_mobile_extra()
   }
   
@@ -1072,6 +1086,7 @@ gg_hboxplot_facet <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -1135,6 +1150,7 @@ gg_hboxplot_col_facet <- function(data,
                               y_zero = FALSE,
                               y_zero_line = NULL,
                               col_labels = stringr::str_to_sentence,
+                              col_legend_none = FALSE,
                               col_na_rm = FALSE,
                               col_rev = FALSE,
                               col_title = NULL,
@@ -1419,6 +1435,14 @@ gg_hboxplot_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
+  if (col_legend_none == FALSE) {
+    plot <- plot +
+      guides(fill = guide_legend(reverse = TRUE))
+  } 
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   #colour, titles & facetting
   plot <- plot +
     scale_fill_manual(
@@ -1428,7 +1452,6 @@ gg_hboxplot_col_facet <- function(data,
       na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) +
-    guides(fill = guide_legend(reverse = TRUE)) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

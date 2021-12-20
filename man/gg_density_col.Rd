@@ -32,6 +32,7 @@ gg_density_col(
   y_title = NULL,
   y_title_wrap = 50,
   col_labels = snakecase::to_sentence_case,
+  col_legend_none = FALSE,
   col_na_rm = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
@@ -100,6 +101,8 @@ gg_density_col(
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

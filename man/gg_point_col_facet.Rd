@@ -16,7 +16,7 @@ gg_point_col_facet(
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
   alpha_point = 1,
-  size_point = 1,
+  size_point = 0.75,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -42,6 +42,7 @@ gg_point_col_facet(
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,
+  col_legend_none = FALSE,
   col_method = NULL,
   col_na_rm = FALSE,
   col_title = NULL,
@@ -79,7 +80,7 @@ gg_point_col_facet(
 
 \item{alpha_point}{The opacity of the points.}
 
-\item{size_point}{Size of points. Defaults to 1.}
+\item{size_point}{Size of points. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -130,6 +131,8 @@ gg_point_col_facet(
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 

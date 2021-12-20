@@ -7,7 +7,7 @@
 #' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -50,7 +50,7 @@ gg_point <- function(data,
                      position = "identity", 
                      pal = pal_viridis_reorder(1),
                      alpha_point = 1,
-                     size_point = 1,
+                     size_point = 0.75,
                      title = NULL,
                      title_wrap = 80,
                      subtitle = NULL,
@@ -238,7 +238,7 @@ gg_point <- function(data,
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -264,6 +264,7 @@ gg_point <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma() if numeric.    
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -293,7 +294,7 @@ gg_point_col <- function(data,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
                          alpha_point = 1,
-                         size_point = 1,
+                         size_point = 0.75,
                          title = NULL,
                          title_wrap = 80,
                          subtitle = NULL,
@@ -318,6 +319,7 @@ gg_point_col <- function(data,
                          col_breaks_n = 4,
                          col_cuts = NULL,
                          col_labels = NULL,
+                         col_legend_none = FALSE,
                          col_method = NULL,
                          col_intervals_right = TRUE,
                          col_na_rm = FALSE,
@@ -563,6 +565,9 @@ gg_point_col <- function(data,
     }
   }
   
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -599,7 +604,7 @@ gg_point_col <- function(data,
 #' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -648,7 +653,7 @@ gg_point_facet <- function(data,
                            position = "identity", 
                            pal = pal_viridis_reorder(1),
                            alpha_point = 1,
-                           size_point = 1,
+                           size_point = 0.75,
                            title = NULL,
                            title_wrap = 80,
                            subtitle = NULL,
@@ -845,7 +850,7 @@ gg_point_facet <- function(data,
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -868,9 +873,10 @@ gg_point_facet <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.   
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -906,7 +912,7 @@ gg_point_col_facet <- function(data,
                                pal_na = "#7F7F7F",
                                pal_rev = FALSE,
                                alpha_point = 1,
-                               size_point = 1,
+                               size_point = 0.75,
                                title = NULL,
                                title_wrap = 80,
                                subtitle = NULL,
@@ -932,6 +938,7 @@ gg_point_col_facet <- function(data,
                                col_cuts = NULL,
                                col_intervals_right = TRUE,
                                col_labels = NULL,
+                               col_legend_none = FALSE,
                                col_method = NULL,
                                col_na_rm = FALSE,
                                col_title = NULL,
@@ -1189,6 +1196,9 @@ gg_point_col_facet <- function(data,
     }
     
     #titles & facetting
+    if (col_legend_none == TRUE) plot <- plot +
+      theme(legend.position = "none")
+    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),

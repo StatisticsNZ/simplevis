@@ -24,6 +24,7 @@ gg_stars_col(
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,
+  col_legend_none = FALSE,
   col_na_rm = FALSE,
   col_method = NULL,
   col_title = NULL,
@@ -72,6 +73,8 @@ gg_stars_col(
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.}
 

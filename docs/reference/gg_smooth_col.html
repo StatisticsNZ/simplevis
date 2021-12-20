@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.45</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.47</span>
       </span>
     </div>
 
@@ -171,7 +171,9 @@
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -193,6 +195,7 @@
   <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
+  <span class='kw'>col_legend_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_title_wrap</span> <span class='kw'>=</span> <span class='fl'>25</span>,
@@ -248,8 +251,16 @@
       <td><p>The opacity of the outline.</p></td>
     </tr>
     <tr>
+      <th>alpha_point</th>
+      <td><p>The opacity of the points.</p></td>
+    </tr>
+    <tr>
       <th>size_line</th>
       <td><p>Size of lines. Defaults to 0.5.</p></td>
+    </tr>
+    <tr>
+      <th>size_point</th>
+      <td><p>Size of points. Defaults to 0.75.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -336,6 +347,10 @@
       <td><p>A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed.</p></td>
     </tr>
     <tr>
+      <th>col_legend_none</th>
+      <td><p>TRUE or FALSE of whether to remove the legend.</p></td>
+    </tr>
+    <tr>
       <th>col_na_rm</th>
       <td><p>TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.</p></td>
     </tr>
@@ -397,10 +412,23 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='fu'>gg_smooth_col</span>(<span class='no'>penguins</span>,
+<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'>gg_smooth_col</span>(<span class='no'>penguins</span>,
              <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>bill_length_mm</span>,
              <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
-             <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>species</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg_smooth_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+             <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>species</span>)
+
+<span class='no'>plot</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='gg_smooth_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>plotly</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘plotly’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:ggplot2’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    last_plot</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:graphics’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    layout</span></div><div class='input'><span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
+
+<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/plotly/man/style.html'>style</a></span>(<span class='kw'>showlegend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>traces</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='no'>n</span>) <span class='co'>#fix ggplotly bug</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

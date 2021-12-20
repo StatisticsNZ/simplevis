@@ -32,8 +32,8 @@ shinyServer(function(input, output, session) {
   plot_theme <- reactive({
     gg_theme(
       family  = "helvetica", 
-      title_size = ifelse(input$isMobile == FALSE, 11, 16), 
-      body_size = ifelse(input$isMobile == FALSE, 10, 15),
+      size_title = ifelse(input$isMobile == FALSE, 11, 16), 
+      size_body = ifelse(input$isMobile == FALSE, 10, 15),
       gridlines = "vertical" 
       )
   })

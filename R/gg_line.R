@@ -7,7 +7,7 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -60,7 +60,7 @@ gg_line <- function(data,
                     pal = pal_viridis_reorder(1),
                     alpha_line = 1,
                     alpha_point = 1,
-                    size_point = 1,
+                    size_point = 0.75,
                     size_line = 0.5,
                     title = NULL,
                     title_wrap = 80,
@@ -256,7 +256,7 @@ gg_line <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -282,6 +282,7 @@ gg_line <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -316,7 +317,7 @@ gg_line_col <- function(data,
                         pal_rev = FALSE,
                         alpha_line = 1,
                         alpha_point = 1,
-                        size_point = 1,
+                        size_point = 0.75,
                         size_line = 0.5,
                         title = NULL,
                         title_wrap = 80,
@@ -342,6 +343,7 @@ gg_line_col <- function(data,
                         y_zero = FALSE,
                         y_zero_line = NULL,
                         col_labels = snakecase::to_sentence_case,
+                        col_legend_none = FALSE,
                         col_na_rm = FALSE,
                         col_title = NULL,
                         col_title_wrap = 25,
@@ -521,6 +523,14 @@ gg_line_col <- function(data,
       na.value = pal_na_line,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
+  
+  if (mobile == TRUE & col_legend_none == TRUE) {
+    plot <- plot +
+      guides(col = guide_legend(ncol = 1))
+  }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
 
   #titles
   if (mobile == FALSE) {
@@ -542,7 +552,6 @@ gg_line_col <- function(data,
         y = stringr::str_wrap(y_title, 30),
         caption = stringr::str_wrap(caption, 50)
       )  +
-      guides(col = guide_legend(ncol = 1)) +
       theme_mobile_extra()
   }
   
@@ -559,7 +568,7 @@ gg_line_col <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -617,7 +626,7 @@ gg_line_facet <- function(data,
                           pal = pal_viridis_reorder(1),
                           alpha_line = 1,
                           alpha_point = 1,
-                          size_point = 1,
+                          size_point = 0.75,
                           size_line = 0.5,
                           title = NULL,
                           title_wrap = 80,
@@ -821,7 +830,7 @@ gg_line_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_line The opacity of the outline. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.5. 
+#' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -847,6 +856,7 @@ gg_line_facet <- function(data,
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
@@ -887,7 +897,7 @@ gg_line_col_facet <- function(data,
                               pal_rev = FALSE,
                               alpha_line = 1,
                               alpha_point = 1,
-                              size_point = 1,
+                              size_point = 0.75,
                               size_line = 0.5,
                               title = NULL,
                               title_wrap = 80,
@@ -913,6 +923,7 @@ gg_line_col_facet <- function(data,
                               y_zero = FALSE,
                               y_zero_line = NULL,
                               col_labels = snakecase::to_sentence_case,
+                              col_legend_none = FALSE,
                               col_na_rm = FALSE,
                               col_title = NULL,
                               col_title_wrap = 25,
@@ -1099,6 +1110,9 @@ gg_line_col_facet <- function(data,
   }
   
   #colour, titles & facetting
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   plot <- plot +
     scale_colour_manual(
       values = pal_line,

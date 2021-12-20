@@ -7,7 +7,7 @@
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -33,7 +33,7 @@ gg_sf <- function(data,
                   alpha_line = 1,
                   alpha_point = 1,
                   size_line = 0.5,
-                  size_point = 1,
+                  size_point = 0.75,
                   borders = NULL,
                   borders_on_top = NULL,
                   borders_pal = "#7F7F7F",
@@ -179,7 +179,7 @@ gg_sf <- function(data,
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
@@ -192,6 +192,7 @@ gg_sf <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -230,7 +231,7 @@ gg_sf_col <- function(data,
                       alpha_line = 1,
                       alpha_point = 1,
                       size_line = 0.5,
-                      size_point = 1,
+                      size_point = 0.75,
                       borders = NULL,
                       borders_on_top = NULL,
                       borders_pal = "#7F7F7F",
@@ -243,6 +244,7 @@ gg_sf_col <- function(data,
                       col_cuts = NULL,
                       col_intervals_right = TRUE,
                       col_labels = NULL,
+                      col_legend_none = FALSE,
                       col_na_rm = FALSE,
                       col_method = NULL,
                       col_title = NULL,
@@ -516,7 +518,10 @@ gg_sf_col <- function(data,
                fill = guide_legend(ncol = 1))
     }
   }
-
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
@@ -563,7 +568,7 @@ gg_sf_col <- function(data,
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
@@ -595,7 +600,7 @@ gg_sf_facet <- function(data,
                         alpha_line = 1,
                         alpha_point = 1,
                         size_line = 0.5,
-                        size_point = 1,
+                        size_point = 0.75,
                         facet_labels = snakecase::to_sentence_case,
                         facet_na_rm = FALSE,
                         facet_ncol = NULL,
@@ -753,7 +758,7 @@ gg_sf_facet <- function(data,
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param size_point Size of points. Defaults to 0.5.
+#' @param size_point Size of points. Defaults to 0.75.
 #' @param alpha_fill The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
@@ -767,6 +772,7 @@ gg_sf_facet <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -798,7 +804,7 @@ gg_sf_col_facet <- function(data,
                             alpha_line = 1,
                             alpha_point = 1,
                             size_line = 0.5,
-                            size_point = 1,
+                            size_point = 0.75,
                             borders = NULL,
                             borders_on_top = NULL,
                             borders_pal = "#7F7F7F",
@@ -811,6 +817,7 @@ gg_sf_col_facet <- function(data,
                             col_cuts = NULL,
                             col_intervals_right = TRUE,
                             col_labels = NULL,
+                            col_legend_none = FALSE,
                             col_method = NULL,
                             col_na_rm = FALSE,
                             col_title = NULL,
@@ -1093,6 +1100,9 @@ gg_sf_col_facet <- function(data,
           name = stringr::str_wrap(col_title, col_title_wrap))
     }
   }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
   
   #borders
   if (!is.null(borders)) {

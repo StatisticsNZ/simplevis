@@ -216,7 +216,8 @@ leaflet_sf <- function(data,
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_labels A function or named vector to modify the colour scale labels. Defaults to snakecase::to_sentence_case if categorical, and scales::label_comma() if numeric. Use function(x) x to keep labels untransformed.  
+#' @param col_labels A function or named vector to modify the colour scale labels. Defaults to snakecase::to_sentence_case if categorical, and scales::label_comma() if numeric. Use function(x) x to keep labels untransformed.
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.  
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
@@ -255,6 +256,7 @@ leaflet_sf_col <- function(data,
                            col_cuts = NULL,
                            col_intervals_right = TRUE, 
                            col_labels = NULL,
+                           col_legend_none = FALSE,
                            col_method = NULL,
                            col_na_rm = FALSE,
                            col_title = NULL,
@@ -541,26 +543,28 @@ leaflet_sf_col <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #legend
-  if (col_method == "continuous") {
-    map <- map %>% 
-      addLegend(
-        layerId = col_id,
-        pal = pal_fun,
-        values = col_var_vctr,
-        bins = col_cuts,
-        title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = alpha_line)  # ideally have fillOpacity = alpha_fill argument here
-  }
-  else if (col_method %in% c("bin", "quantile", "category")) {
-    map <- map %>% 
-      addLegend(
-        layerId = col_id,
-        colors = pal,
-        labels = col_labels,
-        title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
-        position = "bottomright",
-        opacity = alpha_line) # ideally have fillOpacity = alpha_fill argument here
+  if (col_legend_none == FALSE) {
+    if (col_method == "continuous") {
+      map <- map %>% 
+        addLegend(
+          layerId = col_id,
+          pal = pal_fun,
+          values = col_var_vctr,
+          bins = col_cuts,
+          title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
+          position = "bottomright",
+          opacity = alpha_line)  # ideally have fillOpacity = alpha_fill argument here
+    }
+    else if (col_method %in% c("bin", "quantile", "category")) {
+      map <- map %>% 
+        addLegend(
+          layerId = col_id,
+          colors = pal,
+          labels = col_labels,
+          title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),
+          position = "bottomright",
+          opacity = alpha_line) # ideally have fillOpacity = alpha_fill argument here
+    }
   }
   
   return(map)

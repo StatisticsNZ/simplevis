@@ -13,7 +13,7 @@ gg_sf_facet(
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
-  size_point = 1,
+  size_point = 0.75,
   facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
@@ -48,7 +48,7 @@ gg_sf_facet(
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{size_point}{Size of points. Defaults to 0.5.}
+\item{size_point}{Size of points. Defaults to 0.75.}
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 

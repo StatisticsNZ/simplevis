@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.45</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.47</span>
       </span>
     </div>
 
@@ -203,6 +203,7 @@
   <span class='kw'>col_cuts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_intervals_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_legend_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -384,6 +385,10 @@
     <tr>
       <th>col_labels</th>
       <td><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.</p></td>
+    </tr>
+    <tr>
+      <th>col_legend_none</th>
+      <td><p>TRUE or FALSE of whether to remove the legend.</p></td>
     </tr>
     <tr>
       <th>col_method</th>

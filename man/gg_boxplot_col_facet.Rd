@@ -17,7 +17,7 @@ gg_boxplot_col_facet(
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
-  size_point = 1,
+  size_point = 0.75,
   size_width = NULL,
   title = NULL,
   title_wrap = 80,
@@ -42,6 +42,7 @@ gg_boxplot_col_facet(
   y_zero = FALSE,
   y_zero_line = NULL,
   col_labels = snakecase::to_sentence_case,
+  col_legend_none = FALSE,
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,
@@ -82,7 +83,7 @@ gg_boxplot_col_facet(
 
 \item{size_line}{The size of the outlines of boxplots. Defaults to 0.5.}
 
-\item{size_point}{The size of the outliers. Defaults to 1.}
+\item{size_point}{The size of the outliers. Defaults to 0.75.}
 
 \item{size_width}{Width of boxes. Defaults to 0.5.}
 
@@ -131,6 +132,8 @@ gg_boxplot_col_facet(
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

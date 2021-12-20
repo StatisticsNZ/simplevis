@@ -42,6 +42,7 @@ gg_hboxplot_col_facet(
   y_zero = FALSE,
   y_zero_line = NULL,
   col_labels = stringr::str_to_sentence,
+  col_legend_none = FALSE,
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,
@@ -131,6 +132,8 @@ gg_hboxplot_col_facet(
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

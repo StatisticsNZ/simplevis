@@ -16,7 +16,7 @@ gg_sf_col_facet(
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
-  size_point = 1,
+  size_point = 0.75,
   borders = NULL,
   borders_on_top = NULL,
   borders_pal = "#7F7F7F",
@@ -29,6 +29,7 @@ gg_sf_col_facet(
   col_cuts = NULL,
   col_intervals_right = TRUE,
   col_labels = NULL,
+  col_legend_none = FALSE,
   col_method = NULL,
   col_na_rm = FALSE,
   col_title = NULL,
@@ -65,7 +66,7 @@ gg_sf_col_facet(
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{size_point}{Size of points. Defaults to 0.5.}
+\item{size_point}{Size of points. Defaults to 0.75.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
@@ -90,6 +91,8 @@ gg_sf_col_facet(
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::comma for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 

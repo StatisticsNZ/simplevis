@@ -13,7 +13,7 @@ gg_point_facet(
   position = "identity",
   pal = pal_viridis_reorder(1),
   alpha_point = 1,
-  size_point = 1,
+  size_point = 0.75,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -62,7 +62,7 @@ gg_point_facet(
 
 \item{alpha_point}{The opacity of the points.}
 
-\item{size_point}{Size of points. Defaults to 1.}
+\item{size_point}{Size of points. Defaults to 0.75.}
 
 \item{title}{Title string.}
 

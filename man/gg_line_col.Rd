@@ -15,7 +15,7 @@ gg_line_col(
   pal_rev = FALSE,
   alpha_line = 1,
   alpha_point = 1,
-  size_point = 1,
+  size_point = 0.75,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,
@@ -41,6 +41,7 @@ gg_line_col(
   y_zero = FALSE,
   y_zero_line = NULL,
   col_labels = snakecase::to_sentence_case,
+  col_legend_none = FALSE,
   col_na_rm = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
@@ -73,7 +74,7 @@ gg_line_col(
 
 \item{size_point}{Size of points. Defaults to 1.}
 
-\item{size_line}{Size of lines. Defaults to 0.5.}
+\item{size_line}{Size of lines. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -122,6 +123,8 @@ gg_line_col(
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed.}
+
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

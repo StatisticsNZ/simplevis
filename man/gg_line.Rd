@@ -12,7 +12,7 @@ gg_line(
   pal = pal_viridis_reorder(1),
   alpha_line = 1,
   alpha_point = 1,
-  size_point = 1,
+  size_point = 0.75,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,
@@ -60,7 +60,7 @@ gg_line(
 
 \item{size_point}{Size of points. Defaults to 1.}
 
-\item{size_line}{Size of lines. Defaults to 0.5.}
+\item{size_line}{Size of lines. Defaults to 0.75.}
 
 \item{title}{Title string.}
 

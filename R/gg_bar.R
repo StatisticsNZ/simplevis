@@ -306,6 +306,7 @@ gg_bar <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.  
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
@@ -378,6 +379,7 @@ gg_bar_col <- function(data,
                        col_cuts = NULL,
                        col_intervals_right = TRUE,
                        col_labels = NULL,
+                       col_legend_none = FALSE,
                        col_method = NULL,
                        col_na_rm = FALSE,
                        col_rev = FALSE,
@@ -656,7 +658,7 @@ gg_bar_col <- function(data,
         breaks = col_cuts,
         na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) +
-      guides(colour = "none")
+      guides(fill = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
@@ -675,12 +677,15 @@ gg_bar_col <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
-    if (mobile == TRUE) {
+    if (mobile == TRUE & col_legend_none == TRUE) {
       plot <- plot +
         guides(col = guide_legend(ncol = 1),
                fill = guide_legend(ncol = 1))
     }
   }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
   
   #titles
   if (mobile == FALSE) {
@@ -1018,6 +1023,7 @@ gg_bar_facet <- function(data,
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.  
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
@@ -1089,6 +1095,7 @@ gg_bar_col_facet <- function(data,
                              col_cuts = NULL,
                              col_labels = NULL,
                              col_intervals_right = TRUE,
+                             col_legend_none = FALSE,
                              col_method = NULL,
                              col_na_rm = FALSE,
                              col_rev = FALSE,
@@ -1385,7 +1392,7 @@ gg_bar_col_facet <- function(data,
         breaks = col_cuts,
         na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) +
-      guides(colour = "none")
+      guides(fill = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
@@ -1404,6 +1411,9 @@ gg_bar_col_facet <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
   }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
   
   #titles & facetting
   plot <- plot +

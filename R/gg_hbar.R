@@ -308,6 +308,7 @@ gg_hbar <- function(data,
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
@@ -380,6 +381,7 @@ gg_hbar_col <- function(data,
                         col_cuts = NULL,
                         col_intervals_right = TRUE,
                         col_labels = NULL,
+                        col_legend_none = FALSE,
                         col_method = NULL,
                         col_na_rm = FALSE,
                         col_rev = FALSE,
@@ -660,7 +662,7 @@ gg_hbar_col <- function(data,
         breaks = col_cuts,
         na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) +
-      guides(colour = "none")
+      guides(fill = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
@@ -679,19 +681,24 @@ gg_hbar_col <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
-    legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
-    
-    if (mobile == FALSE) {
-      plot <- plot +
-        guides(col = guide_legend(reverse = legend_reverse), 
-               fill = guide_legend(reverse = legend_reverse))
+      if (col_legend_none == FALSE) {
+        legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
+        
+        if (mobile == FALSE) {
+          plot <- plot +
+            guides(col = guide_legend(reverse = legend_reverse), 
+                   fill = guide_legend(reverse = legend_reverse))
+        }
+        else if (mobile == TRUE) {
+          plot <- plot +
+            guides(col = guide_legend(ncol = 1, reverse = legend_reverse), 
+                   fill = guide_legend(ncol = 1, reverse = legend_reverse))
+        }
+      }
     }
-    else if (mobile == TRUE) {
-      plot <- plot +
-        guides(col = guide_legend(ncol = 1, reverse = legend_reverse), 
-               fill = guide_legend(ncol = 1, reverse = legend_reverse))
-    }
-  }
+  
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
 
   #titles
   if (mobile == FALSE) {
@@ -1042,6 +1049,7 @@ gg_hbar_facet <- function(data,
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.   
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.   
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
@@ -1116,6 +1124,7 @@ gg_hbar_col_facet <- function(data,
                               col_cuts = NULL,
                               col_intervals_right = TRUE,
                               col_labels = NULL,
+                              col_legend_none = FALSE,
                               col_method = NULL,
                               col_na_rm = FALSE,
                               col_rev = FALSE,
@@ -1413,7 +1422,7 @@ gg_hbar_col_facet <- function(data,
         breaks = col_cuts,
         na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)) +
-      guides(colour = "none")
+      guides(fill = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
@@ -1432,13 +1441,18 @@ gg_hbar_col_facet <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
-    legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
-    
-    plot <- plot +
-      guides(col = guide_legend(reverse = legend_reverse), 
-             fill = guide_legend(reverse = legend_reverse))
+    if (col_legend_none == FALSE) {
+      legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
+      
+      plot <- plot +
+        guides(col = guide_legend(reverse = legend_reverse), 
+               fill = guide_legend(reverse = legend_reverse))
+    } 
   }
     
+  if (col_legend_none == TRUE) plot <- plot +
+    theme(legend.position = "none")
+  
   #titles & facetting
   plot <- plot +
     labs(

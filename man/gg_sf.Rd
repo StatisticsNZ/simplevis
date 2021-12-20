@@ -12,7 +12,7 @@ gg_sf(
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
-  size_point = 1,
+  size_point = 0.75,
   borders = NULL,
   borders_on_top = NULL,
   borders_pal = "#7F7F7F",
@@ -42,7 +42,7 @@ gg_sf(
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{size_point}{Size of points. Defaults to 0.5.}
+\item{size_point}{Size of points. Defaults to 0.75.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

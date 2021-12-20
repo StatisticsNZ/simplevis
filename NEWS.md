@@ -1,3 +1,8 @@
+# simplevis 5.0
+# simplevis 5.0.46
+
+* Add points into smooth functions.
+
 # simplevis 5.0.45
 
 * Fix how leaflet functions interact with alpha.

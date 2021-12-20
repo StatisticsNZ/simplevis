@@ -1,13 +1,14 @@
 #' @title Stars ggplot map.
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
-#' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
-#' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.5.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
-#' @param borders_pal Colour of the borders. Defaults to "#323232".
-#' @param borders_size Size of the borders. Defaults to 0.2.
+#' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
+#' @param pal Character vector of hex codes. 
+#' @param pal_borders Colour of the borders. Defaults to "#323232".
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5.
+#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -27,13 +28,14 @@
 #'      borders = example_sf_borders)
 #'      
 gg_stars <- function(data,
-                     downsample = 0,
-                     pal = pal_viridis_reorder(1),
-                     alpha_fill = 0.5,
                      borders = NULL,
                      borders_on_top = TRUE,
-                     borders_pal = "#323232",
-                     borders_size = 0.2,
+                     downsample = 0,
+                     pal = pal_viridis_reorder(1),
+                     pal_borders = "#323232",
+                     alpha_fill = 0.5,
+                     alpha_borders = 1, 
+                     size_borders = 0.2,
                      title = NULL,
                      title_wrap = 80,
                      subtitle = NULL,
@@ -63,6 +65,8 @@ gg_stars <- function(data,
   
   #borders
   if (!is.null(borders)) {
+    pal_borders <- scales::alpha(pal_borders, alpha = alpha_borders)
+    
     if (sf::st_crs(data) != sf::st_crs(borders)) {
       borders <- sf::st_transform(borders, sf::st_crs(data))
     }
@@ -71,8 +75,8 @@ gg_stars <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -95,8 +99,8 @@ gg_stars <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -128,15 +132,16 @@ gg_stars <- function(data,
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
 #' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The opacity of the fill. Defaults to 1.
-#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
-#' @param borders_size Size of the borders. Defaults to 0.2.
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -170,15 +175,16 @@ gg_stars <- function(data,
 #'           
 gg_stars_col <- function(data,
                          col_var,
+                         borders = NULL,
+                         borders_on_top = TRUE,
                          downsample = 0,
                          pal = NULL,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
+                         pal_borders = "#7F7F7F",
                          alpha_fill = 1,
-                         borders = NULL,
-                         borders_on_top = TRUE,
-                         borders_pal = "#7F7F7F",
-                         borders_size = 0.2,
+                         alpha_borders = 1, 
+                         size_borders = 0.2,
                          title = NULL,
                          title_wrap = 80,
                          subtitle = NULL,
@@ -244,6 +250,8 @@ gg_stars_col <- function(data,
   
   #borders
   if (!is.null(borders)) {
+    pal_borders <- scales::alpha(pal_borders, alpha = alpha_borders)
+    
     if (sf::st_crs(data) != sf::st_crs(borders)) {
       borders <- sf::st_transform(borders, sf::st_crs(data))
     } 
@@ -251,8 +259,8 @@ gg_stars_col <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -378,8 +386,8 @@ gg_stars_col <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }

@@ -6,13 +6,14 @@
 \usage{
 gg_stars(
   data,
-  downsample = 0,
-  pal = pal_viridis_reorder(1),
-  alpha_fill = 0.5,
   borders = NULL,
   borders_on_top = TRUE,
-  borders_pal = "#323232",
-  borders_size = 0.2,
+  downsample = 0,
+  pal = pal_viridis_reorder(1),
+  pal_borders = "#323232",
+  alpha_fill = 0.5,
+  alpha_borders = 1,
+  size_borders = 0.2,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -26,19 +27,21 @@ gg_stars(
 \arguments{
 \item{data}{A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.}
 
-\item{downsample}{downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.}
-
-\item{pal}{Character vector of hex codes.}
-
-\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
-
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 
 \item{borders_on_top}{TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.}
 
-\item{borders_pal}{Colour of the borders. Defaults to "#323232".}
+\item{downsample}{downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.}
 
-\item{borders_size}{Size of the borders. Defaults to 0.2.}
+\item{pal}{Character vector of hex codes.}
+
+\item{pal_borders}{Colour of the borders. Defaults to "#323232".}
+
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
+
+\item{alpha_borders}{Opacity of the borders. Defaults to 1.}
+
+\item{size_borders}{Size of the borders. Defaults to 0.2.}
 
 \item{title}{Title string.}
 

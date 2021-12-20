@@ -1,17 +1,18 @@
 #' @title Simple feature ggplot map.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
-#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param data A sf object with defined coordinate reference system. Required input.
+#' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param pal Character vector of hex codes. 
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
+#' @param alpha_borders Opacity of the borders. Defaults to 1.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param size_point Size of points. Defaults to 0.75.
-#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
-#' @param borders_size Size of the borders. Defaults to 0.2.
+#' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -28,16 +29,17 @@
 #'      
 gg_sf <- function(data,
                   text_var = NULL,
+                  borders = NULL,
+                  borders_on_top = NULL,
                   pal = pal_viridis_reorder(1),
+                  pal_borders = "#7F7F7F",
                   alpha_fill = 0.2,
                   alpha_line = 1,
                   alpha_point = 1,
+                  alpha_borders = 1,
                   size_line = 0.5,
                   size_point = 0.75,
-                  borders = NULL,
-                  borders_on_top = NULL,
-                  borders_pal = "#7F7F7F",
-                  borders_size = 0.2,
+                  size_borders = 0.2,
                   title = NULL,
                   title_wrap = 80,
                   subtitle = NULL,
@@ -77,6 +79,8 @@ gg_sf <- function(data,
   
   #borders
   if (!is.null(borders)) {
+    pal_borders <- scales::alpha(pal_borders, alpha = alpha_borders)
+    
     if (is.null(borders_on_top)) {
       if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
         borders_on_top <- FALSE
@@ -93,8 +97,8 @@ gg_sf <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -138,8 +142,8 @@ gg_sf <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -172,18 +176,19 @@ gg_sf <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
+#' @param alpha_borders Opacity of the borders. Defaults to 1.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param size_point Size of points. Defaults to 0.75.
-#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
-#' @param borders_size Size of the borders. Defaults to 0.2.
+#' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -224,18 +229,19 @@ gg_sf <- function(data,
 gg_sf_col <- function(data,
                       col_var,
                       text_var = NULL,
+                      borders = NULL,
+                      borders_on_top = NULL,
                       pal = NULL,
                       pal_na = "#7F7F7F",
                       pal_rev = FALSE,
+                      pal_borders = "#7F7F7F",
                       alpha_fill = 0.2,
                       alpha_line = 1,
                       alpha_point = 1,
+                      alpha_borders = 1,
                       size_line = 0.5,
                       size_point = 0.75,
-                      borders = NULL,
-                      borders_on_top = NULL,
-                      borders_pal = "#7F7F7F",
-                      borders_size = 0.2,
+                      size_borders = 0.2,
                       title = NULL,
                       title_wrap = 80,
                       subtitle = NULL,
@@ -308,6 +314,8 @@ gg_sf_col <- function(data,
   
   #borders
   if (!is.null(borders)) {
+    pal_borders <- scales::alpha(pal_borders, alpha = alpha_borders)
+    
     if (is.null(borders_on_top)) {
       if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
         borders_on_top <- FALSE
@@ -324,8 +332,8 @@ gg_sf_col <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -528,8 +536,8 @@ gg_sf_col <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -562,6 +570,8 @@ gg_sf_col <- function(data,
 #' @param data A sf object with defined coordinate reference system. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param alpha_fill The opacity of features. 
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill.
@@ -573,10 +583,9 @@ gg_sf_col <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
-#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
-#' @param borders_size Size of the borders. Defaults to 0.2.
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
+#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -596,19 +605,20 @@ gg_sf_facet <- function(data,
                         facet_var,
                         text_var = NULL,
                         pal = pal_viridis_reorder(1),
+                        pal_borders = "#7F7F7F",
+                        borders = NULL,
+                        borders_on_top = NULL,
                         alpha_fill = 0.2,
                         alpha_line = 1,
                         alpha_point = 1,
+                        alpha_borders = 1,
                         size_line = 0.5,
                         size_point = 0.75,
+                        size_borders = 0.2,
                         facet_labels = snakecase::to_sentence_case,
                         facet_na_rm = FALSE,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
-                        borders = NULL,
-                        borders_on_top = NULL,
-                        borders_pal = "#7F7F7F",
-                        borders_size = 0.2,
                         title = NULL,
                         title_wrap = 80,
                         subtitle = NULL,
@@ -666,6 +676,8 @@ gg_sf_facet <- function(data,
   
   #borders
   if (!is.null(borders)) {
+    pal_borders <- scales::alpha(pal_borders, alpha = alpha_borders)
+    
     if (is.null(borders_on_top)) {
       if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
         borders_on_top <- FALSE
@@ -682,8 +694,8 @@ gg_sf_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -726,8 +738,8 @@ gg_sf_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -751,19 +763,19 @@ gg_sf_facet <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
+#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
+#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
 #' @param pal Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
+#' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
+#' @param alpha_borders Opacity of the borders. Defaults to 1.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param size_point Size of points. Defaults to 0.75.
-#' @param alpha_fill The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.
-#' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
-#' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
-#' @param borders_pal Colour of the borders. Defaults to "#7F7F7F".
-#' @param borders_size Size of the borders. Defaults to 0.2.
+#' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -797,18 +809,19 @@ gg_sf_col_facet <- function(data,
                             col_var,
                             facet_var,
                             text_var = NULL,
+                            borders = NULL,
+                            borders_on_top = NULL,
                             pal = NULL,
                             pal_na = "#7F7F7F",
                             pal_rev = FALSE,
+                            pal_borders = "#7F7F7F",
                             alpha_fill = 0.2,
                             alpha_line = 1,
                             alpha_point = 1,
+                            alpha_borders = 1,
                             size_line = 0.5,
                             size_point = 0.75,
-                            borders = NULL,
-                            borders_on_top = NULL,
-                            borders_pal = "#7F7F7F",
-                            borders_size = 0.2,
+                            size_borders = 0.2,
                             title = NULL,
                             title_wrap = 80,
                             subtitle = NULL,
@@ -899,6 +912,8 @@ gg_sf_col_facet <- function(data,
   
   #borders
   if (!is.null(borders)) {
+    pal_borders <- scales::alpha(pal_borders, alpha = alpha_borders)
+    
     if (is.null(borders_on_top)) {
       if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
         borders_on_top <- FALSE
@@ -915,8 +930,8 @@ gg_sf_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }
@@ -1110,8 +1125,8 @@ gg_sf_col_facet <- function(data,
       plot <- plot +
         geom_sf(
           data = borders,
-          size = borders_size, 
-          colour = borders_pal,
+          size = size_borders, 
+          colour = pal_borders, 
           fill = "transparent"
         )
     }

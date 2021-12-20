@@ -9,18 +9,19 @@ gg_sf_col_facet(
   col_var,
   facet_var,
   text_var = NULL,
+  borders = NULL,
+  borders_on_top = NULL,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
+  pal_borders = "#7F7F7F",
   alpha_fill = 0.2,
   alpha_line = 1,
   alpha_point = 1,
+  alpha_borders = 1,
   size_line = 0.5,
   size_point = 0.75,
-  borders = NULL,
-  borders_on_top = NULL,
-  borders_pal = "#7F7F7F",
-  borders_size = 0.2,
+  size_borders = 0.2,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -52,29 +53,31 @@ gg_sf_col_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
+\item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
+
+\item{borders_on_top}{TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..}
+
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of features. Defaults to 1 for points/lines, or 0.95 for polygons.}
+\item{pal_borders}{Colour of the borders. Defaults to "#7F7F7F".}
+
+\item{alpha_fill}{The opacity of the fill.}
 
 \item{alpha_line}{The alpha of lines and outlines.}
 
 \item{alpha_point}{The alpha of points.}
 
+\item{alpha_borders}{Opacity of the borders. Defaults to 1.}
+
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
 \item{size_point}{Size of points. Defaults to 0.75.}
 
-\item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
-
-\item{borders_on_top}{TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..}
-
-\item{borders_pal}{Colour of the borders. Defaults to "#7F7F7F".}
-
-\item{borders_size}{Size of the borders. Defaults to 0.2.}
+\item{size_borders}{Size of the borders. Defaults to 0.2.}
 
 \item{title}{Title string.}
 

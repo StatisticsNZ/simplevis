@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.47</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.49</span>
       </span>
     </div>
 
@@ -163,13 +163,14 @@
 
     <pre class="usage"><span class='fu'>gg_stars</span>(
   <span class='no'>data</span>,
-  <span class='kw'>downsample</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
-  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
-  <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>downsample</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
+  <span class='kw'>pal_borders</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>alpha_borders</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>size_borders</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -188,18 +189,6 @@
       <td><p>A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.</p></td>
     </tr>
     <tr>
-      <th>downsample</th>
-      <td><p>downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.</p></td>
-    </tr>
-    <tr>
-      <th>pal</th>
-      <td><p>Character vector of hex codes.</p></td>
-    </tr>
-    <tr>
-      <th>alpha_fill</th>
-      <td><p>The opacity of the fill. Defaults to 0.5.</p></td>
-    </tr>
-    <tr>
       <th>borders</th>
       <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
     </tr>
@@ -208,11 +197,27 @@
       <td><p>TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.</p></td>
     </tr>
     <tr>
-      <th>borders_pal</th>
+      <th>downsample</th>
+      <td><p>downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.</p></td>
+    </tr>
+    <tr>
+      <th>pal</th>
+      <td><p>Character vector of hex codes.</p></td>
+    </tr>
+    <tr>
+      <th>pal_borders</th>
       <td><p>Colour of the borders. Defaults to "#323232".</p></td>
     </tr>
     <tr>
-      <th>borders_size</th>
+      <th>alpha_fill</th>
+      <td><p>The opacity of the fill. Defaults to 0.5.</p></td>
+    </tr>
+    <tr>
+      <th>alpha_borders</th>
+      <td><p>Opacity of the borders. Defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>size_borders</th>
       <td><p>Size of the borders. Defaults to 0.2.</p></td>
     </tr>
     <tr>

@@ -1,4 +1,16 @@
-# simplevis 5.0
+# simplevis 5.0.50
+
+* Rewrote borders arguments to start with pal, alpha and size prefix.
+* Added alpha_borders argument.
+
+# simplevis 5.0.49
+
+* Added borders_alpha in to sf and stars gg functions. 
+
+# simplevis 5.0.48
+
+* Changed stat prefix in density and smooth from stat_.
+
 # simplevis 5.0.46
 
 * Add points into smooth functions.

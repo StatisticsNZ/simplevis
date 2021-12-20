@@ -33,12 +33,12 @@
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80.
 #' @param theme A ggplot2 theme.  
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
-#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show confidence as a ribbon. 
-#' @param stat_level The level of confidence to calculate for the ribbon.
-#' @param stat_n Number of points at which to evaluate smoother. 
-#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param smooth_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param smooth_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param smooth_se TRUE or FALSE of whether to show confidence as a ribbon. 
+#' @param smooth_level The level of confidence to calculate for the ribbon.
+#' @param smooth_n Number of points at which to evaluate smoother. 
+#' @param smooth_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 
 #' @return A ggplot object.
 #' @export
@@ -81,13 +81,13 @@ gg_smooth <- function(data,
                       y_zero_line = NULL,
                       caption = NULL,
                       caption_wrap = 80,
-                      theme = gg_theme(),
-                      stat_method = NULL,
-                      stat_formula = NULL,
-                      stat_se = TRUE,
-                      stat_level = 0.95,
-                      stat_span = 0.75, 
-                      stat_n = 80,
+                      theme = gg_theme(gridlines = "both"),
+                      smooth_method = NULL,
+                      smooth_formula = NULL,
+                      smooth_se = TRUE,
+                      smooth_level = 0.95,
+                      smooth_span = 0.75, 
+                      smooth_n = 80,
                       mobile = FALSE) {
   
   #ungroup
@@ -129,8 +129,8 @@ gg_smooth <- function(data,
                 fill = pal_fill,  
                 alpha = alpha_fill,
                 size = size_line, 
-                se = stat_se, level = stat_level, 
-                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
+                se = smooth_se, level = smooth_level, 
+                method = smooth_method, formula = smooth_formula, span = smooth_span, n = smooth_n) 
   
   #x scale  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -243,12 +243,12 @@ gg_smooth <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.  
-#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show confidence as a ribbon. 
-#' @param stat_level The level of confidence to calculate for the ribbon.
-#' @param stat_n Number of points at which to evaluate smoother. 
-#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param smooth_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param smooth_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param smooth_se TRUE or FALSE of whether to show confidence as a ribbon. 
+#' @param smooth_level The level of confidence to calculate for the ribbon.
+#' @param smooth_n Number of points at which to evaluate smoother. 
+#' @param smooth_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' @return A ggplot object.
 #' @export
@@ -308,13 +308,13 @@ gg_smooth_col <- function(data,
                           col_title_wrap = 25,
                           caption = NULL,
                           caption_wrap = 80,
-                          theme = gg_theme(),
-                          stat_method = NULL,
-                          stat_formula = NULL,
-                          stat_se = TRUE,
-                          stat_level = 0.95,
-                          stat_span = 0.75, 
-                          stat_n = 80,
+                          theme = gg_theme(gridlines = "both"),
+                          smooth_method = NULL,
+                          smooth_formula = NULL,
+                          smooth_se = TRUE,
+                          smooth_level = 0.95,
+                          smooth_span = 0.75, 
+                          smooth_n = 80,
                           mobile = FALSE){
   
   #ungroup
@@ -381,8 +381,8 @@ gg_smooth_col <- function(data,
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var),
                 alpha = alpha_fill,
                 size = size_line, 
-                se = stat_se, level = stat_level, 
-                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
+                se = smooth_se, level = smooth_level, 
+                method = smooth_method, formula = smooth_formula, span = smooth_span, n = smooth_n) 
   
   #x scale  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
@@ -521,12 +521,12 @@ gg_smooth_col <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.  
-#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show confidence as a ribbon. 
-#' @param stat_level The level of confidence to calculate for the ribbon.
-#' @param stat_n Number of points at which to evaluate smoother. 
-#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param smooth_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param smooth_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param smooth_se TRUE or FALSE of whether to show confidence as a ribbon. 
+#' @param smooth_level The level of confidence to calculate for the ribbon.
+#' @param smooth_n Number of points at which to evaluate smoother. 
+#' @param smooth_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -576,13 +576,13 @@ gg_smooth_facet <- function(data,
                             facet_scales = "fixed",
                             caption = NULL,
                             caption_wrap = 80,
-                            theme = gg_theme(), 
-                            stat_method = NULL,
-                            stat_formula = NULL,
-                            stat_se = TRUE,
-                            stat_level = 0.95,
-                            stat_span = 0.75, 
-                            stat_n = 80) {
+                            theme = gg_theme(gridlines = "both"), 
+                            smooth_method = NULL,
+                            smooth_formula = NULL,
+                            smooth_se = TRUE,
+                            smooth_level = 0.95,
+                            smooth_span = 0.75, 
+                            smooth_n = 80) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -639,8 +639,8 @@ gg_smooth_facet <- function(data,
                 fill = pal_fill, 
                 alpha = alpha_fill,  
                 size = size_line, 
-                se = stat_se, level = stat_level, 
-                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
+                se = smooth_se, level = smooth_level, 
+                method = smooth_method, formula = smooth_formula, span = smooth_span, n = smooth_n) 
   
   #x scale
   if (facet_scales %in% c("fixed", "free_y")) {
@@ -750,12 +750,12 @@ gg_smooth_facet <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.  
-#' @param stat_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
-#' @param stat_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
-#' @param stat_se TRUE or FALSE of whether to show confidence as a ribbon. 
-#' @param stat_level The level of confidence to calculate for the ribbon.
-#' @param stat_n Number of points at which to evaluate smoother. 
-#' @param stat_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
+#' @param smooth_method Smoothing algorithm to use. See ggplot2::geom_smooth for further details.
+#' @param smooth_formula Formula to use in smoothing function. See ggplot2::geom_smooth for further details.
+#' @param smooth_se TRUE or FALSE of whether to show confidence as a ribbon. 
+#' @param smooth_level The level of confidence to calculate for the ribbon.
+#' @param smooth_n Number of points at which to evaluate smoother. 
+#' @param smooth_span Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -815,13 +815,13 @@ gg_smooth_col_facet <- function(data,
                                 facet_scales = "fixed",
                                 caption = NULL,
                                 caption_wrap = 80,
-                                theme = gg_theme(), 
-                                stat_method = NULL,
-                                stat_formula = NULL,
-                                stat_se = TRUE,
-                                stat_level = 0.95,
-                                stat_span = 0.75, 
-                                stat_n = 80) {
+                                theme = gg_theme(gridlines = "both"), 
+                                smooth_method = NULL,
+                                smooth_formula = NULL,
+                                smooth_se = TRUE,
+                                smooth_level = 0.95,
+                                smooth_span = 0.75, 
+                                smooth_n = 80) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -900,8 +900,8 @@ gg_smooth_col_facet <- function(data,
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var),
                 alpha = alpha_fill,
                 size = size_line, 
-                se = stat_se, level = stat_level, 
-                method = stat_method, formula = stat_formula, span = stat_span, n = stat_n) 
+                se = smooth_se, level = smooth_level, 
+                method = smooth_method, formula = smooth_formula, span = smooth_span, n = smooth_n) 
   
   #x scale
   if (facet_scales %in% c("fixed", "free_y")) {

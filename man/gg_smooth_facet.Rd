@@ -42,13 +42,13 @@ gg_smooth_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(),
-  stat_method = NULL,
-  stat_formula = NULL,
-  stat_se = TRUE,
-  stat_level = 0.95,
-  stat_span = 0.75,
-  stat_n = 80
+  theme = gg_theme(gridlines = "both"),
+  smooth_method = NULL,
+  smooth_formula = NULL,
+  smooth_se = TRUE,
+  smooth_level = 0.95,
+  smooth_span = 0.75,
+  smooth_n = 80
 )
 }
 \arguments{
@@ -128,17 +128,17 @@ gg_smooth_facet(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{stat_method}{Smoothing algorithm to use. See ggplot2::geom_smooth for further details.}
+\item{smooth_method}{Smoothing algorithm to use. See ggplot2::geom_smooth for further details.}
 
-\item{stat_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
+\item{smooth_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
 
-\item{stat_se}{TRUE or FALSE of whether to show confidence as a ribbon.}
+\item{smooth_se}{TRUE or FALSE of whether to show confidence as a ribbon.}
 
-\item{stat_level}{The level of confidence to calculate for the ribbon.}
+\item{smooth_level}{The level of confidence to calculate for the ribbon.}
 
-\item{stat_span}{Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.}
+\item{smooth_span}{Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.}
 
-\item{stat_n}{Number of points at which to evaluate smoother.}
+\item{smooth_n}{Number of points at which to evaluate smoother.}
 }
 \value{
 A ggplot object.

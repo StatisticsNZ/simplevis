@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.47</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.49</span>
       </span>
     </div>
 
@@ -164,16 +164,17 @@
     <pre class="usage"><span class='fu'>gg_sf</span>(
   <span class='no'>data</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
+  <span class='kw'>pal_borders</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_borders</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>borders</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_on_top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>borders_pal</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
-  <span class='kw'>borders_size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>size_borders</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -196,8 +197,20 @@
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
     </tr>
     <tr>
+      <th>borders</th>
+      <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
+    </tr>
+    <tr>
+      <th>borders_on_top</th>
+      <td><p>TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..</p></td>
+    </tr>
+    <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes.</p></td>
+    </tr>
+    <tr>
+      <th>pal_borders</th>
+      <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
     </tr>
     <tr>
       <th>alpha_fill</th>
@@ -212,6 +225,10 @@
       <td><p>The alpha of points.</p></td>
     </tr>
     <tr>
+      <th>alpha_borders</th>
+      <td><p>Opacity of the borders. Defaults to 1.</p></td>
+    </tr>
+    <tr>
       <th>size_line</th>
       <td><p>Size of lines. Defaults to 0.5.</p></td>
     </tr>
@@ -220,19 +237,7 @@
       <td><p>Size of points. Defaults to 0.75.</p></td>
     </tr>
     <tr>
-      <th>borders</th>
-      <td><p>A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.</p></td>
-    </tr>
-    <tr>
-      <th>borders_on_top</th>
-      <td><p>TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..</p></td>
-    </tr>
-    <tr>
-      <th>borders_pal</th>
-      <td><p>Colour of the borders. Defaults to "#7F7F7F".</p></td>
-    </tr>
-    <tr>
-      <th>borders_size</th>
+      <th>size_borders</th>
       <td><p>Size of the borders. Defaults to 0.2.</p></td>
     </tr>
     <tr>

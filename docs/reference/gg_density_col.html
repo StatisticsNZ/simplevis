@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.47</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.49</span>
       </span>
     </div>
 
@@ -196,11 +196,11 @@
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
-  <span class='kw'>stat_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
-  <span class='kw'>stat_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>stat_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
-  <span class='kw'>stat_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
-  <span class='kw'>stat_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>density_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>density_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>density_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
+  <span class='kw'>density_n</span> <span class='kw'>=</span> <span class='fl'>512</span>,
+  <span class='kw'>density_trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -344,23 +344,23 @@
       <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
-      <th>stat_bw</th>
+      <th>density_bw</th>
       <td><p>The bw argument of the stats::density function. Defaults to "nrd0".</p></td>
     </tr>
     <tr>
-      <th>stat_adjust</th>
+      <th>density_adjust</th>
       <td><p>The adjust argument of the stats::density function. Defaults to 1.</p></td>
     </tr>
     <tr>
-      <th>stat_kernel</th>
+      <th>density_kernel</th>
       <td><p>The kernel argument of the stats::density function. Defaults to "gaussian".</p></td>
     </tr>
     <tr>
-      <th>stat_n</th>
+      <th>density_n</th>
       <td><p>The n argument of the stats::density function. Defaults to 512.</p></td>
     </tr>
     <tr>
-      <th>stat_trim</th>
+      <th>density_trim</th>
       <td><p>The trim argument of the stats::density function. Defaults to FALSE.</p></td>
     </tr>
     <tr>

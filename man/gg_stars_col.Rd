@@ -7,15 +7,16 @@
 gg_stars_col(
   data,
   col_var,
+  borders = NULL,
+  borders_on_top = TRUE,
   downsample = 0,
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
+  pal_borders = "#7F7F7F",
   alpha_fill = 1,
-  borders = NULL,
-  borders_on_top = TRUE,
-  borders_pal = "#7F7F7F",
-  borders_size = 0.2,
+  alpha_borders = 1,
+  size_borders = 0.2,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -40,6 +41,10 @@ gg_stars_col(
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
 
+\item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
+
+\item{borders_on_top}{TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.}
+
 \item{downsample}{downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.}
 
 \item{pal}{Character vector of hex codes. Defaults to NULL, which selects the colorbrewer Set1 or viridis.}
@@ -48,15 +53,13 @@ gg_stars_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
+\item{pal_borders}{Colour of the borders. Defaults to "#7F7F7F".}
+
 \item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
-\item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
+\item{alpha_borders}{Opacity of the borders. Defaults to 1.}
 
-\item{borders_on_top}{TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.}
-
-\item{borders_pal}{Colour of the borders. Defaults to "#7F7F7F".}
-
-\item{borders_size}{Size of the borders. Defaults to 0.2.}
+\item{size_borders}{Size of the borders. Defaults to 0.2.}
 
 \item{title}{Title string.}
 

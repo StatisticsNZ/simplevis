@@ -24,8 +24,8 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf(example_sf_point, 
-#'      borders = example_sf_borders)
+#' gg_sf(example_point, 
+#'      borders = example_borders)
 #'      
 gg_sf <- function(data,
                   text_var = NULL,
@@ -211,37 +211,37 @@ gg_sf <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf_col(example_sf_point,
+#' gg_sf_col(example_point,
 #'           col_var = trend_category, 
-#'           borders = example_sf_borders)
+#'           borders = example_borders)
 #' 
-#' gg_sf_col(example_sf_polygon,
+#' gg_sf_col(example_polygon,
 #'           col_var = density, 
-#'           borders = example_sf_borders)
+#'           borders = example_borders)
 #' 
-#' gg_sf_col(example_sf_polygon,
+#' gg_sf_col(example_polygon,
 #'           col_var = density,
 #'           col_method = "bin",
 #'           col_breaks_n = 5, 
-#'           borders = example_sf_borders)
+#'           borders = example_borders)
 #' 
-#' gg_sf_col(example_sf_polygon,
+#' gg_sf_col(example_polygon,
 #'           col_var = density,
 #'           col_method = "bin",
 #'           col_cuts = c(0, 10, 50, 100, 150, 200, Inf),
-#'           borders = example_sf_borders)
+#'           borders = example_borders)
 #'           
-#' gg_sf_col(example_sf_polygon,
+#' gg_sf_col(example_polygon,
 #'           col_var = density,
 #'           col_method = "quantile",
 #'           col_breaks_n = 4, 
-#'           borders = example_sf_borders)
+#'           borders = example_borders)
 #' 
-#' gg_sf_col(example_sf_polygon,
+#' gg_sf_col(example_polygon,
 #'           col_var = density,
 #'           col_method = "quantile",
 #'           col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1), 
-#'           borders = example_sf_borders)
+#'           borders = example_borders)
 #' 
 gg_sf_col <- function(data,
                       col_var,
@@ -615,9 +615,9 @@ gg_sf_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf_facet(example_sf_point, 
+#' gg_sf_facet(example_point, 
 #'             facet_var = trend_category, 
-#'             borders = example_sf_borders)
+#'             borders = example_borders)
 #' 
 gg_sf_facet <- function(data,
                         facet_var,
@@ -819,10 +819,10 @@ gg_sf_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' gg_sf_col_facet(example_sf_point, 
+#' gg_sf_col_facet(example_point, 
 #'                 col_var = trend_category, 
 #'                 facet_var = trend_category, 
-#'                 borders = example_sf_borders)
+#'                 borders = example_borders)
 #'  
 gg_sf_col_facet <- function(data,
                             col_var,

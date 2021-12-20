@@ -120,9 +120,9 @@ gg_density(penguins,
 sf
 
 ```{r}
-gg_sf_col(example_sf_point, 
+gg_sf_col(example_point, 
           col_var = trend_category, 
-          borders = example_sf_borders)
+          borders = example_borders)
 ```
 
 stars
@@ -133,7 +133,7 @@ library(stars)
 gg_stars_col(example_stars,
              col_var = nitrate,
              col_na_rm = TRUE,
-             borders = example_sf_borders)
+             borders = example_borders)
 ```
 
 ### Colouring, facetting, neither or both
@@ -323,16 +323,16 @@ gg_point_col(penguins,
 * No `x_var` and `y_var` variables are required
 * Borders can added to maps by providing an `sf` object to the `borders` argument. 
 
-The following example objects are provided withing the package for learning purposes: `example_sf_point`, `example_sf_polygon` and `example_stars`.
+The following example objects are provided withing the package for learning purposes: `example_point`, `example_polygon` and `example_stars`.
 
 The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.
 
 ```{r}
-gg_sf_col(example_sf_point, 
+gg_sf_col(example_point, 
           col_var = median, 
           col_method = "quantile",
           col_cuts = c(0, 0.25, 0.5, 0.75, 1),
-          borders = example_sf_borders)
+          borders = example_borders)
 ```
 
 ```{r}
@@ -341,7 +341,7 @@ gg_stars_col(example_stars,
              col_method = "quantile",
              col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
              col_na_rm = TRUE,
-             borders = example_sf_borders)
+             borders = example_borders)
 ```
 
 ### leaflet wrappers
@@ -349,7 +349,7 @@ gg_stars_col(example_stars,
 simplevis also provides a `leaflet` wrapper functions for `sf` and `stars` objects. 
 
 ```{r}
-leaflet_sf_col(example_sf_point, 
+leaflet_sf_col(example_point, 
                col_var = trend_category)
 ```
 
@@ -488,4 +488,4 @@ plotly::ggplotly(plot, tooltip = "text") %>%
 
 ### Further information
 
-For further information, see the articles on the [website](https://statisticsexample_sf_borders.github.io/simplevis/).
+For further information, see the articles on the [website](https://statisticsexample_borders.github.io/simplevis/).

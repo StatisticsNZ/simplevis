@@ -48,8 +48,8 @@ A leaflet object.
 Map of simple features in leaflet that is not coloured.
 }
 \examples{
-leaflet_sf(example_sf_point)
+leaflet_sf(example_point)
 
-leaflet_sf(example_sf_polygon)
+leaflet_sf(example_polygon)
 
 }

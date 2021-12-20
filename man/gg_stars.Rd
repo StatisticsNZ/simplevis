@@ -70,6 +70,6 @@ library(simplevis)
 library(stars)
 
 gg_stars(example_stars, 
-     borders = example_sf_borders)
+     borders = example_borders)
      
 }

@@ -90,8 +90,8 @@ A ggplot object.
 Map of simple features in ggplot that is facetted, but not coloured.
 }
 \examples{
-gg_sf_facet(example_sf_point, 
+gg_sf_facet(example_point, 
             facet_var = trend_category, 
-            borders = example_sf_borders)
+            borders = example_borders)
 
 }

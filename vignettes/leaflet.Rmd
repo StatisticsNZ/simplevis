@@ -44,7 +44,7 @@ There is no facetting functionality provided for leaflet.
 Colouring is the same as that for graphs.
 
 ```{r}
-leaflet_sf_col(example_sf_polygon, 
+leaflet_sf_col(example_polygon, 
                col_var = density, 
                col_method = "quantile", 
                col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
@@ -73,7 +73,7 @@ leaflet_stars_col(example_stars,
 The clickable popup will default to a `leafpop::popupTable` of all variables, but popups can be adjusted to a subset of column using the `popup_vars_vctr` argument.
 
 ```{r}
-leaflet_sf_col(example_sf_point, 
+leaflet_sf_col(example_point, 
                col_var = trend_category, 
                popup_vars_vctr = c("site_id", "median"))
 ```
@@ -81,7 +81,7 @@ leaflet_sf_col(example_sf_point,
 The hover label will default to the colour variable, but can be adjusted using the `label_var` variable. 
 
 ```{r}
-leaflet_sf_col(example_sf_point, 
+leaflet_sf_col(example_point, 
                col_var = trend_category, 
                label_var = site_id)
 ```
@@ -91,7 +91,7 @@ leaflet_sf_col(example_sf_point,
 Users have a `basemap` argument that defaults to "light", but there are other options.
 
 ```{r}
-leaflet_sf(example_sf_point, 
+leaflet_sf(example_point, 
            basemap = "dark")
 ```
 
@@ -100,7 +100,7 @@ leaflet_sf(example_sf_point,
 Legend labels are not as flexible as in the ggplot2 wrapper functions. You can adjust by using the `col_labels` argument, and providing a manual vector of breaks. 
 
 ```{r}
-leaflet_sf_col(example_sf_point, 
+leaflet_sf_col(example_point, 
                col_var = trend_category, 
                col_labels = c("Better", "Same", "Worse"))
 ```
@@ -110,9 +110,9 @@ leaflet_sf_col(example_sf_point,
 As a leaflet object is produced, you can add additional layers with leaflet - although this may effect popups and labels.
 
 ```{r}
-leaflet_sf_col(example_sf_point, 
+leaflet_sf_col(example_point, 
                col_var = trend_category) %>% 
-  leaflet::addPolygons(data = example_sf_borders, 
+  leaflet::addPolygons(data = example_borders, 
                        color = "#35B779", 
                        weight = 3, 
                        fillOpacity = 0, 

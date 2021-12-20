@@ -1,3 +1,7 @@
+# simplevis 5.0.51
+
+* Renamed example_sf objects.
+
 # simplevis 5.0.50
 
 * Rewrote borders arguments to start with pal, alpha and size prefix.

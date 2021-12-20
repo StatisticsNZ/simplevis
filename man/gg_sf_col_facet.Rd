@@ -126,9 +126,9 @@ A ggplot object.
 Map of simple features in ggplot that is coloured and facetted.
 }
 \examples{
-gg_sf_col_facet(example_sf_point, 
+gg_sf_col_facet(example_point, 
                 col_var = trend_category, 
                 facet_var = trend_category, 
-                borders = example_sf_borders)
+                borders = example_borders)
  
 }

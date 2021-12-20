@@ -67,7 +67,6 @@ Map of an array in ggplot that is not coloured and not facetted.
 }
 \examples{
 library(simplevis)
-library(stars)
 
 gg_stars(example_stars, 
      borders = example_borders)

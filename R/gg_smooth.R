@@ -256,18 +256,12 @@ gg_smooth <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' plot <- gg_smooth_col(penguins, 
+#' gg_smooth_col(penguins, 
 #'              x_var = bill_length_mm, 
 #'              y_var = body_mass_g, 
 #'              col_var = species)
 #'              
-#' plot
-#'              
-#' library(plotly)
-#' n <- 3
-#' 
-#' plotly::ggplotly(plot) %>% 
-#'   style(showlegend = FALSE, traces = 1:n) #fix ggplotly bug
+#' if ggplotly legend bug pipe in plotly::style(showlegend = FALSE, traces = 1:n) layer 
 #' 
 gg_smooth_col <- function(data,
                           x_var,
@@ -769,6 +763,8 @@ gg_smooth_facet <- function(data,
 #'                    col_var = sex, 
 #'                    facet_var = species, 
 #'                    col_na_rm = TRUE)
+#' 
+#' if ggplotly legend bug pipe in plotly::style(showlegend = FALSE, traces = 1:n) layer 
 #' 
 gg_smooth_col_facet <- function(data,
                                 x_var,

@@ -186,7 +186,7 @@ For boxplot, there is adefault stat of `boxplot`, which means the `y_var` will b
 
 For density, the stat of the `x_var` based on the density prefixed arguments that inform the density calculation.
 
-Generally, an `x_var` and a `y_var` is required. However, `y_var` is not required for `density*()` functions. Neither `x_var` or `y_var` are required for `gg_sf*()` (or `leaflet_sf*()`) functions.
+Generally, an `x_var` and a `y_var` is required. However, `y_var` is not required for `density*()` functions. Neither `x_var` or `y_var` are required for `gg_sf*()` (or `leaf_sf*()`) functions.
 
 ### Titles
 
@@ -349,19 +349,19 @@ gg_stars_col(example_stars,
 simplevis also provides a `leaflet` wrapper functions for `sf` and `stars` objects. 
 
 ```{r}
-leaflet_sf_col(example_point, 
-               col_var = trend_category)
+leaf_sf_col(example_point, 
+            col_var = trend_category)
 ```
 
 
 ```{r}
 library(stars)
 
-leaflet_stars_col(example_stars, 
-                  col_var = nitrate, 
-                  col_method = "quantile", 
-                  col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-                  col_na_rm = TRUE)
+leaf_stars_col(example_stars, 
+               col_var = nitrate, 
+               col_method = "quantile", 
+               col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+               col_na_rm = TRUE)
 
 ```
 
@@ -379,7 +379,7 @@ tibble::tribble(
   "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
   "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
   "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "identity",
-  "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity",
+  "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity (or jitter)",
   "sf", "sf", NA, NA, "Categorical or numeric", "Categorical", "identity",
   "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "stars", "stars", NA, NA, "Categorical or numeric", NA, "identity",
@@ -406,18 +406,23 @@ penguins %>%
 
 ### Output objects and adding layers
 
-All `gg_*` and `leaflet_*` wrapper functions produce ggplot or leaflet objects.
+All `gg_*` and `leaf_*` wrapper functions produce ggplot or leaflet objects.
 
 This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object.
 
-Note you need to add _all_ aesthetics to any additional layers.
+Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 
 ```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
+gg_point_col(penguins,
+             x_var = bill_length_mm,
+             y_var = body_mass_g,
              col_var = species) +
-  geom_smooth(aes(x = bill_length_mm, y = body_mass_g, col = species))
+  ggplot2::scale_y_log10(
+    name = "Bill length mm",
+    breaks = function(x) pretty(x, 4),
+    limits = function(x) c(min(pretty(x, 4)), max(pretty(x, 4))),
+    expand = c(0, 0)
+  ) 
 
 ```
 

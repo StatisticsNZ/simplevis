@@ -1,3 +1,11 @@
+# simplevis 5.0.53
+
+* Added library(stars) call within all stars functions.
+
+# simplevis 5.0.52
+
+* Added leaf_ functions. Deprecated leaflet_ functions.
+
 # simplevis 5.0.51
 
 * Renamed example_sf objects.

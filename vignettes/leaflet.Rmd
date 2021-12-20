@@ -44,28 +44,53 @@ There is no facetting functionality provided for leaflet.
 Colouring is the same as that for graphs.
 
 ```{r}
-leaflet_sf_col(example_polygon, 
-               col_var = density, 
-               col_method = "quantile", 
-               col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
+leaf_sf_col(example_point, 
+            col_var = trend_category)
+```
+
+```{r}
+leaf_sf_col(example_polygon,  
+            col_var = density)
+```
+
+```{r}
+leaf_stars_col(example_stars, 
+               col_var = nitrate, 
+               col_method = "bin", 
+               col_breaks_n = 4, 
+               col_na_rm = TRUE)
+```
+
+```{r}
+leaf_stars_col(example_stars, 
+               col_var = nitrate, 
+               col_method = "bin", 
+               col_cuts = c(0, 500, 1000, 2000, Inf), 
+               col_na_rm = TRUE)
+```
+
+```{r}
+leaf_sf_col(example_polygon, 
+            col_var = density, 
+            col_method = "quantile", 
+            col_breaks_n = 4)
 ```
 
 
 ```{r}
-leaflet_stars_col(example_stars,
-                  col_var = nitrate,
-                  col_method = "bin",
-                  col_cuts = c(0, 500, 1000, 2000, Inf),
-                  col_na_rm = TRUE)
+leaf_sf_col(example_polygon, 
+            col_var = density, 
+            col_method = "quantile", 
+            col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
 ```
 
 
 ```{r}
-leaflet_stars_col(example_stars,
-                  col_var = nitrate,
-                  col_method = "bin",
-                  col_breaks_n = 7,
-                  col_na_rm = TRUE)
+leaf_stars_col(example_stars, 
+               col_var = nitrate, 
+               col_method = "bin", 
+               col_breaks_n = 7, 
+               col_na_rm = TRUE)
 ```
 
 ### sf popups and hover text
@@ -73,17 +98,17 @@ leaflet_stars_col(example_stars,
 The clickable popup will default to a `leafpop::popupTable` of all variables, but popups can be adjusted to a subset of column using the `popup_vars_vctr` argument.
 
 ```{r}
-leaflet_sf_col(example_point, 
-               col_var = trend_category, 
-               popup_vars_vctr = c("site_id", "median"))
+leaf_sf_col(example_point, 
+            col_var = trend_category, 
+            popup_vars_vctr = c("site_id", "median"))
 ```
 
 The hover label will default to the colour variable, but can be adjusted using the `label_var` variable. 
 
 ```{r}
-leaflet_sf_col(example_point, 
-               col_var = trend_category, 
-               label_var = site_id)
+leaf_sf_col(example_point, 
+            col_var = trend_category, 
+            label_var = site_id)
 ```
 
 ### Basemaps
@@ -91,8 +116,8 @@ leaflet_sf_col(example_point,
 Users have a `basemap` argument that defaults to "light", but there are other options.
 
 ```{r}
-leaflet_sf(example_point, 
-           basemap = "dark")
+leaf_sf(example_point, 
+        basemap = "dark")
 ```
 
 ### Legend labels
@@ -100,9 +125,9 @@ leaflet_sf(example_point,
 Legend labels are not as flexible as in the ggplot2 wrapper functions. You can adjust by using the `col_labels` argument, and providing a manual vector of breaks. 
 
 ```{r}
-leaflet_sf_col(example_point, 
-               col_var = trend_category, 
-               col_labels = c("Better", "Same", "Worse"))
+leaf_sf_col(example_point, 
+            col_var = trend_category, 
+            col_labels = c("Better", "Same", "Worse"))
 ```
 
 ### Adding additional layers
@@ -110,8 +135,8 @@ leaflet_sf_col(example_point,
 As a leaflet object is produced, you can add additional layers with leaflet - although this may effect popups and labels.
 
 ```{r}
-leaflet_sf_col(example_point, 
-               col_var = trend_category) %>% 
+leaf_sf_col(example_point, 
+            col_var = trend_category) %>% 
   leaflet::addPolygons(data = example_borders, 
                        color = "#35B779", 
                        weight = 3, 
@@ -124,7 +149,7 @@ leaflet_sf_col(example_point,
 A leaflet basemap stack is available for use in shiny apps. It defaults to the top layer being "light". You can set the bounds by adding a vector or bbox of bounds.
 
 ```{r}
-leaflet_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
+leaf_basemap(bounds = c(166.70047,-34.45676, 178.52966,-47.06345))
 ```
 
 You can also specify the basemap top layer.
@@ -135,6 +160,6 @@ bb <- rnaturalearth::ne_countries(scale = "small",
                                   returnclass = "sf") %>% 
    sf::st_bbox() 
  
-leaflet_basemap(bounds = bb, basemap = "satellite") 
+leaf_basemap(bounds = bb, basemap = "satellite") 
 ```
 

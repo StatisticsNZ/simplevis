@@ -64,9 +64,9 @@ Map of stars in leaflet that is coloured.
 }
 \examples{
 library(simplevis)
-library(stars)
 
 leaflet_stars_col(example_stars, 
-                  col_var = nitrate)
+                  col_var = nitrate, 
+                  col_na_rm = TRUE)
 
 }

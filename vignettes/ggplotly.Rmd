@@ -121,13 +121,13 @@ plotly::ggplotly(plot) %>%
 sf ggplots can also be converted to interactive ggplotly objects using the same method.
 
 ```{r, fig.height = 4}
-plot_data <- example_sf_point %>% 
+plot_data <- example_point %>% 
   mutate_text()
 
 plot <- gg_sf_col(plot_data, 
                   col_var = trend_category, 
                   text_var = text,
-                  borders = example_sf_borders)
+                  borders = example_borders)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()
@@ -135,9 +135,9 @@ plotly::ggplotly(plot, tooltip = "text") %>%
 
 
 ```{r, fig.height = 6}
-col_cuts <- as.vector(quantile(example_sf_point$median, probs = c(0, 0.25, 0.5, 0.75, 1)))
+col_cuts <- as.vector(quantile(example_point$median, probs = c(0, 0.25, 0.5, 0.75, 1)))
 
-plot_data <- example_sf_point %>% 
+plot_data <- example_point %>% 
   mutate(quartile = case_when(median < col_cuts[2] ~ "Q1", 
                               median < col_cuts[3] ~ "Q2",
                               median < col_cuts[4] ~ "Q3",
@@ -148,7 +148,7 @@ plot <- gg_sf_col_facet(plot_data,
                         col_var = trend_category, 
                         facet_var = quartile, 
                         text_var = text,
-                        borders = example_sf_borders)
+                        borders = example_borders)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

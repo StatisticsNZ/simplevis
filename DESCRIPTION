@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' and 'leaflet' Visualisation with Less Brainpower
-Version: 5.0.51
+Version: 5.0.53
 Authors@R:
     c(person(given = "David", 
                family = "Hodge", 
@@ -18,8 +18,9 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: dplyr, forcats, ggplot2, htmlwidgets, leaflet, leafem,     
-         leafpop, lubridate, magrittr, purrr, rlang, scales, sf,  
-         snakecase, stars, stringr, tidyr, tidyselect, viridis
+         leafpop, lifecycle, lubridate, magrittr, purrr, rlang, 
+         scales, sf,  snakecase, stars, stringr, tidyr, tidyselect, 
+         viridis
 Suggests: DT, glue, knitr, palmerpenguins, pals, plotly, rgdal, 
          rgeos, rmarkdown, s2, shiny, shinycssloaders, tibble
 RoxygenNote: 7.1.2

@@ -11,7 +11,6 @@
 #' @export
 #' @examples
 #' library(simplevis)
-#' library(stars)
 #' 
 #' leaflet_stars(example_stars) 
 #'   
@@ -21,6 +20,8 @@ leaflet_stars <- function(data,
                           basemap = "light",
                           map_id = "map")
 {
+  #deprecate
+  lifecycle::deprecate_warn("6.0.0", "leaflet_stars()", "leaf_stars()")
   
   #shiny
   shiny <- shiny::isRunning()
@@ -96,10 +97,10 @@ leaflet_stars <- function(data,
 #' @export
 #' @examples
 #' library(simplevis)
-#' library(stars)
 #' 
 #' leaflet_stars_col(example_stars, 
-#'                   col_var = nitrate)
+#'                   col_var = nitrate, 
+#'                   col_na_rm = TRUE)
 #' 
 leaflet_stars_col <- function(data,
                               col_var,
@@ -118,6 +119,9 @@ leaflet_stars_col <- function(data,
                               col_title = NULL,
                               map_id = "map"
 ) {
+  
+  #deprecate
+  lifecycle::deprecate_warn("6.0.0", "leaflet_stars_col()", "leaf_stars_col()")
   
   #shiny
   shiny <- shiny::isRunning()
@@ -210,6 +214,7 @@ leaflet_stars_col <- function(data,
     }
     else ({
       col_labels2 <- unique(col_var_vctr)
+      col_labels2 <- sort(col_labels2[!is.na(col_labels2)])
       col_n <- length(col_labels2)
     }) 
     

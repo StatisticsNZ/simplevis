@@ -345,6 +345,8 @@ gg_hboxplot <- function(data,
 #'             y_var = species, 
 #'             col_var = sex)
 #'             
+#' For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+#' 
 gg_hboxplot_col <- function(data,
                         x_var,
                         y_var,
@@ -1112,6 +1114,8 @@ gg_hboxplot_facet <- function(data,
 #'                   y_var = species, 
 #'                   col_var = island, 
 #'                   facet_var = sex)
+#'                   
+#' For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
 gg_hboxplot_col_facet <- function(data,
                               x_var,

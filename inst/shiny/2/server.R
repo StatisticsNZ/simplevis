@@ -134,10 +134,12 @@ shinyServer(function(input, output, session) {
     
     title <- paste0("Monitored trends, 2008\u201317")
     
-    leaflet_sf_col(map_data(),
-                   col_var = trend_category,
-                   size_point = size_reactive,
-                   col_title = title)
+    leaf_sf_col(
+      map_data(),
+      col_var = trend_category,
+      size_point = size_reactive,
+      col_title = title
+    )
   }
   
   observe({

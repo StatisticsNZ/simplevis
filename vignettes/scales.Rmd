@@ -123,13 +123,16 @@ gg_point_col(penguins,
 Transform numeric x and y scales by adding a `ggplot2` `scale_*_continuous` layer.
 
 ```{r}
-gg_point(penguins,
-       x_var = flipper_length_mm,
-       y_var = body_mass_g) +
-  ggplot2::scale_y_continuous(trans = "log10", 
-                     expand = c(0, 0), 
-                     labels = scales::label_comma(), 
-                     breaks = function(x) pretty(x, n = 5))
+gg_point_col(penguins,
+             x_var = bill_length_mm,
+             y_var = body_mass_g,
+             col_var = species) +
+  ggplot2::scale_y_log10(
+    name = "Bill length mm",
+    breaks = function(x) pretty(x, 4),
+    limits = function(x) c(min(pretty(x, 4)), max(pretty(x, 4))),
+    expand = c(0, 0)
+  ) 
 ```
 
 ### Discrete scales

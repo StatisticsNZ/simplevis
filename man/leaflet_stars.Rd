@@ -31,7 +31,6 @@ Map of stars in leaflet that is not coloured.
 }
 \examples{
 library(simplevis)
-library(stars)
 
 leaflet_stars(example_stars) 
   

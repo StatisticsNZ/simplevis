@@ -358,16 +358,12 @@ gg_boxplot <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' plot <- gg_boxplot_col(penguins, 
+#' gg_boxplot_col(penguins, 
 #'                x_var = species, 
 #'                y_var = body_mass_g, 
 #'                col_var = sex)
 #' 
-#' plot 
-#' 
-#' plotly::ggplotly(plot) %>%
-#'   plotly::layout(boxmode = "group") %>%
-#'   plotly_camera()
+#' For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
 gg_boxplot_col <- function(data,
                            x_var,
@@ -1133,18 +1129,14 @@ gg_boxplot_facet <- function(data,
 #' plot_data <- penguins %>% 
 #'   mutate(year = as.character(year))
 #' 
-#' plot <- gg_boxplot_col_facet(plot_data, 
-#'                              x_var = year, 
-#'                              y_var = body_mass_g, 
-#'                              col_var = sex, 
-#'                              facet_var = species)
+#' gg_boxplot_col_facet(plot_data, 
+#'                      x_var = year, 
+#'                      y_var = body_mass_g, 
+#'                      col_var = sex, 
+#'                      facet_var = species)
 #'                              
-#' plot
-#' 
-#' plotly::ggplotly(plot) %>%
-#'   plotly::layout(boxmode = "group") %>%
-#'   plotly_camera()
-#' 
+#' For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+#'  
 gg_boxplot_col_facet <- function(data,
                                  x_var,
                                  y_var = NULL,

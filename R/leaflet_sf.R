@@ -32,6 +32,9 @@ leaflet_sf <- function(data,
                        basemap = "light",
                        map_id = "map")
 {
+  #deprecate
+  lifecycle::deprecate_warn("6.0.0", "leaflet_sf()", "leaf_sf()")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -276,6 +279,9 @@ leaflet_sf_col <- function(data,
                            map_id = "map"
 ) {
   
+  #deprecate
+  lifecycle::deprecate_warn("6.0.0", "leaflet_sf_col()", "leaf_sf_col()")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -378,7 +384,7 @@ leaflet_sf_col <- function(data,
     }
     else ({
       col_labels2 <- unique(col_var_vctr)
-      col_labels2 <- col_labels2[!is.na(col_labels2)]
+      col_labels2 <- sort(col_labels2[!is.na(col_labels2)])
       col_n <- length(col_labels2)
     }) 
     

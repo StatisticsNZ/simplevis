@@ -22,7 +22,7 @@ leaflet_basemap <- function(bounds = NULL, basemap = "light"){
   else if(basemap == "street") basemap_order <- c("Street", "Light", "Dark", "Satellite", "Ocean")
   else if(basemap == "ocean") basemap_order <- c("Ocean", "Light", "Dark", "Street", "Satellite")
   else basemap_order <- c("Light", "Dark", "Street", "Satellite", "Ocean")
-
+  
   map <- leaflet() %>%
     leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                title = "Reset View", 

@@ -33,6 +33,7 @@ gg_density_facet(
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
+  facet_rev = FALSE,
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
@@ -100,6 +101,8 @@ gg_density_facet(
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
+
+\item{facet_rev}{TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 

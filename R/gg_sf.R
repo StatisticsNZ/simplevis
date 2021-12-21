@@ -601,6 +601,7 @@ gg_sf_col <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
 #' @param alpha_borders Opacity of the borders. Defaults to 1.
 #' @param size_borders Size of the borders. Defaults to 0.2.
@@ -637,6 +638,7 @@ gg_sf_facet <- function(data,
                         facet_na_rm = FALSE,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
+                        facet_rev = FALSE,
                         title = NULL,
                         title_wrap = 80,
                         subtitle = NULL,
@@ -682,6 +684,14 @@ gg_sf_facet <- function(data,
   if (is.logical(facet_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!facet_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
+  #reverse
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
     
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
@@ -812,6 +822,7 @@ gg_sf_facet <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_ncol The number of columns of facetted plots.
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme. 
@@ -858,6 +869,7 @@ gg_sf_col_facet <- function(data,
                             facet_na_rm = FALSE,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
+                            facet_rev = FALSE,
                             caption = NULL,
                             caption_wrap = 80,
                             theme = NULL)
@@ -922,6 +934,14 @@ gg_sf_col_facet <- function(data,
   
   #titles
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
+  
+  #reverse
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
   
   #fundamentals
   if (is.null(theme)) theme <- gg_theme_map()

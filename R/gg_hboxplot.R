@@ -325,7 +325,7 @@ gg_hboxplot <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. 
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -345,7 +345,7 @@ gg_hboxplot <- function(data,
 #'             y_var = species, 
 #'             col_var = sex)
 #'             
-#' For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+#' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
 gg_hboxplot_col <- function(data,
                         x_var,
@@ -740,6 +740,7 @@ gg_hboxplot_col <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
@@ -794,6 +795,7 @@ gg_hboxplot_facet <- function(data,
                           facet_na_rm = FALSE,
                           facet_ncol = NULL,
                           facet_nrow = NULL,
+                          facet_rev = FALSE,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
@@ -863,7 +865,14 @@ gg_hboxplot_facet <- function(data,
       y_var_vctr <- dplyr::pull(data, !!y_var)
     }
   }
-
+  
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+  
   #colour
   pal <- pal[1]
   
@@ -1090,13 +1099,14 @@ gg_hboxplot_facet <- function(data,
 #' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::number for numeric colour variables. Use ggplot2::waiver() to keep colour labels untransformed.   
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. 
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
@@ -1115,7 +1125,7 @@ gg_hboxplot_facet <- function(data,
 #'                   col_var = island, 
 #'                   facet_var = sex)
 #'                   
-#' For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+#' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
 gg_hboxplot_col_facet <- function(data,
                               x_var,
@@ -1163,6 +1173,7 @@ gg_hboxplot_col_facet <- function(data,
                               facet_na_rm = FALSE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
+                              facet_rev = FALSE,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
@@ -1254,6 +1265,13 @@ gg_hboxplot_col_facet <- function(data,
       
       col_var_vctr <- dplyr::pull(data, !!col_var)
     }
+  }
+  
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
   #size_width

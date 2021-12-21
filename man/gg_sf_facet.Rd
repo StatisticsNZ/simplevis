@@ -23,6 +23,7 @@ gg_sf_facet(
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
+  facet_rev = FALSE,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -68,6 +69,8 @@ gg_sf_facet(
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
+
+\item{facet_rev}{TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.}
 
 \item{title}{Title string.}
 

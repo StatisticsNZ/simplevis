@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.53</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.54</span>
       </span>
     </div>
 
@@ -208,6 +208,7 @@
   <span class='kw'>facet_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
@@ -376,7 +377,7 @@
     </tr>
     <tr>
       <th>col_rev</th>
-      <td><p>TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.</p></td>
+      <td><p>TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>col_title</th>
@@ -401,6 +402,10 @@
     <tr>
       <th>facet_nrow</th>
       <td><p>The number of rows of facetted plots.</p></td>
+    </tr>
+    <tr>
+      <th>facet_rev</th>
+      <td><p>TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>facet_scales</th>
@@ -436,7 +441,9 @@
                   <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
                   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
                   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>island</span>,
-                  <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>sex</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_hboxplot_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+                  <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>sex</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_hboxplot_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>                  
+#For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

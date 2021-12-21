@@ -261,7 +261,7 @@ gg_smooth <- function(data,
 #'              y_var = body_mass_g, 
 #'              col_var = species)
 #'              
-#' if ggplotly legend bug pipe in plotly::style(showlegend = FALSE, traces = 1:n) layer 
+#' #if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
 #' 
 gg_smooth_col <- function(data,
                           x_var,
@@ -511,6 +511,7 @@ gg_smooth_col <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -567,6 +568,7 @@ gg_smooth_facet <- function(data,
                             facet_na_rm = FALSE,
                             facet_ncol = NULL,
                             facet_nrow = NULL,
+                            facet_rev = FALSE,
                             facet_scales = "fixed",
                             caption = NULL,
                             caption_wrap = 80,
@@ -617,6 +619,14 @@ gg_smooth_facet <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
+  #reverse
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+
   #colour
   pal <- pal[1]
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
@@ -740,6 +750,7 @@ gg_smooth_facet <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
@@ -764,7 +775,7 @@ gg_smooth_facet <- function(data,
 #'                    facet_var = species, 
 #'                    col_na_rm = TRUE)
 #' 
-#' if ggplotly legend bug pipe in plotly::style(showlegend = FALSE, traces = 1:n) layer 
+#' #if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
 #' 
 gg_smooth_col_facet <- function(data,
                                 x_var,
@@ -808,6 +819,7 @@ gg_smooth_col_facet <- function(data,
                                 facet_na_rm = FALSE,
                                 facet_ncol = NULL,
                                 facet_nrow = NULL,
+                                facet_rev = FALSE,
                                 facet_scales = "fixed",
                                 caption = NULL,
                                 caption_wrap = 80,
@@ -871,6 +883,14 @@ gg_smooth_col_facet <- function(data,
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
+  
+  #reverse
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
   
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {

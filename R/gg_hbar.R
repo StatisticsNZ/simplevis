@@ -311,7 +311,7 @@ gg_hbar <- function(data,
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. 
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -766,6 +766,7 @@ gg_hbar_col <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
@@ -825,6 +826,7 @@ gg_hbar_facet <- function(data,
                           facet_na_rm = FALSE,
                           facet_ncol = NULL,
                           facet_nrow = NULL,
+                          facet_rev = FALSE,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
@@ -888,6 +890,13 @@ gg_hbar_facet <- function(data,
       
       y_var_vctr <- dplyr::pull(data, !!y_var)
     }
+  }
+  
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
 
   #colour
@@ -1053,7 +1062,7 @@ gg_hbar_facet <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
-#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. 
 #' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
@@ -1061,6 +1070,7 @@ gg_hbar_facet <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
@@ -1134,6 +1144,7 @@ gg_hbar_col_facet <- function(data,
                               facet_na_rm = FALSE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
+                              facet_rev = FALSE,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
@@ -1205,6 +1216,13 @@ gg_hbar_col_facet <- function(data,
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  }
+
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))

@@ -159,17 +159,11 @@ Smoothed ggplot that is coloured, but not facetted.
 library(simplevis)
 library(palmerpenguins)
 
-plot <- gg_smooth_col(penguins, 
+gg_smooth_col(penguins, 
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species)
              
-plot
-             
-library(plotly)
-n <- 3
-
-plotly::ggplotly(plot) \%>\% 
-  style(showlegend = FALSE, traces = 1:n) #fix ggplotly bug
+#if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
 
 }

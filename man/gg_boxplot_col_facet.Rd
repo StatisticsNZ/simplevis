@@ -51,6 +51,7 @@ gg_boxplot_col_facet(
   facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
+  facet_rev = FALSE,
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
@@ -137,7 +138,7 @@ gg_boxplot_col_facet(
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
-\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. Defaults to FALSE.}
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
@@ -150,6 +151,8 @@ gg_boxplot_col_facet(
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
+
+\item{facet_rev}{TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
@@ -175,16 +178,12 @@ library(palmerpenguins)
 plot_data <- penguins \%>\% 
   mutate(year = as.character(year))
 
-plot <- gg_boxplot_col_facet(plot_data, 
-                             x_var = year, 
-                             y_var = body_mass_g, 
-                             col_var = sex, 
-                             facet_var = species)
+gg_boxplot_col_facet(plot_data, 
+                     x_var = year, 
+                     y_var = body_mass_g, 
+                     col_var = sex, 
+                     facet_var = species)
                              
-plot
-
-plotly::ggplotly(plot) \%>\%
-  plotly::layout(boxmode = "group") \%>\%
-  plotly_camera()
-
+#For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+ 
 }

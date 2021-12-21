@@ -370,6 +370,7 @@ gg_tile_col <- function(data,
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
 #' @param facet_nrow The number of rows of facetted plots. 
+#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
@@ -436,6 +437,7 @@ gg_tile_col_facet <- function(data,
                               facet_na_rm = FALSE,
                               facet_ncol = NULL,
                               facet_nrow = NULL,
+                              facet_rev = FALSE,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
@@ -529,6 +531,13 @@ gg_tile_col_facet <- function(data,
       dplyr::mutate(dplyr::across(!!y_var, ~forcats::fct_rev(.x)))
     
     y_var_vctr <- dplyr::pull(data, !!y_var)
+  }
+  
+  if (facet_rev == TRUE) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
+    
+    facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
   
   #colour

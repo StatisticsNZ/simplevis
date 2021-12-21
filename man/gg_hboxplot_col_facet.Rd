@@ -168,8 +168,7 @@ penguins \%>\%
                         y_var = year,
                         col_var = sex,
                         facet_var = species,
-                        col_na_rm = TRUE,
-                        y_labels = function(x) stringr::str_sub(x, 3, 4))
+                        col_na_rm = TRUE)
 
 #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 

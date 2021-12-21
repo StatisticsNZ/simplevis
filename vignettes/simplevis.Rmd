@@ -34,7 +34,7 @@ library(ggplot2)
 
 ### Visualisation family types
 
-`simplevis` supports the following families of visualisation type:
+`simplevis` supports the following families of visualisation types:
 
 bar
 
@@ -68,36 +68,18 @@ gg_line(plot_data,
         y_var = wind)
 ```
 
-hbar (i.e horizontal bar)
-
-```{r}
-plot_data <- ggplot2::diamonds %>%
-  group_by(cut) %>%
-  summarise(price = mean(price))
-
-gg_hbar(plot_data, 
-        x_var = price, 
-        y_var = cut)
-```
-
-tile
-
-```{r}
-plot_data <- penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1))
-
-gg_tile_col(plot_data, 
-            x_var = sex, 
-            y_var = species, 
-            col_var = bill_length_mm, 
-            label_var = bill_length_mm) 
-```
-
 boxplot
 
 ```{r}
 gg_boxplot(penguins, 
+           x_var = species, 
+           y_var = body_mass_g)
+```
+
+violin
+
+```{r}
+gg_violin(penguins, 
            x_var = species, 
            y_var = body_mass_g)
 ```
@@ -115,6 +97,20 @@ smooth
 gg_smooth(penguins,  
           x_var = bill_length_mm, 
           y_var = body_mass_g)
+```
+
+tile
+
+```{r}
+plot_data <- penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1))
+
+gg_tile_col(plot_data, 
+            x_var = sex, 
+            y_var = species, 
+            col_var = bill_length_mm, 
+            label_var = bill_length_mm) 
 ```
 
 sf
@@ -135,6 +131,8 @@ gg_stars_col(example_stars,
              col_na_rm = TRUE,
              borders = example_borders)
 ```
+
+In addition, there are specific horizontal functions of `hbar*()`, `hboxplot*()` and `hviolin*()`.
 
 ### Colouring, facetting, neither or both
 
@@ -376,14 +374,16 @@ tibble::tribble(
   "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "boxplot", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", "boxplot (or identity)",
   "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
-  "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
-    "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "boxplot (or identity)",
   "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "identity",
   "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity (or jitter)",
   "sf", "sf", NA, NA, "Categorical or numeric", "Categorical", "identity",
   "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "stars", "stars", NA, NA, "Categorical or numeric", NA, "identity",
-  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical", "identity"
+  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical", "identity",
+  "violin", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", "ydensity",
+  "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
+  "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "boxplot (or identity)",
+  "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "ydensity"
   ) %>% 
   DT::datatable()
 ```

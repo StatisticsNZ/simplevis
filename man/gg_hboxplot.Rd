@@ -27,16 +27,12 @@ gg_hboxplot(
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
-  y_balance = FALSE,
-  y_breaks_n = 5,
-  y_expand = NULL,
-  y_labels = NULL,
+  y_expand = ggplot2::waiver(),
+  y_labels = snakecase::to_sentence_case,
   y_na_rm = FALSE,
   y_rev = FALSE,
   y_title = NULL,
   y_title_wrap = 50,
-  y_zero = FALSE,
-  y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 75,
   theme = gg_theme(gridlines = "vertical"),
@@ -47,9 +43,9 @@ gg_hboxplot(
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
+\item{x_var}{Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
 
-\item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
+\item{y_var}{Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -89,10 +85,6 @@ gg_hboxplot(
 
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
-
-\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
-
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
@@ -104,10 +96,6 @@ gg_hboxplot(
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
-
-\item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.}
-
-\item{y_zero_line}{For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
 
 \item{caption}{Caption title string.}
 

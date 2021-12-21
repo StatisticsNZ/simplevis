@@ -187,16 +187,12 @@
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>x_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/waiver.html'>waiver</a></span>(),
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
   <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>y_zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stringr/man/case.html'>str_to_sentence</a></span>,
   <span class='kw'>col_legend_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -219,11 +215,11 @@
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Unquoted numeric variable to be on the x scale. Required input.</p></td>
+      <td><p>Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
-      <td><p>Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.</p></td>
+      <td><p>Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.</p></td>
     </tr>
     <tr>
       <th>col_var</th>
@@ -314,14 +310,6 @@
       <td><p>For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
-      <th>y_balance</th>
-      <td><p>For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>y_breaks_n</th>
-      <td><p>For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
-    </tr>
-    <tr>
       <th>y_expand</th>
       <td><p>A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
@@ -344,14 +332,6 @@
     <tr>
       <th>y_title_wrap</th>
       <td><p>Number of characters to wrap the y title to. Defaults to 50.</p></td>
-    </tr>
-    <tr>
-      <th>y_zero</th>
-      <td><p>For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>y_zero_line</th>
-      <td><p>For a numeric y variable, TRUE or FALSE of whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>

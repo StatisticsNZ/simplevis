@@ -1,3 +1,7 @@
+# simplevis 5.0.54
+
+* Limited boxplot to a categorical x_var, and likewise hboxplot.
+
 # simplevis 5.0.53
 
 * Added library(stars) call within all stars functions.

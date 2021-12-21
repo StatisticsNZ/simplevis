@@ -76,9 +76,9 @@ gg_hbar_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
 \item{size_line}{The size of the outlines of bars.}
 

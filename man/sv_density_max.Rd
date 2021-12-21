@@ -7,11 +7,11 @@
 sv_density_max(
   data,
   x_var,
-  stat_bw = "nrd0",
-  stat_adjust = 1,
-  stat_kernel = "gaussian",
-  stat_n = 512,
-  stat_trim = FALSE
+  model_bw = "nrd0",
+  model_adjust = 1,
+  model_kernel = "gaussian",
+  model_n = 512,
+  model_trim = FALSE
 )
 }
 \arguments{
@@ -19,15 +19,15 @@ sv_density_max(
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
-\item{stat_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+\item{model_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
 
-\item{stat_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+\item{model_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
 
-\item{stat_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+\item{model_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
 
-\item{stat_n}{The n argument of the stats::density function. Defaults to 512.}
+\item{model_n}{The n argument of the stats::density function. Defaults to 512.}
 
-\item{stat_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
+\item{model_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
 }
 \description{
 Calculate the max density in a gg_density() plot.

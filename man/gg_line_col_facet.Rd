@@ -76,7 +76,7 @@ gg_line_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the line. Defaults to 1.}
 
 \item{alpha_point}{The opacity of the points.}
 

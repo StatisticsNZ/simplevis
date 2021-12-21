@@ -4,8 +4,8 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill.  
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -27,11 +27,11 @@
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param model_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param model_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param model_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param model_n The n argument of the stats::density function. Defaults to 512.
+#' @param model_trim TRUE or FALSE of whether to trim the tails. Defaults to FALSE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
@@ -69,11 +69,11 @@ gg_density <- function(data,
                        caption = NULL,
                        caption_wrap = 80,
                        theme = gg_theme(),
-                       density_bw = "nrd0",
-                       density_adjust = 1,
-                       density_kernel = "gaussian",
-                       density_n = 512,
-                       density_trim = FALSE,
+                       model_bw = "nrd0",
+                       model_adjust = 1,
+                       model_kernel = "gaussian",
+                       model_n = 512,
+                       model_trim = FALSE,
                        mobile = FALSE) {
   
   #ungroup
@@ -101,7 +101,7 @@ gg_density <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_density(aes(x = !!x_var), 
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = model_bw, adjust = model_adjust, kernel = model_kernel, n = model_n, trim = model_trim,
                  col = pal_line, 
                  fill = pal_fill, 
                  size = size_line) 
@@ -176,8 +176,8 @@ gg_density <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill.  
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -204,11 +204,11 @@ gg_density <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param model_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param model_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param model_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param model_n The n argument of the stats::density function. Defaults to 512.
+#' @param model_trim TRUE or FALSE of whether to trim the tails. Defaults to FALSE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
@@ -255,11 +255,11 @@ gg_density_col <- function(data,
                            caption = NULL,
                            caption_wrap = 80,
                            theme = gg_theme(),
-                           density_bw = "nrd0",
-                           density_adjust = 1,
-                           density_kernel = "gaussian",
-                           density_n = 512,
-                           density_trim = FALSE,
+                           model_bw = "nrd0",
+                           model_adjust = 1,
+                           model_kernel = "gaussian",
+                           model_n = 512,
+                           model_trim = FALSE,
                            mobile = FALSE) {
   
   #ungroup
@@ -317,7 +317,7 @@ gg_density_col <- function(data,
     theme +
     geom_density(aes(x = !!x_var, col = !!col_var, fill = !!col_var), 
                  position = "identity",
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = model_bw, adjust = model_adjust, kernel = model_kernel, n = model_n, trim = model_trim,
                  size = size_line) 
   
   #x scale  
@@ -417,8 +417,8 @@ gg_density_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill.  
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -446,11 +446,11 @@ gg_density_col <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param model_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param model_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param model_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param model_n The n argument of the stats::density function. Defaults to 512.
+#' @param model_trim TRUE or FALSE of whether to trim the tails. Defaults to FALSE.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -495,11 +495,11 @@ gg_density_facet <- function(data,
                              caption = NULL,
                              caption_wrap = 80,
                              theme = gg_theme(), 
-                             density_bw = "nrd0",
-                             density_adjust = 1,
-                             density_kernel = "gaussian",
-                             density_n = 512,
-                             density_trim = FALSE) {
+                             model_bw = "nrd0",
+                             model_adjust = 1,
+                             model_kernel = "gaussian",
+                             model_n = 512,
+                             model_trim = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -543,7 +543,7 @@ gg_density_facet <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_density(aes(x = !!x_var), 
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = model_bw, adjust = model_adjust, kernel = model_kernel, n = model_n, trim = model_trim,
                  col = pal_line, 
                  fill = pal_fill, 
                  size = size_line) 
@@ -613,8 +613,8 @@ gg_density_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill.  
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -647,11 +647,11 @@ gg_density_facet <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
-#' @param density_bw The bw argument of the stats::density function. Defaults to "nrd0".
-#' @param density_adjust The adjust argument of the stats::density function. Defaults to 1.
-#' @param density_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
-#' @param density_n The n argument of the stats::density function. Defaults to 512.
-#' @param density_trim The trim argument of the stats::density function. Defaults to FALSE.
+#' @param model_bw The bw argument of the stats::density function. Defaults to "nrd0".
+#' @param model_adjust The adjust argument of the stats::density function. Defaults to 1.
+#' @param model_kernel The kernel argument of the stats::density function. Defaults to "gaussian".
+#' @param model_n The n argument of the stats::density function. Defaults to 512.
+#' @param model_trim TRUE or FALSE of whether to trim the tails. Defaults to FALSE.
 #' 
 #' @return A ggplot object.
 #' @export
@@ -705,11 +705,11 @@ gg_density_col_facet <- function(data,
                                  caption = NULL,
                                  caption_wrap = 80, 
                                  theme = gg_theme(), 
-                                 density_bw = "nrd0",
-                                 density_adjust = 1,
-                                 density_kernel = "gaussian",
-                                 density_n = 512,
-                                 density_trim = FALSE) {
+                                 model_bw = "nrd0",
+                                 model_adjust = 1,
+                                 model_kernel = "gaussian",
+                                 model_n = 512,
+                                 model_trim = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -780,7 +780,7 @@ gg_density_col_facet <- function(data,
     theme +
     geom_density(aes(x = !!x_var, col = !!col_var, fill = !!col_var), 
                  position = "identity",
-                 bw = density_bw, adjust = density_adjust, kernel = density_kernel, n = density_n, trim = density_trim,
+                 bw = model_bw, adjust = model_adjust, kernel = model_kernel, n = model_n, trim = model_trim,
                  size = size_line) 
   
   #x scale

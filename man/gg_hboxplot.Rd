@@ -13,8 +13,8 @@ gg_hboxplot(
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
-  size_point = 1,
-  size_width = NULL,
+  size_point = 0.75,
+  size_width = 0.5,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -49,15 +49,15 @@ gg_hboxplot(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The opacity of the fill.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
-\item{alpha_point}{The opacity of the points.}
+\item{alpha_point}{The opacity of the outlier points. Defaults to 1.}
 
 \item{size_line}{The size of the outlines of boxplots.}
 
-\item{size_point}{The size of the outliers. Defaults to 1.}
+\item{size_point}{The size of the outlier points. Defaults to 0.75.}
 
 \item{size_width}{Width of boxes. Defaults to 0.5.}
 

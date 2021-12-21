@@ -52,12 +52,12 @@ gg_smooth_col_facet(
   caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(gridlines = "both"),
-  smooth_method = NULL,
-  smooth_formula = NULL,
-  smooth_se = TRUE,
-  smooth_level = 0.95,
-  smooth_span = 0.75,
-  smooth_n = 80
+  model_method = NULL,
+  model_formula = NULL,
+  model_se = TRUE,
+  model_level = 0.95,
+  model_span = 0.75,
+  model_n = 80
 )
 }
 \arguments{
@@ -77,11 +77,11 @@ gg_smooth_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the line. Defaults to 1.}
 
-\item{alpha_point}{The opacity of the points.}
+\item{alpha_point}{The opacity of the points. Defaults to 1.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
@@ -155,17 +155,17 @@ gg_smooth_col_facet(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{smooth_method}{Smoothing algorithm to use. See ggplot2::geom_smooth for further details.}
+\item{model_method}{Smoothing algorithm to use. See ggplot2::geom_smooth for further details.}
 
-\item{smooth_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
+\item{model_formula}{Formula to use in smoothing function. See ggplot2::geom_smooth for further details.}
 
-\item{smooth_se}{TRUE or FALSE of whether to show confidence as a ribbon.}
+\item{model_se}{TRUE or FALSE of whether to show confidence as a ribbon.}
 
-\item{smooth_level}{The level of confidence to calculate for the ribbon.}
+\item{model_level}{The level of confidence to calculate for the ribbon.}
 
-\item{smooth_span}{Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.}
+\item{model_span}{Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.}
 
-\item{smooth_n}{Number of points at which to evaluate smoother.}
+\item{model_n}{Number of points at which to evaluate smoother.}
 }
 \value{
 A ggplot object.

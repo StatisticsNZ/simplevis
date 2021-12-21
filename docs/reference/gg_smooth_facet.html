@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.54</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.55</span>
       </span>
     </div>
 
@@ -201,12 +201,12 @@
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(<span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"both"</span>),
-  <span class='kw'>smooth_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>smooth_formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>smooth_se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>smooth_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>smooth_span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>smooth_n</span> <span class='kw'>=</span> <span class='fl'>80</span>
+  <span class='kw'>model_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>model_formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>model_se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>model_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>model_span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>model_n</span> <span class='kw'>=</span> <span class='fl'>80</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -234,15 +234,15 @@
     </tr>
     <tr>
       <th>alpha_fill</th>
-      <td><p>The opacity of the fill.</p></td>
+      <td><p>The opacity of the fill. Defaults to 0.2.</p></td>
     </tr>
     <tr>
       <th>alpha_line</th>
-      <td><p>The opacity of the outline.</p></td>
+      <td><p>The opacity of the line. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>alpha_point</th>
-      <td><p>The opacity of the points.</p></td>
+      <td><p>The opacity of the points. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>size_line</th>
@@ -369,27 +369,27 @@
       <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
-      <th>smooth_method</th>
+      <th>model_method</th>
       <td><p>Smoothing algorithm to use. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>smooth_formula</th>
+      <th>model_formula</th>
       <td><p>Formula to use in smoothing function. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>smooth_se</th>
+      <th>model_se</th>
       <td><p>TRUE or FALSE of whether to show confidence as a ribbon.</p></td>
     </tr>
     <tr>
-      <th>smooth_level</th>
+      <th>model_level</th>
       <td><p>The level of confidence to calculate for the ribbon.</p></td>
     </tr>
     <tr>
-      <th>smooth_span</th>
+      <th>model_span</th>
       <td><p>Controls the amount of smoothing for the default loess smoother. See ggplot2::geom_smooth for further details.</p></td>
     </tr>
     <tr>
-      <th>smooth_n</th>
+      <th>model_n</th>
       <td><p>Number of points at which to evaluate smoother.</p></td>
     </tr>
     </table>

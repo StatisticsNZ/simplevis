@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.54</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.55</span>
       </span>
     </div>
 
@@ -174,8 +174,8 @@
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>size_width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>size_width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -249,15 +249,15 @@
     </tr>
     <tr>
       <th>alpha_fill</th>
-      <td><p>The opacity of the fill.</p></td>
+      <td><p>The opacity of the fill. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>alpha_line</th>
-      <td><p>The opacity of the outline.</p></td>
+      <td><p>The opacity of the outline. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>alpha_point</th>
-      <td><p>The opacity of the points.</p></td>
+      <td><p>The opacity of the outlier points. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>size_line</th>
@@ -265,7 +265,7 @@
     </tr>
     <tr>
       <th>size_point</th>
-      <td><p>The size of the outliers. Defaults to 1.</p></td>
+      <td><p>The size of the outlier points. Defaults to 0.75.</p></td>
     </tr>
     <tr>
       <th>size_width</th>
@@ -417,11 +417,14 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='fu'>gg_hboxplot_col_facet</span>(<span class='no'>penguins</span>,
-                  <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
-                  <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
-                  <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>island</span>,
-                  <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>sex</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</span></div><div class='img'><img src='gg_hboxplot_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>                  
+<span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>year</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'>gg_hboxplot_col_facet</span>(<span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
+                        <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>year</span>,
+                        <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
+                        <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
+                        <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                        <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/stringr/man/str_sub.html'>str_sub</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>, <span class='fl'>4</span>))</div><div class='img'><img src='gg_hboxplot_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 
 </div></pre>

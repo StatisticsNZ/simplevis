@@ -4,11 +4,11 @@
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -52,8 +52,8 @@ gg_hboxplot <- function(data,
                     alpha_line = 1,
                     alpha_point = 1,
                     size_line = 0.5,
-                    size_point = 1,
-                    size_width = NULL,
+                    size_point = 0.75,
+                    size_width = 0.5,
                     title = NULL,
                     title_wrap = 75,
                     subtitle = NULL,
@@ -135,13 +135,6 @@ gg_hboxplot <- function(data,
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
 
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
-  
   #fundamentals
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
@@ -244,11 +237,11 @@ gg_hboxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -289,7 +282,8 @@ gg_hboxplot <- function(data,
 #' gg_hboxplot_col(penguins, 
 #'             x_var = body_mass_g, 
 #'             y_var = species, 
-#'             col_var = sex)
+#'             col_var = sex, 
+#'             col_na_rm = TRUE)
 #'             
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
@@ -304,8 +298,8 @@ gg_hboxplot_col <- function(data,
                         alpha_line = 1,
                         alpha_point = 1,
                         size_line = 0.5,
-                        size_point = 1,
-                        size_width = NULL,
+                        size_point = 0.75,
+                        size_width = 0.5,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -411,13 +405,6 @@ gg_hboxplot_col <- function(data,
     }
   }
 
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
-  
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -561,11 +548,11 @@ gg_hboxplot_col <- function(data,
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots. 
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -605,7 +592,8 @@ gg_hboxplot_col <- function(data,
 #' gg_hboxplot_facet(penguins, 
 #'               x_var = body_mass_g, 
 #'               y_var = sex, 
-#'               facet_var = species)
+#'               facet_var = species, 
+#'               y_na_rm = TRUE)
 #'
 gg_hboxplot_facet <- function(data,
                           x_var,
@@ -616,8 +604,8 @@ gg_hboxplot_facet <- function(data,
                           alpha_line = 1,
                           alpha_point = 1,
                           size_line = 0.5,
-                          size_point = 1,
-                          size_width = NULL,
+                          size_point = 0.75,
+                          size_width = 0.5,
                           title = NULL,
                           title_wrap = 75,
                           subtitle = NULL,
@@ -726,13 +714,6 @@ gg_hboxplot_facet <- function(data,
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
   
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
-  
   #fundamentals
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
@@ -830,12 +811,12 @@ gg_hboxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param size_line The size of the outlines of boxplots. 
-#' @param size_point The size of the outliers. Defaults to 1.
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -877,12 +858,15 @@ gg_hboxplot_facet <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_hboxplot_col_facet(penguins, 
-#'                   x_var = body_mass_g, 
-#'                   y_var = species, 
-#'                   col_var = island, 
-#'                   facet_var = sex)
-#'                   
+#' penguins %>%
+#'   dplyr::mutate(year = as.character(year)) %>%
+#'   gg_hboxplot_col_facet(x_var = body_mass_g,
+#'                         y_var = year,
+#'                         col_var = sex,
+#'                         facet_var = species,
+#'                         col_na_rm = TRUE,
+#'                         y_labels = function(x) stringr::str_sub(x, 3, 4))
+#' 
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
 gg_hboxplot_col_facet <- function(data,
@@ -897,8 +881,8 @@ gg_hboxplot_col_facet <- function(data,
                               alpha_line = 1,
                               alpha_point = 1,
                               size_line = 0.5,
-                              size_point = 1,
-                              size_width = NULL,
+                              size_point = 0.75,
+                              size_width = 0.5,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -1027,13 +1011,6 @@ gg_hboxplot_col_facet <- function(data,
       dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
     
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
-  }
-  
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
   }
   
   #colour

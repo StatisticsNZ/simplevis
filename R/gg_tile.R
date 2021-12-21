@@ -10,7 +10,7 @@
 #' @param pal_label Hex code for the label font colour. Defaults to "#323232".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param size_height Height of tiles. Defaults to 1.
 #' @param size_width Width of tiles. Defaults to 1.
@@ -337,7 +337,7 @@ gg_tile_col <- function(data,
 #' @param pal_label Hex code for the label font colour. Defaults to "#323232".
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill.  
+#' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param size_height Height of tiles. Defaults to 1.
 #' @param size_width Width of tiles. Defaults to 1.

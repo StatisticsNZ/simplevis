@@ -5,7 +5,7 @@
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
@@ -254,7 +254,7 @@ gg_line <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
@@ -566,7 +566,7 @@ gg_line_col <- function(data,
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 
@@ -837,7 +837,7 @@ gg_line_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_line The opacity of the outline. 
+#' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
 #' @param size_point Size of points. Defaults to 1. 

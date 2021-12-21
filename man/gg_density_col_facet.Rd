@@ -46,11 +46,11 @@ gg_density_col_facet(
   caption = NULL,
   caption_wrap = 80,
   theme = gg_theme(),
-  density_bw = "nrd0",
-  density_adjust = 1,
-  density_kernel = "gaussian",
-  density_n = 512,
-  density_trim = FALSE
+  model_bw = "nrd0",
+  model_adjust = 1,
+  model_kernel = "gaussian",
+  model_n = 512,
+  model_trim = FALSE
 )
 }
 \arguments{
@@ -68,9 +68,9 @@ gg_density_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
 \item{size_line}{The size of the outlines of density areas.}
 
@@ -136,15 +136,15 @@ gg_density_col_facet(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{density_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
+\item{model_bw}{The bw argument of the stats::density function. Defaults to "nrd0".}
 
-\item{density_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
+\item{model_adjust}{The adjust argument of the stats::density function. Defaults to 1.}
 
-\item{density_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
+\item{model_kernel}{The kernel argument of the stats::density function. Defaults to "gaussian".}
 
-\item{density_n}{The n argument of the stats::density function. Defaults to 512.}
+\item{model_n}{The n argument of the stats::density function. Defaults to 512.}
 
-\item{density_trim}{The trim argument of the stats::density function. Defaults to FALSE.}
+\item{model_trim}{TRUE or FALSE of whether to trim the tails. Defaults to FALSE.}
 }
 \value{
 A ggplot object.

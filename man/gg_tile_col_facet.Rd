@@ -79,7 +79,7 @@ gg_tile_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
 

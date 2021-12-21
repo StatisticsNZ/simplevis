@@ -4,10 +4,10 @@
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
-#' @param size_point The size of the outliers. Defaults to 0.75.
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1.  
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -70,7 +70,7 @@ gg_boxplot <- function(data,
                        alpha_point = 1,
                        size_line = 0.5,
                        size_point = 0.75,
-                       size_width = NULL,
+                       size_width = 0.5,
                        title = NULL,
                        title_wrap = 80,
                        subtitle = NULL,
@@ -151,13 +151,6 @@ gg_boxplot <- function(data,
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
-  
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
   
   #fundamentals
   plot <- ggplot(data) +
@@ -261,10 +254,10 @@ gg_boxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
-#' @param size_point The size of the outliers. Defaults to 0.75.
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1.  
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -307,7 +300,8 @@ gg_boxplot <- function(data,
 #' gg_boxplot_col(penguins, 
 #'                x_var = species, 
 #'                y_var = body_mass_g, 
-#'                col_var = sex)
+#'                col_var = sex, 
+#'                col_na_rm = TRUE)
 #' 
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
@@ -323,7 +317,7 @@ gg_boxplot_col <- function(data,
                            alpha_point = 1,
                            size_line = 0.5,
                            size_point = 0.75,
-                           size_width = NULL,
+                           size_width = 0.5,
                            title = NULL,
                            title_wrap = 80,
                            subtitle = NULL,
@@ -442,14 +436,7 @@ gg_boxplot_col <- function(data,
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
-  
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
-  
+
   #fundamentals
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
@@ -571,11 +558,11 @@ gg_boxplot_col <- function(data,
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
-#' @param size_point The size of the outliers. Defaults to 0.75.
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -628,7 +615,7 @@ gg_boxplot_facet <- function(data,
                              alpha_point = 1,
                              size_line = 0.5,
                              size_point = 0.75,
-                             size_width = NULL,
+                             size_width = 0.5,
                              title = NULL,
                              title_wrap = 80,
                              subtitle = NULL,
@@ -692,6 +679,7 @@ gg_boxplot_facet <- function(data,
   
   #warnings
   if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
+  if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
   
   #logical to factor
@@ -734,13 +722,6 @@ gg_boxplot_facet <- function(data,
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
-  
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
   
   #fundamentals
   plot <- ggplot(data) +
@@ -839,10 +820,10 @@ gg_boxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. 
-#' @param alpha_line The opacity of the outline. 
-#' @param alpha_point The opacity of the points. 
-#' @param size_point The size of the outliers. Defaults to 0.75.
+#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param alpha_point The opacity of the outlier points. Defaults to 1.  
+#' @param size_point The size of the outlier points. Defaults to 0.75.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -884,18 +865,17 @@ gg_boxplot_facet <- function(data,
 #' @export
 #'
 #' @examples
-#' library(dplyr)
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
 #' plot_data <- penguins %>% 
-#'   mutate(year = as.character(year))
-#' 
-#' gg_boxplot_col_facet(plot_data, 
-#'                      x_var = year, 
+#'   dplyr::mutate(year = as.character(year)) %>% 
+#'   gg_boxplot_col_facet(x_var = year, 
 #'                      y_var = body_mass_g, 
 #'                      col_var = sex, 
-#'                      facet_var = species)
+#'                      facet_var = species, 
+#'                      col_na_rm = TRUE,
+#'                      x_labels = function(x) stringr::str_sub(x, 3, 4))
 #'                              
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #'  
@@ -912,7 +892,7 @@ gg_boxplot_col_facet <- function(data,
                                  alpha_point = 1,
                                  size_line = 0.5,
                                  size_point = 0.75,
-                                 size_width = NULL,
+                                 size_width = 0.5,
                                  title = NULL,
                                  title_wrap = 80,
                                  subtitle = NULL,
@@ -1056,13 +1036,6 @@ gg_boxplot_col_facet <- function(data,
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
   pal_line <- scales::alpha("#232323", alpha = alpha_line)
   pal_point <- scales::alpha("#232323", alpha = alpha_point)
-  
-  #size_width
-  if (is.null(size_width)) {
-    if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.5
-  }
   
   #fundamentals
   plot <- ggplot(data) +

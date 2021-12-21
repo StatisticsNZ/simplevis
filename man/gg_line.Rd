@@ -54,7 +54,7 @@ gg_line(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the line. Defaults to 1.}
 
 \item{alpha_point}{The opacity of the points.}
 

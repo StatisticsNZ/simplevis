@@ -18,7 +18,7 @@ gg_boxplot_col_facet(
   alpha_point = 1,
   size_line = 0.5,
   size_point = 0.75,
-  size_width = NULL,
+  size_width = 0.5,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -72,15 +72,15 @@ gg_boxplot_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
-\item{alpha_line}{The opacity of the outline.}
+\item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
-\item{alpha_point}{The opacity of the points.}
+\item{alpha_point}{The opacity of the outlier points. Defaults to 1.}
 
 \item{size_line}{The size of the outlines of boxplots. Defaults to 0.5.}
 
-\item{size_point}{The size of the outliers. Defaults to 0.75.}
+\item{size_point}{The size of the outlier points. Defaults to 0.75.}
 
 \item{size_width}{Width of boxes. Defaults to 0.5.}
 
@@ -159,18 +159,17 @@ A ggplot object.
 Boxplot ggplot that is coloured
 }
 \examples{
-library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 
 plot_data <- penguins \%>\% 
-  mutate(year = as.character(year))
-
-gg_boxplot_col_facet(plot_data, 
-                     x_var = year, 
+  dplyr::mutate(year = as.character(year)) \%>\% 
+  gg_boxplot_col_facet(x_var = year, 
                      y_var = body_mass_g, 
                      col_var = sex, 
-                     facet_var = species)
+                     facet_var = species, 
+                     col_na_rm = TRUE,
+                     x_labels = function(x) stringr::str_sub(x, 3, 4))
                              
 #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
  

@@ -1,3 +1,16 @@
+# simplevis 5.9000
+
+* Continuous colouring
+* Themes
+* Smooth 
+* Violin 
+* Horizontal boxplot
+* Alpha & size specific arguments
+
+# simplevis 5.0.55
+
+* Added gg_violin.
+
 # simplevis 5.0.54
 
 * Limited boxplot to a categorical x_var, and likewise hboxplot.

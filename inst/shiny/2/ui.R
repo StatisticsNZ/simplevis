@@ -1,7 +1,7 @@
 # template2
 # ui.R
 
-app_title <- "Template 2" # name app
+app_title <- "Desktop & mobile-friendly" # name app
 
 mobileDetect <-
   function(inputId, value = 0) {

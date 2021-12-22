@@ -6,6 +6,7 @@
 * Violin 
 * Horizontal boxplot
 * Alpha & size specific arguments
+* Shiny demos
 
 # simplevis 5.0.55
 

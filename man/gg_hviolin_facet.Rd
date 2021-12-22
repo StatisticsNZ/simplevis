@@ -13,7 +13,7 @@ gg_hviolin_facet(
   alpha_fill = 0.2,
   alpha_line = 1,
   size_line = 0.5,
-  size_width = 0.5,
+  size_width = 0.75,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -65,7 +65,7 @@ gg_hviolin_facet(
 
 \item{size_line}{The size of the outlines of violins. Defaults to 0.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.5.}
+\item{size_width}{Width of boxes. Defaults to 0.75.}
 
 \item{title}{Title string.}
 

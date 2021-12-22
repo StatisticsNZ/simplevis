@@ -7,10 +7,15 @@ library(dplyr)
 library(simplevis)
 
 # read data from app data folder
-data <- ggplot2::diamonds %>%
+data1 <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.1)
 
+data2 <- simplevis::example_point %>% 
+  mutate(trend_category = factor(trend_category, levels = c("Improving", "Indeterminate", "Worsening")))
+
 # make a plot filtered by a user selected colour
+title_wrap <- 100
+
 color_vector <- sort(unique(data$color))
 
 .color <- "E"
@@ -36,10 +41,27 @@ plot <- gg_hbar_col(plot_data, price, cut, clarity,
                     x_labels = scales::comma_format(),
                     col_labels = ggplot2::waiver(),
                     title_wrap = title_wrap,
-                    theme = plot_themes,
-                    mobile = T)
+                    theme = plot_theme)
+
+plot
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera() %>% 
   plotly_col_legend(rev = T)
 
+# make a trend map filtered by a user selected metric
+
+map_filter <- "None"
+
+if(map_filter == "None") {
+  map_data <- data2 
+} else if(map_filter != "None") {
+  map_data <- data2 %>% 
+    filter(trend_category == map_filter)
+}
+
+title <- paste0("Monitored trends, 2008\u201317")
+
+leaf_sf_col(map_data,
+            col_var = trend_category,
+            col_title = title)

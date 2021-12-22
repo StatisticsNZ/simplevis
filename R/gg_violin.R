@@ -7,7 +7,7 @@
 #' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -52,7 +52,7 @@ gg_violin <- function(data,
                       alpha_fill = 0.2,
                       alpha_line = 1,
                       size_line = 0.5,
-                      size_width = 0.5,
+                      size_width = 0.75,
                       title = NULL,
                       title_wrap = 80,
                       subtitle = NULL,
@@ -208,7 +208,7 @@ gg_violin <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -266,7 +266,7 @@ gg_violin_col <- function(data,
                           alpha_fill = 0.2,
                           alpha_line = 1,
                           size_line = 0.5,
-                          size_width = 0.5,
+                          size_width = 0.75,
                           title = NULL,
                           title_wrap = 80,
                           subtitle = NULL,
@@ -481,7 +481,7 @@ gg_violin_col <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -536,7 +536,7 @@ gg_violin_facet <- function(data,
                             alpha_fill = 0.2,
                             alpha_line = 1,
                             size_line = 0.5,
-                            size_width = 0.5,
+                            size_width = 0.75,
                             title = NULL,
                             title_wrap = 80,
                             subtitle = NULL,
@@ -710,7 +710,7 @@ gg_violin_facet <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param size_width Width of boxes. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -777,7 +777,7 @@ gg_violin_col_facet <- function(data,
                                 alpha_fill = 0.2,
                                 alpha_line = 1,
                                 size_line = 0.5,
-                                size_width = 0.5,
+                                size_width = 0.75,
                                 title = NULL,
                                 title_wrap = 80,
                                 subtitle = NULL,

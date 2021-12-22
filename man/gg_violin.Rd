@@ -9,7 +9,7 @@ gg_violin(
   x_var,
   y_var = NULL,
   pal = pal_viridis_reorder(1),
-  alpha_fill = 0.2,
+  alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
   size_width = 0.75,
@@ -51,7 +51,7 @@ gg_violin(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 

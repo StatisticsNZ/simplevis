@@ -11,7 +11,7 @@ gg_density_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha_fill = 0.2,
+  alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
   title = NULL,
@@ -60,7 +60,7 @@ gg_density_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
@@ -140,6 +140,8 @@ library(palmerpenguins)
 
 gg_density_col(penguins, 
                x_var = body_mass_g, 
-               col_var = species)
+               col_var = sex, 
+               alpha_fill = 0.9,
+               col_na_rm = TRUE)
 
 }

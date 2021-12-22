@@ -4,7 +4,7 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -46,7 +46,7 @@
 gg_density <- function(data,
                        x_var,
                        pal = pal_viridis_reorder(1),
-                       alpha_fill = 0.2,
+                       alpha_fill = 1,
                        alpha_line = 1,
                        size_line = 0.5,
                        title = NULL,
@@ -176,7 +176,7 @@ gg_density <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -219,7 +219,9 @@ gg_density <- function(data,
 #' 
 #' gg_density_col(penguins, 
 #'                x_var = body_mass_g, 
-#'                col_var = species)
+#'                col_var = sex, 
+#'                alpha_fill = 0.9,
+#'                col_na_rm = TRUE)
 #' 
 gg_density_col <- function(data,
                            x_var,
@@ -227,7 +229,7 @@ gg_density_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           alpha_fill = 0.2,
+                           alpha_fill = 1,
                            alpha_line = 1,
                            size_line = 0.5,
                            title = NULL,
@@ -417,7 +419,7 @@ gg_density_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -466,7 +468,7 @@ gg_density_facet <- function(data,
                              x_var,
                              facet_var,
                              pal = pal_viridis_reorder(1),
-                             alpha_fill = 0.2,
+                             alpha_fill = 1,
                              alpha_line = 1,
                              size_line = 0.5,
                              title = NULL,
@@ -613,7 +615,7 @@ gg_density_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -662,8 +664,10 @@ gg_density_facet <- function(data,
 #' gg_density_col_facet(penguins, 
 #'                      x_var = body_mass_g, 
 #'                      col_var = sex, 
-#'                      facet_var = species)
-#' 
+#'                      facet_var = species, 
+#'                      alpha_fill = 0.9, 
+#'                      col_na_rm = TRUE)
+#'                      
 gg_density_col_facet <- function(data,
                                  x_var,
                                  col_var,
@@ -671,7 +675,7 @@ gg_density_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 alpha_fill = 0.2,
+                                 alpha_fill = 1,
                                  alpha_line = 1,
                                  size_line = 0.5,
                                  title = NULL,

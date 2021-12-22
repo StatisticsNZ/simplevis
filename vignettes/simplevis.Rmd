@@ -385,7 +385,8 @@ tibble::tribble(
   "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "boxplot (or identity)",
   "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "ydensity"
   ) %>% 
-  DT::datatable()
+  DT::datatable(options = list(pageLength = 20, lengthChange = FALSE))
+    
 ```
 
 Where:

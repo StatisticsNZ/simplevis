@@ -2,7 +2,7 @@
 % Please edit documentation in R/leaflet_sf.R
 \name{leaflet_sf}
 \alias{leaflet_sf}
-\title{Simple feature leaflet map.}
+\title{Simple feature leaflet map <Deprecated - use leaf_sf() instead.>.}
 \usage{
 leaflet_sf(
   data,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/leaflet_stars.R
 \name{leaflet_stars_col}
 \alias{leaflet_stars_col}
-\title{Stars leaflet map that is coloured.}
+\title{Stars leaflet map that is coloured <Deprecated - use leaf_stars_col() instead.>.}
 \usage{
 leaflet_stars_col(
   data,

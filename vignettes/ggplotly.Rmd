@@ -62,9 +62,9 @@ plotly::ggplotly(plot) %>%
 
 ### Creating nice tooltips
 
-Use `mutate_text`, `text_var` and `plotly::ggplotly(tooltip = "text")` to make pretty tooltips for functions for families other than `boxplot` or `density`.
+For point, bar, hbar, line, and sf functions, simplevis provides a method to customise toolips.
 
-A variable can be added to the `text_var` in the `gg_*` function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
+A variable can be added to the `text_var` in the simplevis function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
 
 `simplevis` provides a `mutate_text` function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the `snakecase::to_sentence_case` function. 
 

@@ -2,7 +2,7 @@
 #' @description Boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
-#' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 

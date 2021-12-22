@@ -2,7 +2,7 @@
 % Please edit documentation in R/leaflet_sf.R
 \name{leaflet_sf_col}
 \alias{leaflet_sf_col}
-\title{Simple feature leaflet map that is coloured.}
+\title{Simple feature leaflet map that is coloured <Deprecated - use leaf_sf_col() instead.>.}
 \usage{
 leaflet_sf_col(
   data,

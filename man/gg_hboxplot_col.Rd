@@ -52,7 +52,7 @@ gg_hboxplot_col(
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
+\item{x_var}{Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().}
 
 \item{y_var}{Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.}
 

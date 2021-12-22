@@ -63,7 +63,6 @@ shinyServer(function(input, output, session) {
       title = title,
       x_title = x_title,
       y_title = y_title,
-      x_labels = scales::comma_format(),
       col_labels = ggplot2::waiver(),
       title_wrap = title_wrap,
       theme = plot_theme(),

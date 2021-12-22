@@ -3,8 +3,8 @@
 * Continuous colouring
 * Themes
 * Smooth 
-* Violin 
-* Horizontal boxplot
+* Violin/hviolin 
+* hboxplot
 * Alpha & size specific arguments
 * Shiny demos
 

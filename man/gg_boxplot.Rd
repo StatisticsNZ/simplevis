@@ -45,7 +45,7 @@ gg_boxplot(
 
 \item{x_var}{Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.}
 
-\item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.}
+\item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().}
 
 \item{pal}{Character vector of hex codes.}
 

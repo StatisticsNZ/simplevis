@@ -1,6 +1,6 @@
 # leaflet sf functions
 
-#' @title Stars leaflet map.
+#' @title Stars leaflet map <Deprecated - use leaf_stars() instead.>.
 #' @description Map of stars in leaflet that is not coloured. 
 #' @param data A stars object. Required input.
 #' @param pal Character vector of hex codes. 
@@ -75,7 +75,7 @@ leaflet_stars <- function(data,
   return(map)
 }
 
-#' @title Stars leaflet map that is coloured.
+#' @title Stars leaflet map that is coloured <Deprecated - use leaf_stars_col() instead.>.
 #' @description Map of stars in leaflet that is coloured. 
 #' @param data A stars object. Required input.
 #' @param col_var Unquoted attribute to colour the features by. Required input.

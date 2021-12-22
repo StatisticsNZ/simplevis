@@ -2,7 +2,7 @@
 % Please edit documentation in R/leaflet_stars.R
 \name{leaflet_stars}
 \alias{leaflet_stars}
-\title{Stars leaflet map.}
+\title{Stars leaflet map <Deprecated - use leaf_stars() instead.>.}
 \usage{
 leaflet_stars(
   data,

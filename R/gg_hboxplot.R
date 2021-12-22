@@ -1,7 +1,7 @@
 #' @title Horizontal boxplot ggplot.
 #' @description Horizontal boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1. 
@@ -231,7 +231,7 @@ gg_hboxplot <- function(data,
 #' @title Horizontal boxplot ggplot that is coloured.
 #' @description Horizontal boxplot ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
 #' @param pal Character vector of hex codes. 
@@ -544,7 +544,7 @@ gg_hboxplot_col <- function(data,
 #' @title Horizontal boxplot ggplot that is facetted.
 #' @description Horizontal boxplot ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
@@ -804,7 +804,7 @@ gg_hboxplot_facet <- function(data,
 #' @title Horizontal boxplot ggplot that is coloured and facetted.
 #' @description Horizontal boxplot ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.

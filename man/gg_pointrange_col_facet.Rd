@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_pointrange.R
 \name{gg_pointrange_col_facet}
 \alias{gg_pointrange_col_facet}
-\title{Line ggplot that is coloured and facetted.}
+\title{Pointrange ggplot that is coloured and facetted.}
 \usage{
 gg_pointrange_col_facet(
   data,
@@ -171,7 +171,7 @@ gg_pointrange_col_facet(
 A ggplot object.
 }
 \description{
-Line ggplot that is coloured and facetted.
+Pointrange ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)
@@ -194,6 +194,7 @@ gg_pointrange_col_facet(
   col_var = sex,
   facet_var = species,
   col_na_rm = TRUE,
-  y_title = "Body mass g")
+  y_title = "Body mass g", 
+  x_labels = function(x) stringr::str_sub(x, 3, 4))
   
 }

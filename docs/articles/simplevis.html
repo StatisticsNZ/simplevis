@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.56</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.9.9000</span>
       </span>
     </div>
 
@@ -220,7 +220,7 @@
              <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
              <span class="kw">borders</span> <span class="kw">=</span> <span class="no">example_borders</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
-<p>In addition, there are specific horizontal functions of <code>hbar*()</code>, <code>hboxplot*()</code> and <code>hviolin*()</code>.</p>
+<p>In addition, there are specific horizontal functions of <code>hbar*()</code>, <code>hboxplot*()</code>, <code>hpointrange</code> and <code>hviolin*()</code>.</p>
 </div>
 <div id="colouring-facetting-neither-or-both" class="section level3">
 <h3 class="hasAnchor">
@@ -351,7 +351,7 @@
 <div id="themes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#themes" class="anchor"></a>Themes</h3>
-<p>From <code>simplevis</code> version 5.1.0, there will be able to adjust the themes of any simplevis plot by providing a ggplot2 theme to the theme argument.</p>
+<p>You can adjust the theme of any <code>simplevis</code> plot by providing a <code>ggplot2</code> theme to the <code>theme</code> argument.</p>
 <div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
@@ -413,8 +413,8 @@
 <a href="#supported-variable-classes" class="anchor"></a>Supported variable classes</h3>
 <p>variable types supported by the different groups of functions are outlined below.</p>
 <p>A stat of <code>identity</code> refers to the value being plotted as it is. A stat of <code>boxplot</code> refers to boxplot statistics being calculated from the data, and these plotted.</p>
-<div id="htmlwidget-0fe38ab501b64baf263f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0fe38ab501b64baf263f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["bar","boxplot","density","line","point","pointrange","sf","smooth","stars","tile","violin","hbar","hboxplot","hviolin"],["tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","sf","tibble or data.frame","stars","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame"],["Any*","Categorical","Numeric","Any","Any","Any",null,"Numeric",null,"Categorical","Categorical","Numeric","Numeric","Numeric"],["Numeric","Numeric",null,"Numeric","Numeric","Numeric",null,"Numeric",null,"Categorical","Numeric","Any*","Categorical","Categorical"],["Categorical or numeric","Categorical","Categorical","Categorical","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical","Categorical or numeric","Categorical","Categorical"],["Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical",null,"Categorical","Categorical","Categorical","Categorical","Categorical"],["identity","boxplot (or identity)","density","identity","identity (or jitter)","identity (or jitter)","identity","identity","identity","identity","ydensity","identity","boxplot (or identity)","ydensity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>family<\/th>\n      <th>data<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"lengthChange":false,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Where:</p>
+<div id="htmlwidget-ee58a64d316b6334321f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ee58a64d316b6334321f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["bar","boxplot","density","line","point","pointrange","sf","smooth","stars","tile","violin","hbar","hboxplot","hviolin"],["tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","sf","tibble or data.frame","stars","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame"],["Any*","Categorical","Numeric","Any","Any","Any",null,"Numeric",null,"Categorical","Categorical","Numeric","Numeric","Numeric"],["Numeric","Numeric",null,"Numeric","Numeric","Numeric",null,"Numeric",null,"Categorical","Numeric","Any*","Categorical","Categorical"],["Categorical or numeric","Categorical","Categorical","Categorical","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical","Categorical or numeric","Categorical","Categorical"],["Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical",null,"Categorical","Categorical","Categorical","Categorical","Categorical"],["identity","boxplot (or identity)","density","identity","identity (or jitter)","identity (or jitter)","identity","identity","identity","identity","ydensity","identity","boxplot (or identity)","ydensity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>family<\/th>\n      <th>data<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"lengthChange":false,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Where:</p>
 <ul>
 <li>Categorical refers to character, factor, or logical classes.</li>
 <li>Numeric refers to double or integer classes.</li>

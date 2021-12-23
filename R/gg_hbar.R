@@ -733,7 +733,6 @@ gg_hbar_col <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1.
@@ -793,7 +792,6 @@ gg_hbar_facet <- function(data,
                           y_var,
                           facet_var,
                           text_var = NULL,
-                          position = NULL,
                           pal = pal_viridis_reorder(1),
                           alpha_fill = 1,
                           alpha_line = 1,
@@ -965,17 +963,6 @@ gg_hbar_facet <- function(data,
   }
   
   #x scale
-  if (!is.null(position)) {
-    if (position == "stack") {
-      data_sum <- data %>%
-        dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var)), .drop = FALSE) %>%
-        dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-        dplyr::ungroup()
-      
-      x_var_vctr <- dplyr::pull(data_sum, !!x_var)
-    }
-  }
-  
   x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]

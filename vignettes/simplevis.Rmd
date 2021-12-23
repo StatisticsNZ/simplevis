@@ -150,7 +150,7 @@ gg_stars_col(example_stars,
              borders = example_borders)
 ```
 
-In addition, there are specific horizontal functions of `hbar*()`, `hboxplot*()` and `hviolin*()`.
+In addition, there are specific horizontal functions of `hbar*()`, `hboxplot*()`, `hpointrange` and `hviolin*()`.
 
 ### Colouring, facetting, neither or both
 
@@ -302,7 +302,7 @@ gg_hbar_col(plot_data,
 
 ### Themes
 
-From `simplevis` version 5.1.0, there will be able to adjust the themes of any simplevis plot by providing a ggplot2 theme to the theme argument.
+You can adjust the theme of any `simplevis` plot by providing a `ggplot2` theme to the `theme` argument.
 
 ```{r}
 gg_point_col(penguins, 

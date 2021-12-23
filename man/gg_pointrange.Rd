@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_pointrange.R
 \name{gg_pointrange}
 \alias{gg_pointrange}
-\title{Line ggplot.}
+\title{Pointrange ggplot.}
 \usage{
 gg_pointrange(
   data,
@@ -129,7 +129,7 @@ gg_pointrange(
 A ggplot object.
 }
 \description{
-Line ggplot that is not coloured and not facetted.
+Pointrange ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

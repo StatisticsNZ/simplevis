@@ -1,5 +1,5 @@
-#' @title Line ggplot.
-#' @description Line ggplot that is not coloured and not facetted.
+#' @title Pointrange ggplot.
+#' @description Pointrange ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -126,7 +126,7 @@ gg_pointrange <- function(data,
   y_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -160,7 +160,7 @@ gg_pointrange <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, position = position, col = pal_line) +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal_point, size = size_point, position = position, alpha = alpha_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point, position = position)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -257,8 +257,8 @@ gg_pointrange <- function(data,
   return(plot)
 }
 
-#' @title Line ggplot that is coloured.
-#' @description Line ggplot that is coloured, but not facetted.
+#' @title Pointrange ggplot that is coloured.
+#' @description Pointrange ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -414,8 +414,8 @@ gg_pointrange_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a pointrange plot")
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -469,8 +469,8 @@ gg_pointrange_col <- function(data,
   
   plot <- plot +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position) +
-    geom_point(aes(!!x_var, !!y_var, col = !!col_var, text = !!text_var),
-               size = size_point, position = position, alpha = alpha_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var),
+               alpha = alpha_point, size = size_point, position = position)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -587,8 +587,8 @@ gg_pointrange_col <- function(data,
   return(plot)
 }
 
-#' @title Line ggplot that is facetted.
-#' @description Line ggplot that is facetted, but not coloured.
+#' @title Pointrange ggplot that is facetted.
+#' @description Pointrange ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -734,8 +734,8 @@ gg_pointrange_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -782,7 +782,7 @@ gg_pointrange_facet <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, position = position, col = pal_line) +
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, position = position, alpha = alpha_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, alpha = alpha_point, size = size_point, position = position)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -869,8 +869,8 @@ gg_pointrange_facet <- function(data,
   return(plot)
 }
 
-#' @title Line ggplot that is coloured and facetted.
-#' @description Line ggplot that is coloured and facetted.
+#' @title Pointrange ggplot that is coloured and facetted.
+#' @description Pointrange ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -1046,9 +1046,9 @@ gg_pointrange_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a line plot")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a line plot")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a line plot")
+  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a pointrange plot")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -1113,8 +1113,8 @@ gg_pointrange_col_facet <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position) +
-    geom_point(aes(!!x_var, !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-               size = size_point, position = position, alpha = alpha_point)
+    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
+               alpha = alpha_point, size = size_point, position = position)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){

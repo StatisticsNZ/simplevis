@@ -739,7 +739,7 @@ gg_line_facet <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_line(aes(!!x_var, !!y_var, group = 1), size = size_line, col = pal_line) + 
-    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal[1], size = size_point, alpha = alpha_point)
+    geom_point(aes(!!x_var, !!y_var, text = !!text_var), col = pal, size = size_point, alpha = alpha_point)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){

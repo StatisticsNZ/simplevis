@@ -10,7 +10,6 @@ gg_hbar_facet(
   y_var,
   facet_var,
   text_var = NULL,
-  position = NULL,
   pal = pal_viridis_reorder(1),
   alpha_fill = 1,
   alpha_line = 1,
@@ -60,8 +59,6 @@ gg_hbar_facet(
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
-
-\item{position}{Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".}
 
 \item{pal}{Character vector of hex codes.}
 

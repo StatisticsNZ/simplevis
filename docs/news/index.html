@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.34</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.9.9000</span>
       </span>
     </div>
 
@@ -155,296 +155,40 @@
       <small>Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="simplevis-5-0-34" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.34">
-<a href="#simplevis-5-0-34" class="anchor"></a>simplevis 5.0.34<small> Unreleased </small>
+    <div id="simplevis-6-0-0" class="section level1">
+<h1 class="page-header" data-toc-text="6.0.0">
+<a href="#simplevis-6-0-0" class="anchor"></a>simplevis 6.0.0<small> Unreleased </small>
 </h1>
+<p>New features:</p>
 <ul>
-<li>Changed stat_se argument in smooth functions to stat_confidence.</li>
+<li>Continuous colouring across gradients for point, bar, hbar, tile, sf and stars.</li>
+<li>Theme flexibility for all gg functions.</li>
+<li>gg_theme function to build a quick clean theme.</li>
+<li>New Smooth functions.</li>
+<li>New violin &amp; hviolin functions.</li>
+<li>New hboxplot functions.</li>
+<li>New pointrange functions.</li>
+<li>more flexibility and precision with adjusting alpha &amp; size.</li>
+<li>Updated title and categorical label default transformations to use snakecase::to_sentence_case.</li>
+<li>Updated numeric label default transformations to generally use scales::label_comma().</li>
+<li>Redesigned col_labels argument in leaf functions to accept a function.</li>
+<li>Deprecated leaflet_ functions in favour of new leaf_ functions.</li>
+<li>Removed trans arguments from functions.</li>
+<li>In density functions, renamed density_ prefixed arguments to model_.</li>
 </ul>
-</div>
-    <div id="simplevis-5-0-33" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.33">
-<a href="#simplevis-5-0-33" class="anchor"></a>simplevis 5.0.33<small> Unreleased </small>
-</h1>
-<ul>
-<li>Changed alg_ prefix to stat_ to align with ggplot2.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-32" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.32">
-<a href="#simplevis-5-0-32" class="anchor"></a>simplevis 5.0.32<small> Unreleased </small>
-</h1>
-<ul>
-<li>Tweaked shiny templates.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-31" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.31">
-<a href="#simplevis-5-0-31" class="anchor"></a>simplevis 5.0.31<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fix col_rev bug in boxplot.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-29" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.29">
-<a href="#simplevis-5-0-29" class="anchor"></a>simplevis 5.0.29<small> Unreleased </small>
-</h1>
-<ul>
-<li>Remove numeric colouring options from hboxplot.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-29-1" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.29">
-<a href="#simplevis-5-0-29-1" class="anchor"></a>simplevis 5.0.29<small> Unreleased </small>
-</h1>
-<ul>
-<li>Updated reverse code.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-28" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.28">
-<a href="#simplevis-5-0-28" class="anchor"></a>simplevis 5.0.28<small> Unreleased </small>
-</h1>
-<ul>
-<li>Made hboxplot family of functions.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-27" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.27">
-<a href="#simplevis-5-0-27" class="anchor"></a>simplevis 5.0.27<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added col_method = continuous for leaflet functions.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-26" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.26">
-<a href="#simplevis-5-0-26" class="anchor"></a>simplevis 5.0.26<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added col_method = continuous for bar, hbar, point and tile.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-25" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.25">
-<a href="#simplevis-5-0-25" class="anchor"></a>simplevis 5.0.25<small> Unreleased </small>
-</h1>
-<ul>
-<li>Removed text_var from smooth functions.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-24" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.24">
-<a href="#simplevis-5-0-24" class="anchor"></a>simplevis 5.0.24<small> Unreleased </small>
-</h1>
-<ul>
-<li>Renamed density argument prefixes to alg_.</li>
-<li>Added smooth functions in.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-23" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.23">
-<a href="#simplevis-5-0-23" class="anchor"></a>simplevis 5.0.23<small> Unreleased </small>
-</h1>
-<ul>
-<li>Renamed density argument prefixes to algo_.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-22" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.22">
-<a href="#simplevis-5-0-22" class="anchor"></a>simplevis 5.0.22<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fixed hbar adding coord_flip back in.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-22-1" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.22">
-<a href="#simplevis-5-0-22-1" class="anchor"></a>simplevis 5.0.22<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fixed hbar facetting bug in free_x and free_y facet_scales.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-21" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.21">
-<a href="#simplevis-5-0-21" class="anchor"></a>simplevis 5.0.21<small> Unreleased </small>
-</h1>
-<ul>
-<li>Allowed col_breaks_n to be used for quantile colour method.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-20" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.20">
-<a href="#simplevis-5-0-20" class="anchor"></a>simplevis 5.0.20<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fix bug with hbar x scale.</li>
-<li>Changed x_labels to default to scales::label_comma() for density.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-19" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.19">
-<a href="#simplevis-5-0-19" class="anchor"></a>simplevis 5.0.19<small> Unreleased </small>
-</h1>
-<ul>
-<li>Changed x_labels to default to scales::number(big.mark = "") for bar, boxplot and line.</li>
-<li>Changed y_labels to default to scales::number(big.mark = "") for hbar.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-18" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.18">
-<a href="#simplevis-5-0-18" class="anchor"></a>simplevis 5.0.18<small> Unreleased </small>
-</h1>
-<ul>
-<li>Redesigned col_labels argument in leaflet to accept a function.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-17" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.17">
-<a href="#simplevis-5-0-17" class="anchor"></a>simplevis 5.0.17<small> Unreleased </small>
-</h1>
+<p>Breaking:</p>
 <ul>
 <li>Renamed x_pretty_n argument to x_breaks_n &amp; likewise for equivalent y &amp; col arguments.</li>
 <li>Renamed col_right_closed to col_intervals_right.</li>
-<li>Updated breaks defaults.</li>
-<li>Changed numeric label defaults back to label_comma().</li>
-<li>Added alpha in to line.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-15" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.15">
-<a href="#simplevis-5-0-15" class="anchor"></a>simplevis 5.0.15<small> Unreleased </small>
-</h1>
-<ul>
-<li>Tidied gg_sf* and gg_stars* code.</li>
 <li>Breaking removed *_digits arguments from gg functions.</li>
+<li>Renamed example objects to remove unnecessary words.</li>
+<li>Removed *_gridlines_minor arguments.</li>
+<li>Removed font_family, font_size_title and font_size_body arguments.</li>
 </ul>
-</div>
-    <div id="simplevis-5-0-15-1" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.15">
-<a href="#simplevis-5-0-15-1" class="anchor"></a>simplevis 5.0.15<small> Unreleased </small>
-</h1>
+<p>Other:</p>
 <ul>
-<li>Tidied hbar code.</li>
-</ul>
-<p>#simplevis 5.0.14</p>
-<ul>
-<li>Fixed boxplot bug.</li>
-</ul>
-<p>#simplevis 5.0.13</p>
-<ul>
-<li>Tidied density and tile code.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-12" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.12">
-<a href="#simplevis-5-0-12" class="anchor"></a>simplevis 5.0.12<small> Unreleased </small>
-</h1>
-<ul>
-<li>Tidied line code.</li>
-<li>Changed numeric label defaults to label_number(big.mark = "").</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-12-1" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.12">
-<a href="#simplevis-5-0-12-1" class="anchor"></a>simplevis 5.0.12<small> Unreleased </small>
-</h1>
-<ul>
-<li>Tidied point, bar and boxplot code.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-11" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.11">
-<a href="#simplevis-5-0-11" class="anchor"></a>simplevis 5.0.11<small> Unreleased </small>
-</h1>
-<ul>
-<li>Updated title and categorical label default transformations to use snakecase::to_sentence_case.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-10" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.10">
-<a href="#simplevis-5-0-10" class="anchor"></a>simplevis 5.0.10<small> Unreleased </small>
-</h1>
-<ul>
-<li>Updated point to remove digit arguments and tidy code.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-9" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.9">
-<a href="#simplevis-5-0-9" class="anchor"></a>simplevis 5.0.9<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added x and y label digits arguments where numeric.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-8" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.8">
-<a href="#simplevis-5-0-8" class="anchor"></a>simplevis 5.0.8<small> Unreleased </small>
-</h1>
-<ul>
-<li>Updated app reactive theme name to avoid namespace collisions.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-7" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.7">
-<a href="#simplevis-5-0-7" class="anchor"></a>simplevis 5.0.7<small> Unreleased </small>
-</h1>
-<p>Renamed nz with example_sf_borders.</p>
-</div>
-    <div id="simplevis-5-0-6" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.6">
-<a href="#simplevis-5-0-6" class="anchor"></a>simplevis 5.0.6<small> Unreleased </small>
-</h1>
-<ul>
-<li>Renamed run_template to shiny_template with template names 1 and 2.</li>
-<li>Made gg_theme_map an internal function.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-5" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.5">
-<a href="#simplevis-5-0-5" class="anchor"></a>simplevis 5.0.5<small> Unreleased </small>
-</h1>
-<ul>
-<li>Breaking: Removed *_gridlines_minor arguments.</li>
-<li>Breaking: Removed font_family, font_size_title and font_size_body arguments.</li>
-<li>Incorporated new theme method into gg functions.</li>
-<li>Updated shiny templates for new methods.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-4" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.4">
-<a href="#simplevis-5-0-4" class="anchor"></a>simplevis 5.0.4<small> Unreleased </small>
-</h1>
-<ul>
-<li>Created new simple and flexible theme functions.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-3" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.3">
-<a href="#simplevis-5-0-3" class="anchor"></a>simplevis 5.0.3<small> Unreleased </small>
-</h1>
-<ul>
-<li>Update mobile and non-mobile fonts.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-2" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.2">
-<a href="#simplevis-5-0-2" class="anchor"></a>simplevis 5.0.2<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fixed font size internal function.</li>
-</ul>
-</div>
-    <div id="simplevis-5-0-1" class="section level1">
-<h1 class="page-header" data-toc-text="5.0.1">
-<a href="#simplevis-5-0-1" class="anchor"></a>simplevis 5.0.1<small> Unreleased </small>
-</h1>
-<ul>
-<li>Increased space between labels and ticks slightly.</li>
-<li>Adjusted app templates.</li>
+<li>Tidied code.</li>
+<li>Numerous bug fixes and tweaks.</li>
 </ul>
 </div>
     <div id="simplevis-5-0-0" class="section level1">

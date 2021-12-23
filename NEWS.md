@@ -1,254 +1,32 @@
-# simplevis 5.9000
-
-* Continuous colouring
-* Themes
-* Smooth 
-* Violin/hviolin 
-* hboxplot
-* Alpha & size specific arguments
-* Shiny demos
-
-# simplevis 5.0.55
-
-* Added gg_violin.
-
-# simplevis 5.0.54
-
-* Limited boxplot to a categorical x_var, and likewise hboxplot.
-
-# simplevis 5.0.53
-
-* Added library(stars) call within all stars functions.
-
-# simplevis 5.0.52
-
-* Added leaf_ functions. Deprecated leaflet_ functions.
-
-# simplevis 5.0.51
-
-* Renamed example_sf objects.
-
-# simplevis 5.0.50
-
-* Rewrote borders arguments to start with pal, alpha and size prefix.
-* Added alpha_borders argument.
-* Fix alpha_fill in sf functions.
-
-# simplevis 5.0.49
-
-* Added borders_alpha in to sf and stars gg functions. 
-
-# simplevis 5.0.48
-
-* Changed stat prefix in density and smooth from stat_.
-
-# simplevis 5.0.46
-
-* Add points into smooth functions.
-
-# simplevis 5.0.45
-
-* Fix how leaflet functions interact with alpha.
-
-# simplevis 5.0.43
-
-* Rewrote gg_theme.
-
-# simplevis 5.0.42
-
-* Renamed width to size_width.
-* Added to tile size_height.
-
-# simplevis 5.0.42
-
-* Added alpha arguments to sf and stars.
-
-# simplevis 5.0.41
-
-* Added alpha arguments to line.
-
-# simplevis 5.0.40
-
-* Added alpha arguments to point.
-
-# simplevis 5.0.39
-
-* Updated alpha arguments in hboxplot.
-
-# simplevis 5.0.38
-
-* Updated leaflet_sf* to incorporate popup_vars_rename argument.
-* Updated alpha arguments in bar, hbar and boxplot.
-
-# simplevis 5.0.37
-
-* Update smooth to fill by an aesthetic.
-
-# simplevis 5.0.36
-
-* Fix boxplots with numeric x variable.
-
-# simplevis 5.0.35
-
-* Removed trans arguments from functions.
-
-# simplevis 5.0.34 
-
-* Changed stat_se argument in smooth functions to stat_confidence. 
-
-# simplevis 5.0.33
-
-* Changed alg_ prefix to stat_ to align with ggplot2.
-
-# simplevis 5.0.32
-
-* Tweaked shiny templates. 
-
-# simplevis 5.0.31
-
-* Fix col_rev bug in boxplot.
-
-# simplevis 5.0.29
-
-* Remove numeric colouring options from hboxplot.
-
-# simplevis 5.0.29
-
-* Updated reverse code.
-
-# simplevis 5.0.28
-
-* Made hboxplot family of functions. 
-
-# simplevis 5.0.27
-
-* Added col_method = continuous for leaflet functions. 
-
-# simplevis 5.0.26
-
-* Added col_method = continuous for bar, hbar, point and tile. 
-
-# simplevis 5.0.25
-
-* Removed text_var from smooth functions.
-
-# simplevis 5.0.24
-
-* Renamed density argument prefixes to alg_.
-* Added smooth functions in.
-
-# simplevis 5.0.23
-
-* Renamed density argument prefixes to algo_.
-
-# simplevis 5.0.22
-
-* Fixed hbar adding coord_flip back in.
-
-# simplevis 5.0.22
-
-* Fixed hbar facetting bug in free_x and free_y facet_scales.
-
-# simplevis 5.0.21
-
-* Allowed col_breaks_n to be used for quantile colour method.
-
-# simplevis 5.0.20 
-
-* Fix bug with hbar x scale.
-* Changed x_labels to default to scales::label_comma() for density.
-
-# simplevis 5.0.19
-
-* Changed x_labels to default to scales::number(big.mark = "") for bar, boxplot and line.
-* Changed y_labels to default to scales::number(big.mark = "") for hbar.
-
-# simplevis 5.0.18
-
-* Redesigned col_labels argument in leaflet to accept a function.
-
-# simplevis 5.0.17
-
+# simplevis 6.0.0
+
+New features:
+* Continuous colouring across gradients for point, bar, hbar, tile, sf and stars.
+* Theme flexibility for all gg functions.
+* gg_theme function to build a quick clean theme.
+* New Smooth functions.
+* New violin & hviolin functions.
+* New hboxplot functions.
+* New pointrange functions.
+* more flexibility and precision with adjusting alpha & size.
+* Updated title and categorical label default transformations to use snakecase::to_sentence_case.
+* Updated numeric label default transformations to generally use scales::label_comma().
+* Redesigned col_labels argument in leaf functions to accept a function.
+* Deprecated leaflet_ functions in favour of new leaf_ functions.
+* Removed trans arguments from functions. 
+* In density functions, renamed density_ prefixed arguments to model_.
+
+Breaking:
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
 * Renamed col_right_closed to col_intervals_right.
-* Updated breaks defaults.
-* Changed numeric label defaults back to label_comma(). 
-* Added alpha in to line.
-
-# simplevis 5.0.15
-
-* Tidied gg_sf* and gg_stars* code.
 * Breaking removed *_digits arguments from gg functions.
+* Renamed example objects to remove unnecessary words.
+* Removed *_gridlines_minor arguments.
+* Removed font_family, font_size_title and font_size_body arguments.
 
-# simplevis 5.0.15
-
-* Tidied hbar code.
-
-#simplevis 5.0.14 
-
-* Fixed boxplot bug.
-
-#simplevis 5.0.13
-
-* Tidied density and tile code.
-
-# simplevis 5.0.12
-
-* Tidied line code.
-* Changed numeric label defaults to label_number(big.mark = ""). 
-
-# simplevis 5.0.12
-
-* Tidied point, bar and boxplot code. 
-
-# simplevis 5.0.11
-
-* Updated title and categorical label default transformations to use snakecase::to_sentence_case.
-
-# simplevis 5.0.10
-
-* Updated point to remove digit arguments and tidy code.
- 
-# simplevis 5.0.9
-
-* Added x and y label digits arguments where numeric.
-
-# simplevis 5.0.8
-
-* Updated app reactive theme name to avoid namespace collisions.
-
-# simplevis 5.0.7
-
-Renamed nz with example_sf_borders.
-
-# simplevis 5.0.6
-
-* Renamed run_template to shiny_template with template names 1 and 2.
-* Made gg_theme_map an internal function.
-
-# simplevis 5.0.5 
-
-* Breaking: Removed *_gridlines_minor arguments.
-* Breaking: Removed font_family, font_size_title and font_size_body arguments.
-* Incorporated new theme method into gg functions.
-* Updated shiny templates for new methods.
-
-# simplevis 5.0.4
-
-* Created new simple and flexible theme functions.
-
-# simplevis 5.0.3
-
-* Update mobile and non-mobile fonts.
-
-# simplevis 5.0.2
-
-* Fixed font size internal function.
-
-# simplevis 5.0.1
-
-* Increased space between labels and ticks slightly.
-* Adjusted app templates.
+Other:
+* Tidied code.
+* Numerous bug fixes and tweaks.
 
 # simplevis 5.0.0
 

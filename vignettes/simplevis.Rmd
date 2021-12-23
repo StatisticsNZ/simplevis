@@ -48,12 +48,19 @@ gg_bar(plot_data,
        y_var = wind)
 ```
 
-point
+boxplot
 
 ```{r}
-gg_point(penguins,  
-          x_var = bill_length_mm, 
-          y_var = body_mass_g)
+gg_boxplot(penguins, 
+           x_var = species, 
+           y_var = body_mass_g)
+```
+
+density
+
+```{r}
+gg_density(penguins, 
+           x_var = body_mass_g)
 ```
 
 line
@@ -68,27 +75,30 @@ gg_line(plot_data,
         y_var = wind)
 ```
 
-boxplot
+point
 
 ```{r}
-gg_boxplot(penguins, 
-           x_var = species, 
-           y_var = body_mass_g)
+gg_point(penguins,  
+          x_var = bill_length_mm, 
+          y_var = body_mass_g)
 ```
 
-violin
+pointrange 
 
-```{r}
-gg_violin(penguins, 
-           x_var = species, 
-           y_var = body_mass_g)
-```
+```{r} 
+plot_data <- penguins %>%
+   group_by(sex) %>%
+   summarise(middle = median(body_mass_g, na.rm = TRUE),
+             lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
+             upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
 
-density
-
-```{r}
-gg_density(penguins, 
-           x_var = body_mass_g)
+ gg_pointrange(
+   plot_data,
+   x_var = sex,
+   y_var = middle,
+   ymin_var = lower,
+   ymax_var = upper,
+   y_title = "Body mass g")
 ```
 
 smooth
@@ -111,6 +121,14 @@ gg_tile_col(plot_data,
             y_var = species, 
             col_var = bill_length_mm, 
             label_var = bill_length_mm) 
+```
+
+violin
+
+```{r}
+gg_violin(penguins, 
+           x_var = species, 
+           y_var = body_mass_g)
 ```
 
 sf
@@ -325,10 +343,16 @@ The following example objects are provided withing the package for learning purp
 The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.
 
 ```{r}
-gg_sf_col(example_point, 
-          col_var = median, 
-          col_method = "quantile",
-          col_cuts = c(0, 0.25, 0.5, 0.75, 1),
+gg_sf_col(example_polygon, 
+          col_var = density, 
+          col_method = "continuous",
+          borders = example_borders)
+```
+
+```{r}
+gg_sf_col(example_polygon, 
+          col_var = density, 
+          col_method = "bin",
           borders = example_borders)
 ```
 
@@ -345,22 +369,7 @@ gg_stars_col(example_stars,
 
 simplevis also provides a `leaflet` wrapper functions for `sf` and `stars` objects. 
 
-```{r}
-leaf_sf_col(example_point, 
-            col_var = trend_category)
-```
-
-
-```{r}
-library(stars)
-
-leaf_stars_col(example_stars, 
-               col_var = nitrate, 
-               col_method = "quantile", 
-               col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
-               col_na_rm = TRUE)
-
-```
+Refer to the `simplevis` [website](https://statisticsnz.github.io/simplevis/articles/leaflet.html) for further information.
 
 ### Supported variable classes
 
@@ -376,6 +385,7 @@ tibble::tribble(
   "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
   "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "identity",
   "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity (or jitter)",
+  "pointrange", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity (or jitter)",
   "sf", "sf", NA, NA, "Categorical or numeric", "Categorical", "identity",
   "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical", "identity",
   "stars", "stars", NA, NA, "Categorical or numeric", NA, "identity",
@@ -384,7 +394,7 @@ tibble::tribble(
   "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
   "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "boxplot (or identity)",
   "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "ydensity"
-  ) %>% 
+  ) %>%
   DT::datatable(options = list(pageLength = 20, lengthChange = FALSE))
     
 ```
@@ -402,7 +412,9 @@ Where:
 ```{r}
 penguins %>% 
   gg_density_col(x_var = body_mass_g, 
-                 col_var = species)
+                 col_var = sex,
+                 col_na_rm = TRUE, 
+                 alpha_fill = 0.9)
 ```
 
 ### Output objects and adding layers
@@ -453,12 +465,12 @@ All ggplot objects can be converted into interactive html objects using ggplotly
 The `plotly_camera` function removes plotly widgets other than the camera to keep things tidy.
 
 ```{r, eval = FALSE}
-plot <- gg_point_col(penguins, 
-                     x_var = bill_length_mm, 
-                     y_var = body_mass_g, 
-                     col_var = species) 
+plot <- gg_point_col(penguins,
+                     x_var = bill_length_mm,
+                     y_var = body_mass_g,
+                     col_var = species)
 
-plotly::ggplotly(plot) %>% 
+plotly::ggplotly(plot) %>%
   plotly_camera()
 ```
 

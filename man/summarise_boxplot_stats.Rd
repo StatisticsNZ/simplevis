@@ -14,7 +14,7 @@ summarise_boxplot_stats(data, var, ...)
 \item{...}{Passed to \code{boxplot.stats}}
 }
 \value{
-
+A tibble or dataframe.
 }
 \description{
 Summarise boxplot stats
@@ -32,4 +32,5 @@ penguins \%>\%
   group_by(sex, species) \%>\% 
   summarise_boxplot_stats(body_mass_g) \%>\% 
   gg_boxplot_col(sex, body_mass_g, species, stat = "identity")
+  
 }

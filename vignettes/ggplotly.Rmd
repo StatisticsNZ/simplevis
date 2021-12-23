@@ -62,7 +62,7 @@ plotly::ggplotly(plot) %>%
 
 ### Creating nice tooltips
 
-For point, bar, hbar, line, and sf functions, simplevis provides a method to customise toolips.
+For bar, hbar, line, point, pointrange and sf functions, simplevis provides a method to customise toolips.
 
 A variable can be added to the `text_var` in the simplevis function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
 

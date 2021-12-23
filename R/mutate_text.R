@@ -3,7 +3,8 @@
 #' @param data A tibble or dataframe. Required input.
 #' @param text_vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
 #' @param comma TRUE or FALSE of whether to convert numeric values to character values with comma seperators.
-#' @return A vector of labels.
+#' 
+#' @return A tibble or data frame with an additional column called text.
 #' @export
 #' @examples
 #' library(dplyr)

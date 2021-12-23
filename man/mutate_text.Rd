@@ -14,7 +14,7 @@ mutate_text(data, text_vars_vctr = NULL, comma = FALSE)
 \item{comma}{TRUE or FALSE of whether to convert numeric values to character values with comma seperators.}
 }
 \value{
-A vector of labels.
+A tibble or data frame with an additional column called text.
 }
 \description{
 Add a column of tooltip text which is automatically created based on column names and values.

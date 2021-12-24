@@ -30,7 +30,7 @@ gg_hpointrange_col_facet(
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_na_rm = FALSE,
-  x_title = NULL,
+  x_title = "",
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
@@ -116,7 +116,7 @@ gg_hpointrange_col_facet(
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
 
-\item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{x_title}{X scale title string. Defaults to "".}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 

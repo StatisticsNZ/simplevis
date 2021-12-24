@@ -2,7 +2,7 @@
 #' @description Add a column of tooltip text which is automatically created based on column names and values. 
 #' @param data A tibble or dataframe. Required input.
 #' @param text_vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
-#' @param comma TRUE or FALSE of whether to convert numeric values to character values with comma seperators.
+#' @param numeric_format A function to format numeric variables.
 #' 
 #' @return A tibble or data frame with an additional column called text.
 #' @export
@@ -10,7 +10,7 @@
 #' library(dplyr)
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) %>% 
-#'   mutate_text(c("carat", "price"), comma = TRUE)
+#'   mutate_text(c("carat", "price"), numeric_format = function(x) format(x, big.mark = ","))
 #' 
 #' plot <- gg_point(data = plot_data, 
 #'                  x_var = carat, 
@@ -22,14 +22,16 @@
 #' 
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
-mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
+mutate_text <- function(data, 
+                        text_vars_vctr = NULL, 
+                        numeric_format = NULL) {
   
   data <- data %>% 
-    dplyr::ungroup()
-  
+    dplyr::ungroup() 
+
   class <- class(data)[1]
   
-  if(is.null(text_vars_vctr)) {
+  if (is.null(text_vars_vctr)) {
     if(class == "sf") {
       text_vars_vctr <- colnames(data)[colnames(data) != "geometry"]
     } else if(class != "sf") {
@@ -37,48 +39,34 @@ mutate_text <- function(data, text_vars_vctr = NULL, comma = FALSE) {
     }
   }
   
+  temp <- data %>% 
+    dplyr::select(text_vars_vctr) 
+  
+  if (!is.null(numeric_format)) {
+    temp <- temp %>% 
+      dplyr::mutate_if(is.numeric, numeric_format)
+  }
+  
   text <- vector("character", 0)
   
-  if(comma == TRUE) {
     for (i in length(text_vars_vctr):1) {
       
-      temp <- data %>% 
-        dplyr::select(text_vars_vctr[i]) 
+      temp2 <- temp %>% 
+        dplyr::select(text_vars_vctr[i])  
       
-      if(class == "sf") temp <- temp %>%
+      if(class == "sf") temp2 <- temp2 %>%
           sf::st_drop_geometry()
       
-      temp <- paste0(
-        snakecase::to_sentence_case(colnames(temp)),
+      temp2 <- paste0(
+        snakecase::to_sentence_case(colnames(temp2)),
         ": ", 
-        format(dplyr::pull(temp, 1), big.mark = ","))
+        dplyr::pull(temp2, 1))
       
-      text <- paste(temp, text, sep = "<br>")
+      text <- paste(temp2, text, sep = "<br>")
     }
-  }
-  else if (comma == FALSE) {
-    for (i in length(text_vars_vctr):1) {
-      
-      temp <- data %>% 
-        dplyr::select(text_vars_vctr[i]) 
-      
-      if(class == "sf") temp <- temp %>%
-          sf::st_drop_geometry()
-      
-      temp <- paste0(
-        snakecase::to_sentence_case(colnames(temp)),
-        ": ", 
-        dplyr::pull(temp, 1))
-      
-      text <- paste(temp, text, sep = "<br>")
-    }
-  }
-  
+
   data <- data %>%
     dplyr::mutate(text = text)
-  
-  # data <- data %>%
-  #   dplyr::mutate(text = stringr::str_replace_all(text, " NA<br>", " Not available<br>"))
   
   if(class == "sf") {
     data <- data %>%

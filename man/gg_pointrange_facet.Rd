@@ -37,7 +37,7 @@ gg_pointrange_facet(
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_na_rm = FALSE,
-  y_title = NULL,
+  y_title = "",
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
@@ -117,7 +117,7 @@ gg_pointrange_facet(
 
 \item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
 
-\item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{y_title}{y scale title string. Defaults to "".}
 
 \item{y_title_wrap}{Number of characters to wrap the y title to. Defaults to 50.}
 

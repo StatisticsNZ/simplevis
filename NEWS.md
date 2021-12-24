@@ -15,6 +15,7 @@ New features:
 * Deprecated leaflet_ functions in favour of new leaf_ functions.
 * Removed trans arguments from functions. 
 * In density functions, renamed density_ prefixed arguments to model_.
+* Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.
 
 Breaking:
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
@@ -23,6 +24,7 @@ Breaking:
 * Renamed example objects to remove unnecessary words.
 * Removed *_gridlines_minor arguments.
 * Removed font_family, font_size_title and font_size_body arguments.
+* Removed comma argument from mutate_text.
 
 Other:
 * Tidied code.

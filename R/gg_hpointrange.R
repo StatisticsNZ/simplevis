@@ -21,7 +21,7 @@
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
@@ -83,7 +83,7 @@ gg_hpointrange <- function(data,
                     x_expand = c(0, 0),
                     x_labels = scales::label_comma(),
                     x_na_rm = FALSE,
-                    x_title = NULL,
+                    x_title = "",
                     x_title_wrap = 50,
                     x_zero = FALSE,
                     x_zero_line = NULL,
@@ -285,7 +285,7 @@ gg_hpointrange <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
@@ -362,7 +362,7 @@ gg_hpointrange_col <- function(data,
                         x_expand = c(0, 0),
                         x_labels = scales::label_comma(),
                         x_na_rm = FALSE,
-                        x_title = NULL,
+                        x_title = "",
                         x_title_wrap = 50,
                         x_zero = FALSE,
                         x_zero_line = NULL,
@@ -692,7 +692,7 @@ gg_hpointrange_col <- function(data,
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
@@ -761,7 +761,7 @@ gg_hpointrange_facet <- function(data,
                           x_expand = c(0, 0),
                           x_labels = scales::label_comma(),
                           x_na_rm = FALSE,
-                          x_title = NULL,
+                          x_title = "",
                           x_title_wrap = 50,
                           x_zero = FALSE,
                           x_zero_line = NULL,
@@ -978,7 +978,7 @@ gg_hpointrange_facet <- function(data,
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
@@ -1063,7 +1063,7 @@ gg_hpointrange_col_facet <- function(data,
                               x_expand = c(0, 0),
                               x_labels = scales::label_comma(),
                               x_na_rm = FALSE,
-                              x_title = NULL,
+                              x_title = "",
                               x_title_wrap = 50,
                               x_zero = FALSE,
                               x_zero_line = NULL,

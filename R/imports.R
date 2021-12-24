@@ -24,4 +24,3 @@ NULL
 
 #' Shiny input
 utils::globalVariables("input")
-

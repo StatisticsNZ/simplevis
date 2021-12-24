@@ -31,7 +31,7 @@
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
-#' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
@@ -92,7 +92,7 @@ gg_pointrange <- function(data,
                     y_expand = c(0, 0),
                     y_labels = scales::label_comma(),
                     y_na_rm = FALSE,
-                    y_title = NULL,
+                    y_title = "",
                     y_title_wrap = 50,
                     y_zero = FALSE,
                     y_zero_line = NULL,
@@ -293,7 +293,7 @@ gg_pointrange <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
-#' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
@@ -365,7 +365,7 @@ gg_pointrange_col <- function(data,
                         y_expand = c(0, 0),
                         y_labels = scales::label_comma(),
                         y_na_rm = FALSE,
-                        y_title = NULL,
+                        y_title = "",
                         y_title_wrap = 50,
                         y_zero = FALSE,
                         y_zero_line = NULL,
@@ -621,7 +621,7 @@ gg_pointrange_col <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
-#' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
@@ -689,7 +689,7 @@ gg_pointrange_facet <- function(data,
                           y_expand = c(0, 0),
                           y_labels = scales::label_comma(),
                           y_na_rm = FALSE,
-                          y_title = NULL,
+                          y_title = "",
                           y_title_wrap = 50,
                           y_zero = FALSE,
                           y_zero_line = NULL,
@@ -906,7 +906,7 @@ gg_pointrange_facet <- function(data,
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
-#' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
@@ -986,7 +986,7 @@ gg_pointrange_col_facet <- function(data,
                               y_expand = c(0, 0),
                               y_labels = scales::label_comma(),
                               y_na_rm = FALSE,
-                              y_title = NULL,
+                              y_title = "",
                               y_title_wrap = 50,
                               y_zero = FALSE,
                               y_zero_line = NULL,

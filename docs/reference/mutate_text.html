@@ -161,7 +161,7 @@
     <p>Add a column of tooltip text which is automatically created based on column names and values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mutate_text</span>(<span class='no'>data</span>, <span class='kw'>text_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>mutate_text</span>(<span class='no'>data</span>, <span class='kw'>text_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>numeric_format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,8 +175,8 @@
       <td><p>A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.</p></td>
     </tr>
     <tr>
-      <th>comma</th>
-      <td><p>TRUE or FALSE of whether to convert numeric values to character values with comma seperators.</p></td>
+      <th>numeric_format</th>
+      <td><p>A function to format numeric variables.</p></td>
     </tr>
     </table>
 
@@ -188,7 +188,7 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/ggplot2/man/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>mutate_text</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>), <span class='kw'>comma</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='fu'>mutate_text</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>), <span class='kw'>numeric_format</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>))
 
 <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gg_point.html'>gg_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>,
                  <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>,

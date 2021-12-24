@@ -393,7 +393,9 @@ tibble::tribble(
   "violin", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", "ydensity",
   "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
   "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "boxplot (or identity)",
-  "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "ydensity"
+  "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "ydensity",
+  "hpointrange", "tibble or data.frame", "Numeric", "Any", "Categorical or numeric", "Categorical", "identity (or jitter)",
+
   ) %>%
   DT::datatable(options = list(pageLength = 20, lengthChange = FALSE))
     

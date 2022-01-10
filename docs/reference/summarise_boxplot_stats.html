@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarise boxplot stats — summarise_boxplot_stats • simplevis</title>
+<title>Summarise boxplot stats in a dataset or tibble. — summarise_boxplot_stats • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Summarise boxplot stats — summarise_boxplot_stats" />
-<meta property="og:description" content="Summarise boxplot stats" />
+<meta property="og:title" content="Summarise boxplot stats in a dataset or tibble. — summarise_boxplot_stats" />
+<meta property="og:description" content="Summarise boxplot stats in a dataset or tibble." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -152,27 +152,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarise boxplot stats</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/summarise_boxplot_stats.R'><code>R/summarise_boxplot_stats.R</code></a></small>
+    <h1>Summarise boxplot stats in a dataset or tibble.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/summarise_boxplot.R'><code>R/summarise_boxplot.R</code></a></small>
     <div class="hidden name"><code>summarise_boxplot_stats.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Summarise boxplot stats</p>
+    <p>Summarise boxplot stats in a dataset or tibble.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summarise_boxplot_stats</span>(<span class='no'>data</span>, <span class='no'>var</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>summarise_boxplot_stats</span>(
+  <span class='no'>data</span>,
+  <span class='no'>var</span>,
+  <span class='kw'>names_vctr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"lower"</span>, <span class='st'>"middle"</span>, <span class='st'>"upper"</span>, <span class='st'>"max"</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A tibble or dataframe. Required input.</p></td>
+      <td><p>A tibble or dataframe. Required input. Group the dataset as appropriate prior.</p></td>
     </tr>
     <tr>
       <th>var</th>
-      <td><p>A numeric variable. Required input.</p></td>
+      <td><p>Unquoted variable from which to calculate boxplot stats. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>names_vctr</th>
+      <td><p>A vector of names for the boxplot stats.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -185,28 +194,31 @@
     <p>A tibble or dataframe.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
 <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>sex</span>, <span class='no'>species</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>summarise_boxplot_stats</span>(<span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 3</span>
-#&gt; <span style='color: #949494;'># Groups:   sex [3]</span>
-#&gt;   sex    species   body_mass_g
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'>1</span> female Adelie    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>2</span> female Chinstrap <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>3</span> female Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>4</span> male   Adelie    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>5</span> male   Chinstrap <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>6</span> male   Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>7</span> <span style='color: #BB0000;'>NA</span>     Adelie    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>8</span> <span style='color: #BB0000;'>NA</span>     Gentoo    <span style='color: #949494;'>&lt;dbl [5]&gt;</span>  </div><div class='input'>
+  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>summarise_boxplot_stats</span>(<span class='no'>body_mass_g</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 6</span>
+#&gt;   species     min lower middle upper   max
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> Adelie     <span style='text-decoration: underline;'>2</span>850  <span style='text-decoration: underline;'>3</span>350   <span style='text-decoration: underline;'>3</span>700  <span style='text-decoration: underline;'>4</span>000  <span style='text-decoration: underline;'>4</span>775
+#&gt; <span style='color: #BCBCBC;'>2</span> Chinstrap  <span style='text-decoration: underline;'>2</span>900  <span style='text-decoration: underline;'>3</span>475   <span style='text-decoration: underline;'>3</span>700  <span style='text-decoration: underline;'>3</span>950  <span style='text-decoration: underline;'>4</span>550
+#&gt; <span style='color: #BCBCBC;'>3</span> Gentoo     <span style='text-decoration: underline;'>3</span>950  <span style='text-decoration: underline;'>4</span>700   <span style='text-decoration: underline;'>5</span>000  <span style='text-decoration: underline;'>5</span>500  <span style='text-decoration: underline;'>6</span>300</div><div class='input'>
 <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>sex</span>, <span class='no'>species</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>summarise_boxplot_stats</span>(<span class='no'>body_mass_g</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='gg_boxplot_col.html'>gg_boxplot_col</a></span>(<span class='no'>sex</span>, <span class='no'>body_mass_g</span>, <span class='no'>species</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>)</div><div class='img'><img src='summarise_boxplot_stats-1.png' alt='' width='700' height='433' /></div><div class='input'>  
+  <span class='fu'>summarise_boxplot_stats</span>(<span class='no'>body_mass_g</span>, <span class='kw'>names_vctr</span> <span class='kw'>=</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>5</span>])</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 7</span>
+#&gt;   sex    species       A     B     C     D     E
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> female Adelie     <span style='text-decoration: underline;'>2</span>850  <span style='text-decoration: underline;'>3</span>175 <span style='text-decoration: underline;'>3</span>400   <span style='text-decoration: underline;'>3</span>550  <span style='text-decoration: underline;'>3</span>900
+#&gt; <span style='color: #BCBCBC;'>2</span> female Chinstrap  <span style='text-decoration: underline;'>2</span>900  <span style='text-decoration: underline;'>3</span>350 <span style='text-decoration: underline;'>3</span>550   <span style='text-decoration: underline;'>3</span>700  <span style='text-decoration: underline;'>4</span>150
+#&gt; <span style='color: #BCBCBC;'>3</span> female Gentoo     <span style='text-decoration: underline;'>3</span>950  <span style='text-decoration: underline;'>4</span>450 <span style='text-decoration: underline;'>4</span>700   <span style='text-decoration: underline;'>4</span>875  <span style='text-decoration: underline;'>5</span>200
+#&gt; <span style='color: #BCBCBC;'>4</span> male   Adelie     <span style='text-decoration: underline;'>3</span>325  <span style='text-decoration: underline;'>3</span>800 <span style='text-decoration: underline;'>4</span>000   <span style='text-decoration: underline;'>4</span>300  <span style='text-decoration: underline;'>4</span>775
+#&gt; <span style='color: #BCBCBC;'>5</span> male   Chinstrap  <span style='text-decoration: underline;'>3</span>250  <span style='text-decoration: underline;'>3</span>725 <span style='text-decoration: underline;'>3</span>950   <span style='text-decoration: underline;'>4</span>100  <span style='text-decoration: underline;'>4</span>550
+#&gt; <span style='color: #BCBCBC;'>6</span> male   Gentoo     <span style='text-decoration: underline;'>4</span>750  <span style='text-decoration: underline;'>5</span>300 <span style='text-decoration: underline;'>5</span>500   <span style='text-decoration: underline;'>5</span>700  <span style='text-decoration: underline;'>6</span>300
+#&gt; <span style='color: #BCBCBC;'>7</span> <span style='color: #BB0000;'>NA</span>     Adelie     <span style='text-decoration: underline;'>2</span>975  <span style='text-decoration: underline;'>3</span>300 <span style='text-decoration: underline;'>3</span>475   <span style='text-decoration: underline;'>3</span>700  <span style='text-decoration: underline;'>4</span>250
+#&gt; <span style='color: #BCBCBC;'>8</span> <span style='color: #BB0000;'>NA</span>     Gentoo     <span style='text-decoration: underline;'>4</span>100  <span style='text-decoration: underline;'>4</span>375 <span style='text-decoration: underline;'>4</span>688.  <span style='text-decoration: underline;'>4</span>800  <span style='text-decoration: underline;'>4</span>875</div><div class='input'>  
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

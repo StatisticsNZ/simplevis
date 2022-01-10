@@ -19,6 +19,7 @@ New features:
 
 Breaking:
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
+* Renamed var arguments and structure for boxplot where stat = "identity".
 * Renamed col_right_closed to col_intervals_right.
 * Breaking removed *_digits arguments from gg functions.
 * Renamed example objects to remove unnecessary words.

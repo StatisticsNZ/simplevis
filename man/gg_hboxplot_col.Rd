@@ -46,13 +46,18 @@ gg_hboxplot_col(
   caption_wrap = 75,
   theme = gg_theme(gridlines = "vertical"),
   stat = "boxplot",
+  xmin_var = NULL,
+  xlower_var = NULL,
+  xmiddle_var = NULL,
+  xupper_var = NULL,
+  xmax_var = NULL,
   mobile = FALSE
 )
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().}
+\item{x_var}{Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected.}
 
 \item{y_var}{Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.}
 
@@ -132,6 +137,16 @@ gg_hboxplot_col(
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
 
+\item{xmin_var}{Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected.}
+
+\item{xlower_var}{Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected.}
+
+\item{xmiddle_var}{Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected.}
+
+\item{xupper_var}{Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected.}
+
+\item{xmax_var}{Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected.}
+
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }
 \value{
@@ -142,6 +157,7 @@ Horizontal boxplot ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)
+library(dplyr)
 library(palmerpenguins)
 
 gg_hboxplot_col(penguins, 
@@ -152,4 +168,32 @@ gg_hboxplot_col(penguins,
             
 #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 
+plot_data <- penguins \%>\%
+  group_by(species, sex) \%>\%
+  summarise_boxplot_stats(body_mass_g)
+
+outliers <- penguins \%>\% 
+  group_by(species, sex) \%>\% 
+  summarise_boxplot_outliers(body_mass_g)
+
+size_width <- 0.5
+
+gg_hboxplot_col(plot_data,
+               xmin_var = min,
+               xlower_var = lower,
+               xmiddle_var = middle,
+               xupper_var = upper,
+               xmax_var = max,
+               y_var = species,
+               col_var = sex,
+               size_width = size_width,
+               stat = "identity",
+               x_title = "Body mass g",
+               x_breaks_n = 4, 
+               col_na_rm = TRUE) +
+               ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, group = sex), 
+                     size = 0.75, 
+                     position = ggplot2::position_dodge(width = size_width),
+                     data = outliers)
+                     
 }

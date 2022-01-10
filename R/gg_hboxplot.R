@@ -1,7 +1,7 @@
 #' @title Horizontal boxplot ggplot.
 #' @description Horizontal boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
+#' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1. 
@@ -32,18 +32,44 @@
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
+#' @param xmin_var Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected. 
+#' @param xlower_var Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmiddle_var Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected. 
+#' @param xupper_var Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmax_var Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected. 
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
 #' @export
 #' @examples
 #' library(simplevis)
+#' library(dplyr)
 #' library(palmerpenguins)
 #' 
 #' gg_hboxplot(penguins, 
 #'         x_var = body_mass_g, 
 #'         y_var = species)
 #' 
+#' plot_data <- penguins %>%
+#'   group_by(species) %>%
+#'   summarise_boxplot_stats(body_mass_g)
+#' 
+#' outliers <- penguins %>% 
+#'   group_by(species) %>% 
+#'   summarise_boxplot_outliers(body_mass_g)
+#' 
+#' gg_hboxplot(plot_data,
+#'             xmin_var = min,
+#'             xlower_var = lower,
+#'             xmiddle_var = middle,
+#'             xupper_var = upper,
+#'             xmax_var = max,
+#'             y_var = species,
+#'             stat = "identity",
+#'             x_title = "Body mass g",
+#'             x_breaks_n = 4) +
+#'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), size = 0.75, data = outliers)
+#'   
 gg_hboxplot <- function(data,
                     x_var,
                     y_var,
@@ -76,31 +102,39 @@ gg_hboxplot <- function(data,
                     caption_wrap = 75,
                     theme = gg_theme(gridlines = "vertical"),
                     stat = "boxplot",
+                    xmin_var = NULL,
+                    xlower_var = NULL,
+                    xmiddle_var = NULL,
+                    xupper_var = NULL,
+                    xmax_var = NULL,
                     mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
-  x_var <- rlang::enquo(x_var) #numeric var
-  y_var <- rlang::enquo(y_var)
-
+  #quote & vectors
+  y_var <- rlang::enquo(y_var) 
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  
+  if (stat == "boxplot") {
+    x_var <- rlang::enquo(x_var) #numeric var  
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    
+  }
+  else if (stat == "identity") {
+    xmin_var <- rlang::enquo(xmin_var) #numeric var
+    xlower_var <- rlang::enquo(xlower_var) #numeric var
+    xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+    xupper_var <- rlang::enquo(xupper_var) #numeric var
+    xmax_var <- rlang::enquo(xmax_var) #numeric var
+    
+    x_var_vctr <- c(min(dplyr::pull(data, !!xmin_var), na.rm = TRUE), max(dplyr::pull(data, !!xmax_var), na.rm = TRUE))
+  }
+  
   #na's
   if (y_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!y_var))
-  }
-  
-  #vectors
-  y_var_vctr <- dplyr::pull(data, !!y_var)
-  
-  if (stat == "boxplot") {
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!x_var)
-    
-    x_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
   }
   
   #warnings
@@ -116,7 +150,10 @@ gg_hboxplot <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(x_title)) {
+    if (stat == "boxplot") x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+    else if (stat == "identity") x_title <- ""
+  }
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   #reverse
@@ -159,11 +196,11 @@ gg_hboxplot <- function(data,
       geom_boxplot(
         aes(
           x = !!y_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max 
+          ymin = !!xmin_var,
+          lower = !!xlower_var,
+          middle = !!xmiddle_var,
+          upper = !!xupper_var,
+          ymax = !!xmax_var 
         ),
         stat = stat,
         fill = pal_fill,
@@ -231,7 +268,7 @@ gg_hboxplot <- function(data,
 #' @title Horizontal boxplot ggplot that is coloured.
 #' @description Horizontal boxplot ggplot that is coloured, but not facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
+#' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
 #' @param pal Character vector of hex codes. 
@@ -271,12 +308,18 @@ gg_hboxplot <- function(data,
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
+#' @param xmin_var Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected. 
+#' @param xlower_var Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmiddle_var Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected. 
+#' @param xupper_var Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmax_var Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected. 
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' 
 #' @return A ggplot object.
 #' @export
 #' @examples
 #' library(simplevis)
+#' library(dplyr)
 #' library(palmerpenguins)
 #' 
 #' gg_hboxplot_col(penguins, 
@@ -287,6 +330,34 @@ gg_hboxplot <- function(data,
 #'             
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
+#' plot_data <- penguins %>%
+#'   group_by(species, sex) %>%
+#'   summarise_boxplot_stats(body_mass_g)
+#'
+#' outliers <- penguins %>% 
+#'   group_by(species, sex) %>% 
+#'   summarise_boxplot_outliers(body_mass_g)
+#' 
+#' size_width <- 0.5
+#' 
+#' gg_hboxplot_col(plot_data,
+#'                xmin_var = min,
+#'                xlower_var = lower,
+#'                xmiddle_var = middle,
+#'                xupper_var = upper,
+#'                xmax_var = max,
+#'                y_var = species,
+#'                col_var = sex,
+#'                size_width = size_width,
+#'                stat = "identity",
+#'                x_title = "Body mass g",
+#'                x_breaks_n = 4, 
+#'                col_na_rm = TRUE) +
+#'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, group = sex), 
+#'                      size = 0.75, 
+#'                      position = ggplot2::position_dodge(width = size_width),
+#'                      data = outliers)
+#'                      
 gg_hboxplot_col <- function(data,
                         x_var,
                         y_var,
@@ -328,15 +399,37 @@ gg_hboxplot_col <- function(data,
                         caption_wrap = 75,
                         theme = gg_theme(gridlines = "vertical"),
                         stat = "boxplot",
+                        xmin_var = NULL,
+                        xlower_var = NULL,
+                        xmiddle_var = NULL,
+                        xupper_var = NULL,
+                        xmax_var = NULL,
                         mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
-  x_var <- rlang::enquo(x_var) #numeric var
+  #quote & vectors
   y_var <- rlang::enquo(y_var) 
-  col_var <- rlang::enquo(col_var) 
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  
+  col_var <- rlang::enquo(col_var) #categorical var
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  
+  if (stat == "boxplot") {
+    x_var <- rlang::enquo(x_var) #numeric var  
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    
+  }
+  else if (stat == "identity") {
+    xmin_var <- rlang::enquo(xmin_var) #numeric var
+    xlower_var <- rlang::enquo(xlower_var) #numeric var
+    xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+    xupper_var <- rlang::enquo(xupper_var) #numeric var
+    xmax_var <- rlang::enquo(xmax_var) #numeric var
+    
+    x_var_vctr <- c(min(dplyr::pull(data, !!xmin_var), na.rm = TRUE), max(dplyr::pull(data, !!xmax_var), na.rm = TRUE))
+  }
 
   #na's
   if (y_na_rm == TRUE) {
@@ -347,21 +440,7 @@ gg_hboxplot_col <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-  
-  #vectors
-  y_var_vctr <- dplyr::pull(data, !!y_var)
-  
-  if (stat == "boxplot") {
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!x_var)
-    
-    x_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-  }
-  
-  col_var_vctr <- dplyr::pull(data, !!col_var)
-  
+
   #warnings
   if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
@@ -382,7 +461,10 @@ gg_hboxplot_col <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(x_title)) {
+    if (stat == "boxplot") x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+    else if (stat == "identity") x_title <- ""
+  }
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
@@ -445,11 +527,11 @@ gg_hboxplot_col <- function(data,
       geom_boxplot(
         aes(
           x = !!y_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max, 
+          ymin = !!xmin_var,
+          lower = !!xlower_var,
+          middle = !!xmiddle_var,
+          upper = !!xupper_var,
+          ymax = !!xmax_var, 
           fill = !!col_var
         ),
         position = position_dodge2(preserve = "single"),
@@ -544,7 +626,7 @@ gg_hboxplot_col <- function(data,
 #' @title Horizontal boxplot ggplot that is facetted.
 #' @description Horizontal boxplot ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
+#' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
@@ -582,6 +664,11 @@ gg_hboxplot_col <- function(data,
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
+#' @param xmin_var Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected. 
+#' @param xlower_var Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmiddle_var Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected. 
+#' @param xupper_var Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmax_var Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected. 
 #' 
 #' @return A ggplot object.
 #' @export
@@ -633,15 +720,37 @@ gg_hboxplot_facet <- function(data,
                           caption = NULL,
                           caption_wrap = 75,
                           theme = gg_theme(gridlines = "vertical"),
-                          stat = "boxplot") {
+                          stat = "boxplot", 
+                          xmin_var = NULL,
+                          xlower_var = NULL,
+                          xmiddle_var = NULL,
+                          xupper_var = NULL,
+                          xmax_var = NULL) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
-  y_var <- rlang::enquo(y_var) #categorical var
-  x_var <- rlang::enquo(x_var) #numeric var
+  #quote & vectors
+  y_var <- rlang::enquo(y_var) 
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  
   facet_var <- rlang::enquo(facet_var) #categorical var
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  
+  if (stat == "boxplot") {
+    x_var <- rlang::enquo(x_var) #numeric var  
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    
+  }
+  else if (stat == "identity") {
+    xmin_var <- rlang::enquo(xmin_var) #numeric var
+    xlower_var <- rlang::enquo(xlower_var) #numeric var
+    xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+    xupper_var <- rlang::enquo(xupper_var) #numeric var
+    xmax_var <- rlang::enquo(xmax_var) #numeric var
+    
+    x_var_vctr <- c(min(dplyr::pull(data, !!xmin_var), na.rm = TRUE), max(dplyr::pull(data, !!xmax_var), na.rm = TRUE))
+  }
 
   #na's
   if (y_na_rm == TRUE) {
@@ -652,21 +761,7 @@ gg_hboxplot_facet <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
-  
-  #vectors
-  y_var_vctr <- dplyr::pull(data, !!y_var)
-  
-  if (stat == "boxplot") {
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!x_var)
-    
-    x_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-  }
-  
-  facet_var_vctr <- dplyr::pull(data, !!facet_var)
-  
+
   #warnings
   if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
@@ -687,7 +782,10 @@ gg_hboxplot_facet <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(x_title)) {
+    if (stat == "boxplot") x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+    else if (stat == "identity") x_title <- ""
+  }
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   #reverse
@@ -738,11 +836,11 @@ gg_hboxplot_facet <- function(data,
       geom_boxplot(
         aes(
           x = !!y_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max 
+          ymin = !!xmin_var,
+          lower = !!xlower_var,
+          middle = !!xmiddle_var,
+          upper = !!xupper_var,
+          ymax = !!xmax_var 
         ),
         stat = stat,
         fill = pal_fill,
@@ -804,7 +902,7 @@ gg_hboxplot_facet <- function(data,
 #' @title Horizontal boxplot ggplot that is coloured and facetted.
 #' @description Horizontal boxplot ggplot that is coloured and facetted.
 #' @param data A tibble or dataframe. Required input.
-#' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
+#' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -851,6 +949,11 @@ gg_hboxplot_facet <- function(data,
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 75. 
 #' @param theme A ggplot2 theme.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot".
+#' @param xmin_var Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected. 
+#' @param xlower_var Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmiddle_var Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected. 
+#' @param xupper_var Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected. 
+#' @param xmax_var Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected. 
 #' 
 #' @return A ggplot object.
 #' @export
@@ -915,17 +1018,41 @@ gg_hboxplot_col_facet <- function(data,
                               caption = NULL,
                               caption_wrap = 75,
                               theme = gg_theme(gridlines = "vertical"), 
-                              stat = "boxplot") {
+                              stat = "boxplot", 
+                              xmin_var = NULL,
+                              xlower_var = NULL,
+                              xmiddle_var = NULL,
+                              xupper_var = NULL,
+                              xmax_var = NULL) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
-  x_var <- rlang::enquo(x_var) #numeric var
+  #quote & vectors
   y_var <- rlang::enquo(y_var) 
-  col_var <- rlang::enquo(col_var) 
+  y_var_vctr <- dplyr::pull(data, !!y_var)
+  
+  col_var <- rlang::enquo(col_var) #categorical var
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  
   facet_var <- rlang::enquo(facet_var) #categorical var
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
 
+  if (stat == "boxplot") {
+    x_var <- rlang::enquo(x_var) #numeric var  
+    x_var_vctr <- dplyr::pull(data, !!x_var)
+    
+  }
+  else if (stat == "identity") {
+    xmin_var <- rlang::enquo(xmin_var) #numeric var
+    xlower_var <- rlang::enquo(xlower_var) #numeric var
+    xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+    xupper_var <- rlang::enquo(xupper_var) #numeric var
+    xmax_var <- rlang::enquo(xmax_var) #numeric var
+    
+    x_var_vctr <- c(min(dplyr::pull(data, !!xmin_var), na.rm = TRUE), max(dplyr::pull(data, !!xmax_var), na.rm = TRUE))
+  }
+  
   #na's
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -939,21 +1066,6 @@ gg_hboxplot_col_facet <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
-  
-  #vectors
-  y_var_vctr <- dplyr::pull(data, !!y_var)
-  
-  if (stat == "boxplot") {
-    x_var_vctr <- dplyr::pull(data, !!x_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!x_var)
-    
-    x_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-  }
-  
-  col_var_vctr <- dplyr::pull(data, !!col_var)
-  facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
   if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
@@ -982,7 +1094,10 @@ gg_hboxplot_col_facet <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+  if (is.null(x_title)) {
+    if (stat == "boxplot") x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
+    else if (stat == "identity") x_title <- ""
+  }
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
@@ -1052,11 +1167,11 @@ gg_hboxplot_col_facet <- function(data,
       geom_boxplot(
         aes(
           x = !!y_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max, 
+          ymin = !!xmin_var,
+          lower = !!xlower_var,
+          middle = !!xmiddle_var,
+          upper = !!xupper_var,
+          ymax = !!xmax_var, 
           fill = !!col_var
         ),
         position = position_dodge2(preserve = "single"),

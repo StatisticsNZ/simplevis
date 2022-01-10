@@ -43,13 +43,18 @@ gg_hboxplot_facet(
   caption = NULL,
   caption_wrap = 75,
   theme = gg_theme(gridlines = "vertical"),
-  stat = "boxplot"
+  stat = "boxplot",
+  xmin_var = NULL,
+  xlower_var = NULL,
+  xmiddle_var = NULL,
+  xupper_var = NULL,
+  xmax_var = NULL
 )
 }
 \arguments{
 \item{data}{A tibble or dataframe. Required input.}
 
-\item{x_var}{Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().}
+\item{x_var}{Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected.}
 
 \item{y_var}{Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.}
 
@@ -124,6 +129,16 @@ gg_hboxplot_facet(
 \item{theme}{A ggplot2 theme.}
 
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
+
+\item{xmin_var}{Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected.}
+
+\item{xlower_var}{Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected.}
+
+\item{xmiddle_var}{Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected.}
+
+\item{xupper_var}{Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected.}
+
+\item{xmax_var}{Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected.}
 }
 \value{
 A ggplot object.

@@ -2,7 +2,7 @@
 #' @description Boxplot ggplot that is not coloured and not facetted.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
-#' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().
+#' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
@@ -18,7 +18,7 @@
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
@@ -32,6 +32,11 @@
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
+#' @param ymin_var Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected. 
+#' @param ylower_var Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymiddle_var Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected. 
+#' @param yupper_var Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymax_var Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected. 
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #' @return A ggplot object.
 #' @export
@@ -40,26 +45,29 @@
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' gg_boxplot(penguins, 
-#'            x_var = species, 
-#'            y_var = body_mass_g)
+#' gg_boxplot(penguins,
+#'             x_var = species,
+#'             y_var = body_mass_g)
 #' 
 #' plot_data <- penguins %>%
 #'   group_by(species) %>%
-#'   summarise(across(body_mass_g, ~ list(
-#'     rlang::set_names(
-#'       boxplot.stats(.x)$stats,
-#'       c('min', 'lower', 'middle', 'upper', 'max')
-#'     )
-#'   )))
-#'   
-#' plot_data %>% 
-#'   tidyr::unnest_wider(body_mass_g)
+#'   summarise_boxplot_stats(body_mass_g)
 #' 
-#' gg_boxplot(plot_data, 
-#'            x_var = species, 
-#'            y_var = body_mass_g, 
-#'            stat = "identity")
+#' outliers <- penguins %>% 
+#'   group_by(species) %>% 
+#'   summarise_boxplot_outliers(body_mass_g)
+#' 
+#' gg_boxplot(plot_data,
+#'             x_var = species,
+#'             ymin_var = min,
+#'             ylower_var = lower,
+#'             ymiddle_var = middle,
+#'             yupper_var = upper,
+#'             ymax_var = max,
+#'             stat = "identity",
+#'             y_title = "Body mass g",
+#'             y_breaks_n = 4) +
+#'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), size = 0.75, data = outliers)
 #' 
 gg_boxplot <- function(data,
                        x_var,
@@ -91,33 +99,41 @@ gg_boxplot <- function(data,
                        y_zero_line = NULL,
                        caption = NULL,
                        caption_wrap = 80,
-                       theme = gg_theme(),
                        stat = "boxplot",
+                       ymin_var = NULL,
+                       ylower_var = NULL,
+                       ymiddle_var = NULL,
+                       yupper_var = NULL,
+                       ymax_var = NULL,
+                       theme = gg_theme(),
                        mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
+  #quote & vectors
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  
+  if (stat == "boxplot") {
+    y_var <- rlang::enquo(y_var) #numeric var  
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    
+  }
+  else if (stat == "identity") {
+    ymin_var <- rlang::enquo(ymin_var) #numeric var
+    ylower_var <- rlang::enquo(ylower_var) #numeric var
+    ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
+    yupper_var <- rlang::enquo(yupper_var) #numeric var
+    ymax_var <- rlang::enquo(ymax_var) #numeric var
+    
+    y_var_vctr <- c(min(dplyr::pull(data, !!ymin_var), na.rm = TRUE), max(dplyr::pull(data, !!ymax_var), na.rm = TRUE))
+  }
   
   #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
       dplyr::filter(!is.na(!!x_var))
-  }
-
-  #vectors
-  x_var_vctr <- dplyr::pull(data, !!x_var)
-  
-  if (stat == "boxplot") {
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!y_var)
-    
-    y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
   }
   
   #warnings
@@ -134,14 +150,17 @@ gg_boxplot <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) {
+    if (stat == "boxplot") y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+    else if (stat == "identity") y_title <- ""
+  }
   
   # #reverse
   if (x_rev == TRUE) {
     if (is.factor(x_var_vctr) | is.character(x_var_vctr)){
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
-
+      
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
   }
@@ -176,11 +195,11 @@ gg_boxplot <- function(data,
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max 
+          ymin = !!ymin_var,
+          lower = !!ylower_var,
+          middle = !!ymiddle_var,
+          upper = !!yupper_var,
+          ymax = !!ymax_var 
         ),
         stat = stat,
         fill = pal_fill,
@@ -192,11 +211,11 @@ gg_boxplot <- function(data,
         outlier.size = size_point
       )
   }
-
+  
   #x scale 
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels)
-
+  
   #y scale
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
@@ -249,7 +268,7 @@ gg_boxplot <- function(data,
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
-#' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
@@ -268,7 +287,7 @@ gg_boxplot <- function(data,
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
@@ -288,13 +307,19 @@ gg_boxplot <- function(data,
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
+#' @param ymin_var Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected. 
+#' @param ylower_var Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymiddle_var Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected. 
+#' @param yupper_var Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymax_var Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected. 
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to FALSE. 
 #'
 #' @return A ggplot object.
 #' @export
-
+#'
 #' @examples
 #' library(simplevis)
+#' library(dplyr)
 #' library(palmerpenguins)
 #' 
 #' gg_boxplot_col(penguins, 
@@ -304,6 +329,34 @@ gg_boxplot <- function(data,
 #'                col_na_rm = TRUE)
 #' 
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+#' 
+#' plot_data <- penguins %>%
+#'   group_by(species, sex) %>%
+#'   summarise_boxplot_stats(body_mass_g)
+#'
+#' outliers <- penguins %>% 
+#'   group_by(species, sex) %>% 
+#'   summarise_boxplot_outliers(body_mass_g)
+#' 
+#' size_width <- 0.5
+#' 
+#' gg_boxplot_col(plot_data,
+#'                x_var = species,
+#'                ymin_var = min,
+#'                ylower_var = lower,
+#'                ymiddle_var = middle,
+#'                yupper_var = upper,
+#'                ymax_var = max,
+#'                col_var = sex,
+#'                size_width = size_width,
+#'                stat = "identity",
+#'                y_title = "Body mass g",
+#'                y_breaks_n = 4, 
+#'                col_na_rm = TRUE) +
+#'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, group = sex), 
+#'                      size = 0.75, 
+#'                      position = ggplot2::position_dodge(width = size_width),
+#'                      data = outliers)
 #' 
 gg_boxplot_col <- function(data,
                            x_var,
@@ -346,15 +399,37 @@ gg_boxplot_col <- function(data,
                            caption_wrap = 80,
                            theme = gg_theme(),
                            stat = "boxplot",
+                           ymin_var = NULL,
+                           ylower_var = NULL,
+                           ymiddle_var = NULL,
+                           yupper_var = NULL,
+                           ymax_var = NULL,
                            mobile = FALSE) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
+  #quote & vectors
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  
   col_var <- rlang::enquo(col_var) #categorical var
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  
+  if (stat == "boxplot") {
+    y_var <- rlang::enquo(y_var) #numeric var  
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    
+  }
+  else if (stat == "identity") {
+    ymin_var <- rlang::enquo(ymin_var) #numeric var
+    ylower_var <- rlang::enquo(ylower_var) #numeric var
+    ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
+    yupper_var <- rlang::enquo(yupper_var) #numeric var
+    ymax_var <- rlang::enquo(ymax_var) #numeric var
+    
+    y_var_vctr <- c(min(dplyr::pull(data, !!ymin_var), na.rm = TRUE), max(dplyr::pull(data, !!ymax_var), na.rm = TRUE))
+  }
   
   #na's
   if (x_na_rm == TRUE) {
@@ -365,20 +440,6 @@ gg_boxplot_col <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!col_var))
   }
-  
-  #vectors
-  x_var_vctr <- dplyr::pull(data, !!x_var)
-  
-  if (stat == "boxplot") {
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!y_var)
-    
-    y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-  }
-  
-  col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
   if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
@@ -401,7 +462,10 @@ gg_boxplot_col <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) {
+    if (stat == "boxplot") y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+    else if (stat == "identity") y_title <- ""
+  }
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #reverse
@@ -460,12 +524,12 @@ gg_boxplot_col <- function(data,
     plot <- plot +
       geom_boxplot(
         aes(
-          x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max, 
+          x = !!x_var, 
+          ymin = !!ymin_var,
+          lower = !!ylower_var,
+          middle = !!ymiddle_var,
+          upper = !!yupper_var,
+          ymax = !!ymax_var, 
           fill = !!col_var 
         ),
         position = position_dodge2(preserve = "single"),
@@ -555,7 +619,7 @@ gg_boxplot_col <- function(data,
 #' @description Boxplot ggplot that is facetted, but not coloured.
 #' @param data An tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
-#' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1. 
@@ -572,7 +636,7 @@ gg_boxplot_col <- function(data,
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.
@@ -591,6 +655,11 @@ gg_boxplot_col <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
+#' @param ymin_var Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected. 
+#' @param ylower_var Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymiddle_var Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected. 
+#' @param yupper_var Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymax_var Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected. 
 #' @param theme A ggplot2 theme.
 #' 
 #' @return A ggplot object.
@@ -643,15 +712,37 @@ gg_boxplot_facet <- function(data,
                              caption = NULL,
                              caption_wrap = 80,
                              theme = gg_theme(), 
-                             stat = "boxplot") {
+                             stat = "boxplot",
+                             ymin_var = NULL,
+                             ylower_var = NULL,
+                             ymiddle_var = NULL,
+                             yupper_var = NULL,
+                             ymax_var = NULL) {
   
   #ungroup
   data <- dplyr::ungroup(data)
   
-  #quote
-  x_var <- rlang::enquo(x_var)
-  y_var <- rlang::enquo(y_var) #numeric var
+  #quote & vectors
+  x_var <- rlang::enquo(x_var) 
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  
   facet_var <- rlang::enquo(facet_var) #categorical var
+  facet_var_vctr <- dplyr::pull(data,!!facet_var)
+  
+  if (stat == "boxplot") {
+    y_var <- rlang::enquo(y_var) #numeric var  
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    
+  }
+  else if (stat == "identity") {
+    ymin_var <- rlang::enquo(ymin_var) #numeric var
+    ylower_var <- rlang::enquo(ylower_var) #numeric var
+    ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
+    yupper_var <- rlang::enquo(yupper_var) #numeric var
+    ymax_var <- rlang::enquo(ymax_var) #numeric var
+    
+    y_var_vctr <- c(min(dplyr::pull(data, !!ymin_var), na.rm = TRUE), max(dplyr::pull(data, !!ymax_var), na.rm = TRUE))
+  }
   
   #na's
   if (x_na_rm == TRUE) {
@@ -662,20 +753,6 @@ gg_boxplot_facet <- function(data,
     data <- data %>%
       dplyr::filter(!is.na(!!facet_var))
   }
-  
-  #vectors
-  x_var_vctr <- dplyr::pull(data, !!x_var)
-  if (stat == "boxplot") {
-    y_var_vctr <- dplyr::pull(data,!!y_var)
-  } else if (stat == "identity") {
-    data <- data %>%
-      tidyr::unnest_wider(!!y_var)
-    
-    y_var_vctr <-
-      c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-  }
-  
-  facet_var_vctr <- dplyr::pull(data,!!facet_var)
   
   #warnings
   if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
@@ -698,7 +775,10 @@ gg_boxplot_facet <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) {
+    if (stat == "boxplot") y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+    else if (stat == "identity") y_title <- ""
+  }
   
   #reverse
   if (x_rev == TRUE) {
@@ -747,11 +827,11 @@ gg_boxplot_facet <- function(data,
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max
+          ymin = !!ymin_var,
+          lower = !!ylower_var,
+          middle = !!ymiddle_var,
+          upper = !!yupper_var,
+          ymax = !!ymax_var 
         ),
         stat = stat,
         fill = pal_fill,
@@ -814,7 +894,7 @@ gg_boxplot_facet <- function(data,
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
-#' @param y_var Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
+#' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
@@ -834,7 +914,7 @@ gg_boxplot_facet <- function(data,
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
-#' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
@@ -859,6 +939,11 @@ gg_boxplot_facet <- function(data,
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param stat String of "boxplot" or "identity". Defaults to "boxplot". 
+#' @param ymin_var Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected. 
+#' @param ylower_var Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymiddle_var Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected. 
+#' @param yupper_var Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected. 
+#' @param ymax_var Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected. 
 #' @param theme A ggplot2 theme.
 #' 
 #' @return A ggplot object.
@@ -926,16 +1011,40 @@ gg_boxplot_col_facet <- function(data,
                                  caption = NULL,
                                  caption_wrap = 80,
                                  theme = gg_theme(), 
-                                 stat = "boxplot") {
+                                 stat = "boxplot",
+                                 ymin_var = NULL,
+                                 ylower_var = NULL,
+                                 ymiddle_var = NULL,
+                                 yupper_var = NULL,
+                                 ymax_var = NULL) {
   
   #ungroup
   data <- dplyr::ungroup(data)
-  
-  #quote
+
+  #quote & vectors
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  x_var_vctr <- dplyr::pull(data, !!x_var)
+  
   col_var <- rlang::enquo(col_var) #categorical var
+  col_var_vctr <- dplyr::pull(data, !!col_var)
+  
   facet_var <- rlang::enquo(facet_var) #categorical var
+  facet_var_vctr <- dplyr::pull(data, !!facet_var)
+  
+  if (stat == "boxplot") {
+    y_var <- rlang::enquo(y_var) #numeric var  
+    y_var_vctr <- dplyr::pull(data, !!y_var)
+    
+  }
+  else if (stat == "identity") {
+    ymin_var <- rlang::enquo(ymin_var) #numeric var
+    ylower_var <- rlang::enquo(ylower_var) #numeric var
+    ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
+    yupper_var <- rlang::enquo(yupper_var) #numeric var
+    ymax_var <- rlang::enquo(ymax_var) #numeric var
+    
+    y_var_vctr <- c(min(dplyr::pull(data, !!ymin_var), na.rm = TRUE), max(dplyr::pull(data, !!ymax_var), na.rm = TRUE))
+  }
   
   #na's
   if (x_na_rm == TRUE) {
@@ -950,21 +1059,6 @@ gg_boxplot_col_facet <- function(data,
     data <- data %>% 
       dplyr::filter(!is.na(!!facet_var))
   }
-  
-  #vectors
-  x_var_vctr <- dplyr::pull(data, !!x_var) 
-  
-  if (stat == "boxplot") {
-    y_var_vctr <- dplyr::pull(data, !!y_var)
-  } else if(stat == "identity") {
-    data <- data %>% 
-      tidyr::unnest_wider(!!y_var)
-    
-    y_var_vctr <- c(dplyr::pull(data, .data$min), dplyr::pull(data, .data$max))
-  }
-  
-  col_var_vctr <- dplyr::pull(data, !!col_var)
-  facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
   if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
@@ -994,7 +1088,10 @@ gg_boxplot_col_facet <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) {
+    if (stat == "boxplot") y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+    else if (stat == "identity") y_title <- ""
+  }
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #reverse
@@ -1061,12 +1158,11 @@ gg_boxplot_col_facet <- function(data,
       geom_boxplot(
         aes(
           x = !!x_var,
-          ymin = .data$min,
-          lower = .data$lower,
-          middle = .data$middle,
-          upper = .data$upper,
-          ymax = .data$max, 
-          fill = !!col_var 
+          ymin = !!ymin_var,
+          lower = !!ylower_var,
+          middle = !!ymiddle_var,
+          upper = !!yupper_var,
+          ymax = !!ymax_var 
         ),
         position = position_dodge2(preserve = "single"),
         stat = stat,

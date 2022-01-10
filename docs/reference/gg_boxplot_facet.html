@@ -200,7 +200,12 @@
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>ymin_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylower_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ymiddle_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>yupper_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ymax_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -216,7 +221,7 @@
     </tr>
     <tr>
       <th>y_var</th>
-      <td><p>Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.</p></td>
+      <td><p>Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected.</p></td>
     </tr>
     <tr>
       <th>facet_var</th>
@@ -284,7 +289,7 @@
     </tr>
     <tr>
       <th>x_title</th>
-      <td><p>X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
+      <td><p>x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>x_title_wrap</th>
@@ -361,6 +366,26 @@
     <tr>
       <th>stat</th>
       <td><p>String of "boxplot" or "identity". Defaults to "boxplot".</p></td>
+    </tr>
+    <tr>
+      <th>ymin_var</th>
+      <td><p>Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>ylower_var</th>
+      <td><p>Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>ymiddle_var</th>
+      <td><p>Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>yupper_var</th>
+      <td><p>Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>ymax_var</th>
+      <td><p>Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected.</p></td>
     </tr>
     </table>
 

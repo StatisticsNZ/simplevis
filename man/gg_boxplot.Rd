@@ -35,8 +35,13 @@ gg_boxplot(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(),
   stat = "boxplot",
+  ymin_var = NULL,
+  ylower_var = NULL,
+  ymiddle_var = NULL,
+  yupper_var = NULL,
+  ymax_var = NULL,
+  theme = gg_theme(),
   mobile = FALSE
 )
 }
@@ -45,7 +50,7 @@ gg_boxplot(
 
 \item{x_var}{Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.}
 
-\item{y_var}{Generally an unquoted numeric variable to be on the y scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().}
+\item{y_var}{Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected.}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -77,7 +82,7 @@ gg_boxplot(
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
-\item{x_title}{X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{x_title}{x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
@@ -101,9 +106,19 @@ gg_boxplot(
 
 \item{caption_wrap}{Number of characters to wrap the caption to. Defaults to 80.}
 
-\item{theme}{A ggplot2 theme.}
-
 \item{stat}{String of "boxplot" or "identity". Defaults to "boxplot".}
+
+\item{ymin_var}{Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected.}
+
+\item{ylower_var}{Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected.}
+
+\item{ymiddle_var}{Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected.}
+
+\item{yupper_var}{Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected.}
+
+\item{ymax_var}{Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected.}
+
+\item{theme}{A ggplot2 theme.}
 
 \item{mobile}{Whether the plot is to be displayed on a mobile device. Defaults to FALSE.}
 }
@@ -118,25 +133,28 @@ library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 
-gg_boxplot(penguins, 
-           x_var = species, 
-           y_var = body_mass_g)
+gg_boxplot(penguins,
+            x_var = species,
+            y_var = body_mass_g)
 
 plot_data <- penguins \%>\%
   group_by(species) \%>\%
-  summarise(across(body_mass_g, ~ list(
-    rlang::set_names(
-      boxplot.stats(.x)$stats,
-      c('min', 'lower', 'middle', 'upper', 'max')
-    )
-  )))
-  
-plot_data \%>\% 
-  tidyr::unnest_wider(body_mass_g)
+  summarise_boxplot_stats(body_mass_g)
 
-gg_boxplot(plot_data, 
-           x_var = species, 
-           y_var = body_mass_g, 
-           stat = "identity")
+outliers <- penguins \%>\% 
+  group_by(species) \%>\% 
+  summarise_boxplot_outliers(body_mass_g)
+
+gg_boxplot(plot_data,
+            x_var = species,
+            ymin_var = min,
+            ylower_var = lower,
+            ymiddle_var = middle,
+            yupper_var = upper,
+            ymax_var = max,
+            stat = "identity",
+            y_title = "Body mass g",
+            y_breaks_n = 4) +
+  ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), size = 0.75, data = outliers)
 
 }

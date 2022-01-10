@@ -209,7 +209,12 @@
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>75</span>,
   <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(<span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>),
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>xmin_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlower_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xmiddle_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xupper_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xmax_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -221,7 +226,7 @@
     </tr>
     <tr>
       <th>x_var</th>
-      <td><p>Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names. See summarise_boxplot_stats().</p></td>
+      <td><p>Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected.</p></td>
     </tr>
     <tr>
       <th>y_var</th>
@@ -406,6 +411,26 @@
     <tr>
       <th>stat</th>
       <td><p>String of "boxplot" or "identity". Defaults to "boxplot".</p></td>
+    </tr>
+    <tr>
+      <th>xmin_var</th>
+      <td><p>Unquoted numeric variable for minimum of whisker on the x scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>xlower_var</th>
+      <td><p>Unquoted numeric variable for minimum of box on the x scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>xmiddle_var</th>
+      <td><p>Unquoted numeric variable for middle of box on the x scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>xupper_var</th>
+      <td><p>Unquoted numeric variable for maximum of box on the x scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>xmax_var</th>
+      <td><p>Unquoted numeric variable for maximum of whisker on the x scale for when stat = "identity" is selected.</p></td>
     </tr>
     </table>
 

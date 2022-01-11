@@ -4,7 +4,7 @@
 #' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
@@ -68,13 +68,15 @@
 #'             stat = "identity",
 #'             x_title = "Body mass g",
 #'             x_breaks_n = 4) +
-#'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), size = 0.75, data = outliers)
+#'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), 
+#'             size = 0.75, col = pal_viridis_reorder(1), 
+#'             data = outliers)
 #'   
 gg_hboxplot <- function(data,
                     x_var,
                     y_var,
                     pal = pal_viridis_reorder(1),
-                    alpha_fill = 1,
+                    alpha_fill = 0.2,
                     alpha_line = 1,
                     alpha_point = 1,
                     size_line = 0.5,
@@ -169,9 +171,9 @@ gg_hboxplot <- function(data,
   #colour
   pal <- pal[1]
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
-
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
+  
   #fundamentals
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
@@ -186,8 +188,7 @@ gg_hboxplot <- function(data,
         col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -207,8 +208,7 @@ gg_hboxplot <- function(data,
         col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -274,7 +274,7 @@ gg_hboxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
@@ -353,7 +353,7 @@ gg_hboxplot <- function(data,
 #'                x_title = "Body mass g",
 #'                x_breaks_n = 4, 
 #'                col_na_rm = TRUE) +
-#'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, group = sex), 
+#'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, col = sex), 
 #'                      size = 0.75, 
 #'                      position = ggplot2::position_dodge(width = size_width),
 #'                      data = outliers)
@@ -365,7 +365,7 @@ gg_hboxplot_col <- function(data,
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
-                        alpha_fill = 1,
+                        alpha_fill = 0.2,
                         alpha_line = 1,
                         alpha_point = 1,
                         size_line = 0.5,
@@ -494,14 +494,14 @@ gg_hboxplot_col <- function(data,
   else col_n <- length(unique(col_var_vctr))
   
   if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  pal <- pal[col_n:1] #different because horizontal!
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
   
   #fundamentals
   plot <- ggplot(data) +
@@ -511,14 +511,12 @@ gg_hboxplot_col <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!y_var, y = !!x_var, fill = !!col_var),
+        aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var),
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -532,15 +530,14 @@ gg_hboxplot_col <- function(data,
           middle = !!xmiddle_var,
           upper = !!xupper_var,
           ymax = !!xmax_var, 
+          col = !!col_var, 
           fill = !!col_var
         ),
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -575,6 +572,13 @@ gg_hboxplot_col <- function(data,
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot +
+    scale_colour_manual(
+      values = pal_line,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na_line,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
     scale_fill_manual(
       values = pal_fill,
       drop = FALSE,
@@ -586,14 +590,14 @@ gg_hboxplot_col <- function(data,
   if (col_legend_none == FALSE) {
     if (mobile == FALSE) {
       plot <- plot +
-        guides(fill = guide_legend(reverse = TRUE))
+        guides(col = guide_legend(reverse = TRUE), fill = guide_legend(reverse = TRUE))
     }
     else if (mobile == TRUE) {
       plot <- plot +
-        guides(fill = guide_legend(ncol = 1, reverse = TRUE))
+        guides(col = guide_legend(ncol = 1, reverse = TRUE), fill = guide_legend(ncol = 1, reverse = TRUE))
     }
   }
-
+  
   if (col_legend_none == TRUE) plot <- plot +
     theme(legend.position = "none")
   
@@ -630,7 +634,7 @@ gg_hboxplot_col <- function(data,
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots. 
@@ -687,7 +691,7 @@ gg_hboxplot_facet <- function(data,
                           y_var,
                           facet_var,
                           pal = pal_viridis_reorder(1),
-                          alpha_fill = 1,
+                          alpha_fill = 0.2,
                           alpha_line = 1,
                           alpha_point = 1,
                           size_line = 0.5,
@@ -807,10 +811,9 @@ gg_hboxplot_facet <- function(data,
   
   #colour
   pal <- pal[1]
-  
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
@@ -826,8 +829,7 @@ gg_hboxplot_facet <- function(data,
         col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -847,8 +849,7 @@ gg_hboxplot_facet <- function(data,
         col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -909,7 +910,7 @@ gg_hboxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_width Width of boxes. Defaults to 0.5.
@@ -979,7 +980,7 @@ gg_hboxplot_col_facet <- function(data,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              alpha_fill = 1,
+                              alpha_fill = 0.2,
                               alpha_line = 1,
                               alpha_point = 1,
                               size_line = 0.5,
@@ -1134,14 +1135,14 @@ gg_hboxplot_col_facet <- function(data,
   else col_n <- length(unique(col_var_vctr))
   
   if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  pal <- pal[col_n:1] #different because horizontal!
+  else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
   
   #fundamentals
   plot <- ggplot(data) +
@@ -1151,14 +1152,12 @@ gg_hboxplot_col_facet <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!y_var, y = !!x_var, fill = !!col_var), 
+        aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var), 
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -1172,15 +1171,14 @@ gg_hboxplot_col_facet <- function(data,
           middle = !!xmiddle_var,
           upper = !!xupper_var,
           ymax = !!xmax_var, 
+          col = !!col_var, 
           fill = !!col_var
         ),
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -1219,7 +1217,7 @@ gg_hboxplot_col_facet <- function(data,
   
   if (col_legend_none == FALSE) {
     plot <- plot +
-      guides(fill = guide_legend(reverse = TRUE))
+      guides(col = guide_legend(reverse = TRUE), fill = guide_legend(reverse = TRUE))
   } 
   
   if (col_legend_none == TRUE) plot <- plot +
@@ -1227,6 +1225,13 @@ gg_hboxplot_col_facet <- function(data,
   
   #colour, titles & facetting
   plot <- plot +
+    scale_colour_manual(
+      values = pal_line,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na_line,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
     scale_fill_manual(
       values = pal_fill,
       drop = FALSE,

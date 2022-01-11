@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_violin.R
 \name{gg_violin_col_facet}
 \alias{gg_violin_col_facet}
-\title{Violin ggplot that is coloured}
+\title{Violin ggplot that is coloured and facetted.}
 \usage{
 gg_violin_col_facet(
   data,
@@ -13,7 +13,7 @@ gg_violin_col_facet(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha_fill = 1,
+  alpha_fill = 0.2,
   alpha_line = 1,
   size_line = 0.5,
   size_width = 0.75,
@@ -74,7 +74,7 @@ gg_violin_col_facet(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
@@ -162,7 +162,7 @@ gg_violin_col_facet(
 A ggplot object.
 }
 \description{
-Violin ggplot that is coloured
+Violin ggplot that is coloured and facetted.
 }
 \examples{
 library(simplevis)

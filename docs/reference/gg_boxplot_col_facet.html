@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boxplot ggplot that is coloured — gg_boxplot_col_facet • simplevis</title>
+<title>Boxplot ggplot that is coloured and facetted. — gg_boxplot_col_facet • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Boxplot ggplot that is coloured — gg_boxplot_col_facet" />
-<meta property="og:description" content="Boxplot ggplot that is coloured" />
+<meta property="og:title" content="Boxplot ggplot that is coloured and facetted. — gg_boxplot_col_facet" />
+<meta property="og:description" content="Boxplot ggplot that is facetted, but not coloured." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -152,13 +152,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Boxplot ggplot that is coloured</h1>
+    <h1>Boxplot ggplot that is coloured and facetted.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_boxplot.R'><code>R/gg_boxplot.R</code></a></small>
     <div class="hidden name"><code>gg_boxplot_col_facet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Boxplot ggplot that is coloured</p>
+    <p>Boxplot ggplot that is facetted, but not coloured.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gg_boxplot_col_facet</span>(
@@ -170,7 +170,7 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
@@ -254,7 +254,7 @@
     </tr>
     <tr>
       <th>alpha_fill</th>
-      <td><p>The opacity of the fill. Defaults to 1.</p></td>
+      <td><p>The opacity of the fill. Defaults to 0.2.</p></td>
     </tr>
     <tr>
       <th>alpha_line</th>
@@ -442,16 +442,17 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>simplevis</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>palmerpenguins</span>)
 
-<span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
+<span class='no'>penguins</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>year</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>gg_boxplot_col_facet</span>(<span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>,
                      <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
                      <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
                      <span class='kw'>facet_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
                      <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                     <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/stringr/man/str_sub.html'>str_sub</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>, <span class='fl'>4</span>))
-
-<span class='co'>#For ggplotly, pipe in plotly::layout(boxmode = "group") layer</span></div></pre>
+                     <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/stringr/man/str_sub.html'>str_sub</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>, <span class='fl'>4</span>))</div><div class='img'><img src='gg_boxplot_col_facet-1.png' alt='' width='700' height='433' /></div><div class='input'>                             
+#For ggplotly, pipe in plotly::layout(boxmode = "group") layer
+ 
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

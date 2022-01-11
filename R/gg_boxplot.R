@@ -4,7 +4,7 @@
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point The size of the outlier points. Defaults to 0.75.
@@ -67,13 +67,15 @@
 #'             stat = "identity",
 #'             y_title = "Body mass g",
 #'             y_breaks_n = 4) +
-#'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), size = 0.75, data = outliers)
+#'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), 
+#'             size = 0.75, col = pal_viridis_reorder(1), 
+#'             data = outliers)
 #' 
 gg_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
                        pal = pal_viridis_reorder(1),
-                       alpha_fill = 1,
+                       alpha_fill = 0.2,
                        alpha_line = 1,
                        alpha_point = 1,
                        size_line = 0.5,
@@ -168,8 +170,8 @@ gg_boxplot <- function(data,
   #colour
   pal <- pal[1]
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
@@ -212,10 +214,10 @@ gg_boxplot <- function(data,
       )
   }
   
-  #x scale 
+  #x scale
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels)
-  
+
   #y scale
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
@@ -273,7 +275,7 @@ gg_boxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point The size of the outlier points. Defaults to 0.75.
@@ -353,7 +355,7 @@ gg_boxplot <- function(data,
 #'                y_title = "Body mass g",
 #'                y_breaks_n = 4, 
 #'                col_na_rm = TRUE) +
-#'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, group = sex), 
+#'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, col = sex), 
 #'                      size = 0.75, 
 #'                      position = ggplot2::position_dodge(width = size_width),
 #'                      data = outliers)
@@ -365,7 +367,7 @@ gg_boxplot_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           alpha_fill = 1,
+                           alpha_fill = 0.2,
                            alpha_line = 1,
                            alpha_point = 1,
                            size_line = 0.5,
@@ -498,8 +500,8 @@ gg_boxplot_col <- function(data,
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
 
   #fundamentals
   plot <- ggplot(data) +
@@ -509,14 +511,12 @@ gg_boxplot_col <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
+        aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var), 
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -530,23 +530,22 @@ gg_boxplot_col <- function(data,
           middle = !!ymiddle_var,
           upper = !!yupper_var,
           ymax = !!ymax_var, 
+          col = !!col_var, 
           fill = !!col_var 
         ),
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
-
+  
   #x scale 
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels)
-
+  
   #y scale
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
@@ -573,6 +572,13 @@ gg_boxplot_col <- function(data,
   if (mobile == TRUE) col_title_wrap <- 20
   
   plot <- plot +
+    scale_colour_manual(
+      values = pal_line,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na_line,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
     scale_fill_manual(
       values = pal_fill,
       drop = FALSE,
@@ -583,9 +589,9 @@ gg_boxplot_col <- function(data,
   
   if (mobile == TRUE & col_legend_none == TRUE) {
     plot <- plot +
-      guides(fill = guide_legend(ncol = 1))
+      guides(col = guide_legend(ncol = 1), fill = guide_legend(ncol = 1))
   }
-  
+
   if (col_legend_none == TRUE) plot <- plot +
     theme(legend.position = "none")
   
@@ -622,7 +628,7 @@ gg_boxplot_col <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
@@ -679,7 +685,7 @@ gg_boxplot_facet <- function(data,
                              y_var = NULL,
                              facet_var,
                              pal = pal_viridis_reorder(1),
-                             alpha_fill = 1,
+                             alpha_fill = 0.2,
                              alpha_line = 1,
                              alpha_point = 1,
                              size_line = 0.5,
@@ -796,12 +802,12 @@ gg_boxplot_facet <- function(data,
     
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
-
+  
   #colour
   pal <- pal[1]
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_point <- scales::alpha(pal, alpha = alpha_point)
   
   #fundamentals
   plot <- ggplot(data) +
@@ -843,11 +849,11 @@ gg_boxplot_facet <- function(data,
         outlier.size = size_point
       )
   }
-
+  
   #x scale 
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels)
-
+  
   #y scale
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
@@ -890,8 +896,8 @@ gg_boxplot_facet <- function(data,
   return(plot)
 }
 
-#' Boxplot ggplot that is coloured
-#'
+#' @title Boxplot ggplot that is coloured and facetted.
+#' @description Boxplot ggplot that is facetted, but not coloured.
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
@@ -900,7 +906,7 @@ gg_boxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point The size of the outlier points. Defaults to 0.75.
@@ -953,7 +959,7 @@ gg_boxplot_facet <- function(data,
 #' library(simplevis)
 #' library(palmerpenguins)
 #' 
-#' plot_data <- penguins %>% 
+#' penguins %>% 
 #'   dplyr::mutate(year = as.character(year)) %>% 
 #'   gg_boxplot_col_facet(x_var = year, 
 #'                      y_var = body_mass_g, 
@@ -972,7 +978,7 @@ gg_boxplot_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 alpha_fill = 1,
+                                 alpha_fill = 0.2,
                                  alpha_line = 1,
                                  alpha_point = 1,
                                  size_line = 0.5,
@@ -1020,7 +1026,7 @@ gg_boxplot_col_facet <- function(data,
   
   #ungroup
   data <- dplyr::ungroup(data)
-
+  
   #quote & vectors
   x_var <- rlang::enquo(x_var) 
   x_var_vctr <- dplyr::pull(data, !!x_var)
@@ -1117,7 +1123,7 @@ gg_boxplot_col_facet <- function(data,
     
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
-
+  
   #colour
   if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
     col_n <- length(levels(col_var_vctr))
@@ -1131,9 +1137,9 @@ gg_boxplot_col_facet <- function(data,
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-  pal_line <- scales::alpha("#232323", alpha = alpha_line)
-  pal_point <- scales::alpha("#232323", alpha = alpha_point)
-  
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+
   #fundamentals
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
@@ -1142,14 +1148,12 @@ gg_boxplot_col_facet <- function(data,
   if (stat == "boxplot") {
     plot <- plot +
       geom_boxplot(
-        aes(x = !!x_var, y = !!y_var, fill = !!col_var), 
+        aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var), 
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
@@ -1162,23 +1166,23 @@ gg_boxplot_col_facet <- function(data,
           lower = !!ylower_var,
           middle = !!ymiddle_var,
           upper = !!yupper_var,
-          ymax = !!ymax_var 
+          ymax = !!ymax_var, 
+          col = !!col_var, 
+          fill = !!col_var
         ),
         position = position_dodge2(preserve = "single"),
         stat = stat,
-        col = pal_line, 
         size = size_line, 
         width = size_width,
-        outlier.colour = pal_point,
-        outlier.fill = pal_point,
+        outlier.alpha = alpha_point,
         outlier.size = size_point
       )
   }
-
+  
   #x scale 
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels)
-
+  
   #y scale
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
@@ -1212,6 +1216,13 @@ gg_boxplot_col_facet <- function(data,
     theme(legend.position = "none")
   
   plot <- plot +
+    scale_colour_manual(
+      values = pal_line,
+      drop = FALSE,
+      labels = col_labels,
+      na.value = pal_na_line,
+      name = stringr::str_wrap(col_title, col_title_wrap)
+    ) +
     scale_fill_manual(
       values = pal_fill,
       drop = FALSE,
@@ -1227,6 +1238,6 @@ gg_boxplot_col_facet <- function(data,
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow) 
-
-    return(plot)
+  
+  return(plot)
 }

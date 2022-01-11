@@ -9,7 +9,7 @@ gg_hboxplot(
   x_var,
   y_var,
   pal = pal_viridis_reorder(1),
-  alpha_fill = 1,
+  alpha_fill = 0.2,
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
@@ -54,7 +54,7 @@ gg_hboxplot(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
@@ -155,6 +155,8 @@ gg_hboxplot(plot_data,
             stat = "identity",
             x_title = "Body mass g",
             x_breaks_n = 4) +
-  ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), size = 0.75, data = outliers)
+  ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), 
+            size = 0.75, col = pal_viridis_reorder(1), 
+            data = outliers)
   
 }

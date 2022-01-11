@@ -151,7 +151,7 @@ gg_bar <- function(data,
   pal <- pal[1]
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha(pal, alpha = alpha_line)
-
+  
   #size_width
   if (is.null(size_width)) {
     if(lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -187,7 +187,7 @@ gg_bar <- function(data,
   
   if (is.numeric(x_var_vctr)) {
     if (mobile == TRUE) {
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr, na.rm = TRUE), max(x_var_vctr, na.rm = TRUE))
       x_breaks <- x_limits
       if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
     }
@@ -579,7 +579,7 @@ gg_bar_col <- function(data,
   
   if (is.numeric(x_var_vctr)) {
     if (mobile == TRUE) {
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr, na.rm = TRUE), max(x_var_vctr, na.rm = TRUE))
       x_breaks <- x_limits
       if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
     }
@@ -918,7 +918,7 @@ gg_bar_facet <- function(data,
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr, na.rm = TRUE), max(x_var_vctr, na.rm = TRUE))
       if (is.null(x_expand)) x_expand <- c(0, 0)
       
       if (is.null(x_labels)) {
@@ -1327,7 +1327,7 @@ gg_bar_col_facet <- function(data,
       x_zero <- x_zero_list[[1]]
       x_zero_line <- x_zero_list[[2]]
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_var_vctr, na.rm = TRUE), max(x_var_vctr, na.rm = TRUE))
       if (is.null(x_expand)) x_expand <- c(0, 0)
       
       if (is.null(x_labels)) {

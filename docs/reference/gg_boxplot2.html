@@ -165,13 +165,8 @@
   <span class='no'>data</span>,
   <span class='no'>x_var</span>,
   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ymin_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylow_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ymid_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>yhigh_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ymax_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
-  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
@@ -197,8 +192,13 @@
   <span class='kw'>y_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
   <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>ymin_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylower_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ymiddle_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>yupper_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ymax_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(),
   <span class='kw'>mobile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -218,32 +218,12 @@
       <td><p>Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected.</p></td>
     </tr>
     <tr>
-      <th>ymin_var</th>
-      <td><p>Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected.</p></td>
-    </tr>
-    <tr>
-      <th>ylow_var</th>
-      <td><p>Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected.</p></td>
-    </tr>
-    <tr>
-      <th>ymid_var</th>
-      <td><p>Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected.</p></td>
-    </tr>
-    <tr>
-      <th>yhigh_var</th>
-      <td><p>Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected.</p></td>
-    </tr>
-    <tr>
-      <th>ymax_var</th>
-      <td><p>Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected.</p></td>
-    </tr>
-    <tr>
       <th>pal</th>
       <td><p>Character vector of hex codes.</p></td>
     </tr>
     <tr>
       <th>alpha_fill</th>
-      <td><p>The opacity of the fill. Defaults to 1.</p></td>
+      <td><p>The opacity of the fill. Defaults to 0.</p></td>
     </tr>
     <tr>
       <th>alpha_line</th>
@@ -299,7 +279,7 @@
     </tr>
     <tr>
       <th>x_title</th>
-      <td><p>X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
+      <td><p>x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.</p></td>
     </tr>
     <tr>
       <th>x_title_wrap</th>
@@ -346,12 +326,32 @@
       <td><p>Number of characters to wrap the caption to. Defaults to 80.</p></td>
     </tr>
     <tr>
-      <th>theme</th>
-      <td><p>A ggplot2 theme.</p></td>
-    </tr>
-    <tr>
       <th>stat</th>
       <td><p>String of "boxplot" or "identity". Defaults to "boxplot".</p></td>
+    </tr>
+    <tr>
+      <th>ymin_var</th>
+      <td><p>Unquoted numeric variable for minimum of whisker on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>ylower_var</th>
+      <td><p>Unquoted numeric variable for minimum of box on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>ymiddle_var</th>
+      <td><p>Unquoted numeric variable for middle of box on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>yupper_var</th>
+      <td><p>Unquoted numeric variable for maximum of box on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>ymax_var</th>
+      <td><p>Unquoted numeric variable for maximum of whisker on the y scale for when stat = "identity" is selected.</p></td>
+    </tr>
+    <tr>
+      <th>theme</th>
+      <td><p>A ggplot2 theme.</p></td>
     </tr>
     <tr>
       <th>mobile</th>
@@ -382,11 +382,12 @@
 <span class='fu'>gg_boxplot2</span>(<span class='no'>plot_data</span>,
             <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
             <span class='kw'>ymin_var</span> <span class='kw'>=</span> <span class='no'>min</span>,
-            <span class='kw'>ylow_var</span> <span class='kw'>=</span> <span class='no'>low</span>,
-            <span class='kw'>ymid_var</span> <span class='kw'>=</span> <span class='no'>mid</span>,
-            <span class='kw'>yhigh_var</span> <span class='kw'>=</span> <span class='no'>high</span>,
+            <span class='kw'>ylower_var</span> <span class='kw'>=</span> <span class='no'>lower</span>,
+            <span class='kw'>ymiddle_var</span> <span class='kw'>=</span> <span class='no'>middle</span>,
+            <span class='kw'>yupper_var</span> <span class='kw'>=</span> <span class='no'>upper</span>,
             <span class='kw'>ymax_var</span> <span class='kw'>=</span> <span class='no'>max</span>,
             <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+            <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Body mass g"</span>,
             <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>4</span>) +
   <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>species</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>outliers</span>)</div><div class='img'><img src='gg_boxplot2-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>

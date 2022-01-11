@@ -415,8 +415,7 @@ Where:
 penguins %>% 
   gg_density_col(x_var = body_mass_g, 
                  col_var = sex,
-                 col_na_rm = TRUE, 
-                 alpha_fill = 0.9)
+                 col_na_rm = TRUE)
 ```
 
 ### Output objects and adding layers

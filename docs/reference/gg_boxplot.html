@@ -166,7 +166,7 @@
   <span class='no'>x_var</span>,
   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
-  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
@@ -223,7 +223,7 @@
     </tr>
     <tr>
       <th>alpha_fill</th>
-      <td><p>The opacity of the fill. Defaults to 1.</p></td>
+      <td><p>The opacity of the fill. Defaults to 0.2.</p></td>
     </tr>
     <tr>
       <th>alpha_line</th>
@@ -389,7 +389,9 @@
             <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
             <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='st'>"Body mass g"</span>,
             <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>4</span>) +
-  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>species</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>outliers</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>species</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>),
+            <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
+            <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>outliers</span>)</div><div class='img'><img src='gg_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

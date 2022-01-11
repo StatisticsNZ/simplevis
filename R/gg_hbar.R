@@ -189,7 +189,7 @@ gg_hbar <- function(data,
   
   if (is.numeric(y_var_vctr)) {
     if (mobile == TRUE) {
-      y_limits <- c(min(y_breaks), max(y_breaks))
+      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
       y_breaks <- y_limits
       if (min(y_breaks) < 0 & max(y_breaks > 0)) y_breaks <- c(y_breaks[1], 0, y_breaks[2])
     }
@@ -229,7 +229,7 @@ gg_hbar <- function(data,
   }
   else ({
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
@@ -594,7 +594,7 @@ gg_hbar_col <- function(data,
   
   if (is.numeric(y_var_vctr)) {
     if (mobile == TRUE) {
-      y_limits <- c(min(y_breaks), max(y_breaks))
+      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
       y_breaks <- y_limits
       if (min(y_breaks) < 0 & max(y_breaks > 0)) y_breaks <- c(y_breaks[1], 0, y_breaks[2])
     }
@@ -634,7 +634,7 @@ gg_hbar_col <- function(data,
   }
   else ({
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
-    x_limits <- c(min(x_breaks), max(x_breaks))
+    x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
@@ -933,7 +933,7 @@ gg_hbar_facet <- function(data,
         y_zero <- y_zero_list[[1]]
         y_zero_line <- y_zero_list[[2]]
         y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
-        y_limits <- c(min(y_breaks), max(y_breaks))
+        y_limits <- c(min(y_var_vctr), max(y_var_vctr))
         if (is.null(y_expand)) y_expand <- c(0, 0)
         
         if (is.null(y_labels)) {
@@ -974,7 +974,7 @@ gg_hbar_facet <- function(data,
     }
     else ({
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
@@ -1344,7 +1344,7 @@ gg_hbar_col_facet <- function(data,
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
       y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
-      y_limits <- c(min(y_breaks), max(y_breaks))
+      y_limits <- c(min(y_var_vctr), max(y_var_vctr))
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
       if (is.null(y_labels)) {
@@ -1396,7 +1396,7 @@ gg_hbar_col_facet <- function(data,
     }
     else ({
       x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
-      x_limits <- c(min(x_breaks), max(x_breaks))
+      x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)

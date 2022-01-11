@@ -4,7 +4,7 @@
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.75.
@@ -49,7 +49,7 @@ gg_violin <- function(data,
                       x_var,
                       y_var = NULL,
                       pal = pal_viridis_reorder(1),
-                      alpha_fill = 1,
+                      alpha_fill = 0.2,
                       alpha_line = 1,
                       size_line = 0.5,
                       size_width = 0.75,
@@ -205,7 +205,7 @@ gg_violin <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.75.
@@ -263,7 +263,7 @@ gg_violin_col <- function(data,
                           pal = NULL,
                           pal_na = "#7F7F7F",
                           pal_rev = FALSE,
-                          alpha_fill = 1,
+                          alpha_fill = 0.2,
                           alpha_line = 1,
                           size_line = 0.5,
                           size_width = 0.75,
@@ -436,7 +436,7 @@ gg_violin_col <- function(data,
       na.value = pal_na_fill,
       name = stringr::str_wrap(col_title, col_title_wrap)
     ) 
-
+  
   if (mobile == TRUE & col_legend_none == TRUE) {
     plot <- plot +
       guides(col = guide_legend(ncol = 1), fill = guide_legend(ncol = 1))
@@ -478,7 +478,7 @@ gg_violin_col <- function(data,
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.75.
@@ -533,7 +533,7 @@ gg_violin_facet <- function(data,
                             y_var = NULL,
                             facet_var,
                             pal = pal_viridis_reorder(1),
-                            alpha_fill = 1,
+                            alpha_fill = 0.2,
                             alpha_line = 1,
                             size_line = 0.5,
                             size_width = 0.75,
@@ -697,7 +697,7 @@ gg_violin_facet <- function(data,
   return(plot)
 }
 
-#' Violin ggplot that is coloured
+#' Violin ggplot that is coloured and facetted.
 #'
 #' @param data A tibble or dataframe. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
@@ -707,7 +707,7 @@ gg_violin_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. Defaults to 1. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of violins. Defaults to 0.5.
 #' @param size_width Width of boxes. Defaults to 0.75.
@@ -774,7 +774,7 @@ gg_violin_col_facet <- function(data,
                                 pal = NULL,
                                 pal_na = "#7F7F7F",
                                 pal_rev = FALSE,
-                                alpha_fill = 1,
+                                alpha_fill = 0.2,
                                 alpha_line = 1,
                                 size_line = 0.5,
                                 size_width = 0.75,

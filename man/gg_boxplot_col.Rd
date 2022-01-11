@@ -12,7 +12,7 @@ gg_boxplot_col(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha_fill = 1,
+  alpha_fill = 0.2,
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
@@ -69,7 +69,7 @@ gg_boxplot_col(
 
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 1.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
@@ -191,7 +191,7 @@ gg_boxplot_col(plot_data,
                y_title = "Body mass g",
                y_breaks_n = 4, 
                col_na_rm = TRUE) +
-               ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, group = sex), 
+               ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, col = sex), 
                      size = 0.75, 
                      position = ggplot2::position_dodge(width = size_width),
                      data = outliers)

@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 library(simplevis)
 library(tidyverse)
 library(palmerpenguins)
+set.seed(123456789)
 ```
 
 From version 5.1.0, `simplevis` will support all ggplot2 themes with all `gg_*` plot functions providing a theme argument. 

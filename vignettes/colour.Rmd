@@ -19,32 +19,24 @@ knitr::opts_chunk$set(
 library(dplyr)
 library(simplevis)
 library(palmerpenguins)
+set.seed(123456789)
 ```
 
 ### Overview
 
 In simplevis, users adhere to the following rules for adjusting colour:
 
-* Always define the colours to use via the `pal` argument 
+* You can customise colours via the `pal` argument 
 * If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
-* If the `col_var` is numeric, the `col_method` of `bin` or `quantile`, and the `col_cuts` to use. 
-* If `col_method` equals `bin`, then alternatively you can use the `col_breaks_n`argument to adjust number of pretty breaks. 
+* If the `col_var` is numeric, there are `continuous`, `bin` or `quantile` colouring methods available
+* For `bin` and `quantile`, you can modify the colour breaks using the `col_breaks_n` or `col_cuts` arguments.
 
-In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type.
+In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type. This is a consistent method across all functions, which is intended to simplify colouring.
 
-This is a consistent method across all functions, which is intended to simplify colouring.
 
-### Always define the colours to use via the `pal` argument 
+### Customise colours via the `pal` argument  
 
-`simplevis` has default palettes that are based on the viridis and D3 colour palettes. 
-
-```{r}
-gg_point(penguins, 
-         x_var = bill_length_mm, 
-         y_var = body_mass_g)
-```
-
-But this default palette can be changed by providing a character vector of hex codes to the `pal` argument.
+Default palettes can be changed by providing a character vector of hex codes to the `pal` argument.
 
 ```{r}
 gg_point(penguins, 
@@ -54,23 +46,6 @@ gg_point(penguins,
 
 ```
 
-Users can get access to a large amount of colour palettes through the `pals` package.
-
-### If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
-
-To colour by a variable, use a `*_col()` function and then define that variable to be coloured using the `col_var` argument.
-
-Note the graph below uses a default pal for a non-numeric colour variable.
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = species)
-```
-
-You can adjust the colours of the coloured variable using the pal argument as described earlier.
-
 ```{r}
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
@@ -79,7 +54,7 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
-The `pals` package provides a large amount of colour palettes.
+Users can get access to a large amount of colour palettes through the `pals` package.
 
 ```{r}
 gg_point_col(penguins, 
@@ -89,16 +64,43 @@ gg_point_col(penguins,
              pal = pals::brewer.dark2(3))
 ```
 
-### If colouring by a numeric variable, define the `col_method` and `col_cuts`
+### If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
+
+To colour by a variable, use a `*_col()` function and then define that variable to be coloured using the `col_var` argument.
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species)
+```            
+
+```{r}
+gg_point_col_facet(penguins, 
+                   x_var = bill_length_mm, 
+                   y_var = body_mass_g, 
+                   col_var = sex, 
+                   facet_var = species,
+                   col_na_rm = TRUE)
+```
+
+### If colouring by a numeric variable, continuous, bin and quantile methods are available
 
 All `simplevis` `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
 
 In addition, `sf`, `point`, `bar`, `hbar` and `tile` `*_col()` and `*_col_facet()` functions support colouring by a numeric variable.
 
-You do this by specifying whether you want to do this by:
+You do this by specifying whether you want to do this by defining whether the col_method is to be by `continuous` (the default), `bin` or `quantile`.
 
-* defining whether the col_method is to be by `bin` or `quantile`
-* defining a vector or col_cuts. These should be between 0 and infinity (`Inf`) for `bin` and between 0 and 1 for `quantile`
+```{r}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.01)
+
+gg_point_col(plot_data, 
+             x_var = carat, 
+             y_var = price, 
+             col_var = z)
+```
 
 ```{r}
 plot_data <- ggplot2::diamonds %>% 
@@ -111,6 +113,32 @@ gg_point_col(plot_data,
              col_method = "bin")
 ```
 
+```{r}
+plot_data <- ggplot2::diamonds %>% 
+  slice_sample(prop = 0.01)
+
+gg_point_col(plot_data, 
+             x_var = carat, 
+             y_var = price, 
+             col_var = z,
+             col_method = "quantile",
+             pal = pals::brewer.reds(4))
+```
+
+### For `bin` and `quantile`, modify colour breaks using the `col_breaks_n` or `col_cuts` arguments
+
+For `bin`, the `col_breaks_n` argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks. For `quantile`, it selects that number of bins of equal percentiles.
+
+Alternatively, you can specify the exact breaks you would like by specifying a vector to the `col_cuts` argument. For `bin`, this is a vector of values that should start at either -Inf or 0 and finish at Inf. For `quantile`, this is a vector of probabilities between 0 and 1. 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = flipper_length_mm, 
+             col_method = "bin",
+             col_breaks_n = 10)
+```
 
 ```{r}
 plot_data <- ggplot2::diamonds %>% 
@@ -124,6 +152,16 @@ gg_point_col(plot_data,
              col_cuts = c(0, 3, 4, Inf))
 ```
 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = flipper_length_mm, 
+             col_method = "quantile",
+             col_breaks_n = 8)
+```
+
 ```{r}
 plot_data <- ggplot2::diamonds %>% 
   slice_sample(prop = 0.01)
@@ -133,22 +171,7 @@ gg_point_col(plot_data,
              y_var = price, 
              col_var = z,
              col_method = "quantile",
-             col_cuts = c(0, 0.25, 0.5, 0.75, 1), 
-             pal = pals::parula(6))
+             col_cuts = c(0, 0.5, 0.75, 0.9, 1))
 ```
-
-### If `col_method` equals `bin`, then alternatively you can use the `col_breaks_n`argument. 
-
-The `col_breaks_n` argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks.
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = flipper_length_mm, 
-             col_method = "bin",
-             col_breaks_n = 10)
-```
-
 
 

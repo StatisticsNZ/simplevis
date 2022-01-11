@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 ```{r}
 library(simplevis)
 library(stars)
+set.seed(123456789)
 ```
 
 ### Overview

@@ -26,6 +26,7 @@ library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 library(ggplot2)
+set.seed(123456789)
 ```
 
 ### Purpose 
@@ -237,11 +238,20 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 ### Colour palettes
 
 Change the colour palette by supplying a vector of colours to the `pal` argument. 
+
 ```{r}
 gg_point(iris, 
          x_var = Sepal.Width, 
          y_var = Sepal.Length, 
          pal = "#e7298a")
+```
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
 ### Scales

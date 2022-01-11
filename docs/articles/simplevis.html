@@ -129,7 +129,8 @@
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">palmerpenguins</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123456789</span>)</pre></body></html></div>
 <div id="purpose" class="section level3">
 <h3 class="hasAnchor">
 <a href="#purpose" class="anchor"></a>Purpose</h3>
@@ -292,6 +293,12 @@
          <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">Sepal.Length</span>,
          <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#e7298a"</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span>))</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 </div>
 <div id="scales" class="section level3">
 <h3 class="hasAnchor">
@@ -313,7 +320,7 @@
 <li>
 <code>*_expand</code> to add padding to an x or y scale.</li>
 </ul>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">year</span>, <span class="no">status</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>))
 
@@ -329,15 +336,15 @@
         <span class="kw">y_zero</span> <span class="kw">=</span> <span class="no">T</span>,
         <span class="kw">y_breaks_n</span> <span class="kw">=</span> <span class="fl">10</span>,
         <span class="kw">y_expand</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/expansion.html">expansion</a></span>(<span class="kw">mult</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.025</span>, <span class="fl">0.025</span>)))</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+<p><img src="simplevis_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
              <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 <p><code>bar*()</code> and <code>hbar*()</code> plots support a <code>"stack"</code> position as well as the default <code>"dodge"</code>.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">sex</span>, <span class="no">species</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">count</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/context.html">n</a></span>())
 
@@ -346,20 +353,20 @@
         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">species</span>,
         <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
         <span class="kw">position</span> <span class="kw">=</span> <span class="st">"stack"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 </div>
 <div id="themes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#themes" class="anchor"></a>Themes</h3>
 <p>You can adjust the theme of any <code>simplevis</code> plot by providing a <code>ggplot2</code> theme to the <code>theme</code> argument.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
              <span class="kw">title</span> <span class="kw">=</span> <span class="st">"A nice long title"</span>,
              <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"And a subtitle"</span>,
              <span class="kw">theme</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggtheme.html">theme_grey</a></span>())</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
 </div>
 <div id="sf-and-stars-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -384,23 +391,23 @@
 </ul>
 <p>The following example objects are provided withing the package for learning purposes: <code>example_point</code>, <code>example_polygon</code> and <code>example_stars</code>.</p>
 <p>The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span>(<span class="no">example_polygon</span>,
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span>(<span class="no">example_polygon</span>,
           <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">density</span>,
           <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"continuous"</span>,
           <span class="kw">borders</span> <span class="kw">=</span> <span class="no">example_borders</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span>(<span class="no">example_polygon</span>,
+<p><img src="simplevis_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span>(<span class="no">example_polygon</span>,
           <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">density</span>,
           <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
           <span class="kw">borders</span> <span class="kw">=</span> <span class="no">example_borders</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_stars_col.html">gg_stars_col</a></span>(<span class="no">example_stars</span>,
+<p><img src="simplevis_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_stars_col.html">gg_stars_col</a></span>(<span class="no">example_stars</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">nitrate</span>,
              <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
              <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span>),
              <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
              <span class="kw">borders</span> <span class="kw">=</span> <span class="no">example_borders</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
 </div>
 <div id="leaflet-wrappers" class="section level3">
 <h3 class="hasAnchor">
@@ -413,8 +420,8 @@
 <a href="#supported-variable-classes" class="anchor"></a>Supported variable classes</h3>
 <p>variable types supported by the different groups of functions are outlined below.</p>
 <p>A stat of <code>identity</code> refers to the value being plotted as it is. A stat of <code>boxplot</code> refers to boxplot statistics being calculated from the data, and these plotted.</p>
-<div id="htmlwidget-ce6c4e5295201da00a36" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ce6c4e5295201da00a36">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["bar","boxplot","density","line","point","pointrange","sf","smooth","stars","tile","violin","hbar","hboxplot","hviolin","hpointrange"],["tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","sf","tibble or data.frame","stars","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame"],["Any*","Categorical","Numeric","Any","Any","Any",null,"Numeric",null,"Categorical","Categorical","Numeric","Numeric","Numeric","Numeric"],["Numeric","Numeric",null,"Numeric","Numeric","Numeric",null,"Numeric",null,"Categorical","Numeric","Any*","Categorical","Categorical","Any"],["Categorical or numeric","Categorical","Categorical","Categorical","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical","Categorical or numeric","Categorical","Categorical","Categorical or numeric"],["Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical",null,"Categorical","Categorical","Categorical","Categorical","Categorical","Categorical"],["identity","boxplot (or identity)","density","identity","identity","identity","identity","identity","identity","identity","ydensity","identity","boxplot (or identity)","ydensity","identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>family<\/th>\n      <th>data<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"lengthChange":false,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Where:</p>
+<div id="htmlwidget-7341660fea2b2c55a60b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7341660fea2b2c55a60b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["bar","boxplot","density","line","point","pointrange","sf","smooth","stars","tile","violin","hbar","hboxplot","hviolin","hpointrange"],["tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","sf","tibble or data.frame","stars","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame"],["Any*","Categorical","Numeric","Any","Any","Any",null,"Numeric",null,"Categorical","Categorical","Numeric","Numeric","Numeric","Numeric"],["Numeric","Numeric",null,"Numeric","Numeric","Numeric",null,"Numeric",null,"Categorical","Numeric","Any*","Categorical","Categorical","Any"],["Categorical or numeric","Categorical","Categorical","Categorical","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical","Categorical or numeric","Categorical","Categorical","Categorical or numeric"],["Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical",null,"Categorical","Categorical","Categorical","Categorical","Categorical","Categorical"],["identity","boxplot (or identity)","density","identity","identity","identity","identity","identity","identity","identity","ydensity","identity","boxplot (or identity)","ydensity","identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>family<\/th>\n      <th>data<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"lengthChange":false,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Where:</p>
 <ul>
 <li>Categorical refers to character, factor, or logical classes.</li>
 <li>Numeric refers to double or integer classes.</li>
@@ -425,11 +432,11 @@
 <h3 class="hasAnchor">
 <a href="#working-with-the-pipe" class="anchor"></a>Working with the pipe</h3>
 <p><code>simplevis</code> functions work with the pipe.</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">penguins</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/gg_density_col.html">gg_density_col</a></span>(<span class="kw">x_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
                  <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
                  <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-29-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
 </div>
 <div id="output-objects-and-adding-layers" class="section level3">
 <h3 class="hasAnchor">
@@ -437,7 +444,7 @@
 <p>All <code>gg_*</code> and <code>leaf_*</code> wrapper functions produce ggplot or leaflet objects.</p>
 <p>This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object.</p>
 <p>Note you need to add <em>all</em> aesthetics to any additional <code>geom_*</code> layers.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>) +
@@ -447,9 +454,9 @@
     <span class="kw">limits</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/pretty.html">pretty</a></span>(<span class="no">x</span>, <span class="fl">4</span>)), <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/pretty.html">pretty</a></span>(<span class="no">x</span>, <span class="fl">4</span>))),
     <span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)
   )</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
 <p>This means you can facet by more than one variable, provided that you are not using a position of “stack”.</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>, <span class="no">sex</span>, <span class="no">island</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
 
@@ -462,14 +469,14 @@
   <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/facet_grid.html">facet_grid</a></span>(<span class="kw">rows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/vars.html">vars</a></span>(<span class="no">species</span>),
              <span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/vars.html">vars</a></span>(<span class="no">island</span>),
              <span class="kw">labeller</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/as_labeller.html">as_labeller</a></span>(<span class="kw pkg">snakecase</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html">to_sentence_case</a></span>))</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 </div>
 <div id="ggplotly-interactive-visualisation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ggplotly-interactive-visualisation" class="anchor"></a>ggplotly interactive visualisation</h3>
 <p>All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">plotly::ggplotly()</a></code>.</p>
 <p>The <code>plotly_camera</code> function removes plotly widgets other than the camera to keep things tidy.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
                      <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
                      <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
                      <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)
@@ -480,7 +487,7 @@
 <p>A variable can be added to the <code>text_var</code> in the <code>gg_*</code> function. This variable is then used in the ggplotly tooltip when <code>tooltip = text</code> is added to the <code>ggplotly</code> function.</p>
 <p><code>simplevis</code> provides a <code>mutate_text</code> function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html">snakecase::to_sentence_case</a></code> function.</p>
 <p>The <code>mutate_text</code> function uses all variables in the dataset by defalut, but a subset can be used if desired.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
                      <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
                      <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
                      <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)

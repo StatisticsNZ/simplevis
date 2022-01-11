@@ -1,7 +1,7 @@
 # simplevis 6.0.0
 
 New features:
-* Continuous colouring across gradients for point, bar, hbar, tile, sf and stars.
+* Continuous colouring across gradients for point, bar, hbar, tile, sf, stars and tile.
 * Theme flexibility for all gg functions.
 * gg_theme function to build a quick clean theme.
 * New Smooth functions.

@@ -124,84 +124,75 @@
     
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">palmerpenguins</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">palmerpenguins</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123456789</span>)</pre></body></html></div>
 <div id="overview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h3>
 <p>In simplevis, users adhere to the following rules for adjusting colour:</p>
 <ul>
-<li>Always define the colours to use via the <code>pal</code> argument</li>
+<li>You can customise colours via the <code>pal</code> argument</li>
 <li>If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code>
 </li>
-<li>If the <code>col_var</code> is numeric, the <code>col_method</code> of <code>bin</code> or <code>quantile</code>, and the <code>col_cuts</code> to use.</li>
-<li>If <code>col_method</code> equals <code>bin</code>, then alternatively you can use the <code>col_breaks_n</code>argument to adjust number of pretty breaks.</li>
+<li>If the <code>col_var</code> is numeric, there are <code>continuous</code>, <code>bin</code> or <code>quantile</code> colouring methods available</li>
+<li>For <code>bin</code> and <code>quantile</code>, you can modify the colour breaks using the <code>col_breaks_n</code> or <code>col_cuts</code> arguments.</li>
 </ul>
-<p>In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type.</p>
-<p>This is a consistent method across all functions, which is intended to simplify colouring.</p>
+<p>In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type. This is a consistent method across all functions, which is intended to simplify colouring.</p>
 </div>
-<div id="always-define-the-colours-to-use-via-the-pal-argument" class="section level3">
+<div id="customise-colours-via-the-pal-argument" class="section level3">
 <h3 class="hasAnchor">
-<a href="#always-define-the-colours-to-use-via-the-pal-argument" class="anchor"></a>Always define the colours to use via the <code>pal</code> argument</h3>
-<p><code>simplevis</code> has default palettes that are based on the viridis and D3 colour palettes.</p>
+<a href="#customise-colours-via-the-pal-argument" class="anchor"></a>Customise colours via the <code>pal</code> argument</h3>
+<p>Default palettes can be changed by providing a character vector of hex codes to the <code>pal</code> argument.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
-         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>)</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
-<p>But this default palette can be changed by providing a character vector of hex codes to the <code>pal</code> argument.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
          <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
          <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
          <span class="kw">pal</span> <span class="kw">=</span> <span class="st">"#da3490"</span>)</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>Users can get access to a large amount of colour palettes through the <code>pals</code> package.</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/brewer.html">brewer.dark2</a></span>(<span class="fl">3</span>))</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 </div>
 <div id="if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="section level3">
 <h3 class="hasAnchor">
 <a href="#if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var" class="anchor"></a>If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code>
 </h3>
 <p>To colour by a variable, use a <code>*_col()</code> function and then define that variable to be coloured using the <code>col_var</code> argument.</p>
-<p>Note the graph below uses a default pal for a non-numeric colour variable.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)</pre></body></html></div>
-<p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
-<p>You can adjust the colours of the coloured variable using the pal argument as described earlier.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-             <span class="kw">pal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span>))</pre></body></html></div>
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
-<p>The <code>pals</code> package provides a large amount of colour palettes.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-             <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/brewer.html">brewer.dark2</a></span>(<span class="fl">3</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>,
+                   <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+                   <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+                   <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
+                   <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">species</span>,
+                   <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
-<div id="if-colouring-by-a-numeric-variable-define-the-col_method-and-col_cuts" class="section level3">
+<div id="if-colouring-by-a-numeric-variable-continuous-bin-and-quantile-methods-are-available" class="section level3">
 <h3 class="hasAnchor">
-<a href="#if-colouring-by-a-numeric-variable-define-the-col_method-and-col_cuts" class="anchor"></a>If colouring by a numeric variable, define the <code>col_method</code> and <code>col_cuts</code>
-</h3>
+<a href="#if-colouring-by-a-numeric-variable-continuous-bin-and-quantile-methods-are-available" class="anchor"></a>If colouring by a numeric variable, continuous, bin and quantile methods are available</h3>
 <p>All <code>simplevis</code> <code>*_col()</code> and <code>*_col_facet()</code> functions support colouring by a categorical variable.</p>
 <p>In addition, <code>sf</code>, <code>point</code>, <code>bar</code>, <code>hbar</code> and <code>tile</code> <code>*_col()</code> and <code>*_col_facet()</code> functions support colouring by a numeric variable.</p>
-<p>You do this by specifying whether you want to do this by:</p>
-<ul>
-<li>defining whether the col_method is to be by <code>bin</code> or <code>quantile</code>
-</li>
-<li>defining a vector or col_cuts. These should be between 0 and infinity (<code>Inf</code>) for <code>bin</code> and between 0 and 1 for <code>quantile</code>
-</li>
-</ul>
+<p>You do this by specifying whether you want to do this by defining whether the col_method is to be by <code>continuous</code> (the default), <code>bin</code> or <code>quantile</code>.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
-             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>)</pre></body></html></div>
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
@@ -210,8 +201,7 @@
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
-             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
-             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">Inf</span>))</pre></body></html></div>
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
@@ -221,14 +211,14 @@
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
              <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
-             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1</span>),
-             <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/continuous.html">parula</a></span>(<span class="fl">6</span>))</pre></body></html></div>
+             <span class="kw">pal</span> <span class="kw">=</span> <span class="kw pkg">pals</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pals/man/brewer.html">brewer.reds</a></span>(<span class="fl">4</span>))</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 </div>
-<div id="if-col_method-equals-bin-then-alternatively-you-can-use-the-col_breaks_nargument-" class="section level3">
+<div id="for-bin-and-quantile-modify-colour-breaks-using-the-col_breaks_n-or-col_cuts-arguments" class="section level3">
 <h3 class="hasAnchor">
-<a href="#if-col_method-equals-bin-then-alternatively-you-can-use-the-col_breaks_nargument-" class="anchor"></a>If <code>col_method</code> equals <code>bin</code>, then alternatively you can use the <code>col_breaks_n</code>argument.</h3>
-<p>The <code>col_breaks_n</code> argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks.</p>
+<a href="#for-bin-and-quantile-modify-colour-breaks-using-the-col_breaks_n-or-col_cuts-arguments" class="anchor"></a>For <code>bin</code> and <code>quantile</code>, modify colour breaks using the <code>col_breaks_n</code> or <code>col_cuts</code> arguments</h3>
+<p>For <code>bin</code>, the <code>col_breaks_n</code> argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks. For <code>quantile</code>, it selects that number of bins of equal percentiles.</p>
+<p>Alternatively, you can specify the exact breaks you would like by specifying a vector to the <code>col_cuts</code> argument. For <code>bin</code>, this is a vector of values that should start at either -Inf or 0 and finish at Inf. For <code>quantile</code>, this is a vector of probabilities between 0 and 1.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
              <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
@@ -236,6 +226,33 @@
              <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
              <span class="kw">col_breaks_n</span> <span class="kw">=</span> <span class="fl">10</span>)</pre></body></html></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
+
+<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"bin"</span>,
+             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">Inf</span>))</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">flipper_length_mm</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
+             <span class="kw">col_breaks_n</span> <span class="kw">=</span> <span class="fl">8</span>)</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_sample</a></span>(<span class="kw">prop</span> <span class="kw">=</span> <span class="fl">0.01</span>)
+
+<span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">plot_data</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">carat</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">price</span>,
+             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">z</span>,
+             <span class="kw">col_method</span> <span class="kw">=</span> <span class="st">"quantile"</span>,
+             <span class="kw">col_cuts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>, <span class="fl">1</span>))</pre></body></html></div>
+<p><img src="colour_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 </div>
   </div>
 

@@ -17,6 +17,8 @@ gg_tile_col_facet(
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
   alpha_fill = 1,
+  alpha_line = 1,
+  size_line = 0.5,
   size_label = 3.5,
   size_height = 1,
   size_width = 1,
@@ -80,6 +82,10 @@ gg_tile_col_facet(
 \item{pal_rev}{Reverses the palette. Defaults to FALSE.}
 
 \item{alpha_fill}{The opacity of the fill. Defaults to 1.}
+
+\item{alpha_line}{The opacity of the outline. Defaults to 1.}
+
+\item{size_line}{The size of the outlines of bars.}
 
 \item{size_label}{The size of the of labels. Defaults to 3.5.}
 

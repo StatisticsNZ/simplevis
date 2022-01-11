@@ -11,6 +11,8 @@
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
+#' @param alpha_line The opacity of the outline. Defaults to 1.
+#' @param size_line The size of the outlines of bars. 
 #' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param size_height Height of tiles. Defaults to 1.
 #' @param size_width Width of tiles. Defaults to 1.
@@ -71,6 +73,8 @@ gg_tile_col <- function(data,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
                         alpha_fill = 1,
+                        alpha_line = 1,
+                        size_line = 0.5,
                         size_label = 3.5,
                         size_height = 1, 
                         size_width = 1,
@@ -250,12 +254,14 @@ gg_tile_col <- function(data,
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
-              width = size_width, height = size_height) 
+    geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
+              size = size_line, width = size_width, height = size_height) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -272,15 +278,29 @@ gg_tile_col <- function(data,
   
   if (col_method == "continuous") {
     plot <- plot +
+      scale_colour_gradientn(
+        colors = pal_line,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na_line,
+        name = stringr::str_wrap(col_title, col_title_wrap)) +
       scale_fill_gradientn(
         colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
         na.value = pal_na_fill,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
+        name = stringr::str_wrap(col_title, col_title_wrap)) +
+      guides(fill = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
+      scale_colour_manual(
+        values = pal_line,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na_line,
+        name = stringr::str_wrap(col_title, col_title_wrap)
+      ) +
       scale_fill_manual(
         values = pal_fill,
         drop = FALSE,
@@ -291,7 +311,7 @@ gg_tile_col <- function(data,
     
     if (mobile == TRUE) {
       plot <- plot +
-        guides(fill = guide_legend(ncol = 1))
+        guides(col = guide_legend(ncol = 1), fill = guide_legend(ncol = 1))
     }
   }
   
@@ -338,6 +358,8 @@ gg_tile_col <- function(data,
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
+#' @param alpha_line The opacity of the outline. Defaults to 1. 
+#' @param size_line The size of the outlines of bars.
 #' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param size_height Height of tiles. Defaults to 1.
 #' @param size_width Width of tiles. Defaults to 1.
@@ -405,6 +427,8 @@ gg_tile_col_facet <- function(data,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
                               alpha_fill = 1,
+                              alpha_line = 1,
+                              size_line = 0.5,
                               size_label = 3.5,
                               size_height = 1,
                               size_width = 1,
@@ -610,12 +634,14 @@ gg_tile_col_facet <- function(data,
   
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-
+  pal_line <- scales::alpha(pal, alpha = alpha_line)
+  pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
+  
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    geom_tile(aes(x = !!x_var, y = !!y_var, fill = !!col_var, text = !!text_var), 
-              width = size_width, height = size_height) 
+    geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
+              size = size_line, width = size_width, height = size_height) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -625,15 +651,29 @@ gg_tile_col_facet <- function(data,
   #colour
   if (col_method == "continuous") {
     plot <- plot +
+      scale_colour_gradientn(
+        colors = pal_line,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na_line,
+        name = stringr::str_wrap(col_title, col_title_wrap))  +
       scale_fill_gradientn(
         colors = pal_fill,
         labels = col_labels,
         breaks = col_cuts,
         na.value = pal_na_fill,
-        name = stringr::str_wrap(col_title, col_title_wrap)) 
+        name = stringr::str_wrap(col_title, col_title_wrap)) +
+      guides(fill = "none")
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
     plot <- plot +
+      scale_colour_manual(
+        values = pal_line,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na_line,
+        name = stringr::str_wrap(col_title, col_title_wrap)
+      ) +
       scale_fill_manual(
         values = pal_fill,
         drop = FALSE,

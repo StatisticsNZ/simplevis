@@ -4,11 +4,11 @@
 #' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
-#' @param size_point The size of the outlier points. Defaults to 0.75.
+#' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -76,11 +76,11 @@ gg_hboxplot <- function(data,
                     x_var,
                     y_var,
                     pal = pal_viridis_reorder(1),
-                    alpha_fill = 0.2,
+                    alpha_fill = 0,
                     alpha_line = 1,
                     alpha_point = 1,
                     size_line = 0.5,
-                    size_point = 0.75,
+                    size_point = 1.5,
                     size_width = 0.5,
                     title = NULL,
                     title_wrap = 75,
@@ -274,11 +274,11 @@ gg_hboxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
-#' @param size_point The size of the outlier points. Defaults to 0.75.
+#' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -365,11 +365,11 @@ gg_hboxplot_col <- function(data,
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
-                        alpha_fill = 0.2,
+                        alpha_fill = 0,
                         alpha_line = 1,
                         alpha_point = 1,
                         size_line = 0.5,
-                        size_point = 0.75,
+                        size_point = 1.5,
                         size_width = 0.5,
                         title = NULL,
                         title_wrap = 75,
@@ -634,11 +634,11 @@ gg_hboxplot_col <- function(data,
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots. 
-#' @param size_point The size of the outlier points. Defaults to 0.75.
+#' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -691,11 +691,11 @@ gg_hboxplot_facet <- function(data,
                           y_var,
                           facet_var,
                           pal = pal_viridis_reorder(1),
-                          alpha_fill = 0.2,
+                          alpha_fill = 0,
                           alpha_line = 1,
                           alpha_point = 1,
                           size_line = 0.5,
-                          size_point = 0.75,
+                          size_point = 1.5,
                           size_width = 0.5,
                           title = NULL,
                           title_wrap = 75,
@@ -910,12 +910,12 @@ gg_hboxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param size_line The size of the outlines of boxplots. 
-#' @param size_point The size of the outlier points. Defaults to 0.75.
+#' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -980,11 +980,11 @@ gg_hboxplot_col_facet <- function(data,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
-                              alpha_fill = 0.2,
+                              alpha_fill = 0,
                               alpha_line = 1,
                               alpha_point = 1,
                               size_line = 0.5,
-                              size_point = 0.75,
+                              size_point = 1.5,
                               size_width = 0.5,
                               title = NULL,
                               title_wrap = 75,

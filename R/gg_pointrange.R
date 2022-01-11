@@ -11,7 +11,7 @@
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
-#' @param size_point Size of points. Defaults to 1. 
+#' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -71,7 +71,7 @@ gg_pointrange <- function(data,
                     pal = pal_viridis_reorder(1),
                     alpha_line = 1,
                     alpha_point = 1,
-                    size_point = 1,
+                    size_point = 1.5,
                     size_line = 0.5,
                     title = NULL,
                     title_wrap = 80,
@@ -273,7 +273,7 @@ gg_pointrange <- function(data,
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
-#' @param size_point Size of points. Defaults to 1. 
+#' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -344,7 +344,7 @@ gg_pointrange_col <- function(data,
                         pal_rev = FALSE,
                         alpha_line = 1,
                         alpha_point = 1,
-                        size_point = 1,
+                        size_point = 1.5,
                         size_line = 0.5,
                         title = NULL,
                         title_wrap = 80,
@@ -601,7 +601,7 @@ gg_pointrange_col <- function(data,
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
-#' @param size_point Size of points. Defaults to 1. 
+#' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -668,7 +668,7 @@ gg_pointrange_facet <- function(data,
                           pal = pal_viridis_reorder(1),
                           alpha_line = 1,
                           alpha_point = 1,
-                          size_point = 1,
+                          size_point = 1.5,
                           size_line = 0.5,
                           title = NULL,
                           title_wrap = 80,
@@ -886,7 +886,7 @@ gg_pointrange_facet <- function(data,
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
-#' @param size_point Size of points. Defaults to 1. 
+#' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -965,7 +965,7 @@ gg_pointrange_col_facet <- function(data,
                               pal_rev = FALSE,
                               alpha_line = 1,
                               alpha_point = 1,
-                              size_point = 1,
+                              size_point = 1.5,
                               size_line = 0.5,
                               title = NULL,
                               title_wrap = 80,

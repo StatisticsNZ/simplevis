@@ -20,7 +20,7 @@ gg_sf_col_facet(
   alpha_point = 1,
   alpha_borders = 1,
   size_line = 0.5,
-  size_point = 0.75,
+  size_point = 1.5,
   size_borders = 0.2,
   title = NULL,
   title_wrap = 80,
@@ -76,7 +76,7 @@ gg_sf_col_facet(
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{size_point}{Size of points. Defaults to 0.75.}
+\item{size_point}{Size of points. Defaults to 1.5.}
 
 \item{size_borders}{Size of the borders. Defaults to 0.2.}
 

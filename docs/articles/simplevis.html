@@ -117,7 +117,7 @@
       <h1 data-toc-skip>Simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2022-01-11</h4>
+            <h4 class="date">2022-01-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -169,8 +169,9 @@
 <p><img src="simplevis_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>point</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
-          <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-          <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>)</pre></body></html></div>
+         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+         <span class="kw">size_point</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <p>pointrange</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
@@ -190,7 +191,8 @@
 <p>smooth</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span>(<span class="no">penguins</span>,
           <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-          <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>)</pre></body></html></div>
+          <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+          <span class="kw">size_point</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <p>tile</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
@@ -211,7 +213,8 @@
 <p>sf</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span>(<span class="no">example_point</span>,
           <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
-          <span class="kw">borders</span> <span class="kw">=</span> <span class="no">example_borders</span>)</pre></body></html></div>
+          <span class="kw">borders</span> <span class="kw">=</span> <span class="no">example_borders</span>,
+          <span class="kw">size_point</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <p>stars</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">stars</span>)

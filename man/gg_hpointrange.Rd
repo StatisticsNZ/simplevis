@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hpointrange.R
 \name{gg_hpointrange}
 \alias{gg_hpointrange}
-\title{Pointrange ggplot.}
+\title{Horizontal pointrange ggplot.}
 \usage{
 gg_hpointrange(
   data,
@@ -11,7 +11,6 @@ gg_hpointrange(
   xmax_var,
   y_var,
   text_var = NULL,
-  position = "identity",
   pal = pal_viridis_reorder(1),
   alpha_line = 1,
   alpha_point = 1,
@@ -58,8 +57,6 @@ gg_hpointrange(
 \item{y_var}{Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
-
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -129,7 +126,7 @@ gg_hpointrange(
 A ggplot object.
 }
 \description{
-Pointrange ggplot that is not coloured and not facetted.
+Horizontal pointrange ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

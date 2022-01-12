@@ -231,7 +231,7 @@ gg_hboxplot <- function(data,
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   })
   
   if (x_zero_line == TRUE) {
@@ -560,7 +560,7 @@ gg_hboxplot_col <- function(data,
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   })
   
   if (x_zero_line == TRUE) {
@@ -873,12 +873,12 @@ gg_hboxplot_facet <- function(data,
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, labels = x_labels)
   }
   
   if (x_zero_line == TRUE) {
@@ -1202,12 +1202,12 @@ gg_hboxplot_col_facet <- function(data,
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, labels = x_labels)
   }
   
   if (x_zero_line == TRUE) {

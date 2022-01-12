@@ -113,7 +113,7 @@
       <h1 data-toc-skip>Scales</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2022-01-12</h4>
+            <h4 class="date">2022-01-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/scales.Rmd"><code>vignettes/scales.Rmd</code></a></small>
       <div class="hidden name"><code>scales.Rmd</code></div>
@@ -352,6 +352,30 @@
         <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
         <span class="kw">stack</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<div id="jittering-points" class="section level4">
+<h4 class="hasAnchor">
+<a href="#jittering-points" class="anchor"></a>Jittering points</h4>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
+               <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
+               <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+               <span class="kw">x_jitter</span> <span class="kw">=</span> <span class="fl">0.2</span>,
+               <span class="kw">alpha_point</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+</div>
+</div>
+<div id="turning-the-legend-off" class="section level3">
+<h3 class="hasAnchor">
+<a href="#turning-the-legend-off" class="anchor"></a>Turning the legend off</h3>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+
+<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span>(<span class="no">plot_data</span>,
+       <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
+       <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+       <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
+       <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 </div>
   </div>
 

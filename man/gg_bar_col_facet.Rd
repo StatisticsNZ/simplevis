@@ -76,7 +76,7 @@ gg_bar_col_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{stack}{TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".}
+\item{stack}{TRUE or FALSE of whether bars are to be positioned by "stack". Defaults to FALSE, which positions by "dodge".}
 
 \item{pal}{Character vector of hex codes.}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hpointrange.R
 \name{gg_hpointrange_col_facet}
 \alias{gg_hpointrange_col_facet}
-\title{Pointrange ggplot that is coloured and facetted.}
+\title{Horizontal pointrange ggplot that is coloured and facetted.}
 \usage{
 gg_hpointrange_col_facet(
   data,
@@ -13,7 +13,6 @@ gg_hpointrange_col_facet(
   col_var,
   facet_var,
   text_var = NULL,
-  position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -36,6 +35,7 @@ gg_hpointrange_col_facet(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_breaks_n = 3,
+  y_dodge = 0,
   y_expand = NULL,
   y_labels = NULL,
   y_na_rm = FALSE,
@@ -82,8 +82,6 @@ gg_hpointrange_col_facet(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
-
 \item{pal}{Character vector of hex codes.}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
@@ -127,6 +125,8 @@ gg_hpointrange_col_facet(
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{y_dodge}{The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -186,7 +186,7 @@ gg_hpointrange_col_facet(
 A ggplot object.
 }
 \description{
-Pointrange ggplot that is coloured and facetted.
+Horizontal pointrange ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)
@@ -210,6 +210,7 @@ gg_hpointrange_col_facet(
   facet_var = species,
   col_na_rm = TRUE,
   x_title = "Body mass g",
-  y_labels = function(x) stringr::str_sub(x, 3, 4))
+  y_labels = function(x) stringr::str_sub(x, 3, 4), 
+  y_dodge = 0.1)
   
 }

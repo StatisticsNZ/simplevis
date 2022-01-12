@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hpointrange.R
 \name{gg_hpointrange_col}
 \alias{gg_hpointrange_col}
-\title{Pointrange ggplot that is coloured.}
+\title{Horizontal pointrange ggplot that is coloured.}
 \usage{
 gg_hpointrange_col(
   data,
@@ -12,7 +12,6 @@ gg_hpointrange_col(
   y_var,
   col_var,
   text_var = NULL,
-  position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -35,6 +34,7 @@ gg_hpointrange_col(
   x_zero_line = NULL,
   y_balance = FALSE,
   y_breaks_n = 5,
+  y_dodge = 0,
   y_expand = NULL,
   y_labels = NULL,
   y_na_rm = FALSE,
@@ -73,8 +73,6 @@ gg_hpointrange_col(
 \item{col_var}{Unquoted categorical or numeric variable to colour the pointranges. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
-
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -119,6 +117,8 @@ gg_hpointrange_col(
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
+
+\item{y_dodge}{The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -168,7 +168,7 @@ gg_hpointrange_col(
 A ggplot object.
 }
 \description{
-Pointrange ggplot that is coloured, but not facetted.
+Horizontal pointrange ggplot that is coloured, but not facetted.
 }
 \examples{
 library(dplyr)
@@ -190,6 +190,6 @@ gg_hpointrange_col(
   col_var = sex,
   col_na_rm = TRUE,
   x_title = "Body mass g",
-  position = ggplot2::position_dodge(width = 0.05))
+  y_dodge = 0.1)
   
 }

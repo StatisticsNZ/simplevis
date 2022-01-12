@@ -173,7 +173,7 @@ gg_line <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -182,11 +182,11 @@ gg_line <- function(data,
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -210,7 +210,7 @@ gg_line <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -467,7 +467,7 @@ gg_line_col <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -476,11 +476,11 @@ gg_line_col <- function(data,
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -504,7 +504,7 @@ gg_line_col <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -767,7 +767,7 @@ gg_line_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -776,11 +776,11 @@ gg_line_facet <- function(data,
     }
     else if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
   }
   
@@ -799,12 +799,12 @@ gg_line_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels)
   }
   
   if (y_zero_line == TRUE) {
@@ -1082,7 +1082,7 @@ gg_line_col_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -1091,11 +1091,11 @@ gg_line_col_facet <- function(data,
     }
     else if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
   }
   
@@ -1114,12 +1114,12 @@ gg_line_col_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels)
   }
   
   if (y_zero_line == TRUE) {

@@ -287,3 +287,28 @@ gg_hbar_col(plot_data,
         col_var = sex,
         stack = TRUE)
 ```
+
+#### Jittering points
+
+```{r}
+gg_point(penguins, 
+               x_var = species, 
+               y_var = body_mass_g, 
+               x_jitter = 0.2, 
+               alpha_point = 0.5)
+```
+
+### Turning the legend off
+
+```{r}
+plot_data <- penguins %>% 
+  group_by(species) %>% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+
+gg_bar_col(plot_data, 
+       x_var = species, 
+       y_var = body_mass_g, 
+       col_var = species, 
+       col_legend_none = T)
+```
+

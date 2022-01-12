@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pointrange ggplot. — gg_hpointrange • simplevis</title>
+<title>Horizontal pointrange ggplot. — gg_hpointrange • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Pointrange ggplot. — gg_hpointrange" />
-<meta property="og:description" content="Pointrange ggplot that is not coloured and not facetted." />
+<meta property="og:title" content="Horizontal pointrange ggplot. — gg_hpointrange" />
+<meta property="og:description" content="Horizontal pointrange ggplot that is not coloured and not facetted." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -152,13 +152,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pointrange ggplot.</h1>
+    <h1>Horizontal pointrange ggplot.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_hpointrange.R'><code>R/gg_hpointrange.R</code></a></small>
     <div class="hidden name"><code>gg_hpointrange.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pointrange ggplot that is not coloured and not facetted.</p>
+    <p>Horizontal pointrange ggplot that is not coloured and not facetted.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gg_hpointrange</span>(
@@ -168,7 +168,6 @@
   <span class='no'>xmax_var</span>,
   <span class='no'>y_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -229,10 +228,6 @@
     <tr>
       <th>text_var</th>
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
-    </tr>
-    <tr>
-      <th>position</th>
-      <td><p>Whether points are positioned by "identity" or "jitter". Defaults to "identity".</p></td>
     </tr>
     <tr>
       <th>pal</th>

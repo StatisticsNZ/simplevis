@@ -10,7 +10,6 @@ gg_point_col(
   y_var,
   col_var,
   text_var = NULL,
-  position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -23,6 +22,7 @@ gg_point_col(
   x_balance = FALSE,
   x_breaks_n = 5,
   x_expand = NULL,
+  x_jitter = 0,
   x_labels = NULL,
   x_rev = FALSE,
   x_title = NULL,
@@ -32,6 +32,7 @@ gg_point_col(
   y_balance = FALSE,
   y_breaks_n = 5,
   y_expand = c(0, 0),
+  y_jitter = 0,
   y_labels = scales::label_comma(),
   y_title = NULL,
   y_title_wrap = 50,
@@ -63,8 +64,6 @@ gg_point_col(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
-
 \item{pal}{Character vector of hex codes.}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
@@ -89,6 +88,8 @@ gg_point_col(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
+\item{x_jitter}{Amount of horizontal jitter to be added in positive and negative directions. Defaults to 0. See ggplot2::position_jitter for further information.}
+
 \item{x_labels}{A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
@@ -106,6 +107,8 @@ gg_point_col(
 \item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
+
+\item{y_jitter}{Amount of vertical jitter to be added in positive and negative directions. Defaults to 0.See ggplot2::position_jitter for further information.}
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.}
 

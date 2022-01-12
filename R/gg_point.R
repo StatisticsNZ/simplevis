@@ -4,7 +4,6 @@
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_point Size of points. Defaults to 1.
@@ -15,6 +14,7 @@
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_jitter Amount of horizontal jitter to be added in positive and negative directions. Defaults to 0. See ggplot2::position_jitter for further information.
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -24,6 +24,7 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_jitter Amount of vertical jitter to be added in positive and negative directions. Defaults to 0.See ggplot2::position_jitter for further information. 
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -47,7 +48,6 @@ gg_point <- function(data,
                      x_var,
                      y_var,
                      text_var = NULL,
-                     position = "identity", 
                      pal = pal_viridis_reorder(1),
                      alpha_point = 1,
                      size_point = 1,
@@ -58,6 +58,7 @@ gg_point <- function(data,
                      x_balance = FALSE,
                      x_breaks_n = 5,
                      x_expand = NULL,
+                     x_jitter = 0,
                      x_labels = NULL,
                      x_rev = FALSE,
                      x_title = NULL,
@@ -67,6 +68,7 @@ gg_point <- function(data,
                      y_balance = FALSE,
                      y_breaks_n = 5,
                      y_expand = c(0, 0),
+                     y_jitter = 0,
                      y_labels = scales::label_comma(),
                      y_title = NULL,
                      y_title_wrap = 50,
@@ -129,7 +131,7 @@ gg_point <- function(data,
     geom_point(aes(!!x_var, !!y_var, text = !!text_var), 
                col = pal_point, 
                size = size_point, 
-               position = position)
+               position = position_jitter(width = x_jitter, height = y_jitter))
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -155,7 +157,7 @@ gg_point <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -164,11 +166,11 @@ gg_point <- function(data,
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -192,7 +194,7 @@ gg_point <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -233,7 +235,6 @@ gg_point <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -245,6 +246,7 @@ gg_point <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_jitter Amount of horizontal jitter to be added in positive and negative directions. Defaults to 0. See ggplot2::position_jitter for further information.
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -254,6 +256,7 @@ gg_point <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_jitter Amount of vertical jitter to be added in positive and negative directions. Defaults to 0.See ggplot2::position_jitter for further information. 
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -289,7 +292,6 @@ gg_point_col <- function(data,
                          y_var,
                          col_var,
                          text_var = NULL,
-                         position = "identity", 
                          pal = NULL,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
@@ -302,6 +304,7 @@ gg_point_col <- function(data,
                          x_balance = FALSE,
                          x_breaks_n = 5,
                          x_expand = NULL,
+                         x_jitter = 0,
                          x_labels = NULL,
                          x_rev = FALSE,
                          x_title = NULL,
@@ -311,6 +314,7 @@ gg_point_col <- function(data,
                          y_balance = FALSE,
                          y_breaks_n = 5,
                          y_expand = c(0, 0),
+                         y_jitter = 0,
                          y_labels = scales::label_comma(),
                          y_title = NULL,
                          y_title_wrap = 50,
@@ -468,7 +472,7 @@ gg_point_col <- function(data,
     coord_cartesian(clip = "off") +
     geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), 
                size = size_point, 
-               position = position)
+               position = position_jitter(width = x_jitter, height = y_jitter))
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -494,7 +498,7 @@ gg_point_col <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -503,11 +507,11 @@ gg_point_col <- function(data,
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -531,7 +535,7 @@ gg_point_col <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -601,7 +605,6 @@ gg_point_col <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_point Size of points. Defaults to 1.
@@ -611,6 +614,7 @@ gg_point_col <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_jitter Amount of horizontal jitter to be added in positive and negative directions. Defaults to 0. See ggplot2::position_jitter for further information.
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -620,6 +624,7 @@ gg_point_col <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_jitter Amount of vertical jitter to be added in positive and negative directions. Defaults to 0.See ggplot2::position_jitter for further information. 
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -651,7 +656,6 @@ gg_point_facet <- function(data,
                            y_var,
                            facet_var,
                            text_var = NULL,
-                           position = "identity", 
                            pal = pal_viridis_reorder(1),
                            alpha_point = 1,
                            size_point = 1,
@@ -662,6 +666,7 @@ gg_point_facet <- function(data,
                            x_balance = FALSE,
                            x_breaks_n = 2,
                            x_expand = NULL,
+                           x_jitter = 0,
                            x_labels = NULL,
                            x_rev = FALSE,
                            x_title = NULL,
@@ -671,6 +676,7 @@ gg_point_facet <- function(data,
                            y_balance = FALSE,
                            y_breaks_n = 3,
                            y_expand = c(0, 0),
+                           y_jitter = 0,
                            y_labels = scales::label_comma(),
                            y_title = NULL,
                            y_title_wrap = 50,
@@ -759,7 +765,7 @@ gg_point_facet <- function(data,
     geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), 
                col = pal_point, 
                size = size_point, 
-               position = position)
+               position = position_jitter(width = x_jitter, height = y_jitter))
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -787,7 +793,7 @@ gg_point_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -796,11 +802,11 @@ gg_point_facet <- function(data,
     }
     else if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
   }
   
@@ -819,12 +825,12 @@ gg_point_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels)
   }
   
   if (y_zero_line == TRUE) {
@@ -854,7 +860,6 @@ gg_point_facet <- function(data,
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -867,6 +872,7 @@ gg_point_facet <- function(data,
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param x_jitter Amount of horizontal jitter to be added in positive and negative directions. Defaults to 0. See ggplot2::position_jitter for further information.
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -876,6 +882,7 @@ gg_point_facet <- function(data,
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
+#' @param y_jitter Amount of vertical jitter to be added in positive and negative directions. Defaults to 0.See ggplot2::position_jitter for further information. 
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
@@ -917,7 +924,6 @@ gg_point_col_facet <- function(data,
                                col_var,
                                facet_var,
                                text_var = NULL,
-                               position = "identity",
                                pal = NULL,
                                pal_na = "#7F7F7F",
                                pal_rev = FALSE,
@@ -930,6 +936,7 @@ gg_point_col_facet <- function(data,
                                x_balance = FALSE,
                                x_breaks_n = 2,
                                x_expand = NULL,
+                               x_jitter = 0,
                                x_labels = NULL,
                                x_rev = FALSE,
                                x_title = NULL,
@@ -939,6 +946,7 @@ gg_point_col_facet <- function(data,
                                y_balance = FALSE,
                                y_breaks_n = 3,
                                y_expand = c(0, 0),
+                               y_jitter = 0,
                                y_labels = scales::label_comma(),
                                y_title = NULL,
                                y_title_wrap = 50,
@@ -1119,7 +1127,7 @@ gg_point_col_facet <- function(data,
     coord_cartesian(clip = "off") +
     geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var), 
                size = size_point, 
-               position = position)
+               position = position_jitter(width = x_jitter, height = y_jitter))
   
   #x scale 
     if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -1147,7 +1155,7 @@ gg_point_col_facet <- function(data,
         
         if (is.numeric(x_var_vctr)) {
           plot <- plot +
-            scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+            scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
           
           if (x_zero_line == TRUE) {
             plot <- plot +
@@ -1156,11 +1164,11 @@ gg_point_col_facet <- function(data,
         }
         else if (lubridate::is.Date(x_var_vctr)) {
           plot <- plot +
-            scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+            scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
         }
         else if (lubridate::is.POSIXt(x_var_vctr)) {
           plot <- plot +
-            scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+            scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
         }
     }
     
@@ -1179,12 +1187,12 @@ gg_point_col_facet <- function(data,
         y_limits <- c(min(y_breaks), max(y_breaks))
         
         plot <- plot +
-          scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+          scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
       })
     }
     else if (facet_scales %in% c("free", "free_y")) {
       plot <- plot +
-        scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, labels = y_labels)
     }
     
     if (y_zero_line == TRUE) {

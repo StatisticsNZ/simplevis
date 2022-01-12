@@ -7,7 +7,6 @@
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
 #' @param size_line Size of lines. Defaults to 0.75. 
@@ -67,7 +66,6 @@ gg_pointrange <- function(data,
                     ymin_var,
                     ymax_var,
                     text_var = NULL,
-                    position = "identity", 
                     pal = pal_viridis_reorder(1),
                     alpha_line = 1,
                     alpha_point = 1,
@@ -159,8 +157,8 @@ gg_pointrange <- function(data,
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme +
-    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, position = position, col = pal_line) +
-    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point, position = position)
+    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, col = pal_line) +
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -186,7 +184,7 @@ gg_pointrange <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -195,11 +193,11 @@ gg_pointrange <- function(data,
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -223,7 +221,7 @@ gg_pointrange <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -266,7 +264,6 @@ gg_pointrange <- function(data,
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -279,6 +276,7 @@ gg_pointrange <- function(data,
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. Not applicable where mobile equals TRUE.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_dodge The amount to dodge pointranges by along the x axis. Defaults to 0 (i.e. identity).
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
@@ -328,8 +326,8 @@ gg_pointrange <- function(data,
 #'   ymax_var = upper,
 #'   col_var = sex,
 #'   col_na_rm = TRUE,
-#'   y_title = "Body mass g",
-#'   position = ggplot2::position_dodge(width = 0.05))
+#'   y_title = "Body mass g", 
+#'   x_dodge = 0.1)
 #'
 gg_pointrange_col <- function(data,
                         x_var,
@@ -338,7 +336,6 @@ gg_pointrange_col <- function(data,
                         ymax_var,
                         col_var,
                         text_var = NULL,
-                        position = "identity", 
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
@@ -352,6 +349,7 @@ gg_pointrange_col <- function(data,
                         subtitle_wrap = 80,
                         x_balance = FALSE,
                         x_breaks_n = 5,
+                        x_dodge = 0,
                         x_expand = NULL,
                         x_labels = NULL,
                         x_na_rm = FALSE,
@@ -468,9 +466,9 @@ gg_pointrange_col <- function(data,
     theme 
   
   plot <- plot +
-    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position) +
+    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position_dodge(width = x_dodge)) +
     geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var),
-               alpha = alpha_point, size = size_point, position = position)
+               alpha = alpha_point, size = size_point, position = position_dodge(width = x_dodge))
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -496,7 +494,7 @@ gg_pointrange_col <- function(data,
     }
     
     plot <- plot +
-      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     
     if (x_zero_line == TRUE) {
       plot <- plot +
@@ -505,11 +503,11 @@ gg_pointrange_col <- function(data,
   }
   else if (lubridate::is.Date(x_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (lubridate::is.POSIXt(x_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   }
   else if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
     if (is.null(x_expand)) x_expand <- waiver()
@@ -533,7 +531,7 @@ gg_pointrange_col <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -596,7 +594,6 @@ gg_pointrange_col <- function(data,
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
@@ -664,7 +661,6 @@ gg_pointrange_facet <- function(data,
                           ymax_var,
                           facet_var,
                           text_var = NULL,
-                          position = "identity", 
                           pal = pal_viridis_reorder(1),
                           alpha_line = 1,
                           alpha_point = 1,
@@ -781,8 +777,8 @@ gg_pointrange_facet <- function(data,
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme +
-    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, position = position, col = pal_line) +
-    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, alpha = alpha_point, size = size_point, position = position)
+    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, col = pal_line) +
+    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, alpha = alpha_point, size = size_point)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -810,7 +806,7 @@ gg_pointrange_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -819,11 +815,11 @@ gg_pointrange_facet <- function(data,
     }
     else if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
   }
   
@@ -842,12 +838,12 @@ gg_pointrange_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels)
   }
   
   if (y_zero_line == TRUE) {
@@ -879,7 +875,6 @@ gg_pointrange_facet <- function(data,
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether points are positioned by "identity" or "jitter". Defaults to "identity".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -893,6 +888,7 @@ gg_pointrange_facet <- function(data,
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 100. 
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
+#' @param x_dodge The amount to dodge pointranges by along the x axis. Defaults to 0 (i.e. identity).
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep x labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
@@ -949,7 +945,8 @@ gg_pointrange_facet <- function(data,
 #'   facet_var = species,
 #'   col_na_rm = TRUE,
 #'   y_title = "Body mass g", 
-#'   x_labels = function(x) stringr::str_sub(x, 3, 4))
+#'   x_labels = function(x) stringr::str_sub(x, 3, 4), 
+#'   x_dodge = 0.1)
 #'   
 gg_pointrange_col_facet <- function(data,
                               x_var,
@@ -959,7 +956,6 @@ gg_pointrange_col_facet <- function(data,
                               col_var,
                               facet_var,
                               text_var = NULL,
-                              position = "identity", 
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
@@ -973,6 +969,7 @@ gg_pointrange_col_facet <- function(data,
                               subtitle_wrap = 80,
                               x_balance = FALSE,
                               x_breaks_n = 2,
+                              x_dodge = 0,
                               x_expand = NULL,
                               x_labels = NULL,
                               x_na_rm = FALSE,
@@ -1112,9 +1109,9 @@ gg_pointrange_col_facet <- function(data,
   plot <- ggplot(data) +
     coord_cartesian(clip = "off") +
     theme +
-    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position) +
+    geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position_dodge(width = x_dodge)) +
     geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
-               alpha = alpha_point, size = size_point, position = position)
+               alpha = alpha_point, size = size_point, position = position_dodge(width = x_dodge))
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -1142,7 +1139,7 @@ gg_pointrange_col_facet <- function(data,
     
     if (is.numeric(x_var_vctr)) {
       plot <- plot +
-        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
       
       if (x_zero_line == TRUE) {
         plot <- plot +
@@ -1151,11 +1148,11 @@ gg_pointrange_col_facet <- function(data,
     }
     else if (lubridate::is.Date(x_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_date(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
     else if (lubridate::is.POSIXt(x_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_x_datetime(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     }
   }
   
@@ -1174,12 +1171,12 @@ gg_pointrange_col_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
     plot <- plot +
-      scale_y_continuous(expand = y_expand, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, labels = y_labels)
   }
   
   if (y_zero_line == TRUE) {

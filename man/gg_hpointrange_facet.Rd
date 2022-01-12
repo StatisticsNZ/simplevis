@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hpointrange.R
 \name{gg_hpointrange_facet}
 \alias{gg_hpointrange_facet}
-\title{Pointrange ggplot that is facetted.}
+\title{Horizontal pointrange ggplot that is facetted.}
 \usage{
 gg_hpointrange_facet(
   data,
@@ -12,7 +12,6 @@ gg_hpointrange_facet(
   y_var,
   facet_var,
   text_var = NULL,
-  position = "identity",
   pal = pal_viridis_reorder(1),
   alpha_line = 1,
   alpha_point = 1,
@@ -66,8 +65,6 @@ gg_hpointrange_facet(
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
-
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -147,7 +144,7 @@ gg_hpointrange_facet(
 A ggplot object.
 }
 \description{
-Pointrange ggplot that is facetted, but not coloured.
+Horizontal pointrange ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)

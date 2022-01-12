@@ -239,7 +239,7 @@
     </tr>
     <tr>
       <th>stack</th>
-      <td><p>TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".</p></td>
+      <td><p>TRUE or FALSE of whether bars are to be positioned by "stack". Defaults to FALSE, which positions by "dodge".</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -432,14 +432,17 @@
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span>(<span class='no'>species</span>, <span class='no'>sex</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span>(<span class='kw'>body_mass_g</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>body_mass_g</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; <span class='message'>`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.</span></div><div class='input'>
 <span class='fu'>gg_hbar_col</span>(<span class='no'>plot_data</span>,
-            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
-            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
-            <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>)</div><div class='img'><img src='gg_hbar_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>gg_hbar_col</span>(<span class='no'>plot_data</span>,
-            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
-            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
-            <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
-            <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='gg_hbar_col-2.png' alt='' width='700' height='433' /></div><div class='input'>            
+           <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
+           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
+           <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
+           <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='gg_hbar_col-1.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'>gg_hbar_col</span>(<span class='no'>plot_data</span>,
+           <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
+           <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
+           <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
+           <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+           <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+           <span class='kw'>size_width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='gg_hbar_col-2.png' alt='' width='700' height='433' /></div><div class='input'>            
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

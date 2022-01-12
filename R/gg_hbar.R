@@ -195,7 +195,7 @@ gg_hbar <- function(data,
     }
     
     plot <- plot +
-      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
     
     if (y_zero_line == TRUE) {
       plot <- plot +
@@ -204,11 +204,11 @@ gg_hbar <- function(data,
   }
   else if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+      scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels)
   }
   else if (lubridate::is.POSIXt(y_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels)
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if (is.null(y_expand)) y_expand <- waiver()
@@ -232,7 +232,7 @@ gg_hbar <- function(data,
     x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   })
   
   if (x_zero_line == TRUE) {
@@ -273,7 +273,7 @@ gg_hbar <- function(data,
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param stack TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".
+#' @param stack TRUE or FALSE of whether bars are to be positioned by "stack". Defaults to FALSE, which positions by "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -330,16 +330,19 @@ gg_hbar <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 #' 
-#' gg_hbar_col(plot_data, 
-#'             x_var = body_mass_g, 
-#'             y_var = species, 
-#'             col_var = sex)
-#' 
-#' gg_hbar_col(plot_data, 
-#'             x_var = body_mass_g, 
-#'             y_var = species, 
-#'             col_var = sex, 
-#'             stack = TRUE)
+#' gg_hbar_col(plot_data,
+#'            x_var = body_mass_g,
+#'            y_var = species,
+#'            col_var = sex,
+#'            col_na_rm = TRUE)
+#'
+#'  gg_hbar_col(plot_data,
+#'            x_var = body_mass_g,
+#'            y_var = species,
+#'            col_var = sex,
+#'            col_na_rm = TRUE,
+#'            stack = TRUE,
+#'            size_width = 0.5)
 #'             
 gg_hbar_col <- function(data,
                         x_var,
@@ -347,7 +350,6 @@ gg_hbar_col <- function(data,
                         col_var,
                         text_var = NULL,
                         stack = FALSE,
-                        # position = NULL,
                         pal = NULL,
                         pal_na = "#7F7F7F",
                         pal_rev = FALSE,
@@ -424,10 +426,6 @@ gg_hbar_col <- function(data,
   #warnings
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal bar plot")
   
-  # if(!is.null(position)) {
-  #   if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
-  # }
-  # 
   if (!is.null(col_method)) {
     if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
   }
@@ -551,11 +549,6 @@ gg_hbar_col <- function(data,
   pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
   
   #position
-  # if (is.null(position)) {
-  #   position2 <- position_dodge2(preserve = "single")
-  # }
-  # else position2 <- position
-  
   if (stack == FALSE) position <- position_dodge2(preserve = "single")
   else if (stack == TRUE) position <- position_stack()
   
@@ -568,23 +561,12 @@ gg_hbar_col <- function(data,
              width = size_width, 
              position = position) 
   
-  # if (!is.null(position)) {
-  #   if (position == "stack") {
-  #     data_sum <- data %>%
-  #       dplyr::group_by(dplyr::across(!!y_var), .drop = FALSE) %>%
-  #       dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-  #       dplyr::ungroup()
-  #     
-  #     x_var_vctr <- dplyr::pull(data_sum, !!x_var)
-  #   }
-  # }
-  
   if (stack == TRUE) {
     data_sum <- data %>%
       dplyr::group_by(dplyr::across(!!y_var), .drop = FALSE) %>%
       dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
       dplyr::ungroup()
-    
+
     x_var_vctr <- dplyr::pull(data_sum, !!x_var)
   }
   
@@ -613,7 +595,7 @@ gg_hbar_col <- function(data,
     }
     
     plot <- plot +
-      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
     
     if (y_zero_line == TRUE) {
       plot <- plot +
@@ -622,11 +604,11 @@ gg_hbar_col <- function(data,
   }
   else if (lubridate::is.Date(y_var_vctr)) {
     plot <- plot +
-      scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+      scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels)
   }
   else if (lubridate::is.POSIXt(y_var_vctr)) {
     plot <- plot +
-      scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+      scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels)
   }
   else if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if (is.null(y_expand)) y_expand <- waiver()
@@ -650,7 +632,7 @@ gg_hbar_col <- function(data,
     x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
   })
   
   if (x_zero_line == TRUE) {
@@ -958,7 +940,7 @@ gg_hbar_facet <- function(data,
       
       if (is.numeric(y_var_vctr)) {
         plot <- plot +
-          scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+          scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
         
         if (y_zero_line == TRUE) {
           plot <- plot +
@@ -967,11 +949,11 @@ gg_hbar_facet <- function(data,
       }
       else if (lubridate::is.Date(y_var_vctr)) {
         plot <- plot +
-          scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+          scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels)
       }
       else if (lubridate::is.POSIXt(y_var_vctr)) {
         plot <- plot +
-          scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+          scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels)
       }
   }
   
@@ -990,12 +972,12 @@ gg_hbar_facet <- function(data,
       x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, labels = x_labels)
   }
   
   if (x_zero_line == TRUE) {
@@ -1025,7 +1007,7 @@ gg_hbar_facet <- function(data,
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param stack TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".
+#' @param stack TRUE or FALSE of whether bars are to be positioned by "stack". Defaults to FALSE, which positions by "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
@@ -1100,7 +1082,6 @@ gg_hbar_col_facet <- function(data,
                               facet_var,
                               text_var = NULL,
                               stack = FALSE,
-                              # position = NULL,
                               pal = NULL,
                               pal_na = "#7F7F7F",
                               pal_rev = FALSE,
@@ -1192,10 +1173,6 @@ gg_hbar_col_facet <- function(data,
   if (!is.null(col_method)) {
     if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
   }
-  
-  # if(!is.null(position)) {
-  #   if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
-  # }
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -1330,11 +1307,6 @@ gg_hbar_col_facet <- function(data,
   pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
   
   #position
-  # if (is.null(position)) {
-  #   position2 <- position_dodge2(preserve = "single")
-  # }
-  # else position2 <- position
-  
   if (stack == FALSE) position <- position_dodge2(preserve = "single")
   else if (stack == TRUE) position <- position_stack()
   
@@ -1373,7 +1345,7 @@ gg_hbar_col_facet <- function(data,
     
     if (is.numeric(y_var_vctr)) {
       plot <- plot +
-        scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+        scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
       
       if (y_zero_line == TRUE) {
         plot <- plot +
@@ -1382,32 +1354,21 @@ gg_hbar_col_facet <- function(data,
     }
     else if (lubridate::is.Date(y_var_vctr)) {
       plot <- plot +
-        scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+        scale_x_date(expand = y_expand, breaks = y_breaks, labels = y_labels)
     }
     else if (lubridate::is.POSIXt(y_var_vctr)) {
       plot <- plot +
-        scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels, oob = scales::oob_squish)
+        scale_x_datetime(expand = y_expand, breaks = y_breaks, labels = y_labels)
     }
   }
   
   #x scale
-  # if (!is.null(position)) {
-  #   if (position == "stack") {
-  #     data_sum <- data %>%
-  #       dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var)), .drop = FALSE) %>%
-  #       dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
-  #       dplyr::ungroup()
-  #     
-  #     x_var_vctr <- dplyr::pull(data_sum, !!x_var)
-  #   }
-  # }
-  
   if (stack == TRUE) {
     data_sum <- data %>%
       dplyr::group_by(dplyr::across(c(!!y_var, !!facet_var)), .drop = FALSE) %>%
       dplyr::summarise(dplyr::across(!!x_var, ~sum(.x, na.rm = TRUE))) %>%
       dplyr::ungroup()
-    
+
     x_var_vctr <- dplyr::pull(data_sum, !!x_var)
   }
   
@@ -1425,12 +1386,12 @@ gg_hbar_col_facet <- function(data,
       x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
     plot <- plot +
-      scale_y_continuous(expand = x_expand, labels = x_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = x_expand, labels = x_labels)
   }
   
   if (x_zero_line == TRUE) {

@@ -166,7 +166,6 @@
   <span class='no'>x_var</span>,
   <span class='no'>y_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
   <span class='kw'>alpha_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -177,6 +176,7 @@
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_jitter</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -186,6 +186,7 @@
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>y_jitter</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -215,10 +216,6 @@
     <tr>
       <th>text_var</th>
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
-    </tr>
-    <tr>
-      <th>position</th>
-      <td><p>Whether points are positioned by "identity" or "jitter". Defaults to "identity".</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -261,6 +258,10 @@
       <td><p>A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
     </tr>
     <tr>
+      <th>x_jitter</th>
+      <td><p>Amount of horizontal jitter to be added in positive and negative directions. Defaults to 0. See ggplot2::position_jitter for further information.</p></td>
+    </tr>
+    <tr>
       <th>x_labels</th>
       <td><p>A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.</p></td>
     </tr>
@@ -295,6 +296,10 @@
     <tr>
       <th>y_expand</th>
       <td><p>A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></td>
+    </tr>
+    <tr>
+      <th>y_jitter</th>
+      <td><p>Amount of vertical jitter to be added in positive and negative directions. Defaults to 0.See ggplot2::position_jitter for further information.</p></td>
     </tr>
     <tr>
       <th>y_labels</th>

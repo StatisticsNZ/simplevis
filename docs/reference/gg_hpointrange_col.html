@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pointrange ggplot that is coloured. — gg_hpointrange_col • simplevis</title>
+<title>Horizontal pointrange ggplot that is coloured. — gg_hpointrange_col • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Pointrange ggplot that is coloured. — gg_hpointrange_col" />
-<meta property="og:description" content="Pointrange ggplot that is coloured, but not facetted." />
+<meta property="og:title" content="Horizontal pointrange ggplot that is coloured. — gg_hpointrange_col" />
+<meta property="og:description" content="Horizontal pointrange ggplot that is coloured, but not facetted." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -152,13 +152,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pointrange ggplot that is coloured.</h1>
+    <h1>Horizontal pointrange ggplot that is coloured.</h1>
     <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_hpointrange.R'><code>R/gg_hpointrange.R</code></a></small>
     <div class="hidden name"><code>gg_hpointrange_col.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pointrange ggplot that is coloured, but not facetted.</p>
+    <p>Horizontal pointrange ggplot that is coloured, but not facetted.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gg_hpointrange_col</span>(
@@ -169,7 +169,6 @@
   <span class='no'>y_var</span>,
   <span class='no'>col_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -192,6 +191,7 @@
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>y_dodge</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -246,10 +246,6 @@
     <tr>
       <th>text_var</th>
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
-    </tr>
-    <tr>
-      <th>position</th>
-      <td><p>Whether points are positioned by "identity" or "jitter". Defaults to "identity".</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -338,6 +334,10 @@
     <tr>
       <th>y_breaks_n</th>
       <td><p>For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.</p></td>
+    </tr>
+    <tr>
+      <th>y_dodge</th>
+      <td><p>The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).</p></td>
     </tr>
     <tr>
       <th>y_expand</th>
@@ -452,7 +452,7 @@
   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='st'>"Body mass g"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/position_dodge.html'>position_dodge</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.05</span>))</div><div class='img'><img src='gg_hpointrange_col-1.png' alt='' width='700' height='433' /></div><div class='input'>  
+  <span class='kw'>y_dodge</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='img'><img src='gg_hpointrange_col-1.png' alt='' width='700' height='433' /></div><div class='input'>  
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

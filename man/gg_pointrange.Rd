@@ -11,7 +11,6 @@ gg_pointrange(
   ymin_var,
   ymax_var,
   text_var = NULL,
-  position = "identity",
   pal = pal_viridis_reorder(1),
   alpha_line = 1,
   alpha_point = 1,
@@ -58,8 +57,6 @@ gg_pointrange(
 \item{ymax_var}{Unquoted numeric variable to be the maximum of the y vertical line. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
-
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 

@@ -12,7 +12,6 @@ gg_pointrange_facet(
   ymax_var,
   facet_var,
   text_var = NULL,
-  position = "identity",
   pal = pal_viridis_reorder(1),
   alpha_line = 1,
   alpha_point = 1,
@@ -66,8 +65,6 @@ gg_pointrange_facet(
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
-
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
 
 \item{pal}{Character vector of hex codes.}
 

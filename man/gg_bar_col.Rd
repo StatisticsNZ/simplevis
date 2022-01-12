@@ -68,7 +68,7 @@ gg_bar_col(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{stack}{TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".}
+\item{stack}{TRUE or FALSE of whether bars are to be positioned by "stack". Defaults to FALSE, which positions by "dodge".}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -176,12 +176,15 @@ plot_data <- penguins \%>\%
 gg_bar_col(plot_data, 
            x_var = species, 
            y_var = body_mass_g, 
-           col_var = sex)
-
+           col_var = sex, 
+           col_na_rm = TRUE)
+           
  gg_bar_col(plot_data, 
            x_var = species, 
            y_var = body_mass_g, 
-           col_var = sex,
-           stack = TRUE)
+           col_var = sex, 
+           col_na_rm = TRUE, 
+           stack = TRUE, 
+           size_width = 0.5)
 
 }

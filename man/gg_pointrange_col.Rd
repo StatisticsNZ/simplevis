@@ -12,7 +12,6 @@ gg_pointrange_col(
   ymax_var,
   col_var,
   text_var = NULL,
-  position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
@@ -26,6 +25,7 @@ gg_pointrange_col(
   subtitle_wrap = 80,
   x_balance = FALSE,
   x_breaks_n = 5,
+  x_dodge = 0,
   x_expand = NULL,
   x_labels = NULL,
   x_na_rm = FALSE,
@@ -69,8 +69,6 @@ gg_pointrange_col(
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 
-\item{position}{Whether points are positioned by "identity" or "jitter". Defaults to "identity".}
-
 \item{pal}{Character vector of hex codes.}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
@@ -96,6 +94,8 @@ gg_pointrange_col(
 \item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
+
+\item{x_dodge}{The amount to dodge pointranges by along the x axis. Defaults to 0 (i.e. identity).}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -174,7 +174,7 @@ gg_pointrange_col(
   ymax_var = upper,
   col_var = sex,
   col_na_rm = TRUE,
-  y_title = "Body mass g",
-  position = ggplot2::position_dodge(width = 0.05))
+  y_title = "Body mass g", 
+  x_dodge = 0.1)
 
 }

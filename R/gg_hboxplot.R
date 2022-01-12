@@ -8,7 +8,7 @@
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
-#' @param size_point The size of the outlier points. Defaults to 1.5.
+#' @param size_point The size of the outlier points. Defaults to 1.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -80,7 +80,7 @@ gg_hboxplot <- function(data,
                     alpha_line = 1,
                     alpha_point = 1,
                     size_line = 0.5,
-                    size_point = 1.5,
+                    size_point = 1,
                     size_width = 0.5,
                     title = NULL,
                     title_wrap = 75,
@@ -278,7 +278,7 @@ gg_hboxplot <- function(data,
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots.
-#' @param size_point The size of the outlier points. Defaults to 1.5.
+#' @param size_point The size of the outlier points. Defaults to 1.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -369,7 +369,7 @@ gg_hboxplot_col <- function(data,
                         alpha_line = 1,
                         alpha_point = 1,
                         size_line = 0.5,
-                        size_point = 1.5,
+                        size_point = 1,
                         size_width = 0.5,
                         title = NULL,
                         title_wrap = 75,
@@ -638,7 +638,7 @@ gg_hboxplot_col <- function(data,
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_line The size of the outlines of boxplots. 
-#' @param size_point The size of the outlier points. Defaults to 1.5.
+#' @param size_point The size of the outlier points. Defaults to 1.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -695,7 +695,7 @@ gg_hboxplot_facet <- function(data,
                           alpha_line = 1,
                           alpha_point = 1,
                           size_line = 0.5,
-                          size_point = 1.5,
+                          size_point = 1,
                           size_width = 0.5,
                           title = NULL,
                           title_wrap = 75,
@@ -915,7 +915,7 @@ gg_hboxplot_facet <- function(data,
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param size_line The size of the outlines of boxplots. 
-#' @param size_point The size of the outlier points. Defaults to 1.5.
+#' @param size_point The size of the outlier points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -984,7 +984,7 @@ gg_hboxplot_col_facet <- function(data,
                               alpha_line = 1,
                               alpha_point = 1,
                               size_line = 0.5,
-                              size_point = 1.5,
+                              size_point = 1,
                               size_width = 0.5,
                               title = NULL,
                               title_wrap = 75,

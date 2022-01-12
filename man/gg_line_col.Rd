@@ -15,7 +15,7 @@ gg_line_col(
   pal_rev = FALSE,
   alpha_line = 1,
   alpha_point = 1,
-  size_point = 1.5,
+  size_point = 1,
   size_line = 0.5,
   title = NULL,
   title_wrap = 80,
@@ -72,7 +72,7 @@ gg_line_col(
 
 \item{alpha_point}{The opacity of the points.}
 
-\item{size_point}{Size of points. Defaults to 1.5.}
+\item{size_point}{Size of points. Defaults to 1.}
 
 \item{size_line}{Size of lines. Defaults to 0.75.}
 

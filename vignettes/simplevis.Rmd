@@ -450,24 +450,6 @@ gg_point_col(penguins,
 
 ```
 
-### Working with the `patchwork` package
-
-```{r}
-library(patchwork)
-
-p1 <- gg_point(penguins, 
-               x_var = species, 
-               y_var = body_mass_g, 
-               position = position_jitter(width = 0.2), 
-               alpha_point = 0.5) 
-
-p2 <- gg_boxplot(penguins, 
-                 x_var = species, 
-                 y_var = body_mass_g) 
-
-p1 + p2
-```
-
 
 This means you can facet by more than one variable, provided that you are not using a position of "stack". 
 
@@ -488,7 +470,25 @@ gg_bar(plot_data,
 
 ```
 
-### ggplotly interactive visualisation
+### Working with the `patchwork` package
+
+```{r}
+library(patchwork)
+
+p1 <- gg_point(penguins, 
+               x_var = species, 
+               y_var = body_mass_g, 
+               position = position_jitter(width = 0.2), 
+               alpha_point = 0.5) 
+
+p2 <- gg_boxplot(penguins, 
+                 x_var = species, 
+                 y_var = body_mass_g) 
+
+p1 + p2
+```
+
+### `ggplotly` interactive visualisation
 
 All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in `plotly::ggplotly()`. 
 

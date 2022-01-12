@@ -8,7 +8,7 @@
 #' @param alpha_line The opacity of the line. Defaults to 1.
 #' @param alpha_point The opacity of the points. Defaults to 1.5.
 #' @param size_line Size of lines. Defaults to 0.5.
-#' @param size_point Size of points. Defaults to 1.5. 
+#' @param size_point Size of points. Defaults to 1. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -58,7 +58,7 @@ gg_smooth <- function(data,
                       alpha_line = 1,
                       alpha_point = 1,
                       size_line = 0.5,
-                      size_point = 1.5,
+                      size_point = 1,
                       title = NULL,
                       title_wrap = 80,
                       subtitle = NULL,
@@ -214,7 +214,7 @@ gg_smooth <- function(data,
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. Defaults to 1.5.
 #' @param size_line Size of lines. Defaults to 0.5. 
-#' @param size_point Size of points. Defaults to 1.5.
+#' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -274,7 +274,7 @@ gg_smooth_col <- function(data,
                           alpha_line = 1,
                           alpha_point = 1,
                           size_line = 0.5,
-                          size_point = 1.5,
+                          size_point = 1,
                           title = NULL,
                           title_wrap = 80,
                           subtitle = NULL,
@@ -486,7 +486,7 @@ gg_smooth_col <- function(data,
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. Defaults to 1.5.
 #' @param size_line Size of lines. Defaults to 0.5. 
-#' @param size_point Size of points. Defaults to 1.5.
+#' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -543,7 +543,7 @@ gg_smooth_facet <- function(data,
                             alpha_line = 1,
                             alpha_point = 1,
                             size_line = 0.5,
-                            size_point = 1.5,
+                            size_point = 1,
                             title = NULL,
                             title_wrap = 80,
                             subtitle = NULL,
@@ -720,7 +720,7 @@ gg_smooth_facet <- function(data,
 #' @param alpha_line The opacity of the line. Defaults to 1.
 #' @param alpha_point The opacity of the points. Defaults to 1.5.
 #' @param size_line Size of lines. Defaults to 0.5. 
-#' @param size_point Size of points. Defaults to 1.5.
+#' @param size_point Size of points. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -789,7 +789,7 @@ gg_smooth_col_facet <- function(data,
                                 alpha_line = 1,
                                 alpha_point = 1,
                                 size_line = 0.5,
-                                size_point = 1.5,
+                                size_point = 1,
                                 title = NULL,
                                 title_wrap = 80,
                                 subtitle = NULL,

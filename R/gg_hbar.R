@@ -1,6 +1,6 @@
 #' @title Horizontal bar ggplot.
 #' @description Horizontal bar ggplot that is not coloured and not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -268,7 +268,7 @@ gg_hbar <- function(data,
 
 #' @title Horizontal bar ggplot that is coloured.
 #' @description Horizontal bar ggplot that is coloured, but not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
@@ -723,7 +723,7 @@ gg_hbar_col <- function(data,
 
 #' @title Horizontal bar ggplot that is facetted.
 #' @description Horizontal bar ggplot that is facetted, but not coloured.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -1001,7 +1001,7 @@ gg_hbar_facet <- function(data,
 
 #' @title Horizontal bar ggplot that is coloured and facetted.
 #' @description Horizontal bar ggplot that is coloured and facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.

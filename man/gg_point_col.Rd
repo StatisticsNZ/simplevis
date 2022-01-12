@@ -54,7 +54,7 @@ gg_point_col(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe. Required input.}
+\item{data}{An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.}
 
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.}
 

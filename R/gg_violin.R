@@ -1,6 +1,6 @@
 #' @title Violin ggplot.
 #' @description Violin ggplot that is not coloured and not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
 #' @param pal Character vector of hex codes. 
@@ -198,7 +198,7 @@ gg_violin <- function(data,
 
 #' Violin ggplot that is coloured
 #'
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
@@ -699,7 +699,7 @@ gg_violin_facet <- function(data,
 
 #' Violin ggplot that is coloured and facetted.
 #'
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.

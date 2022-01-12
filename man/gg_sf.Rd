@@ -29,7 +29,7 @@ gg_sf(
 )
 }
 \arguments{
-\item{data}{A sf object with defined coordinate reference system. Required input.}
+\item{data}{A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.}
 
 \item{text_var}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.}
 

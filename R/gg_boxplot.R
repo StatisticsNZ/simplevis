@@ -1,6 +1,6 @@
 #' @title Boxplot ggplot.
 #' @description Boxplot ggplot that is not coloured and not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param pal Character vector of hex codes. 
@@ -268,7 +268,7 @@ gg_boxplot <- function(data,
 
 #' Boxplot ggplot that is coloured
 #'
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
@@ -898,7 +898,7 @@ gg_boxplot_facet <- function(data,
 
 #' @title Boxplot ggplot that is coloured and facetted.
 #' @description Boxplot ggplot that is facetted, but not coloured.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.

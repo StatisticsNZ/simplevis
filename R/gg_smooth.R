@@ -1,6 +1,6 @@
 #' @title Smoothed ggplot.
 #' @description Smoothed ggplot that is not coloured and not facetted.
-#' @param data An ungrouped tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param pal Character vector of hex codes. 
@@ -203,7 +203,7 @@ gg_smooth <- function(data,
 
 #' @title Smoothed ggplot that is coloured.
 #' @description Smoothed ggplot that is coloured, but not facetted.
-#' @param data An ungrouped tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
@@ -477,7 +477,7 @@ gg_smooth_col <- function(data,
 
 #' @title Smoothed ggplot that is facetted.
 #' @description Smoothed ggplot that is facetted, but not coloured.
-#' @param data An ungrouped tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -708,7 +708,7 @@ gg_smooth_facet <- function(data,
 
 #' @title Smoothed ggplot that is coloured and facetted.
 #' @description Smoothed ggplot that is coloured and facetted.
-#' @param data An ungrouped tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.

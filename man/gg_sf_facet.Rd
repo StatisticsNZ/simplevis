@@ -34,7 +34,7 @@ gg_sf_facet(
 )
 }
 \arguments{
-\item{data}{A sf object with defined coordinate reference system. Required input.}
+\item{data}{A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.}
 
 \item{facet_var}{Unquoted categorical variable to facet the data by. Required input.}
 

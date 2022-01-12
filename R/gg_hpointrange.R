@@ -1,6 +1,6 @@
 #' @title Horizontal pointrange ggplot.
 #' @description Horizontal pointrange ggplot that is not coloured and not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
@@ -259,7 +259,7 @@ gg_hpointrange <- function(data,
 
 #' @title Horizontal pointrange ggplot that is coloured.
 #' @description Horizontal pointrange ggplot that is coloured, but not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
@@ -668,7 +668,7 @@ gg_hpointrange_col <- function(data,
 
 #' @title Horizontal pointrange ggplot that is facetted.
 #' @description Horizontal pointrange ggplot that is facetted, but not coloured.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
@@ -949,7 +949,7 @@ gg_hpointrange_facet <- function(data,
 
 #' @title Horizontal pointrange ggplot that is coloured and facetted.
 #' @description Horizontal pointrange ggplot that is coloured and facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.

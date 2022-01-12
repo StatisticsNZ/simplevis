@@ -41,7 +41,7 @@ gg_sf_col(
 )
 }
 \arguments{
-\item{data}{A sf object with defined coordinate reference system. Required input.}
+\item{data}{A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.}
 
 \item{col_var}{Unquoted variable for points to be coloured by. Required input.}
 

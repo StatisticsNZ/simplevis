@@ -55,7 +55,7 @@ gg_smooth_col(
 )
 }
 \arguments{
-\item{data}{An ungrouped tibble or dataframe. Required input.}
+\item{data}{An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

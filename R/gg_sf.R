@@ -1,6 +1,6 @@
 #' @title Simple feature ggplot map.
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
-#' @param data A sf object with defined coordinate reference system. Required input.
+#' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the sf object supplied to the data argument. Defaults to TRUE for points and lines, but FALSE for polygons..
@@ -174,7 +174,7 @@ gg_sf <- function(data,
 
 #' @title Simple feature ggplot map that is coloured.
 #' @description Map of simple features in ggplot that is coloured, but not facetted. 
-#' @param data A sf object with defined coordinate reference system. Required input.
+#' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
@@ -585,7 +585,7 @@ gg_sf_col <- function(data,
 
 #' @title Simple feature ggplot map that is facetted.
 #' @description Map of simple features in ggplot that is facetted, but not coloured. 
-#' @param data A sf object with defined coordinate reference system. Required input.
+#' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
@@ -788,7 +788,7 @@ gg_sf_facet <- function(data,
 
 #' @title Simple feature ggplot map that is coloured and facetted.
 #' @description Map of simple features in ggplot that is coloured and facetted. 
-#' @param data A sf object with defined coordinate reference system. Required input.
+#' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.

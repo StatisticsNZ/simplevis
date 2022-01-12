@@ -1,6 +1,6 @@
 #' @title Stars ggplot map.
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
-#' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
+#' @param data A stars object with defined coordinate reference system in a structure to be plotted untransformed. Note, it cannot be a stars_proxy object. Required input.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.
 #' @param downsample downsampling rate: e.g. 3 keeps rows and cols 1, 4, 7, 10 etc. A value of 0 does not downsample. It can be specified for each dimension. E.g. c(5,5,0) to downsample the first two dimensions but not the third.
@@ -129,7 +129,7 @@ gg_stars <- function(data,
 
 #' @title Stars ggplot map that is coloured.
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
-#' @param data A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.
+#' @param data A stars object with defined coordinate reference system in a structure to be plotted untransformed. Note, it cannot be a stars_proxy object. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
 #' @param borders_on_top TRUE or FALSE  as to whether the borders are on top of the stars array. Defaults to TRUE.

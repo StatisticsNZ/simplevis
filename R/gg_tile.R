@@ -1,6 +1,6 @@
 #' @title Tile ggplot that is coloured.
 #' @description Tile ggplot that is coloured, but not facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the tiles Required input.
@@ -346,7 +346,7 @@ gg_tile_col <- function(data,
 
 #' @title Tile ggplot that is coloured and facetted.
 #' @description Tile ggplot that is coloured and facetted.
-#' @param data A tibble or dataframe. Required input.
+#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable to colour the tiles. Required input.

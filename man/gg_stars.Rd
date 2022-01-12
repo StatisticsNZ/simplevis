@@ -25,7 +25,7 @@ gg_stars(
 )
 }
 \arguments{
-\item{data}{A stars object with defined coordinate reference system. Note, it cannot be a stars_proxy object. Required input.}
+\item{data}{A stars object with defined coordinate reference system in a structure to be plotted untransformed. Note, it cannot be a stars_proxy object. Required input.}
 
 \item{borders}{A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.}
 

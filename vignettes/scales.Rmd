@@ -272,30 +272,87 @@ gg_line(plot_data,
         y_expand = ggplot2::expansion(mult = c(0, 0.025)))
 ```
 
-### Stacking bars
+### Position adjustments
 
-`bar*()` and `hbar*()` plots also provide a `"stack"` position option, which users can select instead of the default `"dodge"`.
+In general plots are positioned exactly as the data provided. 
+
+Exceptions are `bar*()` and `hbar*()`, which positions bars side-by-side by default (i.e. dodged). 
 
 ```{r}
 plot_data <- penguins %>% 
-  group_by(sex, species) %>% 
-  summarise(count = n())
+  group_by(species, sex) %>% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
 
-gg_hbar_col(plot_data, 
-        x_var = count, 
-        y_var = species, 
-        col_var = sex,
-        stack = TRUE)
+gg_bar_col(plot_data, 
+           x_var = species, 
+           y_var = body_mass_g, 
+           col_var = sex)
 ```
 
-#### Jittering points
+However, a option to stack bars is also available.
+
+```{r}
+plot_data <- penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
+
+gg_bar_col(plot_data, 
+           x_var = species, 
+           y_var = body_mass_g, 
+           col_var = sex,
+           stack = TRUE,
+           col_na_rm = TRUE, 
+           size_width = 0.5)
+```
+
+point allows you to jitter in an x or y direction.
 
 ```{r}
 gg_point(penguins, 
                x_var = species, 
                y_var = body_mass_g, 
                x_jitter = 0.2, 
-               alpha_point = 0.5)
+               alpha_point = 0.5) 
+```
+
+pointrange and hpointrange allow you to specify an amount to dodge by, if desired.
+
+```{r}
+plot_data <- penguins %>%
+  group_by(sex, species) %>%
+  summarise(middle = median(body_mass_g, na.rm = TRUE),
+            lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
+            upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
+
+gg_pointrange_col(
+  plot_data,
+  x_var = species,
+  y_var = middle,
+  ymin_var = lower,
+  ymax_var = upper,
+  col_var = sex,
+  col_na_rm = TRUE,
+  y_title = "Body mass g")
+
+```
+
+```{r}
+plot_data <- penguins %>%
+  group_by(sex, species) %>%
+  summarise(middle = median(body_mass_g, na.rm = TRUE),
+            lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
+            upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
+
+gg_pointrange_col(
+  plot_data,
+  x_var = species,
+  y_var = middle,
+  ymin_var = lower,
+  ymax_var = upper,
+  col_var = sex,
+  col_na_rm = TRUE,
+  y_title = "Body mass g",
+  x_dodge = 0.3)
 ```
 
 ### Turning the legend off
@@ -309,6 +366,7 @@ gg_bar_col(plot_data,
        x_var = species, 
        y_var = body_mass_g, 
        col_var = species, 
-       col_legend_none = T)
+       col_legend_none = TRUE,
+       size_width = 0.5)
 ```
 

@@ -306,7 +306,8 @@ gg_bar_col(plot_data,
        x_var = species, 
        y_var = body_mass_g, 
        col_var = species, 
-       col_legend_none = T)
+       col_legend_none = TRUE,
+       size_width = 0.5)
 ```
 
 ### Position adjustments
@@ -389,7 +390,7 @@ gg_pointrange_col(
   col_var = sex,
   col_na_rm = TRUE,
   y_title = "Body mass g",
-  x_dodge = 0.1)
+  x_dodge = 0.3)
 ```
 
 ### Themes
@@ -467,27 +468,24 @@ Refer to the `simplevis` [website](https://statisticsnz.github.io/simplevis/arti
 
 Variable types supported by the different families of functions are outlined below.
 
-A stat of `identity` refers to the value being plotted as it is. A stat of `boxplot` refers to boxplot statistics being calculated from the data, and these plotted.
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 7}
 tibble::tribble(
-  ~family, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, ~stat,
-  "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical", "identity",
-  "boxplot", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", "boxplot (or identity)",
-  "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", "density",
-  "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical", "identity",
-  "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity",
-  "pointrange", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical", "identity",
-  "sf", "sf", NA, NA, "Categorical or numeric", "Categorical", "identity",
-  "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical", "identity",
-  "stars", "stars", NA, NA, "Categorical or numeric", NA, "identity",
-  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical", "identity",
-  "violin", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", "ydensity",
-  "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical", "identity",
-  "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "boxplot (or identity)",
-  "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", "ydensity",
-  "hpointrange", "tibble or data.frame", "Numeric", "Any", "Categorical or numeric", "Categorical", "identity",
-
+  ~family, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, 
+  "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical",
+  "boxplot", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical",
+  "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", 
+  "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical",
+  "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical",
+  "pointrange", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical",
+  "sf", "sf", NA, NA, "Categorical or numeric", "Categorical",
+  "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical",
+  "stars", "stars", NA, NA, "Categorical or numeric", NA,
+  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical",
+  "violin", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", 
+  "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical",
+  "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical",
+  "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", 
+  "hpointrange", "tibble or data.frame", "Numeric", "Any", "Categorical or numeric", "Categorical"
   ) %>%
   DT::datatable(options = list(pageLength = 20, lengthChange = FALSE))
     

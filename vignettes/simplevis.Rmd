@@ -278,7 +278,7 @@ gg_bar_col(plot_data,
         x_var = year, 
         y_var = wind, 
         col_var = status,
-        position = "stack",
+        stack = TRUE,
         x_breaks_n = 4,
         x_labels = function(x) stringr::str_sub(x, 3, 4),
         y_labels = scales::label_comma(accuracy = 0.1), 
@@ -296,7 +296,7 @@ gg_point_col(penguins,
              col_na_rm = TRUE)
 ```
 
-`bar*()` and `hbar*()` plots support a `"stack"` position as well as the default `"dodge"`.
+`bar*()` and `hbar*()` plots also provide a `"stack"` position option, which users can select instead of the default `"dodge"`.
 
 ```{r}
 plot_data <- penguins %>% 
@@ -307,7 +307,7 @@ gg_hbar_col(plot_data,
         x_var = count, 
         y_var = species, 
         col_var = sex,
-        position = "stack")
+        stack = TRUE)
 ```
 
 ### Themes

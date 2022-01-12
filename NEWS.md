@@ -18,6 +18,7 @@ New features:
 * Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.
 
 Breaking:
+* In bar, changed position argument to stack = FALSE.
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
 * Renamed var arguments and structure for boxplot where stat = "identity".
 * Renamed col_right_closed to col_intervals_right.

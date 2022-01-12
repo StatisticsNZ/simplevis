@@ -341,7 +341,7 @@
 <div id="stacking-bars" class="section level3">
 <h3 class="hasAnchor">
 <a href="#stacking-bars" class="anchor"></a>Stacking bars</h3>
-<p><code>bar*()</code> and <code>hbar*()</code> plots support a <code>"stack"</code> position as well as the default <code>"dodge"</code>.</p>
+<p><code>bar*()</code> and <code>hbar*()</code> plots also provide a <code>"stack"</code> position option, which users can select instead of the default <code>"dodge"</code>.</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">sex</span>, <span class="no">species</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">count</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/context.html">n</a></span>())
@@ -350,7 +350,7 @@
         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">count</span>,
         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">species</span>,
         <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-        <span class="kw">position</span> <span class="kw">=</span> <span class="st">"stack"</span>)</pre></body></html></div>
+        <span class="kw">stack</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 </div>
   </div>

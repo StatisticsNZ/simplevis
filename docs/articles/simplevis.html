@@ -328,7 +328,7 @@
         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">year</span>,
         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">wind</span>,
         <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">status</span>,
-        <span class="kw">position</span> <span class="kw">=</span> <span class="st">"stack"</span>,
+        <span class="kw">stack</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
         <span class="kw">x_breaks_n</span> <span class="kw">=</span> <span class="fl">4</span>,
         <span class="kw">x_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_sub.html">str_sub</a></span>(<span class="no">x</span>, <span class="fl">3</span>, <span class="fl">4</span>),
         <span class="kw">y_labels</span> <span class="kw">=</span> <span class="kw pkg">scales</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_number.html">label_comma</a></span>(<span class="kw">accuracy</span> <span class="kw">=</span> <span class="fl">0.1</span>),
@@ -343,7 +343,7 @@
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
              <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
-<p><code>bar*()</code> and <code>hbar*()</code> plots support a <code>"stack"</code> position as well as the default <code>"dodge"</code>.</p>
+<p><code>bar*()</code> and <code>hbar*()</code> plots also provide a <code>"stack"</code> position option, which users can select instead of the default <code>"dodge"</code>.</p>
 <div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">sex</span>, <span class="no">species</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">count</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/context.html">n</a></span>())
@@ -352,7 +352,7 @@
         <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">count</span>,
         <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">species</span>,
         <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-        <span class="kw">position</span> <span class="kw">=</span> <span class="st">"stack"</span>)</pre></body></html></div>
+        <span class="kw">stack</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 </div>
 <div id="themes" class="section level3">
@@ -455,26 +455,8 @@
     <span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)
   )</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
-</div>
-<div id="working-with-the-patchwork-package" class="section level3">
-<h3 class="hasAnchor">
-<a href="#working-with-the-patchwork-package" class="anchor"></a>Working with the <code>patchwork</code> package</h3>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">patchwork</span>)
-
-<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
-               <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-               <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-               <span class="kw">position</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/position_jitter.html">position_jitter</a></span>(<span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.2</span>),
-               <span class="kw">alpha_point</span> <span class="kw">=</span> <span class="fl">0.5</span>)
-
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span>(<span class="no">penguins</span>,
-                 <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-                 <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>)
-
-<span class="no">p1</span> + <span class="no">p2</span></pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 <p>This means you can facet by more than one variable, provided that you are not using a position of “stack”.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>, <span class="no">sex</span>, <span class="no">island</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
 
@@ -487,11 +469,29 @@
   <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/facet_grid.html">facet_grid</a></span>(<span class="kw">rows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/vars.html">vars</a></span>(<span class="no">species</span>),
              <span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/vars.html">vars</a></span>(<span class="no">island</span>),
              <span class="kw">labeller</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/as_labeller.html">as_labeller</a></span>(<span class="kw pkg">snakecase</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html">to_sentence_case</a></span>))</pre></body></html></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
+</div>
+<div id="working-with-the-patchwork-package" class="section level3">
+<h3 class="hasAnchor">
+<a href="#working-with-the-patchwork-package" class="anchor"></a>Working with the <code>patchwork</code> package</h3>
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">patchwork</span>)
+
+<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
+               <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
+               <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+               <span class="kw">position</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/position_jitter.html">position_jitter</a></span>(<span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.2</span>),
+               <span class="kw">alpha_point</span> <span class="kw">=</span> <span class="fl">0.5</span>)
+
+<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span>(<span class="no">penguins</span>,
+                 <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
+                 <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>)
+
+<span class="no">p1</span> + <span class="no">p2</span></pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-33-1.png" width="576"></p>
 </div>
 <div id="ggplotly-interactive-visualisation" class="section level3">
 <h3 class="hasAnchor">
-<a href="#ggplotly-interactive-visualisation" class="anchor"></a>ggplotly interactive visualisation</h3>
+<a href="#ggplotly-interactive-visualisation" class="anchor"></a><code>ggplotly</code> interactive visualisation</h3>
 <p>All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">plotly::ggplotly()</a></code>.</p>
 <p>The <code>plotly_camera</code> function removes plotly widgets other than the camera to keep things tidy.</p>
 <div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">plot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,

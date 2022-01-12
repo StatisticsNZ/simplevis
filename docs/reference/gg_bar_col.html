@@ -167,7 +167,7 @@
   <span class='no'>y_var</span>,
   <span class='no'>col_var</span>,
   <span class='kw'>text_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -238,8 +238,8 @@
       <td><p>Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.</p></td>
     </tr>
     <tr>
-      <th>position</th>
-      <td><p>Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".</p></td>
+      <th>stack</th>
+      <td><p>TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".</p></td>
     </tr>
     <tr>
       <th>pal</th>
@@ -439,7 +439,7 @@
            <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>species</span>,
            <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>body_mass_g</span>,
            <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,
-           <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>)</div><div class='img'><img src='gg_bar_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
+           <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='gg_bar_col-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

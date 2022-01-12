@@ -271,7 +271,7 @@ gg_bar <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
+#' @param stack TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -337,14 +337,15 @@ gg_bar <- function(data,
 #'            x_var = species, 
 #'            y_var = body_mass_g, 
 #'            col_var = sex,
-#'            position = "stack")
+#'            stack = TRUE)
 #' 
 gg_bar_col <- function(data,
                        x_var,
                        y_var,
                        col_var,
                        text_var = NULL,
-                       position = NULL,
+                       stack = FALSE,
+                       # position = NULL,
                        pal = NULL,
                        pal_na = "#7F7F7F",
                        pal_rev = FALSE,
@@ -425,9 +426,9 @@ gg_bar_col <- function(data,
     if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
   }
   
-  if(!is.null(position)) {
-    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
-  }
+  # if(!is.null(position)) {
+  #   if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
+  # }
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -547,10 +548,13 @@ gg_bar_col <- function(data,
   pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
 
   # position
-  if (is.null(position)) {
-    position2 <- position_dodge2(preserve = "single")
-  }
-  else position2 <- position
+  # if (is.null(position)) {
+  #   position2 <- position_dodge2(preserve = "single")
+  # }
+  # else position2 <- position
+  
+  if (stack == FALSE) position <- position_dodge2(preserve = "single")
+  else if (stack == TRUE) position <- position_stack()
   
   #fundamentals
   plot <- ggplot(data) +
@@ -558,7 +562,7 @@ gg_bar_col <- function(data,
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
              width = size_width, 
-             position = position2)
+             position = position)
   
   #x scale 
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -609,15 +613,24 @@ gg_bar_col <- function(data,
   }
   
   #y scale
-  if (!is.null(position)) {
-    if (position == "stack") {
-      data_sum <- data %>%
-        dplyr::group_by(dplyr::across(!!x_var), .drop = FALSE) %>%
-        dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
-        dplyr::ungroup()
-      
-      y_var_vctr <- dplyr::pull(data_sum, !!y_var)
-    }
+  # if (!is.null(position)) {
+  #   if (position == "stack") {
+  #     data_sum <- data %>%
+  #       dplyr::group_by(dplyr::across(!!x_var), .drop = FALSE) %>%
+  #       dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
+  #       dplyr::ungroup()
+  #     
+  #     y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+  #   }
+  # }
+  
+  if (stack == TRUE) {
+    data_sum <- data %>%
+      dplyr::group_by(dplyr::across(!!x_var), .drop = FALSE) %>%
+      dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
+      dplyr::ungroup()
+    
+    y_var_vctr <- dplyr::pull(data_sum, !!y_var)
   }
   
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
@@ -997,7 +1010,7 @@ gg_bar_facet <- function(data,
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
-#' @param position Whether bars are positioned by "dodge" or "stack". Defaults to "dodge".
+#' @param stack TRUE or FALSE of whether bars are to be position by "stack". Defaults to FALSE, which positions by "dodge".
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -1070,7 +1083,8 @@ gg_bar_col_facet <- function(data,
                              col_var,
                              facet_var,
                              text_var = NULL,
-                             position = NULL,
+                             stack = FALSE,
+                             # position = NULL,
                              pal = NULL,
                              pal_na = "#7F7F7F",
                              pal_rev = FALSE,
@@ -1163,9 +1177,9 @@ gg_bar_col_facet <- function(data,
     if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
   }
   
-  if(!is.null(position)) {
-    if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
-  }
+  # if(!is.null(position)) {
+  #   if (!position %in% c("dodge", "stack")) stop("Please use a position of either 'dodge' or 'stack'")
+  # }
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -1299,10 +1313,13 @@ gg_bar_col_facet <- function(data,
   pal_na_line <- scales::alpha(pal_na, alpha = alpha_line)
   
   #position
-  if (is.null(position)) {
-    position2 <- position_dodge2(preserve = "single")
-  }
-  else position2 <- position
+  # if (is.null(position)) {
+  #   position2 <- position_dodge2(preserve = "single")
+  # }
+  # else position2 <- position
+  
+  if (stack == FALSE) position <- position_dodge2(preserve = "single")
+  else if (stack == TRUE) position <- position_stack()
   
   #fundamentals
   plot <- ggplot(data) +
@@ -1311,7 +1328,7 @@ gg_bar_col_facet <- function(data,
     geom_col(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
              width = size_width, 
-             position = position2)
+             position = position)
   
   #x scale
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -1357,17 +1374,26 @@ gg_bar_col_facet <- function(data,
   }
   
   #y scale
-  if (!is.null(position)) {
-    if (position == "stack") {
-      data_sum <- data %>%
-        dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var)), .drop = FALSE) %>%
-        dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
-        dplyr::ungroup()
-      
-      y_var_vctr <- dplyr::pull(data_sum, !!y_var)
-    }
-  }
+  # if (!is.null(position)) {
+  #   if (position == "stack") {
+  #     data_sum <- data %>%
+  #       dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var)), .drop = FALSE) %>%
+  #       dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
+  #       dplyr::ungroup()
+  #     
+  #     y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+  #   }
+  # }
   
+  if (stack == TRUE) {
+    data_sum <- data %>%
+      dplyr::group_by(dplyr::across(c(!!x_var, !!facet_var)), .drop = FALSE) %>%
+      dplyr::summarise(dplyr::across(!!y_var, ~sum(.x, na.rm = TRUE))) %>%
+      dplyr::ungroup()
+    
+    y_var_vctr <- dplyr::pull(data_sum, !!y_var)
+  }
+
   y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]

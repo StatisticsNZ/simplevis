@@ -12,7 +12,7 @@ gg_stars(
   pal = pal_viridis_reorder(1),
   pal_borders = "#323232",
   alpha_fill = 0.5,
-  alpha_borders = 1,
+  alpha_borders = 0.5,
   size_borders = 0.2,
   title = NULL,
   title_wrap = 80,
@@ -39,7 +39,7 @@ gg_stars(
 
 \item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
 
-\item{alpha_borders}{Opacity of the borders. Defaults to 1.}
+\item{alpha_borders}{Opacity of the borders. Defaults to 0.5.}
 
 \item{size_borders}{Size of the borders. Defaults to 0.2.}
 

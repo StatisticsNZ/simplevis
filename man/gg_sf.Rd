@@ -14,7 +14,7 @@ gg_sf(
   alpha_fill = NULL,
   alpha_line = 1,
   alpha_point = 1,
-  alpha_borders = 1,
+  alpha_borders = 0.5,
   size_line = 0.5,
   size_point = 1.5,
   size_borders = 0.2,
@@ -47,7 +47,7 @@ gg_sf(
 
 \item{alpha_point}{The alpha of points.}
 
-\item{alpha_borders}{Opacity of the borders. Defaults to 1.}
+\item{alpha_borders}{Opacity of the borders. Defaults to 0.5.}
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 

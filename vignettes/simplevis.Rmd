@@ -54,8 +54,7 @@ boxplot
 ```{r}
 gg_boxplot(penguins, 
            x_var = species, 
-           y_var = body_mass_g, 
-           size_point = 1)
+           y_var = body_mass_g)
 ```
 
 density
@@ -74,8 +73,7 @@ plot_data <- storms %>%
 
 gg_line(plot_data, 
         x_var = year, 
-        y_var = wind, 
-        size_point = 1)
+        y_var = wind)
 ```
 
 point
@@ -83,8 +81,7 @@ point
 ```{r}
 gg_point(penguins,
          x_var = bill_length_mm,
-         y_var = body_mass_g,
-         size_point = 1)
+         y_var = body_mass_g)
 ```
 
 pointrange 
@@ -110,8 +107,7 @@ smooth
 ```{r}
 gg_smooth(penguins,  
           x_var = bill_length_mm, 
-          y_var = body_mass_g, 
-          size_point = 1)
+          y_var = body_mass_g)
 ```
 
 tile
@@ -141,8 +137,7 @@ sf
 ```{r}
 gg_sf_col(example_point, 
           col_var = trend_category, 
-          borders = example_borders, 
-          size_point = 1)
+          borders = example_borders)
 ```
 
 stars
@@ -171,8 +166,7 @@ A `*()` function such `gg_point()` requires only a dataset, an x variable and a 
 ```{r}
 gg_point(penguins, 
          x_var = bill_length_mm, 
-         y_var = body_mass_g, 
-         size_point = 1)
+         y_var = body_mass_g)
 ```
 
 A `*_col()` function such `gg_point_col()` requires only a dataset, an x variable, a y variable, and a colour variable. 
@@ -181,8 +175,7 @@ A `*_col()` function such `gg_point_col()` requires only a dataset, an x variabl
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
-             col_var = sex, 
-             size_point = 1)
+             col_var = sex)
 ```
 
 A `*_facet()` function such `gg_point_facet()` requires only a dataset, an x variable, a y variable, and a facet variable. 
@@ -191,8 +184,7 @@ A `*_facet()` function such `gg_point_facet()` requires only a dataset, an x var
 gg_point_facet(penguins, 
                x_var = bill_length_mm, 
                y_var = body_mass_g, 
-               facet_var = species, 
-               size_point = 1)
+               facet_var = species)
 ```
 
 A `*_col_facet()` function such `gg_point_col_facet()` requires only a dataset, an x variable, a y variable, a colour variable, and a facet variable. 
@@ -202,8 +194,7 @@ gg_point_col_facet(penguins,
                    x_var = bill_length_mm, 
                    y_var = body_mass_g, 
                    col_var = sex, 
-                   facet_var = species, 
-                   size_point = 1)
+                   facet_var = species)
 ```
 
 Data is generally plotted with a stat of `identity`, which means data is plotted as is. 
@@ -225,8 +216,7 @@ Defaults titles are:
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
-             col_var = species, 
-             size_point = 1)
+             col_var = species)
 ```
 
 You can customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
@@ -236,7 +226,6 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             size_point = 1,
              title = "Adult penguin mass by bill length and species",
              subtitle = "Palmer station, Antarctica",
              x_title = "Bill length (mm)", 
@@ -254,8 +243,7 @@ Change the colour palette by supplying a vector of colours to the `pal` argument
 gg_point(iris, 
          x_var = Sepal.Width, 
          y_var = Sepal.Length, 
-         pal = "#e7298a", 
-         size_point = 1)
+         pal = "#e7298a")
 ```
 
 ```{r}
@@ -263,8 +251,7 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             pal = c("#da3490", "#9089fa", "#47e26f"), 
-             size_point = 1)
+             pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
 ### Scales
@@ -292,7 +279,6 @@ gg_bar_col(plot_data,
         y_var = wind, 
         col_var = status,
         position = "stack",
-        size_point = 1,
         x_breaks_n = 4,
         x_labels = function(x) stringr::str_sub(x, 3, 4),
         y_labels = scales::label_comma(accuracy = 0.1), 
@@ -307,8 +293,7 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = sex, 
-             col_na_rm = TRUE,
-             size_point = 1)
+             col_na_rm = TRUE)
 ```
 
 `bar*()` and `hbar*()` plots support a `"stack"` position as well as the default `"dodge"`.
@@ -334,7 +319,6 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             size_point = 1,
              title = "A nice long title", 
              subtitle = "And a subtitle",
              theme = ggplot2::theme_grey())
@@ -372,14 +356,12 @@ The borders argument allows for the user to provide an sf object as context to t
 gg_sf_col(example_polygon, 
           col_var = density, 
           col_method = "continuous",
-          size_point = 1,
           borders = example_borders)
 ```
 
 ```{r}
 gg_sf_col(example_polygon, 
           col_var = density, 
-          size_point = 1,
           col_method = "bin",
           borders = example_borders)
 ```
@@ -387,7 +369,6 @@ gg_sf_col(example_polygon,
 ```{r}
 gg_stars_col(example_stars,
              col_var = nitrate,
-             size_point = 1,
              col_method = "quantile",
              col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
              col_na_rm = TRUE,
@@ -447,7 +428,7 @@ penguins %>%
                  col_na_rm = TRUE)
 ```
 
-### Output objects and adding layers
+### Output objects and adding ggplot2 layers
 
 All `gg_*` and `leaf_*` wrapper functions produce ggplot or leaflet objects.
 
@@ -459,8 +440,7 @@ Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 gg_point_col(penguins,
              x_var = bill_length_mm,
              y_var = body_mass_g,
-             col_var = species, 
-             size_point = 1) +
+             col_var = species) +
   ggplot2::scale_y_log10(
     name = "Bill length mm",
     breaks = function(x) pretty(x, 4),
@@ -469,6 +449,25 @@ gg_point_col(penguins,
   ) 
 
 ```
+
+### Working with the `patchwork` package
+
+```{r}
+library(patchwork)
+
+p1 <- gg_point(penguins, 
+               x_var = species, 
+               y_var = body_mass_g, 
+               position = position_jitter(width = 0.2), 
+               alpha_point = 0.5) 
+
+p2 <- gg_boxplot(penguins, 
+                 x_var = species, 
+                 y_var = body_mass_g) 
+
+p1 + p2
+```
+
 
 This means you can facet by more than one variable, provided that you are not using a position of "stack". 
 
@@ -517,8 +516,7 @@ The `mutate_text` function uses all variables in the dataset by defalut, but a s
 plot <- gg_point_col(penguins, 
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
-                     col_var = species, 
-                     size_point = 1) 
+                     col_var = species) 
 
 plotly::ggplotly(plot) %>% 
   plotly_camera()
@@ -530,8 +528,7 @@ plot <- gg_point_col(plot_data,
                      x_var = bill_length_mm, 
                      y_var = body_mass_g, 
                      col_var = species, 
-                     text_var = text, 
-                     size_point = 1)
+                     text_var = text)
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera()

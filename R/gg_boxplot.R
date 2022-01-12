@@ -4,7 +4,7 @@
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point Size of outlier points. Defaults to 1.5.
@@ -75,7 +75,7 @@ gg_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
                        pal = pal_viridis_reorder(1),
-                       alpha_fill = 0,
+                       alpha_fill = 0.2,
                        alpha_line = 1,
                        alpha_point = 1,
                        size_line = 0.5,
@@ -275,7 +275,7 @@ gg_boxplot <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point Size of outlier points. Defaults to 1.5.
@@ -367,7 +367,7 @@ gg_boxplot_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           alpha_fill = 0,
+                           alpha_fill = 0.2,
                            alpha_line = 1,
                            alpha_point = 1,
                            size_line = 0.5,
@@ -628,7 +628,7 @@ gg_boxplot_col <- function(data,
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
@@ -685,7 +685,7 @@ gg_boxplot_facet <- function(data,
                              y_var = NULL,
                              facet_var,
                              pal = pal_viridis_reorder(1),
-                             alpha_fill = 0,
+                             alpha_fill = 0.2,
                              alpha_line = 1,
                              alpha_point = 1,
                              size_line = 0.5,
@@ -906,7 +906,7 @@ gg_boxplot_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0. 
+#' @param alpha_fill The opacity of the fill. Defaults to 0.2. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point Size of outlier points. Defaults to 1.5.
@@ -978,7 +978,7 @@ gg_boxplot_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 alpha_fill = 0,
+                                 alpha_fill = 0.2,
                                  alpha_line = 1,
                                  alpha_point = 1,
                                  size_line = 0.5,

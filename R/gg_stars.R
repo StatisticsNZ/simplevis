@@ -7,7 +7,7 @@
 #' @param pal Character vector of hex codes. 
 #' @param pal_borders Colour of the borders. Defaults to "#323232".
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5.
-#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param alpha_borders Opacity of the borders. Defaults to 0.5.
 #' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -33,7 +33,7 @@ gg_stars <- function(data,
                      pal = pal_viridis_reorder(1),
                      pal_borders = "#323232",
                      alpha_fill = 0.5,
-                     alpha_borders = 1, 
+                     alpha_borders = 0.5, 
                      size_borders = 0.2,
                      title = NULL,
                      title_wrap = 80,
@@ -139,7 +139,7 @@ gg_stars <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_fill The opacity of the fill. Defaults to 1.
 #' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
-#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param alpha_borders Opacity of the borders. Defaults to 0.5.
 #' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -179,7 +179,7 @@ gg_stars_col <- function(data,
                          pal_rev = FALSE,
                          pal_borders = "#7F7F7F",
                          alpha_fill = 1,
-                         alpha_borders = 1, 
+                         alpha_borders = 0.5, 
                          size_borders = 0.2,
                          title = NULL,
                          title_wrap = 80,

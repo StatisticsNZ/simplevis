@@ -9,7 +9,7 @@
 #' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
-#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param alpha_borders Opacity of the borders. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param size_point Size of points. Defaults to 1.5.
 #' @param size_borders Size of the borders. Defaults to 0.2.
@@ -36,7 +36,7 @@ gg_sf <- function(data,
                   alpha_fill = NULL,
                   alpha_line = 1,
                   alpha_point = 1,
-                  alpha_borders = 1,
+                  alpha_borders = 0.5,
                   size_line = 0.5,
                   size_point = 1.5,
                   size_borders = 0.2,
@@ -186,7 +186,7 @@ gg_sf <- function(data,
 #' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
-#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param alpha_borders Opacity of the borders. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param size_point Size of points. Defaults to 1.5.
 #' @param size_borders Size of the borders. Defaults to 0.2.
@@ -255,7 +255,7 @@ gg_sf_col <- function(data,
                       alpha_fill = NULL,
                       alpha_line = 1,
                       alpha_point = 1,
-                      alpha_borders = 1,
+                      alpha_borders = 0.5,
                       size_line = 0.5,
                       size_point = 1.5,
                       size_borders = 0.2,
@@ -603,7 +603,7 @@ gg_sf_col <- function(data,
 #' @param facet_nrow The number of rows of facetted plots. 
 #' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param pal_borders Colour of the borders. Defaults to "#7F7F7F".
-#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param alpha_borders Opacity of the borders. Defaults to 0.5.
 #' @param size_borders Size of the borders. Defaults to 0.2.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -630,7 +630,7 @@ gg_sf_facet <- function(data,
                         alpha_fill = NULL,
                         alpha_line = 1,
                         alpha_point = 1,
-                        alpha_borders = 1,
+                        alpha_borders = 0.5,
                         size_line = 0.5,
                         size_point = 1.5,
                         size_borders = 0.2,
@@ -801,7 +801,7 @@ gg_sf_facet <- function(data,
 #' @param alpha_fill The opacity of the fill.
 #' @param alpha_line The alpha of lines and outlines. 
 #' @param alpha_point The alpha of points. 
-#' @param alpha_borders Opacity of the borders. Defaults to 1.
+#' @param alpha_borders Opacity of the borders. Defaults to 0.5.
 #' @param size_line Size of lines. Defaults to 0.5.
 #' @param size_point Size of points. Defaults to 1.5.
 #' @param size_borders Size of the borders. Defaults to 0.2.
@@ -848,7 +848,7 @@ gg_sf_col_facet <- function(data,
                             alpha_fill = NULL,
                             alpha_line = 1,
                             alpha_point = 1,
-                            alpha_borders = 1,
+                            alpha_borders = 0.5,
                             size_line = 0.5,
                             size_point = 1.5,
                             size_borders = 0.2,

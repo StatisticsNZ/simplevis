@@ -27,6 +27,7 @@ leaf_sf_col(
   col_method = NULL,
   col_na_rm = FALSE,
   col_title = NULL,
+  layer_id = NULL,
   map_id = "map"
 )
 }
@@ -75,7 +76,9 @@ leaf_sf_col(
 
 \item{col_title}{A title string that will be wrapped into the legend.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
+\item{layer_id}{The layer id of features.}
+
+\item{map_id}{The map id for a leaflet map within a shiny app.}
 }
 \value{
 A leaflet object.

@@ -15,6 +15,7 @@ leaf_sf(
   alpha_line = NULL,
   alpha_fill = NULL,
   basemap = "light",
+  layer_id = NULL,
   map_id = "map"
 )
 }
@@ -38,6 +39,8 @@ leaf_sf(
 \item{alpha_fill}{The opacity of the fill.}
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
+
+\item{layer_id}{The layer id of features.}
 
 \item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
 }

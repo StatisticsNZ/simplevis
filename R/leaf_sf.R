@@ -12,6 +12,7 @@
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
+#' @param layer_id The layer id of features. 
 #' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
 #' @return A leaflet object.
 #' @export
@@ -21,16 +22,17 @@
 #' leaf_sf(example_polygon)
 #' 
 leaf_sf <- function(data,
-                       popup_vars_vctr = NULL,
-                       popup_vars_rename = snakecase::to_sentence_case,
-                       pal = pal_viridis_reorder(1),
-                       size_point = 2,
-                       size_line = 2,
-                       alpha_point = NULL,
-                       alpha_line = NULL,
-                       alpha_fill = NULL,
-                       basemap = "light",
-                       map_id = "map")
+                    popup_vars_vctr = NULL,
+                    popup_vars_rename = snakecase::to_sentence_case,
+                    pal = pal_viridis_reorder(1),
+                    size_point = 2,
+                    size_line = 2,
+                    alpha_point = NULL,
+                    alpha_line = NULL,
+                    alpha_fill = NULL,
+                    basemap = "light",
+                    layer_id = NULL,
+                    map_id = "map")
 {
   #ungroup
   data <- dplyr::ungroup(data)
@@ -50,8 +52,7 @@ leaf_sf <- function(data,
   
   #colour
   pal <- pal[1]
-  col_id <- paste0(map_id, "_legend")
-  
+
   #basemap
   if (shiny == FALSE) {
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
@@ -98,7 +99,8 @@ leaf_sf <- function(data,
         htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
@@ -109,11 +111,12 @@ leaf_sf <- function(data,
     }
     else if (shiny == TRUE) {
       
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
@@ -135,7 +138,8 @@ leaf_sf <- function(data,
         htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolylines(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_line,
@@ -145,11 +149,12 @@ leaf_sf <- function(data,
     }
     else if (shiny == TRUE) {
       
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolylines(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_line,
@@ -171,7 +176,8 @@ leaf_sf <- function(data,
         htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolygons(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_fill, 
@@ -180,11 +186,12 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolygons(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_fill, 
@@ -221,7 +228,8 @@ leaf_sf <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
-#' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
+#' @param layer_id The layer id of features. 
+#' @param map_id The map id for a leaflet map within a shiny app. 
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -252,28 +260,29 @@ leaf_sf <- function(data,
 #'               col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
 #'
 leaf_sf_col <- function(data,
-                           col_var,
-                           label_var = NULL,
-                           popup_vars_vctr = NULL,
-                           popup_vars_rename = snakecase::to_sentence_case,
-                           pal = NULL,
-                           pal_na = "#7F7F7F",
-                           pal_rev = FALSE,
-                           alpha_point = NULL,
-                           alpha_line = NULL,
-                           alpha_fill = NULL,
-                           size_point = 2,
-                           size_line = 2,
-                           basemap = "light",
-                           col_breaks_n = 4,
-                           col_cuts = NULL,
-                           col_intervals_right = TRUE, 
-                           col_labels = NULL,
-                           col_legend_none = FALSE,
-                           col_method = NULL,
-                           col_na_rm = FALSE,
-                           col_title = NULL,
-                           map_id = "map"
+                        col_var,
+                        label_var = NULL,
+                        popup_vars_vctr = NULL,
+                        popup_vars_rename = snakecase::to_sentence_case,
+                        pal = NULL,
+                        pal_na = "#7F7F7F",
+                        pal_rev = FALSE,
+                        alpha_point = NULL,
+                        alpha_line = NULL,
+                        alpha_fill = NULL,
+                        size_point = 2,
+                        size_line = 2,
+                        basemap = "light",
+                        col_breaks_n = 4,
+                        col_cuts = NULL,
+                        col_intervals_right = TRUE,
+                        col_labels = NULL,
+                        col_legend_none = FALSE,
+                        col_method = NULL,
+                        col_na_rm = FALSE,
+                        col_title = NULL,
+                        layer_id = NULL,
+                        map_id = "map"
 ) {
   
   #ungroup
@@ -395,8 +404,6 @@ leaf_sf_col <- function(data,
                            na.color = pal_na)
   }
   
-  col_id <- paste0(map_id, "_legend")
-  
   #basemap
   if (shiny == FALSE) {
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
@@ -443,7 +450,8 @@ leaf_sf_col <- function(data,
         htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
           popup = ~ popup,
@@ -454,11 +462,12 @@ leaf_sf_col <- function(data,
         )
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
           popup = ~ popup,
@@ -481,7 +490,8 @@ leaf_sf_col <- function(data,
         htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolylines(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -491,11 +501,12 @@ leaf_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolylines(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -517,7 +528,8 @@ leaf_sf_col <- function(data,
         htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
         addProviderTiles(basemap_name) %>%
         addPolygons(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -527,11 +539,12 @@ leaf_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
+      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolygons(
-          data = data,
+          data = data, 
+          layerId = ~ layer_id,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -560,7 +573,6 @@ leaf_sf_col <- function(data,
     if (col_method == "continuous") {
       map <- map %>% 
         addLegend(
-          layerId = col_id,
           pal = pal_fun,
           values = col_var_vctr,
           bins = col_cuts,
@@ -571,7 +583,6 @@ leaf_sf_col <- function(data,
     else if (col_method %in% c("bin", "quantile", "category")) {
       map <- map %>% 
         addLegend(
-          layerId = col_id,
           colors = pal,
           labels = col_labels,
           title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),

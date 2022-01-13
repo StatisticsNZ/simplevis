@@ -22,7 +22,7 @@ data_source <- "Diamonds Association"
 
 # choose a basemap
 basemap <-
-  leaflet_basemap(bounds = c(166.70047, -34.45676, 178.52966, -47.06345))
+  leaf_basemap(bounds = c(166.70047, -34.45676, 178.52966, -47.06345))
 
 # add other helpers as required
 color_vector <- sort(unique(data1$color))

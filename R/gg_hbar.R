@@ -232,7 +232,7 @@ gg_hbar <- function(data,
     x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   })
   
   if (x_zero_line == TRUE) {
@@ -632,7 +632,7 @@ gg_hbar_col <- function(data,
     x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
-      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+      scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
   })
   
   if (x_zero_line == TRUE) {
@@ -972,7 +972,7 @@ gg_hbar_facet <- function(data,
       x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {
@@ -1386,7 +1386,7 @@ gg_hbar_col_facet <- function(data,
       x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
-        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels)
+        scale_y_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     })
   }
   else if (facet_scales %in% c("free", "free_x")) {

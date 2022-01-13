@@ -163,6 +163,7 @@
 
     <pre class="usage"><span class='fu'>leaf_sf</span>(
   <span class='no'>data</span>,
+  <span class='kw'>popup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>popup_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>popup_vars_rename</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
@@ -182,6 +183,10 @@
     <tr>
       <th>data</th>
       <td><p>An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.</p></td>
+    </tr>
+    <tr>
+      <th>popup</th>
+      <td><p>TRUE or FALSE of whether to have a popup.</p></td>
     </tr>
     <tr>
       <th>popup_vars_vctr</th>

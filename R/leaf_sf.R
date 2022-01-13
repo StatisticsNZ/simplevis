@@ -3,6 +3,7 @@
 #' @title Simple feature leaflet map.
 #' @description Map of simple features in leaflet that is not coloured. 
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
+#' @param popup TRUE or FALSE of whether to have a popup.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
 #' @param pal Character vector of hex codes.
@@ -22,6 +23,7 @@
 #' leaf_sf(example_polygon)
 #' 
 leaf_sf <- function(data,
+                    popup = TRUE,
                     popup_vars_vctr = NULL,
                     popup_vars_rename = snakecase::to_sentence_case,
                     pal = pal_viridis_reorder(1),
@@ -64,19 +66,22 @@ leaf_sf <- function(data,
   }
   
   #popup
-  if (is.null(popup_vars_vctr)){
-    popup_data <- data %>%
-      dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(popup_vars_rename) 
+  if (popup == TRUE) {
+    if (is.null(popup_vars_vctr)){
+      popup_data <- data %>%
+        dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
+        dplyr::rename_with(popup_vars_rename) 
+    }
+    else {
+      popup_data <- data %>%
+        dplyr::select(popup_vars_vctr) %>%
+        dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
+        dplyr::rename_with(popup_vars_rename) 
+    }
+    
+    popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   }
-  else {
-    popup_data <- data %>%
-      dplyr::select(popup_vars_vctr) %>%
-      dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(popup_vars_rename) 
-  }
-  
-  popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
+  else popup <- NULL
   
   #layer id
   if (!is.null(rlang::get_expr(layer_id_var))) {
@@ -107,7 +112,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
@@ -117,13 +122,12 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
+      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
@@ -146,7 +150,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_line,
@@ -155,13 +159,12 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
+      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_line,
@@ -184,7 +187,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_fill, 
@@ -193,12 +196,12 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
+      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_fill, 
@@ -216,6 +219,7 @@ leaf_sf <- function(data,
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param col_var Unquoted variable to colour the features by. Required input.
 #' @param label_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
+#' @param popup TRUE or FALSE of whether to have a popup.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
 #' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
 #' @param pal Character vector of hex codes. 
@@ -269,6 +273,7 @@ leaf_sf <- function(data,
 leaf_sf_col <- function(data,
                         col_var,
                         label_var = NULL,
+                        popup = TRUE,
                         popup_vars_vctr = NULL,
                         popup_vars_rename = snakecase::to_sentence_case,
                         pal = NULL,
@@ -421,19 +426,22 @@ leaf_sf_col <- function(data,
   }
   
   #popup
-  if (is.null(popup_vars_vctr)){
-    popup_data <- data %>%
-      dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(popup_vars_rename) 
+  if (popup == TRUE) {
+    if (is.null(popup_vars_vctr)){
+      popup_data <- data %>%
+        dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
+        dplyr::rename_with(popup_vars_rename) 
+    }
+    else {
+      popup_data <- data %>%
+        dplyr::select(popup_vars_vctr) %>%
+        dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
+        dplyr::rename_with(popup_vars_rename) 
+    }
+    
+    popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   }
-  else {
-    popup_data <- data %>%
-      dplyr::select(popup_vars_vctr) %>%
-      dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-      dplyr::rename_with(popup_vars_rename) 
-  }
-  
-  popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
+  else popup <- NULL
   
   #layer id
   layer_id_var <- rlang::enquo(layer_id_var)
@@ -464,7 +472,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
           popup = ~ popup,
@@ -475,12 +483,12 @@ leaf_sf_col <- function(data,
         )
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
+      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
           popup = ~ popup,
@@ -504,7 +512,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -514,12 +522,12 @@ leaf_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
+      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -542,7 +550,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -552,12 +560,12 @@ leaf_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% clearControls()
+      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
       
       map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id_var,
+          layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,

@@ -8,6 +8,7 @@ leaf_sf_col(
   data,
   col_var,
   label_var = NULL,
+  popup = TRUE,
   popup_vars_vctr = NULL,
   popup_vars_rename = snakecase::to_sentence_case,
   pal = NULL,
@@ -37,6 +38,8 @@ leaf_sf_col(
 \item{col_var}{Unquoted variable to colour the features by. Required input.}
 
 \item{label_var}{Unquoted variable to label the features by. If NULL, defaults to using the colour variable.}
+
+\item{popup}{TRUE or FALSE of whether to have a popup.}
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 

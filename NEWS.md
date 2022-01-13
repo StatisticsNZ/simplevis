@@ -16,6 +16,7 @@ New features:
 * Removed trans arguments from functions. 
 * In density functions, renamed density_ prefixed arguments to model_.
 * Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.
+* In leaf_sf functions, added 
 
 Breaking:
 * In bar, changed position argument to stack = FALSE.

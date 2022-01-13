@@ -6,6 +6,7 @@
 \usage{
 leaf_sf(
   data,
+  popup = TRUE,
   popup_vars_vctr = NULL,
   popup_vars_rename = snakecase::to_sentence_case,
   pal = pal_viridis_reorder(1),
@@ -21,6 +22,8 @@ leaf_sf(
 }
 \arguments{
 \item{data}{An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.}
+
+\item{popup}{TRUE or FALSE of whether to have a popup.}
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 

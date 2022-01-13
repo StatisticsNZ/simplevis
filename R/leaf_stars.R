@@ -6,7 +6,7 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
+#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -90,7 +90,7 @@ leaf_stars <- function(data,
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric. Use function(x) x to keep labels untransformed.  
 #' @param col_na_rm TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
-#' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
+#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples

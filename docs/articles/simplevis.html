@@ -117,7 +117,7 @@
       <h1 data-toc-skip>Simplevis</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2022-01-13</h4>
+            <h4 class="date">2022-01-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/simplevis.Rmd"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="hidden name"><code>simplevis.Rmd</code></div>
@@ -353,7 +353,8 @@
        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
        <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-       <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+       <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+       <span class="kw">size_width</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 </div>
 <div id="position-adjustments" class="section level3">
@@ -422,7 +423,7 @@
   <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
   <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
   <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Body mass g"</span>,
-  <span class="kw">x_dodge</span> <span class="kw">=</span> <span class="fl">0.1</span>)</pre></body></html></div>
+  <span class="kw">x_dodge</span> <span class="kw">=</span> <span class="fl">0.3</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-29-1.png" width="576"></p>
 </div>
 <div id="themes" class="section level3">
@@ -489,9 +490,8 @@
 <h3 class="hasAnchor">
 <a href="#supported-variable-classes" class="anchor"></a>Supported variable classes</h3>
 <p>Variable types supported by the different families of functions are outlined below.</p>
-<p>A stat of <code>identity</code> refers to the value being plotted as it is. A stat of <code>boxplot</code> refers to boxplot statistics being calculated from the data, and these plotted.</p>
 <div id="htmlwidget-45f7c30c2d887a6c1f41" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-45f7c30c2d887a6c1f41">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["bar","boxplot","density","line","point","pointrange","sf","smooth","stars","tile","violin","hbar","hboxplot","hviolin","hpointrange"],["tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","sf","tibble or data.frame","stars","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame"],["Any*","Categorical","Numeric","Any","Any","Any",null,"Numeric",null,"Categorical","Categorical","Numeric","Numeric","Numeric","Numeric"],["Numeric","Numeric",null,"Numeric","Numeric","Numeric",null,"Numeric",null,"Categorical","Numeric","Any*","Categorical","Categorical","Any"],["Categorical or numeric","Categorical","Categorical","Categorical","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical","Categorical or numeric","Categorical","Categorical","Categorical or numeric"],["Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical",null,"Categorical","Categorical","Categorical","Categorical","Categorical","Categorical"],["identity","boxplot (or identity)","density","identity","identity","identity","identity","identity","identity","identity","ydensity","identity","boxplot (or identity)","ydensity","identity"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>family<\/th>\n      <th>data<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n      <th>stat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"lengthChange":false,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Where:</p>
+<script type="application/json" data-for="htmlwidget-45f7c30c2d887a6c1f41">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["bar","boxplot","density","line","point","pointrange","sf","smooth","stars","tile","violin","hbar","hboxplot","hviolin","hpointrange"],["tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","sf","tibble or data.frame","stars","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame","tibble or data.frame"],["Any*","Categorical","Numeric","Any","Any","Any",null,"Numeric",null,"Categorical","Categorical","Numeric","Numeric","Numeric","Numeric"],["Numeric","Numeric",null,"Numeric","Numeric","Numeric",null,"Numeric",null,"Categorical","Numeric","Any*","Categorical","Categorical","Any"],["Categorical or numeric","Categorical","Categorical","Categorical","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical or numeric","Categorical","Categorical or numeric","Categorical","Categorical","Categorical or numeric"],["Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical",null,"Categorical","Categorical","Categorical","Categorical","Categorical","Categorical"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>family<\/th>\n      <th>data<\/th>\n      <th>x_var<\/th>\n      <th>y_var<\/th>\n      <th>col_var<\/th>\n      <th>facet_var<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"lengthChange":false,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Where:</p>
 <ul>
 <li>Categorical refers to character, factor, or logical classes.</li>
 <li>Numeric refers to double or integer classes.</li>

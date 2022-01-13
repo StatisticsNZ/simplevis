@@ -172,6 +172,7 @@
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+  <span class='kw'>layer_id_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>
 )</pre>
 
@@ -219,8 +220,12 @@
       <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
     </tr>
     <tr>
+      <th>layer_id_var</th>
+      <td><p>Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.</p></td>
+    </tr>
+    <tr>
       <th>map_id</th>
-      <td><p>The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".</p></td>
+      <td><p>The shiny map id for a leaflet map within a shiny app. Defaults to "map".</p></td>
     </tr>
     </table>
 

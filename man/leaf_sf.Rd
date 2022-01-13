@@ -15,7 +15,7 @@ leaf_sf(
   alpha_line = NULL,
   alpha_fill = NULL,
   basemap = "light",
-  layer_id = NULL,
+  layer_id_var = NULL,
   map_id = "map"
 )
 }
@@ -40,9 +40,9 @@ leaf_sf(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{layer_id}{The layer id of features.}
+\item{layer_id_var}{Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
+\item{map_id}{The shiny map id for a leaflet map within a shiny app. Defaults to "map".}
 }
 \value{
 A leaflet object.

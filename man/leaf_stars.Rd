@@ -21,7 +21,7 @@ leaf_stars(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".}
+\item{map_id}{The shiny map id for a leaflet map within a shiny app. Defaults to "map".}
 }
 \value{
 A leaflet object.

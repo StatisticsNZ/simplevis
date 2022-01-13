@@ -12,8 +12,8 @@
 #' @param size_point Size of points (i.e. radius). Defaults to 2.
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param layer_id The layer id of features. 
-#' @param map_id The shiny map id for a leaflet map within a shiny app. For standard single-map apps, id "map" should be used. For dual-map apps, "map1" and "map2" should be used. Defaults to "map".
+#' @param layer_id_var Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id. 
+#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -31,7 +31,7 @@ leaf_sf <- function(data,
                     alpha_line = NULL,
                     alpha_fill = NULL,
                     basemap = "light",
-                    layer_id = NULL,
+                    layer_id_var = NULL,
                     map_id = "map")
 {
   #ungroup
@@ -78,6 +78,13 @@ leaf_sf <- function(data,
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   
+  #layer id
+  if (!is.null(rlang::get_expr(layer_id_var))) {
+    layer_id_var <- rlang::enquo(layer_id_var)
+    
+    layer_id_var <- dplyr::pull(data, !!layer_id_var)  
+  }
+  
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha_point)) {
@@ -100,7 +107,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
@@ -116,7 +123,7 @@ leaf_sf <- function(data,
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           popup = ~ popup,
           color = pal[1],
           radius = size_point,
@@ -139,7 +146,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_line,
@@ -154,7 +161,7 @@ leaf_sf <- function(data,
       map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_line,
@@ -177,7 +184,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_fill, 
@@ -191,7 +198,7 @@ leaf_sf <- function(data,
       map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           popup = ~ popup,
           color = pal[1],
           fillOpacity = alpha_fill, 
@@ -228,8 +235,8 @@ leaf_sf <- function(data,
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
-#' @param layer_id The layer id of features. 
-#' @param map_id The map id for a leaflet map within a shiny app. 
+#' @param layer_id_var Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id. 
+#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -281,9 +288,8 @@ leaf_sf_col <- function(data,
                         col_method = NULL,
                         col_na_rm = FALSE,
                         col_title = NULL,
-                        layer_id = NULL,
-                        map_id = "map"
-) {
+                        layer_id_var = NULL,
+                        map_id = "map") {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -309,7 +315,7 @@ leaf_sf_col <- function(data,
   col_var <- rlang::enquo(col_var)
   label_var <- rlang::enquo(label_var)
   if (is.null(rlang::get_expr(label_var))) label_var <- col_var
-  
+
   #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
@@ -319,7 +325,7 @@ leaf_sf_col <- function(data,
   #vectors
   col_var_vctr <- dplyr::pull(data, !!col_var)
   label_var_vctr <- dplyr::pull(data, !!label_var)
-  
+
   #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
@@ -429,6 +435,13 @@ leaf_sf_col <- function(data,
   
   popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   
+  #layer id
+  layer_id_var <- rlang::enquo(layer_id_var)
+  
+  if (!is.null(rlang::get_expr(layer_id_var))) {
+    layer_id_var <- dplyr::pull(data, !!layer_id_var) 
+  }
+  
   #fundamentals
   if (geometry_type %in% c("POINT", "MULTIPOINT")) {
     if (is.null(alpha_point)) {
@@ -451,7 +464,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
           popup = ~ popup,
@@ -467,7 +480,7 @@ leaf_sf_col <- function(data,
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
           popup = ~ popup,
@@ -491,7 +504,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -506,7 +519,7 @@ leaf_sf_col <- function(data,
       map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -529,7 +542,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,
@@ -544,7 +557,7 @@ leaf_sf_col <- function(data,
       map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data, 
-          layerId = ~ layer_id,
+          layerId = ~ layer_id_var,
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
           label = ~ label_var_vctr,

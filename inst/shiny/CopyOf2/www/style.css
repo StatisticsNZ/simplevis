@@ -1,0 +1,33 @@
+html, body, .container {
+  height: 100%;
+}
+
+.navbar-static-top {
+    z-index: 1500;
+}
+
+.container-fluid{
+  height: 100%;
+}
+
+.col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11 {
+  height: 100%
+}
+
+#map {
+  margin-left: 5%;
+}
+
+#plot_desktop {
+  min-width: 600px;
+  max-width: 1000px;
+}
+
+#plot_mobile {
+  min-width: 300px;
+}
+
+.shiny-output-error { visibility: hidden; }
+
+.shiny-output-error:before { visibility: hidden; }
+

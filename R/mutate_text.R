@@ -2,7 +2,6 @@
 #' @description Add a column of tooltip text which is automatically created based on column names and values. 
 #' @param data A tibble or dataframe. Required input.
 #' @param text_vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
-#' @param numeric_format A function to format numeric variables.
 #' 
 #' @return A tibble or data frame with an additional column called text.
 #' @export
@@ -10,7 +9,9 @@
 #' library(dplyr)
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) %>% 
-#'   mutate_text(c("carat", "price"), numeric_format = function(x) format(x, big.mark = ","))
+#'   mutate_text(c("carat", "price"))
+#'   
+#' plot_data
 #' 
 #' plot <- gg_point(data = plot_data, 
 #'                  x_var = carat, 
@@ -23,8 +24,7 @@
 #' plotly::ggplotly(plot, tooltip = "text")
 #' 
 mutate_text <- function(data, 
-                        text_vars_vctr = NULL, 
-                        numeric_format = NULL) {
+                        text_vars_vctr = NULL) {
   
   data <- data %>% 
     dplyr::ungroup() 
@@ -41,11 +41,6 @@ mutate_text <- function(data,
   
   temp <- data %>% 
     dplyr::select(text_vars_vctr) 
-  
-  if (!is.null(numeric_format)) {
-    temp <- temp %>% 
-      dplyr::mutate_if(is.numeric, numeric_format)
-  }
   
   text <- vector("character", 0)
   

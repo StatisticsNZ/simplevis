@@ -430,7 +430,7 @@ leaf_sf_col <- function(data,
     if (is.null(popup_vars_vctr)){
       popup_data <- data %>%
         dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
-        dplyr::rename_with(popup_vars_rename) 
+        dplyr::rename_with(popup_vars_rename)
     }
     else {
       popup_data <- data %>%

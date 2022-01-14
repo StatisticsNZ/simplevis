@@ -186,6 +186,7 @@
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label_numeric_format</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>prettyNum</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
   <span class='kw'>layer_id_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>
 )</pre>
@@ -215,7 +216,7 @@
     </tr>
     <tr>
       <th>popup_numeric_format</th>
-      <td><p>A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.</p></td>
+      <td><p>A function to format all numeric variables within the popup column. Defaults to adding a comma seperator. Use function(x) x to leave as is.</p></td>
     </tr>
     <tr>
       <th>popup_vars_rename</th>
@@ -288,6 +289,10 @@
     <tr>
       <th>col_title</th>
       <td><p>A title string that will be wrapped into the legend.</p></td>
+    </tr>
+    <tr>
+      <th>label_numeric_format</th>
+      <td><p>A function to format the numeric labels. Defaults to adding a comma seperator. Use function(x) x to leave as is.</p></td>
     </tr>
     <tr>
       <th>layer_id_var</th>

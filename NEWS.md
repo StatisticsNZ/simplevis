@@ -16,7 +16,8 @@ New features:
 * Removed trans arguments from functions. 
 * In density functions, renamed density_ prefixed arguments to model_.
 * Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.
-* In leaf_sf functions, added 
+* In leaf_sf functions, supported layer id's.
+* Defaulted mutate_text and leaf popups to adding comma's.
 
 Breaking:
 * In bar, changed position argument to stack = FALSE.
@@ -28,6 +29,7 @@ Breaking:
 * Removed *_gridlines_minor arguments.
 * Removed font_family, font_size_title and font_size_body arguments.
 * Removed comma argument from mutate_text.
+* In mutate_text, renamed text_vars_vctr to vars_vctr. 
 
 Other:
 * Tidied code.

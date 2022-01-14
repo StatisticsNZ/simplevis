@@ -167,6 +167,7 @@
   <span class='kw'>label_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>popup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>popup_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>popup_numeric_format</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>prettyNum</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
   <span class='kw'>popup_vars_rename</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
@@ -211,6 +212,10 @@
     <tr>
       <th>popup_vars_vctr</th>
       <td><p>Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.</p></td>
+    </tr>
+    <tr>
+      <th>popup_numeric_format</th>
+      <td><p>A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.</p></td>
     </tr>
     <tr>
       <th>popup_vars_rename</th>

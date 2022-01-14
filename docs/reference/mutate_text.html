@@ -161,7 +161,11 @@
     <p>Add a column of tooltip text which is automatically created based on column names and values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mutate_text</span>(<span class='no'>data</span>, <span class='kw'>text_vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>mutate_text</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>numeric_format</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>prettyNum</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,8 +175,12 @@
       <td><p>A tibble or dataframe. Required input.</p></td>
     </tr>
     <tr>
-      <th>text_vars_vctr</th>
+      <th>vars_vctr</th>
       <td><p>A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.</p></td>
+    </tr>
+    <tr>
+      <th>numeric_format</th>
+      <td><p>A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.</p></td>
     </tr>
     </table>
 
@@ -184,22 +192,8 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
 <span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/slice.html'>slice_sample</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/ggplot2/man/diamonds.html'>diamonds</a></span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>mutate_text</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>))
+  <span class='fu'>mutate_text</span>(<span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"carat"</span>, <span class='st'>"price"</span>))
 
-<span class='no'>plot_data</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,697 × 11</span>
-#&gt;    carat cut       color clarity depth table price     x     y     z text       
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
-#&gt; <span style='color: #BCBCBC;'> 1</span>  0.25 Good      H     VVS1     60.6    64   401  4.05  4.07  2.46 Carat: 0.2…
-#&gt; <span style='color: #BCBCBC;'> 2</span>  1.01 Very Good F     SI1      63.1    59  <span style='text-decoration: underline;'>5</span>010  6.3   6.37  4    Carat: 1.0…
-#&gt; <span style='color: #BCBCBC;'> 3</span>  1.12 Ideal     G     VVS2     61.9    57  <span style='text-decoration: underline;'>9</span>214  6.62  6.66  4.11 Carat: 1.1…
-#&gt; <span style='color: #BCBCBC;'> 4</span>  1.11 Premium   G     VS2      61      59  <span style='text-decoration: underline;'>5</span>346  6.7   6.67  4.08 Carat: 1.1…
-#&gt; <span style='color: #BCBCBC;'> 5</span>  0.92 Premium   H     SI1      62      60  <span style='text-decoration: underline;'>3</span>555  6.27  6.21  3.87 Carat: 0.9…
-#&gt; <span style='color: #BCBCBC;'> 6</span>  0.55 Very Good D     SI1      63.1    56  <span style='text-decoration: underline;'>1</span>593  5.19  5.22  3.28 Carat: 0.5…
-#&gt; <span style='color: #BCBCBC;'> 7</span>  1.06 Ideal     F     SI2      61.8    56  <span style='text-decoration: underline;'>5</span>354  6.56  6.51  4.04 Carat: 1.0…
-#&gt; <span style='color: #BCBCBC;'> 8</span>  0.7  Very Good I     VS1      63.3    55  <span style='text-decoration: underline;'>1</span>995  5.64  5.6   3.56 Carat: 0.7…
-#&gt; <span style='color: #BCBCBC;'> 9</span>  0.41 Ideal     H     SI1      62.4    56   876  4.78  4.74  2.97 Carat: 0.4…
-#&gt; <span style='color: #BCBCBC;'>10</span>  0.59 Very Good E     SI1      62.9    58  <span style='text-decoration: underline;'>1</span>652  5.31  5.34  3.35 Carat: 0.5…
-#&gt; <span style='color: #949494;'># … with 2,687 more rows</span></div><div class='input'>
 <span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gg_point.html'>gg_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>,
                  <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>,
                  <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>,

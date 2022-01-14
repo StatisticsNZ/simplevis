@@ -8,6 +8,7 @@ leaf_sf(
   data,
   popup = TRUE,
   popup_vars_vctr = NULL,
+  popup_numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE),
   popup_vars_rename = snakecase::to_sentence_case,
   pal = pal_viridis_reorder(1),
   size_point = 2,
@@ -26,6 +27,8 @@ leaf_sf(
 \item{popup}{TRUE or FALSE of whether to have a popup.}
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
+
+\item{popup_numeric_format}{A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
 
 \item{popup_vars_rename}{Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.}
 

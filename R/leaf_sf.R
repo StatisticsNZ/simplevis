@@ -5,6 +5,7 @@
 #' @param data An sf object of geometry type point/multipoint, linestring/multilinestring or polygon/multipolygon geometry type. Required input.
 #' @param popup TRUE or FALSE of whether to have a popup.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
+#' @param popup_numeric_format A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.
 #' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
 #' @param pal Character vector of hex codes.
 #' @param alpha_point The opacity of the points. 
@@ -25,6 +26,7 @@
 leaf_sf <- function(data,
                     popup = TRUE,
                     popup_vars_vctr = NULL,
+                    popup_numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE),
                     popup_vars_rename = snakecase::to_sentence_case,
                     pal = pal_viridis_reorder(1),
                     size_point = 2,
@@ -78,6 +80,9 @@ leaf_sf <- function(data,
         dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
         dplyr::rename_with(popup_vars_rename) 
     }
+    
+    popup_data <- popup_data %>%
+        dplyr::mutate_if(.predicate = is.numeric, .funs = popup_numeric_format)
     
     popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   }
@@ -221,6 +226,7 @@ leaf_sf <- function(data,
 #' @param label_var Unquoted variable to label the features by. If NULL, defaults to using the colour variable.
 #' @param popup TRUE or FALSE of whether to have a popup.
 #' @param popup_vars_vctr Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.
+#' @param popup_numeric_format A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.
 #' @param popup_vars_rename Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
@@ -275,6 +281,7 @@ leaf_sf_col <- function(data,
                         label_var = NULL,
                         popup = TRUE,
                         popup_vars_vctr = NULL,
+                        popup_numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE),
                         popup_vars_rename = snakecase::to_sentence_case,
                         pal = NULL,
                         pal_na = "#7F7F7F",
@@ -438,6 +445,9 @@ leaf_sf_col <- function(data,
         dplyr::relocate(.data$geometry, .after = tidyselect::last_col()) %>%
         dplyr::rename_with(popup_vars_rename) 
     }
+    
+    popup_data <- popup_data %>%
+      dplyr::mutate_if(.predicate = is.numeric, .funs = popup_numeric_format)
     
     popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   }

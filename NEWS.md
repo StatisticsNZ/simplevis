@@ -18,6 +18,7 @@ New features:
 * Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.
 * In leaf_sf functions, supported layer id's.
 * Defaulted mutate_text and leaf popups to adding comma's.
+* In leaf_sf functions, defaulted labels and popup numeric vars to non-scientific numbers with comma's. 
 
 Breaking:
 * In bar, changed position argument to stack = FALSE.

@@ -29,6 +29,7 @@ leaf_sf_col(
   col_method = NULL,
   col_na_rm = FALSE,
   col_title = NULL,
+  label_numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE),
   layer_id_var = NULL,
   map_id = "map"
 )
@@ -44,7 +45,7 @@ leaf_sf_col(
 
 \item{popup_vars_vctr}{Vector of quoted variable names to include in the popup. If NULL, defaults to making a leafpop::popupTable of all columns.}
 
-\item{popup_numeric_format}{A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
+\item{popup_numeric_format}{A function to format all numeric variables within the popup column. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
 
 \item{popup_vars_rename}{Function to rename column names for the popup. Defaults to snakecase::to_sentence_case. Use function(x) x to leave column names untransformed.}
 
@@ -81,6 +82,8 @@ leaf_sf_col(
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 
 \item{col_title}{A title string that will be wrapped into the legend.}
+
+\item{label_numeric_format}{A function to format the numeric labels. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
 
 \item{layer_id_var}{Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.}
 

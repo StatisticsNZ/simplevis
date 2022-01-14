@@ -17,8 +17,8 @@ New features:
 * In density functions, renamed density_ prefixed arguments to model_.
 * Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.
 * In leaf_sf functions, supported layer id's.
-* Defaulted mutate_text and leaf popups to adding comma's.
-* In leaf_sf functions, defaulted labels and popup numeric vars to non-scientific numbers with comma's. 
+* In leaf_sf, added arguments to modify popup and label numeric format.
+* In leaf_sf functions, defaulted label and popup numeric vars to non-scientific numbers with labels having a comma. 
 
 Breaking:
 * In bar, changed position argument to stack = FALSE.

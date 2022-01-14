@@ -7,7 +7,7 @@
 mutate_text(
   data,
   vars_vctr = NULL,
-  numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE)
+  numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE)
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ mutate_text(
 
 \item{vars_vctr}{A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.}
 
-\item{numeric_format}{A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
+\item{numeric_format}{A function to format all numeric variables within the tooltip text column. Defaults to non-scientific. Use function(x) x to leave as is.}
 }
 \value{
 A tibble or data frame with an additional column called text.

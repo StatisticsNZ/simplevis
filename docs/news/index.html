@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0</span>
       </span>
     </div>
 
@@ -176,9 +176,13 @@
 <li>Removed trans arguments from functions.</li>
 <li>In density functions, renamed density_ prefixed arguments to model_.</li>
 <li>Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.</li>
+<li>In leaf_sf functions, supported layer id’s.</li>
+<li>In leaf_sf, added arguments to modify popup and label numeric format.</li>
+<li>In leaf_sf functions, defaulted label and popup numeric vars to non-scientific numbers with labels having a comma.</li>
 </ul>
 <p>Breaking:</p>
 <ul>
+<li>In bar, changed position argument to stack = FALSE.</li>
 <li>Renamed x_pretty_n argument to x_breaks_n &amp; likewise for equivalent y &amp; col arguments.</li>
 <li>Renamed var arguments and structure for boxplot where stat = “identity”.</li>
 <li>Renamed col_right_closed to col_intervals_right.</li>
@@ -187,6 +191,7 @@
 <li>Removed *_gridlines_minor arguments.</li>
 <li>Removed font_family, font_size_title and font_size_body arguments.</li>
 <li>Removed comma argument from mutate_text.</li>
+<li>In mutate_text, renamed text_vars_vctr to vars_vctr.</li>
 </ul>
 <p>Other:</p>
 <ul>

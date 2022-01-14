@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@
     <pre class="usage"><span class='fu'>mutate_text</span>(
   <span class='no'>data</span>,
   <span class='kw'>vars_vctr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>numeric_format</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>prettyNum</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>numeric_format</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>prettyNum</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>scientific</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -180,7 +180,7 @@
     </tr>
     <tr>
       <th>numeric_format</th>
-      <td><p>A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.</p></td>
+      <td><p>A function to format all numeric variables within the tooltip text column. Defaults to non-scientific. Use function(x) x to leave as is.</p></td>
     </tr>
     </table>
 

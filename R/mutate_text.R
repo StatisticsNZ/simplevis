@@ -2,7 +2,7 @@
 #' @description Add a column of tooltip text which is automatically created based on column names and values. 
 #' @param data A tibble or dataframe. Required input.
 #' @param vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
-#' @param numeric_format A function to format all numeric variables within the tooltip text column. Defaults to adding a comma seperator. Use function(x) x to leave as is.
+#' @param numeric_format A function to format all numeric variables within the tooltip text column. Defaults to non-scientific. Use function(x) x to leave as is.
 #' 
 #' @return A tibble or data frame with an additional column called text.
 #' @export
@@ -24,7 +24,7 @@
 #' 
 mutate_text <- function(data, 
                         vars_vctr = NULL, 
-                        numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE)) {
+                        numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE)) {
   
   data <- data %>% 
     dplyr::ungroup() 

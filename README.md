@@ -14,6 +14,12 @@
 
 `simplevis` is a package of `ggplot2` and `leaflet` wrapper functions that aims to make visualisation easier with less brainpower required.
 
+It does this by:
+
+* using families of functions of combinations of colouring (by a variable), facetting, neither or both
+* using prefixes to make it easier to adjust aspects of the visualisation  
+* unifying colouring into one concept, and simplyfing applying different colouring methods. 
+
 ### Installation
 
 Install stable version from CRAN:

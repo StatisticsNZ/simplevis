@@ -141,18 +141,16 @@ A ggplot object.
 Line ggplot that is facetted, but not coloured.
 }
 \examples{
-library(dplyr)
 library(simplevis)
-library(palmerpenguins)
+library(dplyr)
+        
+plot_data <- storms \%>\%
+  group_by(year, status) \%>\%
+  summarise(wind = mean(wind))
 
-plot_data <- penguins \%>\% 
-  group_by(year, species) \%>\% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\% 
-  mutate(year = as.character(year))
-
-gg_line_facet(plot_data, 
-              x_var = year, 
-              y_var = body_mass_g, 
-              facet_var = species)
-
+gg_line_facet(plot_data,
+        x_var = year,
+        y_var = wind, 
+        facet_var = status)
+        
 }

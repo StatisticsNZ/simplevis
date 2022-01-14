@@ -165,18 +165,17 @@ A ggplot object.
 Line ggplot that is coloured and facetted.
 }
 \examples{
-library(dplyr)
 library(simplevis)
-library(palmerpenguins)
+library(dplyr)
+        
+plot_data <- storms \%>\%
+  group_by(year, status) \%>\%
+  summarise(wind = mean(wind))
 
-plot_data <- penguins \%>\% 
-  group_by(year, species, sex) \%>\% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) 
-
-gg_line_col_facet(plot_data, 
-                  x_var = year, 
-                  y_var = body_mass_g, 
-                  col_var = sex, 
-                  facet_var = species)
+gg_line_col_facet(plot_data,
+        x_var = year,
+        y_var = wind, 
+        col_var = status,
+        facet_var = status)
 
 }

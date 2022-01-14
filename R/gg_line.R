@@ -40,18 +40,16 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
 #' library(simplevis)
-#' library(palmerpenguins)
+#' library(dplyr)
+#'         
+#' plot_data <- storms %>%
+#'   group_by(year) %>%
+#'   summarise(wind = mean(wind))
 #' 
-#' plot_data <- penguins %>% 
-#'   group_by(year) %>% 
-#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
-#'   mutate(year = as.character(year))
-#' 
-#' gg_line(plot_data, 
-#'         x_var = year, 
-#'         y_var = body_mass_g)
+#' gg_line(plot_data,
+#'         x_var = year,
+#'         y_var = wind)
 #' 
 gg_line <- function(data,
                     x_var,
@@ -294,18 +292,17 @@ gg_line <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
 #' library(simplevis)
-#' library(palmerpenguins)
+#' library(dplyr)
+#'         
+#' plot_data <- storms %>%
+#'   group_by(year, status) %>%
+#'   summarise(wind = mean(wind))
 #' 
-#' plot_data <- penguins %>% 
-#'   group_by(year, species) %>% 
-#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
-#' 
-#' gg_line_col(plot_data, 
-#'             x_var = year, 
-#'             y_var = body_mass_g, 
-#'             col_var = species)
+#' gg_line_col(plot_data,
+#'         x_var = year,
+#'         y_var = wind, 
+#'         col_var = status)
 #'
 gg_line_col <- function(data,
                         x_var,
@@ -605,20 +602,18 @@ gg_line_col <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
 #' library(simplevis)
-#' library(palmerpenguins)
+#' library(dplyr)
+#'         
+#' plot_data <- storms %>%
+#'   group_by(year, status) %>%
+#'   summarise(wind = mean(wind))
 #' 
-#' plot_data <- penguins %>% 
-#'   group_by(year, species) %>% 
-#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
-#'   mutate(year = as.character(year))
-#' 
-#' gg_line_facet(plot_data, 
-#'               x_var = year, 
-#'               y_var = body_mass_g, 
-#'               facet_var = species)
-#'
+#' gg_line_facet(plot_data,
+#'         x_var = year,
+#'         y_var = wind, 
+#'         facet_var = status)
+#'         
 gg_line_facet <- function(data,
                           x_var,
                           y_var,
@@ -882,19 +877,18 @@ gg_line_facet <- function(data,
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
 #' library(simplevis)
-#' library(palmerpenguins)
+#' library(dplyr)
+#'         
+#' plot_data <- storms %>%
+#'   group_by(year, status) %>%
+#'   summarise(wind = mean(wind))
 #' 
-#' plot_data <- penguins %>% 
-#'   group_by(year, species, sex) %>% 
-#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) 
-#' 
-#' gg_line_col_facet(plot_data, 
-#'                   x_var = year, 
-#'                   y_var = body_mass_g, 
-#'                   col_var = sex, 
-#'                   facet_var = species)
+#' gg_line_col_facet(plot_data,
+#'         x_var = year,
+#'         y_var = wind, 
+#'         col_var = status,
+#'         facet_var = status)
 #'
 gg_line_col_facet <- function(data,
                               x_var,

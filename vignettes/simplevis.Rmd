@@ -26,12 +26,19 @@ library(dplyr)
 library(simplevis)
 library(palmerpenguins)
 library(ggplot2)
+library(patchwork)
 set.seed(123456789)
 ```
 
 ### Purpose 
 
 `simplevis` is a package of `ggplot2` and `leaflet` wrapper functions that aims to make visualisation easier with less brainpower required.
+
+It does this by:
+
+* using families of functions of combinations of colouring (by a variable), facetting, neither or both
+* using prefixes to make it easier to adjust aspects of the visualisation  
+* unifying colouring into one concept, and simplyfing applying different colouring methods. 
 
 ### Visualisation family types
 
@@ -55,6 +62,18 @@ plot_data <- storms %>%
 gg_bar(plot_data,
        x_var = year,
        y_var = wind)
+```
+
+hbar
+
+```{r}
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
+
+gg_hbar(plot_data, 
+        x_var = wind, 
+        y_var = year)
 ```
 
 line
@@ -143,15 +162,13 @@ gg_sf_col(example_point,
 stars
 
 ```{r}
-library(stars)
-
 gg_stars_col(example_stars,
              col_var = nitrate,
              col_na_rm = TRUE,
              borders = example_borders)
 ```
 
-In addition, there are specific horizontal functions of `hbar*()`, `hboxplot*()`, `hpointrange` and `hviolin*()`.
+There are also the following horizontal functions: `hbar*()`, `hboxplot*()`, `hpointrange` and `hviolin*()`.
 
 ### Colouring, facetting, neither or both
 
@@ -237,7 +254,7 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 
 ### Colour palettes
 
-Change the colour palette by supplying a vector of colours to the `pal` argument. 
+Change the colour palette by supplying a vector of hex code colours to the `pal` argument. 
 
 ```{r}
 gg_point(iris, 
@@ -254,11 +271,13 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
+Refer to the [colour](https://statisticsnz.github.io/simplevis/articles/colour.html) article for further information.
+
 ### Scales
 
-simplevis makes it easy to modify scales.
+simplevis makes it easy to modify defaults.
 
-These use consistent prefixes based on `x_*`, `y_*`, `col_*` or `facet_*`, and as such the autocomplete can help identify what you need.
+Arguments have consistent prefixes based on `x_*`, `y_*`, `col_*` or `facet_*`, and as such the autocomplete can help identify what you need.
 
 Some examples of transformations available are:
 
@@ -268,6 +287,7 @@ Some examples of transformations available are:
 * `*_breaks_n` for the number of numeric bins of breaks for the x, y or col scale to aim for 
 * `*_rev` to reverse the order of categorical x, y or col scales in bars 
 * `*_expand` to add padding to an x or y scale.
+* `*_balance` to balance a numeric scale, so that zero is in the centre 
 * `col_legend_none` to turn the legend off.
 
 ```{r}
@@ -310,88 +330,7 @@ gg_bar_col(plot_data,
        size_width = 0.5)
 ```
 
-### Position adjustments
-
-In general plots are positioned exactly as the data provided. 
-
-Exceptions are `bar*()` and `hbar*()`, which positions bars side-by-side by default (i.e. dodged). 
-
-```{r}
-plot_data <- penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
-
-gg_bar_col(plot_data, 
-           x_var = species, 
-           y_var = body_mass_g, 
-           col_var = sex)
-```
-
-However, a option to stack bars is also available.
-
-```{r}
-plot_data <- penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
-
-gg_bar_col(plot_data, 
-           x_var = species, 
-           y_var = body_mass_g, 
-           col_var = sex,
-           stack = TRUE,
-           col_na_rm = TRUE, 
-           size_width = 0.5)
-```
-
-point allows you to jitter in an x or y direction.
-
-```{r}
-gg_point(penguins, 
-               x_var = species, 
-               y_var = body_mass_g, 
-               x_jitter = 0.2, 
-               alpha_point = 0.5) 
-```
-
-pointrange and hpointrange allow you to specify an amount to dodge by, if desired.
-
-```{r}
-plot_data <- penguins %>%
-  group_by(sex, species) %>%
-  summarise(middle = median(body_mass_g, na.rm = TRUE),
-            lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
-            upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
-
-gg_pointrange_col(
-  plot_data,
-  x_var = species,
-  y_var = middle,
-  ymin_var = lower,
-  ymax_var = upper,
-  col_var = sex,
-  col_na_rm = TRUE,
-  y_title = "Body mass g")
-
-```
-
-```{r}
-plot_data <- penguins %>%
-  group_by(sex, species) %>%
-  summarise(middle = median(body_mass_g, na.rm = TRUE),
-            lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
-            upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
-
-gg_pointrange_col(
-  plot_data,
-  x_var = species,
-  y_var = middle,
-  ymin_var = lower,
-  ymax_var = upper,
-  col_var = sex,
-  col_na_rm = TRUE,
-  y_title = "Body mass g",
-  x_dodge = 0.3)
-```
+Refer to the [scales](https://statisticsnz.github.io/simplevis/articles/scales.html) article for further information.
 
 ### Themes
 
@@ -407,6 +346,7 @@ gg_point_col(penguins,
              theme = ggplot2::theme_grey())
 ```
 
+Refer to the [themes](https://statisticsnz.github.io/simplevis/articles/themes.html) article for further information.
 
 ### `sf` and `stars` maps
 
@@ -460,9 +400,9 @@ gg_stars_col(example_stars,
 
 ### leaflet wrappers
 
-simplevis also provides a `leaflet` wrapper functions for `sf` and `stars` objects. 
+simplevis also provides a `leaflet` wrapper functions for `sf` and `stars` objects. These functions work in a similar way to the `gg_sf*()` and `gg_stars*()` functions.
 
-Refer to the `simplevis` [website](https://statisticsnz.github.io/simplevis/articles/leaflet.html) for further information.
+Refer to the [leaflet](https://statisticsnz.github.io/simplevis/articles/leaflet.html) article for further information.
 
 ### Supported variable classes
 
@@ -508,7 +448,7 @@ penguins %>%
                  col_na_rm = TRUE)
 ```
 
-### Output objects and adding ggplot2 layers
+### Extending simplevis Output objects 
 
 All `gg_*` and `leaf_*` wrapper functions produce ggplot or leaflet objects.
 
@@ -530,8 +470,7 @@ gg_point_col(penguins,
 
 ```
 
-
-This means you can facet by more than one variable, provided that you are not using a position of "stack". 
+This means you can facet by more than one variable, provided that you are not stacking your bars. 
 
 ```{r, fig.height = 4.5}
 plot_data <- penguins %>% 
@@ -550,7 +489,7 @@ gg_bar(plot_data,
 
 ```
 
-### Working with the `patchwork` package
+The `patchwork` package is useful to patch visualisations together.
 
 ```{r}
 library(patchwork)
@@ -568,11 +507,7 @@ p2 <- gg_boxplot(penguins,
 p1 + p2
 ```
 
-### `ggplotly` interactive visualisation
-
-All ggplot objects can be converted into interactive html objects using ggplotly. You can simply wrap the plot object in `plotly::ggplotly()`. 
-
-The `plotly_camera` function removes plotly widgets other than the camera to keep things tidy.
+All ggplot objects can be converted into interactive html objects using `plotly::ggplotly`. 
 
 ```{r, eval = FALSE}
 plot <- gg_point_col(penguins,
@@ -586,34 +521,8 @@ plotly::ggplotly(plot) %>%
 
 `simplevis` also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values). 
 
-A variable can be added to the `text_var` in the `gg_*` function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
-
-`simplevis` provides a `mutate_text` function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the `snakecase::to_sentence_case` function. 
-
-The `mutate_text` function uses all variables in the dataset by defalut, but a subset can be used if desired. 
-
-```{r, eval = FALSE}
-plot <- gg_point_col(penguins, 
-                     x_var = bill_length_mm, 
-                     y_var = body_mass_g, 
-                     col_var = species) 
-
-plotly::ggplotly(plot) %>% 
-  plotly_camera()
-
-plot_data <- penguins %>% 
-  mutate_text()
-
-plot <- gg_point_col(plot_data, 
-                     x_var = bill_length_mm, 
-                     y_var = body_mass_g, 
-                     col_var = species, 
-                     text_var = text)
-
-plotly::ggplotly(plot, tooltip = "text") %>% 
-  plotly_camera()
-```
+Refer to the [ggplotly](https://statisticsnz.github.io/simplevis/articles/ggplotly.html) article for further information.
 
 ### Further information
 
-For further information, see the articles on the [website](https://statisticsexample_borders.github.io/simplevis/).
+For further information, see the articles on the [simplevis](https://statisticsnz.github.io/simplevis/) website.

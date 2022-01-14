@@ -196,6 +196,6 @@ gg_pointrange_col_facet(
   col_na_rm = TRUE,
   y_title = "Body mass g", 
   x_labels = function(x) stringr::str_sub(x, 3, 4), 
-  x_dodge = 0.1)
+  x_dodge = 0.2)
   
 }

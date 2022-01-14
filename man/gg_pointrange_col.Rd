@@ -175,6 +175,6 @@ gg_pointrange_col(
   col_var = sex,
   col_na_rm = TRUE,
   y_title = "Body mass g", 
-  x_dodge = 0.1)
+  x_dodge = 0.2)
 
 }

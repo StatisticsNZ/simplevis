@@ -123,17 +123,15 @@ A ggplot object.
 Line ggplot that is not coloured and not facetted.
 }
 \examples{
-library(dplyr)
 library(simplevis)
-library(palmerpenguins)
+library(dplyr)
+        
+plot_data <- storms \%>\%
+  group_by(year) \%>\%
+  summarise(wind = mean(wind))
 
-plot_data <- penguins \%>\% 
-  group_by(year) \%>\% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) \%>\% 
-  mutate(year = as.character(year))
-
-gg_line(plot_data, 
-        x_var = year, 
-        y_var = body_mass_g)
+gg_line(plot_data,
+        x_var = year,
+        y_var = wind)
 
 }

@@ -334,7 +334,7 @@ gg_hpointrange <- function(data,
 #'   col_var = sex,
 #'   col_na_rm = TRUE,
 #'   x_title = "Body mass g",
-#'   y_dodge = 0.1)
+#'   y_dodge = 0.2)
 #'   
 gg_hpointrange_col <- function(data,
                         x_var,
@@ -1034,7 +1034,7 @@ gg_hpointrange_facet <- function(data,
 #'   col_na_rm = TRUE,
 #'   x_title = "Body mass g",
 #'   y_labels = function(x) stringr::str_sub(x, 3, 4), 
-#'   y_dodge = 0.1)
+#'   y_dodge = 0.2)
 #'   
 gg_hpointrange_col_facet <- function(data,
                               x_var,

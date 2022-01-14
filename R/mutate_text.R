@@ -7,6 +7,7 @@
 #' @return A tibble or data frame with an additional column called text.
 #' @export
 #' @examples
+#' library(simplevis)
 #' library(dplyr)
 #' 
 #' plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) %>% 

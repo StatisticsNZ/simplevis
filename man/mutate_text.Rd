@@ -24,6 +24,7 @@ A tibble or data frame with an additional column called text.
 Add a column of tooltip text which is automatically created based on column names and values.
 }
 \examples{
+library(simplevis)
 library(dplyr)
 
 plot_data <- slice_sample(ggplot2::diamonds, prop = 0.05) \%>\% 

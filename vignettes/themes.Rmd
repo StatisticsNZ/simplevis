@@ -52,16 +52,13 @@ This has some flexibility.
 
 ```{r}
 custom_theme <- gg_theme(
-  family = "lato",
+  "lato",
   size_title = 15,
   size_subtitle = 16,
   size_body = 9,
   size_axis = 1,
   size_gridlines = 0.7,
   size_ticks = 1,
-  face_title = "plain",
-  face_subtitle = "bold",
-  face_body = "italic",
   pal_title = "darkgreen",
   pal_subtitle = "lightgreen",
   pal_body = "darkblue",

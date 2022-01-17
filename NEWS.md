@@ -1,3 +1,7 @@
+# simplevis 6.0.2
+
+* Updated theme documentation and app demo's to remove family argument.
+
 # simplevis 6.0.1
 
 * Fixed leaf_sf*() functions to wotk with longlat CRS's that are not 4326 (e.g. 4167)

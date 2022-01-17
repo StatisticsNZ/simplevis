@@ -27,7 +27,7 @@ plot_data <- data %>%
   summarise(price = mean(price)) %>%
   mutate_text(c("cut", "clarity", "price")) 
 
-plot_theme <- gg_theme(family = "helvetica", gridlines = "vertical")
+plot_theme <- gg_theme("helvetica", gridlines = "vertical")
 
 title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
 x_title <- "Average price ($US thousands)"

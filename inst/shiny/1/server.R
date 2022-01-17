@@ -31,10 +31,10 @@ shinyServer(function(input, output, session) {
   
   plot_theme <- reactive({
     gg_theme(
-      gridlines = "vertical", 
       family  = "helvetica", 
       size_title = 11, 
-      size_body = 10 
+      size_body = 10,
+      gridlines = "vertical" 
     )
   }) 
   

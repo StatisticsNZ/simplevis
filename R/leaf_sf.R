@@ -49,7 +49,7 @@ leaf_sf <- function(data,
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   #transform
-  if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
+  if (sf::st_crs(data) != sf::st_crs(4326)) data <- sf::st_transform(data, 4326)
   
   #geometry
   geometry_type <- unique(sf::st_geometry_type(data))
@@ -320,7 +320,7 @@ leaf_sf_col <- function(data,
   }
   
   #transform
-  if (sf::st_is_longlat(data) == FALSE) data <- sf::st_transform(data, 4326)
+  if (sf::st_crs(data) != sf::st_crs(4326)) data <- sf::st_transform(data, 4326)
   
   #geometry
   geometry_type <- unique(sf::st_geometry_type(data))

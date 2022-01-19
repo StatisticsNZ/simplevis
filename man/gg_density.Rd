@@ -30,7 +30,7 @@ gg_density(
   y_title_wrap = 50,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(),
+  theme = gg_theme(gridlines_h = TRUE),
   model_bw = "nrd0",
   model_adjust = 1,
   model_kernel = "gaussian",

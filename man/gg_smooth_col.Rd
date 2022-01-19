@@ -44,7 +44,7 @@ gg_smooth_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines = "both"),
+  theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
   model_method = NULL,
   model_formula = NULL,
   model_se = TRUE,

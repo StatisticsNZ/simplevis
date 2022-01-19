@@ -6,7 +6,7 @@
 \usage{
 gg_hviolin(
   data,
-  x_var,
+  x_var = NULL,
   y_var,
   pal = pal_viridis_reorder(1),
   alpha_fill = 0.2,
@@ -33,7 +33,7 @@ gg_hviolin(
   y_title_wrap = 50,
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical"),
+  theme = gg_theme(gridlines_v = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,

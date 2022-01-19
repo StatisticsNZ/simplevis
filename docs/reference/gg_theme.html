@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.5</span>
       </span>
     </div>
 
@@ -153,7 +153,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a simple theme for a graph.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/theme.R'><code>R/theme.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_theme.R'><code>R/gg_theme.R</code></a></small>
     <div class="hidden name"><code>gg_theme.Rd</code></div>
     </div>
 
@@ -162,7 +162,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>gg_theme</span>(
-  <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>font</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>size_title</span> <span class='kw'>=</span> <span class='fl'>11</span>,
   <span class='kw'>size_subtitle</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>size_body</span> <span class='kw'>=</span> <span class='fl'>10</span>,
@@ -178,14 +178,15 @@
   <span class='kw'>pal_axis</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
   <span class='kw'>pal_ticks</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>,
   <span class='kw'>pal_gridlines</span> <span class='kw'>=</span> <span class='st'>"#D3D3D3"</span>,
-  <span class='kw'>gridlines</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>
+  <span class='kw'>gridlines_h</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>gridlines_v</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>family</th>
+      <th>font</th>
       <td><p>The font for all text to use. Defaults to "".</p></td>
     </tr>
     <tr>
@@ -249,8 +250,12 @@
       <td><p>The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".</p></td>
     </tr>
     <tr>
-      <th>gridlines</th>
-      <td><p>Whether gridlines are "horizontal", "vertical", "both" or "none".</p></td>
+      <th>gridlines_h</th>
+      <td><p>TRUE or FALSE of whether to show hotizontal gridlines.</p></td>
+    </tr>
+    <tr>
+      <th>gridlines_v</th>
+      <td><p>TRUE or FALSE of whether to show vertical gridlines.</p></td>
     </tr>
     </table>
 

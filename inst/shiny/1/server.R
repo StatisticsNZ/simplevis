@@ -31,10 +31,10 @@ shinyServer(function(input, output, session) {
   
   plot_theme <- reactive({
     gg_theme(
-      family  = "helvetica", 
+      font  = "helvetica", 
       size_title = 11, 
       size_body = 10,
-      gridlines = "vertical" 
+      gridlines_v = TRUE 
     )
   }) 
   
@@ -73,7 +73,9 @@ shinyServer(function(input, output, session) {
   
   output$plot_desktop <- plotly::renderPlotly({
     plotly::ggplotly(plot(), tooltip = "text") %>%
-      plotly_camera()
+      plotly_camera() %>% 
+      plotly_col_legend(rev = TRUE) %>%
+      plotly::style(hoverlabel = list(font = list(family = "helvetica")))
   }) 
   
   ### map ###

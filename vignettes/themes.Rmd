@@ -44,8 +44,7 @@ gg_point_col(penguins,
              col_var = species, 
              title = "A nice long title", 
              subtitle = "And a subtitle", 
-             theme = gg_theme(gridlines = "horizontal", 
-                              size_title = 20)) 
+             theme = gg_theme(size_title = 20)) 
 ```
 
 This has some flexibility.
@@ -64,8 +63,7 @@ custom_theme <- gg_theme(
   pal_body = "darkblue",
   pal_axis = "grey",
   pal_ticks = "red",
-  pal_gridlines = "pink", 
-  gridlines = "vertical")
+  pal_gridlines = "pink")
 
 gg_point_col(penguins, 
              x_var = bill_length_mm, 

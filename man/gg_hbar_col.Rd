@@ -53,7 +53,7 @@ gg_hbar_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical"),
+  theme = gg_theme(gridlines_v = TRUE),
   mobile = FALSE
 )
 }

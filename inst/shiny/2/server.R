@@ -31,10 +31,10 @@ shinyServer(function(input, output, session) {
   
   plot_theme <- reactive({
     gg_theme(
-      "helvetica", 
+      font = "helvetica", 
       size_title = ifelse(input$isMobile == FALSE, 11, 16), 
       size_body = ifelse(input$isMobile == FALSE, 10, 15),
-      gridlines = "vertical" 
+      gridlines_v = TRUE
     )
   }) 
   
@@ -74,7 +74,9 @@ shinyServer(function(input, output, session) {
   
   output$plot_desktop <- plotly::renderPlotly({
     plotly::ggplotly(plot(), tooltip = "text") %>%
-      plotly_camera()
+      plotly_camera() %>% 
+      plotly_col_legend(rev = TRUE) %>%
+      plotly::style(hoverlabel = list(font = list(family = "helvetica")))
   }) 
   
   output$plot_mobile <- renderPlot({

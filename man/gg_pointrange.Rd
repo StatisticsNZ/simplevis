@@ -41,7 +41,7 @@ gg_pointrange(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(),
+  theme = gg_theme(gridlines_h = TRUE),
   mobile = FALSE
 )
 }

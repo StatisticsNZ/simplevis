@@ -1,3 +1,13 @@
+# simplevvis 6.0.5
+
+* Changed the gg_theme() family argument to font.
+* Changed the gg_theme() gridlines arguments to gridlines_h and gridlines_v.
+* Changed gg_theme() gridlines default to no gridlines.
+
+# simplevis 6.0.3
+
+* Made theme outputs from gg_theme a gg and theme object, rather than a list.
+
 # simplevis 6.0.2
 
 * Updated theme documentation and app demo's to remove family argument.

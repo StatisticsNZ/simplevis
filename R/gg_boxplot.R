@@ -107,7 +107,7 @@ gg_boxplot <- function(data,
                        ymiddle_var = NULL,
                        yupper_var = NULL,
                        ymax_var = NULL,
-                       theme = gg_theme(),
+                       theme = gg_theme(gridlines_h = TRUE),
                        mobile = FALSE) {
   
   #ungroup
@@ -139,7 +139,7 @@ gg_boxplot <- function(data,
   }
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
+    if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a boxplot")
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   
   #logical to factor
@@ -399,7 +399,7 @@ gg_boxplot_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
-                           theme = gg_theme(),
+                           theme = gg_theme(gridlines_h = TRUE),
                            stat = "boxplot",
                            ymin_var = NULL,
                            ylower_var = NULL,
@@ -444,7 +444,7 @@ gg_boxplot_col <- function(data,
   }
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
+    if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a boxplot")
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
   
@@ -717,7 +717,7 @@ gg_boxplot_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme(), 
+                             theme = gg_theme(gridlines_h = TRUE), 
                              stat = "boxplot",
                              ymin_var = NULL,
                              ylower_var = NULL,
@@ -761,7 +761,7 @@ gg_boxplot_facet <- function(data,
   }
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
+    if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a boxplot")
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")
   
@@ -1016,7 +1016,7 @@ gg_boxplot_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80,
-                                 theme = gg_theme(), 
+                                 theme = gg_theme(gridlines_h = TRUE), 
                                  stat = "boxplot",
                                  ymin_var = NULL,
                                  ylower_var = NULL,
@@ -1067,7 +1067,7 @@ gg_boxplot_col_facet <- function(data,
   }
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a boxplot")
+    if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a boxplot")
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a boxplot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a boxplot")

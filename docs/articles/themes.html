@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.5</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
       <h1 data-toc-skip>Themes</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2022-01-18</h4>
+            <h4 class="date">2022-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/themes.Rmd"><code>vignettes/themes.Rmd</code></a></small>
       <div class="hidden name"><code>themes.Rmd</code></div>
@@ -142,8 +142,7 @@
              <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
              <span class="kw">title</span> <span class="kw">=</span> <span class="st">"A nice long title"</span>,
              <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"And a subtitle"</span>,
-             <span class="kw">theme</span> <span class="kw">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(<span class="kw">gridlines</span> <span class="kw">=</span> <span class="st">"horizontal"</span>,
-                              <span class="kw">size_title</span> <span class="kw">=</span> <span class="fl">20</span>))</pre></body></html></div>
+             <span class="kw">theme</span> <span class="kw">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(<span class="kw">size_title</span> <span class="kw">=</span> <span class="fl">20</span>))</pre></body></html></div>
 <p><img src="themes_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>This has some flexibility.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">custom_theme</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(
@@ -159,8 +158,7 @@
   <span class="kw">pal_body</span> <span class="kw">=</span> <span class="st">"darkblue"</span>,
   <span class="kw">pal_axis</span> <span class="kw">=</span> <span class="st">"grey"</span>,
   <span class="kw">pal_ticks</span> <span class="kw">=</span> <span class="st">"red"</span>,
-  <span class="kw">pal_gridlines</span> <span class="kw">=</span> <span class="st">"pink"</span>,
-  <span class="kw">gridlines</span> <span class="kw">=</span> <span class="st">"vertical"</span>)
+  <span class="kw">pal_gridlines</span> <span class="kw">=</span> <span class="st">"pink"</span>)
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,

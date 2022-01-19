@@ -6,7 +6,7 @@
 \usage{
 gg_hboxplot_col_facet(
   data,
-  x_var,
+  x_var = NULL,
   y_var,
   col_var,
   facet_var,
@@ -51,7 +51,7 @@ gg_hboxplot_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical"),
+  theme = gg_theme(gridlines_v = TRUE),
   stat = "boxplot",
   xmin_var = NULL,
   xlower_var = NULL,

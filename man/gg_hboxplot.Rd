@@ -6,7 +6,7 @@
 \usage{
 gg_hboxplot(
   data,
-  x_var,
+  x_var = NULL,
   y_var,
   pal = pal_viridis_reorder(1),
   alpha_fill = 0.2,
@@ -35,7 +35,7 @@ gg_hboxplot(
   y_title_wrap = 50,
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical"),
+  theme = gg_theme(gridlines_v = TRUE),
   stat = "boxplot",
   xmin_var = NULL,
   xlower_var = NULL,

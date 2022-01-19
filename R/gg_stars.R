@@ -41,7 +41,7 @@ gg_stars <- function(data,
                      subtitle_wrap = 80,
                      caption = NULL,
                      caption_wrap = 80,
-                     theme = NULL,
+                     theme = gg_theme_void(),
                      mobile = FALSE) {
   
   #warnings
@@ -54,8 +54,6 @@ gg_stars <- function(data,
   }
   
   #fundamentals
-  if (is.null(theme)) theme <- gg_theme_map()
-  
   plot <- ggplot() +
     theme +
     scale_x_continuous(expand = c(0, 0), name = NULL) +
@@ -196,7 +194,7 @@ gg_stars_col <- function(data,
                          col_title_wrap = 25,
                          caption = NULL,
                          caption_wrap = 80,
-                         theme = NULL,
+                         theme = gg_theme_void(),
                          mobile = FALSE) {
   
   #quote
@@ -236,8 +234,6 @@ gg_stars_col <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #fundamentals
-  if (is.null(theme)) theme <- gg_theme_map()
-  
   plot <- ggplot() +
     theme +
     scale_x_continuous(expand = c(0, 0), name = NULL) +

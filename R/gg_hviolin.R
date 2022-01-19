@@ -47,7 +47,7 @@
 #'         y_var = species)
 #' 
 gg_hviolin <- function(data,
-                       x_var,
+                       x_var = NULL,
                        y_var,
                        pal = pal_viridis_reorder(1),
                        alpha_fill = 0.2,
@@ -74,7 +74,7 @@ gg_hviolin <- function(data,
                        y_title_wrap = 50,
                        caption = NULL,
                        caption_wrap = 75,
-                       theme = gg_theme(gridlines = "vertical"),
+                       theme = gg_theme(gridlines_v = TRUE),
                        model_scale = "area",
                        model_bw = "nrd0",
                        model_adjust = 1,
@@ -100,7 +100,7 @@ gg_hviolin <- function(data,
   x_var_vctr <- dplyr::pull(data, !!x_var)
 
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
   
   #logical to factor
@@ -255,7 +255,7 @@ gg_hviolin <- function(data,
 #'             col_na_rm = TRUE)
 #'             
 gg_hviolin_col <- function(data,
-                           x_var,
+                           x_var = NULL,
                            y_var,
                            col_var,
                            pal = NULL,
@@ -291,7 +291,7 @@ gg_hviolin_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 75,
-                           theme = gg_theme(gridlines = "vertical"),
+                           theme = gg_theme(gridlines_v = TRUE),
                            model_scale = "area",
                            model_bw = "nrd0",
                            model_adjust = 1,
@@ -323,7 +323,7 @@ gg_hviolin_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal violin")
   
@@ -534,7 +534,7 @@ gg_hviolin_col <- function(data,
 #'               y_na_rm = TRUE)
 #'
 gg_hviolin_facet <- function(data,
-                             x_var,
+                             x_var = NULL,
                              y_var,
                              facet_var,
                              pal = pal_viridis_reorder(1),
@@ -568,7 +568,7 @@ gg_hviolin_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 75,
-                             theme = gg_theme(gridlines = "vertical"),
+                             theme = gg_theme(gridlines_v = TRUE),
                              model_scale = "area",
                              model_bw = "nrd0",
                              model_adjust = 1,
@@ -599,7 +599,7 @@ gg_hviolin_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal violin")
   
@@ -770,7 +770,7 @@ gg_hviolin_facet <- function(data,
 #'                         col_na_rm = TRUE)
 #' 
 gg_hviolin_col_facet <- function(data,
-                                 x_var,
+                                 x_var = NULL,
                                  y_var,
                                  col_var,
                                  facet_var,
@@ -813,7 +813,7 @@ gg_hviolin_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 75,
-                                 theme = gg_theme(gridlines = "vertical"),
+                                 theme = gg_theme(gridlines_v = TRUE),
                                  model_scale = "area",
                                  model_bw = "nrd0",
                                  model_adjust = 1,
@@ -850,7 +850,7 @@ gg_hviolin_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
   if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal violin")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal violin")

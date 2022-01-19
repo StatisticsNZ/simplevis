@@ -46,7 +46,7 @@ gg_hbar_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical")
+  theme = gg_theme(gridlines_v = TRUE)
 )
 }
 \arguments{

@@ -46,7 +46,7 @@ gg_sf <- function(data,
                   subtitle_wrap = 80,
                   caption = NULL,
                   caption_wrap = 80,
-                  theme = NULL,
+                  theme = gg_theme_void(),
                   mobile = FALSE
 ) {
   
@@ -72,8 +72,6 @@ gg_sf <- function(data,
   }
   
   #fundamentals
-  if (is.null(theme)) theme <- gg_theme_map()
-
   plot <- ggplot(data) +
     theme
   
@@ -274,7 +272,7 @@ gg_sf_col <- function(data,
                       col_title_wrap = 25,
                       caption = NULL,
                       caption_wrap = 80,
-                      theme = NULL,
+                      theme = gg_theme_void(),
                       mobile = FALSE
 ) {
   
@@ -324,8 +322,6 @@ gg_sf_col <- function(data,
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #fundamentals
-  if (is.null(theme)) theme <- gg_theme_map()
-  
   plot <- ggplot(data) +
     theme
   
@@ -645,7 +641,7 @@ gg_sf_facet <- function(data,
                         subtitle_wrap = 80,
                         caption = NULL,
                         caption_wrap = 80,
-                        theme = NULL) {
+                        theme = gg_theme_void()) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -697,8 +693,6 @@ gg_sf_facet <- function(data,
   }
   
   #fundamentals
-  if (is.null(theme)) theme <- gg_theme_map()
-  
   plot <- ggplot(data) +
     theme
   
@@ -872,7 +866,7 @@ gg_sf_col_facet <- function(data,
                             facet_rev = FALSE,
                             caption = NULL,
                             caption_wrap = 80,
-                            theme = NULL)
+                            theme = gg_theme_void())
 {
   
   #ungroup
@@ -944,8 +938,6 @@ gg_sf_col_facet <- function(data,
   }
   
   #fundamentals
-  if (is.null(theme)) theme <- gg_theme_map()
-  
   plot <- ggplot(data) +
     theme
   

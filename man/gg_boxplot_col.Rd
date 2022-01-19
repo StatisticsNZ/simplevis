@@ -44,7 +44,7 @@ gg_boxplot_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(),
+  theme = gg_theme(gridlines_h = TRUE),
   stat = "boxplot",
   ymin_var = NULL,
   ylower_var = NULL,

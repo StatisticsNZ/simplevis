@@ -73,7 +73,7 @@ gg_violin <- function(data,
                       y_zero_line = NULL,
                       caption = NULL,
                       caption_wrap = 80,
-                      theme = gg_theme(),
+                      theme = gg_theme(gridlines_h = TRUE),
                       model_scale = "area",
                       model_bw = "nrd0",
                       model_adjust = 1,
@@ -99,7 +99,7 @@ gg_violin <- function(data,
   y_var_vctr <- dplyr::pull(data, !!y_var)
 
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a violin")
+  if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a violin")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a violin")
   
   #logical to factor
@@ -293,7 +293,7 @@ gg_violin_col <- function(data,
                           col_title_wrap = 25,
                           caption = NULL,
                           caption_wrap = 80,
-                          theme = gg_theme(),
+                          theme = gg_theme(gridlines_h = TRUE),
                           model_scale = "area",
                           model_bw = "nrd0",
                           model_adjust = 1,
@@ -325,7 +325,7 @@ gg_violin_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a violin")
+  if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a violin")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a violin")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a violin")
   
@@ -563,7 +563,7 @@ gg_violin_facet <- function(data,
                             facet_scales = "fixed",
                             caption = NULL,
                             caption_wrap = 80,
-                            theme = gg_theme(),  
+                            theme = gg_theme(gridlines_h = TRUE),  
                             model_scale = "area",
                             model_bw = "nrd0",
                             model_adjust = 1,
@@ -594,7 +594,7 @@ gg_violin_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data,!!facet_var)
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a violin")
+  if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a violin")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a violin")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a violin")
   
@@ -810,7 +810,7 @@ gg_violin_col_facet <- function(data,
                                 facet_scales = "fixed",
                                 caption = NULL,
                                 caption_wrap = 80,
-                                theme = gg_theme(),
+                                theme = gg_theme(gridlines_h = TRUE),
                                 model_scale = "area",
                                 model_bw = "nrd0",
                                 model_adjust = 1,
@@ -847,7 +847,7 @@ gg_violin_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a violin")
+  if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a violin")
   if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a violin")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a violin")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a violin")

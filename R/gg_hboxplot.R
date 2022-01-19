@@ -73,7 +73,7 @@
 #'             data = outliers)
 #'   
 gg_hboxplot <- function(data,
-                    x_var,
+                    x_var = NULL,
                     y_var,
                     pal = pal_viridis_reorder(1),
                     alpha_fill = 0.2,
@@ -102,7 +102,7 @@ gg_hboxplot <- function(data,
                     y_title_wrap = 50,
                     caption = NULL,
                     caption_wrap = 75,
-                    theme = gg_theme(gridlines = "vertical"),
+                    theme = gg_theme(gridlines_v = TRUE),
                     stat = "boxplot",
                     xmin_var = NULL,
                     xlower_var = NULL,
@@ -140,7 +140,7 @@ gg_hboxplot <- function(data,
   }
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
   
   #logical to factor
@@ -359,7 +359,7 @@ gg_hboxplot <- function(data,
 #'                      data = outliers)
 #'                      
 gg_hboxplot_col <- function(data,
-                        x_var,
+                        x_var = NULL,
                         y_var,
                         col_var,
                         pal = NULL,
@@ -397,7 +397,7 @@ gg_hboxplot_col <- function(data,
                         col_title_wrap = 25,
                         caption = NULL,
                         caption_wrap = 75,
-                        theme = gg_theme(gridlines = "vertical"),
+                        theme = gg_theme(gridlines_v = TRUE),
                         stat = "boxplot",
                         xmin_var = NULL,
                         xlower_var = NULL,
@@ -442,7 +442,7 @@ gg_hboxplot_col <- function(data,
   }
 
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal boxplot")
   
@@ -687,7 +687,7 @@ gg_hboxplot_col <- function(data,
 #'               y_na_rm = TRUE)
 #'
 gg_hboxplot_facet <- function(data,
-                          x_var,
+                          x_var = NULL,
                           y_var,
                           facet_var,
                           pal = pal_viridis_reorder(1),
@@ -723,7 +723,7 @@ gg_hboxplot_facet <- function(data,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
-                          theme = gg_theme(gridlines = "vertical"),
+                          theme = gg_theme(gridlines_v = TRUE),
                           stat = "boxplot", 
                           xmin_var = NULL,
                           xlower_var = NULL,
@@ -767,7 +767,7 @@ gg_hboxplot_facet <- function(data,
   }
 
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal boxplot")
   
@@ -973,7 +973,7 @@ gg_hboxplot_facet <- function(data,
 #' #For ggplotly, pipe in plotly::layout(boxmode = "group") layer
 #' 
 gg_hboxplot_col_facet <- function(data,
-                              x_var,
+                              x_var = NULL,
                               y_var,
                               col_var,
                               facet_var,
@@ -1018,7 +1018,7 @@ gg_hboxplot_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              theme = gg_theme(gridlines = "vertical"), 
+                              theme = gg_theme(gridlines_v = TRUE), 
                               stat = "boxplot", 
                               xmin_var = NULL,
                               xlower_var = NULL,
@@ -1069,7 +1069,7 @@ gg_hboxplot_col_facet <- function(data,
   }
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
   if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal boxplot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal boxplot")

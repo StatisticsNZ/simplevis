@@ -55,7 +55,7 @@ gg_tile_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "none")
+  theme = gg_theme()
 )
 }
 \arguments{

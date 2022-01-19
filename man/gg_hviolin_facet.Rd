@@ -6,7 +6,7 @@
 \usage{
 gg_hviolin_facet(
   data,
-  x_var,
+  x_var = NULL,
   y_var,
   facet_var,
   pal = pal_viridis_reorder(1),
@@ -40,7 +40,7 @@ gg_hviolin_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical"),
+  theme = gg_theme(gridlines_v = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,

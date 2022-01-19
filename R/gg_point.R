@@ -76,7 +76,7 @@ gg_point <- function(data,
                      y_zero_line = NULL,
                      caption = NULL,
                      caption_wrap = 80,
-                     theme = gg_theme(gridlines = "both"),
+                     theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
                      mobile = FALSE) {
   
   #ungroup
@@ -331,7 +331,7 @@ gg_point_col <- function(data,
                          col_title_wrap = 25,
                          caption = NULL,
                          caption_wrap = 80,
-                         theme = gg_theme(gridlines = "both"),
+                         theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
                          mobile = FALSE){
   
   #ungroup
@@ -690,7 +690,7 @@ gg_point_facet <- function(data,
                            facet_scales = "fixed",
                            caption = NULL,
                            caption_wrap = 80,
-                           theme = gg_theme(gridlines = "both")) {
+                           theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -969,7 +969,7 @@ gg_point_col_facet <- function(data,
                                facet_scales = "fixed",
                                caption = NULL,
                                caption_wrap = 80,
-                               theme = gg_theme(gridlines = "both")) {
+                               theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)

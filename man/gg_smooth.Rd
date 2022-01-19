@@ -36,7 +36,7 @@ gg_smooth(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines = "both"),
+  theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
   model_method = NULL,
   model_formula = NULL,
   model_se = TRUE,

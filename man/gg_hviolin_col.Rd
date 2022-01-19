@@ -6,7 +6,7 @@
 \usage{
 gg_hviolin_col(
   data,
-  x_var,
+  x_var = NULL,
   y_var,
   col_var,
   pal = NULL,
@@ -42,7 +42,7 @@ gg_hviolin_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines = "vertical"),
+  theme = gg_theme(gridlines_v = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,

@@ -97,7 +97,7 @@ gg_hpointrange <- function(data,
                     y_zero_line = NULL,
                     caption = NULL,
                     caption_wrap = 75,
-                    theme = gg_theme(gridlines = "vertical"),
+                    theme = gg_theme(gridlines_v = TRUE),
                     mobile = FALSE) {
   
   #ungroup
@@ -386,7 +386,7 @@ gg_hpointrange_col <- function(data,
                         col_title_wrap = 25,
                         caption = NULL,
                         caption_wrap = 75,
-                        theme = gg_theme(gridlines = "vertical"),
+                        theme = gg_theme(gridlines_v = TRUE),
                         mobile = FALSE) {
   
   #ungroup
@@ -779,7 +779,7 @@ gg_hpointrange_facet <- function(data,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
-                          theme = gg_theme(gridlines = "vertical")) {
+                          theme = gg_theme(gridlines_v = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1093,7 +1093,7 @@ gg_hpointrange_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              theme = gg_theme(gridlines = "vertical")) {
+                              theme = gg_theme(gridlines_v = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)

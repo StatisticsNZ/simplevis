@@ -87,7 +87,7 @@ gg_bar <- function(data,
                    y_zero_line = NULL,
                    caption = NULL,
                    caption_wrap = 80,
-                   theme = gg_theme(),
+                   theme = gg_theme(gridlines_h = TRUE),
                    mobile = FALSE) {
   
   #ungroup
@@ -390,7 +390,7 @@ gg_bar_col <- function(data,
                        col_title_wrap = 25,
                        caption = NULL,
                        caption_wrap = 80,
-                       theme = gg_theme(),
+                       theme = gg_theme(gridlines_h = TRUE),
                        mobile = FALSE){
   
   #ungroup
@@ -809,7 +809,7 @@ gg_bar_facet <- function(data,
                          facet_scales = "fixed",
                          caption = NULL,
                          caption_wrap = 80,
-                         theme = gg_theme()) {
+                         theme = gg_theme(gridlines_h = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1114,7 +1114,7 @@ gg_bar_col_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme()) {
+                             theme = gg_theme(gridlines_h = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)

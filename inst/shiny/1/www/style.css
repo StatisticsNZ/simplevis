@@ -1,5 +1,10 @@
 html, body, .container {
   height: 100%;
+  font-family: "helvetica";
+}
+
+.navbar-brand {
+  font-family: "helvetica";
 }
 
 .navbar-static-top {
@@ -14,8 +19,13 @@ html, body, .container {
   height: 100%
 }
 
-#map {
+.leaflet {
+  font-family: "helvetica";
   margin-left: 5%;
+}
+
+.leaflet .legend {
+  font-family: "helvetica";
 }
 
 #plot_desktop {
@@ -25,6 +35,10 @@ html, body, .container {
 
 #plot_mobile {
   min-width: 300px;
+}
+
+#download {
+  font-family: "helvetica";
 }
 
 .shiny-output-error { visibility: hidden; }

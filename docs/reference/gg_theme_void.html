@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Remove plotly buttons from the mode bar, other than the camera. — plotly_camera • simplevis</title>
+<title>Create a simple void theme that is useful for maps among other things. — gg_theme_void • simplevis</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Remove plotly buttons from the mode bar, other than the camera. — plotly_camera" />
-<meta property="og:description" content="Remove plotly buttons from the mode bar, other than the camera and plotly logo." />
+<meta property="og:title" content="Create a simple void theme that is useful for maps among other things. — gg_theme_void" />
+<meta property="og:description" content="Create a simple void theme that is useful for maps among other things." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -152,40 +152,77 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Remove plotly buttons from the mode bar, other than the camera.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/ggplotly.R'><code>R/ggplotly.R</code></a></small>
-    <div class="hidden name"><code>plotly_camera.Rd</code></div>
+    <h1>Create a simple void theme that is useful for maps among other things.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statisticsNZ/simplevis/blob/master/R/gg_theme.R'><code>R/gg_theme.R</code></a></small>
+    <div class="hidden name"><code>gg_theme_void.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Remove plotly buttons from the mode bar, other than the camera and plotly logo.</p>
+    <p>Create a simple void theme that is useful for maps among other things.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotly_camera</span>(<span class='no'>plotly</span>, <span class='kw'>logo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_theme_void</span>(
+  <span class='kw'>font</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>size_title</span> <span class='kw'>=</span> <span class='fl'>11</span>,
+  <span class='kw'>size_subtitle</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>size_body</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>face_title</span> <span class='kw'>=</span> <span class='st'>"bold"</span>,
+  <span class='kw'>face_subtitle</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
+  <span class='kw'>face_body</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
+  <span class='kw'>pal_title</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
+  <span class='kw'>pal_subtitle</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
+  <span class='kw'>pal_body</span> <span class='kw'>=</span> <span class='st'>"#323232"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>plotly</th>
-      <td><p>A plotly object. Required input.</p></td>
+      <th>font</th>
+      <td><p>The font for all text to use. Defaults to "".</p></td>
     </tr>
     <tr>
-      <th>logo</th>
-      <td><p>TRUE or FALSE of whether to display the plotly logo. Defaults to FALSE.</p></td>
+      <th>size_title</th>
+      <td><p>The size of the title font. Defaults to 11.</p></td>
+    </tr>
+    <tr>
+      <th>size_subtitle</th>
+      <td><p>The size of the subtitle font. Defaults to 10.</p></td>
+    </tr>
+    <tr>
+      <th>size_body</th>
+      <td><p>The size of all font other than the title or subtitle. Defaults to 10.</p></td>
+    </tr>
+    <tr>
+      <th>face_title</th>
+      <td><p>The face of the title font. Defaults to "bold".</p></td>
+    </tr>
+    <tr>
+      <th>face_subtitle</th>
+      <td><p>The face of the subtitle font. Defaults to "plain".</p></td>
+    </tr>
+    <tr>
+      <th>face_body</th>
+      <td><p>The face of all font other than the title or subtitle. Defaults to "plain".</p></td>
+    </tr>
+    <tr>
+      <th>pal_title</th>
+      <td><p>The colour palette for the title font. Defaults to "#000000".</p></td>
+    </tr>
+    <tr>
+      <th>pal_subtitle</th>
+      <td><p>The colour palette for the subtitle font. Defaults to "#000000".</p></td>
+    </tr>
+    <tr>
+      <th>pal_body</th>
+      <td><p>The colour palette for all font other than the title or subtitle. Defaults to "#323232".</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>plot_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/sample_n.html'>sample_frac</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/ggplot2/man/diamonds.html'>diamonds</a></span>, <span class='fl'>0.05</span>)
+    <p>A ggplot theme.</p>
 
-<span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gg_point.html'>gg_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plot_data</span>,
-                 <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>carat</span>,
-                 <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>price</span>)
-
-<span class='kw pkg'>plotly</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>ggplotly</a></span>(<span class='no'>plot</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'>plotly_camera</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

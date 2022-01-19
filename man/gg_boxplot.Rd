@@ -41,7 +41,7 @@ gg_boxplot(
   ymiddle_var = NULL,
   yupper_var = NULL,
   ymax_var = NULL,
-  theme = gg_theme(),
+  theme = gg_theme(gridlines_h = TRUE),
   mobile = FALSE
 )
 }

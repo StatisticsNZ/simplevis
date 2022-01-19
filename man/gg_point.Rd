@@ -37,7 +37,7 @@ gg_point(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines = "both"),
+  theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
   mobile = FALSE
 )
 }

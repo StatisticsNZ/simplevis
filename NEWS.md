@@ -1,3 +1,7 @@
+# simplevvis 6.0.6
+
+* Updated size_point default to 1.5.
+
 # simplevvis 6.0.5
 
 * Changed the gg_theme() family argument to font.

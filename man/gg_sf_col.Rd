@@ -19,7 +19,7 @@ gg_sf_col(
   alpha_point = 1,
   alpha_borders = 0.5,
   size_line = 0.5,
-  size_point = 1,
+  size_point = 1.5,
   size_borders = 0.2,
   title = NULL,
   title_wrap = 80,
@@ -69,7 +69,7 @@ gg_sf_col(
 
 \item{size_line}{Size of lines. Defaults to 0.5.}
 
-\item{size_point}{Size of points. Defaults to 1.}
+\item{size_point}{Size of points. Defaults to 1.5.}
 
 \item{size_borders}{Size of the borders. Defaults to 0.2.}
 

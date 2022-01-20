@@ -6,7 +6,7 @@
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -50,7 +50,7 @@ gg_point <- function(data,
                      text_var = NULL,
                      pal = pal_viridis_reorder(1),
                      alpha_point = 1,
-                     size_point = 1,
+                     size_point = 1.5,
                      title = NULL,
                      title_wrap = 80,
                      subtitle = NULL,
@@ -239,7 +239,7 @@ gg_point <- function(data,
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -296,7 +296,7 @@ gg_point_col <- function(data,
                          pal_na = "#7F7F7F",
                          pal_rev = FALSE,
                          alpha_point = 1,
-                         size_point = 1,
+                         size_point = 1.5,
                          title = NULL,
                          title_wrap = 80,
                          subtitle = NULL,
@@ -607,7 +607,7 @@ gg_point_col <- function(data,
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -658,7 +658,7 @@ gg_point_facet <- function(data,
                            text_var = NULL,
                            pal = pal_viridis_reorder(1),
                            alpha_point = 1,
-                           size_point = 1,
+                           size_point = 1.5,
                            title = NULL,
                            title_wrap = 80,
                            subtitle = NULL,
@@ -864,7 +864,7 @@ gg_point_facet <- function(data,
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_point The opacity of the points. 
-#' @param size_point Size of points. Defaults to 1.
+#' @param size_point Size of points. Defaults to 1.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
 #' @param subtitle Subtitle string. 
@@ -928,7 +928,7 @@ gg_point_col_facet <- function(data,
                                pal_na = "#7F7F7F",
                                pal_rev = FALSE,
                                alpha_point = 1,
-                               size_point = 1,
+                               size_point = 1.5,
                                title = NULL,
                                title_wrap = 80,
                                subtitle = NULL,

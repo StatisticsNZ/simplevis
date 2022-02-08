@@ -12,14 +12,15 @@ gg_theme(
   size_axis = 0.3,
   size_ticks = 0.3,
   size_gridlines = 0.2,
-  face_title = "bold",
-  face_subtitle = "plain",
-  face_body = "plain",
+  style_title = "bold",
+  style_subtitle = "plain",
+  style_body = "plain",
   pal_title = "#000000",
   pal_subtitle = "#000000",
   pal_body = "#323232",
   pal_axis = "#323232",
   pal_ticks = "#323232",
+  pal_background = c("#ffffff", "#ffffff"),
   pal_gridlines = "#D3D3D3",
   gridlines_h = FALSE,
   gridlines_v = FALSE
@@ -40,11 +41,11 @@ gg_theme(
 
 \item{size_gridlines}{The size of the vertical major gridlines. Defaults to 0.2.}
 
-\item{face_title}{The face of the title font. Defaults to "bold".}
+\item{style_title}{The style of the title font. Defaults to "bold".}
 
-\item{face_subtitle}{The face of the subtitle font. Defaults to "plain".}
+\item{style_subtitle}{The style of the subtitle font. Defaults to "plain".}
 
-\item{face_body}{The face of all font other than the title or subtitle. Defaults to "plain".}
+\item{style_body}{The style of all font other than the title or subtitle. Defaults to "plain".}
 
 \item{pal_title}{The colour palette for the title font. Defaults to "#000000".}
 
@@ -55,6 +56,8 @@ gg_theme(
 \item{pal_axis}{The colour palette for the axis. Defaults to "#323232".}
 
 \item{pal_ticks}{The colour palette for the ticks. Defaults to "#323232".}
+
+\item{pal_background}{A two colour vector. The first colour if for the panel (and legend key). The second colour is for the rest of the background.}
 
 \item{pal_gridlines}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 

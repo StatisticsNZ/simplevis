@@ -9,12 +9,13 @@ gg_theme_void(
   size_title = 11,
   size_subtitle = 10,
   size_body = 10,
-  face_title = "bold",
-  face_subtitle = "plain",
-  face_body = "plain",
+  style_title = "bold",
+  style_subtitle = "plain",
+  style_body = "plain",
   pal_title = "#000000",
   pal_subtitle = "#000000",
-  pal_body = "#323232"
+  pal_body = "#323232",
+  pal_background = c("#ffffff", "#ffffff")
 )
 }
 \arguments{
@@ -26,17 +27,19 @@ gg_theme_void(
 
 \item{size_body}{The size of all font other than the title or subtitle. Defaults to 10.}
 
-\item{face_title}{The face of the title font. Defaults to "bold".}
+\item{style_title}{The style of the title font. Defaults to "bold".}
 
-\item{face_subtitle}{The face of the subtitle font. Defaults to "plain".}
+\item{style_subtitle}{The style of the subtitle font. Defaults to "plain".}
 
-\item{face_body}{The face of all font other than the title or subtitle. Defaults to "plain".}
+\item{style_body}{The style of all font other than the title or subtitle. Defaults to "plain".}
 
 \item{pal_title}{The colour palette for the title font. Defaults to "#000000".}
 
 \item{pal_subtitle}{The colour palette for the subtitle font. Defaults to "#000000".}
 
 \item{pal_body}{The colour palette for all font other than the title or subtitle. Defaults to "#323232".}
+
+\item{pal_background}{A two colour vector. The first colour if for the panel (and legend key). The second colour is for the rest of the background.}
 }
 \value{
 A ggplot theme.

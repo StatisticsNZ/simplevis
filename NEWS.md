@@ -1,4 +1,10 @@
-# simplevvis 6.0.6
+# simplevis 6.0.7
+
+* In density, updated default to gridlines each way.
+* In theme, changed face_ arguments to style_.
+* In theme, added arguments to modify background colours.
+
+# simplevis 6.0.6
 
 * Updated size_point default to 1.5.
 

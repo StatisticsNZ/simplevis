@@ -22,9 +22,7 @@ library(palmerpenguins)
 set.seed(123456789)
 ```
 
-From version 5.1.0, `simplevis` will support all ggplot2 themes with all `gg_*` plot functions providing a theme argument. 
-
-All graphs will have the same default undelying `simplevis` themes.
+All plots have the same default undelying `simplevis` themes.
 
 ```{r}
 gg_point_col(penguins, 
@@ -35,7 +33,7 @@ gg_point_col(penguins,
              subtitle = "And a subtitle")
 ```
 
-A `ggtheme` function will be provided to quickly create a theme. 
+A `ggtheme` function will be provided to quickly create a theme.
 
 ```{r}
 gg_point_col(penguins, 
@@ -44,26 +42,35 @@ gg_point_col(penguins,
              col_var = species, 
              title = "A nice long title", 
              subtitle = "And a subtitle", 
-             theme = gg_theme(size_title = 20)) 
+             theme = gg_theme(
+               gridlines_h = TRUE,
+               gridlines_v = TRUE,
+               font = "comic sans ms",
+               size_title = 20)) 
 ```
 
 This has some flexibility.
 
+Note colours are normally expressed as hex codes, but in this example are referred to by name to make it easier to see which colour relates to which components.
+
 ```{r}
 custom_theme <- gg_theme(
-  "lato",
+  gridlines_h = TRUE,
+  gridlines_v = TRUE,
+  font = "lato",
   size_title = 15,
   size_subtitle = 16,
   size_body = 9,
-  size_axis = 1,
-  size_gridlines = 0.7,
+  size_axis = 2,
+  size_gridlines = 0.2,
   size_ticks = 1,
   pal_title = "darkgreen",
   pal_subtitle = "lightgreen",
   pal_body = "darkblue",
-  pal_axis = "grey",
-  pal_ticks = "red",
-  pal_gridlines = "pink")
+  pal_axis = "blue",
+  pal_ticks = "orange",
+  pal_gridlines = "red",
+  pal_background = c("white", "grey"))
 
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
@@ -72,6 +79,25 @@ gg_point_col(penguins,
              title = "A nice long title", 
              subtitle = "And a subtitle", 
              theme = custom_theme) 
+```
+
+Or something more pretty.
+
+```{r}
+custom_theme <- gg_theme(
+  gridlines_h = TRUE,
+  gridlines_v = TRUE,
+  pal_body = "white",
+  pal_title = "white",
+  pal_subtitle = "white",
+  pal_background = c("#232323", "black"),
+  pal_gridlines = "black")
+
+gg_point_col(penguins,
+             species,
+             x_var = body_mass_g,
+             y_var = flipper_length_mm, 
+             theme = custom_theme)
 ```
 
 Users can also create their own custom themes using the `ggplot2::theme` function, or use other themes that other packages provide.

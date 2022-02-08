@@ -46,7 +46,7 @@ gg_sf <- function(data,
                   subtitle_wrap = 80,
                   caption = NULL,
                   caption_wrap = 80,
-                  theme = gg_theme_void(),
+                  theme = gg_theme(void = TRUE),
                   mobile = FALSE
 ) {
   
@@ -164,7 +164,7 @@ gg_sf <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         caption = stringr::str_wrap(caption, 50)
       ) + 
-      theme_mobile_extra_map()
+      theme_mobile_extra(void = TRUE)
   }
   
   return(plot)
@@ -272,7 +272,7 @@ gg_sf_col <- function(data,
                       col_title_wrap = 25,
                       caption = NULL,
                       caption_wrap = 80,
-                      theme = gg_theme_void(),
+                      theme = gg_theme(void = TRUE),
                       mobile = FALSE
 ) {
   
@@ -573,7 +573,7 @@ gg_sf_col <- function(data,
         subtitle = stringr::str_wrap(subtitle, 40),
         caption = stringr::str_wrap(caption, 50)
       )  +
-      theme_mobile_extra_map()
+      theme_mobile_extra(void = TRUE)
   }
   
   return(plot)
@@ -641,7 +641,7 @@ gg_sf_facet <- function(data,
                         subtitle_wrap = 80,
                         caption = NULL,
                         caption_wrap = 80,
-                        theme = gg_theme_void()) {
+                        theme = gg_theme(void = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -866,7 +866,7 @@ gg_sf_col_facet <- function(data,
                             facet_rev = FALSE,
                             caption = NULL,
                             caption_wrap = 80,
-                            theme = gg_theme_void())
+                            theme = gg_theme(void = TRUE))
 {
   
   #ungroup

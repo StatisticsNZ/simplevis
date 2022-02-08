@@ -42,7 +42,7 @@ gg_sf_col_facet(
   facet_rev = FALSE,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme_void()
+  theme = gg_theme(void = TRUE)
 )
 }
 \arguments{

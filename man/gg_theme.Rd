@@ -5,7 +5,12 @@
 \title{Create a simple theme for a graph.}
 \usage{
 gg_theme(
+  gridlines_h = FALSE,
+  gridlines_v = FALSE,
   font = "",
+  font_title = NULL,
+  font_subtitle = NULL,
+  font_body = NULL,
   size_title = 11,
   size_subtitle = 10,
   size_body = 10,
@@ -22,18 +27,27 @@ gg_theme(
   pal_ticks = "#323232",
   pal_background = c("#ffffff", "#ffffff"),
   pal_gridlines = "#D3D3D3",
-  gridlines_h = FALSE,
-  gridlines_v = FALSE
+  void = FALSE
 )
 }
 \arguments{
+\item{gridlines_h}{TRUE or FALSE of whether to show hotizontal gridlines.}
+
+\item{gridlines_v}{TRUE or FALSE of whether to show vertical gridlines.}
+
 \item{font}{The font for all text to use. Defaults to "".}
+
+\item{font_title}{The font for the title. If NULL, inherits from font argument.}
+
+\item{font_subtitle}{The font for the subtitle. If NULL, inherits from font argument.}
+
+\item{font_body}{The font for the subtitle. If NULL, inherits from font argument.}
 
 \item{size_title}{The size of the title font. Defaults to 11.}
 
 \item{size_subtitle}{The size of the subtitle font. Defaults to 10.}
 
-\item{size_body}{The size of all font other than the title or subtitle. Defaults to 10.}
+\item{size_body}{The size of all text other than the title or subtitle. Defaults to 10.}
 
 \item{size_axis}{The size of the axis. Defaults to 0.3.}
 
@@ -45,13 +59,13 @@ gg_theme(
 
 \item{style_subtitle}{The style of the subtitle font. Defaults to "plain".}
 
-\item{style_body}{The style of all font other than the title or subtitle. Defaults to "plain".}
+\item{style_body}{The style of all text other than the title or subtitle. Defaults to "plain".}
 
 \item{pal_title}{The colour palette for the title font. Defaults to "#000000".}
 
 \item{pal_subtitle}{The colour palette for the subtitle font. Defaults to "#000000".}
 
-\item{pal_body}{The colour palette for all font other than the title or subtitle. Defaults to "#323232".}
+\item{pal_body}{The colour palette for all text other than the title or subtitle. Defaults to "#323232".}
 
 \item{pal_axis}{The colour palette for the axis. Defaults to "#323232".}
 
@@ -61,9 +75,7 @@ gg_theme(
 
 \item{pal_gridlines}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
-\item{gridlines_h}{TRUE or FALSE of whether to show hotizontal gridlines.}
-
-\item{gridlines_v}{TRUE or FALSE of whether to show vertical gridlines.}
+\item{void}{TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.}
 }
 \value{
 A ggplot theme.

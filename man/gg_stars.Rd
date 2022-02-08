@@ -20,7 +20,7 @@ gg_stars(
   subtitle_wrap = 80,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme_void(),
+  theme = gg_theme(void = TRUE),
   mobile = FALSE
 )
 }

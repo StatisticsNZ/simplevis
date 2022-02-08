@@ -4,7 +4,10 @@
 \alias{theme_mobile_extra}
 \title{Extra theme elements for ggplot2 graphs on mobile devices}
 \usage{
-theme_mobile_extra()
+theme_mobile_extra(void = FALSE)
+}
+\arguments{
+\item{void}{TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.}
 }
 \value{
 A ggplot theme.

@@ -33,7 +33,7 @@ gg_point_col(penguins,
              subtitle = "And a subtitle")
 ```
 
-A `ggtheme` function will be provided to quickly create a theme.
+A `gg_theme` function is provided to quickly create a theme.
 
 ```{r}
 gg_point_col(penguins, 
@@ -81,7 +81,7 @@ gg_point_col(penguins,
              theme = custom_theme) 
 ```
 
-Or something more pretty.
+Another example of a dark mode looking graph.
 
 ```{r}
 custom_theme <- gg_theme(
@@ -134,3 +134,4 @@ gg_point_col(penguins,
              pal = ggthemes::economist_pal(fill = F)(3),
              theme = ggthemes::theme_economist())
 ```
+

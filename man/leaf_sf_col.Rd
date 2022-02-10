@@ -87,6 +87,8 @@ leaf_sf_col(
 
 \item{label_numeric_format}{A function to format the numeric labels. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
 
+\item{layer_id_var}{Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.}
+
 \item{group_id}{The id name for the sf group.}
 
 \item{legend_id}{The id name for the layerId of the legend.}

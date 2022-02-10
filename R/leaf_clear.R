@@ -5,8 +5,6 @@
 #'
 #' @return A map object.
 #' @export
-#'
-#' @examples
 leaf_clear <- function(map_id = "map") {
   leafletProxy(map_id) %>%
     clearMarkers() %>%

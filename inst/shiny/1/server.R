@@ -115,7 +115,7 @@ shinyServer(function(input, output, session) {
   #   options = list(pageLength = 5, scrollX = TRUE, lengthChange = FALSE)
   # )
   
-  draw_map <- function() {
+  leaf_draw <- function() {
     # add leaflet code from make_data_vis.R
     # change any placeholder character values to input widgets
     # refer to a reactive map_data object as map_data()
@@ -140,7 +140,8 @@ shinyServer(function(input, output, session) {
     req(input$map_zoom) # wait for basemap before plotting.
     
     withProgress(message = "Loading", {
-      draw_map()
+      leaf_clear()
+      leaf_draw()
     })
   })
   

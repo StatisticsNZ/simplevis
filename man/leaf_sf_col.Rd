@@ -31,6 +31,8 @@ leaf_sf_col(
   col_title = NULL,
   label_numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE),
   layer_id_var = NULL,
+  group_id = NULL,
+  legend_id = NULL,
   map_id = "map"
 )
 }
@@ -85,9 +87,11 @@ leaf_sf_col(
 
 \item{label_numeric_format}{A function to format the numeric labels. Defaults to adding a comma seperator. Use function(x) x to leave as is.}
 
-\item{layer_id_var}{Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.}
+\item{group_id}{The id name for the sf group.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. Defaults to "map".}
+\item{legend_id}{The id name for the layerId of the legend.}
+
+\item{map_id}{The map id for the leaflet map. Defaults to "map".}
 }
 \value{
 A leaflet object.

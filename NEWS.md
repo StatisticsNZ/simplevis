@@ -1,5 +1,8 @@
 # simplevis 6.0.9000
 
+* In leaf_*, removed side-effect of clearing the map, and added a new function to do this.
+* Created leaf_clear() for use in shiny.
+* In leaf_*, added group_id and legend_id arguments. 
 * Made theme outputs from gg_theme a gg and theme object, rather than a list.
 * Changed the gg_theme() family argument to font.
 * Changed the gg_theme() gridlines arguments to gridlines_h and gridlines_v.

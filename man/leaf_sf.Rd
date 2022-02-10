@@ -18,6 +18,7 @@ leaf_sf(
   alpha_fill = NULL,
   basemap = "light",
   layer_id_var = NULL,
+  group_id = NULL,
   map_id = "map"
 )
 }
@@ -48,7 +49,9 @@ leaf_sf(
 
 \item{layer_id_var}{Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. Defaults to "map".}
+\item{group_id}{The id name for the sf group.}
+
+\item{map_id}{The map id for the leaflet map. Defaults to "map".}
 }
 \value{
 A leaflet object.

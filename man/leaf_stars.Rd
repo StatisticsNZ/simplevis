@@ -9,6 +9,7 @@ leaf_stars(
   pal = pal_viridis_reorder(1),
   alpha_fill = 0.5,
   basemap = "light",
+  group_id = NULL,
   map_id = "map"
 )
 }
@@ -21,7 +22,9 @@ leaf_stars(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. Defaults to "map".}
+\item{group_id}{The id name for the stars group.}
+
+\item{map_id}{The map id for the leaflet map. Defaults to "map".}
 }
 \value{
 A leaflet object.

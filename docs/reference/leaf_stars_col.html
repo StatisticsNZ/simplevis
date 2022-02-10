@@ -177,6 +177,8 @@
   <span class='kw'>col_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_na_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>group_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>legend_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>
 )</pre>
 
@@ -244,8 +246,16 @@
       <td><p>A title string that will be wrapped into the legend.</p></td>
     </tr>
     <tr>
+      <th>group_id</th>
+      <td><p>The id name for the stars group.</p></td>
+    </tr>
+    <tr>
+      <th>legend_id</th>
+      <td><p>The id name for the layerId of the legend.</p></td>
+    </tr>
+    <tr>
       <th>map_id</th>
-      <td><p>The shiny map id for a leaflet map within a shiny app. Defaults to "map".</p></td>
+      <td><p>The map id for the leaflet map. Defaults to "map".</p></td>
     </tr>
     </table>
 

@@ -20,6 +20,8 @@ leaf_stars_col(
   col_method = NULL,
   col_na_rm = FALSE,
   col_title = NULL,
+  group_id = NULL,
+  legend_id = NULL,
   map_id = "map"
 )
 }
@@ -54,7 +56,11 @@ leaf_stars_col(
 
 \item{col_title}{A title string that will be wrapped into the legend.}
 
-\item{map_id}{The shiny map id for a leaflet map within a shiny app. Defaults to "map".}
+\item{group_id}{The id name for the stars group.}
+
+\item{legend_id}{The id name for the layerId of the legend.}
+
+\item{map_id}{The map id for the leaflet map. Defaults to "map".}
 }
 \value{
 A leaflet object.

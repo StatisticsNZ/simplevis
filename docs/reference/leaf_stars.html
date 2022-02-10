@@ -166,6 +166,7 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='pal_viridis_reorder.html'>pal_viridis_reorder</a></span>(<span class='fl'>1</span>),
   <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='st'>"light"</span>,
+  <span class='kw'>group_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>map_id</span> <span class='kw'>=</span> <span class='st'>"map"</span>
 )</pre>
 
@@ -189,8 +190,12 @@
       <td><p>The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.</p></td>
     </tr>
     <tr>
+      <th>group_id</th>
+      <td><p>The id name for the stars group.</p></td>
+    </tr>
+    <tr>
       <th>map_id</th>
-      <td><p>The shiny map id for a leaflet map within a shiny app. Defaults to "map".</p></td>
+      <td><p>The map id for the leaflet map. Defaults to "map".</p></td>
     </tr>
     </table>
 

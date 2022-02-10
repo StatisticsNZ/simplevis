@@ -15,7 +15,8 @@
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param layer_id_var Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id. 
-#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
+#' @param group_id The id name for the sf group.
+#' @param map_id The map id for the leaflet map. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -36,6 +37,7 @@ leaf_sf <- function(data,
                     alpha_fill = NULL,
                     basemap = "light",
                     layer_id_var = NULL,
+                    group_id = NULL,
                     map_id = "map")
 {
   #ungroup
@@ -108,7 +110,6 @@ leaf_sf <- function(data,
     }
     
     if (shiny == FALSE) {
-      
       map <- leaflet() %>%
         leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                    title = "Reset View", 
@@ -117,6 +118,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
@@ -127,11 +129,10 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
-      
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
@@ -146,7 +147,6 @@ leaf_sf <- function(data,
     if (is.null(alpha_line)) alpha_line <- 1
     
     if (shiny == FALSE) {
-      
       map <- leaflet() %>%
         leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                    title = "Reset View", 
@@ -155,6 +155,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
@@ -164,11 +165,10 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
-      
       map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
@@ -183,7 +183,6 @@ leaf_sf <- function(data,
     if (is.null(alpha_fill)) alpha_fill <- 1
     
     if (shiny == FALSE) {
-      
       map <- leaflet() %>%
         leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                    title = "Reset View", 
@@ -192,6 +191,7 @@ leaf_sf <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
@@ -201,11 +201,10 @@ leaf_sf <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
-      
       map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           popup = ~ popup,
           color = pal[1],
@@ -246,8 +245,9 @@ leaf_sf <- function(data,
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
 #' @param label_numeric_format A function to format the numeric labels. Defaults to adding a comma seperator. Use function(x) x to leave as is.
-#' @param layer_id_var Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id. 
-#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
+#' @param group_id The id name for the sf group.
+#' @param legend_id The id name for the layerId of the legend.
+#' @param map_id The map id for the leaflet map. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -303,6 +303,8 @@ leaf_sf_col <- function(data,
                         col_title = NULL,
                         label_numeric_format = function(x) prettyNum(x, big.mark = ",", scientific = FALSE),
                         layer_id_var = NULL,
+                        group_id = NULL,
+                        legend_id = NULL,
                         map_id = "map") {
   
   #ungroup
@@ -479,7 +481,6 @@ leaf_sf_col <- function(data,
     }
     
     if (shiny == FALSE) {
-      
       map <- leaflet() %>%
         leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                    title = "Reset View", 
@@ -488,6 +489,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addCircleMarkers(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
@@ -499,11 +501,10 @@ leaf_sf_col <- function(data,
         )
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
-      
       map <- leafletProxy(map_id) %>%
         addCircleMarkers(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           label = ~ label_var_vctr,
@@ -519,7 +520,6 @@ leaf_sf_col <- function(data,
     if (is.null(alpha_line)) alpha_line <- 1
     
     if (shiny == FALSE) {
-      
       map <- leaflet() %>%
         leaflet::addEasyButton(leaflet::easyButton(icon = "ion-arrow-shrink", 
                                                    title = "Reset View", 
@@ -528,6 +528,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolylines(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
@@ -538,11 +539,10 @@ leaf_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
-      
       map <- leafletProxy(map_id) %>%
         addPolylines(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
@@ -566,6 +566,7 @@ leaf_sf_col <- function(data,
         addProviderTiles(basemap_name) %>%
         addPolygons(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
@@ -576,11 +577,10 @@ leaf_sf_col <- function(data,
         ) 
     }
     else if (shiny == TRUE) {
-      leafletProxy(map_id) %>% clearMarkers() %>% clearPopups() %>% clearShapes() %>% clearImages() %>% clearControls()
-      
       map <- leafletProxy(map_id) %>%
         addPolygons(
           data = data, 
+          group = group_id,
           layerId = ~ layer_id_var, 
           color = ~ pal_fun(col_var_vctr),
           popup = ~ popup,
@@ -610,6 +610,7 @@ leaf_sf_col <- function(data,
     if (col_method == "continuous") {
       map <- map %>% 
         addLegend(
+          layerId = legend_id,
           pal = pal_fun,
           values = col_var_vctr,
           bins = col_cuts,
@@ -620,6 +621,7 @@ leaf_sf_col <- function(data,
     else if (col_method %in% c("bin", "quantile", "category")) {
       map <- map %>% 
         addLegend(
+          layerId = legend_id,
           colors = pal,
           labels = col_labels,
           title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),

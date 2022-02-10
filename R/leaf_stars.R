@@ -6,7 +6,8 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5. 
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
-#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
+#' @param group_id The id name for the stars group.
+#' @param map_id The map id for the leaflet map. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -15,10 +16,11 @@
 #' leaf_stars(example_stars) 
 #'   
 leaf_stars <- function(data,
-                          pal = pal_viridis_reorder(1),
-                          alpha_fill = 0.5,
-                          basemap = "light",
-                          map_id = "map")
+                       pal = pal_viridis_reorder(1),
+                       alpha_fill = 0.5,
+                       basemap = "light",
+                       group_id = NULL,
+                       map_id = "map")
 {
   
   #shiny
@@ -30,8 +32,7 @@ leaf_stars <- function(data,
   
   #colour
   pal <- pal[1]
-  col_id <- paste0(map_id, "_legend")
-  
+
   #basemap
   if (shiny == FALSE) {
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
@@ -51,19 +52,18 @@ leaf_stars <- function(data,
       htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
       addProviderTiles(basemap_name) %>%
       leafem::addStarsImage(
-        x = data,
+        x = data, 
+        group = group_id,
         colors = pal[1],
         opacity = alpha_fill,
         project = TRUE
       ) 
   }
   else if (shiny == TRUE) {
-    
-    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
-    
     map <- leafletProxy(map_id) %>%
       leafem::addStarsImage(
-        x = data,
+        x = data, 
+        group = group_id,
         colors = pal[1],
         opacity = alpha_fill,
         project = TRUE
@@ -90,7 +90,9 @@ leaf_stars <- function(data,
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric. Use function(x) x to keep labels untransformed.  
 #' @param col_na_rm TRUE or FALSE of whether to visualise col_var NA values. Defaults to FALSE.
 #' @param col_title A title string that will be wrapped into the legend. 
-#' @param map_id The shiny map id for a leaflet map within a shiny app. Defaults to "map".
+#' @param group_id The id name for the stars group.
+#' @param legend_id The id name for the layerId of the legend.
+#' @param map_id The map id for the leaflet map. Defaults to "map".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -101,21 +103,23 @@ leaf_stars <- function(data,
 #'                   col_na_rm = TRUE)
 #' 
 leaf_stars_col <- function(data,
-                              col_var,
-                              pal = NULL,
-                              pal_na = "#7F7F7F",
-                              pal_rev = FALSE,
-                              alpha_fill = 1,
-                              basemap = "light",
-                              col_breaks_n = 4,
-                              col_cuts = NULL,
-                              col_intervals_right = TRUE, 
-                              col_labels = NULL,
-                              col_legend_none = FALSE,
-                              col_method = NULL,
-                              col_na_rm = FALSE,
-                              col_title = NULL,
-                              map_id = "map"
+                           col_var,
+                           pal = NULL,
+                           pal_na = "#7F7F7F",
+                           pal_rev = FALSE,
+                           alpha_fill = 1,
+                           basemap = "light",
+                           col_breaks_n = 4,
+                           col_cuts = NULL,
+                           col_intervals_right = TRUE,
+                           col_labels = NULL,
+                           col_legend_none = FALSE,
+                           col_method = NULL,
+                           col_na_rm = FALSE,
+                           col_title = NULL,
+                           group_id = NULL,
+                           legend_id = NULL,
+                           map_id = "map"
 ) {
   
   #shiny
@@ -226,8 +230,6 @@ leaf_stars_col <- function(data,
                            na.color = pal_na)
   }
   
-  col_id <- paste0(map_id, "_legend")
-  
   #basemap
   if (shiny == FALSE) {
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
@@ -246,19 +248,18 @@ leaf_stars_col <- function(data,
       htmlwidgets::onRender(htmlwidgets::JS("function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}")) %>% 
       addProviderTiles(basemap_name) %>%
       leafem::addStarsImage(
-        x = data,
+        x = data, 
+        group = group_id,
         colors = pal_fun,
         opacity = alpha_fill,
         project = TRUE
       )
   }
   else if (shiny == TRUE) {
-    
-    leafletProxy(map_id) %>% clearMarkers() %>% clearShapes() %>% clearImages() %>% removeControl(col_id)
-    
     map <- leafletProxy(map_id) %>%
       leafem::addStarsImage(
-        x = data,
+        x = data, 
+        group = group_id,
         colors = pal_fun,
         opacity = alpha_fill,
         project = TRUE
@@ -283,7 +284,7 @@ leaf_stars_col <- function(data,
     if (col_method == "continuous") {
       map <- map %>% 
         addLegend(
-          layerId = col_id,
+          layerId = legend_id,
           pal = pal_fun,
           values = col_var_vctr,
           bins = col_cuts,
@@ -294,7 +295,7 @@ leaf_stars_col <- function(data,
     else if (col_method %in% c("bin", "quantile", "category")) {
       map <- map %>% 
         addLegend(
-          layerId = col_id,
+          layerId = legend_id,
           colors = pal,
           labels = col_labels,
           title = stringr::str_replace_all(stringr::str_wrap(col_title, 20), "\n", "</br>"),

@@ -5,8 +5,6 @@
 \title{Create a simple theme for a graph.}
 \usage{
 gg_theme(
-  gridlines_h = FALSE,
-  gridlines_v = FALSE,
   font = "",
   font_title = NULL,
   font_subtitle = NULL,
@@ -27,14 +25,12 @@ gg_theme(
   pal_ticks = "#323232",
   pal_background = c("#ffffff", "#ffffff"),
   pal_gridlines = "#D3D3D3",
+  gridlines_h = FALSE,
+  gridlines_v = FALSE,
   void = FALSE
 )
 }
 \arguments{
-\item{gridlines_h}{TRUE or FALSE of whether to show hotizontal gridlines.}
-
-\item{gridlines_v}{TRUE or FALSE of whether to show vertical gridlines.}
-
 \item{font}{The font for all text to use. Defaults to "".}
 
 \item{font_title}{The font for the title. If NULL, inherits from font argument.}
@@ -74,6 +70,10 @@ gg_theme(
 \item{pal_background}{A two colour vector. The first colour if for the panel (and legend key). The second colour is for the rest of the background.}
 
 \item{pal_gridlines}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
+
+\item{gridlines_h}{TRUE or FALSE of whether to show hotizontal gridlines.}
+
+\item{gridlines_v}{TRUE or FALSE of whether to show vertical gridlines.}
 
 \item{void}{TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.}
 }

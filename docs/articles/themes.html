@@ -142,16 +142,15 @@
              <span class="kw">title</span> <span class="kw">=</span> <span class="st">"A nice long title"</span>,
              <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"And a subtitle"</span>,
              <span class="kw">theme</span> <span class="kw">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(
-               <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-               <span class="kw">gridlines_v</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
                <span class="kw">font</span> <span class="kw">=</span> <span class="st">"comic sans ms"</span>,
-               <span class="kw">size_title</span> <span class="kw">=</span> <span class="fl">20</span>))</pre></body></html></div>
+               <span class="kw">size_title</span> <span class="kw">=</span> <span class="fl">20</span>,
+               <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+               <span class="kw">gridlines_v</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+             )</pre></body></html></div>
 <p><img src="themes_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>This has some flexibility.</p>
 <p>Note colours are normally expressed as hex codes, but in this example are referred to by name to make it easier to see which colour relates to which components.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">custom_theme</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(
-  <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-  <span class="kw">gridlines_v</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
   <span class="kw">font</span> <span class="kw">=</span> <span class="st">"lato"</span>,
   <span class="kw">size_title</span> <span class="kw">=</span> <span class="fl">15</span>,
   <span class="kw">size_subtitle</span> <span class="kw">=</span> <span class="fl">16</span>,
@@ -165,7 +164,10 @@
   <span class="kw">pal_axis</span> <span class="kw">=</span> <span class="st">"blue"</span>,
   <span class="kw">pal_ticks</span> <span class="kw">=</span> <span class="st">"orange"</span>,
   <span class="kw">pal_gridlines</span> <span class="kw">=</span> <span class="st">"red"</span>,
-  <span class="kw">pal_background</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>, <span class="st">"grey"</span>))
+  <span class="kw">pal_background</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>, <span class="st">"grey"</span>),
+  <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+  <span class="kw">gridlines_v</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+)
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
@@ -177,13 +179,13 @@
 <p><img src="themes_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>Another example of a dark mode looking graph.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">custom_theme</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(
-  <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-  <span class="kw">gridlines_v</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
   <span class="kw">pal_body</span> <span class="kw">=</span> <span class="st">"white"</span>,
   <span class="kw">pal_title</span> <span class="kw">=</span> <span class="st">"white"</span>,
   <span class="kw">pal_subtitle</span> <span class="kw">=</span> <span class="st">"white"</span>,
   <span class="kw">pal_background</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#232323"</span>, <span class="st">"black"</span>),
-  <span class="kw">pal_gridlines</span> <span class="kw">=</span> <span class="st">"black"</span>)
+  <span class="kw">pal_gridlines</span> <span class="kw">=</span> <span class="st">"black"</span>,
+  <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+  <span class="kw">gridlines_v</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="no">species</span>,

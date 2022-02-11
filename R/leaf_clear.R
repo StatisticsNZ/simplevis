@@ -9,6 +9,6 @@ leaf_clear <- function(map_id = "map") {
   leafletProxy(map_id) %>%
     clearMarkers() %>%
     clearShapes() %>%
-    clearImages() %>%
+    clearImages() %>% 
     clearControls()
 }

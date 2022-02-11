@@ -43,10 +43,11 @@ gg_point_col(penguins,
              title = "A nice long title", 
              subtitle = "And a subtitle", 
              theme = gg_theme(
-               gridlines_h = TRUE,
-               gridlines_v = TRUE,
                font = "comic sans ms",
-               size_title = 20)) 
+               size_title = 20, 
+               gridlines_h = TRUE,
+               gridlines_v = TRUE)
+             ) 
 ```
 
 This has some flexibility.
@@ -55,8 +56,6 @@ Note colours are normally expressed as hex codes, but in this example are referr
 
 ```{r}
 custom_theme <- gg_theme(
-  gridlines_h = TRUE,
-  gridlines_v = TRUE,
   font = "lato",
   size_title = 15,
   size_subtitle = 16,
@@ -70,7 +69,10 @@ custom_theme <- gg_theme(
   pal_axis = "blue",
   pal_ticks = "orange",
   pal_gridlines = "red",
-  pal_background = c("white", "grey"))
+  pal_background = c("white", "grey"), 
+  gridlines_h = TRUE,
+  gridlines_v = TRUE
+)
 
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
@@ -85,13 +87,13 @@ Another example of a dark mode looking graph.
 
 ```{r}
 custom_theme <- gg_theme(
-  gridlines_h = TRUE,
-  gridlines_v = TRUE,
   pal_body = "white",
   pal_title = "white",
   pal_subtitle = "white",
   pal_background = c("#232323", "black"),
-  pal_gridlines = "black")
+  pal_gridlines = "black", 
+  gridlines_h = TRUE,
+  gridlines_v = TRUE)
 
 gg_point_col(penguins,
              species,

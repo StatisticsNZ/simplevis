@@ -1,7 +1,5 @@
 #' @title Create a simple theme for a graph. 
 #'
-#' @param gridlines_h TRUE or FALSE of whether to show hotizontal gridlines.
-#' @param gridlines_v TRUE or FALSE of whether to show vertical gridlines.
 #' @param font The font for all text to use. Defaults to "".
 #' @param font_title The font for the title. If NULL, inherits from font argument.
 #' @param font_subtitle The font for the subtitle. If NULL, inherits from font argument.
@@ -22,15 +20,15 @@
 #' @param pal_ticks The colour palette for the ticks. Defaults to "#323232".
 #' @param pal_background A two colour vector. The first colour if for the panel (and legend key). The second colour is for the rest of the background.
 #' @param pal_gridlines The colour palette for the vertical major gridlines. Defaults to "#D3D3D3". 
+#' @param gridlines_h TRUE or FALSE of whether to show hotizontal gridlines.
+#' @param gridlines_v TRUE or FALSE of whether to show vertical gridlines.
 #' @param void TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.  
 #'
 #' @return A ggplot theme.
 #' @export
 #' 
 gg_theme <-
-  function(gridlines_h = FALSE, 
-           gridlines_v = FALSE, 
-           font = "",
+  function(font = "",
            font_title = NULL,
            font_subtitle = NULL,
            font_body = NULL,
@@ -50,6 +48,8 @@ gg_theme <-
            pal_ticks = "#323232",
            pal_background = c("#ffffff", "#ffffff"),
            pal_gridlines = "#D3D3D3",
+           gridlines_h = FALSE, 
+           gridlines_v = FALSE,
            void = FALSE) {
     
     if (is.null(font_title)) font_title <- font

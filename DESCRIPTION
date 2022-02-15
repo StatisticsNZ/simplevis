@@ -19,8 +19,8 @@ LazyData: true
 Depends: R (>= 3.5.0)
 Imports: dplyr, forcats, ggplot2, htmlwidgets, leaflet, leafem, leafpop, 
          lifecycle, lubridate, magrittr, palmerpenguins, plotly, purrr, rlang, 
-         scales, sf, snakecase, stars, stringr, tidyr, tidyselect, viridis
-Suggests: DT, glue, knitr, pals, patchwork, rgdal, rgeos, rmarkdown, s2, shiny, 
+         scales, sf, shiny, snakecase, stars, stringr, tidyr, tidyselect, viridis
+Suggests: DT, glue, knitr, pals, patchwork, rgdal, rgeos, rmarkdown, s2,  
          shinycssloaders, tibble
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr

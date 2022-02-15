@@ -7,17 +7,10 @@
 #' @export
 shiny_demo <- function(mobile = FALSE) {
   
-  if(any(c("shiny", "shinycssloaders", "DT") %in% utils::installed.packages() == FALSE)) {
-    stop("Please ensure shiny, shinycssloaders and DT packages are installed")  
-  }
+  demodir <- system.file("shiny", package = "simplevis")
   
-  suppressWarnings({
-    
-    demodir <- system.file("shiny", package = "simplevis")
-    
-    if (mobile == FALSE) demo <- 1
-    if (mobile == TRUE) demo <- 2
-    
-    shiny::runApp(sprintf("%s/%s", demodir, demo))
-  })
+  if (mobile == FALSE) demo <- 1
+  if (mobile == TRUE) demo <- 2
+  
+  shiny::runApp(sprintf("%s/%s", demodir, demo))
 }

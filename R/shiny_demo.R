@@ -6,6 +6,11 @@
 #'
 #' @export
 shiny_demo <- function(mobile = FALSE) {
+  
+  if(any(c("shiny", "shinycssloaders", "DT") %in% utils::installed.packages() == FALSE)) {
+    stop("Please ensure shiny, shinycssloaders and DT packages are installed")  
+  }
+  
   suppressWarnings({
     
     demodir <- system.file("shiny", package = "simplevis")

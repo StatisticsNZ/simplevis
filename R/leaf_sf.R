@@ -20,9 +20,11 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' \dontrun{
 #' leaf_sf(example_point)
 #' 
 #' leaf_sf(example_polygon)
+#' }
 #' 
 leaf_sf <- function(data,
                     popup = TRUE,
@@ -252,6 +254,7 @@ leaf_sf <- function(data,
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' \dontrun{
 #' leaf_sf_col(example_point,
 #'               col_var = trend_category)
 #'
@@ -277,7 +280,8 @@ leaf_sf <- function(data,
 #'               col_var = density,
 #'               col_method = "quantile",
 #'               col_cuts = c(0, 0.25, 0.5, 0.75, 0.95, 1))
-#'
+#' }
+#' 
 leaf_sf_col <- function(data,
                         col_var,
                         label_var = NULL,

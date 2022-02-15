@@ -11,9 +11,11 @@
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' \dontrun{
 #' library(simplevis)
 #' 
 #' leaf_stars(example_stars) 
+#' }
 #'   
 leaf_stars <- function(data,
                        pal = pal_viridis_reorder(1),
@@ -96,11 +98,13 @@ leaf_stars <- function(data,
 #' @return A leaflet object.
 #' @export
 #' @examples
+#' \dontrun{
 #' library(simplevis)
 #' 
 #' leaf_stars_col(example_stars, 
 #'                   col_var = nitrate, 
 #'                   col_na_rm = TRUE)
+#' }
 #' 
 leaf_stars_col <- function(data,
                            col_var,

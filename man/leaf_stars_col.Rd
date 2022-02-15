@@ -69,10 +69,12 @@ A leaflet object.
 Map of stars in leaflet that is coloured.
 }
 \examples{
+\dontrun{
 library(simplevis)
 
 leaf_stars_col(example_stars, 
                   col_var = nitrate, 
                   col_na_rm = TRUE)
+}
 
 }

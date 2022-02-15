@@ -60,8 +60,10 @@ A leaflet object.
 Map of simple features in leaflet that is not coloured.
 }
 \examples{
+\dontrun{
 leaf_sf(example_point)
 
 leaf_sf(example_polygon)
+}
 
 }

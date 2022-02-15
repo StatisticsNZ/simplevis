@@ -33,8 +33,10 @@ A leaflet object.
 Map of stars in leaflet that is not coloured.
 }
 \examples{
+\dontrun{
 library(simplevis)
 
 leaf_stars(example_stars) 
+}
   
 }

@@ -1,4 +1,4 @@
-# simplevis 6.0.9000
+# simplevis 6.1.0
 
 * In leaf_*, removed side-effect of clearing the map, and added a new function to do this.
 * Created leaf_clear() for use in shiny.

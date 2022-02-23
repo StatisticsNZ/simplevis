@@ -13,7 +13,7 @@ gg_hboxplot_col_facet(
   pal = NULL,
   pal_na = "#7F7F7F",
   pal_rev = FALSE,
-  alpha_fill = 0.2,
+  alpha_fill = 0.5,
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
@@ -77,7 +77,7 @@ gg_hboxplot_col_facet(
 
 \item{pal_rev}{TRUE or FALSE of whether to reverse the pal.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 

@@ -1,3 +1,9 @@
+# simplevis 6.1.1
+
+* Added gg_histogram*() functions.
+* Adjusted default alpha_fill to 0.5.
+* Updated css in app demo's.
+
 # simplevis 6.1.0
 
 * In leaf_*, removed side-effect of clearing the map, and added a new function to do this.

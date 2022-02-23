@@ -7,10 +7,6 @@ html, body, .container {
   font-family: "helvetica";
 }
 
-.navbar-static-top {
-    z-index: 1500;
-}
-
 .container-fluid{
   height: 100%;
 }

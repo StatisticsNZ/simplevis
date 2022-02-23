@@ -9,7 +9,7 @@ gg_hboxplot(
   x_var = NULL,
   y_var,
   pal = pal_viridis_reorder(1),
-  alpha_fill = 0.2,
+  alpha_fill = 0.5,
   alpha_line = 1,
   alpha_point = 1,
   size_line = 0.5,
@@ -54,7 +54,7 @@ gg_hboxplot(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 

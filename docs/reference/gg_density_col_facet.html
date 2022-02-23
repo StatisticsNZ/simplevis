@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.1.1</span>
       </span>
     </div>
 
@@ -169,7 +169,7 @@
   <span class='kw'>pal</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>pal_na</span> <span class='kw'>=</span> <span class='st'>"#7F7F7F"</span>,
   <span class='kw'>pal_rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha_fill</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>alpha_line</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>size_line</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -178,7 +178,7 @@
   <span class='kw'>subtitle_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
   <span class='kw'>x_breaks_n</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>x_balance</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>x_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>x_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>x_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>x_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
@@ -186,7 +186,7 @@
   <span class='kw'>x_zero_line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_breaks_n</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>y_expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_number</a></span>(<span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>","</span>),
+  <span class='kw'>y_labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/scales/man/label_number.html'>label_comma</a></span>(),
   <span class='kw'>y_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y_title_wrap</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>col_labels</span> <span class='kw'>=</span> <span class='kw pkg'>snakecase</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/snakecase/man/caseconverter.html'>to_sentence_case</a></span>,
@@ -202,7 +202,7 @@
   <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>caption_wrap</span> <span class='kw'>=</span> <span class='fl'>80</span>,
-  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(<span class='kw'>gridlines_h</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>gridlines_v</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='gg_theme.html'>gg_theme</a></span>(<span class='kw'>gridlines_h</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>model_bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
   <span class='kw'>model_adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>model_kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
@@ -243,7 +243,7 @@
     </tr>
     <tr>
       <th>alpha_fill</th>
-      <td><p>The opacity of the fill. Defaults to 0.2.</p></td>
+      <td><p>The opacity of the fill. Defaults to 0.5.</p></td>
     </tr>
     <tr>
       <th>alpha_line</th>
@@ -311,7 +311,7 @@
     </tr>
     <tr>
       <th>y_labels</th>
-      <td><p>A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.</p></td>
+      <td><p>A function or named vector to modify y scale labels.  Use ggplot2::waiver() to keep y labels untransformed.</p></td>
     </tr>
     <tr>
       <th>y_title</th>

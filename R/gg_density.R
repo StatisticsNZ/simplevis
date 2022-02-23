@@ -4,7 +4,7 @@
 #' @param data An ungrouped summarised tibble or dataframe in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -21,7 +21,7 @@
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_labels A function or named vector to modify y scale labels.  Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param caption Caption title string. 
@@ -46,7 +46,7 @@
 gg_density <- function(data,
                        x_var,
                        pal = pal_viridis_reorder(1),
-                       alpha_fill = 0.2,
+                       alpha_fill = 0.5,
                        alpha_line = 1,
                        size_line = 0.5,
                        title = NULL,
@@ -55,7 +55,7 @@ gg_density <- function(data,
                        subtitle_wrap = 80,
                        x_balance = FALSE,
                        x_breaks_n = 5,
-                       x_expand = NULL,
+                       x_expand = c(0, 0),
                        x_labels = scales::label_comma(),
                        x_title = NULL,
                        x_title_wrap = 50,
@@ -63,12 +63,12 @@ gg_density <- function(data,
                        x_zero_line = NULL,
                        y_breaks_n = 5,
                        y_expand = c(0, 0),
-                       y_labels = scales::label_number(big.mark = ","),
+                       y_labels = scales::label_comma(),
                        y_title = NULL,
                        y_title_wrap = 50,
                        caption = NULL,
                        caption_wrap = 80,
-                       theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
+                       theme = gg_theme(gridlines_h = TRUE),
                        model_bw = "nrd0",
                        model_adjust = 1,
                        model_kernel = "gaussian",
@@ -111,7 +111,6 @@ gg_density <- function(data,
   x_zero_line <- x_zero_list[[2]]
   x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
-  if (is.null(x_expand)) x_expand <- c(0, 0)
   
   if (mobile == TRUE) {
     x_breaks <- x_limits
@@ -176,7 +175,7 @@ gg_density <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -193,7 +192,7 @@ gg_density <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_labels A function or named vector to modify y scale labels.  Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -228,7 +227,7 @@ gg_density_col <- function(data,
                            pal = NULL,
                            pal_na = "#7F7F7F",
                            pal_rev = FALSE,
-                           alpha_fill = 0.2,
+                           alpha_fill = 0.5,
                            alpha_line = 1,
                            size_line = 0.5,
                            title = NULL,
@@ -237,7 +236,7 @@ gg_density_col <- function(data,
                            subtitle_wrap = 80,
                            x_balance = FALSE,
                            x_breaks_n = 5,
-                           x_expand = NULL,
+                           x_expand = c(0, 0),
                            x_labels = scales::label_comma(),
                            x_title = NULL,
                            x_title_wrap = 50,
@@ -245,7 +244,7 @@ gg_density_col <- function(data,
                            x_zero_line = NULL,
                            y_breaks_n = 5,
                            y_expand = c(0, 0),
-                           y_labels = scales::label_number(big.mark = ","),
+                           y_labels = scales::label_comma(),
                            y_title = NULL,
                            y_title_wrap = 50,
                            col_labels = snakecase::to_sentence_case,
@@ -255,7 +254,7 @@ gg_density_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
-                           theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
+                           theme = gg_theme(gridlines_h = TRUE),
                            model_bw = "nrd0",
                            model_adjust = 1,
                            model_kernel = "gaussian",
@@ -327,8 +326,7 @@ gg_density_col <- function(data,
   x_zero_line <- x_zero_list[[2]]
   x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
   x_limits <- c(min(x_breaks), max(x_breaks))
-  if (is.null(x_expand)) x_expand <- c(0, 0)
-  
+
   if (mobile == TRUE) {
     x_breaks <- x_limits
     if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
@@ -418,7 +416,7 @@ gg_density_col <- function(data,
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -435,7 +433,7 @@ gg_density_col <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_labels A function or named vector to modify y scale labels.  Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
@@ -467,7 +465,7 @@ gg_density_facet <- function(data,
                              x_var,
                              facet_var,
                              pal = pal_viridis_reorder(1),
-                             alpha_fill = 0.2,
+                             alpha_fill = 0.5,
                              alpha_line = 1,
                              size_line = 0.5,
                              title = NULL,
@@ -476,7 +474,7 @@ gg_density_facet <- function(data,
                              subtitle_wrap = 80,
                              x_balance = FALSE,
                              x_breaks_n = 2,
-                             x_expand = NULL,
+                             x_expand = c(0, 0),
                              x_labels = scales::label_comma(),
                              x_title = NULL,
                              x_title_wrap = 50,
@@ -484,7 +482,7 @@ gg_density_facet <- function(data,
                              x_zero_line = NULL,
                              y_breaks_n = 3,
                              y_expand = c(0, 0),
-                             y_labels = scales::label_number(big.mark = ","),
+                             y_labels = scales::label_comma(),
                              y_title = NULL,
                              y_title_wrap = 50,
                              facet_labels = snakecase::to_sentence_case,
@@ -495,7 +493,7 @@ gg_density_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE), 
+                             theme = gg_theme(gridlines_h = TRUE), 
                              model_bw = "nrd0",
                              model_adjust = 1,
                              model_kernel = "gaussian",
@@ -556,8 +554,7 @@ gg_density_facet <- function(data,
     x_zero_line <- x_zero_list[[2]]
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    if (is.null(x_expand)) x_expand <- c(0, 0)
-    
+
     plot <- plot +
       scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     
@@ -614,7 +611,7 @@ gg_density_facet <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
-#' @param alpha_fill The opacity of the fill. Defaults to 0.2.  
+#' @param alpha_fill The opacity of the fill. Defaults to 0.5.  
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param size_line The size of the outlines of density areas.
 #' @param title Title string. 
@@ -631,7 +628,7 @@ gg_density_facet <- function(data,
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.   
 #' @param y_breaks_n For a numeric y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
-#' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.
+#' @param y_labels A function or named vector to modify y scale labels.  Use ggplot2::waiver() to keep y labels untransformed.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
@@ -673,7 +670,7 @@ gg_density_col_facet <- function(data,
                                  pal = NULL,
                                  pal_na = "#7F7F7F",
                                  pal_rev = FALSE,
-                                 alpha_fill = 0.2,
+                                 alpha_fill = 0.5,
                                  alpha_line = 1,
                                  size_line = 0.5,
                                  title = NULL,
@@ -682,7 +679,7 @@ gg_density_col_facet <- function(data,
                                  subtitle_wrap = 80,
                                  x_breaks_n = 2,
                                  x_balance = FALSE,
-                                 x_expand = NULL,
+                                 x_expand = c(0, 0),
                                  x_labels = scales::label_comma(),
                                  x_title = NULL,
                                  x_title_wrap = 50,
@@ -690,7 +687,7 @@ gg_density_col_facet <- function(data,
                                  x_zero_line = NULL,
                                  y_breaks_n = 3,
                                  y_expand = c(0, 0),
-                                 y_labels = scales::label_number(big.mark = ","),
+                                 y_labels = scales::label_comma(),
                                  y_title = NULL,
                                  y_title_wrap = 50,
                                  col_labels = snakecase::to_sentence_case,
@@ -706,7 +703,7 @@ gg_density_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80, 
-                                 theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE), 
+                                 theme = gg_theme(gridlines_h = TRUE), 
                                  model_bw = "nrd0",
                                  model_adjust = 1,
                                  model_kernel = "gaussian",
@@ -792,8 +789,7 @@ gg_density_col_facet <- function(data,
     x_zero_line <- x_zero_list[[2]]
     x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
     x_limits <- c(min(x_breaks), max(x_breaks))
-    if (is.null(x_expand)) x_expand <- c(0, 0)
-    
+
     plot <- plot +
       scale_x_continuous(expand = x_expand, breaks = x_breaks, limits = x_limits, labels = x_labels, oob = scales::oob_squish)
     

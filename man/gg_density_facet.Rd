@@ -9,7 +9,7 @@ gg_density_facet(
   x_var,
   facet_var,
   pal = pal_viridis_reorder(1),
-  alpha_fill = 0.2,
+  alpha_fill = 0.5,
   alpha_line = 1,
   size_line = 0.5,
   title = NULL,
@@ -18,7 +18,7 @@ gg_density_facet(
   subtitle_wrap = 80,
   x_balance = FALSE,
   x_breaks_n = 2,
-  x_expand = NULL,
+  x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_title = NULL,
   x_title_wrap = 50,
@@ -26,7 +26,7 @@ gg_density_facet(
   x_zero_line = NULL,
   y_breaks_n = 3,
   y_expand = c(0, 0),
-  y_labels = scales::label_number(big.mark = ","),
+  y_labels = scales::label_comma(),
   y_title = NULL,
   y_title_wrap = 50,
   facet_labels = snakecase::to_sentence_case,
@@ -37,7 +37,7 @@ gg_density_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE, gridlines_v = TRUE),
+  theme = gg_theme(gridlines_h = TRUE),
   model_bw = "nrd0",
   model_adjust = 1,
   model_kernel = "gaussian",
@@ -54,7 +54,7 @@ gg_density_facet(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{alpha_fill}{The opacity of the fill. Defaults to 0.2.}
+\item{alpha_fill}{The opacity of the fill. Defaults to 0.5.}
 
 \item{alpha_line}{The opacity of the outline. Defaults to 1.}
 
@@ -88,7 +88,7 @@ gg_density_facet(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use ggplot2::waiver() to keep y labels untransformed.}
+\item{y_labels}{A function or named vector to modify y scale labels.  Use ggplot2::waiver() to keep y labels untransformed.}
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

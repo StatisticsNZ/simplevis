@@ -110,15 +110,15 @@
       </header><script src="leaflet_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="leaflet_files/jquery-1.12.4/jquery.min.js"></script><link href="leaflet_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="leaflet_files/leaflet-1.3.1/leaflet.js"></script><link href="leaflet_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="leaflet_files/proj4-2.6.2/proj4.min.js"></script><script src="leaflet_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="leaflet_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="leaflet_files/leaflet-binding-2.0.4.1/leaflet.js"></script><link href="leaflet_files/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet">
+<script src="leaflet_files/leaflet-binding-2.1.0/leaflet.js"></script><link href="leaflet_files/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet">
 <script src="leaflet_files/leaflet-easybutton-1.3.1/easy-button.js"></script><script src="leaflet_files/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script><link href="leaflet_files/ionicons-2.0.1/ionicons.min.css" rel="stylesheet">
-<script src="leaflet_files/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="leaflet_files/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script><div class="row">
+<script src="leaflet_files/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="leaflet_files/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Leaflet</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2022-02-24</h4>
+            <h4 class="date">2022-02-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/leaflet.Rmd"><code>vignettes/leaflet.Rmd</code></a></small>
       <div class="hidden name"><code>leaflet.Rmd</code></div>
@@ -253,44 +253,27 @@
 <div id="htmlwidget-cc192cfb08c1b0751045" style="width:576px;height:432px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-cc192cfb08c1b0751045">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addEasyButton","args":[{"icon":"ion-arrow-shrink","title":"Reset View","onClick":"function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }","position":"topleft"}]},{"method":"addProviderTiles","args":["CartoDB.PositronNoLabels",null,"Light",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© CartoDB"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© ESRI"}]},{"method":"addProviderTiles","args":["Esri.OceanBasemap",null,"Ocean",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© ESRI"}]},{"method":"addProviderTiles","args":["OpenStreetMap.Mapnik",null,"Street",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© OpenStreetMap"}]},{"method":"addProviderTiles","args":["CartoDB.DarkMatterNoLabels",null,"Dark",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© CartoDB"}]},{"method":"addLayersControl","args":[["Satellite","Light","Dark","Street","Ocean"],[],{"collapsed":true,"autoZIndex":false,"position":"topleft"}]}],"fitBounds":[-10.359987481328,95.2930261576173,5.47982086834482,141.033851760014,[]]},"evals":["calls.0.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
 </div>
-<div id="more-sophisticate-modal-popups-in-shiny" class="section level3">
+<div id="layer-ids-for-use-in-shiny" class="section level3">
 <h3 class="hasAnchor">
-<a href="#more-sophisticate-modal-popups-in-shiny" class="anchor"></a>More sophisticate modal popups in shiny</h3>
-<p>In shiny, you can create modal dialog popups in sf maps by:</p>
+<a href="#layer-ids-for-use-in-shiny" class="anchor"></a>Layer id’s for use in shiny</h3>
+<p>You can add a <code>layer_id</code> variable to leaf_sf* functions for use in shiny, which enables you to return a value when the value is clicked on.</p>
+<p>This enables you to program shiny to do specific things when a feature is clicked upon.</p>
+<p>For example, if the server.R code downloaded from <code><a href="../reference/shiny_demo.html">shiny_demo()</a></code> is updated as follows, a modal dialog can be created with a graph that compares a feature value with the distribution of all values.</p>
 <ul>
-<li>In <code>leaf_sf*()</code>, adding a layer id variable argument and turning the default popup to FALSE</li>
-<li>Adding <code>ObserveEvent</code> code to observe the click on a feature, and then show something in a modal dialog box.</li>
+<li>In <code>server.R</code>, adjust your <code>leaf_sf*</code> function by adding a <code>layer_id</code> variable and then turning the default popup to FALSE.</li>
 </ul>
-<p>Note that <code>input$map_marker_click$id</code> returns the value of the variable assigned to the <code>layer_id</code>.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r">  <span class="no">leaf_draw</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
-
-    <span class="no">size_reactive</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">input</span>$<span class="no">leaf_zoom</span> <span class="kw">&lt;</span> <span class="fl">6</span>, <span class="fl">1.5</span>,
-             <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">input</span>$<span class="no">leaf_zoom</span> <span class="kw">&lt;</span> <span class="fl">7</span>, <span class="fl">2</span>,
-                    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">input</span>$<span class="no">leaf_zoom</span> <span class="kw">&lt;</span> <span class="fl">8</span>, <span class="fl">3</span>, <span class="fl">4</span>)))
-
-    <span class="no">title</span> <span class="kw">&lt;-</span> <span class="st">"Monitored trends, 2008\u201317"</span>
-
-    <span class="fu"><a href="../reference/leaf_sf_col.html">leaf_sf_col</a></span>(
-      <span class="fu">leaf_data</span>(),
-      <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
-      <span class="kw">size_point</span> <span class="kw">=</span> <span class="no">size_reactive</span>,
-      <span class="kw">col_title</span> <span class="kw">=</span> <span class="no">title</span>,
-      <span class="kw">layer_id_var</span> <span class="kw">=</span> <span class="no">site_id</span>,
-      <span class="kw">popup</span> <span class="kw">=</span> <span class="fl">FALSE</span>
-    )
-  }
-
-  <span class="fu">observe</span>({
-    <span class="fu">req</span>(<span class="fu">leaf_data</span>())
-    <span class="fu">req</span>(<span class="no">input</span>$<span class="no">leaf_zoom</span>)
-
-    <span class="fu">withProgress</span>(<span class="kw">message</span> <span class="kw">=</span> <span class="st">"Loading"</span>, {
-      <span class="fu"><a href="../reference/leaf_clear.html">leaf_clear</a></span>()
-      <span class="fu">leaf_draw</span>()
-    })
-  })
-
-  <span class="fu">observeEvent</span>(<span class="no">input</span>$<span class="no">leaf_marker_click</span>, {
+<div class="sourceCode" id="cb16"><html><body><pre class="r">  <span class="fu"><a href="../reference/leaf_sf_col.html">leaf_sf_col</a></span>(
+    <span class="fu">leaf_data</span>(),
+    <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
+    <span class="kw">size_point</span> <span class="kw">=</span> <span class="no">size_reactive</span>,
+    <span class="kw">col_title</span> <span class="kw">=</span> <span class="no">title</span>,
+    <span class="kw">layer_id_var</span> <span class="kw">=</span> <span class="no">site_id</span>,
+    <span class="kw">popup</span> <span class="kw">=</span> <span class="fl">FALSE</span>
+  )</pre></body></html></div>
+<ul>
+<li>Then in <code>server.R</code>, add <code>ObserveEvent</code> code to observe when a feature is clicked on, and then add some code to put something something in a modal dialog box.</li>
+</ul>
+<div class="sourceCode" id="cb17"><html><body><pre class="r">  <span class="fu">observeEvent</span>(<span class="no">input</span>$<span class="no">leaf_marker_click</span>, {
 
     <span class="no">site_median</span> <span class="kw">&lt;-</span> <span class="fu">leaf_data</span>() <span class="kw">%&gt;%</span>
       <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">site_id</span> <span class="kw">==</span> <span class="no">input</span>$<span class="no">leaf_marker_click</span>$<span class="no">id</span>) <span class="kw">%&gt;%</span>
@@ -308,6 +291,7 @@
       )
     )
   })</pre></body></html></div>
+<p>Note that the <code>input$leaf_marker_click$id</code> returns the value of the variable assigned to the <code>layer_id</code>. The click event returns <code>input$leaf_marker_click</code> in this example because the map_id defaults to “leaf” and this relates to a circlemarker. Refer <a href="https://rstudio.github.io/leaflet/shiny.html">here</a> for more information.</p>
 </div>
   </div>
 

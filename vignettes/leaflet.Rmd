@@ -164,44 +164,31 @@ bb <- rnaturalearth::ne_countries(scale = "small",
 leaf_basemap(bounds = bb, basemap = "satellite") 
 ```
 
-### More sophisticate modal popups in shiny
+### Layer id's for use in shiny
 
-In shiny, you can create modal dialog popups in sf maps by:
+You can add a `layer_id` variable to leaf_sf* functions for use in shiny, which enables you to return a value when the value is clicked on.
 
-* In `leaf_sf*()`, adding a layer id variable argument and turning the default popup to FALSE
-* Adding `ObserveEvent` code to observe the click on a feature, and then show something in a modal dialog box.
+This enables you to program shiny to do specific things when a feature is clicked upon.
 
-Note that `input$map_marker_click$id` returns the value of the variable assigned to the `layer_id`. 
+For example, if the server.R code downloaded from `shiny_demo()` is updated as follows, a modal dialog can be created with a graph that compares a feature value with the distribution of all values. 
+
+* In `server.R`, adjust your `leaf_sf*` function by adding a `layer_id` variable and then turning the default popup to FALSE.
+
+```{r, eval = F}
+  leaf_sf_col(
+    leaf_data(),
+    col_var = trend_category,
+    size_point = size_reactive,
+    col_title = title, 
+    layer_id_var = site_id,
+    popup = FALSE
+  )
+
+```
+
+* Then in `server.R`, add `ObserveEvent` code to observe when a feature is clicked on, and then add some code to put something something in a modal dialog box. 
 
 ```{r, eval=F}
-  leaf_draw <- function() {
-    
-    size_reactive <- ifelse(input$leaf_zoom < 6, 1.5,
-             ifelse(input$leaf_zoom < 7, 2, 
-                    ifelse(input$leaf_zoom < 8, 3, 4)))
-    
-    title <- "Monitored trends, 2008\u201317"
-    
-    leaf_sf_col(
-      leaf_data(),
-      col_var = trend_category,
-      size_point = size_reactive,
-      col_title = title, 
-      layer_id_var = site_id,
-      popup = FALSE
-    )
-  }
-  
-  observe({
-    req(leaf_data())
-    req(input$leaf_zoom) 
-    
-    withProgress(message = "Loading", {
-      leaf_clear()
-      leaf_draw()
-    })
-  })
-  
   observeEvent(input$leaf_marker_click, {
     
     site_median <- leaf_data() %>% 
@@ -223,5 +210,4 @@ Note that `input$map_marker_click$id` returns the value of the variable assigned
   
 ```
 
-
-
+Note that the `input$leaf_marker_click$id` returns the value of the variable assigned to the `layer_id`. The click event returns `input$leaf_marker_click` in this example because the map_id defaults to "leaf" and this relates to a circlemarker. Refer [here](https://rstudio.github.io/leaflet/shiny.html) for more information.

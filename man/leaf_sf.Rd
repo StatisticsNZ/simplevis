@@ -47,7 +47,7 @@ leaf_sf(
 
 \item{basemap}{The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.}
 
-\item{layer_id_var}{Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id.}
+\item{layer_id_var}{Unquoted variable to be used in shiny, so that in the event where a feature is clicked on, the value of this is returned for that feature (e.g. input$map_marker_click$id).}
 
 \item{group_id}{The id name for the sf group.}
 

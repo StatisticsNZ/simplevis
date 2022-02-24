@@ -122,7 +122,7 @@ shinyServer(function(input, output, session) {
     # refer to a reactive leaf_data object as leaf_data()
     # use reactive radius for points that get bigger as the user zooms in, if necessary
     
-    size_reactive <- ifelse(input$leaf_zoom < 6, 1.5,
+    size_reactive <- ifelse(input$leaf_zoom < 6, 1.5, #change leaf prefix if different map id used
              ifelse(input$leaf_zoom < 7, 2, 
                     ifelse(input$leaf_zoom < 8, 3, 4)))
     
@@ -138,10 +138,10 @@ shinyServer(function(input, output, session) {
   
   observe({
     req(leaf_data())
-    req(input$leaf_zoom) 
+    req(input$leaf_zoom) #change leaf prefix if different map id used
     
     withProgress(message = "Loading", {
-      leaf_clear()
+      leaf_clear()  #add map id if leaf_sf*() function has a map id different to leaf
       leaf_draw()
     })
   })

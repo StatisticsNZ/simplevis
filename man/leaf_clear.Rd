@@ -4,10 +4,10 @@
 \alias{leaf_clear}
 \title{In shiny, clear all features, images and legends.}
 \usage{
-leaf_clear(map_id = "map")
+leaf_clear(map_id = "leaf")
 }
 \arguments{
-\item{map_id}{The map id for a leaflet map. Defaults to "map".}
+\item{map_id}{The map id for a leaflet map. Defaults to "leaf".}
 }
 \value{
 A map object.

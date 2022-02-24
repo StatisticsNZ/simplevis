@@ -73,13 +73,13 @@ One reliable way to ensure the plot viewed by mobile users is in the `ui.R` to u
 
 This method is demonstrated in the `simplevis` templates.
 
-### App templates
+### App demos
 
-Users can access the `simplevis` functions by using the `shiny_template` functions for the applicable app, and then clicking on the `download_code` button to access a zip file of the code. 
+Users can view how `simplevis` functions work within shinyapps by using the `shiny_demo` functions, and then clicking on the `download_code` button to access a zip file of the code. 
 
 ```{r, eval=F}
-shiny_template("template1") # a graph and table
-shiny_template("template2") # a leaflet map, as well as graph and table
+shiny_demo("template1") # a graph and table
+shiny_demo("template2") # a leaflet map, as well as graph and table
 ```
 
 ### Thanks!

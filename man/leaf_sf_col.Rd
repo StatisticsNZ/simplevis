@@ -33,7 +33,7 @@ leaf_sf_col(
   layer_id_var = NULL,
   group_id = NULL,
   legend_id = NULL,
-  map_id = "map"
+  map_id = "leaf"
 )
 }
 \arguments{
@@ -93,7 +93,7 @@ leaf_sf_col(
 
 \item{legend_id}{The id name for the layerId of the legend.}
 
-\item{map_id}{The map id for the leaflet map. Defaults to "map".}
+\item{map_id}{The map id for the leaflet map. Defaults to "leaf".}
 }
 \value{
 A leaflet object.

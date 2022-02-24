@@ -85,10 +85,10 @@ shinyServer(function(input, output, session) {
   }) 
   
   ### map ###
-  output$map <- leaflet::renderLeaflet({
+  output$leaf <- leaflet::renderLeaflet({
     
     if (input$isMobile == FALSE) {
-      basemap %>%
+      leaf_basemap %>%
         leaflet::addMiniMap(
           tiles = leaflet::providers$CartoDB.PositronNoLabels,
           position = "bottomleft",
@@ -99,26 +99,26 @@ shinyServer(function(input, output, session) {
           minimized = TRUE
         )
     } else
-      return(basemap)
+      return(leaf_basemap)
   })
   
-  map_data <- reactive({
-    # create a reactive map_data object
+  leaf_data <- reactive({
+    # create a reactive leaf_data object
     
-    map_filter <- input$map_filter
+    leaf_filter <- input$leaf_filter
     
-    if (map_filter == "None") {
-      map_data <- data2
-    } else if (map_filter != "None") {
-      map_data <- data2 %>%
-        filter(trend_category == map_filter)
+    if (leaf_filter == "None") {
+      leaf_data <- data2
+    } else if (leaf_filter != "None") {
+      leaf_data <- data2 %>%
+        filter(trend_category == leaf_filter)
     }
     
-    return(map_data)
+    return(leaf_data)
   }) 
   
-  # output$map_data <- DT::renderDT(
-  #   map_data(), 
+  # output$leaf_data <- DT::renderDT(
+  #   leaf_data(), 
   #   filter = "top",
   #   rownames = FALSE,
   #   options = list(pageLength = 5, scrollX = TRUE, lengthChange = FALSE)
@@ -127,17 +127,17 @@ shinyServer(function(input, output, session) {
   leaf_draw <- function() {
     # add leaflet code from make_data_vis.R
     # change any placeholder character values to input widgets
-    # refer to a reactive map_data object as map_data()
+    # refer to a reactive leaf_data object as leaf_data()
     # use reactive radius for points that get bigger as the user zooms in, if necessary
     
-    size_reactive <- ifelse(input$map_zoom < 6, 1.5,
-             ifelse(input$map_zoom < 7, 2, 
-                    ifelse(input$map_zoom < 8, 3, 4)))
+    size_reactive <- ifelse(input$leaf_zoom < 6, 1.5,
+             ifelse(input$leaf_zoom < 7, 2, 
+                    ifelse(input$leaf_zoom < 8, 3, 4)))
     
-    title <- paste0("Monitored trends, 2008\u201317")
+    title <- "Monitored trends, 2008\u201317"
     
     leaf_sf_col(
-      map_data(),
+      leaf_data(),
       col_var = trend_category,
       size_point = size_reactive,
       col_title = title
@@ -145,8 +145,8 @@ shinyServer(function(input, output, session) {
   }
   
   observe({
-    req(map_data())
-    req(input$map_zoom) # wait for basemap before plotting.
+    req(leaf_data())
+    req(input$leaf_zoom) 
     
     withProgress(message = "Loading", {
       leaf_clear()

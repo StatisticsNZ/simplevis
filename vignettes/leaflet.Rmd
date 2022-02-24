@@ -164,3 +164,64 @@ bb <- rnaturalearth::ne_countries(scale = "small",
 leaf_basemap(bounds = bb, basemap = "satellite") 
 ```
 
+### More sophisticate modal popups in shiny
+
+In shiny, you can create modal dialog popups in sf maps by:
+
+* In `leaf_sf*()`, adding a layer id variable argument and turning the default popup to FALSE
+* Adding `ObserveEvent` code to observe the click on a feature, and then show something in a modal dialog box.
+
+Note that `input$map_marker_click$id` returns the value of the variable assigned to the `layer_id`. 
+
+```{r, eval=F}
+  leaf_draw <- function() {
+    
+    size_reactive <- ifelse(input$leaf_zoom < 6, 1.5,
+             ifelse(input$leaf_zoom < 7, 2, 
+                    ifelse(input$leaf_zoom < 8, 3, 4)))
+    
+    title <- "Monitored trends, 2008\u201317"
+    
+    leaf_sf_col(
+      leaf_data(),
+      col_var = trend_category,
+      size_point = size_reactive,
+      col_title = title, 
+      layer_id_var = site_id,
+      popup = FALSE
+    )
+  }
+  
+  observe({
+    req(leaf_data())
+    req(input$leaf_zoom) 
+    
+    withProgress(message = "Loading", {
+      leaf_clear()
+      leaf_draw()
+    })
+  })
+  
+  observeEvent(input$leaf_marker_click, {
+    
+    site_median <- leaf_data() %>% 
+      filter(site_id == input$leaf_marker_click$id) %>% 
+      pull(median)
+    
+    showModal(
+      modalDialog(
+        renderPlot(
+          gg_histogram(example_point, median, 
+                       title = paste0(input$leaf_marker_click$id, " compared to all sites"), 
+                       theme = gg_theme(font = "Helvetica", size_title = 16,  size_body = 15, gridlines_h = T)) +
+            ggplot2::geom_vline(ggplot2::aes(xintercept = site_median), col = "red")
+        ),
+        easyClose = TRUE
+      )
+    )
+  })
+  
+```
+
+
+

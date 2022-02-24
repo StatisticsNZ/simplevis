@@ -61,7 +61,7 @@ shinyUI(
         "Map",
         icon = icon("globe-americas", lib = "font-awesome"),
         # fluidRow(
-        #   shinycssloaders::withSpinner(leaflet::leafletOutput("map"), type = 7, color = "#A8A8A8"),
+        #   shinycssloaders::withSpinner(leaflet::leafletOutput("leaf"), type = 7, color = "#A8A8A8"),
         #   helpText(glue::glue("Data source: {data_source}"))
         # )
         sidebarLayout(
@@ -69,7 +69,7 @@ shinyUI(
             width = 3,
             # add widgets
             radioButtons(
-              "map_filter",
+              "leaf_filter",
               "Filter",
               c("None", "Improving", "Indeterminate", "Worsening")
             ),
@@ -78,12 +78,12 @@ shinyUI(
           mainPanel(width = 9,
                     fluidRow(
                       shinycssloaders::withSpinner(
-                        leaflet::leafletOutput("map", width = "95%", height = 550),
+                        leaflet::leafletOutput("leaf", width = "95%", height = 550),
                         type = 7,
                         color = "#A8A8A8"
                       )
                     )
-                    # DT::DTOutput("map_data")
+                    # DT::DTOutput("leaf_data")
             )
           )
         ),

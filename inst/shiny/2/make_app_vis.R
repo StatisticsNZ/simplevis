@@ -14,18 +14,20 @@ data2 <- simplevis::example_point %>%
   mutate(trend_category = factor(trend_category, levels = c("Improving", "Indeterminate", "Worsening")))
 
 # make a plot filtered by a user selected colour
-color_vector <- sort(unique(data$color))
+title_wrap <- 100
+
+color_vector <- sort(unique(data1$color))
 
 .color <- "E"
 
-plot_data <- data %>%
+plot_data <- data1 %>%
   filter(color == .color) %>% 
   mutate(cut = stringr::str_to_sentence(cut)) %>%
   group_by(cut, clarity, .drop = FALSE) %>%
   summarise(price = mean(price)) %>%
   mutate_text(c("cut", "clarity", "price")) 
 
-plot_theme <- gg_theme("helvetica", gridlines = "vertical")
+plot_theme <- gg_theme("helvetica", gridlines_v = TRUE)
 
 title <- glue::glue("Average diamond price of colour {.color} by cut and clarity")
 x_title <- "Average price ($US thousands)"
@@ -36,31 +38,29 @@ plot <- gg_hbar_col(plot_data, price, cut, clarity,
                     title = title, 
                     x_title = x_title, 
                     y_title = y_title,
-                    x_labels = scales::comma_format(),
                     col_labels = ggplot2::waiver(),
                     title_wrap = title_wrap,
-                    theme = plot_theme,
-                    mobile = F)
+                    theme = plot_theme)
 
 plot
 
 plotly::ggplotly(plot, tooltip = "text") %>% 
   plotly_camera() %>% 
-  plotly_col_legend(rev = T)
+  plotly_col_legend(rev = TRUE)
 
 # make a trend map filtered by a user selected metric
 
-map_filter <- "None"
+leaf_filter <- "None"
 
-if(map_filter == "None") {
-  map_data <- data2 
-} else if(map_filter != "None") {
-  map_data <- data2 %>% 
-    filter(trend_category == map_filter)
+if(leaf_filter == "None") {
+  leaf_data <- data2 
+} else if(leaf_filter != "None") {
+  leaf_data <- data2 %>% 
+    filter(trend_category == leaf_filter)
 }
 
-title <- paste0("Monitored trends, 2008\u201317")
+title <- "Monitored trends, 2008\u201317"
 
-leaf_sf_col(map_data,
+leaf_sf_col(leaf_data,
             col_var = trend_category,
             col_title = title)

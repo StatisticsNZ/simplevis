@@ -16,7 +16,7 @@
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param layer_id_var Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id. 
 #' @param group_id The id name for the sf group.
-#' @param map_id The map id for the leaflet map. Defaults to "map".
+#' @param map_id The map id for the leaflet map. Defaults to "leaf".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -40,7 +40,7 @@ leaf_sf <- function(data,
                     basemap = "light",
                     layer_id_var = NULL,
                     group_id = NULL,
-                    map_id = "map")
+                    map_id = "leaf")
 {
   #ungroup
   data <- dplyr::ungroup(data)
@@ -250,7 +250,7 @@ leaf_sf <- function(data,
 #' @param layer_id_var Unquoted variable to be used as a shiny id, such that in the event where a feature is clicked on, the applicable value of this is available as input$map_marker_click$id or input$map_shape_click$id. 
 #' @param group_id The id name for the sf group.
 #' @param legend_id The id name for the layerId of the legend.
-#' @param map_id The map id for the leaflet map. Defaults to "map".
+#' @param map_id The map id for the leaflet map. Defaults to "leaf".
 #' @return A leaflet object.
 #' @export
 #' @examples
@@ -310,7 +310,7 @@ leaf_sf_col <- function(data,
                         layer_id_var = NULL,
                         group_id = NULL,
                         legend_id = NULL,
-                        map_id = "map") {
+                        map_id = "leaf") {
   
   #ungroup
   data <- dplyr::ungroup(data)

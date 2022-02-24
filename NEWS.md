@@ -1,3 +1,8 @@
+# simplevis 6.1.2
+
+* In leaf_sf*(), updated the map_id default to leaf
+* Updated app demos.
+
 # simplevis 6.1.1
 
 * Added gg_histogram*() functions.

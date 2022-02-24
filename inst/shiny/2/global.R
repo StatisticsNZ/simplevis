@@ -21,7 +21,7 @@ data2 <- simplevis::example_point %>%
 data_source <- "Diamonds Association"
 
 # choose a basemap
-basemap <-
+leaf_basemap <-
   leaf_basemap(bounds = c(166.70047, -34.45676, 178.52966, -47.06345))
 
 # add other helpers as required

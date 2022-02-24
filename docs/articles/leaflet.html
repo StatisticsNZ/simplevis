@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.1.2</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
       <h1 data-toc-skip>Leaflet</h1>
                         <h4 class="author">David Hodge</h4>
             
-            <h4 class="date">2022-02-23</h4>
+            <h4 class="date">2022-02-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/leaflet.Rmd"><code>vignettes/leaflet.Rmd</code></a></small>
       <div class="hidden name"><code>leaflet.Rmd</code></div>
@@ -252,6 +252,62 @@
 <span class="fu"><a href="../reference/leaf_basemap.html">leaf_basemap</a></span>(<span class="kw">bounds</span> <span class="kw">=</span> <span class="no">bb</span>, <span class="kw">basemap</span> <span class="kw">=</span> <span class="st">"satellite"</span>)</pre></body></html></div>
 <div id="htmlwidget-cc192cfb08c1b0751045" style="width:576px;height:432px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-cc192cfb08c1b0751045">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addEasyButton","args":[{"icon":"ion-arrow-shrink","title":"Reset View","onClick":"function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }","position":"topleft"}]},{"method":"addProviderTiles","args":["CartoDB.PositronNoLabels",null,"Light",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© CartoDB"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© ESRI"}]},{"method":"addProviderTiles","args":["Esri.OceanBasemap",null,"Ocean",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© ESRI"}]},{"method":"addProviderTiles","args":["OpenStreetMap.Mapnik",null,"Street",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© OpenStreetMap"}]},{"method":"addProviderTiles","args":["CartoDB.DarkMatterNoLabels",null,"Dark",{"errorTileUrl":"","noWrap":false,"zIndex":0,"detectRetina":false,"attribution":"© CartoDB"}]},{"method":"addLayersControl","args":[["Satellite","Light","Dark","Street","Ocean"],[],{"collapsed":true,"autoZIndex":false,"position":"topleft"}]}],"fitBounds":[-10.359987481328,95.2930261576173,5.47982086834482,141.033851760014,[]]},"evals":["calls.0.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+</div>
+<div id="more-sophisticate-modal-popups-in-shiny" class="section level3">
+<h3 class="hasAnchor">
+<a href="#more-sophisticate-modal-popups-in-shiny" class="anchor"></a>More sophisticate modal popups in shiny</h3>
+<p>In shiny, you can create modal dialog popups in sf maps by:</p>
+<ul>
+<li>In <code>leaf_sf*()</code>, adding a layer id variable argument and turning the default popup to FALSE</li>
+<li>Adding <code>ObserveEvent</code> code to observe the click on a feature, and then show something in a modal dialog box.</li>
+</ul>
+<p>Note that <code>input$map_marker_click$id</code> returns the value of the variable assigned to the <code>layer_id</code>.</p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r">  <span class="no">leaf_draw</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
+
+    <span class="no">size_reactive</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">input</span>$<span class="no">leaf_zoom</span> <span class="kw">&lt;</span> <span class="fl">6</span>, <span class="fl">1.5</span>,
+             <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">input</span>$<span class="no">leaf_zoom</span> <span class="kw">&lt;</span> <span class="fl">7</span>, <span class="fl">2</span>,
+                    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">input</span>$<span class="no">leaf_zoom</span> <span class="kw">&lt;</span> <span class="fl">8</span>, <span class="fl">3</span>, <span class="fl">4</span>)))
+
+    <span class="no">title</span> <span class="kw">&lt;-</span> <span class="st">"Monitored trends, 2008\u201317"</span>
+
+    <span class="fu"><a href="../reference/leaf_sf_col.html">leaf_sf_col</a></span>(
+      <span class="fu">leaf_data</span>(),
+      <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">trend_category</span>,
+      <span class="kw">size_point</span> <span class="kw">=</span> <span class="no">size_reactive</span>,
+      <span class="kw">col_title</span> <span class="kw">=</span> <span class="no">title</span>,
+      <span class="kw">layer_id_var</span> <span class="kw">=</span> <span class="no">site_id</span>,
+      <span class="kw">popup</span> <span class="kw">=</span> <span class="fl">FALSE</span>
+    )
+  }
+
+  <span class="fu">observe</span>({
+    <span class="fu">req</span>(<span class="fu">leaf_data</span>())
+    <span class="fu">req</span>(<span class="no">input</span>$<span class="no">leaf_zoom</span>)
+
+    <span class="fu">withProgress</span>(<span class="kw">message</span> <span class="kw">=</span> <span class="st">"Loading"</span>, {
+      <span class="fu"><a href="../reference/leaf_clear.html">leaf_clear</a></span>()
+      <span class="fu">leaf_draw</span>()
+    })
+  })
+
+  <span class="fu">observeEvent</span>(<span class="no">input</span>$<span class="no">leaf_marker_click</span>, {
+
+    <span class="no">site_median</span> <span class="kw">&lt;-</span> <span class="fu">leaf_data</span>() <span class="kw">%&gt;%</span>
+      <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">site_id</span> <span class="kw">==</span> <span class="no">input</span>$<span class="no">leaf_marker_click</span>$<span class="no">id</span>) <span class="kw">%&gt;%</span>
+      <span class="fu">pull</span>(<span class="no">median</span>)
+
+    <span class="fu">showModal</span>(
+      <span class="fu">modalDialog</span>(
+        <span class="fu">renderPlot</span>(
+          <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span>(<span class="no">example_point</span>, <span class="no">median</span>,
+                       <span class="kw">title</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">input</span>$<span class="no">leaf_marker_click</span>$<span class="no">id</span>, <span class="st">" compared to all sites"</span>),
+                       <span class="kw">theme</span> <span class="kw">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span>(<span class="kw">font</span> <span class="kw">=</span> <span class="st">"Helvetica"</span>, <span class="kw">size_title</span> <span class="kw">=</span> <span class="fl">16</span>,  <span class="kw">size_body</span> <span class="kw">=</span> <span class="fl">15</span>, <span class="kw">gridlines_h</span> <span class="kw">=</span> <span class="no">T</span>)) +
+            <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_abline.html">geom_vline</a></span>(<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span>(<span class="kw">xintercept</span> <span class="kw">=</span> <span class="no">site_median</span>), <span class="kw">col</span> <span class="kw">=</span> <span class="st">"red"</span>)
+        ),
+        <span class="kw">easyClose</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+      )
+    )
+  })</pre></body></html></div>
 </div>
   </div>
 

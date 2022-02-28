@@ -206,7 +206,7 @@ gg_smooth <- function(data,
 #' @param data An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
-#' @param col_var Unquoted variable for points to be coloured by. Required input.
+#' @param col_var Unquoted categorical variable for points to be coloured by. Required input.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
@@ -711,7 +711,7 @@ gg_smooth_facet <- function(data,
 #' @param data An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
-#' @param col_var Unquoted variable for points to be coloured by. Required input.
+#' @param col_var Unquoted categorical variable for points to be coloured by. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
 #' @param pal_na The hex code or name of the NA colour to be used.

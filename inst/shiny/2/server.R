@@ -57,9 +57,9 @@ shinyServer(function(input, output, session) {
     
     plot <- gg_hbar_col(
       plot_data(),
-      price,
-      cut,
-      clarity,
+      x_var = price,
+      y_var = cut,
+      col_var = clarity,
       text_var = text,
       title = title,
       x_title = x_title,

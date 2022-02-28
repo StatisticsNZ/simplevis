@@ -27,7 +27,7 @@ shinyUI(
           mainPanel(
             width = 9,
               shinycssloaders::withSpinner(
-                plotly::plotlyOutput("plot_desktop", height = "500px"),
+                plotly::plotlyOutput("plot", height = "500px"),
                 type = 7,
                 color = "#A8A8A8"
               )

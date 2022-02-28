@@ -508,7 +508,7 @@ gg_bar_col <- function(data,
         data <- data %>%
           dplyr::mutate(
             dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
+                          ~ kimisc::cut_format(.x, col_cuts,
                                        right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
         
         col_labels <- sv_interval_labels_chr
@@ -517,7 +517,7 @@ gg_bar_col <- function(data,
         data <- data %>%
           dplyr::mutate(
             dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
+                          ~ kimisc::cut_format(.x, col_cuts,
                                        right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
       }
       
@@ -1252,7 +1252,7 @@ gg_bar_col_facet <- function(data,
         data <- data %>%
           dplyr::mutate(
             dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
+                          ~ kimisc::cut_format(.x, col_cuts,
                                        right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
         
         col_labels <- sv_interval_labels_chr
@@ -1261,7 +1261,7 @@ gg_bar_col_facet <- function(data,
         data <- data %>%
           dplyr::mutate(
             dplyr::across(!!col_var, 
-                          ~ cut_format(.x, col_cuts,
+                          ~ kimisc::cut_format(.x, col_cuts,
                                        right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
       }
       

@@ -33,12 +33,15 @@ title <- glue::glue("Average diamond price of colour {.color} by cut and clarity
 x_title <- "Average price ($US thousands)"
 y_title <- "Cut"
 
-plot <- gg_hbar_col(plot_data, price, cut, clarity, 
+plot <- gg_hbar_col(plot_data, 
+                    x_var = price, 
+                    y_var = cut, 
+                    col_var = clarity, 
                     text_var = text,
                     title = title, 
                     x_title = x_title, 
                     y_title = y_title,
-                    col_labels = ggplot2::waiver(),
+                    col_labels = function(x) x,
                     title_wrap = title_wrap,
                     theme = plot_theme)
 

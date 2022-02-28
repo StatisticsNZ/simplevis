@@ -426,7 +426,7 @@ tibble::tribble(
   "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical",
   "pointrange", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical",
   "sf", "sf", NA, NA, "Categorical or numeric", "Categorical",
-  "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical or numeric", "Categorical",
+  "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical", "Categorical",
   "stars", "stars", NA, NA, "Categorical or numeric", NA,
   "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical",
   "violin", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", 

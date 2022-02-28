@@ -1,3 +1,7 @@
+# simplevis 6.1.3
+
+* Added kimisc to imports.
+
 # simplevis 6.1.2
 
 * In leaf_sf*(), updated the map_id default to leaf

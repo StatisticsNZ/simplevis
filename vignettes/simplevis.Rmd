@@ -45,11 +45,41 @@ It does this by:
 `simplevis` supports many visualisation family types.
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
+p1 <- gg_point_col(
+  penguins,
+  x_var = bill_length_mm,
+  y_var = body_mass_g,
+  col_var = species,
+  x_breaks_n = 3,
+  x_labels = scales::label_comma(accuracy = 1),
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
+  size_point = 0.5,
+  title = "gg_point*()"
+)
+
+p2 <- gg_smooth_col(
+  penguins,
+  x_var = bill_length_mm,
+  y_var = body_mass_g,
+  col_var = species,
+  size_point = 0.5,
+  x_breaks_n = 3,
+  x_labels = scales::label_comma(accuracy = 1),
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
+  title = "gg_smooth*()"
+) 
+
+p1 + p2
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
   group_by(species, sex) %>%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
-p1 <- gg_hbar_col(
+p3 <- gg_hbar_col(
   plot_data,
   x_var = body_mass_g,
   y_var = sex,
@@ -63,7 +93,7 @@ p1 <- gg_hbar_col(
   title = "gg_hbar*()"
 )
 
-p2 <- gg_bar_col(
+p4 <- gg_bar_col(
   plot_data,
   y_var = body_mass_g,
   x_var = sex,
@@ -76,36 +106,6 @@ p2 <- gg_bar_col(
   y_title = "Body mass kg",
   title = "gg_bar*()"
 )
-
-p1 + p2
-```
-
-```{r, echo=FALSE, fig.width=8, fig.height=3}
-p3 <- gg_point_col(
-  penguins,
-  x_var = bill_length_mm,
-  y_var = body_mass_g,
-  col_var = species,
-  x_breaks_n = 3,
-  x_labels = scales::label_comma(accuracy = 1),
-  y_labels = function(x) x / 1000,
-  y_title = "Body mass kg",
-  size_point = 0.5,
-  title = "gg_point*()"
-)
-
-p4 <- gg_smooth_col(
-  penguins,
-  x_var = bill_length_mm,
-  y_var = body_mass_g,
-  col_var = species,
-  size_point = 0.5,
-  x_breaks_n = 3,
-  x_labels = scales::label_comma(accuracy = 1),
-  y_labels = function(x) x / 1000,
-  y_title = "Body mass kg",
-  title = "gg_smooth*()"
-) 
 
 p3 + p4
 ```

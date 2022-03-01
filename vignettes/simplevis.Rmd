@@ -44,7 +44,7 @@ It does this by:
 
 `simplevis` supports many visualisation family types.
 
-```{r echo=FALSE, fig.width = 8, fig.height = 20}
+```{r echo=FALSE, fig.width=8, fig.height=20}
 p1 <- gg_point_col(
   penguins,
   x_var = bill_length_mm,
@@ -255,7 +255,7 @@ p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12 + p13 + p14 +
   plot_layout(ncol = 2)
 ```
 
-```{r, fig.width = 8, fig.height = 3}
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 p15 + p16
 ```
 

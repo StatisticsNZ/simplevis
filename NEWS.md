@@ -3,7 +3,7 @@
 * Added gg_histogram*() functions.
 * In leaf_sf*(), updated the map_id default to leaf
 * Updated app demos.
-* Adjusted default alpha_fill to 0.5.
+* Adjusted default alpha_fill values.
 * Added kimisc to imports.
 
 # simplevis 6.1.0

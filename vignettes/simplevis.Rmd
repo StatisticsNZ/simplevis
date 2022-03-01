@@ -71,26 +71,22 @@ plot_data <- penguins %>%
 
 p3 <- gg_bar_col(
   plot_data,
-  x_var = species,
+  x_var = sex,
   y_var = body_mass_g,
-  col_var = sex,
-  col_na_rm = TRUE,
+  col_var = species,
+  x_na_rm = TRUE,
   size_width = 0.66,
   x_labels = function(x)
-    stringr::str_sub(x, 1, 1),
+    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
   title = "gg_bar*()"
 )
-
-plot_data <- penguins %>%
-  group_by(species, sex) %>%
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
 p4 <- gg_hbar_col(
   plot_data,
   x_var = body_mass_g,
-  y_var = species,
-  col_var = sex,
-  col_na_rm = TRUE,
+  y_var = sex,
+  col_var = species,
+  y_na_rm = TRUE,
   size_width = 0.5,
   x_labels = function(x)
     x / 1000,
@@ -144,18 +140,21 @@ p8 <- gg_density_col(
   x_var = body_mass_g,
   col_var = sex,
   col_na_rm = TRUE,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
   title = "gg_density*()"
 )
 
 p9 <- gg_boxplot_col(
   penguins,
-  x_var = species,
+  x_var = sex,
   y_var = body_mass_g,
-  col_var = sex,
-  col_na_rm = TRUE,
+  col_var = species,
+  x_na_rm = TRUE,
   size_point = 0.5,
   x_labels = function(x)
-    stringr::str_sub(x, 1, 1),
+    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
   title = "gg_boxplot*()"
 )
 
@@ -182,36 +181,28 @@ plot_data <- penguins %>%
 
 p11 <- gg_pointrange_col(
   plot_data,
-  x_var = species,
+  x_var = sex,
   y_var = middle,
   ymin_var = lower,
   ymax_var = upper,
-  col_var = sex,
-  col_na_rm = TRUE,
+  col_var = species,
+  x_na_rm = TRUE,
   y_title = "Body mass g",
   x_dodge = 0.2,
   size_point = 1,
   x_labels = function(x)
-    stringr::str_sub(x, 1, 1),
+    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
   title = "gg_pointrange*()"
 )
-
-plot_data <- penguins %>%
-  group_by(sex, species) %>%
-  summarise(
-    middle = median(body_mass_g, na.rm = TRUE),
-    lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
-    upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
-  )
 
 p12 <- gg_hpointrange_col(
   plot_data,
   x_var = middle,
   xmin_var = lower,
   xmax_var = upper,
-  y_var = species,
-  col_var = sex,
-  col_na_rm = TRUE,
+  y_var = sex,
+  col_var = species,
+  y_na_rm = TRUE,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
@@ -222,23 +213,24 @@ p12 <- gg_hpointrange_col(
 
 p13 <- gg_violin_col(
   penguins,
-  x_var = species,
+  x_var = sex,
   y_var = body_mass_g,
-  col_var = sex,
-  col_na_rm = TRUE,
-  x_labels = function(x) stringr::str_sub(x, 1, 1),
+  col_var = species,
+  x_na_rm = TRUE,
+  x_labels = function(x)
+    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
   title = "gg_violin*()"
 )
 
 p14 <- gg_hviolin_col(
   penguins,
   x_var = body_mass_g,
-  y_var = species,
-  col_var = sex,
+  y_var = sex,
+  col_var = species,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
-  col_na_rm = TRUE, 
+  y_na_rm = TRUE, 
   title = "gg_hviolin*()"
 )
 
@@ -255,8 +247,6 @@ p16 <- gg_stars_col(
   col_var = nitrate,
   col_na_rm = TRUE,
   borders = example_borders,
-  col_method = "quantile",
-  col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
   col_labels = scales::label_comma(accuracy = 1),
   title = "gg_stars*()"
 )

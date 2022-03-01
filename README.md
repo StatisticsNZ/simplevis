@@ -1,4 +1,4 @@
-<img src="man/figures/logo.png" height="150" align = "right">
+<img src="man/figures/logo.png" align="right" height="139" style="float:right; height:139px;">
 
 <!-- badges: start -->
   [![CRAN status](https://www.r-pkg.org/badges/version/simplevis)](https://CRAN.R-project.org/package=simplevis)

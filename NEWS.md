@@ -1,17 +1,10 @@
-# simplevis 6.1.3
-
-* Added kimisc to imports.
-
-# simplevis 6.1.2
-
-* In leaf_sf*(), updated the map_id default to leaf
-* Updated app demos.
-
-# simplevis 6.1.1
+# simplevis 6.1.9000
 
 * Added gg_histogram*() functions.
+* In leaf_sf*(), updated the map_id default to leaf
+* Updated app demos.
 * Adjusted default alpha_fill to 0.5.
-* Updated css in app demo's.
+* Added kimisc to imports.
 
 # simplevis 6.1.0
 

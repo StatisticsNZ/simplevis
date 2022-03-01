@@ -44,13 +44,16 @@ It does this by:
 
 `simplevis` supports many visualisation family types.
 
-```{r echo=FALSE, fig.width=8, fig.height=20}
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 p1 <- gg_point_col(
   penguins,
   x_var = bill_length_mm,
   y_var = body_mass_g,
   col_var = species,
+  x_breaks_n = 3,
   x_labels = scales::label_comma(accuracy = 1),
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
   size_point = 0.5,
   title = "gg_point*()"
 )
@@ -61,33 +64,29 @@ p2 <- gg_smooth_col(
   y_var = body_mass_g,
   col_var = species,
   size_point = 0.5,
+  x_breaks_n = 3,
   x_labels = scales::label_comma(accuracy = 1),
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
   title = "gg_smooth*()"
-)
+) 
 
+p1 + p2
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
   group_by(species, sex) %>%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
-p3 <- gg_bar_col(
-  plot_data,
-  x_var = sex,
-  y_var = body_mass_g,
-  col_var = species,
-  x_na_rm = TRUE,
-  size_width = 0.66,
-  x_labels = function(x)
-    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
-  title = "gg_bar*()"
-)
-
-p4 <- gg_hbar_col(
+p3 <- gg_hbar_col(
   plot_data,
   x_var = body_mass_g,
   y_var = sex,
   col_var = species,
   y_na_rm = TRUE,
-  size_width = 0.5,
+  size_width = 0.6,
+  x_breaks_n = 3,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
@@ -95,26 +94,27 @@ p4 <- gg_hbar_col(
 )
 
 plot_data <- storms %>%
-  group_by(year, status) %>%
+  group_by(year) %>%
   summarise(wind = mean(wind))
 
-p5 <- gg_line_col(
+p4 <- gg_bar(
   plot_data,
   x_var = year,
   y_var = wind,
-  col_var = status,
-  y_zero = TRUE,
-  size_point = 0.5,
   x_labels = function(x)
     stringr::str_sub(x, 3, 4),
-  title = "gg_line*()"
+  title = "gg_bar*()"
 )
 
+p3 + p4
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
   group_by(species, sex) %>%
   summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1))
 
-p6 <- gg_tile_col(
+p5 <- gg_tile_col(
   plot_data,
   x_var = sex,
   y_var = species,
@@ -124,11 +124,31 @@ p6 <- gg_tile_col(
   title = "gg_tile*()"
 )
 
+plot_data <- storms %>%
+  group_by(year) %>%
+  summarise(wind = mean(wind))
+
+p6 <- gg_line(
+  plot_data,
+  x_var = year,
+  y_var = wind,
+  y_zero = TRUE,
+  size_point = 0.5,
+  x_labels = function(x)
+    stringr::str_sub(x, 3, 4),
+  title = "gg_line*()"
+)
+
+p5 + p6
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 p7 <- gg_histogram_col(
   penguins,
   x_var = body_mass_g,
   col_var = sex,
   col_na_rm = TRUE,
+  x_breaks_n = 3,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
@@ -140,35 +160,68 @@ p8 <- gg_density_col(
   x_var = body_mass_g,
   col_var = sex,
   col_na_rm = TRUE,
+  y_labels = scales::label_number(accuracy = 0.0001),
+  x_breaks_n = 2,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
   title = "gg_density*()"
 )
 
-p9 <- gg_boxplot_col(
+p7 + p8
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
+p9 <- gg_boxplot(
   penguins,
   x_var = sex,
   y_var = body_mass_g,
-  col_var = species,
   x_na_rm = TRUE,
   size_point = 0.5,
-  x_labels = function(x)
-    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
+  size_width = 0.33,
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
   title = "gg_boxplot*()"
 )
 
 p10 <- gg_hboxplot_col(
   penguins,
   x_var = body_mass_g,
-  y_var = species,
-  col_var = sex,
-  col_na_rm = TRUE,
+  y_var = sex,
+  col_var = species,
+  y_na_rm = TRUE,
   size_point = 0.5,
+  x_breaks_n = 2,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
   title = "gg_hboxplot*()"
+)
+
+p9 + p10
+```
+
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
+plot_data <- penguins %>%
+  group_by(sex) %>%
+  summarise(
+    middle = median(body_mass_g, na.rm = TRUE),
+    lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
+    upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
+  )
+
+p11 <- gg_pointrange(
+  plot_data,
+  x_var = sex,
+  y_var = middle,
+  ymin_var = lower,
+  ymax_var = upper,
+  x_na_rm = TRUE,
+  size_point = 1,
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
+  title = "gg_pointrange*()"
 )
 
 plot_data <- penguins %>%
@@ -179,22 +232,6 @@ plot_data <- penguins %>%
     upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
   )
 
-p11 <- gg_pointrange_col(
-  plot_data,
-  x_var = sex,
-  y_var = middle,
-  ymin_var = lower,
-  ymax_var = upper,
-  col_var = species,
-  x_na_rm = TRUE,
-  y_title = "Body mass g",
-  x_dodge = 0.2,
-  size_point = 1,
-  x_labels = function(x)
-    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
-  title = "gg_pointrange*()"
-)
-
 p12 <- gg_hpointrange_col(
   plot_data,
   x_var = middle,
@@ -203,23 +240,27 @@ p12 <- gg_hpointrange_col(
   y_var = sex,
   col_var = species,
   y_na_rm = TRUE,
+  x_breaks_n = 3,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
   size_point = 1,
-  y_dodge = 0.2,
+  y_dodge = 0.3,
   title = "gg_hpointrange*()"
 )
 
-p13 <- gg_violin_col(
+p11 + p12
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
+p13 <- gg_violin(
   penguins,
   x_var = sex,
   y_var = body_mass_g,
-  col_var = species,
   x_na_rm = TRUE,
-  x_labels = function(x)
-    stringr::str_to_upper(stringr::str_sub(x, 1, 1)),
-  title = "gg_violin*()"
+  title = "gg_violin*()", 
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
 )
 
 p14 <- gg_hviolin_col(
@@ -227,6 +268,7 @@ p14 <- gg_hviolin_col(
   x_var = body_mass_g,
   y_var = sex,
   col_var = species,
+  x_breaks_n = 2,
   x_labels = function(x)
     x / 1000,
   x_title = "Body mass kg",
@@ -234,6 +276,10 @@ p14 <- gg_hviolin_col(
   title = "gg_hviolin*()"
 )
 
+p13 + p14
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 p15 <- gg_sf_col(
   example_point,
   col_var = trend_category,
@@ -251,11 +297,6 @@ p16 <- gg_stars_col(
   title = "gg_stars*()"
 )
 
-p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12 + p13 + p14 +
-  plot_layout(ncol = 2)
-```
-
-```{r, echo=FALSE, fig.width=8, fig.height=3}
 p15 + p16
 ```
 
@@ -570,7 +611,7 @@ plot_data <- penguins %>%
 gg_bar(plot_data, 
        x_var = sex, 
        y_var = body_mass_g, 
-       size_width = 0.66, 
+       size_width = 0.5, 
        x_na_rm = TRUE, 
        y_breaks_n = 3) +
   facet_grid(rows = vars(species), 

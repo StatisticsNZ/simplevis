@@ -93,16 +93,17 @@ p3 <- gg_hbar_col(
   title = "gg_hbar*()"
 )
 
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
-
-p4 <- gg_bar(
+p4 <- gg_bar_col(
   plot_data,
-  x_var = year,
-  y_var = wind,
-  x_labels = function(x)
-    stringr::str_sub(x, 3, 4),
+  y_var = body_mass_g,
+  x_var = sex,
+  col_var = species,
+  x_na_rm = TRUE,
+  size_width = 0.6,
+  y_breaks_n = 3,
+  y_labels = function(x)
+    x / 1000,
+  y_title = "Body mass kg",
   title = "gg_bar*()"
 )
 
@@ -121,18 +122,19 @@ p5 <- gg_tile_col(
   col_var = bill_length_mm,
   label_var = bill_length_mm,
   x_na_rm = TRUE,
+  col_labels = scales::label_comma(accuracy = 1),
   title = "gg_tile*()"
 )
 
 plot_data <- storms %>%
-  group_by(year) %>%
+  group_by(year, status) %>%
   summarise(wind = mean(wind))
 
-p6 <- gg_line(
+p6 <- gg_line_col(
   plot_data,
   x_var = year,
   y_var = wind,
-  y_zero = TRUE,
+  col_var = status,
   size_point = 0.5,
   x_labels = function(x)
     stringr::str_sub(x, 3, 4),
@@ -151,6 +153,7 @@ p7 <- gg_histogram_col(
   x_breaks_n = 3,
   x_labels = function(x)
     x / 1000,
+  y_labels = scales::label_comma(accuracy = 1),
   x_title = "Body mass kg",
   title = "gg_histogram*()"
 )
@@ -172,14 +175,15 @@ p7 + p8
 ```
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
-p9 <- gg_boxplot(
+p9 <- gg_boxplot_col(
   penguins,
-  x_var = sex,
   y_var = body_mass_g,
+  x_var = sex,
+  col_var = species,
   x_na_rm = TRUE,
   size_point = 0.5,
-  size_width = 0.33,
-  y_labels = function(x) x / 1000,
+  y_labels = function(x)
+    x / 1000,
   y_title = "Body mass kg",
   title = "gg_boxplot*()"
 )
@@ -204,33 +208,27 @@ p9 + p10
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
-  group_by(sex) %>%
-  summarise(
-    middle = median(body_mass_g, na.rm = TRUE),
-    lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
-    upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
-  )
-
-p11 <- gg_pointrange(
-  plot_data,
-  x_var = sex,
-  y_var = middle,
-  ymin_var = lower,
-  ymax_var = upper,
-  x_na_rm = TRUE,
-  size_point = 1,
-  y_labels = function(x) x / 1000,
-  y_title = "Body mass kg",
-  title = "gg_pointrange*()"
-)
-
-plot_data <- penguins %>%
   group_by(sex, species) %>%
   summarise(
     middle = median(body_mass_g, na.rm = TRUE),
     lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
     upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
   )
+
+p11 <- gg_pointrange_col(
+  plot_data,
+  x_var = sex,
+  y_var = middle,
+  ymin_var = lower,
+  ymax_var = upper,
+  col_var = species,
+  x_na_rm = TRUE,
+  x_dodge = 0.2,
+  size_point = 1,
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
+  title = "gg_pointrange*()"
+)
 
 p12 <- gg_hpointrange_col(
   plot_data,
@@ -245,7 +243,7 @@ p12 <- gg_hpointrange_col(
     x / 1000,
   x_title = "Body mass kg",
   size_point = 1,
-  y_dodge = 0.3,
+  y_dodge = 0.2,
   title = "gg_hpointrange*()"
 )
 
@@ -253,10 +251,11 @@ p11 + p12
 ```
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
-p13 <- gg_violin(
+p13 <- gg_violin_col(
   penguins,
   x_var = sex,
   y_var = body_mass_g,
+  col_var = species,
   x_na_rm = TRUE,
   title = "gg_violin*()", 
   y_labels = function(x) x / 1000,

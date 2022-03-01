@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 library(dplyr)
 library(simplevis)
 library(palmerpenguins)
@@ -42,140 +42,232 @@ It does this by:
 
 ### Visualisation family types
 
-`simplevis` supports the following families of visualisation types:
+`simplevis` supports many visualisation family types.
 
-point
+```{r echo=FALSE, fig.width = 8, fig.height = 20}
+p1 <- gg_point_col(
+  penguins,
+  x_var = bill_length_mm,
+  y_var = body_mass_g,
+  col_var = species,
+  x_labels = scales::label_comma(accuracy = 1),
+  size_point = 0.5,
+  title = "gg_point*()"
+)
 
-```{r}
-gg_point(penguins,
-         x_var = bill_length_mm,
-         y_var = body_mass_g)
-```
+p2 <- gg_smooth_col(
+  penguins,
+  x_var = bill_length_mm,
+  y_var = body_mass_g,
+  col_var = species,
+  size_point = 0.5,
+  x_labels = scales::label_comma(accuracy = 1),
+  title = "gg_smooth*()"
+)
 
-bar
-
-```{r}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
-
-gg_bar(plot_data,
-       x_var = year,
-       y_var = wind)
-```
-
-hbar
-
-```{r}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
-
-gg_hbar(plot_data, 
-        x_var = wind, 
-        y_var = year)
-```
-
-line
-
-```{r}
-plot_data <- storms %>%
-  group_by(year) %>%
-  summarise(wind = mean(wind))
-
-gg_line(plot_data, 
-        x_var = year, 
-        y_var = wind)
-```
-
-boxplot
-
-```{r}
-gg_boxplot(penguins, 
-           x_var = species, 
-           y_var = body_mass_g)
-```
-
-density
-
-```{r}
-gg_density(penguins, 
-           x_var = body_mass_g)
-```
-
-histogram
-
-```{r}
-gg_histogram(penguins,
-             x_var = flipper_length_mm)
-```
-
-pointrange 
-
-```{r} 
 plot_data <- penguins %>%
-   group_by(sex) %>%
-   summarise(middle = median(body_mass_g, na.rm = TRUE),
-             lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
-             upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
+  group_by(species, sex) %>%
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
- gg_pointrange(
-   plot_data,
-   x_var = sex,
-   y_var = middle,
-   ymin_var = lower,
-   ymax_var = upper,
-   y_title = "Body mass g")
-```
+p3 <- gg_bar_col(
+  plot_data,
+  x_var = species,
+  y_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  size_width = 0.66,
+  x_labels = function(x)
+    stringr::str_sub(x, 1, 1),
+  title = "gg_bar*()"
+)
 
-smooth
+plot_data <- penguins %>%
+  group_by(species, sex) %>%
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
-```{r}
-gg_smooth(penguins,  
-          x_var = bill_length_mm, 
-          y_var = body_mass_g)
-```
+p4 <- gg_hbar_col(
+  plot_data,
+  x_var = body_mass_g,
+  y_var = species,
+  col_var = sex,
+  col_na_rm = TRUE,
+  size_width = 0.5,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  title = "gg_hbar*()"
+)
 
-tile
+plot_data <- storms %>%
+  group_by(year, status) %>%
+  summarise(wind = mean(wind))
 
-```{r}
-plot_data <- penguins %>% 
-  group_by(species, sex) %>% 
+p5 <- gg_line_col(
+  plot_data,
+  x_var = year,
+  y_var = wind,
+  col_var = status,
+  y_zero = TRUE,
+  size_point = 0.5,
+  x_labels = function(x)
+    stringr::str_sub(x, 3, 4),
+  title = "gg_line*()"
+)
+
+plot_data <- penguins %>%
+  group_by(species, sex) %>%
   summarise(bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 1))
 
-gg_tile_col(plot_data, 
-            x_var = sex, 
-            y_var = species, 
-            col_var = bill_length_mm, 
-            label_var = bill_length_mm) 
+p6 <- gg_tile_col(
+  plot_data,
+  x_var = sex,
+  y_var = species,
+  col_var = bill_length_mm,
+  label_var = bill_length_mm,
+  x_na_rm = TRUE,
+  title = "gg_tile*()"
+)
+
+p7 <- gg_histogram_col(
+  penguins,
+  x_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  title = "gg_histogram*()"
+)
+
+p8 <- gg_density_col(
+  penguins,
+  x_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  title = "gg_density*()"
+)
+
+p9 <- gg_boxplot_col(
+  penguins,
+  x_var = species,
+  y_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  size_point = 0.5,
+  x_labels = function(x)
+    stringr::str_sub(x, 1, 1),
+  title = "gg_boxplot*()"
+)
+
+p10 <- gg_hboxplot_col(
+  penguins,
+  x_var = body_mass_g,
+  y_var = species,
+  col_var = sex,
+  col_na_rm = TRUE,
+  size_point = 0.5,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  title = "gg_hboxplot*()"
+)
+
+plot_data <- penguins %>%
+  group_by(sex, species) %>%
+  summarise(
+    middle = median(body_mass_g, na.rm = TRUE),
+    lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
+    upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
+  )
+
+p11 <- gg_pointrange_col(
+  plot_data,
+  x_var = species,
+  y_var = middle,
+  ymin_var = lower,
+  ymax_var = upper,
+  col_var = sex,
+  col_na_rm = TRUE,
+  y_title = "Body mass g",
+  x_dodge = 0.2,
+  size_point = 1,
+  x_labels = function(x)
+    stringr::str_sub(x, 1, 1),
+  title = "gg_pointrange*()"
+)
+
+plot_data <- penguins %>%
+  group_by(sex, species) %>%
+  summarise(
+    middle = median(body_mass_g, na.rm = TRUE),
+    lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
+    upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
+  )
+
+p12 <- gg_hpointrange_col(
+  plot_data,
+  x_var = middle,
+  xmin_var = lower,
+  xmax_var = upper,
+  y_var = species,
+  col_var = sex,
+  col_na_rm = TRUE,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  size_point = 1,
+  y_dodge = 0.2,
+  title = "gg_hpointrange*()"
+)
+
+p13 <- gg_violin_col(
+  penguins,
+  x_var = species,
+  y_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  x_labels = function(x) stringr::str_sub(x, 1, 1),
+  title = "gg_violin*()"
+)
+
+p14 <- gg_hviolin_col(
+  penguins,
+  x_var = body_mass_g,
+  y_var = species,
+  col_var = sex,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  col_na_rm = TRUE, 
+  title = "gg_hviolin*()"
+)
+
+p15 <- gg_sf_col(
+  example_point,
+  col_var = trend_category,
+  borders = example_borders,
+  size_point = 0.5,
+  title = "gg_sf*()"
+)
+
+p16 <- gg_stars_col(
+  example_stars,
+  col_var = nitrate,
+  col_na_rm = TRUE,
+  borders = example_borders,
+  col_method = "quantile",
+  col_cuts = c(0, 0.05, 0.25, 0.5, 0.75, 0.95, 1),
+  col_labels = scales::label_comma(accuracy = 1),
+  title = "gg_stars*()"
+)
+
+p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12 + p13 + p14 +
+  plot_layout(ncol = 2)
 ```
 
-violin
-
-```{r}
-gg_violin(penguins, 
-           x_var = species, 
-           y_var = body_mass_g)
+```{r, fig.width = 8, fig.height = 3}
+p15 + p16
 ```
-
-sf
-
-```{r}
-gg_sf_col(example_point, 
-          col_var = trend_category, 
-          borders = example_borders)
-```
-
-stars
-
-```{r}
-gg_stars_col(example_stars,
-             col_var = nitrate,
-             col_na_rm = TRUE,
-             borders = example_borders)
-```
-
-There are also the following horizontal functions: `hbar*()`, `hboxplot*()`, `hpointrange` and `hviolin*()`.
 
 ### Colouring, facetting, neither or both
 

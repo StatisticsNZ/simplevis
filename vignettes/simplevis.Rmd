@@ -175,7 +175,36 @@ p7 + p8
 ```
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
-p9 <- gg_boxplot_col(
+p9 <- gg_violin_col(
+  penguins,
+  x_var = sex,
+  y_var = body_mass_g,
+  col_var = species,
+  x_na_rm = TRUE,
+  title = "gg_violin*()", 
+  y_labels = function(x) x / 1000,
+  y_title = "Body mass kg",
+)
+
+p10 <- gg_hviolin_col(
+  penguins,
+  x_var = body_mass_g,
+  y_var = sex,
+  col_var = species,
+  x_breaks_n = 2,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  y_na_rm = TRUE, 
+  title = "gg_hviolin*()"
+)
+
+p9 + p10
+```
+
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
+p11 <- gg_boxplot_col(
   penguins,
   y_var = body_mass_g,
   x_var = sex,
@@ -188,7 +217,7 @@ p9 <- gg_boxplot_col(
   title = "gg_boxplot*()"
 )
 
-p10 <- gg_hboxplot_col(
+p12 <- gg_hboxplot_col(
   penguins,
   x_var = body_mass_g,
   y_var = sex,
@@ -200,34 +229,6 @@ p10 <- gg_hboxplot_col(
     x / 1000,
   x_title = "Body mass kg",
   title = "gg_hboxplot*()"
-)
-
-p9 + p10
-```
-
-```{r, echo=FALSE, fig.width=8, fig.height=3}
-p11 <- gg_violin_col(
-  penguins,
-  x_var = sex,
-  y_var = body_mass_g,
-  col_var = species,
-  x_na_rm = TRUE,
-  title = "gg_violin*()", 
-  y_labels = function(x) x / 1000,
-  y_title = "Body mass kg",
-)
-
-p12 <- gg_hviolin_col(
-  penguins,
-  x_var = body_mass_g,
-  y_var = sex,
-  col_var = species,
-  x_breaks_n = 2,
-  x_labels = function(x)
-    x / 1000,
-  x_title = "Body mass kg",
-  y_na_rm = TRUE, 
-  title = "gg_hviolin*()"
 )
 
 p11 + p12

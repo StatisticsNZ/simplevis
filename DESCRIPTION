@@ -2,13 +2,21 @@ Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' and 'leaflet' Visualisation with Less Brainpower
 Version: 6.1.9000
-Authors@R:
-    c(person(given = "David", 
-               family = "Hodge", 
-               email = "davidhodge931@gmail.com", 
-               role = c("aut", "cre"),
-               comment = c(ORCID = "0000-0002-3868-7501")),
-      person("Statistics New Zealand", 
+Authors@R: 
+    c(person(given = "David",
+             family = "Hodge",
+             role = c("aut", "cre"),
+             email = "davidhodge931@gmail.com",
+             comment = c(ORCID = "0000-0002-3868-7501")),
+      person(given = "Kate",
+             family = "Lee",
+             role = "ctb",
+             comment = c(ORCID = "0000-0002-0886-3746")),
+      person(given = "Xavier",
+             family = "Miles",
+             role = "ctb",
+             comment = c(ORCID = "0000-0002-1727-5110")),
+      person(given = "Statistics New Zealand",
              role = c("cph")))
 Description: Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier with less brainpower required.
 License: MIT + file LICENSE
@@ -23,5 +31,4 @@ Imports: dplyr, forcats, ggplot2, htmlwidgets, leaflet, leafem, leafpop,
 Suggests: DT, glue, knitr, pals, palmerpenguins, patchwork, rgdal, rgeos, 
          rmarkdown, s2,  shinycssloaders, tibble
 VignetteBuilder: knitr
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

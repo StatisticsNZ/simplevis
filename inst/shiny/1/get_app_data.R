@@ -1,15 +1,15 @@
 # use this script to get data, and put it in the app
-# this should include any processing not required to be done in the app
-# this should include making a zip file for download from the app
-
+# if needed, add a zip file for download from the app
+# 
+# data_folder <- "inst/shiny/template2/data/"
+# dir.create(data_folder)
+# 
 # data1 <- ggplot2::diamonds %>% 
 #   slice_sample(prop = 0.1)
 # 
 # data2 <- simplevis::example_sf_point %>% 
 #   filter(indicator %in% c("Nitrate-nitrogen", "Total nitrogen", "Ammoniacal nitrogen")) %>% 
 #   slice_sample(prop = 0.1)
-# 
-# data_folder <- "inst/shiny/template2/data/"
 # 
 # readr::write_csv(data1, "data1.csv")
 # readr::write_csv(data2, "data2.csv")

@@ -75,11 +75,41 @@ p1 + p2
 ```
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
+p3 <- gg_histogram_col(
+  penguins,
+  x_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  x_breaks_n = 3,
+  x_labels = function(x)
+    x / 1000,
+  y_labels = scales::label_comma(accuracy = 1),
+  x_title = "Body mass kg",
+  title = "gg_histogram*()"
+)
+
+p4 <- gg_density_col(
+  penguins,
+  x_var = body_mass_g,
+  col_var = sex,
+  col_na_rm = TRUE,
+  y_labels = scales::label_number(accuracy = 0.0001),
+  x_breaks_n = 2,
+  x_labels = function(x)
+    x / 1000,
+  x_title = "Body mass kg",
+  title = "gg_density*()"
+)
+
+p3 + p4
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
   group_by(species, sex) %>%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
-p3 <- gg_hbar_col(
+p5 <- gg_hbar_col(
   plot_data,
   x_var = body_mass_g,
   y_var = sex,
@@ -93,7 +123,7 @@ p3 <- gg_hbar_col(
   title = "gg_hbar*()"
 )
 
-p4 <- gg_bar_col(
+p6 <- gg_bar_col(
   plot_data,
   y_var = body_mass_g,
   x_var = sex,
@@ -107,74 +137,11 @@ p4 <- gg_bar_col(
   title = "gg_bar*()"
 )
 
-p3 + p4
-```
-
-```{r, echo=FALSE, fig.width=8, fig.height=3}
-p5 <- gg_histogram_col(
-  penguins,
-  x_var = body_mass_g,
-  col_var = sex,
-  col_na_rm = TRUE,
-  x_breaks_n = 3,
-  x_labels = function(x)
-    x / 1000,
-  y_labels = scales::label_comma(accuracy = 1),
-  x_title = "Body mass kg",
-  title = "gg_histogram*()"
-)
-
-p6 <- gg_density_col(
-  penguins,
-  x_var = body_mass_g,
-  col_var = sex,
-  col_na_rm = TRUE,
-  y_labels = scales::label_number(accuracy = 0.0001),
-  x_breaks_n = 2,
-  x_labels = function(x)
-    x / 1000,
-  x_title = "Body mass kg",
-  title = "gg_density*()"
-)
-
 p5 + p6
 ```
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
-plot_data <- penguins %>%
-  group_by(species, sex) %>%
-  summarise(bill_length_mm = mean(bill_length_mm, na.rm = TRUE))
-
-p7 <- gg_tile_col(
-  plot_data,
-  x_var = sex,
-  y_var = species,
-  col_var = bill_length_mm,
-  x_na_rm = TRUE,
-  col_labels = scales::label_comma(accuracy = 1),
-  title = "gg_tile*()"
-)
-
-plot_data <- storms %>%
-  group_by(year, status) %>%
-  summarise(wind = mean(wind))
-
-p8 <- gg_line_col(
-  plot_data,
-  x_var = year,
-  y_var = wind,
-  col_var = status,
-  size_point = 0.5,
-  x_labels = function(x)
-    stringr::str_sub(x, 3, 4),
-  title = "gg_line*()"
-)
-
-p7 + p8
-```
-
-```{r, echo=FALSE, fig.width=8, fig.height=3}
-p9 <- gg_violin_col(
+p7 <- gg_violin_col(
   penguins,
   x_var = sex,
   y_var = body_mass_g,
@@ -185,7 +152,7 @@ p9 <- gg_violin_col(
   y_title = "Body mass kg",
 )
 
-p10 <- gg_hviolin_col(
+p8 <- gg_hviolin_col(
   penguins,
   x_var = body_mass_g,
   y_var = sex,
@@ -198,12 +165,11 @@ p10 <- gg_hviolin_col(
   title = "gg_hviolin*()"
 )
 
-p9 + p10
+p7 + p8
 ```
 
-
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
-p11 <- gg_boxplot_col(
+p9 <- gg_boxplot_col(
   penguins,
   y_var = body_mass_g,
   x_var = sex,
@@ -216,7 +182,7 @@ p11 <- gg_boxplot_col(
   title = "gg_boxplot*()"
 )
 
-p12 <- gg_hboxplot_col(
+p10 <- gg_hboxplot_col(
   penguins,
   x_var = body_mass_g,
   y_var = sex,
@@ -230,7 +196,7 @@ p12 <- gg_hboxplot_col(
   title = "gg_hboxplot*()"
 )
 
-p11 + p12
+p9 + p10
 ```
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
@@ -242,7 +208,7 @@ plot_data <- penguins %>%
     upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE)
   )
 
-p13 <- gg_pointrange_col(
+p11 <- gg_pointrange_col(
   plot_data,
   x_var = sex,
   y_var = middle,
@@ -257,7 +223,7 @@ p13 <- gg_pointrange_col(
   title = "gg_pointrange*()"
 )
 
-p14 <- gg_hpointrange_col(
+p12 <- gg_hpointrange_col(
   plot_data,
   x_var = middle,
   xmin_var = lower,
@@ -272,6 +238,39 @@ p14 <- gg_hpointrange_col(
   size_point = 1,
   y_dodge = 0.2,
   title = "gg_hpointrange*()"
+)
+
+p11 + p12
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
+plot_data <- storms %>%
+  group_by(year, status) %>%
+  summarise(wind = mean(wind))
+
+p13 <- gg_line_col(
+  plot_data,
+  x_var = year,
+  y_var = wind,
+  col_var = status,
+  size_point = 0.5,
+  x_labels = function(x)
+    stringr::str_sub(x, 3, 4),
+  title = "gg_line*()"
+)
+
+plot_data <- penguins %>%
+  group_by(species, sex) %>%
+  summarise(bill_length_mm = mean(bill_length_mm, na.rm = TRUE))
+
+p14 <- gg_tile_col(
+  plot_data,
+  x_var = sex,
+  y_var = species,
+  col_var = bill_length_mm,
+  x_na_rm = TRUE,
+  col_labels = scales::label_comma(accuracy = 1),
+  title = "gg_tile*()"
 )
 
 p13 + p14

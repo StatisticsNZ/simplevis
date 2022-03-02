@@ -491,9 +491,9 @@ gg_line_col(plot_data,
            col_var = status,
            x_breaks_n = 10,
            x_labels = ~stringr::str_sub(.x, 3, 4),
-           y_labels = scales::label_comma(accuracy = 0.1), 
+           y_labels = scales::label_dollar(accuracy = 1), 
            col_labels = c("H", "TD", "TS"),
-           y_zero = T, 
+           y_zero = TRUE, 
            y_breaks_n = 10,
            y_expand = ggplot2::expansion(add = c(0, 10)))
 ```
@@ -593,8 +593,8 @@ gg_bar(plot_data,
                          width = 0.2) +
   ggplot2::scale_y_continuous(
     name = "Body mass g",
-    breaks = ~pretty(.x, 10),
-    limits = ~c(min(pretty(.x, 10)), max(pretty(.x, 10))),
+    breaks = ~pretty(.x, 5),
+    limits = ~c(min(pretty(.x, 5)), max(pretty(.x, 5))),
     expand = c(0, 0)
   )
 ```

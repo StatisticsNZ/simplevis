@@ -19,7 +19,7 @@ gg_theme(
   style_subtitle = "plain",
   style_body = "plain",
   pal_title = "#000000",
-  pal_subtitle = "#000000",
+  pal_subtitle = "#323232",
   pal_body = "#323232",
   pal_axis = "#323232",
   pal_ticks = "#323232",
@@ -59,7 +59,7 @@ gg_theme(
 
 \item{pal_title}{The colour palette for the title font. Defaults to "#000000".}
 
-\item{pal_subtitle}{The colour palette for the subtitle font. Defaults to "#000000".}
+\item{pal_subtitle}{The colour palette for the subtitle font. Defaults to "#323232".}
 
 \item{pal_body}{The colour palette for all text other than the title or subtitle. Defaults to "#323232".}
 

@@ -5,6 +5,7 @@
 * Updated app demos.
 * Adjusted default alpha_fill values.
 * Added kimisc to imports.
+* Changed default bar oob back to ggplot2 default.
 
 # simplevis 6.1.0
 

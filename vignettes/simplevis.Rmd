@@ -292,7 +292,7 @@ p15 + p16
 
 ### 4 functions per family: colouring, facetting, neither or both 
 
-Each visualisation family generally has four functions.
+Each visualisation family _generally_ has four functions.
 
 This is based on whether or not a visualisation is to be:
 
@@ -393,7 +393,7 @@ gg_point_col(penguins,
          y_var = body_mass_g, 
          col_var = flipper_length_mm, 
          col_method = "continuous",
-         title = "col_method = 'continuous'")
+         subtitle = "col_method = 'continuous'")
 ```
 
 Other methods available are `bin` and `quantile`.
@@ -409,7 +409,7 @@ p1 <- gg_point_col(penguins,
              size_point = 0.5,
              x_breaks_n = 3,
              x_labels = scales::label_comma(accuracy = 1),
-             title = "col_method = 'bin'")
+             subtitle = "col_method = 'bin'")
 
 p2 <- gg_point_col(penguins, 
              x_var = bill_length_mm, 
@@ -420,7 +420,7 @@ p2 <- gg_point_col(penguins,
              x_breaks_n = 3,
              x_labels = scales::label_comma(accuracy = 1),
              col_labels = scales::label_comma(accuracy = 1),
-             title = "col_method = 'quantile'")
+             subtitle = "col_method = 'quantile'")
 p1 + p2
 ```
 
@@ -576,30 +576,27 @@ This means layers can be added to the functions in the same way you would a ggpl
 Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 
 ```{r, fig.width = 4}
-plot_data <- penguins %>% 
-  group_by(species) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))   %>% 
-  mutate(body_mass_g_label = format(round(body_mass_g, 0), big.mark = ","))  
+plot_data <- penguins %>%
+  filter(!is.na(sex)) %>% 
+  group_by(sex) %>%
+  summarise(body_mass_g_p50 = median(body_mass_g, na.rm = TRUE), 
+            body_mass_g_p05 = quantile(body_mass_g, probs = 0.05, na.rm = TRUE), 
+            body_mass_g_p95 = quantile(body_mass_g, probs = 0.95, na.rm = TRUE))
 
 gg_bar(plot_data,
-       x_var = species,
-       y_var = body_mass_g, 
-       size_width = 0.5) +
-  ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g - 250, label = body_mass_g_label),
-                     col = "white")
-```
-
-```{r}
-gg_point_col(penguins,
-             x_var = bill_length_mm,
-             y_var = body_mass_g,
-             col_var = species) +
-  ggplot2::scale_y_log10(
-    name = "Bill length mm",
-    breaks = function(x) pretty(x, 4),
-    limits = function(x) c(min(pretty(x, 4)), max(pretty(x, 4))),
+       x_var = sex,
+       y_var = body_mass_g_p50,
+       y_title = "Body mass g") +
+  ggplot2::geom_text(ggplot2::aes(x = sex, y = body_mass_g_p05 - 500, label = body_mass_g_p50),
+                     col = "white") +
+  ggplot2::geom_errorbar(ggplot2::aes(x = sex, ymin = body_mass_g_p05, ymax = body_mass_g_p95), 
+                         width = 0.2) +
+  ggplot2::scale_y_continuous(
+    name = "Body mass g",
+    breaks = ~pretty(.x, 10),
+    limits = ~c(min(pretty(.x, 10)), max(pretty(.x, 10))),
     expand = c(0, 0)
-  ) 
+  )
 ```
 
 The `patchwork` package can be used to patch visualisations together.

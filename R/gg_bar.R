@@ -230,7 +230,7 @@ gg_bar <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -628,7 +628,7 @@ gg_bar_col <- function(data,
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
-      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+      scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
   })
   
   if (y_zero_line == TRUE) {
@@ -957,7 +957,7 @@ gg_bar_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {
@@ -1369,7 +1369,7 @@ gg_bar_col_facet <- function(data,
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
-        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels, oob = scales::oob_squish)
+        scale_y_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     })
   }
   else if (facet_scales %in% c("free", "free_y")) {

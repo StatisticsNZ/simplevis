@@ -306,7 +306,7 @@ Colouring by a variable means that different values of a selected variable are t
 
 A `*()` function such `gg_point()` requires only a dataset, an x variable and a y variable. 
 
-```{r}
+```{r, fig.width = 5}
 gg_point(penguins, 
          x_var = bill_length_mm, 
          y_var = body_mass_g)
@@ -382,7 +382,7 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 
 Change the colour palette by supplying a vector of hex code colours to the `pal` argument. 
 
-```{r}
+```{r, fig.width = 5}
 gg_point(iris, 
          x_var = Sepal.Width, 
          y_var = Sepal.Length, 

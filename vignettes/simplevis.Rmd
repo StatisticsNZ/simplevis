@@ -443,7 +443,7 @@ gg_point_col(penguins,
              col_na_rm = TRUE)
 ```
 
-```{r}
+```{r, fig.width = 3}
 plot_data <- penguins %>% 
   group_by(species) %>% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
@@ -452,7 +452,7 @@ gg_bar_col(plot_data,
        x_var = species, 
        y_var = body_mass_g, 
        col_var = species, 
-       col_legend_none = TRUE,
+       col_legend_none = TRUE, 
        size_width = 0.5)
 ```
 

@@ -326,7 +326,7 @@
        <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
        <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
        <span class="kw">size_width</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="288"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="384"></p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/scales.html">scales</a> article for further information.</p>
 </div>
 </div>
@@ -391,10 +391,11 @@
 
 <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span>(<span class="no">plot_data</span>,
        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-       <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>) +
+       <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
+       <span class="kw">size_width</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
   <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_text.html">geom_text</a></span>(<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">species</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">body_mass_g</span> - <span class="fl">250</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="no">body_mass_g_label</span>),
                      <span class="kw">col</span> <span class="kw">=</span> <span class="st">"white"</span>)</pre></body></html></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-28-1.png" width="384"></p>
 <p>The <code>patchwork</code> package can be used to patch visualisations together.</p>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">patchwork</span>)
 

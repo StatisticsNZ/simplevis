@@ -506,7 +506,7 @@ gg_point_col(penguins,
              col_na_rm = TRUE)
 ```
 
-```{r, fig.width = 3}
+```{r, fig.width = 4}
 plot_data <- penguins %>% 
   group_by(species) %>% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
@@ -575,6 +575,20 @@ This means layers can be added to the functions in the same way you would a ggpl
 
 Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 
+```{r, fig.width = 4}
+plot_data <- penguins %>% 
+  group_by(species) %>% 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))   %>% 
+  mutate(body_mass_g_label = format(round(body_mass_g, 0), big.mark = ","))  
+
+gg_bar(plot_data,
+       x_var = species,
+       y_var = body_mass_g, 
+       size_width = 0.5) +
+  ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g - 250, label = body_mass_g_label),
+                     col = "white")
+```
+
 ```{r}
 gg_point_col(penguins,
              x_var = bill_length_mm,
@@ -586,20 +600,6 @@ gg_point_col(penguins,
     limits = function(x) c(min(pretty(x, 4)), max(pretty(x, 4))),
     expand = c(0, 0)
   ) 
-
-```
-
-```{r}
-plot_data <- penguins %>% 
-  group_by(species) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))   %>% 
-  mutate(body_mass_g_label = format(round(body_mass_g, 0), big.mark = ","))  
-
-gg_bar(plot_data,
-       x_var = species,
-       y_var = body_mass_g) +
-  ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g - 250, label = body_mass_g_label),
-                     col = "white")
 ```
 
 The `patchwork` package can be used to patch visualisations together.

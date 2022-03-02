@@ -17,7 +17,7 @@ gg_histogram(
   subtitle_wrap = 80,
   x_bins_n = 30,
   x_breaks_n = 5,
-  x_expand = ggplot2::waiver(),
+  x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_title = NULL,
   x_title_wrap = 50,

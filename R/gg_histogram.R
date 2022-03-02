@@ -48,7 +48,7 @@ gg_histogram <- function(data,
                        subtitle_wrap = 80,
                        x_bins_n = 30,
                        x_breaks_n = 5,
-                       x_expand = ggplot2::waiver(),
+                       x_expand = c(0, 0),
                        x_labels = scales::label_comma(),
                        x_title = NULL,
                        x_title_wrap = 50,
@@ -101,7 +101,7 @@ gg_histogram <- function(data,
   x_limits <- c(min(x_breaks), max(x_breaks))
 
   if (mobile == TRUE) {
-    x_breaks <- x_limits
+    x_breaks <- c(min(gg_build_data$xmin), max(gg_build_data$xmax))
     if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
   }
   
@@ -212,7 +212,7 @@ gg_histogram_col <- function(data,
                            subtitle_wrap = 80,
                            x_bins_n = 30,
                            x_breaks_n = 5,
-                           x_expand = ggplot2::waiver(),
+                           x_expand = c(0, 0),
                            x_labels = scales::label_comma(),
                            x_title = NULL,
                            x_title_wrap = 50,
@@ -298,7 +298,7 @@ gg_histogram_col <- function(data,
   x_limits <- c(min(x_breaks), max(x_breaks))
 
   if (mobile == TRUE) {
-    x_breaks <- x_limits
+    x_breaks <- c(min(gg_build_data$xmin), max(gg_build_data$xmax))
     if (min(x_breaks) < 0 & max(x_breaks > 0)) x_breaks <- c(x_breaks[1], 0, x_breaks[2])
   }
   
@@ -432,7 +432,7 @@ gg_histogram_facet <- function(data,
                              subtitle_wrap = 80,
                              x_bins_n = 30,
                              x_breaks_n = 2,
-                             x_expand = ggplot2::waiver(),
+                             x_expand = c(0, 0),
                              x_labels = scales::label_comma(),
                              x_title = NULL,
                              x_title_wrap = 50,
@@ -620,7 +620,7 @@ gg_histogram_col_facet <- function(data,
                                  subtitle_wrap = 80,
                                  x_bins_n = 30,
                                  x_breaks_n = 2,
-                                 x_expand = ggplot2::waiver(),
+                                 x_expand = c(0, 0),
                                  x_labels = scales::label_comma(),
                                  x_title = NULL,
                                  x_title_wrap = 50,

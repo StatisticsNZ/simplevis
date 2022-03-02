@@ -130,7 +130,6 @@ p6 <- gg_bar_col(
   col_var = species,
   x_na_rm = TRUE,
   size_width = 0.6,
-  y_breaks_n = 3,
   y_labels = function(x)
     x / 1000,
   y_title = "Body mass kg",

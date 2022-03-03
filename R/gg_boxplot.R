@@ -139,7 +139,7 @@ gg_boxplot <- function(data,
   }
   
   #warnings
-    if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a boxplot")
+  if (is.numeric(x_var_vctr)) stop("Please use a categorical x variable for a boxplot")
   if (stat == "boxplot" & !is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a boxplot when stat = 'boxplot'")
   
   #logical to factor

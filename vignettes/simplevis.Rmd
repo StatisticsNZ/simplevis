@@ -341,29 +341,6 @@ simplevis plots are designed to work and look clean with the bare minimum of cod
 
 However, there is plenty of flexibility to customise.
 
-#### Titles
-
-Defaults titles are: 
-
- * no title, subtitle or caption 
- * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. 
-
-You can customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = species, 
-             title = "Adult penguin mass by bill length and species",
-             subtitle = "Palmer station, Antarctica",
-             x_title = "Bill length (mm)", 
-             y_title = "Body mass (g)",
-             col_title = "Species")
-```
-
-You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.
-
 #### Colour
 
 Change the colour palette by supplying a vector of hex code colours to the `pal` argument. 
@@ -493,22 +470,32 @@ gg_line_col(plot_data,
            y_expand = ggplot2::expansion(add = c(0, 10)))
 ```
 
-```{r, fig.width = 4}
-plot_data <- penguins %>% 
-  group_by(species) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))  
-
-gg_bar_col(plot_data, 
-       x_var = species, 
-       y_var = body_mass_g, 
-       col_var = species, 
-       col_legend_none = TRUE, 
-       size_width = 0.5)
-```
-
 Refer to the [scales](https://statisticsnz.github.io/simplevis/articles/scales.html) article for further information.
 
 The `size_` and `alpha_` prefixes are used to modify the size and opacity of various aspects of the visualisation.
+
+#### Titles
+
+Defaults titles are: 
+
+ * no title, subtitle or caption 
+ * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. 
+
+You can customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "Adult penguin mass by bill length and species",
+             subtitle = "Palmer station, Antarctica",
+             x_title = "Bill length (mm)", 
+             y_title = "Body mass (g)",
+             col_title = "Species")
+```
+
+You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.
 
 ### Maps
 
@@ -566,21 +553,22 @@ Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 
 ```{r, fig.width = 4}
 plot_data <- penguins %>%
-  filter(!is.na(species)) %>% 
   group_by(species) %>%
-  summarise(body_mass_g_p50 = median(body_mass_g, na.rm = TRUE), 
-            body_mass_g_p05 = quantile(body_mass_g, probs = 0.05, na.rm = TRUE), 
+  summarise(body_mass_g_p50 = median(body_mass_g, na.rm = TRUE),
+            body_mass_g_p05 = quantile(body_mass_g, probs = 0.05, na.rm = TRUE),
             body_mass_g_p95 = quantile(body_mass_g, probs = 0.95, na.rm = TRUE))
 
-gg_bar(plot_data,
-       x_var = species,
-       y_var = body_mass_g_p50,
-       y_title = "Body mass g", 
-       size_width = 0.5) +
+gg_bar_col(plot_data,
+           x_var = species,
+           y_var = body_mass_g_p50,
+           col_var = species,
+           col_legend_none = TRUE,
+           col_na_rm = TRUE,
+           y_title = "Body mass g") +
   ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g_p05 - 500, label = body_mass_g_p50),
                      col = "white") +
-  ggplot2::geom_errorbar(ggplot2::aes(x = species, ymin = body_mass_g_p05, ymax = body_mass_g_p95), 
-                         width = 0.2) +
+  ggplot2::geom_errorbar(ggplot2::aes(x = species, ymin = body_mass_g_p05, ymax = body_mass_g_p95),
+                         width = 0.1) +
   ggplot2::scale_y_continuous(
     name = "Body mass g",
     breaks = ~pretty(.x, 5),

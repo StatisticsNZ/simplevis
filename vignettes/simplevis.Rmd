@@ -368,13 +368,6 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 
 Change the colour palette by supplying a vector of hex code colours to the `pal` argument. 
 
-```{r, fig.width = 5}
-gg_point(iris, 
-         x_var = Sepal.Width, 
-         y_var = Sepal.Length, 
-         pal = "#e7298a")
-```
-
 ```{r}
 gg_point_col(penguins, 
              x_var = bill_length_mm, 
@@ -382,6 +375,8 @@ gg_point_col(penguins,
              col_var = species, 
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
+
+Numerous colour palettes are available from the `pals` package.
 
 simplevis also supports easy colouring of numeric variables for `gg_point*()`, `gg_bar*()`, `gg_hbar*()`, `gg_sf*()` and `gg_stars*()` (and equivalent leaflet functions).
 
@@ -437,7 +432,7 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             title = "A nice long title", 
+             title = "A nice title", 
              subtitle = "And a subtitle",
              theme = ggplot2::theme_grey())
 ```
@@ -520,6 +515,8 @@ gg_bar_col(plot_data,
 ```
 
 Refer to the [scales](https://statisticsnz.github.io/simplevis/articles/scales.html) article for further information.
+
+The `size_` and `alpha_` prefixes are used to modify the size and opacity of various aspects of the visualisation.
 
 ### Maps
 

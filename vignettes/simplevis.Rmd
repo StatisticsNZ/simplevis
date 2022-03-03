@@ -298,7 +298,7 @@ This is based on whether or not a visualisation is to be:
 
 * _not_ coloured by a variable and _not_ facetted (`*()`) 
 * coloured by a variable, but _not_ facetted (`*_col()`)  
-* facetted, but_ _not_ coloured by a variable (`*_facet()`)
+* facetted, but _not_ coloured by a variable (`*_facet()`)
 * coloured by a variable and facetted (`*_col_facet()`)
 
 The premise is that these are the most common types of visualisation for each of the families.
@@ -554,18 +554,18 @@ Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 ```{r, fig.width = 4}
 plot_data <- penguins %>%
   group_by(species) %>%
-  summarise(body_mass_g_p50 = median(body_mass_g, na.rm = TRUE),
+  summarise(body_mass_g_med = median(body_mass_g, na.rm = TRUE),
             body_mass_g_p05 = quantile(body_mass_g, probs = 0.05, na.rm = TRUE),
             body_mass_g_p95 = quantile(body_mass_g, probs = 0.95, na.rm = TRUE))
 
 gg_bar_col(plot_data,
            x_var = species,
-           y_var = body_mass_g_p50,
+           y_var = body_mass_g_med,
            col_var = species,
            col_legend_none = TRUE,
            col_na_rm = TRUE,
            y_title = "Body mass g") +
-  ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g_p05 - 500, label = body_mass_g_p50),
+  ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g_p05 - 500, label = body_mass_g_med),
                      col = "white") +
   ggplot2::geom_errorbar(ggplot2::aes(x = species, ymin = body_mass_g_p05, ymax = body_mass_g_p95),
                          width = 0.1) +

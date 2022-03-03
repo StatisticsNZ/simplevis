@@ -34,7 +34,7 @@ set.seed(123456789)
 
 `simplevis` is a package of `ggplot2` and `leaflet` wrapper functions that aims to make visualisation easier with less brainpower required.
 
-### Visualisation famiies
+### Visualisation families
 
 `simplevis` supports many visualisation family types.
 
@@ -458,7 +458,7 @@ gg_point_col(penguins,
 
 Refer to the [themes](https://statisticsnz.github.io/simplevis/articles/themes.html) article for further information.
 
-#### Other 
+#### Consistent prefixes
 
 There are lots of arguments available to modify the defaults.
 
@@ -491,14 +491,6 @@ gg_line_col(plot_data,
            y_zero = TRUE, 
            y_breaks_n = 10,
            y_expand = ggplot2::expansion(add = c(0, 10)))
-```
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = sex, 
-             col_na_rm = TRUE)
 ```
 
 ```{r, fig.width = 4}
@@ -574,19 +566,20 @@ Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 
 ```{r, fig.width = 4}
 plot_data <- penguins %>%
-  filter(!is.na(sex)) %>% 
-  group_by(sex) %>%
+  filter(!is.na(species)) %>% 
+  group_by(species) %>%
   summarise(body_mass_g_p50 = median(body_mass_g, na.rm = TRUE), 
             body_mass_g_p05 = quantile(body_mass_g, probs = 0.05, na.rm = TRUE), 
             body_mass_g_p95 = quantile(body_mass_g, probs = 0.95, na.rm = TRUE))
 
 gg_bar(plot_data,
-       x_var = sex,
+       x_var = species,
        y_var = body_mass_g_p50,
-       y_title = "Body mass g") +
-  ggplot2::geom_text(ggplot2::aes(x = sex, y = body_mass_g_p05 - 500, label = body_mass_g_p50),
+       y_title = "Body mass g", 
+       size_width = 0.5) +
+  ggplot2::geom_text(ggplot2::aes(x = species, y = body_mass_g_p05 - 500, label = body_mass_g_p50),
                      col = "white") +
-  ggplot2::geom_errorbar(ggplot2::aes(x = sex, ymin = body_mass_g_p05, ymax = body_mass_g_p95), 
+  ggplot2::geom_errorbar(ggplot2::aes(x = species, ymin = body_mass_g_p05, ymax = body_mass_g_p95), 
                          width = 0.2) +
   ggplot2::scale_y_continuous(
     name = "Body mass g",

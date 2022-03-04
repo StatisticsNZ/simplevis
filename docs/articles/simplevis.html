@@ -239,8 +239,8 @@
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
              <span class="no">species</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">flipper_length_mm</span>,
+             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
+             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
              <span class="kw">theme</span> <span class="kw">=</span> <span class="no">custom_theme</span>)</pre></body></html></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/themes.html">themes</a> article for further information.</p>
@@ -350,26 +350,24 @@
 <div id="extending-simplevis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extending-simplevis" class="anchor"></a>Extending simplevis</h3>
-<p>All <code>gg_*</code> and <code>leaf_*</code> wrapper functions produce ggplot or leaflet objects.</p>
-<p>This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object.</p>
-<p>Note you need to add <em>all</em> aesthetics to any additional <code>geom_*</code> layers.</p>
+<p>All <code>gg_*</code> and <code>leaf_*</code> wrapper functions produce ggplot or leaflet objects. This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object. Note you need to add <em>all</em> aesthetics to any additional <code>geom_*</code> layers.</p>
+<p>The below example adds error bars, labels, and a new y scale. Note that 25 percentiles and 75 percentiles have been used to demonstrate the errorbars, rather than confidence intervals which would normally be used with error bars.</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">body_mass_g</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g_med</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-            <span class="kw">body_mass_g_p05</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">body_mass_g</span>, <span class="kw">probs</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-            <span class="kw">body_mass_g_p95</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">body_mass_g</span>, <span class="kw">probs</span> <span class="kw">=</span> <span class="fl">0.95</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+  <span class="fu"><a href="../reference/summarise_boxplot_stats.html">summarise_boxplot_stats</a></span>(<span class="no">body_mass_g</span>)
 
 <span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span>(<span class="no">plot_data</span>,
            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-           <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g_med</span>,
+           <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">middle</span>,
            <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
            <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
            <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
            <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Body mass g"</span>) +
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_text.html">geom_text</a></span>(<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">species</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">body_mass_g_p05</span> - <span class="fl">500</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="no">body_mass_g_med</span>),
+  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_linerange.html">geom_errorbar</a></span>(<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">species</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">lower</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">upper</span>),
+                         <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.2</span>) +
+  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_text.html">geom_text</a></span>(<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">species</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lower</span> - <span class="fl">500</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="no">middle</span>),
                      <span class="kw">col</span> <span class="kw">=</span> <span class="st">"white"</span>) +
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_linerange.html">geom_errorbar</a></span>(<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">species</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">body_mass_g_p05</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">body_mass_g_p95</span>),
-                         <span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.1</span>) +
   <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_continuous.html">scale_y_continuous</a></span>(
     <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Body mass g"</span>,
     <span class="kw">breaks</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/pretty.html">pretty</a></span>(<span class="no">x</span>, <span class="fl">5</span>),

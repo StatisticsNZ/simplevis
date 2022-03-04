@@ -103,6 +103,19 @@ plot_data <- penguins %>%
   group_by(species, sex) %>%
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE))
 
+p6 <- gg_bar_col(
+  plot_data,
+  y_var = body_mass_g,
+  x_var = sex,
+  col_var = species,
+  x_na_rm = TRUE,
+  size_width = 0.6,
+  y_labels = function(x)
+    x / 1000,
+  y_title = "Body mass kg",
+  title = "gg_bar*()"
+)
+
 p5 <- gg_hbar_col(
   plot_data,
   x_var = body_mass_g,
@@ -115,19 +128,6 @@ p5 <- gg_hbar_col(
     x / 1000,
   x_title = "Body mass kg",
   title = "gg_hbar*()"
-)
-
-p6 <- gg_bar_col(
-  plot_data,
-  y_var = body_mass_g,
-  x_var = sex,
-  col_var = species,
-  x_na_rm = TRUE,
-  size_width = 0.6,
-  y_labels = function(x)
-    x / 1000,
-  y_title = "Body mass kg",
-  title = "gg_bar*()"
 )
 
 p5 + p6
@@ -204,7 +204,7 @@ plot_data <- penguins %>%
 p11 <- gg_pointrange_col(
   plot_data,
   x_var = sex,
-  y_var = middle,
+  ymiddle_var = middle,
   ymin_var = lower,
   ymax_var = upper,
   col_var = species,
@@ -218,7 +218,7 @@ p11 <- gg_pointrange_col(
 
 p12 <- gg_hpointrange_col(
   plot_data,
-  x_var = middle,
+  xmiddle_var = middle,
   xmin_var = lower,
   xmax_var = upper,
   y_var = sex,
@@ -462,7 +462,7 @@ gg_line_col(plot_data,
            y_var = wind, 
            col_var = status,
            x_breaks_n = 10,
-           x_labels = ~stringr::str_sub(.x, 3, 4),
+           x_labels = function(x) stringr::str_sub(x, 3, 4),
            y_labels = scales::label_dollar(accuracy = 1), 
            col_labels = c("H", "TD", "TS"),
            y_zero = TRUE, 
@@ -571,8 +571,8 @@ gg_bar_col(plot_data,
                          width = 0.1) +
   ggplot2::scale_y_continuous(
     name = "Body mass g",
-    breaks = ~pretty(.x, 5),
-    limits = ~c(min(pretty(.x, 5)), max(pretty(.x, 5))),
+    breaks = function(x) pretty(x, 5),
+    limits = function(x) c(min(pretty(x, 5)), max(pretty(x, 5))),
     expand = c(0, 0)
   )
 ```

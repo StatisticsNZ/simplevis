@@ -2,7 +2,7 @@
 #' @description Pointrange ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -29,11 +29,11 @@
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
+#' @param y_na_rm TRUE or FALSE of whether to include ymiddle_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.  
 #' @param caption Caption title string. 
 #' @param caption_wrap Number of characters to wrap the caption to. Defaults to 80. 
 #' @param theme A ggplot2 theme.
@@ -55,14 +55,14 @@
 #' gg_pointrange(
 #'   plot_data,
 #'   x_var = sex,
-#'   y_var = middle,
+#'   ymiddle_var = middle,
 #'   ymin_var = lower,
 #'   ymax_var = upper,
 #'   y_title = "Body mass g")
 #' 
 gg_pointrange <- function(data,
                     x_var,
-                    y_var,
+                    ymiddle_var,
                     ymin_var,
                     ymax_var,
                     text_var = NULL,
@@ -104,7 +104,7 @@ gg_pointrange <- function(data,
   
   #quote
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
   ymin_var <- rlang::enquo(ymin_var) #numeric var
   ymax_var <- rlang::enquo(ymax_var) #numeric var
   text_var <- rlang::enquo(text_var)
@@ -116,15 +116,15 @@ gg_pointrange <- function(data,
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!y_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
+      dplyr::filter(!is.na(!!ymiddle_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
   }
   
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
-  y_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
+  ymiddle_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (!is.numeric(ymiddle_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
   
   #logical to factor
   if (is.logical(x_var_vctr)) {
@@ -136,7 +136,7 @@ gg_pointrange <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(ymiddle_var))
   
   #reverse
   if (x_rev == TRUE) {
@@ -158,7 +158,7 @@ gg_pointrange <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, col = pal_line) +
-    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point)
+    geom_point(aes(x = !!x_var, y = !!ymiddle_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point)
   
   #x scale
   if (is.numeric(x_var_vctr) | lubridate::is.Date(x_var_vctr) | lubridate::is.POSIXt(x_var_vctr)) {
@@ -208,16 +208,16 @@ gg_pointrange <- function(data,
   }
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(ymiddle_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if (all(y_var_vctr == 0, na.rm = TRUE)) {
+  if (all(ymiddle_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(ymiddle_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -259,7 +259,7 @@ gg_pointrange <- function(data,
 #' @description Pointrange ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
@@ -290,11 +290,11 @@ gg_pointrange <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
+#' @param y_na_rm TRUE or FALSE of whether to include ymiddle_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
@@ -321,7 +321,7 @@ gg_pointrange <- function(data,
 #' gg_pointrange_col(
 #'   plot_data,
 #'   x_var = species,
-#'   y_var = middle,
+#'   ymiddle_var = middle,
 #'   ymin_var = lower,
 #'   ymax_var = upper,
 #'   col_var = sex,
@@ -331,7 +331,7 @@ gg_pointrange <- function(data,
 #'
 gg_pointrange_col <- function(data,
                         x_var,
-                        y_var,
+                        ymiddle_var,
                         ymin_var,
                         ymax_var,
                         col_var,
@@ -382,7 +382,7 @@ gg_pointrange_col <- function(data,
   
   #quote
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
   ymin_var <- rlang::enquo(ymin_var) #numeric var
   ymax_var <- rlang::enquo(ymax_var) #numeric var
   col_var <- rlang::enquo(col_var) #categorical var
@@ -395,7 +395,7 @@ gg_pointrange_col <- function(data,
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!y_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
+      dplyr::filter(!is.na(!!ymiddle_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
   }
   if (col_na_rm == TRUE) {
     data <- data %>% 
@@ -408,11 +408,11 @@ gg_pointrange_col <- function(data,
   
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
-  y_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
+  ymiddle_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (!is.numeric(ymiddle_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a pointrange plot")
   
   #logical to factor
@@ -431,7 +431,7 @@ gg_pointrange_col <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(ymiddle_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #reverse
@@ -467,7 +467,7 @@ gg_pointrange_col <- function(data,
   
   plot <- plot +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position_dodge(width = x_dodge)) +
-    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, text = !!text_var),
+    geom_point(aes(x = !!x_var, y = !!ymiddle_var, col = !!col_var, text = !!text_var),
                alpha = alpha_point, size = size_point, position = position_dodge(width = x_dodge))
   
   #x scale
@@ -518,16 +518,16 @@ gg_pointrange_col <- function(data,
   }
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(ymiddle_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
-  if (all(y_var_vctr == 0, na.rm = TRUE)) {
+  if (all(ymiddle_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(ymiddle_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -589,7 +589,7 @@ gg_pointrange_col <- function(data,
 #' @description Pointrange ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -617,11 +617,11 @@ gg_pointrange_col <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
+#' @param y_na_rm TRUE or FALSE of whether to include ymiddle_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.  
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots. 
@@ -647,7 +647,7 @@ gg_pointrange_col <- function(data,
 #' gg_pointrange_facet(
 #'   plot_data,
 #'   x_var = species,
-#'   y_var = middle,
+#'   ymiddle_var = middle,
 #'   ymin_var = lower,
 #'   ymax_var = upper,
 #'   facet_var = sex,
@@ -656,7 +656,7 @@ gg_pointrange_col <- function(data,
 #'
 gg_pointrange_facet <- function(data,
                           x_var,
-                          y_var,
+                          ymiddle_var,
                           ymin_var,
                           ymax_var,
                           facet_var,
@@ -704,7 +704,7 @@ gg_pointrange_facet <- function(data,
   
   #quote
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
   ymin_var <- rlang::enquo(ymin_var) #numeric var
   ymax_var <- rlang::enquo(ymax_var) #numeric var
   facet_var <- rlang::enquo(facet_var) #categorical var
@@ -717,7 +717,7 @@ gg_pointrange_facet <- function(data,
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!y_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
+      dplyr::filter(!is.na(!!ymiddle_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
   }
   if (facet_na_rm == TRUE) {
     data <- data %>% 
@@ -726,11 +726,11 @@ gg_pointrange_facet <- function(data,
   
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
-  y_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
+  ymiddle_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (!is.numeric(ymiddle_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
   #logical to factor
@@ -749,7 +749,7 @@ gg_pointrange_facet <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(ymiddle_var))
   
   #reverse
   if (x_rev == TRUE) {
@@ -778,7 +778,7 @@ gg_pointrange_facet <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, text = !!text_var), size = size_line, col = pal_line) +
-    geom_point(aes(x = !!x_var, y = !!y_var, text = !!text_var), col = pal, alpha = alpha_point, size = size_point)
+    geom_point(aes(x = !!x_var, y = !!ymiddle_var, text = !!text_var), col = pal, alpha = alpha_point, size = size_point)
   
   #x scale 
   if (is.character(x_var_vctr) | is.factor(x_var_vctr)){
@@ -824,17 +824,17 @@ gg_pointrange_facet <- function(data,
   }
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(ymiddle_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
   if (facet_scales %in% c("fixed", "free_x")) {
-    if (all(y_var_vctr == 0, na.rm = TRUE)) {
+    if (all(ymiddle_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(ymiddle_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
@@ -869,7 +869,7 @@ gg_pointrange_facet <- function(data,
 #' @description Pointrange ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param y_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
@@ -901,11 +901,11 @@ gg_pointrange_facet <- function(data,
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
-#' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
+#' @param y_na_rm TRUE or FALSE of whether to include ymiddle_var NA values. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to "".
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.  
+#' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.  
 #' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
@@ -938,7 +938,7 @@ gg_pointrange_facet <- function(data,
 #' gg_pointrange_col_facet(
 #'   plot_data,
 #'   x_var = year,
-#'   y_var = middle,
+#'   ymiddle_var = middle,
 #'   ymin_var = lower,
 #'   ymax_var = upper,
 #'   col_var = sex,
@@ -950,7 +950,7 @@ gg_pointrange_facet <- function(data,
 #'   
 gg_pointrange_col_facet <- function(data,
                               x_var,
-                              y_var,
+                              ymiddle_var,
                               ymin_var,
                               ymax_var,
                               col_var,
@@ -1007,7 +1007,7 @@ gg_pointrange_col_facet <- function(data,
   
   #quote
   x_var <- rlang::enquo(x_var) 
-  y_var <- rlang::enquo(y_var) #numeric var
+  ymiddle_var <- rlang::enquo(ymiddle_var) #numeric var
   ymin_var <- rlang::enquo(ymin_var) #numeric var
   ymax_var <- rlang::enquo(ymax_var) #numeric var
   col_var <- rlang::enquo(col_var) #categorical var
@@ -1021,7 +1021,7 @@ gg_pointrange_col_facet <- function(data,
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!y_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
+      dplyr::filter(!is.na(!!ymiddle_var), !is.na(!!ymin_var), !is.na(!!ymax_var))
   }
   if (col_na_rm == TRUE) {
     data <- data %>% 
@@ -1038,12 +1038,12 @@ gg_pointrange_col_facet <- function(data,
   
   #vectors
   x_var_vctr <- dplyr::pull(data, !!x_var)
-  y_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
+  ymiddle_var_vctr <- c(dplyr::pull(data, !!ymin_var), dplyr::pull(data, !!ymax_var))
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (!is.numeric(y_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
+  if (!is.numeric(ymiddle_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
   if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a pointrange plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
@@ -1069,7 +1069,7 @@ gg_pointrange_col_facet <- function(data,
   
   #titles sentence case
   if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
-  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
+  if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(ymiddle_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
   #reverse
@@ -1110,7 +1110,7 @@ gg_pointrange_col_facet <- function(data,
     coord_cartesian(clip = "off") +
     theme +
     geom_linerange(aes(x = !!x_var, ymin = !!ymin_var, ymax = !!ymax_var, col = !!col_var, text = !!text_var), size = size_line, position = position_dodge(width = x_dodge)) +
-    geom_point(aes(x = !!x_var, y = !!y_var, col = !!col_var, group = !!col_var, text = !!text_var),
+    geom_point(aes(x = !!x_var, y = !!ymiddle_var, col = !!col_var, group = !!col_var, text = !!text_var),
                alpha = alpha_point, size = size_point, position = position_dodge(width = x_dodge))
   
   #x scale 
@@ -1157,17 +1157,17 @@ gg_pointrange_col_facet <- function(data,
   }
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(ymiddle_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
   if (facet_scales %in% c("fixed", "free_x")) {
-    if (all(y_var_vctr == 0, na.rm = TRUE)) {
+    if (all(ymiddle_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(ymiddle_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +

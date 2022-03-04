@@ -160,7 +160,7 @@
 
     <pre class="usage"><span class='fu'>gg_hpointrange_col_facet</span>(
   <span class='no'>data</span>,
-  <span class='no'>x_var</span>,
+  <span class='no'>xmiddle_var</span>,
   <span class='no'>xmin_var</span>,
   <span class='no'>xmax_var</span>,
   <span class='no'>y_var</span>,
@@ -227,7 +227,7 @@
       <td><p>An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.</p></td>
     </tr>
     <tr>
-      <th>x_var</th>
+      <th>xmiddle_var</th>
       <td><p>Unquoted numeric variable to be on the x scale. Required input.</p></td>
     </tr>
     <tr>
@@ -316,7 +316,7 @@
     </tr>
     <tr>
       <th>x_na_rm</th>
-      <td><p>TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.</p></td>
+      <td><p>TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>x_title</th>
@@ -332,7 +332,7 @@
     </tr>
     <tr>
       <th>x_zero_line</th>
-      <td><p>For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></td>
+      <td><p>For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_balance</th>
@@ -474,7 +474,7 @@
 <span class='fu'>gg_hpointrange_col_facet</span>(
   <span class='no'>plot_data</span>,
   <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>year</span>,
-  <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>middle</span>,
+  <span class='kw'>xmiddle_var</span> <span class='kw'>=</span> <span class='no'>middle</span>,
   <span class='kw'>xmin_var</span> <span class='kw'>=</span> <span class='no'>lower</span>,
   <span class='kw'>xmax_var</span> <span class='kw'>=</span> <span class='no'>upper</span>,
   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,

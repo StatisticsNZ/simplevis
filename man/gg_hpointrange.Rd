@@ -6,7 +6,7 @@
 \usage{
 gg_hpointrange(
   data,
-  x_var,
+  xmiddle_var,
   xmin_var,
   xmax_var,
   y_var,
@@ -48,7 +48,7 @@ gg_hpointrange(
 \arguments{
 \item{data}{An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.}
 
-\item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
+\item{xmiddle_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
 \item{xmin_var}{Unquoted numeric variable to be the minimum of the x vertical line. Required input.}
 
@@ -84,7 +84,7 @@ gg_hpointrange(
 
 \item{x_labels}{A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.}
 
-\item{x_na_rm}{TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.}
+\item{x_na_rm}{TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.}
 
 \item{x_title}{X scale title string. Defaults to "".}
 
@@ -92,7 +92,7 @@ gg_hpointrange(
 
 \item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.}
 
-\item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
+\item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.}
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
 
@@ -141,7 +141,7 @@ plot_data <- penguins \%>\%
 
 gg_hpointrange(
   plot_data,
-  x_var = middle,
+  xmiddle_var = middle,
   xmin_var = lower,
   xmax_var = upper,
   y_var = sex,

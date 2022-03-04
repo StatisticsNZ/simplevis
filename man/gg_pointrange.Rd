@@ -7,7 +7,7 @@
 gg_pointrange(
   data,
   x_var,
-  y_var,
+  ymiddle_var,
   ymin_var,
   ymax_var,
   text_var = NULL,
@@ -50,7 +50,7 @@ gg_pointrange(
 
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 
-\item{y_var}{Unquoted numeric variable to be on the y scale. Required input.}
+\item{ymiddle_var}{Unquoted numeric variable to be on the y scale. Required input.}
 
 \item{ymin_var}{Unquoted numeric variable to be the minimum of the y vertical line. Required input.}
 
@@ -104,7 +104,7 @@ gg_pointrange(
 
 \item{y_labels}{A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.}
 
-\item{y_na_rm}{TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.}
+\item{y_na_rm}{TRUE or FALSE of whether to include ymiddle_var NA values. Defaults to FALSE.}
 
 \item{y_title}{y scale title string. Defaults to "".}
 
@@ -112,7 +112,7 @@ gg_pointrange(
 
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.}
+\item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.}
 
 \item{caption}{Caption title string.}
 
@@ -142,7 +142,7 @@ plot_data <- penguins \%>\%
 gg_pointrange(
   plot_data,
   x_var = sex,
-  y_var = middle,
+  ymiddle_var = middle,
   ymin_var = lower,
   ymax_var = upper,
   y_title = "Body mass g")

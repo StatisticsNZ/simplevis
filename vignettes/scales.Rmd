@@ -45,7 +45,7 @@ All categorical variables are converted to sentence case by default using `snake
 
 Numeric variables are generally converted using the `scales::label_comma()` by default, but sometimes converted to `scales::label_number()`. Numeric colour variables are converted to bins seperated by n-dashes using an internal function. 
 
-You can turn off any simplevis default transformations to labels using `ggplot2::waiver()`. 
+You can turn off any simplevis default transformations to labels using `function(x) x`. 
 
 ```{r}
 gg_point_col_facet(penguins,
@@ -68,7 +68,6 @@ gg_point_col_facet(penguins,
                    facet_labels = function(x) stringr::str_to_upper(stringr::str_sub(x, 1, 1)))
 
 ```
-
 
 ### Numeric scales
 
@@ -109,17 +108,7 @@ gg_point_col(penguins,
              y_balance = T)
 ```
 
-Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired.
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = species, 
-             y_balance = T, 
-             y_zero_line = F)
-```
-
+Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.
 
 Transform numeric x and y scales by adding a `ggplot2` `scale_*_continuous` layer.
 
@@ -195,9 +184,33 @@ gg_hbar(plot_data,
         y_reorder = T)
 ```
 
+For other functions, you will need to reorder the relevant variables as you want.
+
+The `tidytext` package provides a method for reordering within facets.
+
+```{r}
+plot_data <- penguins %>%
+  group_by(species, sex) %>%
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(species2 = forcats::fct_rev(tidytext::reorder_within(species, body_mass_g, sex)))
+
+gg_hbar_col_facet(
+  plot_data,
+  x_var = body_mass_g,
+  y_var = species2,
+  col_var = species,
+  facet_var = sex,
+  facet_na_rm = TRUE,
+  facet_scales = "free_y",
+  y_labels = function(x) stringr::str_to_sentence(stringr::word(x, sep = "___")),
+  col_legend_none = TRUE)
+```
+
+
 ### Colour scales
 
-Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using `ggplot2::waiver()`
+Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using `function(x) x`.
 
 ```{r}
 plot_data <- ggplot2::diamonds %>%
@@ -208,7 +221,7 @@ gg_hbar_col(plot_data,
             x_var = average_price, 
             y_var = cut, 
             col_var = clarity,
-            col_labels = ggplot2::waiver(), 
+            col_labels = function(x) x, 
             pal_rev = TRUE)
 ```
 
@@ -223,7 +236,7 @@ gg_hbar_col(plot_data,
             x_var = average_price, 
             y_var = cut, 
             col_var = clarity,
-            col_labels = ggplot2::waiver(), 
+            col_labels = function(x) x, 
             pal_rev = TRUE)
 
 ```
@@ -239,7 +252,7 @@ gg_hbar_col(plot_data,
             x_var = average_price, 
             y_var = cut, 
             col_var = clarity,
-            col_labels = ggplot2::waiver(), 
+            col_labels = function(x) x, 
             col_rev = TRUE)
 ```
 
@@ -327,26 +340,7 @@ plot_data <- penguins %>%
 gg_pointrange_col(
   plot_data,
   x_var = species,
-  y_var = middle,
-  ymin_var = lower,
-  ymax_var = upper,
-  col_var = sex,
-  col_na_rm = TRUE,
-  y_title = "Body mass g")
-
-```
-
-```{r}
-plot_data <- penguins %>%
-  group_by(sex, species) %>%
-  summarise(middle = median(body_mass_g, na.rm = TRUE),
-            lower = quantile(body_mass_g, probs = 0.25, na.rm = TRUE),
-            upper = quantile(body_mass_g, probs = 0.75, na.rm = TRUE))
-
-gg_pointrange_col(
-  plot_data,
-  x_var = species,
-  y_var = middle,
+  ymiddle_var = middle,
   ymin_var = lower,
   ymax_var = upper,
   col_var = sex,

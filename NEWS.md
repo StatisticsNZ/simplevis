@@ -6,6 +6,7 @@
 * Adjusted default alpha_fill values.
 * Added kimisc to imports.
 * Changed default bar oob back to ggplot2 default.
+* Changed gg_pointrange*() and gg_hpointrange*() y_var and x_var arguments to ymiddle_var and xmiddle_var. 
 
 # simplevis 6.1.0
 

@@ -161,7 +161,7 @@
     <pre class="usage"><span class='fu'>gg_pointrange_col_facet</span>(
   <span class='no'>data</span>,
   <span class='no'>x_var</span>,
-  <span class='no'>y_var</span>,
+  <span class='no'>ymiddle_var</span>,
   <span class='no'>ymin_var</span>,
   <span class='no'>ymax_var</span>,
   <span class='no'>col_var</span>,
@@ -226,7 +226,7 @@
       <td><p>Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.</p></td>
     </tr>
     <tr>
-      <th>y_var</th>
+      <th>ymiddle_var</th>
       <td><p>Unquoted numeric variable to be on the y scale. Required input.</p></td>
     </tr>
     <tr>
@@ -355,7 +355,7 @@
     </tr>
     <tr>
       <th>y_na_rm</th>
-      <td><p>TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.</p></td>
+      <td><p>TRUE or FALSE of whether to include ymiddle_var NA values. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>y_title</th>
@@ -371,7 +371,7 @@
     </tr>
     <tr>
       <th>y_zero_line</th>
-      <td><p>For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in y_var. Otherwise defaults to FALSE.</p></td>
+      <td><p>For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>col_labels</th>
@@ -449,7 +449,7 @@
 <span class='fu'>gg_pointrange_col_facet</span>(
   <span class='no'>plot_data</span>,
   <span class='kw'>x_var</span> <span class='kw'>=</span> <span class='no'>year</span>,
-  <span class='kw'>y_var</span> <span class='kw'>=</span> <span class='no'>middle</span>,
+  <span class='kw'>ymiddle_var</span> <span class='kw'>=</span> <span class='no'>middle</span>,
   <span class='kw'>ymin_var</span> <span class='kw'>=</span> <span class='no'>lower</span>,
   <span class='kw'>ymax_var</span> <span class='kw'>=</span> <span class='no'>upper</span>,
   <span class='kw'>col_var</span> <span class='kw'>=</span> <span class='no'>sex</span>,

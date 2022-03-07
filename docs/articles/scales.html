@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="simplevis">
 <title>Scales • simplevis</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Scales">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Scales">
 <meta property="og:description" content="simplevis">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -25,107 +25,86 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">simplevis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.2.0</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">simplevis</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.2.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../articles/simplevis.html">Get started</a>
 </li>
-<li>
-  <a href="../articles/simplevis.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/colour.html">Colour</a>
-    </li>
-    <li>
-      <a href="../articles/ggplotly.html">Ggplotly</a>
-    </li>
-    <li>
-      <a href="../articles/leaflet.html">Leaflet</a>
-    </li>
-    <li>
-      <a href="../articles/scales.html">Scales</a>
-    </li>
-    <li>
-      <a href="../articles/shiny.html">Shiny</a>
-    </li>
-    <li>
-      <a href="../articles/themes.html">Themes</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/statisticsNZ/simplevis/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/colour.html">Colour</a>
+    <a class="dropdown-item" href="../articles/ggplotly.html">Ggplotly</a>
+    <a class="dropdown-item" href="../articles/leaflet.html">Leaflet</a>
+    <a class="dropdown-item" href="../articles/scales.html">Scales</a>
+    <a class="dropdown-item" href="../articles/shiny.html">Shiny</a>
+    <a class="dropdown-item" href="../articles/themes.html">Themes</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/statisticsNZ/simplevis/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Scales</h1>
-                        <h4 class="author">David Hodge</h4>
+
+
+
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Scales</h1>
+                        <h4 data-toc-skip class="author">David Hodge</h4>
             
-            <h4 class="date">2022-03-04</h4>
+            <h4 data-toc-skip class="date">2022-03-07</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/master/vignettes/scales.Rmd"><code>vignettes/scales.Rmd</code></a></small>
-      <div class="hidden name"><code>scales.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/HEAD/vignettes/scales.Rmd" class="external-link"><code>vignettes/scales.Rmd</code></a></small>
+      <div class="d-none name"><code>scales.Rmd</code></div>
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simplevis</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">palmerpenguins</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123456789</span>)</pre></body></html></div>
-<div id="overview" class="section level3">
-<h3 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statisticsnz.github.io/simplevis/" class="external-link">simplevis</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123456789</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h3>
 <p><code>simplevis</code> uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.</p>
 <p>In general:</p>
 <ul>
@@ -141,34 +120,36 @@
 <p>Therefore, if you know want to adjust the x scale but can’t think how, you can start typing <code>x_</code> within the simplevis function, press tab, and then you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.</p>
 <p>One deviation from this logic is that colour palette is selected using a <code>pal</code> argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.</p>
 </div>
-<div id="labels" class="section level3">
-<h3 class="hasAnchor">
-<a href="#labels" class="anchor"></a>Labels</h3>
+<div class="section level3">
+<h3 id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
+</h3>
 <p>You can adjust labels by provinding a function or named vector to the <code>*_labels</code>argument.</p>
-<p>All categorical variables are converted to sentence case by default using <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html">snakecase::to_sentence_case</a></code>.</p>
-<p>Numeric variables are generally converted using the <code><a href="https://rdrr.io/pkg/scales/man/label_number.html">scales::label_comma()</a></code> by default, but sometimes converted to <code><a href="https://rdrr.io/pkg/scales/man/label_number.html">scales::label_number()</a></code>. Numeric colour variables are converted to bins seperated by n-dashes using an internal function.</p>
+<p>All categorical variables are converted to sentence case by default using <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>.</p>
+<p>Numeric variables are generally converted using the <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code> by default, but sometimes converted to <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>. Numeric colour variables are converted to bins seperated by n-dashes using an internal function.</p>
 <p>You can turn off any simplevis default transformations to labels using <code>function(x) x</code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>,
-                   <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-                   <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-                   <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-                   <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">species</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">penguins</span>,
+                   x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
+                   y_var <span class="op">=</span> <span class="va">body_mass_g</span>,
+                   col_var <span class="op">=</span> <span class="va">sex</span>,
+                   facet_var <span class="op">=</span> <span class="va">species</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>,
-                   <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-                   <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-                   <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-                   <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">species</span>,
-                   <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Body mass (kg)"</span>,
-                   <span class="kw">x_labels</span> <span class="kw">=</span> <span class="kw pkg">scales</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_dollar.html">label_dollar</a></span>(),
-                   <span class="kw">y_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/glue/man/glue.html">glue</a></span>(<span class="st">"{x / 1000} kg"</span>),
-                   <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/stringr/man/case.html">str_to_upper</a></span>,
-                   <span class="kw">facet_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/case.html">str_to_upper</a></span>(<span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_sub.html">str_sub</a></span>(<span class="no">x</span>, <span class="fl">1</span>, <span class="fl">1</span>)))</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">penguins</span>,
+                   x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
+                   y_var <span class="op">=</span> <span class="va">body_mass_g</span>,
+                   col_var <span class="op">=</span> <span class="va">sex</span>,
+                   facet_var <span class="op">=</span> <span class="va">species</span>, 
+                   y_title <span class="op">=</span> <span class="st">"Body mass (kg)"</span>,
+                   x_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html" class="external-link">label_dollar</a></span><span class="op">(</span><span class="op">)</span>, 
+                   y_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"{x / 1000} kg"</span><span class="op">)</span>, 
+                   col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_upper</a></span>,
+                   facet_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_upper</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
-<div id="numeric-scales" class="section level3">
-<h3 class="hasAnchor">
-<a href="#numeric-scales" class="anchor"></a>Numeric scales</h3>
+<div class="section level3">
+<h3 id="numeric-scales">Numeric scales<a class="anchor" aria-label="anchor" href="#numeric-scales"></a>
+</h3>
 <p><code>simplevis</code> graphs numeric scales default to:</p>
 <ul>
 <li>starting from zero for numeric scales on bar graphs.</li>
@@ -176,268 +157,285 @@
 <i>not</i> starting from zero for numeric scales on all other graphs.</li>
 </ul>
 <p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments to change the defaults.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-             <span class="kw">x_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-             <span class="kw">y_zero</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
+             x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
+             y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+             col_var <span class="op">=</span> <span class="va">species</span>, 
+             x_zero <span class="op">=</span> <span class="cn">TRUE</span>, 
+             y_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>Adjust the number of breaks for numeric x and/or y scales.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-             <span class="kw">x_breaks_n</span> <span class="kw">=</span> <span class="fl">6</span>,
-             <span class="kw">y_breaks_n</span> <span class="kw">=</span> <span class="fl">10</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
+             x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
+             y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+             col_var <span class="op">=</span> <span class="va">species</span>, 
+             x_breaks_n <span class="op">=</span> <span class="fl">6</span>, 
+             y_breaks_n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>Balance a numeric scale so that it has equivalence between positive and negative values.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-             <span class="kw">y_balance</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
+             x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
+             y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+             col_var <span class="op">=</span> <span class="va">species</span>, 
+             y_balance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <p>Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.</p>
 <p>Transform numeric x and y scales by adding a <code>ggplot2</code> <code>scale_*_continuous</code> layer.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span>(<span class="no">penguins</span>,
-             <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-             <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-             <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>) +
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_continuous.html">scale_y_log10</a></span>(
-    <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Bill length mm"</span>,
-    <span class="kw">breaks</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/pretty.html">pretty</a></span>(<span class="no">x</span>, <span class="fl">4</span>),
-    <span class="kw">limits</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/pretty.html">pretty</a></span>(<span class="no">x</span>, <span class="fl">4</span>)), <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/pretty.html">pretty</a></span>(<span class="no">x</span>, <span class="fl">4</span>))),
-    <span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)
-  )</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>,
+             x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
+             y_var <span class="op">=</span> <span class="va">body_mass_g</span>,
+             col_var <span class="op">=</span> <span class="va">species</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span>
+    name <span class="op">=</span> <span class="st">"Bill length mm"</span>,
+    breaks <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span>,
+    limits <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
+    expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
+  <span class="op">)</span> </code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 </div>
-<div id="discrete-scales" class="section level3">
-<h3 class="hasAnchor">
-<a href="#discrete-scales" class="anchor"></a>Discrete scales</h3>
+<div class="section level3">
+<h3 id="discrete-scales">Discrete scales<a class="anchor" aria-label="anchor" href="#discrete-scales"></a>
+</h3>
 <p><code>simplevis</code> automatically orders hbar graphs of character variables alphabetically.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
-
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>,
-        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">price</span>,
-        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> 
+  
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+        x_var <span class="op">=</span> <span class="va">price</span>, 
+        y_var <span class="op">=</span> <span class="va">cut</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <p>If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor, and give it the appropriate levels.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">cut_levels</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Ideal"</span>, <span class="st">"Premium"</span>, <span class="st">"Very Good"</span>, <span class="st">"Good"</span>, <span class="st">"Fair"</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cut_levels</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ideal"</span>, <span class="st">"Premium"</span>, <span class="st">"Very Good"</span>, <span class="st">"Good"</span>, <span class="st">"Fair"</span><span class="op">)</span>
 
-<span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">cut</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="no">cut_levels</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+<span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cut</span>, levels <span class="op">=</span> <span class="va">cut_levels</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>,
-        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">price</span>,
-        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+        x_var <span class="op">=</span> <span class="va">price</span>, 
+        y_var <span class="op">=</span> <span class="va">cut</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 <p>Discrete scales can be reversed easily using the relevant <code>y_rev</code> or <code>x_rev</code> argument.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>,
-        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">price</span>,
-        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-        <span class="kw">y_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+        x_var <span class="op">=</span> <span class="va">price</span>, 
+        y_var <span class="op">=</span> <span class="va">cut</span>,
+        y_rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 <p>Simple hbar and vbar plots made with <code><a href="../reference/gg_bar.html">gg_bar()</a></code> or <code>gg_hbar</code> can be ordered by size using y_reorder or x_reorder. For other functions, you will need to reorder variables in the data as you wish them to be ordered.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span>(<span class="kw">cut</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">cut</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
-
-<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span>(<span class="no">plot_data</span>,
-        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">price</span>,
-        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-        <span class="kw">y_reorder</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> 
+  
+<span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+        x_var <span class="op">=</span> <span class="va">price</span>, 
+        y_var <span class="op">=</span> <span class="va">cut</span>, 
+        y_reorder <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <p>For other functions, you will need to reorder the relevant variables as you want.</p>
 <p>The <code>tidytext</code> package provides a method for reordering within facets.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>, <span class="no">sex</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">ungroup</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span>(<span class="kw">species2</span> <span class="kw">=</span> <span class="kw pkg">forcats</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/forcats/man/fct_rev.html">fct_rev</a></span>(<span class="kw pkg">tidytext</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/reorder_within.html">reorder_within</a></span>(<span class="no">species</span>, <span class="no">body_mass_g</span>, <span class="no">sex</span>)))
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>body_mass_g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>species2 <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="fu">tidytext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/reorder_within.html" class="external-link">reorder_within</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span>, <span class="va">sex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/gg_hbar_col_facet.html">gg_hbar_col_facet</a></span>(
-  <span class="no">plot_data</span>,
-  <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-  <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">species2</span>,
-  <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-  <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-  <span class="kw">facet_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-  <span class="kw">facet_scales</span> <span class="kw">=</span> <span class="st">"free_y"</span>,
-  <span class="kw">y_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/case.html">str_to_sentence</a></span>(<span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/word.html">word</a></span>(<span class="no">x</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">"___"</span>)),
-  <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar_col_facet.html">gg_hbar_col_facet</a></span><span class="op">(</span>
+  <span class="va">plot_data</span>,
+  x_var <span class="op">=</span> <span class="va">body_mass_g</span>,
+  y_var <span class="op">=</span> <span class="va">species2</span>,
+  col_var <span class="op">=</span> <span class="va">species</span>,
+  facet_var <span class="op">=</span> <span class="va">sex</span>,
+  facet_na_rm <span class="op">=</span> <span class="cn">TRUE</span>,
+  facet_scales <span class="op">=</span> <span class="st">"free_y"</span>,
+  y_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/word.html" class="external-link">word</a></span><span class="op">(</span><span class="va">x</span>, sep <span class="op">=</span> <span class="st">"___"</span><span class="op">)</span><span class="op">)</span>,
+  col_legend_none <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
 </div>
-<div id="colour-scales" class="section level3">
-<h3 class="hasAnchor">
-<a href="#colour-scales" class="anchor"></a>Colour scales</h3>
+<div class="section level3">
+<h3 id="colour-scales">Colour scales<a class="anchor" aria-label="anchor" href="#colour-scales"></a>
+</h3>
 <p>Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using <code>function(x) x</code>.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>average_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>,
-            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
-            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-            <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="no">x</span>,
-            <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+            x_var <span class="op">=</span> <span class="va">average_price</span>, 
+            y_var <span class="op">=</span> <span class="va">cut</span>, 
+            col_var <span class="op">=</span> <span class="va">clarity</span>,
+            col_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>, 
+            pal_rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 <p>Reverse the palette.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>average_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>,
-            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
-            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-            <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="no">x</span>,
-            <span class="kw">pal_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+            x_var <span class="op">=</span> <span class="va">average_price</span>, 
+            y_var <span class="op">=</span> <span class="va">cut</span>, 
+            col_var <span class="op">=</span> <span class="va">clarity</span>,
+            col_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>, 
+            pal_rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
 <p>Reverse the order of coloured bars.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/ggplot2/man/diamonds.html">diamonds</a></span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">cut</span>, <span class="no">clarity</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">average_price</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">price</span>))
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>average_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span>(<span class="no">plot_data</span>,
-            <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">average_price</span>,
-            <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">cut</span>,
-            <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">clarity</span>,
-            <span class="kw">col_labels</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="no">x</span>,
-            <span class="kw">col_rev</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_hbar_col.html">gg_hbar_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+            x_var <span class="op">=</span> <span class="va">average_price</span>, 
+            y_var <span class="op">=</span> <span class="va">cut</span>, 
+            col_var <span class="op">=</span> <span class="va">clarity</span>,
+            col_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>, 
+            col_rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
 </div>
-<div id="na-values" class="section level3">
-<h3 class="hasAnchor">
-<a href="#na-values" class="anchor"></a>NA values</h3>
+<div class="section level3">
+<h3 id="na-values">NA values<a class="anchor" aria-label="anchor" href="#na-values"></a>
+</h3>
 <p>You can quickly remove NA values by setting <code>x_na_rm</code>, <code>y_na_rm</code>, <code>col_na_rm</code> or <code>facet_na_rm</code> arguments to TRUE.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span>(<span class="no">penguins</span>,
-                   <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">bill_length_mm</span>,
-                   <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-                   <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-                   <span class="kw">facet_var</span> <span class="kw">=</span> <span class="no">species</span>,
-                   <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">penguins</span>, 
+                   x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
+                   y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+                   col_var <span class="op">=</span> <span class="va">sex</span>, 
+                   facet_var <span class="op">=</span> <span class="va">species</span>, 
+                   col_na_rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
 </div>
-<div id="expanding-the-scale" class="section level3">
-<h3 class="hasAnchor">
-<a href="#expanding-the-scale" class="anchor"></a>Expanding the scale</h3>
-<p>To expand the scale use <code>x_expand</code> and <code>y_expand</code> arguments with the <code><a href="https://rdrr.io/pkg/ggplot2/man/expansion.html">ggplot2::expansion</a></code> function, which allows to expand in either or both directions of both x and y in an additive or multiplative way.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">storms</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">year</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">wind</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">wind</span>))
+<div class="section level3">
+<h3 id="expanding-the-scale">Expanding the scale<a class="anchor" aria-label="anchor" href="#expanding-the-scale"></a>
+</h3>
+<p>To expand the scale use <code>x_expand</code> and <code>y_expand</code> arguments with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion</a></code> function, which allows to expand in either or both directions of both x and y in an additive or multiplative way.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">storms</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>wind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">wind</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/gg_line.html">gg_line</a></span>(<span class="no">plot_data</span>,
-        <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">year</span>,
-        <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">wind</span>,
-        <span class="kw">x_expand</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/expansion.html">expansion</a></span>(<span class="kw">add</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">5</span>)),
-        <span class="kw">y_expand</span> <span class="kw">=</span> <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/expansion.html">expansion</a></span>(<span class="kw">mult</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.025</span>)))</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+        x_var <span class="op">=</span> <span class="va">year</span>, 
+        y_var <span class="op">=</span> <span class="va">wind</span>, 
+        x_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,
+        y_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.025</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
 </div>
-<div id="position-adjustments" class="section level3">
-<h3 class="hasAnchor">
-<a href="#position-adjustments" class="anchor"></a>Position adjustments</h3>
+<div class="section level3">
+<h3 id="position-adjustments">Position adjustments<a class="anchor" aria-label="anchor" href="#position-adjustments"></a>
+</h3>
 <p>In general plots are positioned exactly as the data provided.</p>
 <p>Exceptions are <code>bar*()</code> and <code>hbar*()</code>, which positions bars side-by-side by default (i.e. dodged).</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>, <span class="no">sex</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>body_mass_g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>  
 
-<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span>(<span class="no">plot_data</span>,
-           <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-           <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-           <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+           x_var <span class="op">=</span> <span class="va">species</span>, 
+           y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+           col_var <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 <p>However, a option to stack bars is also available.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>, <span class="no">sex</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>body_mass_g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>  
 
-<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span>(<span class="no">plot_data</span>,
-           <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-           <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-           <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-           <span class="kw">stack</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-           <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-           <span class="kw">size_width</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+           x_var <span class="op">=</span> <span class="va">species</span>, 
+           y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+           col_var <span class="op">=</span> <span class="va">sex</span>,
+           stack <span class="op">=</span> <span class="cn">TRUE</span>,
+           col_na_rm <span class="op">=</span> <span class="cn">TRUE</span>, 
+           size_width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 <p>point allows you to jitter in an x or y direction.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span>(<span class="no">penguins</span>,
-               <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-               <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-               <span class="kw">x_jitter</span> <span class="kw">=</span> <span class="fl">0.2</span>,
-               <span class="kw">alpha_point</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span><span class="va">penguins</span>, 
+               x_var <span class="op">=</span> <span class="va">species</span>, 
+               y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+               x_jitter <span class="op">=</span> <span class="fl">0.2</span>, 
+               alpha_point <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> </code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 <p>pointrange and hpointrange allow you to specify an amount to dodge by, if desired.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">sex</span>, <span class="no">species</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">middle</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-            <span class="kw">lower</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">body_mass_g</span>, <span class="kw">probs</span> <span class="kw">=</span> <span class="fl">0.25</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-            <span class="kw">upper</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">body_mass_g</span>, <span class="kw">probs</span> <span class="kw">=</span> <span class="fl">0.75</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>middle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+            lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">body_mass_g</span>, probs <span class="op">=</span> <span class="fl">0.25</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+            upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">body_mass_g</span>, probs <span class="op">=</span> <span class="fl">0.75</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/gg_pointrange_col.html">gg_pointrange_col</a></span>(
-  <span class="no">plot_data</span>,
-  <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-  <span class="kw">ymiddle_var</span> <span class="kw">=</span> <span class="no">middle</span>,
-  <span class="kw">ymin_var</span> <span class="kw">=</span> <span class="no">lower</span>,
-  <span class="kw">ymax_var</span> <span class="kw">=</span> <span class="no">upper</span>,
-  <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">sex</span>,
-  <span class="kw">col_na_rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-  <span class="kw">y_title</span> <span class="kw">=</span> <span class="st">"Body mass g"</span>,
-  <span class="kw">x_dodge</span> <span class="kw">=</span> <span class="fl">0.3</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_pointrange_col.html">gg_pointrange_col</a></span><span class="op">(</span>
+  <span class="va">plot_data</span>,
+  x_var <span class="op">=</span> <span class="va">species</span>,
+  ymiddle_var <span class="op">=</span> <span class="va">middle</span>,
+  ymin_var <span class="op">=</span> <span class="va">lower</span>,
+  ymax_var <span class="op">=</span> <span class="va">upper</span>,
+  col_var <span class="op">=</span> <span class="va">sex</span>,
+  col_na_rm <span class="op">=</span> <span class="cn">TRUE</span>,
+  y_title <span class="op">=</span> <span class="st">"Body mass g"</span>,
+  x_dodge <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
 </div>
-<div id="turning-the-legend-off" class="section level3">
-<h3 class="hasAnchor">
-<a href="#turning-the-legend-off" class="anchor"></a>Turning the legend off</h3>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">plot_data</span> <span class="kw">&lt;-</span> <span class="no">penguins</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span>(<span class="no">species</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span>(<span class="kw">body_mass_g</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">body_mass_g</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<div class="section level3">
+<h3 id="turning-the-legend-off">Turning the legend off<a class="anchor" aria-label="anchor" href="#turning-the-legend-off"></a>
+</h3>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>body_mass_g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>  
 
-<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span>(<span class="no">plot_data</span>,
-       <span class="kw">x_var</span> <span class="kw">=</span> <span class="no">species</span>,
-       <span class="kw">y_var</span> <span class="kw">=</span> <span class="no">body_mass_g</span>,
-       <span class="kw">col_var</span> <span class="kw">=</span> <span class="no">species</span>,
-       <span class="kw">col_legend_none</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-       <span class="kw">size_width</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/gg_bar_col.html">gg_bar_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
+       x_var <span class="op">=</span> <span class="va">species</span>, 
+       y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+       col_var <span class="op">=</span> <span class="va">species</span>, 
+       col_legend_none <span class="op">=</span> <span class="cn">TRUE</span>,
+       size_width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  </main>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by David Hodge.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by David Hodge.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

@@ -1,5 +1,3 @@
-<img src="man/figures/logo.png" align="right" height="139" style="float:right; height:139px;">
-
 <!-- badges: start -->
   [![CRAN status](https://www.r-pkg.org/badges/version/simplevis)](https://CRAN.R-project.org/package=simplevis)
   [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/simplevis?color=lightgrey)](https://r-pkg.org/pkg/simplevis)

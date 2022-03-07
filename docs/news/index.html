@@ -89,10 +89,37 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="6.0.0" id="simplevis-600">simplevis 6.0.0<a class="anchor" aria-label="anchor" href="#simplevis-600"></a></h2><p class="text-muted">CRAN release: 2022-01-14</p>
-<p>New features: * Continuous colouring across gradients for point, bar, hbar, tile, sf, stars and tile. * Theme flexibility for all gg functions. * gg_theme function to build a quick clean theme. * New Smooth functions. * New violin &amp; hviolin functions. * New hboxplot functions. * New pointrange functions. * more flexibility and precision with adjusting alpha &amp; size. * Updated title and categorical label default transformations to use snakecase::to_sentence_case. * Updated numeric label default transformations to generally use scales::label_comma(). * Redesigned col_labels argument in leaf functions to accept a function. * Deprecated leaflet_ functions in favour of new leaf_ functions. * Removed trans arguments from functions. * In density functions, renamed density_ prefixed arguments to model_. * Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text. * In leaf_sf functions, supported layer id’s. * In leaf_sf, added arguments to modify popup and label numeric format. * In leaf_sf functions, defaulted label and popup numeric vars to non-scientific numbers with labels having a comma.</p>
-<p>Breaking: * In bar, changed position argument to stack = FALSE. * Renamed x_pretty_n argument to x_breaks_n &amp; likewise for equivalent y &amp; col arguments. * Renamed var arguments and structure for boxplot where stat = “identity”. * Renamed col_right_closed to col_intervals_right. * Breaking removed *_digits arguments from gg functions. * Renamed example objects to remove unnecessary words. * Removed *_gridlines_minor arguments. * Removed font_family, font_size_title and font_size_body arguments. * Removed comma argument from mutate_text. * In mutate_text, renamed text_vars_vctr to vars_vctr.</p>
-<p>Other: * Tidied code. * Numerous bug fixes and tweaks.</p>
-</div>
+<ul><li>Continuous colouring across gradients for point, bar, hbar, tile, sf, stars and tile.</li>
+<li>Theme flexibility for all gg functions.</li>
+<li>gg_theme function to build a quick clean theme.</li>
+<li>New Smooth functions.</li>
+<li>New violin &amp; hviolin functions.</li>
+<li>New hboxplot functions.</li>
+<li>New pointrange functions.</li>
+<li>more flexibility and precision with adjusting alpha &amp; size.</li>
+<li>Updated title and categorical label default transformations to use snakecase::to_sentence_case.</li>
+<li>Updated numeric label default transformations to generally use scales::label_comma().</li>
+<li>Redesigned col_labels argument in leaf functions to accept a function.</li>
+<li>Deprecated leaflet_ functions in favour of new leaf_ functions.</li>
+<li>Removed trans arguments from functions.</li>
+<li>In density functions, renamed density_ prefixed arguments to model_.</li>
+<li>Updated mutate_text to provide numeric_format argument. Removed comma argument from mutate_text.</li>
+<li>In leaf_sf functions, supported layer id’s.</li>
+<li>In leaf_sf, added arguments to modify popup and label numeric format.</li>
+<li>In leaf_sf functions, defaulted label and popup numeric vars to non-scientific numbers with labels having a comma.</li>
+<li>In bar, changed position argument to stack = FALSE.</li>
+<li>Renamed x_pretty_n argument to x_breaks_n &amp; likewise for equivalent y &amp; col arguments.</li>
+<li>Renamed var arguments and structure for boxplot where stat = “identity”.</li>
+<li>Renamed col_right_closed to col_intervals_right.</li>
+<li>Breaking removed *_digits arguments from gg functions.</li>
+<li>Renamed example objects to remove unnecessary words.</li>
+<li>Removed *_gridlines_minor arguments.</li>
+<li>Removed font_family, font_size_title and font_size_body arguments.</li>
+<li>Removed comma argument from mutate_text.</li>
+<li>In mutate_text, renamed text_vars_vctr to vars_vctr.</li>
+<li>Tidied code.</li>
+<li>Numerous bug fixes and tweaks.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="5.0.0" id="simplevis-500">simplevis 5.0.0<a class="anchor" aria-label="anchor" href="#simplevis-500"></a></h2><p class="text-muted">CRAN release: 2021-11-10</p>
 <ul><li>Breaking: Renamed *_na arguments to _na_rm.</li>
@@ -152,93 +179,36 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.4.0" id="simplevis-440">simplevis 4.4.0<a class="anchor" aria-label="anchor" href="#simplevis-440"></a></h2><p class="text-muted">CRAN release: 2021-07-01</p>
-<ul><li>Bumped version for CRAN.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.3.2" id="simplevis-432">simplevis 4.3.2<a class="anchor" aria-label="anchor" href="#simplevis-432"></a></h2>
 <ul><li>Renamed leaflet text_var to label_var.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.3.1" id="simplevis-431">simplevis 4.3.1<a class="anchor" aria-label="anchor" href="#simplevis-431"></a></h2>
-<ul><li>Removed col_var2 from point tooltip.</li>
+<li>Removed col_var2 from point tooltip.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.3.0" id="simplevis-430">simplevis 4.3.0<a class="anchor" aria-label="anchor" href="#simplevis-430"></a></h2><p class="text-muted">CRAN release: 2021-06-30</p>
-<ul><li>Bumped release for CRAN.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.9" id="simplevis-429">simplevis 4.2.9<a class="anchor" aria-label="anchor" href="#simplevis-429"></a></h2>
 <ul><li>Made legend fill background white for all functions.</li>
 <li>Updated vignette and arrticles to discuss density functions, and make vars more explicit.</li>
 <li>Added minor gridline arguments.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.8" id="simplevis-428">simplevis 4.2.8<a class="anchor" aria-label="anchor" href="#simplevis-428"></a></h2>
-<ul><li>Added gg_density_col_facet() function.</li>
+<li>Added gg_density_col_facet() function.</li>
 <li>Made all gg_density* functions only support position = “identity”.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.7" id="simplevis-427">simplevis 4.2.7<a class="anchor" aria-label="anchor" href="#simplevis-427"></a></h2>
-<ul><li>Added gg_density_facet() function.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.6" id="simplevis-426">simplevis 4.2.6<a class="anchor" aria-label="anchor" href="#simplevis-426"></a></h2>
-<ul><li>Added arguments to modify density stat within gg_density().</li>
+<li>Added gg_density_facet() function.</li>
+<li>Added arguments to modify density stat within gg_density().</li>
 <li>Added gg_density_col() function.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.5" id="simplevis-425">simplevis 4.2.5<a class="anchor" aria-label="anchor" href="#simplevis-425"></a></h2>
-<ul><li>Created first density function.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.4" id="simplevis-424">simplevis 4.2.4<a class="anchor" aria-label="anchor" href="#simplevis-424"></a></h2>
-<ul><li>Updated bar help to note that only stack and dodge positions are supported.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.3" id="simplevis-423">simplevis 4.2.3<a class="anchor" aria-label="anchor" href="#simplevis-423"></a></h2>
-<ul><li>For point, added position and alpha arguments.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.2" id="simplevis-422">simplevis 4.2.2<a class="anchor" aria-label="anchor" href="#simplevis-422"></a></h2>
-<ul><li>Updated bar position code to provide more flexibility.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.2.1" id="simplevis-421">simplevis 4.2.1<a class="anchor" aria-label="anchor" href="#simplevis-421"></a></h2>
-<ul><li>Consolidated and renamed themes.</li>
+<li>Created first density function.</li>
+<li>Updated bar help to note that only stack and dodge positions are supported.</li>
+<li>For point, added position and alpha arguments.</li>
+<li>Updated bar position code to provide more flexibility.</li>
+<li>Consolidated and renamed themes.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.2.0" id="simplevis-420">simplevis 4.2.0<a class="anchor" aria-label="anchor" href="#simplevis-420"></a></h2><p class="text-muted">CRAN release: 2021-06-24</p>
-<ul><li>Bumped version for CRAN release.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.7" id="simplevis-417">simplevis 4.1.7<a class="anchor" aria-label="anchor" href="#simplevis-417"></a></h2>
 <ul><li>For point*, fixed bug to support use of the same col_var as x or y.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.6" id="simplevis-416">simplevis 4.1.6<a class="anchor" aria-label="anchor" href="#simplevis-416"></a></h2>
-<ul><li>Changed gg_sf* family alpha default to 0.9.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.5" id="simplevis-415">simplevis 4.1.5<a class="anchor" aria-label="anchor" href="#simplevis-415"></a></h2>
-<ul><li>Fixed point* family bug to support log10 x axis with x_zero equals TRUE.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.4" id="simplevis-414">simplevis 4.1.4<a class="anchor" aria-label="anchor" href="#simplevis-414"></a></h2>
-<ul><li>Updated pal_na to add a col_n argument for consistency with other pal functions.</li>
+<li>Changed gg_sf* family alpha default to 0.9.</li>
+<li>Fixed point* family bug to support log10 x axis with x_zero equals TRUE.</li>
+<li>Updated pal_na to add a col_n argument for consistency with other pal functions.</li>
 <li>Add article on titles.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.3" id="simplevis-413">simplevis 4.1.3<a class="anchor" aria-label="anchor" href="#simplevis-413"></a></h2>
-<ul><li>Added pal_na function.</li>
+<li>Added pal_na function.</li>
 <li>Updated colour article.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.2" id="simplevis-412">simplevis 4.1.2<a class="anchor" aria-label="anchor" href="#simplevis-412"></a></h2>
-<ul><li>Changed label default conversion to use stringr::str_to_sentence.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.1.1" id="simplevis-411">simplevis 4.1.1<a class="anchor" aria-label="anchor" href="#simplevis-411"></a></h2>
-<ul><li>Fixed gg_point_col bug to make the zero lines work.</li>
+<li>Changed label default conversion to use stringr::str_to_sentence.</li>
+<li>Fixed gg_point_col bug to make the zero lines work.</li>
 <li>Updated articles and vignettes.</li>
 </ul></div>
     <div class="section level2">
@@ -250,449 +220,133 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.0.0" id="simplevis-400">simplevis 4.0.0<a class="anchor" aria-label="anchor" href="#simplevis-400"></a></h2><p class="text-muted">CRAN release: 2021-06-04</p>
-<ul><li>Bump version for CRAN major release.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.8" id="simplevis-398">simplevis 3.9.8<a class="anchor" aria-label="anchor" href="#simplevis-398"></a></h2>
 <ul><li>Updated app templates.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.7" id="simplevis-397">simplevis 3.9.7<a class="anchor" aria-label="anchor" href="#simplevis-397"></a></h2>
-<ul><li>Updated defaults for facetted pretty breaks.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.6" id="simplevis-396">simplevis 3.9.6<a class="anchor" aria-label="anchor" href="#simplevis-396"></a></h2>
-<ul><li>Added code to ensure logical variables work.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.5" id="simplevis-395">simplevis 3.9.5<a class="anchor" aria-label="anchor" href="#simplevis-395"></a></h2>
-<ul><li>Updated app templates.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.4" id="simplevis-394">simplevis 3.9.4<a class="anchor" aria-label="anchor" href="#simplevis-394"></a></h2>
-<ul><li>Changed vbar family to hbar.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.3" id="simplevis-393">simplevis 3.9.3<a class="anchor" aria-label="anchor" href="#simplevis-393"></a></h2>
-<ul><li>Removed hack example.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.2" id="simplevis-392">simplevis 3.9.2<a class="anchor" aria-label="anchor" href="#simplevis-392"></a></h2>
-<ul><li>Removed col_rev from gg_boxplot family.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.1" id="simplevis-391">simplevis 3.9.1<a class="anchor" aria-label="anchor" href="#simplevis-391"></a></h2>
-<ul><li>Added hack example.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.9.0" id="simplevis-390">simplevis 3.9.0<a class="anchor" aria-label="anchor" href="#simplevis-390"></a></h2>
-<ul><li>Removed facet_scales arg from gg_sf family.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.9" id="simplevis-389">simplevis 3.8.9<a class="anchor" aria-label="anchor" href="#simplevis-389"></a></h2>
-<ul><li>Added facet_scales arg into gg_sf family.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.8" id="simplevis-388">simplevis 3.8.8<a class="anchor" aria-label="anchor" href="#simplevis-388"></a></h2>
-<ul><li>Subtle changes to the aim of the project.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.7" id="simplevis-387">simplevis 3.8.7<a class="anchor" aria-label="anchor" href="#simplevis-387"></a></h2>
-<ul><li>Updated vignette.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.6" id="simplevis-386">simplevis 3.8.6<a class="anchor" aria-label="anchor" href="#simplevis-386"></a></h2>
-<ul><li>Updated help for facet_labels.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.5" id="simplevis-385">simplevis 3.8.5<a class="anchor" aria-label="anchor" href="#simplevis-385"></a></h2>
-<ul><li>Modified group by statement for col stack bars, so that zeros are not dropped.</li>
+<li>Updated defaults for facetted pretty breaks.</li>
+<li>Added code to ensure logical variables work.</li>
+<li>Changed vbar family to hbar.</li>
+<li>Removed col_rev from gg_boxplot family.</li>
+<li>Modified group by statement for col stack bars, so that zeros are not dropped.</li>
 <li>Updated bar x_var and y_var help for the specific.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.4" id="simplevis-384">simplevis 3.8.4<a class="anchor" aria-label="anchor" href="#simplevis-384"></a></h2>
-<ul><li>Updated help.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.3" id="simplevis-383">simplevis 3.8.3<a class="anchor" aria-label="anchor" href="#simplevis-383"></a></h2>
-<ul><li>Updated examples.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.2" id="simplevis-382">simplevis 3.8.2<a class="anchor" aria-label="anchor" href="#simplevis-382"></a></h2>
-<ul><li>Fixed col_labels default bug.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.1" id="simplevis-381">simplevis 3.8.1<a class="anchor" aria-label="anchor" href="#simplevis-381"></a></h2>
-<ul><li>Fixed col_labels default bug.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.8.0" id="simplevis-380">simplevis 3.8.0<a class="anchor" aria-label="anchor" href="#simplevis-380"></a></h2>
-<ul><li>Updated col_labels default.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.9" id="simplevis-379">simplevis 3.7.9<a class="anchor" aria-label="anchor" href="#simplevis-379"></a></h2>
-<ul><li>Updated help.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.8" id="simplevis-378">simplevis 3.7.8<a class="anchor" aria-label="anchor" href="#simplevis-378"></a></h2>
-<ul><li>Added facet_labels argument.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.7" id="simplevis-377">simplevis 3.7.7<a class="anchor" aria-label="anchor" href="#simplevis-377"></a></h2>
-<ul><li>Updated leaflet_sf_col col_label_dp defaults.</li>
+<li>Fixed col_labels default bug.</li>
+<li>Updated col_labels default.</li>
+<li>Added facet_labels argument.</li>
+<li>Updated leaflet_sf_col col_label_dp defaults.</li>
 <li>Replaced internal function with rlang::set_names(~snakecase::to_sentence_case(.))</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.6" id="simplevis-376">simplevis 3.7.6<a class="anchor" aria-label="anchor" href="#simplevis-376"></a></h2>
-<ul><li>Added new col_labels code for gg_sf family.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.5" id="simplevis-375">simplevis 3.7.5<a class="anchor" aria-label="anchor" href="#simplevis-375"></a></h2>
-<ul><li>Added new col_labels code for gg_point family.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.4" id="simplevis-374">simplevis 3.7.4<a class="anchor" aria-label="anchor" href="#simplevis-374"></a></h2>
-<ul><li>Added default sentence case x and y labels for categorical variables.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.3" id="simplevis-373">simplevis 3.7.3<a class="anchor" aria-label="anchor" href="#simplevis-373"></a></h2>
-<ul><li>Fixed bugs with default titles.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.2" id="simplevis-372">simplevis 3.7.2<a class="anchor" aria-label="anchor" href="#simplevis-372"></a></h2>
-<ul><li>Changed more Helvetica font defaults to ““.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.1" id="simplevis-371">simplevis 3.7.1<a class="anchor" aria-label="anchor" href="#simplevis-371"></a></h2>
-<ul><li>Removed discrete horizontal scale mobile wrapping.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.7.0" id="simplevis-370">simplevis 3.7.0<a class="anchor" aria-label="anchor" href="#simplevis-370"></a></h2>
-<ul><li>Updated code to use snakecase::to_sentence_case where possible.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.9" id="simplevis-369">simplevis 3.6.9<a class="anchor" aria-label="anchor" href="#simplevis-369"></a></h2>
-<ul><li>Removed hbar reversing of breaks, as not required.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.8" id="simplevis-368">simplevis 3.6.8<a class="anchor" aria-label="anchor" href="#simplevis-368"></a></h2>
-<ul><li>Updated boxplot x_var scale.</li>
+<li>Added new col_labels code for gg_sf family.</li>
+<li>Added new col_labels code for gg_point family.</li>
+<li>Added default sentence case x and y labels for categorical variables.</li>
+<li>Fixed bugs with default titles.</li>
+<li>Changed more Helvetica font defaults to ““.</li>
+<li>Removed discrete horizontal scale mobile wrapping.</li>
+<li>Updated code to use snakecase::to_sentence_case where possible.</li>
+<li>Removed hbar reversing of breaks, as not required.</li>
+<li>Updated boxplot x_var scale.</li>
 <li>Removed flipping of scales for boxplot on mobile.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.7" id="simplevis-367">simplevis 3.6.7<a class="anchor" aria-label="anchor" href="#simplevis-367"></a></h2>
-<ul><li>Changed themes to default to ““.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.6" id="simplevis-366">simplevis 3.6.6<a class="anchor" aria-label="anchor" href="#simplevis-366"></a></h2>
-<ul><li>Fixed bar scales.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.5" id="simplevis-365">simplevis 3.6.5<a class="anchor" aria-label="anchor" href="#simplevis-365"></a></h2>
-<ul><li>Reverted bar expand default to c(0, 0).</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.4" id="simplevis-364">simplevis 3.6.4<a class="anchor" aria-label="anchor" href="#simplevis-364"></a></h2>
-<ul><li>Added datetime support to hbar.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.3" id="simplevis-363">simplevis 3.6.3<a class="anchor" aria-label="anchor" href="#simplevis-363"></a></h2>
-<ul><li>Added support for datetime for point, boxplot and vbar.</li>
+<li>Fixed bar scales.</li>
+<li>Reverted bar expand default to c(0, 0).</li>
+<li>Added datetime support to hbar.</li>
+<li>Added support for datetime for point, boxplot and vbar.</li>
 <li>Removed x_trans from line as unnecessary.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.2" id="simplevis-362">simplevis 3.6.2<a class="anchor" aria-label="anchor" href="#simplevis-362"></a></h2>
-<ul><li>Added support for datetime to the other gg_line functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.1" id="simplevis-361">simplevis 3.6.1<a class="anchor" aria-label="anchor" href="#simplevis-361"></a></h2>
-<ul><li>Added support for datetime to gg_line().</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.6.0" id="simplevis-360">simplevis 3.6.0<a class="anchor" aria-label="anchor" href="#simplevis-360"></a></h2>
-<ul><li>Added in arguments to filter out NA values.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.8" id="simplevis-358">simplevis 3.5.8<a class="anchor" aria-label="anchor" href="#simplevis-358"></a></h2>
-<ul><li>For bar, removed the ability to reverse x and y scales for numeric variables.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.7" id="simplevis-357">simplevis 3.5.7<a class="anchor" aria-label="anchor" href="#simplevis-357"></a></h2>
-<ul><li>Fixed bar reorder direction.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.6" id="simplevis-356">simplevis 3.5.6<a class="anchor" aria-label="anchor" href="#simplevis-356"></a></h2>
-<ul><li>Updated boxplot code for how it works with stat = “identity”.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.5" id="simplevis-355">simplevis 3.5.5<a class="anchor" aria-label="anchor" href="#simplevis-355"></a></h2>
-<ul><li>Corrected the hbar and vbar x_var and y_var help.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.4" id="simplevis-354">simplevis 3.5.4<a class="anchor" aria-label="anchor" href="#simplevis-354"></a></h2>
-<ul><li>Changed position default to “dodge” from “stack”.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.3" id="simplevis-353">simplevis 3.5.3<a class="anchor" aria-label="anchor" href="#simplevis-353"></a></h2>
-<ul><li>Moved palmerpenguins to suggests.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.2" id="simplevis-352">simplevis 3.5.2<a class="anchor" aria-label="anchor" href="#simplevis-352"></a></h2>
-<ul><li>Removed col_na argument.</li>
+<li>Added support for datetime to the other gg_line functions.</li>
+<li>Added support for datetime to gg_line().</li>
+<li>Added in arguments to filter out NA values.</li>
+<li>For bar, removed the ability to reverse x and y scales for numeric variables.</li>
+<li>Fixed bar reorder direction.</li>
+<li>Updated boxplot code for how it works with stat = “identity”.</li>
+<li>Corrected the hbar and vbar x_var and y_var help.</li>
+<li>Changed position default to “dodge” from “stack”.</li>
+<li>Moved palmerpenguins to suggests.</li>
+<li>Removed col_na argument.</li>
 <li>Updated all statement to remove NAs.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.1" id="simplevis-351">simplevis 3.5.1<a class="anchor" aria-label="anchor" href="#simplevis-351"></a></h2>
-<ul><li>Tweaked hbar title wrapping defaults.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.5.0" id="simplevis-350">simplevis 3.5.0<a class="anchor" aria-label="anchor" href="#simplevis-350"></a></h2>
-<ul><li>Breaking change: renamed all ggplot_ prefixes with gg_.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.7" id="simplevis-347">simplevis 3.4.7<a class="anchor" aria-label="anchor" href="#simplevis-347"></a></h2>
-<ul><li>Update x_rev and col_rev to support logical variables.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.6" id="simplevis-346">simplevis 3.4.6<a class="anchor" aria-label="anchor" href="#simplevis-346"></a></h2>
-<ul><li>Updated titles logic.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.5" id="simplevis-345">simplevis 3.4.5<a class="anchor" aria-label="anchor" href="#simplevis-345"></a></h2>
-<ul><li>Fixed bug with hbar x_title and y_title around the wrong way.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.4" id="simplevis-344">simplevis 3.4.4<a class="anchor" aria-label="anchor" href="#simplevis-344"></a></h2>
-<ul><li>Updated support for x logical variables.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.2" id="simplevis-342">simplevis 3.4.2<a class="anchor" aria-label="anchor" href="#simplevis-342"></a></h2>
-<ul><li>Updated col_title wrapping for mobile.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.1" id="simplevis-341">simplevis 3.4.1<a class="anchor" aria-label="anchor" href="#simplevis-341"></a></h2>
-<ul><li>Updated default colours for 3 values.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.4.0" id="simplevis-340">simplevis 3.4.0<a class="anchor" aria-label="anchor" href="#simplevis-340"></a></h2>
-<ul><li>Fixed hbar mobile scales.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.3.8" id="simplevis-338">simplevis 3.3.8<a class="anchor" aria-label="anchor" href="#simplevis-338"></a></h2>
-<ul><li>Rewrote hbar_col_facet based on vbar code to expand variable types and arguments available.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.3.7" id="simplevis-337">simplevis 3.3.7<a class="anchor" aria-label="anchor" href="#simplevis-337"></a></h2>
-<ul><li>Rewrote hbar_facet based on vbar code to expand variable types and arguments available.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.3.6" id="simplevis-336">simplevis 3.3.6<a class="anchor" aria-label="anchor" href="#simplevis-336"></a></h2>
-<ul><li>Rewrote hbar_col based on vbar code to expand variable types and arguments available.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.3.5" id="simplevis-335">simplevis 3.3.5<a class="anchor" aria-label="anchor" href="#simplevis-335"></a></h2>
-<ul><li>For hbar, fixed ordering of date or numeric on y scale.</li>
+<li>Tweaked hbar title wrapping defaults.</li>
+<li>Breaking change: renamed all ggplot_ prefixes with gg_.</li>
+<li>Update x_rev and col_rev to support logical variables.</li>
+<li>Updated titles logic.</li>
+<li>Fixed bug with hbar x_title and y_title around the wrong way.</li>
+<li>Updated support for x logical variables.</li>
+<li>Updated col_title wrapping for mobile.</li>
+<li>Updated default colours for 3 values.</li>
+<li>Fixed hbar mobile scales.</li>
+<li>Rewrote hbar_col_facet based on vbar code to expand variable types and arguments available.</li>
+<li>Rewrote hbar_facet based on vbar code to expand variable types and arguments available.</li>
+<li>Rewrote hbar_col based on vbar code to expand variable types and arguments available.</li>
+<li>For hbar, fixed ordering of date or numeric on y scale.</li>
 <li>For vbar and hbar, added x_reorder and y_reorder argument.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.3.1" id="simplevis-331">simplevis 3.3.1<a class="anchor" aria-label="anchor" href="#simplevis-331"></a></h2>
-<ul><li>Rewrote hbar based on vbar code to expand variable types and arguments available.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.3.0" id="simplevis-330">simplevis 3.3.0<a class="anchor" aria-label="anchor" href="#simplevis-330"></a></h2>
-<ul><li>Fixed vbar x_limits defaults.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.2.4" id="simplevis-324">simplevis 3.2.4<a class="anchor" aria-label="anchor" href="#simplevis-324"></a></h2>
-<ul><li>Fixed x_rev for if character in vbar, point and line.</li>
+<li>Rewrote hbar based on vbar code to expand variable types and arguments available.</li>
+<li>Fixed vbar x_limits defaults.</li>
+<li>Fixed x_rev for if character in vbar, point and line.</li>
 <li>Corrected vbar_col_facet labels bug.</li>
-<li>Stop people from trying to stacjk</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.2.3" id="simplevis-323">simplevis 3.2.3<a class="anchor" aria-label="anchor" href="#simplevis-323"></a></h2>
-<ul><li>Fixed x_rev in point and line.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.2.2" id="simplevis-322">simplevis 3.2.2<a class="anchor" aria-label="anchor" href="#simplevis-322"></a></h2>
-<ul><li>Updated breaks functions for better speed.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.2.1" id="simplevis-321">simplevis 3.2.1<a class="anchor" aria-label="anchor" href="#simplevis-321"></a></h2>
-<ul><li>For ggplot functions, updated col_labels.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.2.0" id="simplevis-320">simplevis 3.2.0<a class="anchor" aria-label="anchor" href="#simplevis-320"></a></h2>
-<ul><li>For ggplot functions, updated help for x and y_labels arguments.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.9" id="simplevis-319">simplevis 3.1.9<a class="anchor" aria-label="anchor" href="#simplevis-319"></a></h2>
-<ul><li>For vbar, added support for all variables on the x scale.</li>
+<li>Fixed x_rev in point and line.</li>
+<li>Updated breaks functions for better speed.</li>
+<li>For ggplot functions, updated col_labels.</li>
+<li>For ggplot functions, updated help for x and y_labels arguments.</li>
+<li>For vbar, added support for all variables on the x scale.</li>
 <li>For vbar, added an x_rev argument.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.8" id="simplevis-318">simplevis 3.1.8<a class="anchor" aria-label="anchor" href="#simplevis-318"></a></h2>
-<ul><li>Removed x_trans from vbar and boxplot.</li>
+<li>Removed x_trans from vbar and boxplot.</li>
 <li>Removed col_quantile_by_facet argument from point.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.7" id="simplevis-317">simplevis 3.1.7<a class="anchor" aria-label="anchor" href="#simplevis-317"></a></h2>
-<ul><li>Update all boxplot, point, and line x scales to be consistent.</li>
+<li>Update all boxplot, point, and line x scales to be consistent.</li>
 <li>Added x_rev argument to all boxplot, point, and line x scales.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.6" id="simplevis-316">simplevis 3.1.6<a class="anchor" aria-label="anchor" href="#simplevis-316"></a></h2>
-<ul><li>Update boxplot x scales to be more flexible.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.5" id="simplevis-315">simplevis 3.1.5<a class="anchor" aria-label="anchor" href="#simplevis-315"></a></h2>
-<ul><li>Update vbar x scales to be more flexible.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.4" id="simplevis-314">simplevis 3.1.4<a class="anchor" aria-label="anchor" href="#simplevis-314"></a></h2>
-<ul><li>Breaking change: removed group_var argument, and updated grouping code.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.3" id="simplevis-313">simplevis 3.1.3<a class="anchor" aria-label="anchor" href="#simplevis-313"></a></h2>
-<ul><li>New feature: added support for x categorical variables in point.</li>
+<li>Update boxplot x scales to be more flexible.</li>
+<li>Update vbar x scales to be more flexible.</li>
+<li>Breaking change: removed group_var argument, and updated grouping code.</li>
+<li>New feature: added support for x categorical variables in point.</li>
 <li>New feature: added support for x categorical and date variables in boxplot.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.2" id="simplevis-312">simplevis 3.1.2<a class="anchor" aria-label="anchor" href="#simplevis-312"></a></h2>
-<ul><li>New feature: added support for x date variables in vbar.</li>
+<li>New feature: added support for x date variables in vbar.</li>
 <li>New feature: added support for x categorical variables in line.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.1.1" id="simplevis-311">simplevis 3.1.1<a class="anchor" aria-label="anchor" href="#simplevis-311"></a></h2>
-<ul><li>Bug fix: Updated col_rev code to fix colouring of factors where rev = TRUE.</li>
+<li>Bug fix: Updated col_rev code to fix colouring of factors where rev = TRUE.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.1.0" id="simplevis-310">simplevis 3.1.0<a class="anchor" aria-label="anchor" href="#simplevis-310"></a></h2><p class="text-muted">CRAN release: 2021-05-07</p>
 <ul><li>Minor change: Removed rnaturalearth from suggests.</li>
 <li>Bug fix: Corrected is_null bug in leaflet_sf.</li>
 <li>Bug fix: Corrected hbar y_var reversing bug.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.0.2" id="simplevis-302">simplevis 3.0.2<a class="anchor" aria-label="anchor" href="#simplevis-302"></a></h2>
-<ul><li>Breaking change: changed mutate_text vars_vctr argument to text_vars_vctr.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="3.0.1" id="simplevis-301">simplevis 3.0.1<a class="anchor" aria-label="anchor" href="#simplevis-301"></a></h2>
-<ul><li>Breaking change: Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.</li>
+<li>Breaking change: changed mutate_text vars_vctr argument to text_vars_vctr.</li>
+<li>Breaking change: Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.</li>
 <li>Breaking change: Added plotly_col_legend function, and removed plotly_legend_rev and plotly_legend_order.</li>
 <li>Breaking change: leaflet popup_var has been removed, and replaced with a popup_vars_vctr argument.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.0.0" id="simplevis-300">simplevis 3.0.0<a class="anchor" aria-label="anchor" href="#simplevis-300"></a></h2><p class="text-muted">CRAN release: 2021-04-30</p>
-<ul><li>Bumped version for CRAN release.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.8.2" id="simplevis-282">simplevis 2.8.2<a class="anchor" aria-label="anchor" href="#simplevis-282"></a></h2>
 <ul><li>Corrected vbar default reversing of col_var.</li>
 <li>Removed vbar x_rev argument, as unsure of logic rules.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.8.1" id="simplevis-281">simplevis 2.8.1<a class="anchor" aria-label="anchor" href="#simplevis-281"></a></h2>
-<ul><li>Corrected vbar default reversing of x_var.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.8.0" id="simplevis-280">simplevis 2.8.0<a class="anchor" aria-label="anchor" href="#simplevis-280"></a></h2>
-<ul><li>Update templates.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.9" id="simplevis-279">simplevis 2.7.9<a class="anchor" aria-label="anchor" href="#simplevis-279"></a></h2>
-<ul><li>Added ggplot_boxplot_col_facet function.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.8" id="simplevis-278">simplevis 2.7.8<a class="anchor" aria-label="anchor" href="#simplevis-278"></a></h2>
-<ul><li>Make handling of all zero values pretty for all plots other than point.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.7" id="simplevis-277">simplevis 2.7.7<a class="anchor" aria-label="anchor" href="#simplevis-277"></a></h2>
-<ul><li>Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.</li>
+<li>Corrected vbar default reversing of x_var.</li>
+<li>Update templates.</li>
+<li>Added ggplot_boxplot_col_facet function.</li>
+<li>Make handling of all zero values pretty for all plots other than point.</li>
+<li>Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.</li>
 <li>Fixed where trans was equal to log or log10, and zero was selected</li>
 <li>Added ggplot_boxplot_col</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.6" id="simplevis-276">simplevis 2.7.6<a class="anchor" aria-label="anchor" href="#simplevis-276"></a></h2>
-<ul><li>Updated scale_x_date to remove oob.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.5" id="simplevis-275">simplevis 2.7.5<a class="anchor" aria-label="anchor" href="#simplevis-275"></a></h2>
-<ul><li>Updated website vignette and articles.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.4" id="simplevis-274">simplevis 2.7.4<a class="anchor" aria-label="anchor" href="#simplevis-274"></a></h2>
-<ul><li>Breaking change: Removed x_na_inf and y_na_inf arguments.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.3" id="simplevis-273">simplevis 2.7.3<a class="anchor" aria-label="anchor" href="#simplevis-273"></a></h2>
-<ul><li>Export breaks functions.</li>
+<li>Updated scale_x_date to remove oob.</li>
+<li>Updated website vignette and articles.</li>
+<li>Breaking change: Removed x_na_inf and y_na_inf arguments.</li>
+<li>Export breaks functions.</li>
 <li>Corrected bug fix with x_na_inf and y_na_inf.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.2" id="simplevis-272">simplevis 2.7.2<a class="anchor" aria-label="anchor" href="#simplevis-272"></a></h2>
-<ul><li>Added col_na argument to all functions lacking it.</li>
+<li>Added col_na argument to all functions lacking it.</li>
 <li>Added x_rev and col_rev to vbar functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.1" id="simplevis-271">simplevis 2.7.1<a class="anchor" aria-label="anchor" href="#simplevis-271"></a></h2>
-<ul><li>Modularised all x_zero adjustments and automatic x_zero line components, and likewise the y_ ones.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7.0" id="simplevis-270">simplevis 2.7.0<a class="anchor" aria-label="anchor" href="#simplevis-270"></a></h2>
-<ul><li>Modularised all x and y numeric breaks.</li>
+<li>Modularised all x_zero adjustments and automatic x_zero line components, and likewise the y_ ones.</li>
+<li>Modularised all x and y numeric breaks.</li>
 <li>New feature: added balance, trans and zero arguments to all numeric arguments.</li>
 <li>New feature: Changed x_zero and y_zero defaults for non-bar graph numeric scales to FALSE.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.9" id="simplevis-269">simplevis 2.6.9<a class="anchor" aria-label="anchor" href="#simplevis-269"></a></h2>
-<ul><li>Underlying code change of hbar to not use <code>coord_flip</code>.</li>
+<li>Underlying code change of hbar to not use <code>coord_flip</code>.</li>
 <li>Rebuilt y numeric breaks.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.8" id="simplevis-268">simplevis 2.6.8<a class="anchor" aria-label="anchor" href="#simplevis-268"></a></h2>
-<ul><li>Rebuilt default font size code.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.7" id="simplevis-267">simplevis 2.6.7<a class="anchor" aria-label="anchor" href="#simplevis-267"></a></h2>
-<ul><li>New feature: Added to all themes legend.direction = “vertical” to make titles always be above legends.</li>
+<li>Rebuilt default font size code.</li>
+<li>New feature: Added to all themes legend.direction = “vertical” to make titles always be above legends.</li>
 <li>Documentation: added shiny for mobile article.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.6" id="simplevis-266">simplevis 2.6.6<a class="anchor" aria-label="anchor" href="#simplevis-266"></a></h2>
-<ul><li>New feature: Changed leaflet default alpha to 0.9.</li>
+<li>New feature: Changed leaflet default alpha to 0.9.</li>
 <li>Documentation: added scales article.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.5" id="simplevis-265">simplevis 2.6.5<a class="anchor" aria-label="anchor" href="#simplevis-265"></a></h2>
-<ul><li>New feature: Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1.</li>
+<li>New feature: Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1.</li>
 <li>Breaking change: Changed point_size and line_size to size_point and size_line.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.4" id="simplevis-264">simplevis 2.6.4<a class="anchor" aria-label="anchor" href="#simplevis-264"></a></h2>
-<ul><li>New feature: Changed leaflet_sf default point_size to 2.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.3" id="simplevis-263">simplevis 2.6.3<a class="anchor" aria-label="anchor" href="#simplevis-263"></a></h2>
-<ul><li>New feature: added text_var arguments to ggplot sf functions to fully support plotly interactive maps.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.2" id="simplevis-262">simplevis 2.6.2<a class="anchor" aria-label="anchor" href="#simplevis-262"></a></h2>
-<ul><li>Bug fix: Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them.</li>
+<li>New feature: Changed leaflet_sf default point_size to 2.</li>
+<li>New feature: added text_var arguments to ggplot sf functions to fully support plotly interactive maps.</li>
+<li>Bug fix: Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them.</li>
 <li>New feature: Make ggplot sf functions not adjust alpha of outlines.</li>
-<li>New feature: Remove key_glyph, as it is not implemented in ggplotly.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.1" id="simplevis-261">simplevis 2.6.1<a class="anchor" aria-label="anchor" href="#simplevis-261"></a></h2>
-<ul><li>Updated vignette and articles.</li>
+<li>New feature: Remove key_glyph, as it is not implemented in ggplotly.<br></li>
+<li>Updated vignette and articles.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.6.0" id="simplevis-260">simplevis 2.6.0<a class="anchor" aria-label="anchor" href="#simplevis-260"></a></h2><p class="text-muted">CRAN release: 2021-04-09</p>
 <ul><li>Added template zip files.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.9" id="simplevis-259">simplevis 2.5.9<a class="anchor" aria-label="anchor" href="#simplevis-259"></a></h2>
-<ul><li>Breaking change: changed point_size to default to 1 for all functions.</li>
+<li>Breaking change: changed point_size to default to 1 for all functions.</li>
 <li>Breaking change: removed line_alpha from leaflet functions, as not required.</li>
 <li>Breaking change: removed col_drop from leaflet function.</li>
 <li>Breaking change: removed col_quantile_by_facet function from ggplot_sf_col_facet.</li>
@@ -704,96 +358,45 @@
 <li>Breaking change: In leaflet_sf functions, changed radius to point_size.</li>
 <li>Breaking change: In ggplot_line functions, removed points and lines argument.</li>
 <li>Breaking change: In ggplot_sf functions, changed size argument to point_size and line_size for consistency.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.7" id="simplevis-257">simplevis 2.5.7<a class="anchor" aria-label="anchor" href="#simplevis-257"></a></h2>
-<ul><li>New feature: For boxplot, added line_size argument and alpha.</li>
+<li>New feature: For boxplot, added line_size argument and alpha.</li>
 <li>New feature: Default colour changed for where 2 values.</li>
 <li>Breaking change: Changed x_na_bar/y_na_bar to x_na_inf/y_na_inf.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.6" id="simplevis-256">simplevis 2.5.6<a class="anchor" aria-label="anchor" href="#simplevis-256"></a></h2>
-<ul><li>Breaking change: changed output of mutate_text to name the new column text.</li>
+<li>Breaking change: changed output of mutate_text to name the new column text.</li>
 <li>Breaking change: removed all stars functions, as these need more development work.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.5" id="simplevis-255">simplevis 2.5.5<a class="anchor" aria-label="anchor" href="#simplevis-255"></a></h2>
-<ul><li>Breaking change: Rename tip_var to text_var to align with ggplot2.</li>
+<li>Breaking change: Rename tip_var to text_var to align with ggplot2.</li>
 <li>Breaking change: Rename add_tip to mutate_text to align with ggplot2 and dplyr.</li>
 <li>Breaking change: Rename boundary with borders to align with ggplot2.</li>
 <li>Breaking change: Rename ggplot_box with ggplot_boxplot to align with ggplot2.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.4" id="simplevis-254">simplevis 2.5.4<a class="anchor" aria-label="anchor" href="#simplevis-254"></a></h2>
-<ul><li>Bug fix: Make ggplot_vbar and vbar_facet scales pretty.</li>
+<li>Bug fix: Make ggplot_vbar and vbar_facet scales pretty.</li>
 <li>New feature: Change default point_size to 1.5.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.3" id="simplevis-253">simplevis 2.5.3<a class="anchor" aria-label="anchor" href="#simplevis-253"></a></h2>
-<ul><li>New feature: Add line_size argument to hbar and vbar functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.2" id="simplevis-252">simplevis 2.5.2<a class="anchor" aria-label="anchor" href="#simplevis-252"></a></h2>
-<ul><li>New feature: Make ggplot_vbar function x scales pretty, where max or min equals the x limit.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.1" id="simplevis-251">simplevis 2.5.1<a class="anchor" aria-label="anchor" href="#simplevis-251"></a></h2>
-<ul><li>New feature: Change default of ggplots to legend on right with 1 column.</li>
+<li>New feature: Add line_size argument to hbar and vbar functions.</li>
+<li>New feature: Make ggplot_vbar function x scales pretty, where max or min equals the x limit.</li>
+<li>New feature: Change default of ggplots to legend on right with 1 column.</li>
 <li>New feature: Add facet_ncol argument.</li>
 <li>New feature: Add col_labels_ncol argument.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.5.0" id="simplevis-250">simplevis 2.5.0<a class="anchor" aria-label="anchor" href="#simplevis-250"></a></h2>
-<ul><li>Breaking change: Rename col_label_digits argument to col_labels_dp.</li>
+<li>Breaking change: Rename col_label_digits argument to col_labels_dp.</li>
 <li>Breaking change: Rename leaflet_sf label_var to tip_var to avoid confusion.</li>
 <li>Breaking change: Rename size arguments in ggplot_point and ggplot_line functions.</li>
 <li>New feature: Fixed vbar legend elements being reversed.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.9" id="simplevis-249">simplevis 2.4.9<a class="anchor" aria-label="anchor" href="#simplevis-249"></a></h2>
-<ul><li>Breaking change: In leaflet_sf, rename col_na_remove for consistency.</li>
+<li>Breaking change: In leaflet_sf, rename col_na_remove for consistency.</li>
 <li>Breaking change: In leaflet_sf functions, rename popup as popup_var and improve help.</li>
 <li>Breaking change: Rename col_digits argument to col_label_digits.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.8" id="simplevis-248">simplevis 2.4.8<a class="anchor" aria-label="anchor" href="#simplevis-248"></a></h2>
-<ul><li>Breaking change: In line functions, rename size argument to size_point for clarity.</li>
+<li>Breaking change: In line functions, rename size argument to size_point for clarity.</li>
 <li>New feature: In line functions, add size_line argument.</li>
 <li>Breaking change: Rename all legend_ arguments to col_ arguments for internal consistency.</li>
 <li>Breaking change: Rename wrap_col_title to col_title_wrap for internal consistency.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.7" id="simplevis-247">simplevis 2.4.7<a class="anchor" aria-label="anchor" href="#simplevis-247"></a></h2>
-<ul><li>New feature: Defaulted colours to viridis for all functions.</li>
+<li>New feature: Defaulted colours to viridis for all functions.</li>
 <li>New feature: Improved ggplot_point and ggplot_sf colouring code.</li>
 <li>New feature: Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.<br></li>
 <li>New feature: Added alpha argument for the fill of hbar and vbar.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.6" id="simplevis-246">simplevis 2.4.6<a class="anchor" aria-label="anchor" href="#simplevis-246"></a></h2>
-<ul><li>Breaking change: Removed size argument in line functions.</li>
+<li>Breaking change: Removed size argument in line functions.</li>
 <li>Breaking change: Renamed point_size as size in line functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.5" id="simplevis-245">simplevis 2.4.5<a class="anchor" aria-label="anchor" href="#simplevis-245"></a></h2>
-<ul><li>New feature: Add alpha argument into hbar and vbar.</li>
+<li>New feature: Add alpha argument into hbar and vbar.</li>
 <li>Breaking change: Changed quantile_by_facet argument to col_quantile_by_facet for internal consistency.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.4" id="simplevis-244">simplevis 2.4.4<a class="anchor" aria-label="anchor" href="#simplevis-244"></a></h2>
-<ul><li>Breaking change: Remove leaflet_basemap_nz.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.3" id="simplevis-243">simplevis 2.4.3<a class="anchor" aria-label="anchor" href="#simplevis-243"></a></h2>
-<ul><li>New feature: Updated leaflet_basemap to include an argument for bounds.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.2" id="simplevis-242">simplevis 2.4.2<a class="anchor" aria-label="anchor" href="#simplevis-242"></a></h2>
-<ul><li>Breaking change: Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.1" id="simplevis-241">simplevis 2.4.1<a class="anchor" aria-label="anchor" href="#simplevis-241"></a></h2>
-<ul><li>New feature: Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.</li>
+<li>Breaking change: Remove leaflet_basemap_nz.</li>
+<li>New feature: Updated leaflet_basemap to include an argument for bounds.</li>
+<li>Breaking change: Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.</li>
+<li>New feature: Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.</li>
 <li>New feature: Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.</li>
 </ul></div>
     <div class="section level2">
@@ -801,173 +404,56 @@
 <ul><li>New feature: Reduce the size of sf example objects.</li>
 <li>New feature: Add vignette for making maps of sf objects.</li>
 <li>New feature: Removed support for boundary arguments in ggplot_stars, as it was not working.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.9" id="simplevis-239">simplevis 2.3.9<a class="anchor" aria-label="anchor" href="#simplevis-239"></a></h2>
-<ul><li>Updated help for boundary_behind arguments to specify correct default.</li>
+<li>Updated help for boundary_behind arguments to specify correct default.</li>
 <li>For ggplot_sf and stars functions, added boundary_size argument in.</li>
 <li>Added nz_region as a helpful example boundary.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.8" id="simplevis-238">simplevis 2.3.8<a class="anchor" aria-label="anchor" href="#simplevis-238"></a></h2>
-<ul><li>Renamed example objects to focus on their object class.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.7" id="simplevis-237">simplevis 2.3.7<a class="anchor" aria-label="anchor" href="#simplevis-237"></a></h2>
-<ul><li>For line, renamed rev_pal to pal_rev for consistency.</li>
+<li>Renamed example objects to focus on their object class.</li>
+<li>For line, renamed rev_pal to pal_rev for consistency.</li>
 <li>For vbar, added in the pal_rev argument for consistency.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.6" id="simplevis-236">simplevis 2.3.6<a class="anchor" aria-label="anchor" href="#simplevis-236"></a></h2>
-<ul><li>For hbar &amp; vbar, renamed arguments to x_na_bar and y_na_bar.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.5" id="simplevis-235">simplevis 2.3.5<a class="anchor" aria-label="anchor" href="#simplevis-235"></a></h2>
-<ul><li>Add na_bar argument to vbar_col.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.4" id="simplevis-234">simplevis 2.3.4<a class="anchor" aria-label="anchor" href="#simplevis-234"></a></h2>
-<ul><li>For hbar_col, fix na_bar so that is works on negative data.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.3" id="simplevis-223">simplevis 2.2.3<a class="anchor" aria-label="anchor" href="#simplevis-223"></a></h2>
-<ul><li>For hbar and vbar, fix na_bar so that it works for negative and positive data with ggplotly(plot, tooltip = “text”).</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.2" id="simplevis-232">simplevis 2.3.2<a class="anchor" aria-label="anchor" href="#simplevis-232"></a></h2>
-<ul><li>For line graphs on mobile, make x axis labels just the minimum and maximum (and zero if applicable).</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.1" id="simplevis-231">simplevis 2.3.1<a class="anchor" aria-label="anchor" href="#simplevis-231"></a></h2>
-<ul><li>Added y_balance arguments to vbar, line and point functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.3.0" id="simplevis-230">simplevis 2.3.0<a class="anchor" aria-label="anchor" href="#simplevis-230"></a></h2>
-<ul><li>Defaulted zero reference lines to be on by default if there are positive and negative values in the data.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.9" id="simplevis-229">simplevis 2.2.9<a class="anchor" aria-label="anchor" href="#simplevis-229"></a></h2>
-<ul><li>Peplace all superceded scoped functions with across.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.8" id="simplevis-228">simplevis 2.2.8<a class="anchor" aria-label="anchor" href="#simplevis-228"></a></h2>
-<ul><li>Renamed ggplot_scatter to ggplot_point, and likewise for theme_scatter.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.7" id="simplevis-227">simplevis 2.2.7<a class="anchor" aria-label="anchor" href="#simplevis-227"></a></h2>
-<ul><li>Renamed coastline argument to boundary.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.6" id="simplevis-226">simplevis 2.2.6<a class="anchor" aria-label="anchor" href="#simplevis-226"></a></h2>
-<ul><li>Moved pals to er.helpers package.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.5" id="simplevis-225">simplevis 2.2.5<a class="anchor" aria-label="anchor" href="#simplevis-225"></a></h2>
-<ul><li>Changed wrap text arguments to prefix with what is being wrapped.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.4" id="simplevis-224">simplevis 2.2.4<a class="anchor" aria-label="anchor" href="#simplevis-224"></a></h2>
-<ul><li>Renamed x_na_bar and y_na_bar arguments to na_bar.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.3" id="simplevis-223-1">simplevis 2.2.3<a class="anchor" aria-label="anchor" href="#simplevis-223-1"></a></h2>
-<ul><li>Corrected hbar error messages for faceted plots.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.2" id="simplevis-222">simplevis 2.2.2<a class="anchor" aria-label="anchor" href="#simplevis-222"></a></h2>
-<ul><li>Adjusted mobile hbar x label justification.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.1" id="simplevis-221">simplevis 2.2.1<a class="anchor" aria-label="anchor" href="#simplevis-221"></a></h2>
-<ul><li>Ungrouped data in sf functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.2.0" id="simplevis-220">simplevis 2.2.0<a class="anchor" aria-label="anchor" href="#simplevis-220"></a></h2>
-<ul><li>Removed support for mobile in <code>_facet</code> and <code>_col_facet</code> functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.9" id="simplevis-219">simplevis 2.1.9<a class="anchor" aria-label="anchor" href="#simplevis-219"></a></h2>
-<ul><li>Updated functions for a more reliable mobile experience.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.8" id="simplevis-218">simplevis 2.1.8<a class="anchor" aria-label="anchor" href="#simplevis-218"></a></h2>
-<ul><li>Updated app templates css and default table rows.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.7" id="simplevis-217">simplevis 2.1.7<a class="anchor" aria-label="anchor" href="#simplevis-217"></a></h2>
-<ul><li>For hbar, add mobile wrapping for x labels.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.6" id="simplevis-216">simplevis 2.1.6<a class="anchor" aria-label="anchor" href="#simplevis-216"></a></h2>
-<ul><li>For hbar, update the mobile x breaks, so always only min and max, and zero if relevant.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.5" id="simplevis-215">simplevis 2.1.5<a class="anchor" aria-label="anchor" href="#simplevis-215"></a></h2>
-<ul><li>For hbar, made plots x aim for 1 interval of breaks for mobile, and left-align labels.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.4" id="simplevis-214">simplevis 2.1.4<a class="anchor" aria-label="anchor" href="#simplevis-214"></a></h2>
-<ul><li>For hbar, added x_balance argument to hbar functions.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.3" id="simplevis-213">simplevis 2.1.3<a class="anchor" aria-label="anchor" href="#simplevis-213"></a></h2>
-<ul><li>Changed name of compare2 pals to alpha2 pals.</li>
+<li>For hbar &amp; vbar, renamed arguments to x_na_bar and y_na_bar.</li>
+<li>Add na_bar argument to vbar_col.</li>
+<li>For hbar_col, fix na_bar so that is works on negative data.</li>
+<li>For hbar and vbar, fix na_bar so that it works for negative and positive data with ggplotly(plot, tooltip = “text”).</li>
+<li>For line graphs on mobile, make x axis labels just the minimum and maximum (and zero if applicable).</li>
+<li>Added y_balance arguments to vbar, line and point functions.</li>
+<li>Defaulted zero reference lines to be on by default if there are positive and negative values in the data.</li>
+<li>Peplace all superceded scoped functions with across.</li>
+<li>Renamed ggplot_scatter to ggplot_point, and likewise for theme_scatter.<br></li>
+<li>Renamed coastline argument to boundary.</li>
+<li>Moved pals to er.helpers package.</li>
+<li>Changed wrap text arguments to prefix with what is being wrapped.</li>
+<li>Renamed x_na_bar and y_na_bar arguments to na_bar.</li>
+<li>Corrected hbar error messages for faceted plots.</li>
+<li>Adjusted mobile hbar x label justification.</li>
+<li>Ungrouped data in sf functions.</li>
+<li>Removed support for mobile in <code>_facet</code> and <code>_col_facet</code> functions.</li>
+<li>Updated functions for a more reliable mobile experience.</li>
+<li>Updated app templates css and default table rows.</li>
+<li>For hbar, add mobile wrapping for x labels.</li>
+<li>For hbar, update the mobile x breaks, so always only min and max, and zero if relevant.</li>
+<li>For hbar, made plots x aim for 1 interval of breaks for mobile, and left-align labels.</li>
+<li>For hbar, added x_balance argument to hbar functions.</li>
+<li>Changed name of compare2 pals to alpha2 pals.</li>
 <li>Made ggplot line functions default to expanding by zero on x.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.2" id="simplevis-212">simplevis 2.1.2<a class="anchor" aria-label="anchor" href="#simplevis-212"></a></h2>
-<ul><li>Changed hbar and vbar na_grey arguments to be x_na_bar or y__na_bar.</li>
+<li>Changed hbar and vbar na_grey arguments to be x_na_bar or y__na_bar.</li>
 <li>Added y_na_na_bar argument to ggplot_hbar_col.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.1" id="simplevis-211">simplevis 2.1.1<a class="anchor" aria-label="anchor" href="#simplevis-211"></a></h2>
-<ul><li>Removed col_drop and col_remove_na arguments.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.0" id="simplevis-210">simplevis 2.1.0<a class="anchor" aria-label="anchor" href="#simplevis-210"></a></h2>
-<ul><li>Added two new palettes for graphs that compare a current year against a previous year.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.09" id="simplevis-209">simplevis 2.09<a class="anchor" aria-label="anchor" href="#simplevis-209"></a></h2>
-<ul><li>Added left-align to hover values with the plotly_camera function.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.08" id="simplevis-208">simplevis 2.08<a class="anchor" aria-label="anchor" href="#simplevis-208"></a></h2>
-<ul><li>Added expand arguments to all other plots.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.07" id="simplevis-207">simplevis 2.07<a class="anchor" aria-label="anchor" href="#simplevis-207"></a></h2>
-<ul><li>Changed zero_lines to default off.</li>
+<li>Removed col_drop and col_remove_na arguments.</li>
+<li>Added two new palettes for graphs that compare a current year against a previous year.</li>
+<li>Added left-align to hover values with the plotly_camera function.</li>
+<li>Added expand arguments to all other plots.</li>
+<li>Changed zero_lines to default off.</li>
 <li>Removed automatic zero lines, so now they must be manually turned off and on.</li>
 <li>Added expand arguments to scatterplots.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.06" id="simplevis-206">simplevis 2.06<a class="anchor" aria-label="anchor" href="#simplevis-206"></a></h2>
-<ul><li>Corrected the direction of bar legend labels if someone manually adds them in.</li>
+<li>Corrected the direction of bar legend labels if someone manually adds them in.</li>
 <li>Update the leaflet sf popup so that it does not load if there is only geometry.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.05" id="simplevis-205">simplevis 2.05<a class="anchor" aria-label="anchor" href="#simplevis-205"></a></h2>
-<ul><li>Reverted default col_title = “” rather than NULL, as this works better with ggplotly.</li>
+<li>Reverted default col_title = “” rather than NULL, as this works better with ggplotly.</li>
 <li>Adjusted add_tip to default to putting in all variables, and work with sf objects.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.04" id="simplevis-204">simplevis 2.04<a class="anchor" aria-label="anchor" href="#simplevis-204"></a></h2>
-<ul><li>Added support for using logical variables to colour in hbar.</li>
+<li>Added support for using logical variables to colour in hbar.</li>
 <li>Added pal_rev argument in hbar.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.03" id="simplevis-203">simplevis 2.03<a class="anchor" aria-label="anchor" href="#simplevis-203"></a></h2>
-<ul><li>Removed feature id and row number from popup.</li>
+<li>Removed feature id and row number from popup.</li>
 <li>Updated add_tip so that it can also work with sf objects.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.0.2" id="simplevis-202">simplevis 2.0.2<a class="anchor" aria-label="anchor" href="#simplevis-202"></a></h2>
-<ul><li>Removed geometry from defaulting into the leaflet popup.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.0.1" id="simplevis-201">simplevis 2.0.1<a class="anchor" aria-label="anchor" href="#simplevis-201"></a></h2>
-<ul><li>Fixed bug with scatter not working with NAs appropriately.</li>
+<li>Removed geometry from defaulting into the leaflet popup.</li>
+<li>Fixed bug with scatter not working with NAs appropriately.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="simplevis-200">simplevis 2.0.0<a class="anchor" aria-label="anchor" href="#simplevis-200"></a></h2><p class="text-muted">CRAN release: 2020-09-01</p>
@@ -975,10 +461,7 @@
 <li>Drop region, TA and sea-draining catchments from nz basemap stack.</li>
 <li>Removed code to automate isMobile, as it was not working.</li>
 <li>Removed na_tip as was not working.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.8.0" id="simplevis-180">simplevis 1.8.0<a class="anchor" aria-label="anchor" href="#simplevis-180"></a></h2>
-<ul><li>Renamed leaflet_basemap_stack functions to remove the word stack.</li>
+<li>Renamed leaflet_basemap_stack functions to remove the word stack.</li>
 <li>Removed automatic addition of tooltip text into functions.</li>
 <li>Added support for the user to add a tooltip variable into plot functions.</li>
 <li>Created add_tip function to easily create a tooltip text column within a dataset.</li>
@@ -991,10 +474,7 @@
 <li>Renamed na_grey_hover_value.</li>
 <li>Fixed bug in leaflet functions with colouring by bin col_method.</li>
 <li>Fixed bug in ggplot_vbar to support making a plot when all values are zero.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.7.0" id="simplevis-170">simplevis 1.7.0<a class="anchor" aria-label="anchor" href="#simplevis-170"></a></h2>
-<ul><li>Renamed all plot x_scale_ prefixed arguments with x_ and likewise for y_scale_ and col_scale_.</li>
+<li>Renamed all plot x_scale_ prefixed arguments with x_ and likewise for y_scale_ and col_scale_.</li>
 <li>Renamed remove_na argument in scatter and sf plots as col_na_remove.</li>
 <li>Renamed rev_pal as pal_rev in scatter, sf and stars functions.</li>
 <li>Renamed bin_cuts and quantile_cuts as col_cuts.</li>
@@ -1003,10 +483,7 @@
 <li>Fixed bug with legend key in line plots not displaying the line and point in the key.</li>
 <li>Removed dplyr 1.0.0 dependency by replacing across function in stars plots with _at functions.</li>
 <li>Moved all aesthetics from ggplot() function to geoms.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.6.0" id="simplevis-160">simplevis 1.6.0<a class="anchor" aria-label="anchor" href="#simplevis-160"></a></h2>
-<ul><li>Fixed bug with line hover_var.</li>
+<li>Fixed bug with line hover_var.</li>
 <li>Update template apps, and vignette.</li>
 <li>Made isMobile default to NULL, which selects input$isMobile in apps and FALSE otherwise.</li>
 <li>Removed shiny logical argument from leaflet functions.</li>

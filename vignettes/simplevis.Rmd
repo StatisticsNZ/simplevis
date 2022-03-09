@@ -186,6 +186,7 @@ p9 <- gg_line_col(
   x_var = year,
   y_var = body_mass_g,
   col_var = species,
+  size_point = 1,
   x_labels = scales::label_number(accuracy = 1, big.mark = "")
 )
 

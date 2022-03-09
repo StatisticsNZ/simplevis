@@ -14,21 +14,17 @@
 
 ### Installation
 
-Install stable version from CRAN:
+Stable version from CRAN:
+
 `install.packages("simplevis")`
 
-Install development version from github:
-`devtools::install_github("statisticsNZ/simplevis")`
+Development version from github:
 
-### Documentation
+`devtools::install_github("statisticsnz/simplevis")`
 
-Webpage URL:
+### Get started
 
-https://statisticsnz.github.io/simplevis/
-
-R vignette:
-
-`vignette("simplevis", "simplevis")`
+Click [here](https://statisticsnz.github.io/simplevis/articles/simplevis.html) to get started.
 
 ---
 __Copyright and Licensing__

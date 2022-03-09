@@ -1,6 +1,8 @@
 # simplevis 6.2.1
 
 * Fixed bug where legend appearing in mobile, despite col_legend_none = TRUE.
+* Minor tweaks to readme and vignette.
+* Rebuilt website with bootstrap 5.
 
 # simplevis 6.2.0
 

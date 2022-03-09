@@ -9,5 +9,8 @@ articles:
   shiny: shiny.html
   simplevis: simplevis.html
   themes: themes.html
-last_built: 2022-03-07T08:20Z
+last_built: 2022-03-09T20:14Z
+urls:
+  reference: https://statisticsnz.github.io/simplevis/index.html/reference
+  article: https://statisticsnz.github.io/simplevis/index.html/articles
 

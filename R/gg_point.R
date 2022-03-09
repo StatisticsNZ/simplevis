@@ -569,9 +569,6 @@ gg_point_col <- function(data,
     }
   }
   
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -595,6 +592,11 @@ gg_point_col <- function(data,
       theme_mobile_extra() #extra mobile theme components
   }
   
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+
   return(plot)
 }
 
@@ -1222,9 +1224,6 @@ gg_point_col_facet <- function(data,
     }
     
     #titles & facetting
-    if (col_legend_none == TRUE) plot <- plot +
-      theme(legend.position = "none")
-    
     plot <- plot +
       labs(
         title = stringr::str_wrap(title, title_wrap),
@@ -1234,6 +1233,11 @@ gg_point_col_facet <- function(data,
         caption = stringr::str_wrap(caption, caption_wrap)
       ) +
       facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
+    
+    if (col_legend_none == TRUE) {
+      plot <- plot +
+        theme(legend.position = "none")
+    }
 
     return(plot)
   }

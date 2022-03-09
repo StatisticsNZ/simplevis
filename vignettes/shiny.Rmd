@@ -61,7 +61,8 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             mobile = T)
+             title = "Adult penguin mass by bill length and species",
+             mobile = TRUE)
 
 ```
 

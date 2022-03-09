@@ -315,9 +315,6 @@ gg_tile_col <- function(data,
     }
   }
   
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -341,6 +338,11 @@ gg_tile_col <- function(data,
       theme_mobile_extra()
   }
   
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+
   return(plot)
 }
 
@@ -683,9 +685,6 @@ gg_tile_col_facet <- function(data,
       )
   }
   
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-
   #x & y scales, titles, and facetting
   plot <- plot +
     scale_x_discrete(expand = x_expand, labels = x_labels) +
@@ -703,5 +702,10 @@ gg_tile_col_facet <- function(data,
                ncol = facet_ncol, 
                nrow = facet_nrow)
   
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+
   return(plot)
 }

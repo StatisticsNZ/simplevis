@@ -369,9 +369,6 @@ gg_stars_col <- function(data,
     }
   }
   
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-
   #borders
   if (!is.null(borders)) {
     if (borders_on_top == TRUE) {
@@ -404,6 +401,11 @@ gg_stars_col <- function(data,
       theme_mobile_extra(void = TRUE)
   }
   
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+
   return(plot)
 }
 

@@ -1,3 +1,7 @@
+# simplevis 6.2.1
+
+* Fixed bug where legend appearing in mobile, despite col_legend_none = TRUE.
+
 # simplevis 6.2.0
 
 * Added gg_histogram*() functions.

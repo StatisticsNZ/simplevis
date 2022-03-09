@@ -637,9 +637,6 @@ gg_hpointrange_col <- function(data,
       }
     }
 
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-  
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -661,6 +658,11 @@ gg_hpointrange_col <- function(data,
         caption = stringr::str_wrap(caption, 50)
       ) +
       theme_mobile_extra()
+  }
+  
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
   }
   
   return(plot)
@@ -1356,9 +1358,6 @@ gg_hpointrange_col_facet <- function(data,
       guides(col = guide_legend(reverse = TRUE))
   }
   
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-  
   #titles & facetting
   plot <- plot +
     labs(
@@ -1369,6 +1368,11 @@ gg_hpointrange_col_facet <- function(data,
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
+  
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
   
   return(plot)
 }

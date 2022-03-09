@@ -374,15 +374,12 @@ gg_density_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
   
-  if (mobile == TRUE & col_legend_none == TRUE) {
+  if (mobile == TRUE & col_legend_none == FALSE) {
     plot <- plot +
       guides(col = guide_legend(ncol = 1), 
              fill = guide_legend(ncol = 1))
   }
   
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -406,6 +403,11 @@ gg_density_col <- function(data,
       theme_mobile_extra()
   }
   
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+
   return(plot)
 }
 
@@ -829,9 +831,6 @@ gg_density_col_facet <- function(data,
   }
   
   #colour, titles & facetting
-  if (col_legend_none == TRUE) plot <- plot +
-    theme(legend.position = "none")
-  
   plot <- plot +
     scale_colour_manual(
       values = pal_line,
@@ -855,6 +854,11 @@ gg_density_col_facet <- function(data,
       caption = stringr::str_wrap(caption, caption_wrap)
     ) +
     facet_wrap(vars(!!facet_var), labeller = as_labeller(facet_labels), scales = facet_scales, ncol = facet_ncol, nrow = facet_nrow)
+  
+  if (col_legend_none == TRUE) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
   
   return(plot)
 }

@@ -360,8 +360,6 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
-Numerous colour palettes are available from the pals package.
-
 simplevis also supports easy colouring of numeric variables for `gg_point*()`, `gg_bar*()`, `gg_hbar*()`, `gg_sf*()` and `gg_stars*()` (and equivalent leaflet functions).
 
 The col_method argument allows you to specify the method for colouring with a default of continuous.

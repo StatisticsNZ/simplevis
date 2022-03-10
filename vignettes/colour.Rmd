@@ -54,7 +54,7 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
-Users can get access to a large amount of colour palettes through the `pals` package.
+Users can get access to a large amount of colour palettes through the [pals](https://kwstat.github.io/pals/) package.
 
 ```{r}
 gg_point_col(penguins, 

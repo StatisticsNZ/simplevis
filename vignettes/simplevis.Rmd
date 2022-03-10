@@ -32,11 +32,11 @@ set.seed(123456789)
 
 ### Purpose 
 
-`simplevis` is a package of `ggplot2` and `leaflet` wrapper functions that aims to make visualisation easier with less brainpower required.
+simplevis is a package of [ggplot2](https://ggplot2.tidyverse.org/) and [leaflet](https://rstudio.github.io/leaflet/) wrapper functions that aims to make visualisation easier with less brainpower required.
 
 ### Visualisation families
 
-`simplevis` supports many visualisation family types.
+simplevis supports many visualisation family types.
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
@@ -360,7 +360,7 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
-Numerous colour palettes are available from the `pals` package.
+Numerous colour palettes are available from the pals package.
 
 simplevis also supports easy colouring of numeric variables for `gg_point*()`, `gg_bar*()`, `gg_hbar*()`, `gg_sf*()` and `gg_stars*()` (and equivalent leaflet functions).
 
@@ -409,7 +409,7 @@ Refer to the [colour](https://statisticsnz.github.io/simplevis/articles/colour.h
 
 #### Themes
 
-You can adjust the theme of any `simplevis` plot by providing a `ggplot2` theme to the `theme` argument.
+You can adjust the theme of any simplevis plot by providing a ggplot2 theme to the `theme` argument.
 
 ```{r}
 gg_point_col(penguins, 
@@ -506,13 +506,13 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 
 ### Maps
 
-`simplevis` provides `sf` and `stars`  maps.
+simplevis provides sf and stars maps.
 
-`sf` maps are maps of point, line or polygon features.
+sf maps are maps of point, line or polygon features.
 
-`stars` maps are maps of arrays (i.e. grids).
+stars maps are maps of arrays (i.e. grids).
 
-`sf` functions work in the same way as the ggplot2 graph functions, but with the following  differences:
+sf functions work in the same way as the ggplot2 graph functions, but with the following  differences:
 
 * Data must be an `sf` object 
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type
@@ -520,7 +520,7 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 * No `x_var` and `y_var` variables are required
 * Borders can added to maps by providing an `sf` object to the `borders` argument. 
 
-`stars` functions work in the same way as the ggplot2 graph functions, but with the following  differences:
+stars functions work in the same way as the ggplot2 graph functions, but with the following  differences:
 
 * Data must be a `stars` object 
 * Data must have a coordinate reference system (CRS) defined
@@ -529,7 +529,7 @@ You can also request no x_title using `x_title = ""` or likewise for `y_title` a
 
 The following example objects are provided withing the package for learning purposes: `example_point`, `example_polygon` and `example_stars`.
 
-The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.
+The `borders` argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.
 
 ```{r}
 gg_sf_col(example_point, 
@@ -546,7 +546,7 @@ gg_stars_col(example_stars,
              borders = example_borders)
 ```
 
-simplevis also provides `leaflet` wrapper functions for `sf` and `stars` objects. These functions work in a similar way to the `gg_sf*()` and `gg_stars*()` functions, but have a `leaf_` prefix.
+simplevis also provides leaflet wrapper functions for `sf` and `stars` objects. These functions work in a similar way to the `gg_sf*()` and `gg_stars*()` functions, but have a `leaf_` prefix.
 
 Refer to the [leaflet](https://statisticsnz.github.io/simplevis/articles/leaflet.html) article for further information.
 
@@ -581,7 +581,7 @@ gg_bar_col(plot_data,
   )            
 ```
 
-The `patchwork` package can be used to patch visualisations together.
+The [patchwork](https://patchwork.data-imaginist.com/) package can be used to patch visualisations together.
 
 ```{r}
 library(patchwork)
@@ -599,7 +599,7 @@ p2 <- gg_boxplot(penguins,
 p1 + p2
 ```
 
-All ggplot objects can be converted into interactive html objects using `plotly::ggplotly`. 
+All ggplot objects can be converted into interactive html objects using the `plotly::ggplotly` function from the [plotly](https://plotly.com/r/) library.
 
 ```{r, eval = FALSE}
 plot <- gg_point_col(penguins,
@@ -611,7 +611,7 @@ plotly::ggplotly(plot) %>%
   plotly_camera()
 ```
 
-`simplevis` also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values). 
+simplevis also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values). 
 
 Refer to the [ggplotly](https://statisticsnz.github.io/simplevis/articles/ggplotly.html) article for further information.
 
@@ -651,4 +651,4 @@ Where:
 
 ### Further information
 
-For further information, see the articles on the [simplevis](https://statisticsnz.github.io/simplevis/) website.
+For further information, see the [articles](https://statisticsnz.github.io/simplevis/articles/) on the simplevis website.

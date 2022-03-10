@@ -22,13 +22,9 @@ library(palmerpenguins)
 set.seed(123456789)
 ```
 
-### Overview
-
-It can be challenging to build a `shiny` app with `ggplot` based graphs that works when viewed on mobile devices. `simplevis` offer methods to make ggplot based objects that work on either non-mobile or mobile devices.
-
 ### Working with quoted inputs
 
-In shiny it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in `!!sym`, as shown below. 
+In [shiny](https://shiny.rstudio.com/), it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in `!!sym`, as shown below. 
 
 ```{r}
 gg_point_col(penguins, 
@@ -50,7 +46,7 @@ They often look unreadable (in portrait), as:
 * legends need to be on the bottom
 * font sizes need to be appropriate
 
-`simplevis` provides mobile support for  plots through a `mobile` argument, which makes the above changes. 
+simplevis provides mobile support for  plots through a `mobile` argument, which makes the above changes. 
 
 ```{r  fig.height = 5.5, fig.width = 2.5}
 plot_data <- storms %>%
@@ -66,17 +62,17 @@ gg_point_col(penguins,
 
 ```
 
-From the `simplevis` templates, the `mobileDetect` function in the `ui.R` and associated javascript in the `www/js/mobile.js` returns a TRUE or FALSE `input$isMobile` value if the user is on a mobile device. 
+From the simplevis templates, the `mobileDetect` function in the `ui.R` and associated javascript in the `www/js/mobile.js` returns a TRUE or FALSE `input$isMobile` value if the user is on a mobile device. 
 
-This `input$isMobile` TRUE or FALSE value can then be added to the `mobile` argument in the `simplevis` `gg_*` function in the `server.R`.
+This `input$isMobile` TRUE or FALSE value can then be added to the `mobile` argument in the simplevis `gg_*` function in the `server.R`.
 
 One reliable way to ensure the plot viewed by mobile users is in the `ui.R` to use conditional panels to provide a plotly object to non-mobile users and a plot object to mobile users.
 
-This method is demonstrated in the `simplevis` templates.
+This method is demonstrated in the simplevis templates.
 
 ### App demos
 
-Users can view how `simplevis` functions work within shinyapps by using the `shiny_demo` functions, and then clicking on the `download_code` button to access a zip file of the code. 
+Users can view how simplevis functions work within shinyapps by using the `shiny_demo` functions, and then clicking on the `download_code` button to access a zip file of the code. 
 
 ```{r, eval=F}
 shiny_demo("template1") # a graph and table

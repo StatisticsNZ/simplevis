@@ -24,7 +24,7 @@ set.seed(123456789)
 
 ### Overview
 
-`simplevis` uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.
+simplevis uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.
 
 In general:
 
@@ -71,7 +71,7 @@ gg_point_col_facet(penguins,
 
 ### Numeric scales
 
-`simplevis` graphs numeric scales default to:
+simplevis graphs numeric scales default to:
 
 * starting from zero for numeric scales on bar graphs. 
 * <i>not</i> starting from zero for numeric scales on all other graphs. 
@@ -110,7 +110,7 @@ gg_point_col(penguins,
 
 Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.
 
-Transform numeric x and y scales by adding a `ggplot2` `scale_*_continuous` layer.
+Transform numeric x and y scales by adding a ggplot2 `scale_*_continuous` layer.
 
 ```{r}
 gg_point_col(penguins,
@@ -127,7 +127,7 @@ gg_point_col(penguins,
 
 ### Discrete scales
 
-`simplevis` automatically orders hbar graphs of character variables alphabetically.
+simplevis automatically orders hbar graphs of character variables alphabetically.
 
 ```{r}
 plot_data <- ggplot2::diamonds %>%

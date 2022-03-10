@@ -86,7 +86,7 @@ gg_point_col_facet(penguins,
 
 ### If colouring by a numeric variable, continuous, bin and quantile methods are available
 
-All `simplevis` `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
+All simplevis `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
 
 In addition, `sf`, `point`, `bar`, `hbar` and `tile` `*_col()` and `*_col_facet()` functions support colouring by a numeric variable.
 

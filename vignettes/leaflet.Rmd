@@ -23,9 +23,9 @@ set.seed(123456789)
 
 ### Overview
 
-`leaflet` is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. `simplevis` provides wrapper functions to map `sf` and ``stars` objects. Arguments in these have been aligned to ggplot terminology to make things simple for the user.
+[leaflet](https://rstudio.github.io/leaflet/) is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. simplevis provides wrapper functions to map `sf` and `stars` objects. Arguments in these have been aligned to ggplot terminology to make things simple for the user.
 
-For the `sf` functions:
+For the sf functions:
 
 * Data must be an `sf` object 
 * Data must be of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type
@@ -133,12 +133,12 @@ leaf_sf_col(example_point,
 
 ### Adding additional layers
 
-As a leaflet object is produced, you can add additional layers with leaflet - although this may effect popups and labels.
+As a leaflet object is produced, you can add additional layers with leaflet - although this may effect popups and labels. Note all objects provided to leaflet functions must be transformed to a CRS of 4326.
 
 ```{r}
 leaf_sf_col(example_point, 
             col_var = trend_category) %>% 
-  leaflet::addPolygons(data = example_borders, 
+  leaflet::addPolygons(data = sf::st_transform(example_borders, 4326),
                        color = "#35B779", 
                        weight = 3, 
                        fillOpacity = 0, 

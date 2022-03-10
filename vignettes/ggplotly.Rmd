@@ -24,14 +24,14 @@ set.seed(123456789)
 
 ### Overview
 
-The `plotly::ggplotly` function works to convert ggplot objects to interactive html widgets.
+The [plotly](https://plotly.com/r/) library provides a `ggplotly` function works to convert ggplot objects to interactive html widgets.
 
-The `simplevis` package provides:
+The simplevis package provides:
 
 * a `text_var` argument within `gg_*` wrapper functions for use as the tooltip
 * a `mutate_text` function to create a tooltip easily based on all or a subset of variables in the data
 * a `plotly_camera` function to turn off all widgets other than the camera
-* `plotly_col_legend` to manipulate the order of plotly legends.
+* `plotly_col_legend` function to manipulate the order of plotly legends.
 
 ### Turning a ggplot into an html widget
 
@@ -67,7 +67,7 @@ For bar/hbar, line, point, pointrange/hpointrange, smooth, tile and sf functions
 
 A variable can be added to the `text_var` in the simplevis function. This variable is then used in the ggplotly tooltip when `tooltip = text` is added to the `ggplotly` function.
 
-`simplevis` provides a `mutate_text` function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the `snakecase::to_sentence_case` function. 
+simplevis provides a `mutate_text` function which can produce a variable that is a string or variable names and values for a tooltip. Note this function converts column names to sentence case using the `snakecase::to_sentence_case` function. 
 
 ```{r}
 

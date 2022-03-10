@@ -110,12 +110,12 @@
 <div class="section level3">
 <h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h3>
-<p><code>simplevis</code> is a package of <code>ggplot2</code> and <code>leaflet</code> wrapper functions that aims to make visualisation easier with less brainpower required.</p>
+<p>simplevis is a package of <a href="https://ggplot2.tidyverse.org/" class="external-link">ggplot2</a> and <a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a> wrapper functions that aims to make visualisation easier with less brainpower required.</p>
 </div>
 <div class="section level3">
 <h3 id="visualisation-families">Visualisation families<a class="anchor" aria-label="anchor" href="#visualisation-families"></a>
 </h3>
-<p><code>simplevis</code> supports many visualisation family types.</p>
+<p>simplevis supports many visualisation family types.</p>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
@@ -182,7 +182,7 @@
              col_var <span class="op">=</span> <span class="va">species</span>, 
              pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
-<p>Numerous colour palettes are available from the <code>pals</code> package.</p>
+<p>Numerous colour palettes are available from the pals package.</p>
 <p>simplevis also supports easy colouring of numeric variables for <code>gg_point*()</code>, <code>gg_bar*()</code>, <code>gg_hbar*()</code>, <code>gg_sf*()</code> and <code>gg_stars*()</code> (and equivalent leaflet functions).</p>
 <p>The col_method argument allows you to specify the method for colouring with a default of continuous.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -202,7 +202,7 @@
 <div class="section level4">
 <h4 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
 </h4>
-<p>You can adjust the theme of any <code>simplevis</code> plot by providing a <code>ggplot2</code> theme to the <code>theme</code> argument.</p>
+<p>You can adjust the theme of any simplevis plot by providing a ggplot2 theme to the <code>theme</code> argument.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -301,10 +301,10 @@
 <div class="section level3">
 <h3 id="maps">Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
 </h3>
-<p><code>simplevis</code> provides <code>sf</code> and <code>stars</code> maps.</p>
-<p><code>sf</code> maps are maps of point, line or polygon features.</p>
-<p><code>stars</code> maps are maps of arrays (i.e. grids).</p>
-<p><code>sf</code> functions work in the same way as the ggplot2 graph functions, but with the following differences:</p>
+<p>simplevis provides sf and stars maps.</p>
+<p>sf maps are maps of point, line or polygon features.</p>
+<p>stars maps are maps of arrays (i.e. grids).</p>
+<p>sf functions work in the same way as the ggplot2 graph functions, but with the following differences:</p>
 <ul>
 <li>Data must be an <code>sf</code> object</li>
 <li>Data must be of <code>POINT</code>/<code>MULTIPOINT</code>, <code>LINESTRING</code>/<code>MULTILINESTRING</code>, or <code>POLYGON</code>/<code>MULTIPOLYGON</code> geometry type</li>
@@ -312,7 +312,7 @@
 <li>No <code>x_var</code> and <code>y_var</code> variables are required</li>
 <li>Borders can added to maps by providing an <code>sf</code> object to the <code>borders</code> argument.</li>
 </ul>
-<p><code>stars</code> functions work in the same way as the ggplot2 graph functions, but with the following differences:</p>
+<p>stars functions work in the same way as the ggplot2 graph functions, but with the following differences:</p>
 <ul>
 <li>Data must be a <code>stars</code> object</li>
 <li>Data must have a coordinate reference system (CRS) defined</li>
@@ -320,7 +320,7 @@
 <li>Borders can added to maps by providing an <code>sf</code> object to the <code>borders</code> argument.</li>
 </ul>
 <p>The following example objects are provided withing the package for learning purposes: <code>example_point</code>, <code>example_polygon</code> and <code>example_stars</code>.</p>
-<p>The borders argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.</p>
+<p>The <code>borders</code> argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span><span class="op">(</span><span class="va">example_point</span>, 
           col_var <span class="op">=</span> <span class="va">trend_category</span>, 
@@ -334,7 +334,7 @@
              col_na_rm <span class="op">=</span> <span class="cn">TRUE</span>,
              borders <span class="op">=</span> <span class="va">example_borders</span><span class="op">)</span></code></pre></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
-<p>simplevis also provides <code>leaflet</code> wrapper functions for <code>sf</code> and <code>stars</code> objects. These functions work in a similar way to the <code>gg_sf*()</code> and <code>gg_stars*()</code> functions, but have a <code>leaf_</code> prefix.</p>
+<p>simplevis also provides leaflet wrapper functions for <code>sf</code> and <code>stars</code> objects. These functions work in a similar way to the <code>gg_sf*()</code> and <code>gg_stars*()</code> functions, but have a <code>leaf_</code> prefix.</p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/leaflet.html">leaflet</a> article for further information.</p>
 </div>
 <div class="section level3">
@@ -366,7 +366,7 @@
     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
   <span class="op">)</span>            </code></pre></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="384"></p>
-<p>The <code>patchwork</code> package can be used to patch visualisations together.</p>
+<p>The <a href="https://patchwork.data-imaginist.com/" class="external-link">patchwork</a> package can be used to patch visualisations together.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>
 
@@ -382,7 +382,7 @@
 
 <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></code></pre></div>
 <p><img src="simplevis_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
-<p>All ggplot objects can be converted into interactive html objects using <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly</a></code>.</p>
+<p>All ggplot objects can be converted into interactive html objects using the <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly</a></code> function from the <a href="https://plotly.com/r/" class="external-link">plotly</a> library.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>,
                      x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
@@ -391,7 +391,7 @@
 
 <span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plotly_camera.html">plotly_camera</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><code>simplevis</code> also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values).</p>
+<p>simplevis also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values).</p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/ggplotly.html">ggplotly</a> article for further information.</p>
 </div>
 <div class="section level3">
@@ -409,7 +409,7 @@
 <div class="section level3">
 <h3 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
 </h3>
-<p>For further information, see the articles on the <a href="https://statisticsnz.github.io/simplevis/">simplevis</a> website.</p>
+<p>For further information, see the <a href="https://statisticsnz.github.io/simplevis/articles/">articles</a> on the simplevis website.</p>
 </div>
   </main>
 </div>

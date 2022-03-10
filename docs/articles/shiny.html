@@ -103,14 +103,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123456789</span><span class="op">)</span></code></pre></div>
 <div class="section level3">
-<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h3>
-<p>It can be challenging to build a <code>shiny</code> app with <code>ggplot</code> based graphs that works when viewed on mobile devices. <code>simplevis</code> offer methods to make ggplot based objects that work on either non-mobile or mobile devices.</p>
-</div>
-<div class="section level3">
 <h3 id="working-with-quoted-inputs">Working with quoted inputs<a class="anchor" aria-label="anchor" href="#working-with-quoted-inputs"></a>
 </h3>
-<p>In shiny it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in <code>!!sym</code>, as shown below.</p>
+<p>In <a href="https://shiny.rstudio.com/" class="external-link">shiny</a>, it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in <code>!!sym</code>, as shown below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html" class="external-link">sym</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span><span class="op">)</span>, 
@@ -130,7 +125,7 @@
 <li>legends need to be on the bottom</li>
 <li>font sizes need to be appropriate</li>
 </ul>
-<p><code>simplevis</code> provides mobile support for plots through a <code>mobile</code> argument, which makes the above changes.</p>
+<p>simplevis provides mobile support for plots through a <code>mobile</code> argument, which makes the above changes.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">storms</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">status</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -143,15 +138,15 @@
              title <span class="op">=</span> <span class="st">"Adult penguin mass by bill length and species"</span>,
              mobile <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="shiny_files/figure-html/unnamed-chunk-4-1.png" width="240"></p>
-<p>From the <code>simplevis</code> templates, the <code>mobileDetect</code> function in the <code>ui.R</code> and associated javascript in the <code>www/js/mobile.js</code> returns a TRUE or FALSE <code>input$isMobile</code> value if the user is on a mobile device.</p>
-<p>This <code>input$isMobile</code> TRUE or FALSE value can then be added to the <code>mobile</code> argument in the <code>simplevis</code> <code>gg_*</code> function in the <code>server.R</code>.</p>
+<p>From the simplevis templates, the <code>mobileDetect</code> function in the <code>ui.R</code> and associated javascript in the <code>www/js/mobile.js</code> returns a TRUE or FALSE <code>input$isMobile</code> value if the user is on a mobile device.</p>
+<p>This <code>input$isMobile</code> TRUE or FALSE value can then be added to the <code>mobile</code> argument in the simplevis <code>gg_*</code> function in the <code>server.R</code>.</p>
 <p>One reliable way to ensure the plot viewed by mobile users is in the <code>ui.R</code> to use conditional panels to provide a plotly object to non-mobile users and a plot object to mobile users.</p>
-<p>This method is demonstrated in the <code>simplevis</code> templates.</p>
+<p>This method is demonstrated in the simplevis templates.</p>
 </div>
 <div class="section level3">
 <h3 id="app-demos">App demos<a class="anchor" aria-label="anchor" href="#app-demos"></a>
 </h3>
-<p>Users can view how <code>simplevis</code> functions work within shinyapps by using the <code>shiny_demo</code> functions, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
+<p>Users can view how simplevis functions work within shinyapps by using the <code>shiny_demo</code> functions, and then clicking on the <code>download_code</code> button to access a zip file of the code.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/shiny_demo.html">shiny_demo</a></span><span class="op">(</span><span class="st">"template1"</span><span class="op">)</span> <span class="co"># a graph and table</span>
 <span class="fu"><a href="../reference/shiny_demo.html">shiny_demo</a></span><span class="op">(</span><span class="st">"template2"</span><span class="op">)</span> <span class="co"># a leaflet map, as well as graph and table</span></code></pre></div>

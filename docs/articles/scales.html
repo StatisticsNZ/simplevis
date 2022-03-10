@@ -105,7 +105,7 @@
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
-<p><code>simplevis</code> uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.</p>
+<p>simplevis uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.</p>
 <p>In general:</p>
 <ul>
 <li>Arguments that relate to the x scale start with <code>x_</code>
@@ -150,7 +150,7 @@
 <div class="section level3">
 <h3 id="numeric-scales">Numeric scales<a class="anchor" aria-label="anchor" href="#numeric-scales"></a>
 </h3>
-<p><code>simplevis</code> graphs numeric scales default to:</p>
+<p>simplevis graphs numeric scales default to:</p>
 <ul>
 <li>starting from zero for numeric scales on bar graphs.</li>
 <li>
@@ -183,7 +183,7 @@
              y_balance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <p>Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.</p>
-<p>Transform numeric x and y scales by adding a <code>ggplot2</code> <code>scale_*_continuous</code> layer.</p>
+<p>Transform numeric x and y scales by adding a ggplot2 <code>scale_*_continuous</code> layer.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>,
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
@@ -200,7 +200,7 @@
 <div class="section level3">
 <h3 id="discrete-scales">Discrete scales<a class="anchor" aria-label="anchor" href="#discrete-scales"></a>
 </h3>
-<p><code>simplevis</code> automatically orders hbar graphs of character variables alphabetically.</p>
+<p>simplevis automatically orders hbar graphs of character variables alphabetically.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 

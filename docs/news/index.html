@@ -72,7 +72,7 @@
 <li>Adjusted default alpha_fill values.</li>
 <li>Added kimisc to imports.</li>
 <li>Changed default bar oob back to ggplot2 default.</li>
-<li>Changed gg_pointrange<em>() and gg_hpointrange</em>() y_var and x_var arguments to ymiddle_var and xmiddle_var.</li>
+<li>Changed gg_pointrange and gg_hpointrange family y_var and x_var to ymiddle_var and xmiddle_var.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="6.1.0" id="simplevis-610">simplevis 6.1.0<a class="anchor" aria-label="anchor" href="#simplevis-610"></a></h2><p class="text-muted">CRAN release: 2022-02-15</p>
@@ -117,7 +117,7 @@
 <li>Renamed x_pretty_n argument to x_breaks_n &amp; likewise for equivalent y &amp; col arguments.</li>
 <li>Renamed var arguments and structure for boxplot where stat = “identity”.</li>
 <li>Renamed col_right_closed to col_intervals_right.</li>
-<li>Breaking removed *_digits arguments from gg functions.</li>
+<li>Removed *_digits arguments from gg functions.</li>
 <li>Renamed example objects to remove unnecessary words.</li>
 <li>Removed *_gridlines_minor arguments.</li>
 <li>Removed font_family, font_size_title and font_size_body arguments.</li>
@@ -128,11 +128,11 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="5.0.0" id="simplevis-500">simplevis 5.0.0<a class="anchor" aria-label="anchor" href="#simplevis-500"></a></h2><p class="text-muted">CRAN release: 2021-11-10</p>
-<ul><li>Breaking: Renamed *_na arguments to _na_rm.</li>
-<li>Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.</li>
-<li>Breaking: Renamed leaflet_* title arguments to col_title.</li>
-<li>Breaking: Renamed borders_behind argument to borders_on_top.</li>
-<li>Breaking: Renamed pal_borders to borders_pal.</li>
+<ul><li>Renamed *_na arguments to _na_rm.</li>
+<li>Renamed leaflet_basemap top_layer argument to basemap for consistency.</li>
+<li>Renamed leaflet_* title arguments to col_title.</li>
+<li>Renamed borders_behind argument to borders_on_top.</li>
+<li>Renamed pal_borders to borders_pal.</li>
 <li>Fixed the borders sf to transform the borders to the data CRS where they are different.</li>
 <li>Added gg_stars and gg_stars_col functions.</li>
 <li>Added leaflet_stars_col function.</li>
@@ -169,9 +169,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.5.0" id="simplevis-450">simplevis 4.5.0<a class="anchor" aria-label="anchor" href="#simplevis-450"></a></h2><p class="text-muted">CRAN release: 2021-08-06</p>
-<ul><li>Breaking: removed col_legend_ncol and col_legend_nrow</li>
-<li>Breaking: updated facet_labels method for consistency with other labels arguments.</li>
-<li>Breaking: Removed col_labels_dp from all functions.</li>
+<ul><li>Removed col_legend_ncol and col_legend_nrow</li>
+<li>Updated facet_labels method for consistency with other labels arguments.</li>
 <li>Added tile family</li>
 <li>Added support for colouring numeric variables for bar and hbar.</li>
 <li>Added col_pretty_n argument for functions with numeric colour variables.</li>
@@ -265,7 +264,7 @@
 <li>Removed col_na argument.</li>
 <li>Updated all statement to remove NAs.</li>
 <li>Tweaked hbar title wrapping defaults.</li>
-<li>Breaking change: renamed all ggplot_ prefixes with gg_.</li>
+<li>Renamed all ggplot_ prefixes with gg_.</li>
 <li>Update x_rev and col_rev to support logical variables.</li>
 <li>Updated titles logic.</li>
 <li>Fixed bug with hbar x_title and y_title around the wrong way.</li>
@@ -294,22 +293,22 @@
 <li>Added x_rev argument to all boxplot, point, and line x scales.</li>
 <li>Update boxplot x scales to be more flexible.</li>
 <li>Update vbar x scales to be more flexible.</li>
-<li>Breaking change: removed group_var argument, and updated grouping code.</li>
-<li>New feature: added support for x categorical variables in point.</li>
-<li>New feature: added support for x categorical and date variables in boxplot.</li>
-<li>New feature: added support for x date variables in vbar.</li>
-<li>New feature: added support for x categorical variables in line.</li>
-<li>Bug fix: Updated col_rev code to fix colouring of factors where rev = TRUE.</li>
+<li>Removed group_var argument, and updated grouping code.</li>
+<li>Added support for x categorical variables in point.</li>
+<li>Added support for x categorical and date variables in boxplot.</li>
+<li>Added support for x date variables in vbar.</li>
+<li>Added support for x categorical variables in line.</li>
+<li>Updated col_rev code to fix colouring of factors where rev = TRUE.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.1.0" id="simplevis-310">simplevis 3.1.0<a class="anchor" aria-label="anchor" href="#simplevis-310"></a></h2><p class="text-muted">CRAN release: 2021-05-07</p>
 <ul><li>Minor change: Removed rnaturalearth from suggests.</li>
-<li>Bug fix: Corrected is_null bug in leaflet_sf.</li>
-<li>Bug fix: Corrected hbar y_var reversing bug.</li>
-<li>Breaking change: changed mutate_text vars_vctr argument to text_vars_vctr.</li>
-<li>Breaking change: Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.</li>
-<li>Breaking change: Added plotly_col_legend function, and removed plotly_legend_rev and plotly_legend_order.</li>
-<li>Breaking change: leaflet popup_var has been removed, and replaced with a popup_vars_vctr argument.</li>
+<li>Corrected is_null bug in leaflet_sf.</li>
+<li>Corrected hbar y_var reversing bug.</li>
+<li>Changed mutate_text vars_vctr argument to text_vars_vctr.</li>
+<li>Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.</li>
+<li>Added plotly_col_legend function, and removed plotly_legend_rev and plotly_legend_order.</li>
+<li>leaflet popup_var has been removed, and replaced with a popup_vars_vctr argument.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.0.0" id="simplevis-300">simplevis 3.0.0<a class="anchor" aria-label="anchor" href="#simplevis-300"></a></h2><p class="text-muted">CRAN release: 2021-04-30</p>
@@ -319,94 +318,94 @@
 <li>Update templates.</li>
 <li>Added ggplot_boxplot_col_facet function.</li>
 <li>Make handling of all zero values pretty for all plots other than point.</li>
-<li>Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.</li>
+<li>Changed the isMobile argument to mobile for snakecase consistency across the package.</li>
 <li>Fixed where trans was equal to log or log10, and zero was selected</li>
 <li>Added ggplot_boxplot_col</li>
 <li>Updated scale_x_date to remove oob.</li>
 <li>Updated website vignette and articles.</li>
-<li>Breaking change: Removed x_na_inf and y_na_inf arguments.</li>
+<li>Removed x_na_inf and y_na_inf arguments.</li>
 <li>Export breaks functions.</li>
 <li>Corrected bug fix with x_na_inf and y_na_inf.</li>
 <li>Added col_na argument to all functions lacking it.</li>
 <li>Added x_rev and col_rev to vbar functions.</li>
 <li>Modularised all x_zero adjustments and automatic x_zero line components, and likewise the y_ ones.</li>
 <li>Modularised all x and y numeric breaks.</li>
-<li>New feature: added balance, trans and zero arguments to all numeric arguments.</li>
-<li>New feature: Changed x_zero and y_zero defaults for non-bar graph numeric scales to FALSE.</li>
+<li>Added balance, trans and zero arguments to all numeric arguments.</li>
+<li>Changed x_zero and y_zero defaults for non-bar graph numeric scales to FALSE.</li>
 <li>Underlying code change of hbar to not use <code>coord_flip</code>.</li>
 <li>Rebuilt y numeric breaks.</li>
 <li>Rebuilt default font size code.</li>
-<li>New feature: Added to all themes legend.direction = “vertical” to make titles always be above legends.</li>
-<li>Documentation: added shiny for mobile article.</li>
-<li>New feature: Changed leaflet default alpha to 0.9.</li>
-<li>Documentation: added scales article.</li>
-<li>New feature: Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1.</li>
-<li>Breaking change: Changed point_size and line_size to size_point and size_line.</li>
-<li>New feature: Changed leaflet_sf default point_size to 2.</li>
-<li>New feature: added text_var arguments to ggplot sf functions to fully support plotly interactive maps.</li>
-<li>Bug fix: Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them.</li>
-<li>New feature: Make ggplot sf functions not adjust alpha of outlines.</li>
-<li>New feature: Remove key_glyph, as it is not implemented in ggplotly.<br></li>
+<li>Added to all themes legend.direction = “vertical” to make titles always be above legends.</li>
+<li>Added shiny for mobile article.</li>
+<li>Changed leaflet default alpha to 0.9.</li>
+<li>Added scales article.</li>
+<li>Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1.</li>
+<li>Changed point_size and line_size to size_point and size_line.</li>
+<li>Changed leaflet_sf default point_size to 2.</li>
+<li>Added text_var arguments to ggplot sf functions to fully support plotly interactive maps.</li>
+<li>Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them.</li>
+<li>Make ggplot sf functions not adjust alpha of outlines.</li>
+<li>Remove key_glyph, as it is not implemented in ggplotly.<br></li>
 <li>Updated vignette and articles.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.6.0" id="simplevis-260">simplevis 2.6.0<a class="anchor" aria-label="anchor" href="#simplevis-260"></a></h2><p class="text-muted">CRAN release: 2021-04-09</p>
 <ul><li>Added template zip files.</li>
-<li>Breaking change: changed point_size to default to 1 for all functions.</li>
-<li>Breaking change: removed line_alpha from leaflet functions, as not required.</li>
-<li>Breaking change: removed col_drop from leaflet function.</li>
-<li>Breaking change: removed col_quantile_by_facet function from ggplot_sf_col_facet.</li>
-<li>Breaking change: In leaflet_sf functions, changed opacity to fill_alpha.</li>
-<li>Breaking change: In leaflet_sf functions, changed weight to line_size.</li>
-<li>Breaking change: In leaflet_sf functions, changed radius to point_size.</li>
-<li>Breaking change: In ggplot_line functions, removed points and lines argument.</li>
-<li>Breaking change: In ggplot_sf functions, changed size argument to point_size and line_size for consistency.</li>
-<li>New feature: For boxplot, added line_size argument and alpha.</li>
-<li>New feature: Default colour changed for where 2 values.</li>
-<li>Breaking change: Changed x_na_bar/y_na_bar to x_na_inf/y_na_inf.</li>
-<li>Breaking change: changed output of mutate_text to name the new column text.</li>
-<li>Breaking change: removed all stars functions, as these need more development work.</li>
-<li>Breaking change: Rename tip_var to text_var to align with ggplot2.</li>
-<li>Breaking change: Rename add_tip to mutate_text to align with ggplot2 and dplyr.</li>
-<li>Breaking change: Rename boundary with borders to align with ggplot2.</li>
-<li>Breaking change: Rename ggplot_box with ggplot_boxplot to align with ggplot2.</li>
+<li>Changed point_size to default to 1 for all functions.</li>
+<li>Removed line_alpha from leaflet functions, as not required.</li>
+<li>Removed col_drop from leaflet function.</li>
+<li>Removed col_quantile_by_facet function from ggplot_sf_col_facet.</li>
+<li>In leaflet_sf functions, changed opacity to fill_alpha.</li>
+<li>In leaflet_sf functions, changed weight to line_size.</li>
+<li>In leaflet_sf functions, changed radius to point_size.</li>
+<li>In ggplot_line functions, removed points and lines argument.</li>
+<li>In ggplot_sf functions, changed size argument to point_size and line_size for consistency.</li>
+<li>For boxplot, added line_size argument and alpha.</li>
+<li>Default colour changed for where 2 values.</li>
+<li>Changed x_na_bar/y_na_bar to x_na_inf/y_na_inf.</li>
+<li>Changed output of mutate_text to name the new column text.</li>
+<li>Removed all stars functions, as these need more development work.</li>
+<li>Rename tip_var to text_var to align with ggplot2.</li>
+<li>Rename add_tip to mutate_text to align with ggplot2 and dplyr.</li>
+<li>Rename boundary with borders to align with ggplot2.</li>
+<li>Rename ggplot_box with ggplot_boxplot to align with ggplot2.</li>
 <li>Bug fix: Make ggplot_vbar and vbar_facet scales pretty.</li>
-<li>New feature: Change default point_size to 1.5.</li>
-<li>New feature: Add line_size argument to hbar and vbar functions.</li>
-<li>New feature: Make ggplot_vbar function x scales pretty, where max or min equals the x limit.</li>
-<li>New feature: Change default of ggplots to legend on right with 1 column.</li>
-<li>New feature: Add facet_ncol argument.</li>
-<li>New feature: Add col_labels_ncol argument.</li>
-<li>Breaking change: Rename col_label_digits argument to col_labels_dp.</li>
-<li>Breaking change: Rename leaflet_sf label_var to tip_var to avoid confusion.</li>
-<li>Breaking change: Rename size arguments in ggplot_point and ggplot_line functions.</li>
-<li>New feature: Fixed vbar legend elements being reversed.</li>
-<li>Breaking change: In leaflet_sf, rename col_na_remove for consistency.</li>
-<li>Breaking change: In leaflet_sf functions, rename popup as popup_var and improve help.</li>
-<li>Breaking change: Rename col_digits argument to col_label_digits.</li>
-<li>Breaking change: In line functions, rename size argument to size_point for clarity.</li>
-<li>New feature: In line functions, add size_line argument.</li>
-<li>Breaking change: Rename all legend_ arguments to col_ arguments for internal consistency.</li>
-<li>Breaking change: Rename wrap_col_title to col_title_wrap for internal consistency.</li>
-<li>New feature: Defaulted colours to viridis for all functions.</li>
-<li>New feature: Improved ggplot_point and ggplot_sf colouring code.</li>
-<li>New feature: Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.<br></li>
-<li>New feature: Added alpha argument for the fill of hbar and vbar.</li>
-<li>Breaking change: Removed size argument in line functions.</li>
-<li>Breaking change: Renamed point_size as size in line functions.</li>
-<li>New feature: Add alpha argument into hbar and vbar.</li>
-<li>Breaking change: Changed quantile_by_facet argument to col_quantile_by_facet for internal consistency.</li>
-<li>Breaking change: Remove leaflet_basemap_nz.</li>
-<li>New feature: Updated leaflet_basemap to include an argument for bounds.</li>
-<li>Breaking change: Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.</li>
-<li>New feature: Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.</li>
-<li>New feature: Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.</li>
+<li>Change default point_size to 1.5.</li>
+<li>Add line_size argument to hbar and vbar functions.</li>
+<li>Make ggplot_vbar function x scales pretty, where max or min equals the x limit.</li>
+<li>Change default of ggplots to legend on right with 1 column.</li>
+<li>Add facet_ncol argument.</li>
+<li>Add col_labels_ncol argument.</li>
+<li>Rename col_label_digits argument to col_labels_dp.</li>
+<li>Rename leaflet_sf label_var to tip_var to avoid confusion.</li>
+<li>Rename size arguments in ggplot_point and ggplot_line functions.</li>
+<li>Fixed vbar legend elements being reversed.</li>
+<li>In leaflet_sf, rename col_na_remove for consistency.</li>
+<li>In leaflet_sf functions, rename popup as popup_var and improve help.</li>
+<li>Rename col_digits argument to col_label_digits.</li>
+<li>In line functions, rename size argument to size_point for clarity.</li>
+<li>In line functions, add size_line argument.</li>
+<li>Rename all legend_ arguments to col_ arguments for internal consistency.</li>
+<li>Rename wrap_col_title to col_title_wrap for internal consistency.</li>
+<li>Defaulted colours to viridis for all functions.</li>
+<li>Improved ggplot_point and ggplot_sf colouring code.</li>
+<li>Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.<br></li>
+<li>Added alpha argument for the fill of hbar and vbar.</li>
+<li>Removed size argument in line functions.</li>
+<li>Renamed point_size as size in line functions.</li>
+<li>Add alpha argument into hbar and vbar.</li>
+<li>Changed quantile_by_facet argument to col_quantile_by_facet for internal consistency.</li>
+<li>Remove leaflet_basemap_nz.</li>
+<li>Updated leaflet_basemap to include an argument for bounds.</li>
+<li>Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.</li>
+<li>Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.</li>
+<li>Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.4.0" id="simplevis-240">simplevis 2.4.0<a class="anchor" aria-label="anchor" href="#simplevis-240"></a></h2><p class="text-muted">CRAN release: 2021-03-12</p>
-<ul><li>New feature: Reduce the size of sf example objects.</li>
-<li>New feature: Add vignette for making maps of sf objects.</li>
-<li>New feature: Removed support for boundary arguments in ggplot_stars, as it was not working.</li>
+<ul><li>Reduce the size of sf example objects.</li>
+<li>Add vignette for making maps of sf objects.</li>
+<li>Removed support for boundary arguments in ggplot_stars, as it was not working.</li>
 <li>Updated help for boundary_behind arguments to specify correct default.</li>
 <li>For ggplot_sf and stars functions, added boundary_size argument in.</li>
 <li>Added nz_region as a helpful example boundary.</li>

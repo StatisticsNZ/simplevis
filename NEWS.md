@@ -12,7 +12,7 @@
 * Adjusted default alpha_fill values.
 * Added kimisc to imports.
 * Changed default bar oob back to ggplot2 default.
-* Changed gg_pointrange*() and gg_hpointrange*() y_var and x_var arguments to ymiddle_var and xmiddle_var. 
+* Changed gg_pointrange and gg_hpointrange family y_var and x_var to ymiddle_var and xmiddle_var. 
 
 # simplevis 6.1.0
 
@@ -57,7 +57,7 @@
 * Renamed x_pretty_n argument to x_breaks_n & likewise for equivalent y & col arguments.
 * Renamed var arguments and structure for boxplot where stat = "identity".
 * Renamed col_right_closed to col_intervals_right.
-* Breaking removed *_digits arguments from gg functions.
+* Removed *_digits arguments from gg functions.
 * Renamed example objects to remove unnecessary words.
 * Removed *_gridlines_minor arguments.
 * Removed font_family, font_size_title and font_size_body arguments.
@@ -68,11 +68,11 @@
 
 # simplevis 5.0.0
 
-* Breaking: Renamed *_na arguments to _na_rm.
-* Breaking: Renamed leaflet_basemap top_layer argument to basemap for consistency.
-* Breaking: Renamed leaflet_* title arguments to col_title.
-* Breaking: Renamed borders_behind argument to borders_on_top.
-* Breaking: Renamed pal_borders to borders_pal.
+* Renamed *_na arguments to _na_rm.
+* Renamed leaflet_basemap top_layer argument to basemap for consistency.
+* Renamed leaflet_* title arguments to col_title.
+* Renamed borders_behind argument to borders_on_top.
+* Renamed pal_borders to borders_pal.
 * Fixed the borders sf to transform the borders to the data CRS where they are different.
 * Added gg_stars and gg_stars_col functions.
 * Added leaflet_stars_col function.
@@ -109,9 +109,8 @@
 
 # simplevis 4.5.0 
 
-* Breaking: removed col_legend_ncol and col_legend_nrow
-* Breaking: updated facet_labels method for consistency with other labels arguments.
-* Breaking: Removed col_labels_dp from all functions.
+* Removed col_legend_ncol and col_legend_nrow
+* Updated facet_labels method for consistency with other labels arguments.
 * Added tile family
 * Added support for colouring numeric variables for bar and hbar.
 * Added col_pretty_n argument for functions with numeric colour variables.
@@ -205,7 +204,7 @@
 * Removed col_na argument.
 * Updated all statement to remove NAs.
 * Tweaked hbar title wrapping defaults.
-* Breaking change: renamed all ggplot_ prefixes with gg_.
+* Renamed all ggplot_ prefixes with gg_.
 * Update x_rev and col_rev to support logical variables.
 * Updated titles logic.
 * Fixed bug with hbar x_title and y_title around the wrong way.
@@ -234,22 +233,22 @@
 * Added x_rev argument to all boxplot, point, and line x scales.
 * Update boxplot x scales to be more flexible.
 * Update vbar x scales to be more flexible.
-* Breaking change: removed group_var argument, and updated grouping code.
-* New feature: added support for x categorical variables in point.
-* New feature: added support for x categorical and date variables in boxplot.
-* New feature: added support for x date variables in vbar.
-* New feature: added support for x categorical variables in line.
-* Bug fix: Updated col_rev code to fix colouring of factors where rev = TRUE.
+* Removed group_var argument, and updated grouping code.
+* Added support for x categorical variables in point.
+* Added support for x categorical and date variables in boxplot.
+* Added support for x date variables in vbar.
+* Added support for x categorical variables in line.
+* Updated col_rev code to fix colouring of factors where rev = TRUE.
 
 # simplevis 3.1.0
 
 * Minor change: Removed rnaturalearth from suggests.
-* Bug fix: Corrected is_null bug in leaflet_sf.
-* Bug fix: Corrected hbar y_var reversing bug.
-* Breaking change: changed mutate_text vars_vctr argument to text_vars_vctr.
-* Breaking change: Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.
-* Breaking change: Added plotly_col_legend function, and removed plotly_legend_rev and plotly_legend_order.
-* Breaking change: leaflet popup_var has been removed, and replaced with a popup_vars_vctr argument.
+* Corrected is_null bug in leaflet_sf.
+* Corrected hbar y_var reversing bug.
+* Changed mutate_text vars_vctr argument to text_vars_vctr.
+* Changed col_labels_nrow and col_labels_ncol to col_legend_ncol and col_legend_nrow.
+* Added plotly_col_legend function, and removed plotly_legend_rev and plotly_legend_order.
+* leaflet popup_var has been removed, and replaced with a popup_vars_vctr argument.
 
 # simplevis 3.0.0
 
@@ -259,94 +258,94 @@
 * Update templates.
 * Added ggplot_boxplot_col_facet function. 
 * Make handling of all zero values pretty for all plots other than point.
-* Breaking change: changed the isMobile argument to mobile for snakecase consistency across the package.
+* Changed the isMobile argument to mobile for snakecase consistency across the package.
 * Fixed where trans was equal to log or log10, and zero was selected
 * Added ggplot_boxplot_col
 * Updated scale_x_date to remove oob.
 * Updated website vignette and articles.
-* Breaking change: Removed x_na_inf and y_na_inf arguments.
+* Removed x_na_inf and y_na_inf arguments.
 * Export breaks functions.
 * Corrected bug fix with x_na_inf and y_na_inf.
 * Added col_na argument to all functions lacking it.
 * Added x_rev and col_rev to vbar functions.
 * Modularised all x_zero adjustments and automatic x_zero line components, and likewise the y_ ones.
 * Modularised all x and y numeric breaks.
-* New feature: added balance, trans and zero arguments to all numeric arguments.
-* New feature: Changed x_zero and y_zero defaults for non-bar graph numeric scales to FALSE.
+* Added balance, trans and zero arguments to all numeric arguments.
+* Changed x_zero and y_zero defaults for non-bar graph numeric scales to FALSE.
 * Underlying code change of hbar to not use `coord_flip`.
 * Rebuilt y numeric breaks.
 * Rebuilt default font size code.
-* New feature: Added to all themes legend.direction = "vertical" to make titles always be above legends.
-* Documentation: added shiny for mobile article.
-* New feature: Changed leaflet default alpha to 0.9.
-* Documentation: added scales article.
-* New feature: Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1. 
-* Breaking change: Changed point_size and line_size to size_point and size_line.
-* New feature: Changed leaflet_sf default point_size to 2.
-* New feature: added text_var arguments to ggplot sf functions to fully support plotly interactive maps. 
-* Bug fix: Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them. 
-* New feature: Make ggplot sf functions not adjust alpha of outlines.
-* New feature: Remove key_glyph, as it is not implemented in ggplotly.  
+* Added to all themes legend.direction = "vertical" to make titles always be above legends.
+* Added shiny for mobile article.
+* Changed leaflet default alpha to 0.9.
+* Added scales article.
+* Changed boxplot for outlines to be always coloured black, and alpha defaulted to 1. 
+* Changed point_size and line_size to size_point and size_line.
+* Changed leaflet_sf default point_size to 2.
+* Added text_var arguments to ggplot sf functions to fully support plotly interactive maps. 
+* Fix mutate_text, so that it does not add Not available to non-NA charcter values with NA in them. 
+* Make ggplot sf functions not adjust alpha of outlines.
+* Remove key_glyph, as it is not implemented in ggplotly.  
 * Updated vignette and articles.
 
 # simplevis 2.6.0
 
 * Added template zip files.
-* Breaking change: changed point_size to default to 1 for all functions.
-* Breaking change: removed line_alpha from leaflet functions, as not required.
-* Breaking change: removed col_drop from leaflet function.
-* Breaking change: removed col_quantile_by_facet function from ggplot_sf_col_facet.
-* Breaking change: In leaflet_sf functions, changed opacity to fill_alpha.
-* Breaking change: In leaflet_sf functions, changed weight to line_size.
-* Breaking change: In leaflet_sf functions, changed radius to point_size.
-* Breaking change: In ggplot_line functions, removed points and lines argument. 
-* Breaking change: In ggplot_sf functions, changed size argument to point_size and line_size for consistency.
-* New feature: For boxplot, added line_size argument and alpha. 
-* New feature: Default colour changed for where 2 values. 
-* Breaking change: Changed x_na_bar/y_na_bar to x_na_inf/y_na_inf. 
-* Breaking change: changed output of mutate_text to name the new column text.
-* Breaking change: removed all stars functions, as these need more development work.
-* Breaking change: Rename tip_var to text_var to align with ggplot2.
-* Breaking change: Rename add_tip to mutate_text to align with ggplot2 and dplyr.
-* Breaking change: Rename boundary with borders to align with ggplot2.
-* Breaking change: Rename ggplot_box with ggplot_boxplot to align with ggplot2.
+* Changed point_size to default to 1 for all functions.
+* Removed line_alpha from leaflet functions, as not required.
+* Removed col_drop from leaflet function.
+* Removed col_quantile_by_facet function from ggplot_sf_col_facet.
+* In leaflet_sf functions, changed opacity to fill_alpha.
+* In leaflet_sf functions, changed weight to line_size.
+* In leaflet_sf functions, changed radius to point_size.
+* In ggplot_line functions, removed points and lines argument. 
+* In ggplot_sf functions, changed size argument to point_size and line_size for consistency.
+* For boxplot, added line_size argument and alpha. 
+* Default colour changed for where 2 values. 
+* Changed x_na_bar/y_na_bar to x_na_inf/y_na_inf. 
+* Changed output of mutate_text to name the new column text.
+* Removed all stars functions, as these need more development work.
+* Rename tip_var to text_var to align with ggplot2.
+* Rename add_tip to mutate_text to align with ggplot2 and dplyr.
+* Rename boundary with borders to align with ggplot2.
+* Rename ggplot_box with ggplot_boxplot to align with ggplot2.
 * Bug fix: Make ggplot_vbar and vbar_facet scales pretty.
-* New feature: Change default point_size to 1.5.
-* New feature: Add line_size argument to hbar and vbar functions.
-* New feature: Make ggplot_vbar function x scales pretty, where max or min equals the x limit.
-* New feature: Change default of ggplots to legend on right with 1 column.
-* New feature: Add facet_ncol argument.
-* New feature: Add col_labels_ncol argument.
-* Breaking change: Rename col_label_digits argument to col_labels_dp.
-* Breaking change: Rename leaflet_sf label_var to tip_var to avoid confusion.
-* Breaking change: Rename size arguments in ggplot_point and ggplot_line functions.
-* New feature: Fixed vbar legend elements being reversed. 
-* Breaking change: In leaflet_sf, rename col_na_remove for consistency.
-* Breaking change: In leaflet_sf functions, rename popup as popup_var and improve help.
-* Breaking change: Rename col_digits argument to col_label_digits.
-* Breaking change: In line functions, rename size argument to size_point for clarity.
-* New feature: In line functions, add size_line argument.
-* Breaking change: Rename all legend_ arguments to col_ arguments for internal consistency.
-* Breaking change: Rename wrap_col_title to col_title_wrap for internal consistency.
-* New feature: Defaulted colours to viridis for all functions.
-* New feature: Improved ggplot_point and ggplot_sf colouring code.
-* New feature: Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.  
-* New feature: Added alpha argument for the fill of hbar and vbar.
-* Breaking change: Removed size argument in line functions.
-* Breaking change: Renamed point_size as size in line functions.
-* New feature: Add alpha argument into hbar and vbar.
-* Breaking change: Changed quantile_by_facet argument to col_quantile_by_facet for internal consistency.
-* Breaking change: Remove leaflet_basemap_nz.
-* New feature: Updated leaflet_basemap to include an argument for bounds.
-* Breaking change: Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.
-* New feature: Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.
-* New feature: Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.
+* Change default point_size to 1.5.
+* Add line_size argument to hbar and vbar functions.
+* Make ggplot_vbar function x scales pretty, where max or min equals the x limit.
+* Change default of ggplots to legend on right with 1 column.
+* Add facet_ncol argument.
+* Add col_labels_ncol argument.
+* Rename col_label_digits argument to col_labels_dp.
+* Rename leaflet_sf label_var to tip_var to avoid confusion.
+* Rename size arguments in ggplot_point and ggplot_line functions.
+* Fixed vbar legend elements being reversed. 
+* In leaflet_sf, rename col_na_remove for consistency.
+* In leaflet_sf functions, rename popup as popup_var and improve help.
+* Rename col_digits argument to col_label_digits.
+* In line functions, rename size argument to size_point for clarity.
+* In line functions, add size_line argument.
+* Rename all legend_ arguments to col_ arguments for internal consistency.
+* Rename wrap_col_title to col_title_wrap for internal consistency.
+* Defaulted colours to viridis for all functions.
+* Improved ggplot_point and ggplot_sf colouring code.
+* Added col_na arguments to ggplot_point and ggplot_sf functions to show na col_var values or not.  
+* Added alpha argument for the fill of hbar and vbar.
+* Removed size argument in line functions.
+* Renamed point_size as size in line functions.
+* Add alpha argument into hbar and vbar.
+* Changed quantile_by_facet argument to col_quantile_by_facet for internal consistency.
+* Remove leaflet_basemap_nz.
+* Updated leaflet_basemap to include an argument for bounds.
+* Removed rnaturalearth wrapper functions, but referenced the package in help, examples and articles instead.
+* Add the ability to set bounds in leaflet basemap for country boundaries from the rnaturalearth package.
+* Add wrapper functions to easily extract sf boundaries and bounds from the rnaturalearth package.
 
 # simplevis 2.4.0
 
-* New feature: Reduce the size of sf example objects.
-* New feature: Add vignette for making maps of sf objects.
-* New feature: Removed support for boundary arguments in ggplot_stars, as it was not working.
+* Reduce the size of sf example objects.
+* Add vignette for making maps of sf objects.
+* Removed support for boundary arguments in ggplot_stars, as it was not working.
 * Updated help for boundary_behind arguments to specify correct default.
 * For ggplot_sf and stars functions, added boundary_size argument in.
 * Added nz_region as a helpful example boundary.

@@ -296,9 +296,6 @@
 * Breaking change: removed line_alpha from leaflet functions, as not required.
 * Breaking change: removed col_drop from leaflet function.
 * Breaking change: removed col_quantile_by_facet function from ggplot_sf_col_facet.
-
-# simplevis 2.5.8
-
 * Breaking change: In leaflet_sf functions, changed opacity to fill_alpha.
 * Breaking change: In leaflet_sf functions, changed weight to line_size.
 * Breaking change: In leaflet_sf functions, changed radius to point_size.

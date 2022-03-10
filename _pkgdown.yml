@@ -1,8 +1,11 @@
-url: https://statisticsnz.github.io/simplevis/index.html
+url: https://statisticsnz.github.io/simplevis
 
 template:
   bootstrap: 5
 
+search:
+  exclude: ['news/index.html']
+  
 navbar:
   structure:
     left:

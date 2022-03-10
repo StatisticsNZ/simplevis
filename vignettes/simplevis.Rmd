@@ -372,7 +372,7 @@ gg_point_col(penguins,
          y_var = body_mass_g, 
          col_var = flipper_length_mm, 
          col_method = "continuous",
-         subtitle = "col_method = 'continuous'")
+         title = "col_method = 'continuous'")
 ```
 
 Other methods available are `bin` and `quantile`.
@@ -388,7 +388,7 @@ p1 <- gg_point_col(penguins,
              size_point = 0.5,
              x_breaks_n = 3,
              x_labels = scales::label_comma(accuracy = 1),
-             subtitle = "col_method = 'bin'")
+             title = "col_method = 'bin'")
 
 p2 <- gg_point_col(penguins, 
              x_var = bill_length_mm, 
@@ -399,7 +399,7 @@ p2 <- gg_point_col(penguins,
              x_breaks_n = 3,
              x_labels = scales::label_comma(accuracy = 1),
              col_labels = scales::label_comma(accuracy = 1),
-             subtitle = "col_method = 'quantile'")
+             title = "col_method = 'quantile'")
 p1 + p2
 ```
 

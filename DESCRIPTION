@@ -28,7 +28,7 @@ Depends: R (>= 3.5.0)
 Imports: dplyr, forcats, ggplot2, htmlwidgets, leaflet, leafem, leafpop, 
          kimisc, lubridate, magrittr, plotly, purrr, rlang, scales, sf, shiny, 
          snakecase, stars, stringr, tidyr, tidyselect, viridis
-Suggests: DT, glue, knitr, pals, palmerpenguins, patchwork, rgdal, rgeos, 
+Suggests: DT, glue, gt, knitr, pals, palmerpenguins, patchwork, rgdal, rgeos, 
          rmarkdown, s2,  shinycssloaders, tibble, tidytext
 VignetteBuilder: knitr
 RoxygenNote: 7.1.2

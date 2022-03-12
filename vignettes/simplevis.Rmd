@@ -617,28 +617,30 @@ Refer to the [ggplotly](https://statisticsnz.github.io/simplevis/articles/ggplot
 
 Variable types supported by the different families of functions are outlined below.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 7}
-tibble::tribble(
+```{r, echo = FALSE, fig.align='left'}
+df <- tibble::tribble(
   ~family, ~data, ~x_var, ~y_var, ~col_var, ~facet_var, 
-  "bar", "tibble or data.frame", "Any*", "Numeric", "Categorical or numeric", "Categorical",
-  "boxplot", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical",
-  "density", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", 
-  "histogram", "tibble or data.frame", "Numeric", NA, "Categorical",  "Categorical", 
-  "line", "tibble or data.frame", "Any", "Numeric", "Categorical", "Categorical",
-  "point", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical",
-  "pointrange", "tibble or data.frame", "Any", "Numeric", "Categorical or numeric", "Categorical",
+  "bar", "dataframe", "Any*", "Numeric", "Categorical or numeric", "Categorical",
+  "boxplot", "dataframe", "Categorical", "Numeric", "Categorical", "Categorical",
+  "density", "dataframe", "Numeric", NA, "Categorical",  "Categorical", 
+  "histogram", "dataframe", "Numeric", NA, "Categorical",  "Categorical", 
+  "line", "dataframe", "Any", "Numeric", "Categorical", "Categorical",
+  "point", "dataframe", "Any", "Numeric", "Categorical or numeric", "Categorical",
+  "pointrange", "dataframe", "Any", "Numeric", "Categorical or numeric", "Categorical",
   "sf", "sf", NA, NA, "Categorical or numeric", "Categorical",
-  "smooth", "tibble or data.frame", "Numeric", "Numeric", "Categorical", "Categorical",
+  "smooth", "dataframe", "Numeric", "Numeric", "Categorical", "Categorical",
   "stars", "stars", NA, NA, "Categorical or numeric", NA,
-  "tile",  "tibble or data.frame", "Categorical", "Categorical", "Categorical or numeric", "Categorical",
-  "violin", "tibble or data.frame", "Categorical", "Numeric", "Categorical", "Categorical", 
-  "hbar", "tibble or data.frame", "Numeric", "Any*", "Categorical or numeric", "Categorical",
-  "hboxplot", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical",
-  "hviolin", "tibble or data.frame", "Numeric", "Categorical", "Categorical", "Categorical", 
-  "hpointrange", "tibble or data.frame", "Numeric", "Any", "Categorical or numeric", "Categorical"
-  ) %>%
-  DT::datatable(options = list(pageLength = 20, lengthChange = FALSE))
-    
+  "tile",  "dataframe", "Categorical", "Categorical", "Categorical or numeric", "Categorical",
+  "violin", "dataframe", "Categorical", "Numeric", "Categorical", "Categorical", 
+  "hbar", "dataframe", "Numeric", "Any*", "Categorical or numeric", "Categorical",
+  "hboxplot", "dataframe", "Numeric", "Categorical", "Categorical", "Categorical",
+  "hviolin", "dataframe", "Numeric", "Categorical", "Categorical", "Categorical", 
+  "hpointrange", "dataframe", "Numeric", "Any", "Categorical or numeric", "Categorical"
+) 
+
+df %>% 
+  gt::gt() %>% 
+  gt::tab_options(table.font.size = "13px")
 ```
 
 Where:

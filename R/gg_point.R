@@ -1,6 +1,7 @@
 #' @title Point ggplot.
+#' 
 #' @description Point ggplot that is not coloured and not facetted.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -229,8 +230,9 @@ gg_point <- function(data,
 }
 
 #' @title Point ggplot that is coloured.
+#' 
 #' @description Point ggplot that is coloured, but not facetted.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.
@@ -601,8 +603,9 @@ gg_point_col <- function(data,
 }
 
 #' @title Point ggplot that is facetted.
+#' 
 #' @description Point ggplot that is facetted, but not coloured.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -855,8 +858,9 @@ gg_point_facet <- function(data,
 }
 
 #' @title Point ggplot that is coloured and facetted.
+#' 
 #' @description Point ggplot that is coloured and facetted.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.

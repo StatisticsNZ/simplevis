@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_boxplot.R
 \name{gg_boxplot_col}
 \alias{gg_boxplot_col}
-\title{Boxplot ggplot that is coloured}
+\title{Boxplot ggplot that is coloured.}
 \usage{
 gg_boxplot_col(
   data,
@@ -55,7 +55,7 @@ gg_boxplot_col(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.}
+\item{data}{A dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.}
 
 \item{x_var}{Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.}
 
@@ -153,7 +153,7 @@ gg_boxplot_col(
 A ggplot object.
 }
 \description{
-Boxplot ggplot that is coloured
+Boxplot ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

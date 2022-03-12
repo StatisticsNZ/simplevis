@@ -40,7 +40,7 @@ gg_density(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe in a structure to be transformed to density statistics. Required input.}
+\item{data}{A dataframe in a structure to be transformed to density statistics. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

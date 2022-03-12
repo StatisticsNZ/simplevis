@@ -342,13 +342,22 @@ gg_point_col_facet(penguins,
                    facet_var = species)
 ```
 
-### Customising plots
+### Minimal code and effort
 
-simplevis plots are designed to work and look clean with the bare minimum of code.
+simplevis works with the pipe.
 
-However, there is plenty of flexibility to customise.
+The order of variables is always `x_var`, `y_var`, `col_var` and `facet_var`. 
 
-#### Colour
+So, once familiar with the package, you may choose not to name the arguments that these variable work with. 
+
+This can enable great looking plots with minimal code and effort.
+
+```{r}
+penguins %>% 
+  gg_point_col_facet(bill_length_mm, body_mass_g, sex, species)
+```
+
+### Colour
 
 Change the colour palette by supplying a vector of hex code colours to the `pal` argument. 
 
@@ -366,11 +375,11 @@ The col_method argument allows you to specify the method for colouring with a de
 
 ```{r}
 gg_point_col(penguins, 
-         x_var = bill_length_mm, 
-         y_var = body_mass_g, 
-         col_var = flipper_length_mm, 
-         col_method = "continuous",
-         title = "col_method = 'continuous'")
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = flipper_length_mm, 
+             col_method = "continuous", 
+             title = "col_method = 'continuous'")
 ```
 
 Other methods available are `bin` and `quantile`.
@@ -405,7 +414,7 @@ You can also adjust the opacity of objects in the visualisation through the `alp
 
 Refer to the [colour](https://statisticsnz.github.io/simplevis/articles/colour.html) article for further information.
 
-#### Themes
+### Themes
 
 You can adjust the theme of any simplevis plot by providing a ggplot2 theme to the `theme` argument.
 
@@ -440,7 +449,7 @@ gg_point_col(penguins,
 
 Refer to the [themes](https://statisticsnz.github.io/simplevis/articles/themes.html) article for further information.
 
-#### Consistent prefixes
+### Consistent prefixes
 
 There are lots of arguments available to modify the defaults.
 
@@ -463,23 +472,23 @@ plot_data <- storms %>%
   summarise(wind = mean(wind))
 
 gg_line_col(plot_data, 
-           x_var = year, 
-           y_var = wind, 
-           col_var = status,
-           x_breaks_n = 10,
-           x_labels = function(x) stringr::str_sub(x, 3, 4),
-           y_labels = scales::label_dollar(accuracy = 1), 
-           col_labels = c("H", "TD", "TS"),
-           y_zero = TRUE, 
-           y_breaks_n = 10,
-           y_expand = ggplot2::expansion(add = c(0, 10)))
+            x_var = year, 
+            y_var = wind, 
+            col_var = status, 
+            x_breaks_n = 10, 
+            x_labels = function(x) stringr::str_sub(x, 3, 4), 
+            y_labels = scales::label_dollar(accuracy = 1), 
+            col_labels = c("H", "TD", "TS"), 
+            y_zero = TRUE, 
+            y_breaks_n = 10, 
+            y_expand = ggplot2::expansion(add = c(0, 10)))
 ```
 
 Refer to the [scales](https://statisticsnz.github.io/simplevis/articles/scales.html) article for further information.
 
 The `size_` and `alpha_` prefixes are used to modify the size and opacity of various aspects of the visualisation.
 
-#### Titles
+### Titles
 
 Defaults titles are: 
 
@@ -544,7 +553,12 @@ gg_stars_col(example_stars,
              borders = example_borders)
 ```
 
-simplevis also provides leaflet wrapper functions for `sf` and `stars` objects. These functions work in a similar way to the `gg_sf*()` and `gg_stars*()` functions, but have a `leaf_` prefix.
+simplevis also provides leaflet wrapper functions for `sf` and `stars` objects. These functions work in a similar way to the `gg_sf*()` and `gg_stars*()` functions, but have a `leaf_` prefix. Note there is no borders argument available in the `leaf_*()` functions.
+
+```{r}
+leaf_sf_col(example_point, 
+            col_var = trend_category)
+```
 
 Refer to the [leaflet](https://statisticsnz.github.io/simplevis/articles/leaflet.html) article for further information.
 

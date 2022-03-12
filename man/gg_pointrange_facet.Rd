@@ -52,7 +52,7 @@ gg_pointrange_facet(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.}
+\item{data}{A dataframe in a structure to be plotted untransformed. Required input.}
 
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 

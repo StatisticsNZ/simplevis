@@ -1,6 +1,7 @@
 #' @title Line ggplot.
+#' 
 #' @description Line ggplot that is not coloured and not facetted.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -243,8 +244,9 @@ gg_line <- function(data,
 }
 
 #' @title Line ggplot that is coloured.
+#' 
 #' @description Line ggplot that is coloured, but not facetted.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
@@ -558,8 +560,9 @@ gg_line_col <- function(data,
 }
 
 #' @title Line ggplot that is facetted.
+#' 
 #' @description Line ggplot that is facetted, but not coloured.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -824,8 +827,9 @@ gg_line_facet <- function(data,
 }
 
 #' @title Line ggplot that is coloured and facetted.
+#' 
 #' @description Line ggplot that is coloured and facetted.
-#' @param data An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A dataframe in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.

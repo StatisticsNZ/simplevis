@@ -53,7 +53,7 @@ gg_smooth_facet(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.}
+\item{data}{A dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

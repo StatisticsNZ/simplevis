@@ -83,13 +83,17 @@
 
 
 
-
-<div class="row">
+<script src="simplevis_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="simplevis_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="simplevis_files/leaflet-1.3.1/leaflet.js"></script><link href="simplevis_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="simplevis_files/proj4-2.6.2/proj4.min.js"></script><script src="simplevis_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="simplevis_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="simplevis_files/leaflet-binding-2.1.0/leaflet.js"></script><link href="simplevis_files/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet">
+<script src="simplevis_files/leaflet-easybutton-1.3.1/easy-button.js"></script><script src="simplevis_files/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script><link href="simplevis_files/ionicons-2.0.1/ionicons.min.css" rel="stylesheet">
+<script src="simplevis_files/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="simplevis_files/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Simplevis</h1>
                         <h4 data-toc-skip class="author">David Hodge</h4>
             
-            <h4 data-toc-skip class="date">2022-03-12</h4>
+            <h4 data-toc-skip class="date">2022-03-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsNZ/simplevis/blob/HEAD/vignettes/simplevis.Rmd" class="external-link"><code>vignettes/simplevis.Rmd</code></a></small>
       <div class="d-none name"><code>simplevis.Rmd</code></div>
@@ -164,42 +168,49 @@
 <p><img src="simplevis_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
 </div>
 <div class="section level3">
-<h3 id="customising-plots">Customising plots<a class="anchor" aria-label="anchor" href="#customising-plots"></a>
+<h3 id="minimal-code-and-effort">Minimal code and effort<a class="anchor" aria-label="anchor" href="#minimal-code-and-effort"></a>
 </h3>
-<p>simplevis plots are designed to work and look clean with the bare minimum of code.</p>
-<p>However, there is plenty of flexibility to customise.</p>
-<div class="section level4">
-<h4 id="colour">Colour<a class="anchor" aria-label="anchor" href="#colour"></a>
-</h4>
-<p>Change the colour palette by supplying a vector of hex code colours to the <code>pal</code> argument.</p>
+<p>simplevis works with the pipe.</p>
+<p>The order of variables is always <code>x_var</code>, <code>y_var</code>, <code>col_var</code> and <code>facet_var</code>.</p>
+<p>So, once familiar with the package, you may choose not to name the arguments that these variable work with.</p>
+<p>This can enable great looking plots with minimal code and effort.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">bill_length_mm</span>, <span class="va">body_mass_g</span>, <span class="va">sex</span>, <span class="va">species</span><span class="op">)</span></code></pre></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
+</div>
+<div class="section level3">
+<h3 id="colour">Colour<a class="anchor" aria-label="anchor" href="#colour"></a>
+</h3>
+<p>Change the colour palette by supplying a vector of hex code colours to the <code>pal</code> argument.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
              y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
              col_var <span class="op">=</span> <span class="va">species</span>, 
              pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
 <p>simplevis also supports easy colouring of numeric variables for <code>gg_point*()</code>, <code>gg_bar*()</code>, <code>gg_hbar*()</code>, <code>gg_sf*()</code> and <code>gg_stars*()</code> (and equivalent leaflet functions).</p>
 <p>The col_method argument allows you to specify the method for colouring with a default of continuous.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
-         x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
-         y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
-         col_var <span class="op">=</span> <span class="va">flipper_length_mm</span>, 
-         col_method <span class="op">=</span> <span class="st">"continuous"</span>,
-         title <span class="op">=</span> <span class="st">"col_method = 'continuous'"</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
+             x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
+             y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+             col_var <span class="op">=</span> <span class="va">flipper_length_mm</span>, 
+             col_method <span class="op">=</span> <span class="st">"continuous"</span>, 
+             title <span class="op">=</span> <span class="st">"col_method = 'continuous'"</span><span class="op">)</span></code></pre></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
 <p>Other methods available are <code>bin</code> and <code>quantile</code>.</p>
 <p>For <code>bin</code> and <code>quantile</code>, you can fine-tune using the <code>col_breaks_n</code> or <code>col_cuts</code> arguments.</p>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-18-1.png" width="768"></p>
 <p>You can also adjust the opacity of objects in the visualisation through the <code>alpha_*()</code> arguments.</p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/colour.html">colour</a> article for further information.</p>
 </div>
-<div class="section level4">
-<h4 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
-</h4>
+<div class="section level3">
+<h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
+</h3>
 <p>You can adjust the theme of any simplevis plot by providing a ggplot2 theme to the <code>theme</code> argument.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
              y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
@@ -207,9 +218,9 @@
              title <span class="op">=</span> <span class="st">"A nice title"</span>, 
              subtitle <span class="op">=</span> <span class="st">"And a subtitle"</span>,
              theme <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 <p>You can also create your own quick themes with the <code><a href="../reference/gg_theme.html">gg_theme()</a></code> function.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">custom_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span><span class="op">(</span>
   pal_body <span class="op">=</span> <span class="st">"white"</span>,
   pal_title <span class="op">=</span> <span class="st">"white"</span>,
@@ -224,12 +235,12 @@
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
              y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
              theme <span class="op">=</span> <span class="va">custom_theme</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/themes.html">themes</a> article for further information.</p>
 </div>
-<div class="section level4">
-<h4 id="consistent-prefixes">Consistent prefixes<a class="anchor" aria-label="anchor" href="#consistent-prefixes"></a>
-</h4>
+<div class="section level3">
+<h3 id="consistent-prefixes">Consistent prefixes<a class="anchor" aria-label="anchor" href="#consistent-prefixes"></a>
+</h3>
 <p>There are lots of arguments available to modify the defaults.</p>
 <p>In general, arguments have consistent prefixes based on <code>x_*</code>, <code>y_*</code>, <code>col_*</code> or <code>facet_*</code>, and as such the autocomplete can help identify what you need.</p>
 <p>Some examples of transformations available are:</p>
@@ -251,36 +262,36 @@
 <li>
 <code>col_legend_none</code> to turn the legend off.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">storms</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">status</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>wind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">wind</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/gg_line_col.html">gg_line_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
-           x_var <span class="op">=</span> <span class="va">year</span>, 
-           y_var <span class="op">=</span> <span class="va">wind</span>, 
-           col_var <span class="op">=</span> <span class="va">status</span>,
-           x_breaks_n <span class="op">=</span> <span class="fl">10</span>,
-           x_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,
-           y_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html" class="external-link">label_dollar</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, 
-           col_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"H"</span>, <span class="st">"TD"</span>, <span class="st">"TS"</span><span class="op">)</span>,
-           y_zero <span class="op">=</span> <span class="cn">TRUE</span>, 
-           y_breaks_n <span class="op">=</span> <span class="fl">10</span>,
-           y_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+            x_var <span class="op">=</span> <span class="va">year</span>, 
+            y_var <span class="op">=</span> <span class="va">wind</span>, 
+            col_var <span class="op">=</span> <span class="va">status</span>, 
+            x_breaks_n <span class="op">=</span> <span class="fl">10</span>, 
+            x_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, 
+            y_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_dollar.html" class="external-link">label_dollar</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, 
+            col_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"H"</span>, <span class="st">"TD"</span>, <span class="st">"TS"</span><span class="op">)</span>, 
+            y_zero <span class="op">=</span> <span class="cn">TRUE</span>, 
+            y_breaks_n <span class="op">=</span> <span class="fl">10</span>, 
+            y_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 <p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/scales.html">scales</a> article for further information.</p>
 <p>The <code>size_</code> and <code>alpha_</code> prefixes are used to modify the size and opacity of various aspects of the visualisation.</p>
 </div>
-<div class="section level4">
-<h4 id="titles">Titles<a class="anchor" aria-label="anchor" href="#titles"></a>
-</h4>
+<div class="section level3">
+<h3 id="titles">Titles<a class="anchor" aria-label="anchor" href="#titles"></a>
+</h3>
 <p>Defaults titles are:</p>
 <ul>
 <li>no title, subtitle or caption</li>
 <li>x, y and colour titles are converted to sentence case using the <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code> function.</li>
 </ul>
 <p>You can customise titles with <code>title</code>, <code>subtitle</code>, <code>x_title</code>, <code>y_title</code> and <code>caption</code> arguments.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
              y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
@@ -290,9 +301,8 @@
              x_title <span class="op">=</span> <span class="st">"Bill length (mm)"</span>, 
              y_title <span class="op">=</span> <span class="st">"Body mass (g)"</span>,
              col_title <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
 <p>You can also request no x_title using <code>x_title = ""</code> or likewise for <code>y_title</code> and <code>col_title</code>.</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="maps">Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
@@ -317,28 +327,32 @@
 </ul>
 <p>The following example objects are provided withing the package for learning purposes: <code>example_point</code>, <code>example_polygon</code> and <code>example_stars</code>.</p>
 <p>The <code>borders</code> argument allows for the user to provide an sf object as context to the map (e.g. a coastline or administrative boundaries). An sf object of the New Zealand coastline has been provided to illustrate how this works.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_sf_col.html">gg_sf_col</a></span><span class="op">(</span><span class="va">example_point</span>, 
           col_var <span class="op">=</span> <span class="va">trend_category</span>, 
           borders <span class="op">=</span> <span class="va">example_borders</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="simplevis_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_stars_col.html">gg_stars_col</a></span><span class="op">(</span><span class="va">example_stars</span>,
              col_var <span class="op">=</span> <span class="va">nitrate</span>,
              col_method <span class="op">=</span> <span class="st">"quantile"</span>,
              col_cuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>, <span class="fl">1</span><span class="op">)</span>,
              col_na_rm <span class="op">=</span> <span class="cn">TRUE</span>,
              borders <span class="op">=</span> <span class="va">example_borders</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
-<p>simplevis also provides leaflet wrapper functions for <code>sf</code> and <code>stars</code> objects. These functions work in a similar way to the <code>gg_sf*()</code> and <code>gg_stars*()</code> functions, but have a <code>leaf_</code> prefix.</p>
-<p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/leaflet.html">leaflet</a> article for further information.</p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
+<p>simplevis also provides leaflet wrapper functions for <code>sf</code> and <code>stars</code> objects. These functions work in a similar way to the <code>gg_sf*()</code> and <code>gg_stars*()</code> functions, but have a <code>leaf_</code> prefix. Note there is no borders argument available in the <code>leaf_*()</code> functions.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/leaf_sf_col.html">leaf_sf_col</a></span><span class="op">(</span><span class="va">example_point</span>, 
+            col_var <span class="op">=</span> <span class="va">trend_category</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-c30c2d887a6c1f41e4fe" style="width:576px;height:336px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c30c2d887a6c1f41e4fe">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addEasyButton","args":[{"icon":"ion-arrow-shrink","title":"Reset View","onClick":"function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }","position":"topleft"}]},{"method":"addProviderTiles","args":["CartoDB.PositronNoLabels",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[-36.8906312622614,-36.3463183146057,-36.8968634537496,-36.9686252921895,-36.9652009080117,-36.9574630045262,-36.7338009687446,-36.9153906925456,-36.9353010036681,-36.5526871290534,-38.0841379916399,-38.0455219257684,-38.157469706608,-43.7580124635447,-43.6977888910673,-43.6859692942636,-43.7890604960048,-43.7666358677812,-46.3899344598287,-37.6995178388553,-37.5680373351319,-37.2830623466261,-38.5345691217735,-38.4087749660337,-37.297801231192,-38.2872848436991,-38.4204895160333,-38.6828518871287,-39.3872710090394,-39.6008114350555,-36.3868335392607,-36.7386897710011,-44.7327562510612,-45.008102360299,-44.9912910319954,-45.6654662014887,-42.7920241161058,-42.9000336350321,-43.3608732259656,-43.4225528539212,-45.2580933585283,-45.5974621022931,-45.8476712024336,-46.2384653492571,-46.3910354385051,-45.5600941525973,-45.7178178675631,-46.3278618951175,-46.1314387383823,-45.8070990702739,-38.4700465805142,-38.4168188146128,-38.2016183918476,-37.8619827502674,-41.8359530549735,-42.4549816114184,-42.3543781462673,-43.9442072649002,-38.2701045656266,-37.8001299460791,-37.7938705899734,-37.4334598507167,-37.5483800105008,-37.4165477107541,-39.8205197596981,-39.7168230630174,-39.5980666368282,-39.3816642305,-39.0750985395671,-39.1797978680825,-41.2596349807315,-41.6347894259271,-41.8948224796453,-41.4408854133705,-41.7651931735604,-38.1777348029883,-37.9404720102119,-38.4597799777064,-38.4801918296122,-38.0414288590869,-38.664964367076,-44.2697801669772,-44.1698047888482,-44.0802820111321,-44.7020314208479,-44.726245647731,-44.9287481651146,-38.9444029204043,-38.9962899671945,-39.0493577781481,-39.2829017422019,-39.5784255063518,-39.7777505207358,-39.8108286827777,-40.126625652257,-40.2411126941653,-40.3750351956343,-40.4367587817058,-35.276314620768,-35.2779423060476,-35.7345169623097,-35.6540793632718,-41.1967092603447,-41.0525754880827,-41.1968583571231,-41.0050967663805,-40.7639273695137,-44.9682056984047,-45.3277993301535,-45.6095295814536,-45.863065442824,-44.7526319886451],[174.521873769655,174.710342656644,174.594465556538,174.845542752906,174.880461577502,174.890528426049,174.694551458716,174.907871952114,174.902759091304,174.660453100741,176.212042182201,176.3311382872,176.264487847671,172.682255281142,172.412766982447,172.526461308073,172.79541606147,172.796682061438,168.778026395137,175.206575536582,175.154080270111,175.046503654113,176.303538099928,176.085926426449,174.944980143332,175.685016755566,175.806129814902,176.069666739333,176.819986229609,176.877661395362,174.510457799769,174.618570791024,169.281118876964,168.86835868378,168.714920468486,169.410030691327,172.541585298013,173.09644053931,172.051572691293,172.641612529066,170.272183872618,170.093702522673,170.243975149782,169.747856018411,168.796665292673,168.561622740225,168.427687645835,168.265425175158,167.685320405204,167.534632807667,177.881370233307,177.56139074549,177.621068924292,177.637262617617,171.699239859676,171.297689929457,171.786320675809,169.297302814735,175.348488624364,175.151160824932,175.28925713912,175.131177715531,175.706941334365,175.714836836457,176.303839496134,176.926760478097,176.872158203881,176.33094945542,177.129287792483,176.634374826962,172.822341634829,172.913386250327,172.921312159043,173.964885951064,172.38625957825,176.508052419919,176.766922556576,176.697176135833,176.748012570456,176.799892035847,176.082022142231,171.323631063823,170.942075216229,170.979448033396,170.45128673289,170.490090899721,171.10024463906,175.188856735065,175.813473747746,174.254690062077,174.261556651996,174.210163571486,175.144590947667,175.807532021312,175.444210151866,176.115703632154,175.62751707665,175.468385320989,173.684049395477,174.047785100803,174.052680489354,174.15105601155,174.920477462289,175.191104049077,175.43999677826,175.67172477337,175.605036713248,168.814365595554,169.954241853698,170.620568285926,170.518807610047,169.11816179592],2,{},null,{"interactive":true,"className":"","stroke":true,"color":["#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#BCBD22","#17BECF","#17BECF","#8C564B","#BCBD22","#8C564B","#17BECF","#8C564B","#17BECF","#BCBD22","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#BCBD22","#BCBD22","#BCBD22","#17BECF","#17BECF","#17BECF","#8C564B","#17BECF","#17BECF","#BCBD22","#8C564B","#8C564B","#8C564B","#BCBD22","#17BECF","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#17BECF","#8C564B","#8C564B","#BCBD22","#BCBD22","#8C564B","#8C564B","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#BCBD22","#17BECF","#BCBD22","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#BCBD22","#8C564B","#8C564B","#BCBD22","#8C564B","#8C564B","#17BECF","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#17BECF","#8C564B","#17BECF","#BCBD22","#8C564B","#BCBD22","#BCBD22","#BCBD22","#BCBD22","#17BECF","#17BECF","#BCBD22","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#BCBD22","#8C564B","#17BECF","#17BECF","#17BECF","#17BECF","#BCBD22","#8C564B"],"weight":2,"opacity":1,"fill":true,"fillColor":["#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#BCBD22","#17BECF","#17BECF","#8C564B","#BCBD22","#8C564B","#17BECF","#8C564B","#17BECF","#BCBD22","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#BCBD22","#BCBD22","#BCBD22","#17BECF","#17BECF","#17BECF","#8C564B","#17BECF","#17BECF","#BCBD22","#8C564B","#8C564B","#8C564B","#BCBD22","#17BECF","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#17BECF","#8C564B","#8C564B","#BCBD22","#BCBD22","#8C564B","#8C564B","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#8C564B","#BCBD22","#17BECF","#BCBD22","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#8C564B","#BCBD22","#8C564B","#8C564B","#BCBD22","#8C564B","#8C564B","#17BECF","#8C564B","#BCBD22","#8C564B","#8C564B","#8C564B","#17BECF","#8C564B","#17BECF","#BCBD22","#8C564B","#BCBD22","#BCBD22","#BCBD22","#BCBD22","#17BECF","#17BECF","#BCBD22","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#17BECF","#BCBD22","#8C564B","#17BECF","#17BECF","#17BECF","#17BECF","#BCBD22","#8C564B"],"fillOpacity":1},null,null,["<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00001&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.014&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00008&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.061&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00013&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.131&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00014&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.99&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00015&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>1.03&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00016&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.298&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00017&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.355&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00018&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.735&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00019&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.5&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ARC-00026&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1295&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EBOP-00010&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.788&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EBOP-00012&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.036&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EBOP-00019&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.851&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ECAN-00084&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.095&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ECAN-00086&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>4.85&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ECAN-00097&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>3.2&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ECAN-00100&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.088&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ECAN-00101&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.118&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ES-00021&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>1.001389&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00077&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.22&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00078&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.34975&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00079&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.35&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00082&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.031&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00083&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.068&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00084&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.336&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00085&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.139&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00086&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.081&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>EW-00119&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.002&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>HBRC-00002&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.19&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>HBRC-00003&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.41&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-AK01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.325901&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-AK02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.204516&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-AX01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.032&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-AX02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.02217&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-AX03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.016&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-AX04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.03400675&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-CH01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.009&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-CH02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.2874173&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-CH03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.065&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-CH04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.088&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.02462425&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.009974&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.038&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.053&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>1.046&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN06&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.2495&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN07&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.46&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN08&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.8438865&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN09&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1880305&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-DN10&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.006&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GS01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.08045&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GS02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1605088&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GS03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1406533&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GS04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.061684&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GY01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0513445&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GY02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.09743325&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GY03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.028&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-GY04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.032&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HM01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.2445&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HM02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.6929685&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HM03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.192&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HM04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.3359715&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HM05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>1.066941&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HM06&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.443&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HV01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.05047875&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HV02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.5664165&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HV03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.07255775&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HV04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.006&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HV05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1232517&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-HV06&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1848055&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-NN01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.120561&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-NN02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0229405&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-NN03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.01098575&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-NN04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.066398&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-NN05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.024162&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-RO01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.001&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-RO02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.365939&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-RO03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.657944&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-RO04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1116265&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-RO05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.366&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-RO06&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.00098375&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TK01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.5601975&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TK02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.6231945&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TK03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.2315012&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TK04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.00621275&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TK05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.012&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TK06&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0485705&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TU01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.219045&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-TU02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.029&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.2952805&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.09&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>1.883959&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.1888198&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0658985&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA06&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.085586&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA07&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.4055&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA08&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.4975&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WA09&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.501156&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WH01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0134295&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WH02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.225099&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WH03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.06884475&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WH04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.407&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WN01&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.221&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WN02&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.033&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WN03&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.371174&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WN04&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.521214&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>NAT-WN05&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0332355&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ORC-00049&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.44&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ORC-00071&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0084&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ORC-00085&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.0255&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Improving&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ORC-00095&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.51&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Indeterminate&emsp;<\/td><\/tr><\/table><\/div>","<div class='scrollableContainer'><table class= id='popup'><tr><td><\/td><th>Site id&emsp;<\/th><td>ORC-00103&emsp;<\/td><\/tr><tr><td><\/td><th>Median&emsp;<\/th><td>0.052&emsp;<\/td><\/tr><tr><td><\/td><th>Trend category&emsp;<\/th><td>Worsening&emsp;<\/td><\/tr><\/table><\/div>"],null,["Improving","Improving","Improving","Improving","Improving","Improving","Improving","Indeterminate","Improving","Improving","Worsening","Indeterminate","Worsening","Improving","Worsening","Improving","Indeterminate","Indeterminate","Worsening","Worsening","Worsening","Worsening","Worsening","Worsening","Worsening","Worsening","Worsening","Indeterminate","Indeterminate","Indeterminate","Improving","Improving","Improving","Worsening","Improving","Improving","Indeterminate","Worsening","Worsening","Worsening","Indeterminate","Improving","Worsening","Indeterminate","Worsening","Worsening","Worsening","Worsening","Worsening","Improving","Worsening","Worsening","Indeterminate","Indeterminate","Worsening","Worsening","Worsening","Indeterminate","Worsening","Worsening","Worsening","Worsening","Worsening","Indeterminate","Improving","Indeterminate","Worsening","Indeterminate","Worsening","Worsening","Worsening","Worsening","Indeterminate","Worsening","Worsening","Indeterminate","Worsening","Worsening","Improving","Worsening","Indeterminate","Worsening","Worsening","Worsening","Improving","Worsening","Improving","Indeterminate","Worsening","Indeterminate","Indeterminate","Indeterminate","Indeterminate","Improving","Improving","Indeterminate","Improving","Improving","Improving","Improving","Improving","Improving","Improving","Improving","Indeterminate","Worsening","Improving","Improving","Improving","Improving","Indeterminate","Worsening"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#17BECFFF","#BCBD22FF","#8C564BFF"],"labels":["Improving","Indeterminate","Worsening"],"na_color":null,"na_label":"NA","opacity":1,"position":"bottomright","type":"unknown","title":"Trend category","extra":null,"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[-46.3910354385051,-35.276314620768],"lng":[167.534632807667,177.881370233307]}},"evals":["calls.0.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (function(el, x){ var map = this; map._initialCenter = map.getCenter(); map._initialZoom = map.getZoom();}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script><p>Refer to the <a href="https://statisticsnz.github.io/simplevis/articles/leaflet.html">leaflet</a> article for further information.</p>
 </div>
 <div class="section level3">
 <h3 id="extending-simplevis">Extending simplevis<a class="anchor" aria-label="anchor" href="#extending-simplevis"></a>
 </h3>
 <p>All <code>gg_*</code> and <code>leaf_*</code> wrapper functions produce ggplot or leaflet objects. This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object. Note you need to add <em>all</em> aesthetics to any additional <code>geom_*</code> layers.</p>
 <p>The below example adds error bars, labels, and a new y scale. Note that 25 percentiles and 75 percentiles have been used to demonstrate the errorbars, rather than confidence intervals which would normally be used with error bars.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -361,9 +375,9 @@
     limits <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
   <span class="op">)</span>            </code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-24-1.png" width="384"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-26-1.png" width="384"></p>
 <p>The <a href="https://patchwork.data-imaginist.com/" class="external-link">patchwork</a> package can be used to patch visualisations together.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>
 
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span><span class="va">penguins</span>, 
@@ -377,9 +391,9 @@
                  y_var <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span> 
 
 <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
 <p>All ggplot objects can be converted into interactive html objects using the <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly</a></code> function from the <a href="https://plotly.com/r/" class="external-link">plotly</a> library.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>,
                      x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
                      y_var <span class="op">=</span> <span class="va">body_mass_g</span>,
@@ -394,12 +408,12 @@
 <h3 id="supported-variable-classes">Supported variable classes<a class="anchor" aria-label="anchor" href="#supported-variable-classes"></a>
 </h3>
 <p>Variable types supported by the different families of functions are outlined below.</p>
-<div id="dmnimbestg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="nimbestgmu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#dmnimbestg .gt_table {
+#nimbestgmu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -424,7 +438,7 @@
   border-left-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_heading {
+#nimbestgmu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -436,7 +450,7 @@
   border-right-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_title {
+#nimbestgmu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -448,7 +462,7 @@
   border-bottom-width: 0;
 }
 
-#dmnimbestg .gt_subtitle {
+#nimbestgmu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -460,13 +474,13 @@
   border-top-width: 0;
 }
 
-#dmnimbestg .gt_bottom_border {
+#nimbestgmu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_col_headings {
+#nimbestgmu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -481,7 +495,7 @@
   border-right-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_col_heading {
+#nimbestgmu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -501,7 +515,7 @@
   overflow-x: hidden;
 }
 
-#dmnimbestg .gt_column_spanner_outer {
+#nimbestgmu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -513,15 +527,15 @@
   padding-right: 4px;
 }
 
-#dmnimbestg .gt_column_spanner_outer:first-child {
+#nimbestgmu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dmnimbestg .gt_column_spanner_outer:last-child {
+#nimbestgmu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dmnimbestg .gt_column_spanner {
+#nimbestgmu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -533,7 +547,7 @@
   width: 100%;
 }
 
-#dmnimbestg .gt_group_heading {
+#nimbestgmu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -558,7 +572,7 @@
   vertical-align: middle;
 }
 
-#dmnimbestg .gt_empty_group_heading {
+#nimbestgmu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -573,15 +587,15 @@
   vertical-align: middle;
 }
 
-#dmnimbestg .gt_from_md > :first-child {
+#nimbestgmu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dmnimbestg .gt_from_md > :last-child {
+#nimbestgmu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dmnimbestg .gt_row {
+#nimbestgmu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -600,7 +614,7 @@
   overflow-x: hidden;
 }
 
-#dmnimbestg .gt_stub {
+#nimbestgmu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -613,7 +627,7 @@
   padding-right: 5px;
 }
 
-#dmnimbestg .gt_stub_row_group {
+#nimbestgmu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -627,11 +641,11 @@
   vertical-align: top;
 }
 
-#dmnimbestg .gt_row_group_first td {
+#nimbestgmu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dmnimbestg .gt_summary_row {
+#nimbestgmu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -641,16 +655,16 @@
   padding-right: 5px;
 }
 
-#dmnimbestg .gt_first_summary_row {
+#nimbestgmu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_first_summary_row.thick {
+#nimbestgmu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dmnimbestg .gt_last_summary_row {
+#nimbestgmu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -660,7 +674,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_grand_summary_row {
+#nimbestgmu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -670,7 +684,7 @@
   padding-right: 5px;
 }
 
-#dmnimbestg .gt_first_grand_summary_row {
+#nimbestgmu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -680,11 +694,11 @@
   border-top-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_striped {
+#nimbestgmu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dmnimbestg .gt_table_body {
+#nimbestgmu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -693,7 +707,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_footnotes {
+#nimbestgmu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -707,7 +721,7 @@
   border-right-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_footnote {
+#nimbestgmu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -716,7 +730,7 @@
   padding-right: 5px;
 }
 
-#dmnimbestg .gt_sourcenotes {
+#nimbestgmu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -730,7 +744,7 @@
   border-right-color: #D3D3D3;
 }
 
-#dmnimbestg .gt_sourcenote {
+#nimbestgmu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -738,60 +752,60 @@
   padding-right: 5px;
 }
 
-#dmnimbestg .gt_left {
+#nimbestgmu .gt_left {
   text-align: left;
 }
 
-#dmnimbestg .gt_center {
+#nimbestgmu .gt_center {
   text-align: center;
 }
 
-#dmnimbestg .gt_right {
+#nimbestgmu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dmnimbestg .gt_font_normal {
+#nimbestgmu .gt_font_normal {
   font-weight: normal;
 }
 
-#dmnimbestg .gt_font_bold {
+#nimbestgmu .gt_font_bold {
   font-weight: bold;
 }
 
-#dmnimbestg .gt_font_italic {
+#nimbestgmu .gt_font_italic {
   font-style: italic;
 }
 
-#dmnimbestg .gt_super {
+#nimbestgmu .gt_super {
   font-size: 65%;
 }
 
-#dmnimbestg .gt_footnote_marks {
+#nimbestgmu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#dmnimbestg .gt_asterisk {
+#nimbestgmu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dmnimbestg .gt_slash_mark {
+#nimbestgmu .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#dmnimbestg .gt_fraction_numerator {
+#nimbestgmu .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#dmnimbestg .gt_fraction_denominator {
+#nimbestgmu .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;

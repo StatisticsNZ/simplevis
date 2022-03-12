@@ -14,6 +14,6 @@ example_point
 Example sf point object.
 }
 \examples{
-gg_sf_col(example_polygon, col_var = density, borders = example_borders)
+gg_sf_col(example_point, col_var = trend_category, borders = example_borders)
 }
 \keyword{datasets}

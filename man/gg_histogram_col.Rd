@@ -41,7 +41,7 @@ gg_histogram_col(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe in a structure to be transformed to histogram statistics. Required input.}
+\item{data}{A dataframe in a structure to be transformed to histogram statistics. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 
@@ -111,7 +111,7 @@ gg_histogram_col(
 A ggplot object.
 }
 \description{
-histogram ggplot that is coloured but not facetted.
+Histogram ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

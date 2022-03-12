@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_violin.R
 \name{gg_violin_col}
 \alias{gg_violin_col}
-\title{Violin ggplot that is coloured}
+\title{Violin ggplot that is coloured.}
 \usage{
 gg_violin_col(
   data,
@@ -52,7 +52,7 @@ gg_violin_col(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe in a structure to be transformed to density statistics. Required input.}
+\item{data}{A dataframe in a structure to be transformed to density statistics. Required input.}
 
 \item{x_var}{Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.}
 
@@ -144,7 +144,7 @@ gg_violin_col(
 A ggplot object.
 }
 \description{
-Violin ggplot that is coloured
+Violin ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

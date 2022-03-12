@@ -61,7 +61,7 @@ gg_boxplot_col_facet(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.}
+\item{data}{A dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.}
 
 \item{x_var}{Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.}
 
@@ -171,7 +171,7 @@ gg_boxplot_col_facet(
 A ggplot object.
 }
 \description{
-Boxplot ggplot that is facetted, but not coloured.
+Boxplot ggplot that is coloured and facetted.
 }
 \examples{
 library(simplevis)

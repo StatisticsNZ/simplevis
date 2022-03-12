@@ -171,13 +171,14 @@
 <h3 id="minimal-code-and-effort">Minimal code and effort<a class="anchor" aria-label="anchor" href="#minimal-code-and-effort"></a>
 </h3>
 <p>simplevis works with the pipe.</p>
-<p>The order of variables is always <code>x_var</code>, <code>y_var</code>, <code>col_var</code> and <code>facet_var</code>.</p>
-<p>So, once familiar with the package, you may choose not to name the arguments that these variable work with.</p>
+<p>The order of variables in functions is always <code>x_var</code>, <code>y_var</code>, <code>col_var</code> and <code>facet_var</code> as appliable.</p>
+<p>So, once familiar with the package, you may choose not to name the arguments of <code>x_var</code>, <code>y_var</code>, <code>col_var</code> and <code>facet_var</code>.</p>
+<p>Other variables should always be named.</p>
 <p>This can enable great looking plots with minimal code and effort.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">bill_length_mm</span>, <span class="va">body_mass_g</span>, <span class="va">sex</span>, <span class="va">species</span><span class="op">)</span></code></pre></div>
-<p><img src="simplevis_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
+<p><img src="simplevis_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="colour">Colour<a class="anchor" aria-label="anchor" href="#colour"></a>

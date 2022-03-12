@@ -346,13 +346,15 @@ gg_point_col_facet(penguins,
 
 simplevis works with the pipe.
 
-The order of variables is always `x_var`, `y_var`, `col_var` and `facet_var`. 
+The order of variables in functions is always `x_var`, `y_var`, `col_var` and `facet_var` as appliable.
 
-So, once familiar with the package, you may choose not to name the arguments that these variable work with. 
+So, once familiar with the package, you may choose not to name the arguments of `x_var`, `y_var`, `col_var` and `facet_var`. 
+
+Other variables should always be named.
 
 This can enable great looking plots with minimal code and effort.
 
-```{r}
+```{r, fig.width = 7}
 penguins %>% 
   gg_point_col_facet(bill_length_mm, body_mass_g, sex, species)
 ```

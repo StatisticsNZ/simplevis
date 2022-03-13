@@ -1,11 +1,13 @@
-#' Summarise boxplot stats in a dataset or tibble.
+#' @title Summarise boxplot stats.
+#' 
+#' @description Summarise boxplot stats.
 #'
-#' @param data A tibble or dataframe. Required input. Group the dataset as appropriate prior.
+#' @param data A data frame. Required input. Group the dataset as appropriate prior.
 #' @param var Unquoted variable from which to calculate boxplot stats. Required input.
 #' @param names_vctr A vector of names for the boxplot stats.
 #' @param ... Passed to \code{boxplot.stats}
 #'
-#' @return A tibble or dataframe. 
+#' @return A data frame. 
 #' @export
 #'
 #' @examples
@@ -37,11 +39,11 @@ summarise_boxplot_stats <- function(data, var, names_vctr = c('min', 'lower', 'm
 
 #' Summarise outliers in a dataset or tibble.
 #'
-#' @param data A tibble or dataframe. Required input. Group the dataset as appropriate prior.
+#' @param data A data frame. Required input. Group the dataset as appropriate prior.
 #' @param var Unquoted variable from which to calculate outliers. Required input.
 #' @param ... Passed to \code{boxplot.stats}
 #' 
-#' @return A tibble or dataframe. 
+#' @return A data frame. 
 #' @export
 #'
 #' @examples

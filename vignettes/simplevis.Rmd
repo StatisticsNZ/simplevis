@@ -77,7 +77,6 @@ p3 <- gg_density_col(
   penguins,
   x_var = body_mass_g,
   col_var = species,
-  col_na_rm = TRUE,
   y_labels = scales::label_number(accuracy = 0.0001),
   x_breaks_n = 2,
   x_labels = function(x)
@@ -122,7 +121,6 @@ p6 <- gg_histogram_col(
   penguins,
   x_var = body_mass_g,
   col_var = species,
-  col_na_rm = TRUE,
   x_breaks_n = 3,
   x_labels = function(x)
     x / 1000,
@@ -411,9 +409,9 @@ plot_data <- storms %>%
   group_by(year, status) %>%
   summarise(wind = mean(wind))
 
-facet_labels <- c("Hurricane", "Tropical\nDepression", "Tropical\nStorm")
-names(facet_labels) <- sort(unique(plot_data$status))
-facet_labels
+col_labels <- c("Hcane", "TDep", "TSt")
+names(col_labels) <- sort(unique(plot_data$status))
+col_labels
 
 gg_line_col_facet(plot_data, 
                   x_var = year, 
@@ -426,8 +424,8 @@ gg_line_col_facet(plot_data,
                   col_title = "Storm status",
                   x_labels = function(x) stringr::str_sub(x, 3, 4),
                   y_labels = scales::label_comma(accuracy = 0.1),
-                  col_labels = ~ stringr::str_to_title(.x),
-                  facet_labels = facet_labels,
+                  col_labels = col_labels,
+                  facet_labels = ~ stringr::str_to_sentence(stringr::str_wrap(.x, 5)),
                   y_zero = TRUE,
                   y_breaks_n = 6,
                   y_expand = ggplot2::expansion(add = c(0, 10)),
@@ -518,7 +516,6 @@ gg_bar_col(plot_data,
            y_var = middle,
            col_var = species,
            col_legend_none = TRUE,
-           col_na_rm = TRUE,
            y_title = "Body mass g") +
   ggplot2::geom_errorbar(ggplot2::aes(x = species, ymin = lower, ymax = upper),
                          width = 0.2) +

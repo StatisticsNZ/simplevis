@@ -60,7 +60,7 @@ gg_hpointrange_col(
 )
 }
 \arguments{
-\item{data}{A dataframe in a structure to be plotted untransformed. Required input.}
+\item{data}{A data frame in a structure to be plotted untransformed. Required input.}
 
 \item{xmiddle_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

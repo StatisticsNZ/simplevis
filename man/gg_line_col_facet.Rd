@@ -58,7 +58,7 @@ gg_line_col_facet(
 )
 }
 \arguments{
-\item{data}{A dataframe in a structure to be plotted untransformed. Required input.}
+\item{data}{A data frame in a structure to be plotted untransformed. Required input.}
 
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 

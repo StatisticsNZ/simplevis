@@ -2,7 +2,7 @@
 % Please edit documentation in R/numeric_breaks.R
 \name{sv_numeric_breaks_h}
 \alias{sv_numeric_breaks_h}
-\title{Calculate the breaks for a horizontal axis numeric vector.}
+\title{Calculate horizontal numeric breaks.}
 \usage{
 sv_numeric_breaks_h(
   var_vctr,

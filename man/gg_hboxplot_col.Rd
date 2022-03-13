@@ -55,7 +55,7 @@ gg_hboxplot_col(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.}
+\item{data}{An ungrouped summarised tibble or data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected.}
 

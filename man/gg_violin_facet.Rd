@@ -49,7 +49,7 @@ gg_violin_facet(
 )
 }
 \arguments{
-\item{data}{An tibble or dataframe. Required input.}
+\item{data}{An tibble or data frame. Required input.}
 
 \item{x_var}{Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.}
 

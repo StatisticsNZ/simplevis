@@ -1,7 +1,7 @@
 #' @title Horizontal violin ggplot.
 #' 
 #' @description Horizontal violin ggplot that is not coloured and not facetted.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param pal Character vector of hex codes. 
@@ -199,7 +199,7 @@ gg_hviolin <- function(data,
 #' @title Horizontal violin ggplot that is coloured.
 #' 
 #' @description Horizontal violin ggplot that is coloured, but not facetted.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.
@@ -484,7 +484,7 @@ gg_hviolin_col <- function(data,
 #' @title Horizontal violin ggplot that is facetted.
 #' 
 #' @description Horizontal violin ggplot that is facetted, but not coloured.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -710,7 +710,7 @@ gg_hviolin_facet <- function(data,
 #' @title Horizontal violin ggplot that is coloured and facetted.
 #' 
 #' @description Horizontal violin ggplot that is coloured and facetted.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the boxplots. Required input.

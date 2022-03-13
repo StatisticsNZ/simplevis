@@ -64,7 +64,7 @@ gg_hbar_col_facet(
 )
 }
 \arguments{
-\item{data}{An ungrouped summarised tibble or dataframe in a structure to be plotted untransformed. Required input.}
+\item{data}{An ungrouped summarised tibble or data frame in a structure to be plotted untransformed. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

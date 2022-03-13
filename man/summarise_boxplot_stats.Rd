@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarise_boxplot.R
 \name{summarise_boxplot_stats}
 \alias{summarise_boxplot_stats}
-\title{Summarise boxplot stats in a dataset or tibble.}
+\title{Summarise boxplot stats.}
 \usage{
 summarise_boxplot_stats(
   data,
@@ -12,7 +12,7 @@ summarise_boxplot_stats(
 )
 }
 \arguments{
-\item{data}{A tibble or dataframe. Required input. Group the dataset as appropriate prior.}
+\item{data}{A data frame. Required input. Group the dataset as appropriate prior.}
 
 \item{var}{Unquoted variable from which to calculate boxplot stats. Required input.}
 
@@ -21,10 +21,10 @@ summarise_boxplot_stats(
 \item{...}{Passed to \code{boxplot.stats}}
 }
 \value{
-A tibble or dataframe.
+A data frame.
 }
 \description{
-Summarise boxplot stats in a dataset or tibble.
+Summarise boxplot stats.
 }
 \examples{
 library(simplevis)

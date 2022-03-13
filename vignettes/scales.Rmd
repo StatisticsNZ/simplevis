@@ -37,13 +37,36 @@ Therefore, if you know want to adjust the x scale but can't think how, you can s
 
 One deviation from this logic is that colour palette is selected using a `pal` argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.
 
+### Titles
+
+Defaults titles are: 
+
+ * no title, subtitle or caption 
+ * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. 
+
+You can customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "Adult penguin mass by bill length and species",
+             subtitle = "Palmer station, Antarctica",
+             x_title = "Bill length (mm)", 
+             y_title = "Body mass (g)",
+             col_title = "Species")
+```
+
+You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.
+
 ### Labels
 
 You can adjust labels by provinding a function or named vector to the `*_labels`argument. 
 
 All categorical variables are converted to sentence case by default using `snakecase::to_sentence_case`. 
 
-Numeric variables are generally converted using the `scales::label_comma()` by default, but sometimes converted to `scales::label_number()`. Numeric colour variables are converted to bins seperated by n-dashes using an internal function. 
+Numeric variables are generally converted using the `scales::label_comma()` by default, but sometimes converted to `scales::label_number()`. 
 
 You can turn off any simplevis default transformations to labels using `function(x) x`. 
 
@@ -56,17 +79,20 @@ gg_point_col_facet(penguins,
 ```
 
 ```{r}
+col_labels <- c("F", "M")
+names(col_labels) <- sort(unique(penguins$sex))
+col_labels
+
 gg_point_col_facet(penguins,
                    x_var = bill_length_mm,
                    y_var = body_mass_g,
                    col_var = sex,
                    facet_var = species, 
                    y_title = "Body mass (kg)",
-                   x_labels = scales::label_dollar(), 
+                   x_labels =  scales::label_comma(),
                    y_labels = function(x) glue::glue("{x / 1000} kg"), 
-                   col_labels = stringr::str_to_upper,
-                   facet_labels = function(x) stringr::str_to_upper(stringr::str_sub(x, 1, 1)))
-
+                   col_labels = col_labels,
+                   facet_labels = ~ stringr::str_to_upper(stringr::str_sub(.x, 1, 1)))
 ```
 
 ### Numeric scales
@@ -364,25 +390,3 @@ gg_bar_col(plot_data,
        size_width = 0.5)
 ```
 
-### Titles
-
-Defaults titles are: 
-
- * no title, subtitle or caption 
- * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. 
-
-You can customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
-
-```{r}
-gg_point_col(penguins, 
-             x_var = bill_length_mm, 
-             y_var = body_mass_g, 
-             col_var = species, 
-             title = "Adult penguin mass by bill length and species",
-             subtitle = "Palmer station, Antarctica",
-             x_title = "Bill length (mm)", 
-             y_title = "Body mass (g)",
-             col_title = "Species")
-```
-
-You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.

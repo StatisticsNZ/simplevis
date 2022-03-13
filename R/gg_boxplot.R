@@ -1,7 +1,7 @@
 #' @title Boxplot ggplot.
 #' 
 #' @description Boxplot ggplot that is not coloured and not facetted.
-#' @param data A dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
+#' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param pal Character vector of hex codes. 
@@ -270,7 +270,7 @@ gg_boxplot <- function(data,
 #' @title Boxplot ggplot that is coloured.
 #' 
 #' @description Boxplot ggplot that is coloured, but not facetted.
-#' @param data A dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
+#' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.
@@ -628,7 +628,7 @@ gg_boxplot_col <- function(data,
 #' @title Boxplot ggplot that is facetted.
 #' 
 #' @description Boxplot ggplot that is facetted, but not coloured.
-#' @param data A dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
+#' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -904,7 +904,7 @@ gg_boxplot_facet <- function(data,
 #' @title Boxplot ggplot that is coloured and facetted.
 #' 
 #' @description Boxplot ggplot that is coloured and facetted.
-#' @param data A dataframe generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
+#' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
 #' @param col_var Unquoted categorical variable to colour the fill of the boxes. Required input.

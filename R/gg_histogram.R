@@ -1,7 +1,7 @@
 #' @title Histogram ggplot.
 #' 
 #' @description Histogram ggplot that is not coloured and not facetted.
-#' @param data A dataframe in a structure to be transformed to histogram statistics. Required input.
+#' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5.  
@@ -152,7 +152,7 @@ gg_histogram <- function(data,
 #' @title Histogram ggplot that is coloured.
 #' 
 #' @description Histogram ggplot that is coloured, but not facetted.
-#' @param data A dataframe in a structure to be transformed to histogram statistics. Required input.
+#' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour histogram areas. Required input.
 #' @param pal Character vector of hex codes. 
@@ -379,7 +379,7 @@ gg_histogram_col <- function(data,
 #' @title Histogram ggplot that is facetted.
 #' 
 #' @description Histogram ggplot that is facetted, but not coloured.
-#' @param data A dataframe in a structure to be transformed to histogram statistics. Required input.
+#' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
@@ -554,7 +554,7 @@ gg_histogram_facet <- function(data,
 #' @title Histogram ggplot that is coloured and facetted.
 #' 
 #' @description Histogram ggplot that is coloured and facetted.
-#' @param data A dataframe in a structure to be transformed to histogram statistics. Required input.
+#' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour histogram areas. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.

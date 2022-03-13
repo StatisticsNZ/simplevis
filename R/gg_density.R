@@ -1,6 +1,6 @@
 #' @title Density ggplot.
 #' @description Density ggplot that is not coloured and not facetted.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5.  
@@ -168,7 +168,7 @@ gg_density <- function(data,
 #' @title Density ggplot that is coloured.
 #' 
 #' @description Density ggplot that is coloured, but not facetted.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
 #' @param pal Character vector of hex codes. 
@@ -413,7 +413,7 @@ gg_density_col <- function(data,
 #' @title Density ggplot that is facetted.
 #' 
 #' @description Density ggplot that is facetted, but not coloured.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
 #' @param pal Character vector of hex codes. 
@@ -605,7 +605,7 @@ gg_density_facet <- function(data,
 #' @title Density ggplot that is coloured and facetted.
 #' 
 #' @description Density ggplot that is coloured and facetted.
-#' @param data A dataframe in a structure to be transformed to density statistics. Required input.
+#' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.

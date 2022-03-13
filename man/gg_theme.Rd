@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_theme.R
 \name{gg_theme}
 \alias{gg_theme}
-\title{Create a simple theme for a graph.}
+\title{Quick theme for a ggplot.}
 \usage{
 gg_theme(
   font = "",
@@ -81,5 +81,5 @@ gg_theme(
 A ggplot theme.
 }
 \description{
-Create a simple theme for a graph.
+Quick theme for a ggplot visualisation.
 }

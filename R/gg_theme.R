@@ -1,5 +1,6 @@
-#' @title Create a simple theme for a graph. 
+#' @title Quick theme for a ggplot. 
 #'
+#' @description Quick theme for a ggplot visualisation.
 #' @param font The font for all text to use. Defaults to "".
 #' @param font_title The font for the title. If NULL, inherits from font argument.
 #' @param font_subtitle The font for the subtitle. If NULL, inherits from font argument.
@@ -228,8 +229,9 @@ gg_theme <-
     return(theme)
   }
 
-#' @title Extra theme elements for ggplot2 graphs on mobile devices
-#' @description Extra theme elements for ggplot2 graphs on mobile devices
+#' @title Theme extra elements for a ggplot2 on mobile devices.
+#'
+#' @description Theme elements for ggplot2 on mobile devices.
 #' @param void TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.
 #'
 #' @return A ggplot theme.

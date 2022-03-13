@@ -61,7 +61,7 @@ gg_smooth_col_facet(
 )
 }
 \arguments{
-\item{data}{A dataframe in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.}
+\item{data}{A data frame in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

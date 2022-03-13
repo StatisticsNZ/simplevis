@@ -1,11 +1,13 @@
-#' Calculate the breaks for a y axis numeric vector.
-#'
+#' @title Calculate vertical breaks.
+#' 
+#' @title Calculate the breaks for a vertical axis numeric vector.
 #' @param var_vctr A numeric vector for the vertical scale from which to determine breaks from.
 #' @param balance Add balance to the vertical axis so that zero is in the centre of the vertical scale.
 #' @param breaks_n The desired number of intervals on the vertical axis, as calculated by the pretty algorithm. Defaults to 5.
 #' @param trans A string specifying a transformation for the vertical axis scale, such as "log10" or "sqrt". Defaults to "identity".
 #' @param zero TRUE or FALSE of whether the minimum of the vertical scale is zero. Defaults to TRUE.
 #' @param mobile Whether the plot is to be displayed on a mobile device. Defaults to NULL.
+#' 
 #' @return A vector of breaks
 #' @keywords internal
 sv_numeric_breaks_v <- function(var_vctr,
@@ -25,8 +27,9 @@ sv_numeric_breaks_v <- function(var_vctr,
   return(breaks)
 }
 
-#' Calculate the breaks for a horizontal axis numeric vector.
-#'
+#' @title Calculate horizontal numeric breaks.
+#' 
+#' @description Calculate the breaks for a horizontal axis numeric vector.
 #' @param var_vctr A numeric vector for the horizontal scale from which to determine breaks from.
 #' @param balance Add balance to the y axis so that zero is in the centre of the horizontal scale.
 #' @param breaks_n The desired number of intervals on the horizontal axis, as calculated by the pretty algorithm. Defaults to 6.

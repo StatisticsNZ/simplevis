@@ -1,4 +1,5 @@
 #' @title Stars ggplot map.
+#' 
 #' @description Map of an array in ggplot that is not coloured and not facetted. 
 #' @param data A stars object with defined coordinate reference system in a structure to be plotted untransformed. Note, it cannot be a stars_proxy object. Required input.
 #' @param borders A sf object as administrative boundaries (or coastlines). Defaults to no boundaries added. The rnaturalearth package is a useful source of country and state boundaries.
@@ -126,6 +127,7 @@ gg_stars <- function(data,
 }
 
 #' @title Stars ggplot map that is coloured.
+#' 
 #' @description Map of an array in ggplot that is coloured, but not facetted. 
 #' @param data A stars object with defined coordinate reference system in a structure to be plotted untransformed. Note, it cannot be a stars_proxy object. Required input.
 #' @param col_var Unquoted variable for points to be coloured by. Required input.

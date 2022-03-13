@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_theme.R
 \name{theme_mobile_extra}
 \alias{theme_mobile_extra}
-\title{Extra theme elements for ggplot2 graphs on mobile devices}
+\title{Theme extra elements for a ggplot2 on mobile devices.}
 \usage{
 theme_mobile_extra(void = FALSE)
 }
@@ -13,6 +13,6 @@ theme_mobile_extra(void = FALSE)
 A ggplot theme.
 }
 \description{
-Extra theme elements for ggplot2 graphs on mobile devices
+Theme elements for ggplot2 on mobile devices.
 }
 \keyword{internal}

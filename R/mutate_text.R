@@ -1,10 +1,11 @@
-#' @title Add a quick tooltip text column to data.
-#' @description Add a column of tooltip text which is automatically created based on column names and values. 
-#' @param data A tibble or dataframe. Required input.
+#' @title Tooltip text column to data.
+#' 
+#' @description Add a column of tooltip text based on column names and values. 
+#' @param data A data frame. Required input.
 #' @param vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
 #' @param numeric_format A function to format all numeric variables within the tooltip text column. Defaults to non-scientific. Use function(x) x to leave as is.
 #' 
-#' @return A tibble or data frame with an additional column called text.
+#' @return A data frame with an extra column called text.
 #' @export
 #' @examples
 #' library(simplevis)

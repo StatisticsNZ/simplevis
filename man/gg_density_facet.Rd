@@ -46,7 +46,7 @@ gg_density_facet(
 )
 }
 \arguments{
-\item{data}{A dataframe in a structure to be transformed to density statistics. Required input.}
+\item{data}{A data frame in a structure to be transformed to density statistics. Required input.}
 
 \item{x_var}{Unquoted numeric variable to be on the x scale. Required input.}
 

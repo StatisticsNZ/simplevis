@@ -1,7 +1,7 @@
 #' @title Bar ggplot.
 #' 
 #' @description Bar ggplot that is not coloured and not facetted.
-#' @param data A dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -268,7 +268,7 @@ gg_bar <- function(data,
 #' @title Bar ggplot that is coloured.
 #' 
 #' @description Bar ggplot that is coloured, but not facetted.
-#' @param data A dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.
@@ -715,7 +715,7 @@ gg_bar_col <- function(data,
 #' @title Bar ggplot that is facetted.
 #' 
 #' @description Bar ggplot that is facetted, but not coloured.
-#' @param data A dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -992,7 +992,7 @@ gg_bar_facet <- function(data,
 #' @title Bar ggplot that is coloured and facetted.
 #' 
 #' @description Bar ggplot that is coloured and facetted.
-#' @param data A dataframe in a structure to be plotted untransformed. Required input.
+#' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
 #' @param col_var Unquoted categorical or numeric variable to colour the bars. Required input.

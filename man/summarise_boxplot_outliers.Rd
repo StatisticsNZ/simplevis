@@ -7,14 +7,14 @@
 summarise_boxplot_outliers(data, var, ...)
 }
 \arguments{
-\item{data}{A tibble or dataframe. Required input. Group the dataset as appropriate prior.}
+\item{data}{A data frame. Required input. Group the dataset as appropriate prior.}
 
 \item{var}{Unquoted variable from which to calculate outliers. Required input.}
 
 \item{...}{Passed to \code{boxplot.stats}}
 }
 \value{
-A tibble or dataframe.
+A data frame.
 }
 \description{
 Summarise outliers in a dataset or tibble.

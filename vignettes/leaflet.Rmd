@@ -200,7 +200,7 @@ For example, if the server.R code downloaded from `shiny_demo()` is updated as f
         renderPlot(
           gg_histogram(example_point, median, 
                        title = paste0(input$leaf_marker_click$id, " compared to all sites"), 
-                       theme = gg_theme(font = "Helvetica", size_title = 16,  size_body = 15, gridlines_h = T)) +
+                       theme = gg_theme(font = "Helvetica", size_title = 16,  size_body = 15, gridlines_h = TRUE)) +
             ggplot2::geom_vline(ggplot2::aes(xintercept = site_median), col = "red")
         ),
         easyClose = TRUE

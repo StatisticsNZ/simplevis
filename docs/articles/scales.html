@@ -180,7 +180,7 @@
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
              y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
              col_var <span class="op">=</span> <span class="va">species</span>, 
-             y_balance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+             y_balance <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <p>Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.</p>
 <p>Transform numeric x and y scales by adding a ggplot2 <code>scale_*_continuous</code> layer.</p>
@@ -247,7 +247,7 @@
 <span class="fu"><a href="../reference/gg_hbar.html">gg_hbar</a></span><span class="op">(</span><span class="va">plot_data</span>, 
         x_var <span class="op">=</span> <span class="va">price</span>, 
         y_var <span class="op">=</span> <span class="va">cut</span>, 
-        y_reorder <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+        y_reorder <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <p>For other functions, you will need to reorder the relevant variables as you want.</p>
 <p>The <code>tidytext</code> package provides a method for reordering within facets.</p>
@@ -323,7 +323,7 @@
                    y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
                    col_var <span class="op">=</span> <span class="va">sex</span>, 
                    facet_var <span class="op">=</span> <span class="va">species</span>, 
-                   col_na_rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+                   col_na_rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
 </div>
 <div class="section level3">
@@ -414,6 +414,28 @@
        col_legend_none <span class="op">=</span> <span class="cn">TRUE</span>,
        size_width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+</div>
+<div class="section level3">
+<h3 id="titles">Titles<a class="anchor" aria-label="anchor" href="#titles"></a>
+</h3>
+<p>Defaults titles are:</p>
+<ul>
+<li>no title, subtitle or caption</li>
+<li>x, y and colour titles are converted to sentence case using the <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code> function.</li>
+</ul>
+<p>You can customise titles with <code>title</code>, <code>subtitle</code>, <code>x_title</code>, <code>y_title</code> and <code>caption</code> arguments.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
+             x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
+             y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
+             col_var <span class="op">=</span> <span class="va">species</span>, 
+             title <span class="op">=</span> <span class="st">"Adult penguin mass by bill length and species"</span>,
+             subtitle <span class="op">=</span> <span class="st">"Palmer station, Antarctica"</span>,
+             x_title <span class="op">=</span> <span class="st">"Bill length (mm)"</span>, 
+             y_title <span class="op">=</span> <span class="st">"Body mass (g)"</span>,
+             col_title <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></code></pre></div>
+<p><img src="scales_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
+<p>You can also request no x_title using <code>x_title = ""</code> or likewise for <code>y_title</code> and <code>col_title</code>.</p>
 </div>
   </main>
 </div>

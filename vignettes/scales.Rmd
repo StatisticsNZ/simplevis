@@ -105,7 +105,7 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             y_balance = T)
+             y_balance = TRUE)
 ```
 
 Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.
@@ -181,7 +181,7 @@ plot_data <- ggplot2::diamonds %>%
 gg_hbar(plot_data, 
         x_var = price, 
         y_var = cut, 
-        y_reorder = T)
+        y_reorder = TRUE)
 ```
 
 For other functions, you will need to reorder the relevant variables as you want.
@@ -266,7 +266,7 @@ gg_point_col_facet(penguins,
                    y_var = body_mass_g, 
                    col_var = sex, 
                    facet_var = species, 
-                   col_na_rm = T)
+                   col_na_rm = TRUE)
 ```
 
 ### Expanding the scale
@@ -364,3 +364,25 @@ gg_bar_col(plot_data,
        size_width = 0.5)
 ```
 
+### Titles
+
+Defaults titles are: 
+
+ * no title, subtitle or caption 
+ * x, y and colour titles are converted to sentence case using the `snakecase::to_sentence_case` function. 
+
+You can customise titles with `title`, `subtitle`, `x_title`, `y_title` and `caption` arguments. 
+
+```{r}
+gg_point_col(penguins, 
+             x_var = bill_length_mm, 
+             y_var = body_mass_g, 
+             col_var = species, 
+             title = "Adult penguin mass by bill length and species",
+             subtitle = "Palmer station, Antarctica",
+             x_title = "Bill length (mm)", 
+             y_title = "Body mass (g)",
+             col_title = "Species")
+```
+
+You can also request no x_title using `x_title = ""` or likewise for `y_title` and `col_title`.

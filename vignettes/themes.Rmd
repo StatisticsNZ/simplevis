@@ -133,7 +133,7 @@ gg_point_col(penguins,
              title = "A nice long title", 
              subtitle = "And a subtitle",
              col_title = "",
-             pal = ggthemes::economist_pal(fill = F)(3),
+             pal = ggthemes::economist_pal(fill = FALSE)(3),
              theme = ggthemes::theme_economist())
 ```
 

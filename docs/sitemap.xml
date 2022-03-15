@@ -1,906 +1,906 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/404.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/404.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/colour.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/colour.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/ggplotly.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/ggplotly.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/index.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/leaflet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/leaflet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/scales.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/scales.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/shiny.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/shiny.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/simplevis.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/simplevis.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/themes.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/themes.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/articles/titles.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/articles/titles.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/authors.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/authors.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/CHANGELOG.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/CHANGELOG.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/index.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/index.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/LICENSE-text.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/LICENSE.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/news/index.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/news/index.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/a4_height_mm.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/a4_height_mm.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/a4_width_mm.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/a4_width_mm.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/add_plot_tip.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/add_plot_tip.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/add_tip.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/add_tip.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/add_tip_c.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/add_tip_c.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/bin_cuts_to_interval_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/bin_cuts_to_interval_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/colnames_to_snake_to_sentence.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/colnames_to_snake_to_sentence.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/cuts_to_interval_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/cuts_to_interval_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/cut_format.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/cut_format.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_borders.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_borders.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_point.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_point.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_polygon.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_polygon.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_sf_borders.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_sf_borders.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_sf_nz_livestock.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_sf_nz_livestock.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_sf_nz_river_wq.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_sf_nz_river_wq.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_sf_point.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_sf_point.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_sf_polygon.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_sf_polygon.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_stars.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_stars.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_stars_2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_stars_2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_stars_nz_drp.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_stars_nz_drp.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/example_stars_nz_no3n.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/example_stars_nz_no3n.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_box.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_box.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_boxplot.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_boxplot.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_boxplot_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_boxplot_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_boxplot_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_boxplot_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_boxplot_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_boxplot_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_box_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_box_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_hbar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_hbar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_hbar_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_hbar_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_hbar_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_hbar_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_hbar_col_facet2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_hbar_col_facet2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_hbar_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_hbar_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_htile.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_htile.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_htile_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_htile_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_htile_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_htile_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_htile_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_htile_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_line.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_line.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_line_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_line_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_line_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_line_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_line_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_line_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_point.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_point.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_point_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_point_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_point_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_point_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_point_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_point_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_scatter.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_scatter.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_scatter_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_scatter_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_scatter_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_scatter_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_scatter_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_scatter_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_sf.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_sf.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_sf_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_sf_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_sf_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_sf_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_sf_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_sf_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_stars.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_stars.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_stars_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_stars_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_stars_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_stars_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_stars_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_stars_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_vbar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_vbar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_vbar_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_vbar_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_vbar_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_vbar_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ggplot_vbar_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ggplot_vbar_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_bar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_bar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_bar_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_bar_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_bar_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_bar_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_bar_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_bar_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot_col2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot_col2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot_col_facet2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot_col_facet2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_boxplot_facet2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_boxplot_facet2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_density.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_density.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_density_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_density_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_density_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_density_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_density_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_density_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hbar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hbar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hbar_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hbar_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hbar_col2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hbar_col2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hbar_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hbar_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hbar_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hbar_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hboxplot.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hboxplot.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hboxplot_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hboxplot_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hboxplot_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hboxplot_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hboxplot_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hboxplot_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_histogram.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_histogram.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_histogram_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_histogram_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_histogram_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_histogram_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_histogram_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_histogram_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hpointrange.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hpointrange.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hpointrange_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hpointrange_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hpointrange_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hpointrange_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hpointrange_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hpointrange_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hviolin.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hviolin.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hviolin_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hviolin_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hviolin_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hviolin_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_hviolin_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_hviolin_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_line.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_line.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_line_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_line_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_line_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_line_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_line_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_line_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_point.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_point.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_pointrange.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_pointrange.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_pointrange_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_pointrange_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_pointrange_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_pointrange_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_pointrange_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_pointrange_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_point_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_point_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_point_col2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_point_col2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_point_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_point_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_point_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_point_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_sf.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_sf.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_sf_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_sf_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_sf_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_sf_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_sf_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_sf_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_smooth.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_smooth.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_smooth_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_smooth_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_smooth_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_smooth_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_smooth_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_smooth_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_stars.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_stars.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_stars_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_stars_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_theme.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_theme.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_theme_grid.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_theme_grid.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_theme_grid_h.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_theme_grid_h.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_theme_grid_v.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_theme_grid_v.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_theme_map.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_theme_map.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_theme_void.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_theme_void.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_tile_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_tile_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_tile_col2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_tile_col2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_tile_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_tile_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_vbar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_vbar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_vbar_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_vbar_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_vbar_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_vbar_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_vbar_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_vbar_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_violin.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_violin.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_violin_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_violin_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_violin_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_violin_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/gg_violin_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/gg_violin_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/h_numeric_breaks.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/h_numeric_breaks.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/index.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/interval_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/interval_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/label_intervals.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/label_intervals.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_basemap.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_basemap.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_basemap_nz.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_basemap_nz.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_basemap_stack.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_basemap_stack.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_basemap_stack_nz.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_basemap_stack_nz.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_sf.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_sf.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_sf_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_sf_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_sf_col2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_sf_col2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_stars.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_stars.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaflet_stars_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaflet_stars_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaf_basemap.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaf_basemap.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaf_clear.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaf_clear.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaf_sf.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaf_sf.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaf_sf_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaf_sf_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaf_stars.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaf_stars.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/leaf_stars_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/leaf_stars_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/legend_labels_from_cuts.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/legend_labels_from_cuts.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/mutate_text.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/mutate_text.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/na.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/na.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ne_boundary.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ne_boundary.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/ne_bounds.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/ne_bounds.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/numeric_col_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/numeric_col_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/numeric_legend_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/numeric_legend_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/nz.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/nz.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/nz_region.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/nz_region.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/order_plotly_legend.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/order_plotly_legend.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_d3_reorder.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_d3_reorder.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_default.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_default.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_alpha2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_alpha2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_compare2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_compare2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_nof4.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_nof4.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_nof5.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_nof5.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_nztcs_c.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_nztcs_c.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_nztcs_category.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_nztcs_category.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_nztcs_subcategory_change.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_nztcs_subcategory_change.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_trend2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_trend2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_trend3.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_trend3.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_ea19_trend5.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_ea19_trend5.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_na.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_na.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_point_set1.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_point_set1.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_point_trend2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_point_trend2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_point_trend3.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_point_trend3.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_point_trend5.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_point_trend5.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_set1.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_set1.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_alpha2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_alpha2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_compare2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_compare2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nof4.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nof4.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nof5.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nof5.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nztcs_c.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nztcs_c.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nztcs_category.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nztcs_category.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nztcs_s.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nztcs_s.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nztcs_sc.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nztcs_sc.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nztcs_subcategory.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nztcs_subcategory.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_nztcs_subcategory_change.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_nztcs_subcategory_change.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_trend2.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_trend2.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_trend3.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_trend3.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_snz_trend5.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_snz_trend5.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_trend3.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_trend3.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_trend5.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_trend5.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pal_viridis_reorder.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pal_viridis_reorder.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pipe.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_camera.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_camera.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_col_legend.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_col_legend.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_col_order.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_col_order.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_col_rev.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_col_rev.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_legend_order.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_legend_order.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_legend_rev.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_legend_rev.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_order_legend.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_order_legend.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_remove_buttons.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_remove_buttons.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/plotly_reverse_legend.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/plotly_reverse_legend.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/pretty_intervals.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/pretty_intervals.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/remove_plotly_buttons.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/remove_plotly_buttons.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/reverse_plotly_legend.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/reverse_plotly_legend.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/run_example.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/run_example.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/run_template.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/run_template.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sentence_colnames.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sentence_colnames.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sentence_spaced_colnames.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sentence_spaced_colnames.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/shiny_demo.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/shiny_demo.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/shiny_template.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/shiny_template.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/signed_sqrt_trans.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/signed_sqrt_trans.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/spectrum.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/spectrum.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/summarise_boxplot_outliers.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/summarise_boxplot_outliers.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/summarise_boxplot_stats.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/summarise_boxplot_stats.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_colnames_to_present.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_colnames_to_present.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_cuts_to_interval_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_cuts_to_interval_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_cuts_to_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_cuts_to_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_density_max.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_density_max.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_density_max_col.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_density_max_col.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_density_max_col_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_density_max_col_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_density_max_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_density_max_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_font_size_body.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_font_size_body.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_font_size_title.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_font_size_title.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_intervals_to_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_intervals_to_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_interval_breaks_to_interval_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_interval_breaks_to_interval_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_interval_labels_chr.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_interval_labels_chr.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_interval_labels_num.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_interval_labels_num.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_labels_from_cuts.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_labels_from_cuts.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_label_intervals.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_label_intervals.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_col_dodge.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_col_dodge.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_col_facet_dodge.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_col_facet_dodge.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_col_facet_identity.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_col_facet_identity.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_col_facet_stack.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_col_facet_stack.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_col_identity.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_col_identity.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_col_stack.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_col_stack.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_density_facet.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_density_facet.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_digits.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_digits.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_max_dp.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_max_dp.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_numeric_bin_labels.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_numeric_bin_labels.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_numeric_breaks_h.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_numeric_breaks_h.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_numeric_breaks_v.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_numeric_breaks_v.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_pal.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_pal.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_x_numeric_breaks.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_x_numeric_breaks.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_x_zero_adjust.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_x_zero_adjust.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_y_numeric_breaks.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_y_numeric_breaks.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/sv_y_zero_adjust.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/sv_y_zero_adjust.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_bar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_bar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_box.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_box.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_boxplot.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_boxplot.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_hbar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_hbar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_hbar_mobile_adj.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_hbar_mobile_adj.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_htile.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_htile.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_hv_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_hv_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_h_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_h_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_line.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_line.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_map.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_map.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_mobile_extra.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_mobile_extra.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_mobile_extra_map.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_mobile_extra_map.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_mobile_graph.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_mobile_graph.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_mobile_map.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_mobile_map.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_no_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_no_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_point.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_point.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_scatter.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_scatter.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_sf.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_sf.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_stars.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_stars.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_vbar.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_vbar.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_v_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_v_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_xy_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_xy_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_x_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_x_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/theme_y_gridlines.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/theme_y_gridlines.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/v_numeric_breaks.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/v_numeric_breaks.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/x_numeric_breaks.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/x_numeric_breaks.html</loc>
   </url>
   <url>
-    <loc>https://statisticsnz.github.io/simplevis/reference/y_numeric_breaks.html</loc>
+    <loc>https://StatisticsNZ.github.io/simplevis/reference/y_numeric_breaks.html</loc>
   </url>
 </urlset>

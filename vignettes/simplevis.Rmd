@@ -380,7 +380,7 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
-Refer to the [colour](https://statisticsnz.github.io/simplevis/articles/colour.html) article for further information.
+Refer to the [colour](https://StatisticsNZ.github.io/simplevis/articles/colour.html) article for further information.
 
 ### Customising with consistent prefixes & autocomplete
 
@@ -432,7 +432,7 @@ gg_line_col_facet(plot_data,
                   size_point = 1)
 ```
 
-Refer to the [scales](https://statisticsnz.github.io/simplevis/articles/scales.html) article for further information.
+Refer to the [scales](https://StatisticsNZ.github.io/simplevis/articles/scales.html) article for further information.
 
 The `size_` and `alpha_` prefixes are used to modify the size and opacity of various aspects of the visualisation.
 
@@ -457,7 +457,7 @@ gg_point_col(penguins,
              theme = custom_theme)
 ```
 
-Refer to the [themes](https://statisticsnz.github.io/simplevis/articles/themes.html) article for further information.
+Refer to the [themes](https://StatisticsNZ.github.io/simplevis/articles/themes.html) article for further information.
 
 ### Maps
 
@@ -497,7 +497,7 @@ leaf_sf_col(example_point,
             col_var = trend_category)
 ```
 
-Refer to the [leaflet](https://statisticsnz.github.io/simplevis/articles/leaflet.html) article for further information.
+Refer to the [leaflet](https://StatisticsNZ.github.io/simplevis/articles/leaflet.html) article for further information.
 
 ### Extending simplevis 
 
@@ -561,7 +561,7 @@ plotly::ggplotly(plot) %>%
 
 simplevis also offers more customisability for making tooltips(i.e. hover values) in ggplotly (i.e. hover values). 
 
-Refer to the [ggplotly](https://statisticsnz.github.io/simplevis/articles/ggplotly.html) article for further information.
+Refer to the [ggplotly](https://StatisticsNZ.github.io/simplevis/articles/ggplotly.html) article for further information.
 
 ### Supported variable classes
 
@@ -601,4 +601,4 @@ Where:
 
 ### Further information
 
-For further information, see the [articles](https://statisticsnz.github.io/simplevis/articles/) on the simplevis website.
+For further information, see the [articles](https://StatisticsNZ.github.io/simplevis/articles/) on the simplevis website.

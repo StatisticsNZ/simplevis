@@ -20,11 +20,11 @@ Stable version from CRAN:
 
 Development version from github:
 
-`devtools::install_github("statisticsnz/simplevis")`
+`devtools::install_github("StatisticsNZ/simplevis")`
 
 ### Get started
 
-Click [here](https://statisticsnz.github.io/simplevis/articles/simplevis.html) to get started.
+Click [here](https://StatisticsNZ.github.io/simplevis/articles/simplevis.html) to get started.
 
 ---
 __Copyright and Licensing__

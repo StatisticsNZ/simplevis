@@ -176,7 +176,7 @@ gg_hboxplot <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme 
   
   if (stat == "boxplot") {
@@ -505,7 +505,7 @@ gg_hboxplot_col <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme
   
   if (stat == "boxplot") {
@@ -819,7 +819,7 @@ gg_hboxplot_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme   
   
   if (stat == "boxplot") {
@@ -1148,7 +1148,7 @@ gg_hboxplot_col_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme 
   
   if (stat == "boxplot") {

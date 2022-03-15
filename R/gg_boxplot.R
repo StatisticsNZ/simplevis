@@ -176,7 +176,7 @@ gg_boxplot <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme
   
   if (stat == "boxplot") {
@@ -507,7 +507,7 @@ gg_boxplot_col <- function(data,
 
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme
   
   if (stat == "boxplot") {
@@ -816,7 +816,7 @@ gg_boxplot_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme
   
   if (stat == "boxplot") {
@@ -1148,7 +1148,7 @@ gg_boxplot_col_facet <- function(data,
 
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme
   
   if (stat == "boxplot") {

@@ -123,7 +123,7 @@ gg_smooth <- function(data,
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     geom_point(aes(!!x_var, !!y_var), col = pal_point, size = size_point) + 
     geom_smooth(aes(!!x_var, !!y_var),
                 col = pal_line, 
@@ -263,8 +263,6 @@ gg_smooth <- function(data,
 #'              y_var = body_mass_g, 
 #'              col_var = species)
 #'              
-#' #if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
-#' 
 gg_smooth_col <- function(data,
                           x_var,
                           y_var,
@@ -372,7 +370,7 @@ gg_smooth_col <- function(data,
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     geom_point(aes(!!x_var, !!y_var, col = !!col_var), alpha = alpha_point, size = size_point, show.legend = FALSE) + 
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var),
                 alpha = alpha_fill,
@@ -641,7 +639,7 @@ gg_smooth_facet <- function(data,
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     geom_point(aes(!!x_var, !!y_var), col = pal_point, alpha = alpha_point, size = size_point) + 
     geom_smooth(aes(!!x_var, !!y_var),
                 col = pal_line, 
@@ -781,7 +779,6 @@ gg_smooth_facet <- function(data,
 #'                    facet_var = species, 
 #'                    col_na_rm = TRUE)
 #' 
-#' #if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
 #' 
 gg_smooth_col_facet <- function(data,
                                 x_var,
@@ -917,7 +914,7 @@ gg_smooth_col_facet <- function(data,
   #fundamentals
   plot <- ggplot(data) +
     theme +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     geom_point(aes(!!x_var, !!y_var, col = !!col_var), alpha = alpha_point, size = size_point, show.legend = FALSE) +
     geom_smooth(aes(!!x_var, !!y_var, col = !!col_var, fill = !!col_var),
                 alpha = alpha_fill,

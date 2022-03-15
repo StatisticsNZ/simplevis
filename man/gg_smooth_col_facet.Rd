@@ -184,6 +184,5 @@ gg_smooth_col_facet(penguins,
                    facet_var = species, 
                    col_na_rm = TRUE)
 
-#if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
 
 }

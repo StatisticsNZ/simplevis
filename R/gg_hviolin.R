@@ -133,7 +133,7 @@ gg_hviolin <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +
     geom_violin(
       aes(x = !!y_var, y = !!x_var),
@@ -385,7 +385,7 @@ gg_hviolin_col <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +
     geom_violin(
       aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var),
@@ -650,7 +650,7 @@ gg_hviolin_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +   
     geom_violin(
       aes(x = !!y_var, y = !!x_var),
@@ -930,7 +930,7 @@ gg_hviolin_col_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +
     geom_violin(
       aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var), 

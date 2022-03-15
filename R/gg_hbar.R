@@ -162,7 +162,7 @@ gg_hbar <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), 
              col = pal_line, 
@@ -554,7 +554,7 @@ gg_hbar_col <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
@@ -908,7 +908,7 @@ gg_hbar_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") +
+    coord_flip() +
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, text = !!text_var), 
              col = pal_line, 
@@ -1314,7 +1314,7 @@ gg_hbar_col_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_flip(clip = "off") + 
+    coord_flip() + 
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 

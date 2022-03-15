@@ -164,6 +164,4 @@ gg_smooth_col(penguins,
              y_var = body_mass_g, 
              col_var = species)
              
-#if ggplotly legend bug, pipe in plotly::style(showlegend = FALSE, traces = x:y) layer 
-
 }

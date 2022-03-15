@@ -132,7 +132,7 @@ gg_violin <- function(data,
 
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme
   
   plot <- plot +
@@ -385,7 +385,7 @@ gg_violin_col <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme +
     geom_violin(
       aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var), 
@@ -645,7 +645,7 @@ gg_violin_facet <- function(data,
 
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme +
     geom_violin(
       aes(x = !!x_var, y = !!y_var), 
@@ -925,7 +925,7 @@ gg_violin_col_facet <- function(data,
   
   #fundamentals
   plot <- ggplot(data) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian() +
     theme +
     geom_violin(
       aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var), 

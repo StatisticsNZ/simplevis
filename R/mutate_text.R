@@ -1,9 +1,10 @@
-#' @title Tooltip text column to data.
+#' @title Add 'HTML' strings' column of variable names and values. 
 #' 
-#' @description Add a column of tooltip text based on column names and values. 
+#' @description Add 'HTML' strings' column of variable names and values.  
 #' @param data A data frame. Required input.
 #' @param vars_vctr A vector of quoted variables to include in the tooltip. Defaults to NULL, which adds all variables in.
 #' @param numeric_format A function to format all numeric variables within the tooltip text column. Defaults to non-scientific. Use function(x) x to leave as is.
+#' @param name name of the tooltip text column to be created. Defaults to "text".
 #' 
 #' @return A data frame with an extra column called text.
 #' @export
@@ -26,7 +27,8 @@
 #' 
 mutate_text <- function(data, 
                         vars_vctr = NULL, 
-                        numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE)) {
+                        numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE), 
+                        name = "text") {
   
   data <- data %>% 
     dplyr::ungroup() 
@@ -70,6 +72,9 @@ mutate_text <- function(data,
     data <- data %>%
       dplyr::relocate(text, .before = "geometry")
   }
+  
+  data <- data %>%
+    dplyr::rename(!!name := text)
   
   return(data)
 }

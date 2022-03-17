@@ -8,7 +8,7 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -256,7 +256,7 @@ gg_line <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
@@ -570,7 +570,7 @@ gg_line_col <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 
@@ -840,7 +840,7 @@ gg_line_facet <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 100. 

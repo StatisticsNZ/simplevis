@@ -10,7 +10,7 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -72,7 +72,7 @@ gg_hpointrange <- function(data,
                     alpha_line = 1,
                     alpha_point = 1,
                     size_point = 1.5,
-                    size_line = 0.5,
+                    size_line = 0.5, 
                     title = NULL,
                     title_wrap = 75,
                     subtitle = NULL,
@@ -159,8 +159,9 @@ gg_hpointrange <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme +
-    geom_linerange(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, text = !!text_var), size = size_line, col = pal_line) +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point) 
+    geom_point(aes(x = !!y_var, y = !!xmiddle_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point) +
+    geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, text = !!text_var), 
+                  size = size_line, width = 0, col = pal_line) 
   
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
@@ -273,7 +274,7 @@ gg_hpointrange <- function(data,
 #' @param pal_rev Reverses the palette. Defaults to FALSE.
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -351,7 +352,7 @@ gg_hpointrange_col <- function(data,
                         alpha_line = 1,
                         alpha_point = 1,
                         size_point = 1.5,
-                        size_line = 0.5,
+                        size_line = 0.5, 
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -543,9 +544,10 @@ gg_hpointrange_col <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme +
-    geom_linerange(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, col = !!col_var, text = !!text_var), size = size_line, position = position_dodge(width = y_dodge)) +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge))
-  
+    geom_point(aes(x = !!y_var, y = !!xmiddle_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge)) +
+    geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, col = !!col_var, text = !!text_var), 
+                  size = size_line, width = 0, position = position_dodge(width = y_dodge))
+
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     
@@ -683,7 +685,7 @@ gg_hpointrange_col <- function(data,
 #' @param pal Character vector of hex codes. 
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -752,7 +754,7 @@ gg_hpointrange_facet <- function(data,
                           alpha_line = 1,
                           alpha_point = 1,
                           size_point = 1.5,
-                          size_line = 0.5,
+                          size_line = 0.5, 
                           title = NULL,
                           title_wrap = 75,
                           subtitle = NULL,
@@ -864,8 +866,9 @@ gg_hpointrange_facet <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme +
-    geom_linerange(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, text = !!text_var), size = size_line, col = pal_line) +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, text = !!text_var), col = pal_point, size = size_point)
+    geom_point(aes(x = !!y_var, y = !!xmiddle_var, text = !!text_var), col = pal_point, size = size_point) +
+    geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, text = !!text_var), 
+                  size = size_line, width = 0, col = pal_line) 
 
   #y scale
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
@@ -968,7 +971,7 @@ gg_hpointrange_facet <- function(data,
 #' @param pal_rev TRUE or FALSE of whether to reverse the pal.
 #' @param alpha_line The opacity of the line. Defaults to 1. 
 #' @param alpha_point The opacity of the points. 
-#' @param size_line Size of lines. Defaults to 0.75. 
+#' @param size_line Size of lines. Defaults to 0.5. 
 #' @param size_point Size of points. Defaults to 1.5. 
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
@@ -1056,7 +1059,7 @@ gg_hpointrange_col_facet <- function(data,
                               alpha_line = 1,
                               alpha_point = 1,
                               size_point = 1.5,
-                              size_line = 0.5,
+                              size_line = 0.5, 
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -1273,9 +1276,10 @@ gg_hpointrange_col_facet <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") + 
     theme +
-    geom_linerange(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, col = !!col_var, text = !!text_var), size = size_line, position = position_dodge(width = y_dodge)) +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge))
-  
+    geom_point(aes(x = !!y_var, y = !!xmiddle_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge)) +
+    geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, col = !!col_var, text = !!text_var), 
+                  size = size_line, width = 0, position = position_dodge(width = y_dodge)) 
+    
   #y scale
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
     if (is.null(y_expand)) y_expand <- waiver()

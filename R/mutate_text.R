@@ -1,4 +1,4 @@
-#' @title Add 'HTML' strings' column of variable names and values. 
+#' @title Add 'HTML' strings column of variable names and values. 
 #' 
 #' @description Add 'HTML' strings' column of variable names and values.  
 #' @param data A data frame. Required input.

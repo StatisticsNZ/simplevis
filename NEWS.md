@@ -1,5 +1,6 @@
-# simplevis 6.2.1
+# simplevis 6.2.9000
 
+* Fixed hpointrange bug where legend was vertical. 
 * Fixed bug where legend appearing in mobile, despite col_legend_none = TRUE.
 * Minor tweaks to readme and vignette.
 * Rebuilt website with bootstrap 5.

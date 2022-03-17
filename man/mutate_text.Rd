@@ -2,7 +2,7 @@
 % Please edit documentation in R/mutate_text.R
 \name{mutate_text}
 \alias{mutate_text}
-\title{Add 'HTML' strings' column of variable names and values.}
+\title{Add 'HTML' strings column of variable names and values.}
 \usage{
 mutate_text(
   data,

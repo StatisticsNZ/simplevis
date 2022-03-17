@@ -86,7 +86,7 @@ gg_hpointrange_col(
 
 \item{size_point}{Size of points. Defaults to 1.5.}
 
-\item{size_line}{Size of lines. Defaults to 0.75.}
+\item{size_line}{Size of lines. Defaults to 0.5.}
 
 \item{title}{Title string.}
 

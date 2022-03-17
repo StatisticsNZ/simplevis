@@ -60,7 +60,7 @@ gg_hboxplot(
 
 \item{alpha_point}{The opacity of the outlier points. Defaults to 1.}
 
-\item{size_line}{The size of the outlines of boxplots.}
+\item{size_line}{The size of the outlines of boxplots. Defaults to 0.5.}
 
 \item{size_point}{The size of the outlier points. Defaults to 1.5.}
 

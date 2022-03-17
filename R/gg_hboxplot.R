@@ -7,7 +7,7 @@
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
-#' @param size_line The size of the outlines of boxplots.
+#' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -277,7 +277,7 @@ gg_hboxplot <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
-#' @param size_line The size of the outlines of boxplots.
+#' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -639,7 +639,7 @@ gg_hboxplot_col <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 0.5. 
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
-#' @param size_line The size of the outlines of boxplots. 
+#' @param size_line The size of the outlines of boxplots. Defaults to 0.5. 
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
@@ -916,7 +916,7 @@ gg_hboxplot_facet <- function(data,
 #' @param alpha_line The opacity of the outline. Defaults to 1. 
 #' @param alpha_point The opacity of the outlier points. Defaults to 1. 
 #' @param size_width Width of boxes. Defaults to 0.5.
-#' @param size_line The size of the outlines of boxplots. 
+#' @param size_line The size of the outlines of boxplots. Defaults to 0.5. 
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 

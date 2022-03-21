@@ -239,7 +239,7 @@ leaf_sf <- function(data,
 #' @param size_line Size of lines around features (i.e. weight). Defaults to 2.
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
-#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.
+#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to snakecase::to_sentence_case if categorical, and scales::label_comma() if numeric. Use function(x) x to keep labels untransformed.
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.  
@@ -300,7 +300,7 @@ leaf_sf_col <- function(data,
                         basemap = "light",
                         col_breaks_n = 4,
                         col_cuts = NULL,
-                        col_intervals_right = TRUE,
+                        col_intervals_right = FALSE,
                         col_labels = NULL,
                         col_legend_none = FALSE,
                         col_method = NULL,

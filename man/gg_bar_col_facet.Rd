@@ -45,7 +45,7 @@ gg_bar_col_facet(
   col_breaks_n = 4,
   col_cuts = NULL,
   col_labels = NULL,
-  col_intervals_right = TRUE,
+  col_intervals_right = FALSE,
   col_legend_none = FALSE,
   col_method = NULL,
   col_na_rm = FALSE,
@@ -144,7 +144,7 @@ gg_bar_col_facet(
 
 \item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
 
-\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to TRUE.}
+\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.}
 
 \item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 

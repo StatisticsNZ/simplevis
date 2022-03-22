@@ -45,6 +45,7 @@ gg_point_col(
   col_method = NULL,
   col_intervals_right = FALSE,
   col_na_rm = FALSE,
+  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   caption = NULL,
@@ -133,6 +134,8 @@ gg_point_col(
 \item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
+
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

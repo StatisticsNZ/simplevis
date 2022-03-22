@@ -272,6 +272,7 @@ gg_point <- function(data,
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -329,6 +330,7 @@ gg_point_col <- function(data,
                          col_method = NULL,
                          col_intervals_right = FALSE,
                          col_na_rm = FALSE,
+                         col_rev = FALSE,
                          col_title = NULL,
                          col_title_wrap = 25,
                          caption = NULL,
@@ -392,6 +394,14 @@ gg_point_col <- function(data,
         dplyr::mutate(dplyr::across(!!x_var, ~forcats::fct_rev(.x)))
       
       x_var_vctr <- dplyr::pull(data, !!x_var)
+    }
+  }
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
     }
   }
   
@@ -901,6 +911,7 @@ gg_point_facet <- function(data,
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.
@@ -965,6 +976,7 @@ gg_point_col_facet <- function(data,
                                col_legend_none = FALSE,
                                col_method = NULL,
                                col_na_rm = FALSE,
+                               col_rev = FALSE,
                                col_title = NULL,
                                col_title_wrap = 25,
                                facet_labels = snakecase::to_sentence_case,
@@ -1048,7 +1060,14 @@ gg_point_col_facet <- function(data,
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
   }
-  
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
+  }
   if (facet_rev == TRUE) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))

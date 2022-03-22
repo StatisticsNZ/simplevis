@@ -621,25 +621,34 @@ gg_hpointrange_col <- function(data,
   #colour
   if (mobile == TRUE) col_title_wrap <- 20
   
-  plot <- plot +
-    scale_colour_manual(
-      values = pal_line,
-      drop = FALSE,
-      labels = col_labels,
-      na.value = pal_na_line,
-      name = stringr::str_wrap(col_title, col_title_wrap)
-    ) 
-
-    if (col_legend_none == FALSE) {
-      if (mobile == FALSE) {
-        plot <- plot +
-          guides(col = guide_legend(reverse = TRUE))
-      }
-      else if (mobile == TRUE) {
-        plot <- plot +
-          guides(col = guide_legend(ncol = 1, reverse = TRUE))
-      }
+  if (col_method == "continuous") {
+    plot <- plot +
+      scale_colour_gradientn(
+        colors = pal_point,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap)) 
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    plot <- plot +
+      scale_colour_manual(
+        values = pal_point,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap)
+      ) 
+    
+    if (mobile == FALSE) {
+      plot <- plot +
+        guides(col = guide_legend(reverse = TRUE))
     }
+    else if (mobile == TRUE) {
+      plot <- plot +
+        guides(col = guide_legend(ncol = 1, reverse = TRUE))
+    }
+  }
 
   #titles
   if (mobile == FALSE) {
@@ -1352,20 +1361,30 @@ gg_hpointrange_col_facet <- function(data,
   }
   
   #colour
-  plot <- plot +
-    scale_colour_manual(
-      values = pal_line,
-      drop = FALSE,
-      labels = col_labels,
-      na.value = pal_na_line,
-      name = stringr::str_wrap(col_title, col_title_wrap)
-    ) 
-  
-  if (col_legend_none == FALSE) {
+  # colour
+  if (col_method == "continuous") {
     plot <- plot +
-      guides(col = guide_legend(reverse = TRUE))
+      scale_colour_gradientn(
+        colors = pal_point,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap))  
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    plot <- plot +
+      scale_colour_manual(
+        values = pal_point,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap)
+      ) 
   }
   
+  plot <- plot +
+    guides(col = guide_legend(reverse = TRUE))
+
   #titles & facetting
   plot <- plot +
     labs(

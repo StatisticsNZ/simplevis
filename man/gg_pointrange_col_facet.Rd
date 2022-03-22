@@ -44,9 +44,14 @@ gg_pointrange_col_facet(
   y_title_wrap = 50,
   y_zero = FALSE,
   y_zero_line = NULL,
-  col_labels = snakecase::to_sentence_case,
+  col_breaks_n = 4,
+  col_cuts = NULL,
+  col_labels = NULL,
   col_legend_none = FALSE,
+  col_method = NULL,
+  col_intervals_right = FALSE,
   col_na_rm = FALSE,
+  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   facet_labels = snakecase::to_sentence_case,
@@ -139,15 +144,25 @@ gg_pointrange_col_facet(
 
 \item{y_zero_line}{For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.}
 
-\item{col_labels}{A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed.}
+\item{col_breaks_n}{For a numeric colour variable, the desired number of intervals on the colour scale.}
+
+\item{col_cuts}{A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.}
+
+\item{col_labels}{A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
 
 \item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
+\item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
+
+\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.}
+
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
+
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
-\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25.}
+\item{col_title_wrap}{Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.}
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.}
 

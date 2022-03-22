@@ -1,5 +1,6 @@
 # simplevis 6.2.9000
 
+* Add numeric colouring to gg_pointrange*().
 * Default col_intervals_right to FALSE.
 * Fixed hpointrange bug where legend was vertical. 
 * Fixed bug where legend appearing in mobile, despite col_legend_none = TRUE.

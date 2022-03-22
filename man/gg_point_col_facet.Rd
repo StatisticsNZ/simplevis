@@ -46,6 +46,7 @@ gg_point_col_facet(
   col_legend_none = FALSE,
   col_method = NULL,
   col_na_rm = FALSE,
+  col_rev = FALSE,
   col_title = NULL,
   col_title_wrap = 25,
   facet_labels = snakecase::to_sentence_case,
@@ -141,6 +142,8 @@ gg_point_col_facet(
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
+
+\item{col_rev}{TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE.}
 
 \item{col_title}{Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 

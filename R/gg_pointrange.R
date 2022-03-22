@@ -298,9 +298,14 @@ gg_pointrange <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.  
-#' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
+#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.   
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
+#' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. 
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param caption Caption title string. 
@@ -370,9 +375,14 @@ gg_pointrange_col <- function(data,
                         y_title_wrap = 50,
                         y_zero = FALSE,
                         y_zero_line = NULL,
-                        col_labels = snakecase::to_sentence_case,
+                        col_breaks_n = 4,
+                        col_cuts = NULL,
+                        col_labels = NULL,
                         col_legend_none = FALSE,
+                        col_method = NULL,
+                        col_intervals_right = FALSE,
                         col_na_rm = FALSE,
+                        col_rev = FALSE,
                         col_title = NULL,
                         col_title_wrap = 25,
                         caption = NULL,
@@ -416,14 +426,21 @@ gg_pointrange_col <- function(data,
   
   #warnings
   if (!is.numeric(ymiddle_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a pointrange plot")
-  
+
   #logical to factor
   if (is.logical(x_var_vctr)) {
     data <- data %>% 
       dplyr::mutate(dplyr::across(!!x_var, ~factor(.x, levels = c("TRUE", "FALSE"))))
     
     x_var_vctr <- dplyr::pull(data, !!x_var)
+  }
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
   }
   if (is.logical(col_var_vctr)) {
     data <- data %>% 
@@ -446,16 +463,83 @@ gg_pointrange_col <- function(data,
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
   }
-  
-  #colour
-  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-    col_n <- length(levels(col_var_vctr))
+  if (col_rev == FALSE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
   }
-  else col_n <- length(unique(col_var_vctr))
+
+  #colour
+  if (mobile == TRUE) col_title_wrap <- 20
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  else pal <- pal[1:col_n]
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "continuous"
+  }
   
+  if (col_method == "continuous") {
+    if (is.null(pal)) pal <- viridis::viridis(20)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
+    if (is.null(col_labels)) col_labels <- scales::label_comma()
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    if (col_method %in% c("quantile", "bin")) {
+      if (col_method == "quantile") {
+        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
+        else {
+          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+        }  
+        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      }
+      else if (col_method == "bin") {
+        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
+        else {
+          if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+        }
+      }
+      
+      if (is.null(col_labels)) col_labels <- scales::label_comma()
+      
+      if (is.function(col_labels)) {
+        data <- data %>%
+          dplyr::mutate(
+            dplyr::across(!!col_var, 
+                          ~ kimisc::cut_format(.x, col_cuts,
+                                               right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
+        
+        col_labels <- sv_interval_labels_chr
+      }
+      else {
+        data <- data %>%
+          dplyr::mutate(
+            dplyr::across(!!col_var, 
+                          ~ kimisc::cut_format(.x, col_cuts,
+                                               right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+      }
+      
+      col_n <- length(col_cuts) - 1
+      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      else pal <- pal[1:col_n]
+    }
+    else if (col_method == "category") {
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        col_n <- length(levels(col_var_vctr))
+      }
+      else col_n <- length(unique(col_var_vctr))
+      
+      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      else pal <- pal[1:col_n]
+      
+      if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    }
+  }  
+
   if (pal_rev == TRUE) pal <- rev(pal)
   
   pal_line <- scales::alpha(pal, alpha = alpha_line)
@@ -544,22 +628,31 @@ gg_pointrange_col <- function(data,
   }
   
   #colour
-  if (mobile == TRUE) col_title_wrap <- 20
-  
-  plot <- plot +
-    scale_colour_manual(
-      values = pal_line,
-      drop = FALSE,
-      labels = col_labels,
-      na.value = pal_na_line,
-      name = stringr::str_wrap(col_title, col_title_wrap)
-    )
-  
-  if (mobile == TRUE & col_legend_none == FALSE) {
+  if (col_method == "continuous") {
     plot <- plot +
-      guides(col = guide_legend(ncol = 1))
+      scale_colour_gradientn(
+        colors = pal_point,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap)) 
   }
-  
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    plot <- plot +
+      scale_colour_manual(
+        values = pal_point,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap)
+      ) 
+    
+    if (mobile == TRUE) {
+      plot <- plot +
+        guides(col = guide_legend(ncol = 1))
+    }
+  }
+
   #titles
   if (mobile == FALSE) {
     plot <- plot +
@@ -915,11 +1008,16 @@ gg_pointrange_facet <- function(data,
 #' @param y_title_wrap Number of characters to wrap the y title to. Defaults to 50. 
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param y_zero_line For a numeric y variable, TRUE or FALSE whether to add a zero reference line to the y scale. Defaults to TRUE if there are positive and negative values in ymiddle_var. Otherwise defaults to FALSE.  
-#' @param col_labels A function or named vector to modify colour scale labels. Use ggplot2::waiver() to keep colour labels untransformed. 
+#' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.
+#' @param col_labels A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.   
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
+#' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_na_rm TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.
+#' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
+#' @param col_rev TRUE or FALSE of whether the colour scale is reversed. Defaults to FALSE. 
+#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.
 #' @param col_title Colour title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. 
+#' @param col_title_wrap Number of characters to wrap the colour title to. Defaults to 25. Not applicable where mobile equals TRUE.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use ggplot2::waiver() to keep facet labels untransformed.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet_var NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots.  
@@ -996,9 +1094,14 @@ gg_pointrange_col_facet <- function(data,
                               y_title_wrap = 50,
                               y_zero = FALSE,
                               y_zero_line = NULL,
-                              col_labels = snakecase::to_sentence_case,
+                              col_breaks_n = 4,
+                              col_cuts = NULL,
+                              col_labels = NULL,
                               col_legend_none = FALSE,
+                              col_method = NULL,
+                              col_intervals_right = FALSE,
                               col_na_rm = FALSE,
+                              col_rev = FALSE,
                               col_title = NULL,
                               col_title_wrap = 25,
                               facet_labels = snakecase::to_sentence_case,
@@ -1053,7 +1156,6 @@ gg_pointrange_col_facet <- function(data,
   
   #warnings
   if (!is.numeric(ymiddle_var_vctr)) stop("Please use a numeric y variable for a pointrange plot")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a pointrange plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
   #logical to factor
@@ -1090,7 +1192,14 @@ gg_pointrange_col_facet <- function(data,
       x_var_vctr <- dplyr::pull(data, !!x_var)
     }
   }
-  
+  if (col_rev == TRUE) {
+    if (is.factor(col_var_vctr) | is.character(col_var_vctr)){
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col_var, ~forcats::fct_rev(.x)))
+      
+      col_var_vctr <- dplyr::pull(data, !!col_var)
+    }
+  }
   if (facet_rev == TRUE) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!facet_var, ~forcats::fct_rev(.x)))
@@ -1099,13 +1208,70 @@ gg_pointrange_col_facet <- function(data,
   }
   
   #colour
-  if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
-    col_n <- length(levels(col_var_vctr))
+  if (is.null(col_method)) {
+    if (!is.numeric(col_var_vctr)) col_method <- "category"
+    else if (is.numeric(col_var_vctr)) col_method <- "continuous"
   }
-  else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
-  else pal <- pal[1:col_n]
+  if (col_method == "continuous") {
+    if (is.null(pal)) pal <- viridis::viridis(20)
+    if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
+    if (is.null(col_labels)) col_labels <- scales::label_comma()
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    if (col_method %in% c("quantile", "bin")) {
+      if (col_method == "quantile") {
+        if (is.null(col_cuts)) col_cuts <- seq(0, 1, 1 / col_breaks_n)
+        else {
+          if (dplyr::first(col_cuts) != 0) warning("The first element of the col_cuts vector generally always be 0")
+          if (dplyr::last(col_cuts) != 1) warning("The last element of the col_cuts vector should generally be 1")
+        }  
+        col_cuts <- stats::quantile(col_var_vctr, probs = col_cuts, na.rm = TRUE)
+        if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
+      }
+      else if (col_method == "bin") {
+        if (is.null(col_cuts)) col_cuts <- pretty(col_var_vctr, col_breaks_n)
+        else {
+          if (!(dplyr::first(col_cuts) %in% c(0, -Inf))) warning("The first element of the col_cuts vector should generally be 0 (or -Inf if there are negative values)")
+          if (dplyr::last(col_cuts) != Inf) warning("The last element of the col_cuts vector should generally be Inf")
+        }
+      }
+      
+      if (is.null(col_labels)) col_labels <- scales::label_comma()
+      
+      if (is.function(col_labels)) {
+        data <- data %>%
+          dplyr::mutate(
+            dplyr::across(!!col_var, 
+                          ~ kimisc::cut_format(.x, col_cuts,
+                                               right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE, format_fun = col_labels)))
+        
+        col_labels <- sv_interval_labels_chr
+      }
+      else {
+        data <- data %>%
+          dplyr::mutate(
+            dplyr::across(!!col_var, 
+                          ~ kimisc::cut_format(.x, col_cuts,
+                                               right = col_intervals_right, include.lowest = TRUE, dig.lab = 50, ordered_result = TRUE)))
+      }
+      
+      col_n <- length(col_cuts) - 1
+      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      else pal <- pal[1:col_n]
+    }
+    else if (col_method == "category") {
+      if (is.factor(col_var_vctr) & !is.null(levels(col_var_vctr))) {
+        col_n <- length(levels(col_var_vctr))
+      }
+      else col_n <- length(unique(col_var_vctr))
+      
+      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      else pal <- pal[1:col_n]
+      
+      if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
+    }
+  }  
   
   if (pal_rev == TRUE) pal <- rev(pal)
   
@@ -1194,15 +1360,29 @@ gg_pointrange_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #colour, titles & facetting
+  # colour
+  if (col_method == "continuous") {
+    plot <- plot +
+      scale_colour_gradientn(
+        colors = pal_point,
+        labels = col_labels,
+        breaks = col_cuts,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap))  
+  }
+  else if (col_method %in% c("quantile", "bin", "category")) {
+    plot <- plot +
+      scale_colour_manual(
+        values = pal_point,
+        drop = FALSE,
+        labels = col_labels,
+        na.value = pal_na_point,
+        name = stringr::str_wrap(col_title, col_title_wrap)
+      ) 
+  }
+  
+  #titles & facetting
   plot <- plot +
-    scale_colour_manual(
-      values = pal_line,
-      drop = FALSE,
-      labels = col_labels,
-      na.value = pal_na_line,
-      name = stringr::str_wrap(col_title, col_title_wrap)
-    ) +
     labs(
       title = stringr::str_wrap(title, title_wrap),
       subtitle = stringr::str_wrap(subtitle, subtitle_wrap),

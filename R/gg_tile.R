@@ -185,6 +185,10 @@ gg_tile_col <- function(data,
     y_var_vctr <- dplyr::pull(data, !!y_var)
   }
   
+  #allow for when label_var = col_var & col_method is bin or quantile
+  data <- data %>%
+    dplyr::mutate(.label_var = !!label_var)
+
   #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -266,7 +270,7 @@ gg_tile_col <- function(data,
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = !!label_var), size = size_label, col = pal_label)
+      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$.label_var), size = size_label, col = pal_label)
   }
   
   #x and y scales
@@ -575,7 +579,11 @@ gg_tile_col_facet <- function(data,
     
     facet_var_vctr <- dplyr::pull(data, !!facet_var)
   }
-  
+
+  #allow for when label_var = col_var & col_method is bin or quantile
+  data <- data %>%
+    dplyr::mutate(.label_var = !!label_var)
+
   #colour
   if (is.null(col_method)) {
     if (!is.numeric(col_var_vctr)) col_method <- "category"
@@ -657,7 +665,7 @@ gg_tile_col_facet <- function(data,
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
-      geom_text(aes(x = !!x_var, y = !!y_var, label = !!label_var), size = size_label, col = pal_label)
+      geom_text(aes(x = !!x_var, y = !!y_var, label = .data$.label_var), size = size_label, col = pal_label)
   }
   
   #colour

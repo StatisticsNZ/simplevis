@@ -54,7 +54,7 @@ gg_hpointrange_facet(
 \arguments{
 \item{data}{A data frame in a structure to be plotted untransformed. Required input.}
 
-\item{xmiddle_var}{Unquoted numeric variable to be on the x scale. Required input.}
+\item{xmiddle_var}{Unquoted numeric variable for the point on the x scale. Required input.}
 
 \item{xmin_var}{Unquoted numeric variable to be the minimum of the x vertical line. Required input.}
 

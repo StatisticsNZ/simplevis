@@ -3,7 +3,7 @@
 #' @description Pointrange ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable for the point on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param text_var Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(plot, tooltip = "text"). Defaults to NULL.
@@ -262,7 +262,7 @@ gg_pointrange <- function(data,
 #' @description Pointrange ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable for the point on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.
@@ -697,7 +697,7 @@ gg_pointrange_col <- function(data,
 #' @description Pointrange ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable for the point on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -979,7 +979,7 @@ gg_pointrange_facet <- function(data,
 #' @description Pointrange ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
-#' @param ymiddle_var Unquoted numeric variable to be on the y scale. Required input.
+#' @param ymiddle_var Unquoted numeric variable for the point on the y scale. Required input.
 #' @param ymin_var Unquoted numeric variable to be the minimum of the y vertical line. Required input.
 #' @param ymax_var Unquoted numeric variable to be the maximum of the y vertical line. Required input.
 #' @param col_var Unquoted categorical variable for lines and points to be coloured by. Required input.

@@ -2,7 +2,7 @@
 #' 
 #' @description Horizontal pointrange ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -262,7 +262,7 @@ gg_hpointrange <- function(data,
 #' 
 #' @description Horizontal pointrange ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -683,7 +683,7 @@ gg_hpointrange_col <- function(data,
 #' 
 #' @description Horizontal pointrange ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -966,7 +966,7 @@ gg_hpointrange_facet <- function(data,
 #' 
 #' @description Horizontal pointrange ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable to be on the x scale. Required input.
+#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.

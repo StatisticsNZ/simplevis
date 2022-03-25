@@ -1,5 +1,7 @@
 # simplevis 6.2.9000
 
+* Fixed direction of numeric legends in all gg*() legends.
+* Fixed bug in gg_hpointrange y scale.
 * Add numeric colouring to gg_pointrange*().
 * Default col_intervals_right to FALSE.
 * Fixed hpointrange bug where legend was vertical. 

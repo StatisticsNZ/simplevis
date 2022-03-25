@@ -50,7 +50,7 @@ gg_pointrange(
 
 \item{x_var}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.}
 
-\item{ymiddle_var}{Unquoted numeric variable to be on the y scale. Required input.}
+\item{ymiddle_var}{Unquoted numeric variable for the point on the y scale. Required input.}
 
 \item{ymin_var}{Unquoted numeric variable to be the minimum of the y vertical line. Required input.}
 

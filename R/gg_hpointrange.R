@@ -170,7 +170,7 @@ gg_hpointrange <- function(data,
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
-    
+    y_limits <- c(min(y_breaks), max(y_breaks))
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
     if (is.null(y_labels)) {
@@ -182,13 +182,12 @@ gg_hpointrange <- function(data,
   
   if (is.numeric(y_var_vctr)) {
     if (mobile == TRUE) {
-      y_limits <- c(min(y_breaks), max(y_breaks))
       y_breaks <- y_limits
       if (min(y_breaks) < 0 & max(y_breaks > 0)) y_breaks <- c(y_breaks[1], 0, y_breaks[2])
     }
     
     plot <- plot +
-      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
+      scale_x_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     
     if (y_zero_line == TRUE) {
       plot <- plot +
@@ -555,7 +554,7 @@ gg_hpointrange_col <- function(data,
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
     y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
-    
+    y_limits <- c(min(y_breaks), max(y_breaks))
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
     if (is.null(y_labels)) {
@@ -567,13 +566,12 @@ gg_hpointrange_col <- function(data,
   
   if (is.numeric(y_var_vctr)) {
     if (mobile == TRUE) {
-      y_limits <- c(min(y_breaks), max(y_breaks))
       y_breaks <- y_limits
       if (min(y_breaks) < 0 & max(y_breaks > 0)) y_breaks <- c(y_breaks[1], 0, y_breaks[2])
     }
     
     plot <- plot +
-      scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
+      scale_x_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
     
     if (y_zero_line == TRUE) {
       plot <- plot +
@@ -905,7 +903,7 @@ gg_hpointrange_facet <- function(data,
     
     if (is.numeric(y_var_vctr)) {
       plot <- plot +
-        scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
+        scale_x_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
       
       if (y_zero_line == TRUE) {
         plot <- plot +
@@ -1315,7 +1313,7 @@ gg_hpointrange_col_facet <- function(data,
     
     if (is.numeric(y_var_vctr)) {
       plot <- plot +
-        scale_x_reverse(expand = y_expand, breaks = y_breaks, labels = y_labels)
+        scale_x_continuous(expand = y_expand, breaks = y_breaks, limits = y_limits, labels = y_labels)
       
       if (y_zero_line == TRUE) {
         plot <- plot +

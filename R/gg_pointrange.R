@@ -647,9 +647,17 @@ gg_pointrange_col <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) 
     
-    if (mobile == TRUE) {
+    reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
+    
+    if (mobile == FALSE) {
+      if (col_method %in% c("quantile", "bin")) {
+        plot <- plot +
+          guides(col = guide_legend(reverse = reverse))
+      }
+    }
+    else if (mobile == TRUE) {
       plot <- plot +
-        guides(col = guide_legend(ncol = 1))
+        guides(col = guide_legend(reverse = reverse, ncol = 1))
     }
   }
 
@@ -1379,6 +1387,11 @@ gg_pointrange_col_facet <- function(data,
         na.value = pal_na_point,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) 
+    
+    if (col_method %in% c("quantile", "bin")) {
+      plot <- plot +
+        guides(col = guide_legend(reverse = TRUE))
+    }
   }
   
   #titles & facetting

@@ -675,22 +675,18 @@ gg_hbar_col <- function(data,
         na.value = pal_na_fill,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
-    
-      if (col_legend_none == FALSE) {
-        legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
-        
-        if (mobile == FALSE) {
-          plot <- plot +
-            guides(col = guide_legend(reverse = legend_reverse), 
-                   fill = guide_legend(reverse = legend_reverse))
-        }
-        else if (mobile == TRUE) {
-          plot <- plot +
-            guides(col = guide_legend(ncol = 1, reverse = legend_reverse), 
-                   fill = guide_legend(ncol = 1, reverse = legend_reverse))
-        }
-      }
+
+    if (mobile == FALSE) {
+      plot <- plot +
+        guides(col = guide_legend(reverse = TRUE), 
+               fill = guide_legend(reverse = TRUE))
     }
+    else if (mobile == TRUE) {
+      plot <- plot +
+        guides(col = guide_legend(reverse = TRUE, ncol = 1), 
+               fill = guide_legend(reverse = TRUE, ncol = 1))
+    }
+  }
   
   #titles
   if (mobile == FALSE) {
@@ -1435,13 +1431,9 @@ gg_hbar_col_facet <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
-    if (col_legend_none == FALSE) {
-      legend_reverse <- ifelse(col_method == "category", TRUE, FALSE)
-      
       plot <- plot +
-        guides(col = guide_legend(reverse = legend_reverse), 
-               fill = guide_legend(reverse = legend_reverse))
-    } 
+        guides(col = guide_legend(reverse = TRUE), 
+               fill = guide_legend(reverse = TRUE))
   }
     
   #titles & facetting

@@ -364,10 +364,17 @@ gg_stars_col <- function(data,
         na.translate = na_translate
       )
     
-    if (mobile == TRUE) {
+    reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
+    
+    if (mobile == FALSE) {
       plot <- plot +
-        guides(col = guide_legend(ncol = 1),
-               fill = guide_legend(ncol = 1))
+        guides(col = guide_legend(reverse = reverse), 
+               fill = guide_legend(reverse = reverse))
+    }
+    else if (mobile == TRUE) {
+      plot <- plot +
+        guides(col = guide_legend(reverse = reverse, ncol = 1), 
+               fill = guide_legend(reverse = reverse, ncol = 1))
     }
   }
   

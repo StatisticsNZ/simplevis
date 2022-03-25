@@ -646,7 +646,7 @@ gg_hpointrange_col <- function(data,
     }
     else if (mobile == TRUE) {
       plot <- plot +
-        guides(col = guide_legend(ncol = 1, reverse = TRUE))
+        guides(col = guide_legend(reverse = TRUE, ncol = 1))
     }
   }
 
@@ -1360,7 +1360,6 @@ gg_hpointrange_col_facet <- function(data,
       geom_hline(yintercept = 0, colour = "#323232", size = 0.3)
   }
   
-  #colour
   # colour
   if (col_method == "continuous") {
     plot <- plot +
@@ -1384,7 +1383,7 @@ gg_hpointrange_col_facet <- function(data,
   
   plot <- plot +
     guides(col = guide_legend(reverse = TRUE))
-
+  
   #titles & facetting
   plot <- plot +
     labs(

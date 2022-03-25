@@ -500,25 +500,40 @@ gg_sf_col <- function(data,
     }
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
-    if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-      plot <- plot +
-        scale_colour_manual(
-          values = pal_point,
-          drop = FALSE,
-          labels = col_labels,
-          na.value = pal_na_point,
-          name = stringr::str_wrap(col_title, col_title_wrap)
-        )       
-    }
-    else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-      plot <- plot +
-        scale_colour_manual(
-          values = pal_line,
-          drop = FALSE,
-          labels = col_labels,
-          na.value = pal_na_line,
-          name = stringr::str_wrap(col_title, col_title_wrap)
-        )       
+    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+      if (geometry_type %in% c("POINT", "MULTIPOINT")) {
+        plot <- plot +
+          scale_colour_manual(
+            values = pal_point,
+            drop = FALSE,
+            labels = col_labels,
+            na.value = pal_na_point,
+            name = stringr::str_wrap(col_title, col_title_wrap)
+          )       
+      }
+      else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+        plot <- plot +
+          scale_colour_manual(
+            values = pal_line,
+            drop = FALSE,
+            labels = col_labels,
+            na.value = pal_na_line,
+            name = stringr::str_wrap(col_title, col_title_wrap)
+          )       
+      }
+      
+      reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
+      
+      if (mobile == FALSE) {
+        if (col_method %in% c("quantile", "bin")) {
+          plot <- plot +
+            guides(col = guide_legend(reverse = reverse))
+        }
+      }
+      else if (mobile == TRUE) {
+        plot <- plot +
+          guides(col = guide_legend(reverse = reverse, ncol = 1))
+      }
     }
     else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
       plot <- plot +
@@ -534,12 +549,21 @@ gg_sf_col <- function(data,
           labels = col_labels,
           na.value = pal_na_fill,
           name = stringr::str_wrap(col_title, col_title_wrap))
-    }
-
-    if (mobile == TRUE) {
-      plot <- plot +
-        guides(col = guide_legend(ncol = 1),
-               fill = guide_legend(ncol = 1))
+      
+      reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
+      
+      if (mobile == FALSE) {
+        if (col_method %in% c("quantile", "bin")) {
+          plot <- plot +
+            guides(col = guide_legend(reverse = reverse), 
+                   fill = guide_legend(reverse = reverse))
+        }
+      }
+      else if (mobile == TRUE) {
+        plot <- plot +
+          guides(col = guide_legend(reverse = reverse, ncol = 1), 
+                 fill = guide_legend(reverse = reverse, ncol = 1))
+      }
     }
   }
   
@@ -1117,25 +1141,34 @@ gg_sf_col_facet <- function(data,
     }
   }
   else if (col_method %in% c("quantile", "bin", "category")) {
-    if (geometry_type %in% c("POINT", "MULTIPOINT")) {
-      plot <- plot +
-        scale_colour_manual(
-          values = pal_point,
-          drop = FALSE,
-          labels = col_labels,
-          na.value = pal_na_point,
-          name = stringr::str_wrap(col_title, col_title_wrap)
-        )       
-    }
-    else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
-      plot <- plot +
-        scale_colour_manual(
-          values = pal_line,
-          drop = FALSE,
-          labels = col_labels,
-          na.value = pal_na_line,
-          name = stringr::str_wrap(col_title, col_title_wrap)
-        )       
+    if (geometry_type %in% c("POINT", "MULTIPOINT", "LINESTRING", "MULTILINESTRING")) {
+      if (geometry_type %in% c("POINT", "MULTIPOINT")) {
+        plot <- plot +
+          scale_colour_manual(
+            values = pal_point,
+            drop = FALSE,
+            labels = col_labels,
+            na.value = pal_na_point,
+            name = stringr::str_wrap(col_title, col_title_wrap)
+          )       
+      }
+      else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING")) {
+        plot <- plot +
+          scale_colour_manual(
+            values = pal_line,
+            drop = FALSE,
+            labels = col_labels,
+            na.value = pal_na_line,
+            name = stringr::str_wrap(col_title, col_title_wrap)
+          )       
+      }
+      
+      reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
+      
+      if (col_method %in% c("quantile", "bin")) {
+        plot <- plot +
+          guides(col = guide_legend(reverse = reverse))
+      }
     }
     else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
       plot <- plot +
@@ -1151,6 +1184,14 @@ gg_sf_col_facet <- function(data,
           labels = col_labels,
           na.value = pal_na_fill,
           name = stringr::str_wrap(col_title, col_title_wrap))
+      
+        reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
+      
+        if (col_method %in% c("quantile", "bin")) {
+          plot <- plot +
+            guides(col = guide_legend(reverse = TRUE), 
+                   fill = guide_legend(reverse = TRUE))
+        }
     }
   }
   

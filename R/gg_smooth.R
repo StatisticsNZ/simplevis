@@ -440,12 +440,6 @@ gg_smooth_col <- function(data,
       name = stringr::str_wrap(col_title, col_title_wrap)
     )
   
-  if (mobile == TRUE & col_legend_none == FALSE) {
-    plot <- plot +
-      guides(col = guide_legend(ncol = 1),
-             fill = guide_legend(ncol = 1))
-  }
-  
   #titles
   if (mobile == FALSE) {
     plot <- plot +

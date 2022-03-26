@@ -1,5 +1,8 @@
 # simplevis 6.2.9000
 
+* Changed pointrange/hpointrange ymiddle_var/x_middle_var to x_var/y_var.
+* Titles left aligned.
+* Themes and guides tweaked.
 * Fixed direction of numeric legends in all gg*() legends.
 * Fixed bug in gg_hpointrange y scale.
 * Add numeric colouring to gg_pointrange*().

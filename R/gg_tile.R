@@ -314,17 +314,10 @@ gg_tile_col <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
-    reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
-    
-    if (mobile == FALSE) {
+    if (col_legend_none == FALSE & col_method %in% c("quantile", "bin")) {
       plot <- plot +
-        guides(col = guide_legend(reverse = reverse), 
-               fill = guide_legend(reverse = reverse))
-    }
-    else if (mobile == TRUE) {
-      plot <- plot +
-        guides(col = guide_legend(reverse = reverse, ncol = 1), 
-               fill = guide_legend(reverse = reverse, ncol = 1))
+        guides(col = guide_legend(reverse = TRUE), 
+               fill = guide_legend(reverse = TRUE))
     }
   }
   
@@ -702,7 +695,7 @@ gg_tile_col_facet <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       )
     
-    if (col_method %in% c("quantile", "bin")) {
+    if (col_legend_none == FALSE & col_method %in% c("quantile", "bin")) {
       plot <- plot +
         guides(col = guide_legend(reverse = TRUE), 
                fill = guide_legend(reverse = TRUE))

@@ -638,14 +638,10 @@ gg_hpointrange_col <- function(data,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) 
     
-    if (mobile == FALSE) {
+    if (col_legend_none == FALSE) {
       plot <- plot +
         guides(col = guide_legend(reverse = TRUE))
-    }
-    else if (mobile == TRUE) {
-      plot <- plot +
-        guides(col = guide_legend(reverse = TRUE, ncol = 1))
-    }
+    } 
   }
 
   #titles
@@ -1377,10 +1373,12 @@ gg_hpointrange_col_facet <- function(data,
         na.value = pal_na_point,
         name = stringr::str_wrap(col_title, col_title_wrap)
       ) 
+    
+    if (col_legend_none == FALSE) {
+      plot <- plot +
+        guides(col = guide_legend(reverse = TRUE))
+    } 
   }
-  
-  plot <- plot +
-    guides(col = guide_legend(reverse = TRUE))
   
   #titles & facetting
   plot <- plot +

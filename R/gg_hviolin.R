@@ -440,14 +440,9 @@ gg_hviolin_col <- function(data,
     ) 
   
   if (col_legend_none == FALSE) {
-    if (mobile == FALSE) {
       plot <- plot +
-        guides(col = guide_legend(reverse = TRUE), fill = guide_legend(reverse = TRUE))
-    }
-    else if (mobile == TRUE) {
-      plot <- plot +
-        guides(col = guide_legend(ncol = 1, reverse = TRUE), fill = guide_legend(ncol = 1, reverse = TRUE))
-    }
+        guides(col = guide_legend(reverse = TRUE), 
+               fill = guide_legend(reverse = TRUE))
   }
   
   #titles
@@ -973,7 +968,8 @@ gg_hviolin_col_facet <- function(data,
   
   if (col_legend_none == FALSE) {
     plot <- plot +
-      guides(col = guide_legend(reverse = TRUE), fill = guide_legend(reverse = TRUE))
+      guides(col = guide_legend(reverse = TRUE), 
+             fill = guide_legend(reverse = TRUE))
   } 
   
   #colour, titles & facetting

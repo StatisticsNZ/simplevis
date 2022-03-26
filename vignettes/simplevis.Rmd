@@ -185,6 +185,7 @@ p9 <- gg_line_col(
   y_var = body_mass_g,
   col_var = species,
   size_point = 1,
+  x_breaks_n = 2,
   x_labels = scales::label_number(accuracy = 1, big.mark = ""),
   title = "gg_line*()"
 )

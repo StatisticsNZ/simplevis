@@ -522,17 +522,9 @@ gg_sf_col <- function(data,
           )       
       }
       
-      reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
-      
-      if (mobile == FALSE) {
-        if (col_method %in% c("quantile", "bin")) {
-          plot <- plot +
-            guides(col = guide_legend(reverse = reverse))
-        }
-      }
-      else if (mobile == TRUE) {
+      if (col_legend_none == FALSE & col_method %in% c("quantile", "bin")) {
         plot <- plot +
-          guides(col = guide_legend(reverse = reverse, ncol = 1))
+          guides(col = guide_legend(reverse = TRUE))
       }
     }
     else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
@@ -550,19 +542,10 @@ gg_sf_col <- function(data,
           na.value = pal_na_fill,
           name = stringr::str_wrap(col_title, col_title_wrap))
       
-      reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
-      
-      if (mobile == FALSE) {
-        if (col_method %in% c("quantile", "bin")) {
-          plot <- plot +
-            guides(col = guide_legend(reverse = reverse), 
-                   fill = guide_legend(reverse = reverse))
-        }
-      }
-      else if (mobile == TRUE) {
+      if (col_legend_none == FALSE & col_method %in% c("quantile", "bin")) {
         plot <- plot +
-          guides(col = guide_legend(reverse = reverse, ncol = 1), 
-                 fill = guide_legend(reverse = reverse, ncol = 1))
+          guides(col = guide_legend(reverse = TRUE), 
+                 fill = guide_legend(reverse = TRUE))
       }
     }
   }
@@ -1163,11 +1146,9 @@ gg_sf_col_facet <- function(data,
           )       
       }
       
-      reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
-      
-      if (col_method %in% c("quantile", "bin")) {
+      if (col_legend_none == FALSE & col_method %in% c("quantile", "bin")) {
         plot <- plot +
-          guides(col = guide_legend(reverse = reverse))
+          guides(col = guide_legend(reverse = TRUE))
       }
     }
     else if (geometry_type %in% c("POLYGON", "MULTIPOLYGON")) {
@@ -1185,9 +1166,7 @@ gg_sf_col_facet <- function(data,
           na.value = pal_na_fill,
           name = stringr::str_wrap(col_title, col_title_wrap))
       
-        reverse <- ifelse(col_method %in% c("quantile", "bin"), TRUE, FALSE)   
-      
-        if (col_method %in% c("quantile", "bin")) {
+        if (col_legend_none == FALSE & col_method %in% c("quantile", "bin")) {
           plot <- plot +
             guides(col = guide_legend(reverse = TRUE), 
                    fill = guide_legend(reverse = TRUE))

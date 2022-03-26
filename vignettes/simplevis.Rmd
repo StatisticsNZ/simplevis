@@ -143,7 +143,7 @@ plot_data <- penguins %>%
 
 p7 <- gg_hpointrange_col(
   plot_data,
-  xmiddle_var = middle,
+  x_var = middle,
   xmin_var = lower,
   xmax_var = upper,
   y_var = species,
@@ -218,7 +218,7 @@ plot_data <- penguins %>%
 p11 <- gg_pointrange_col(
   plot_data,
   x_var = species,
-  ymiddle_var = middle,
+  y_var = middle,
   ymin_var = lower,
   ymax_var = upper,
   col_var = sex,

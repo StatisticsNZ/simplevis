@@ -366,7 +366,7 @@ plot_data <- penguins %>%
 gg_pointrange_col(
   plot_data,
   x_var = species,
-  ymiddle_var = middle,
+  y_var = middle,
   ymin_var = lower,
   ymax_var = upper,
   col_var = sex,

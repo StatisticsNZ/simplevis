@@ -67,7 +67,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gg_hpointrange_col_facet</span><span class="op">(</span>
   <span class="va">data</span>,
-  <span class="va">xmiddle_var</span>,
+  <span class="va">x_var</span>,
   <span class="va">xmin_var</span>,
   <span class="va">xmax_var</span>,
   <span class="va">y_var</span>,
@@ -90,7 +90,7 @@
   x_expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
   x_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span>,
   x_na_rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  x_title <span class="op">=</span> <span class="st">""</span>,
+  x_title <span class="op">=</span> <span class="cn">NULL</span>,
   x_title_wrap <span class="op">=</span> <span class="fl">50</span>,
   x_zero <span class="op">=</span> <span class="cn">FALSE</span>,
   x_zero_line <span class="op">=</span> <span class="cn">NULL</span>,
@@ -131,7 +131,7 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A data frame in a structure to be plotted untransformed. Required input.</p></dd>
-<dt>xmiddle_var</dt>
+<dt>x_var</dt>
 <dd><p>Unquoted numeric variable for the point on the x scale. Required input.</p></dd>
 <dt>xmin_var</dt>
 <dd><p>Unquoted numeric variable to be the minimum of the x vertical line. Required input.</p></dd>
@@ -176,7 +176,7 @@
 <dt>x_labels</dt>
 <dd><p>A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.</p></dd>
 <dt>x_na_rm</dt>
-<dd><p>TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.</p></dd>
+<dd><p>TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.</p></dd>
 <dt>x_title</dt>
 <dd><p>X scale title string. Defaults to "".</p></dd>
 <dt>x_title_wrap</dt>
@@ -184,7 +184,7 @@
 <dt>x_zero</dt>
 <dd><p>For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.</p></dd>
 <dt>x_zero_line</dt>
-<dd><p>For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.</p></dd>
+<dd><p>For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></dd>
 <dt>y_balance</dt>
 <dd><p>For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.</p></dd>
 <dt>y_breaks_n</dt>
@@ -269,7 +269,7 @@
 <span class="r-in"><span class="fu">gg_hpointrange_col_facet</span><span class="op">(</span></span>
 <span class="r-in">  <span class="va">plot_data</span>,</span>
 <span class="r-in">  y_var <span class="op">=</span> <span class="va">year</span>,</span>
-<span class="r-in">  xmiddle_var <span class="op">=</span> <span class="va">middle</span>,</span>
+<span class="r-in">  x_var <span class="op">=</span> <span class="va">middle</span>,</span>
 <span class="r-in">  xmin_var <span class="op">=</span> <span class="va">lower</span>,</span>
 <span class="r-in">  xmax_var <span class="op">=</span> <span class="va">upper</span>,</span>
 <span class="r-in">  col_var <span class="op">=</span> <span class="va">sex</span>,</span>

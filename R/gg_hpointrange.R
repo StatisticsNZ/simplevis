@@ -2,7 +2,7 @@
 #' 
 #' @description Horizontal pointrange ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
+#' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -20,11 +20,11 @@
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
-#' @param x_na_rm TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.  
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -55,7 +55,7 @@
 #' 
 #' gg_hpointrange(
 #'   plot_data,
-#'   xmiddle_var = middle,
+#'   x_var = middle,
 #'   xmin_var = lower,
 #'   xmax_var = upper,
 #'   y_var = sex,
@@ -63,7 +63,7 @@
 #'   y_na_rm = TRUE)
 #'   
 gg_hpointrange <- function(data,
-                    xmiddle_var,
+                    x_var,
                     xmin_var,
                     xmax_var,
                     y_var,
@@ -82,7 +82,7 @@ gg_hpointrange <- function(data,
                     x_expand = c(0, 0),
                     x_labels = scales::label_comma(),
                     x_na_rm = FALSE,
-                    x_title = "",
+                    x_title = NULL,
                     x_title_wrap = 50,
                     x_zero = FALSE,
                     x_zero_line = NULL,
@@ -105,7 +105,7 @@ gg_hpointrange <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+  x_var <- rlang::enquo(x_var) #numeric var
   xmin_var <- rlang::enquo(xmin_var) #numeric var
   xmax_var <- rlang::enquo(xmax_var) #numeric var
   y_var <- rlang::enquo(y_var)
@@ -114,7 +114,7 @@ gg_hpointrange <- function(data,
   #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!xmiddle_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
+      dplyr::filter(!is.na(!!x_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -122,11 +122,11 @@ gg_hpointrange <- function(data,
   }
   
   #vectors
-  xmiddle_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
+  x_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
   y_var_vctr <- dplyr::pull(data, !!y_var)
 
   #warnings
-  if (!is.numeric(xmiddle_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -137,7 +137,7 @@ gg_hpointrange <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(xmiddle_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   #reverse & reorder
@@ -159,7 +159,7 @@ gg_hpointrange <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point) +
+    geom_point(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal_point, alpha = alpha_point, size = size_point) +
     geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, text = !!text_var), 
                   size = size_line, width = 0, col = pal_line) 
   
@@ -211,16 +211,16 @@ gg_hpointrange <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(xmiddle_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if (all(xmiddle_var_vctr == 0, na.rm = TRUE)) {
+  if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(xmiddle_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
@@ -262,7 +262,7 @@ gg_hpointrange <- function(data,
 #' 
 #' @description Horizontal pointrange ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
+#' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -283,11 +283,11 @@ gg_hpointrange <- function(data,
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
-#' @param x_na_rm TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.  
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_dodge The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).
@@ -329,7 +329,7 @@ gg_hpointrange <- function(data,
 #' 
 #' gg_hpointrange_col(
 #'   plot_data,
-#'   xmiddle_var = middle,
+#'   x_var = middle,
 #'   xmin_var = lower,
 #'   xmax_var = upper,
 #'   y_var = species,
@@ -339,7 +339,7 @@ gg_hpointrange <- function(data,
 #'   y_dodge = 0.2)
 #'   
 gg_hpointrange_col <- function(data,
-                        xmiddle_var,
+                        x_var,
                         xmin_var,
                         xmax_var,
                         y_var,
@@ -361,7 +361,7 @@ gg_hpointrange_col <- function(data,
                         x_expand = c(0, 0),
                         x_labels = scales::label_comma(),
                         x_na_rm = FALSE,
-                        x_title = "",
+                        x_title = NULL,
                         x_title_wrap = 50,
                         x_zero = FALSE,
                         x_zero_line = NULL,
@@ -395,7 +395,7 @@ gg_hpointrange_col <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+  x_var <- rlang::enquo(x_var) #numeric var
   xmin_var <- rlang::enquo(xmin_var) #numeric var
   xmax_var <- rlang::enquo(xmax_var) #numeric var
   y_var <- rlang::enquo(y_var) 
@@ -405,7 +405,7 @@ gg_hpointrange_col <- function(data,
   #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!xmiddle_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
+      dplyr::filter(!is.na(!!x_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -417,12 +417,12 @@ gg_hpointrange_col <- function(data,
   }
   
   #vectors
-  xmiddle_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
+  x_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
   y_var_vctr <- dplyr::pull(data, !!y_var)
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (!is.numeric(xmiddle_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
   
   if (!is.null(col_method)) {
     if (!col_method %in% c("continuous", "bin", "quantile", "category")) stop("Please use a colour method of 'continuous', 'bin', 'quantile' or 'category'")
@@ -443,7 +443,7 @@ gg_hpointrange_col <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(xmiddle_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
@@ -543,7 +543,7 @@ gg_hpointrange_col <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge)) +
+    geom_point(aes(x = !!y_var, y = !!x_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge)) +
     geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, col = !!col_var, text = !!text_var), 
                   size = size_line, width = 0, position = position_dodge(width = y_dodge))
 
@@ -595,16 +595,16 @@ gg_hpointrange_col <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(xmiddle_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
-  if (all(xmiddle_var_vctr == 0, na.rm = TRUE)) {
+  if (all(x_var_vctr == 0, na.rm = TRUE)) {
     plot <- plot +
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(xmiddle_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
@@ -679,7 +679,7 @@ gg_hpointrange_col <- function(data,
 #' 
 #' @description Horizontal pointrange ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
+#' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -698,11 +698,11 @@ gg_hpointrange_col <- function(data,
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
-#' @param x_na_rm TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.  
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -739,7 +739,7 @@ gg_hpointrange_col <- function(data,
 #' gg_hpointrange_facet(
 #'   plot_data,
 #'   y_var = species,
-#'   xmiddle_var = middle,
+#'   x_var = middle,
 #'   xmin_var = lower,
 #'   xmax_var = upper,
 #'   facet_var = sex,
@@ -747,7 +747,7 @@ gg_hpointrange_col <- function(data,
 #'   x_title = "Body mass g")
 #'   
 gg_hpointrange_facet <- function(data,
-                          xmiddle_var,
+                          x_var,
                           xmin_var,
                           xmax_var,
                           y_var,
@@ -767,7 +767,7 @@ gg_hpointrange_facet <- function(data,
                           x_expand = c(0, 0),
                           x_labels = scales::label_comma(),
                           x_na_rm = FALSE,
-                          x_title = "",
+                          x_title = NULL,
                           x_title_wrap = 50,
                           x_zero = FALSE,
                           x_zero_line = NULL,
@@ -795,7 +795,7 @@ gg_hpointrange_facet <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+  x_var <- rlang::enquo(x_var) #numeric var
   xmin_var <- rlang::enquo(xmin_var) #numeric var
   xmax_var <- rlang::enquo(xmax_var) #numeric var
   y_var <- rlang::enquo(y_var) #categorical var
@@ -805,7 +805,7 @@ gg_hpointrange_facet <- function(data,
   #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!xmiddle_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
+      dplyr::filter(!is.na(!!x_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -817,12 +817,12 @@ gg_hpointrange_facet <- function(data,
   }
   
   #vectors
-  xmiddle_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
+  x_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
   y_var_vctr <- dplyr::pull(data, !!y_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (!is.numeric(xmiddle_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
   #logical to factor
@@ -840,7 +840,7 @@ gg_hpointrange_facet <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(xmiddle_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   
   #reverse
@@ -869,7 +869,7 @@ gg_hpointrange_facet <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") +
     theme +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, text = !!text_var), col = pal_point, size = size_point) +
+    geom_point(aes(x = !!y_var, y = !!x_var, text = !!text_var), col = pal_point, size = size_point) +
     geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, text = !!text_var), 
                   size = size_line, width = 0, col = pal_line) 
 
@@ -917,17 +917,17 @@ gg_hpointrange_facet <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(xmiddle_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
   if (facet_scales %in% c("fixed", "free_y")) {
-    if (all(xmiddle_var_vctr == 0, na.rm = TRUE)) {
+    if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(xmiddle_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
@@ -962,7 +962,7 @@ gg_hpointrange_facet <- function(data,
 #' 
 #' @description Horizontal pointrange ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param xmiddle_var Unquoted numeric variable for the point on the x scale. Required input.
+#' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
 #' @param xmax_var Unquoted numeric variable to be the maximum of the x vertical line. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -984,12 +984,12 @@ gg_hpointrange_facet <- function(data,
 #' @param y_dodge The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
-#' @param x_na_rm TRUE or FALSE of whether to include xmiddle_var NA values. Defaults to FALSE.
+#' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param x_title X scale title string. Defaults to "".
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
-#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in xmiddle_var. Otherwise defaults to FALSE.  
+#' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_dodge The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -1038,7 +1038,7 @@ gg_hpointrange_facet <- function(data,
 #' gg_hpointrange_col_facet(
 #'   plot_data,
 #'   y_var = year,
-#'   xmiddle_var = middle,
+#'   x_var = middle,
 #'   xmin_var = lower,
 #'   xmax_var = upper,
 #'   col_var = sex,
@@ -1049,7 +1049,7 @@ gg_hpointrange_facet <- function(data,
 #'   y_dodge = 0.2)
 #'   
 gg_hpointrange_col_facet <- function(data,
-                              xmiddle_var,
+                              x_var,
                               xmin_var,
                               xmax_var,
                               y_var,
@@ -1072,7 +1072,7 @@ gg_hpointrange_col_facet <- function(data,
                               x_expand = c(0, 0),
                               x_labels = scales::label_comma(),
                               x_na_rm = FALSE,
-                              x_title = "",
+                              x_title = NULL,
                               x_title_wrap = 50,
                               x_zero = FALSE,
                               x_zero_line = NULL,
@@ -1111,7 +1111,7 @@ gg_hpointrange_col_facet <- function(data,
   data <- dplyr::ungroup(data)
   
   #quote
-  xmiddle_var <- rlang::enquo(xmiddle_var) #numeric var
+  x_var <- rlang::enquo(x_var) #numeric var
   xmin_var <- rlang::enquo(xmin_var) #numeric var
   xmax_var <- rlang::enquo(xmax_var) #numeric var
   y_var <- rlang::enquo(y_var) 
@@ -1122,7 +1122,7 @@ gg_hpointrange_col_facet <- function(data,
   #na's
   if (x_na_rm == TRUE) {
     data <- data %>% 
-      dplyr::filter(!is.na(!!xmiddle_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
+      dplyr::filter(!is.na(!!x_var), !is.na(!!xmin_var), !is.na(!!xmax_var))
   }
   if (y_na_rm == TRUE) {
     data <- data %>% 
@@ -1138,13 +1138,13 @@ gg_hpointrange_col_facet <- function(data,
   }
   
   #vectors
-  xmiddle_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
+  x_var_vctr <- c(dplyr::pull(data, !!xmin_var), dplyr::pull(data, !!xmax_var))
   y_var_vctr <- dplyr::pull(data, !!y_var)
   col_var_vctr <- dplyr::pull(data, !!col_var)
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (!is.numeric(xmiddle_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a pointrange plot")
   if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a pointrange plot")
   
   if (!is.null(col_method)) {
@@ -1179,7 +1179,7 @@ gg_hpointrange_col_facet <- function(data,
   }
   
   #titles sentence case
-  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(xmiddle_var))
+  if (is.null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x_var))
   if (is.null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y_var))
   if (is.null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col_var))
   
@@ -1279,7 +1279,7 @@ gg_hpointrange_col_facet <- function(data,
   plot <- ggplot(data) +
     coord_flip(clip = "off") + 
     theme +
-    geom_point(aes(x = !!y_var, y = !!xmiddle_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge)) +
+    geom_point(aes(x = !!y_var, y = !!x_var, col = !!col_var, text = !!text_var), alpha = alpha_point, size = size_point, position = position_dodge(width = y_dodge)) +
     geom_errorbar(aes(x = !!y_var, ymin = !!xmin_var, ymax = !!xmax_var, col = !!col_var, text = !!text_var), 
                   size = size_line, width = 0, position = position_dodge(width = y_dodge)) 
     
@@ -1327,17 +1327,17 @@ gg_hpointrange_col_facet <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(xmiddle_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
   if (facet_scales %in% c("fixed", "free_y")) {
-    if (all(xmiddle_var_vctr == 0, na.rm = TRUE)) {
+    if (all(x_var_vctr == 0, na.rm = TRUE)) {
       plot <- plot +
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(xmiddle_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +

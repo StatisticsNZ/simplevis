@@ -61,9 +61,9 @@ gg_theme <-
       if (gridlines_v == FALSE) { #horizontal
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
-          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, vjust = 0, margin = margin(b = size_body / 2)),
-          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, vjust = 0.5, margin = margin(b = size_body)),
-          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body)),
+          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, margin = margin(b = size_body / 2)),
+          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, margin = margin(b = size_body / 0.8)),
+          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body / 1.33)),
           axis.title.y = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = margin(r = size_body)),
           legend.title = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
           plot.caption = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = margin(t = size_body)),
@@ -100,9 +100,9 @@ gg_theme <-
       else if (gridlines_v == TRUE) { #both
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
-          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, vjust = 0, margin = margin(b = size_body / 2)),
-          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, vjust = 0.5, margin = margin(b = size_body)),
-          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body)),
+          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, vjust = 0.5, margin = margin(b = size_body / 2)),
+          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, margin = margin(b = size_body / 0.8)),
+          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body / 1.33)),
           axis.title.y = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = margin(r = size_body)),
           legend.title = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
           plot.caption = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = margin(t = size_body)),
@@ -141,9 +141,9 @@ gg_theme <-
       if (gridlines_v == FALSE) { #none
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
-          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, vjust = 0, margin = margin(b = size_body / 2)),
-          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, vjust = 0.5, margin = margin(b = size_body)),
-          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body)),
+          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, margin = margin(b = size_body / 2)),
+          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, margin = margin(b = size_body / 0.8)),
+          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body / 1.33)),
           axis.title.y = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = margin(r = size_body)),
           legend.title = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
           plot.caption = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = margin(t = size_body)),
@@ -180,9 +180,9 @@ gg_theme <-
       else if (gridlines_v == TRUE) { #vertical
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
-          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, vjust = 0, margin = margin(b = size_body / 2)),
-          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, vjust = 0.5, margin = margin(b = size_body)),
-          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body)),
+          plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, margin = margin(b = size_body / 2)),
+          plot.subtitle = element_text(family = font_subtitle, size = size_subtitle, colour = pal_subtitle, face = style_subtitle, hjust = 0, margin = margin(b = size_body / 0.8)),
+          axis.title.x = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = margin(t = size_body / 1.33)),
           axis.title.y = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = margin(r = size_body)),
           legend.title = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
           plot.caption = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = margin(t = size_body)),

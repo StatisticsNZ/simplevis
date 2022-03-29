@@ -1,7 +1,7 @@
 #' @title Convert numeric or interval cuts to simple and pretty labels.
 #' @param cuts A vector or numeric or character interval cuts.
 #' @param format A function to apply to the numeric values, e.g. scales::label_comma().
-#' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
+#' @param left_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be left-closed. Defaults to TRUE.
 #' @return A vector of character labels.
 #' @keywords internal 
 #' @examples 
@@ -11,7 +11,7 @@
 #' 
 #' simplevis:::interval_labels(c("[0, 10)", "[10, 50)", "[50, 100)"))
 #' 
-interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
+interval_labels <- function(cuts, digits = NULL, left_closed = TRUE) {
   
   if (is.numeric(cuts)) {
     if (is.null(digits)) {
@@ -22,8 +22,8 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
     
     cuts_no <- length(cuts)
     
-    sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
-    sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
+    sign1 <- ifelse(left_closed == FALSE, "\u2264", "<")  
+    sign2 <- ifelse(left_closed == FALSE, ">", "\u2265")  
     
     if (cuts_no == 2) {
       labels <- c("Feature")
@@ -44,12 +44,12 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
     }
   } 
   else {
-    right_closed <- ifelse(stringr::str_sub(cuts[1], -1L, -1L) == "]", TRUE, FALSE)
+    left_closed <- ifelse(stringr::str_sub(cuts[1], 1L, 1L) == "[", TRUE, FALSE)
     
     labels <- stringr::str_replace_all(stringr::str_replace_all(cuts, ", ", "\u2013"), "\\[|\\]|\\)|\\(", "")
     
-    sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
-    sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
+    sign1 <- ifelse(left_closed == FALSE, "\u2264", "<")  
+    sign2 <- ifelse(left_closed == FALSE, ">", "\u2265")  
     
     labels[1] <- glue::glue("{sign1}{stringr::word(labels[2], sep = '\u2013')}")
     
@@ -66,11 +66,11 @@ interval_labels <- function(cuts, digits = NULL, right_closed = TRUE) {
 #' @title Convert numeric bin cuts to simple and pretty labels.
 #' @param cuts A vector of numeric cuts.
 #' @param format A function to apply to the numeric values, e.g. scales::label_comma().
-#' @param right_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.
+#' @param left_closed If cuts are numeric, TRUE or FALSE of whether intervals are to be left-closed. Defaults to TRUE.
 #' @return A vector of character labels.
 #' @keywords internal
 #' 
-sv_interval_labels_num <- function(cuts, format = NULL, right_closed = TRUE) {
+sv_interval_labels_num <- function(cuts, format = NULL, left_closed = TRUE) {
   
   if (is.null(format)) {
     cuts <- scales::number(cuts, big.mark = ",")  
@@ -80,8 +80,8 @@ sv_interval_labels_num <- function(cuts, format = NULL, right_closed = TRUE) {
   
   cuts_no <- length(cuts)
   
-  sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
-  sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
+  sign1 <- ifelse(left_closed == FALSE, "\u2264", "<")  
+  sign2 <- ifelse(left_closed == FALSE, ">", "\u2265")  
   
   if (cuts_no == 2) {
     labels <- c("Feature")
@@ -110,12 +110,12 @@ sv_interval_labels_num <- function(cuts, format = NULL, right_closed = TRUE) {
 #' @keywords internal
 sv_interval_labels_chr <- function(cuts) {
   
-  right_closed <- ifelse(stringr::str_sub(cuts[1], -1L, -1L) == "]", TRUE, FALSE)
+  left_closed <- ifelse(stringr::str_sub(cuts[1], 1L, 1L) == "[", TRUE, FALSE)
   
   labels <- stringr::str_replace_all(stringr::str_replace_all(cuts, ", ", "\u2013"), "\\[|\\]|\\)|\\(", "")
   
-  sign1 <- ifelse(right_closed == TRUE, "\u2264", "<")  
-  sign2 <- ifelse(right_closed == TRUE, ">", "\u2265")  
+  sign1 <- ifelse(left_closed == FALSE, "\u2264", "<")  
+  sign2 <- ifelse(left_closed == FALSE, ">", "\u2265")  
   
   labels[1] <- glue::glue("{sign1}{stringr::word(labels[2], sep = '\u2013')}")
   

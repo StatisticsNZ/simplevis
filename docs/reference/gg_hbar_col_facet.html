@@ -105,7 +105,7 @@
   y_zero_line <span class="op">=</span> <span class="cn">NULL</span>,
   col_breaks_n <span class="op">=</span> <span class="fl">4</span>,
   col_cuts <span class="op">=</span> <span class="cn">NULL</span>,
-  col_intervals_right <span class="op">=</span> <span class="cn">FALSE</span>,
+  col_intervals_left <span class="op">=</span> <span class="cn">TRUE</span>,
   col_labels <span class="op">=</span> <span class="cn">NULL</span>,
   col_legend_none <span class="op">=</span> <span class="cn">FALSE</span>,
   col_method <span class="op">=</span> <span class="cn">NULL</span>,
@@ -205,8 +205,8 @@
 <dd><p>For a numeric colour variable, the desired number of intervals on the colour scale.</p></dd>
 <dt>col_cuts</dt>
 <dd><p>A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles.</p></dd>
-<dt>col_intervals_right</dt>
-<dd><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.</p></dd>
+<dt>col_intervals_left</dt>
+<dd><p>For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.</p></dd>
 <dt>col_labels</dt>
 <dd><p>A function or named vector to modify colour scale labels. Defaults to snakecase::to_sentence_case for categorical colour variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.</p></dd>
 <dt>col_legend_none</dt>

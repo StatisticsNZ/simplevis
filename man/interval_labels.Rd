@@ -4,12 +4,12 @@
 \alias{interval_labels}
 \title{Convert numeric or interval cuts to simple and pretty labels.}
 \usage{
-interval_labels(cuts, digits = NULL, right_closed = TRUE)
+interval_labels(cuts, digits = NULL, left_closed = TRUE)
 }
 \arguments{
 \item{cuts}{A vector or numeric or character interval cuts.}
 
-\item{right_closed}{If cuts are numeric, TRUE or FALSE of whether intervals are to be right-closed. Defaults to TRUE.}
+\item{left_closed}{If cuts are numeric, TRUE or FALSE of whether intervals are to be left-closed. Defaults to TRUE.}
 
 \item{format}{A function to apply to the numeric values, e.g. scales::label_comma().}
 }

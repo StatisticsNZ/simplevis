@@ -86,7 +86,7 @@ leaf_stars <- function(data,
 #' @param basemap The underlying basemap. Either "light", "dark", "satellite", "street", or "ocean". Defaults to "light". Only applicable where shiny equals FALSE.
 #' @param col_breaks_n For a numeric colour variable, the desired number of intervals on the colour scale. 
 #' @param col_cuts A vector of cuts to colour a numeric variable. If "bin" is selected, the first number in the vector should be either -Inf or 0, and the final number Inf. If "quantile" is selected, the first number in the vector should be 0 and the final number should be 1. Defaults to quartiles. 
-#' @param col_intervals_right For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.
+#' @param col_intervals_left For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_method The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".
 #' @param col_labels A function or named vector to modify the colour scale labels. Defaults to stringr::str_to_sentence if categorical, and scales::label_comma if numeric. Use function(x) x to keep labels untransformed.  
@@ -115,7 +115,7 @@ leaf_stars_col <- function(data,
                            basemap = "light",
                            col_breaks_n = 4,
                            col_cuts = NULL,
-                           col_intervals_right = FALSE,
+                           col_intervals_left = TRUE,
                            col_labels = NULL,
                            col_legend_none = FALSE,
                            col_method = NULL,
@@ -198,6 +198,8 @@ leaf_stars_col <- function(data,
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     
+    col_intervals_right <- ifelse(col_intervals_left == TRUE, FALSE, TRUE)
+    
     pal_fun <- colorBin(
       palette = pal,
       domain = col_var_vctr,
@@ -207,7 +209,7 @@ leaf_stars_col <- function(data,
     )
     
     if (is.function(col_labels) | is.null(col_labels)) {
-      col_labels <- sv_interval_labels_num(col_cuts, format = col_labels, right_closed = col_intervals_right)
+      col_labels <- sv_interval_labels_num(col_cuts, format = col_labels, left_closed = col_intervals_left)
     }
   }
   else if (col_method == "category") {

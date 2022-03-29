@@ -43,7 +43,7 @@ gg_point_col(
   col_labels = NULL,
   col_legend_none = FALSE,
   col_method = NULL,
-  col_intervals_right = FALSE,
+  col_intervals_left = TRUE,
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,
@@ -131,7 +131,7 @@ gg_point_col(
 
 \item{col_method}{The method of colouring features, either "bin", "quantile", "continuous", or "category." If numeric, defaults to "bin".}
 
-\item{col_intervals_right}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut right-closed. Defaults to FALSE.}
+\item{col_intervals_left}{For a numeric colour variable, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col_var NA values. Defaults to FALSE.}
 

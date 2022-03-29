@@ -1,5 +1,6 @@
 # simplevis 6.2.9000
 
+* Changed col_intervals_right argument to col_intervals_left.
 * Changed pointrange/hpointrange ymiddle_var/x_middle_var to x_var/y_var.
 * Titles left aligned.
 * Themes and guides tweaked.

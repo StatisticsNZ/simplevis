@@ -46,7 +46,7 @@ gg_stars <- function(data,
                      mobile = FALSE) {
   
   #warnings
-  if (class(data) != "stars") stop("Please use a stars object as data input")
+  # if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
 
   if (!is.null(borders)) {
@@ -212,7 +212,7 @@ gg_stars_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (class(data) != "stars") stop("Please use a stars object as data input")
+  # if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system to data input")
   
   if (!is.null(borders)) {

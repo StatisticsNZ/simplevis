@@ -24,14 +24,14 @@ set.seed(123456789)
 
 ### Overview
 
-In simplevis, users adhere to the following rules for adjusting colour:
+In {simplevis}, users adhere to the following rules for adjusting colour:
 
 * You can customise colours via the `pal` argument 
 * If colouring by a variable, use a `*_col()` or `*_col_facet()` function, and define the `col_var`
 * If the `col_var` is numeric, there are `continuous`, `bin` or `quantile` colouring methods available
 * For `bin` and `quantile`, you can modify the colour breaks using the `col_breaks_n` or `col_cuts` arguments.
 
-In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type. This is a consistent method across all functions, which is intended to simplify colouring.
+In {simplevis}, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type. This is a consistent method across all functions, which is intended to simplify colouring.
 
 
 ### Customise colours via the `pal` argument  
@@ -86,7 +86,7 @@ gg_point_col_facet(penguins,
 
 ### If colouring by a numeric variable, continuous, bin and quantile methods are available
 
-All simplevis `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
+All {simplevis} `*_col()` and `*_col_facet()` functions support colouring by a categorical variable.
 
 In addition, `point`, `bar`, `hbar`, `tile`, `sf` and `stars` `*_col()` and `*_col_facet()` functions support colouring by a numeric variable.
 

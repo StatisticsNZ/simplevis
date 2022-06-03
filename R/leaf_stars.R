@@ -29,7 +29,7 @@ leaf_stars <- function(data,
   shiny <- shiny::isRunning()
   
   #warnings
-  if (class(data) != "stars") stop("Please use an stars object as data input")
+  # if (class(data) != "stars") stop("Please use an stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   #colour
@@ -130,7 +130,7 @@ leaf_stars_col <- function(data,
   shiny <- shiny::isRunning()
   
   #warnings
-  if (class(data) != "stars") stop("Please use a stars object as data input")
+  # if (class(data) != "stars") stop("Please use a stars object as data input")
   if (is.na(sf::st_crs(data)$proj4string)) stop("Please assign a coordinate reference system")
   
   if (!is.null(col_method)) {

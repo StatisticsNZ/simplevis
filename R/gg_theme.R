@@ -21,8 +21,8 @@
 #' @param pal_ticks The colour palette for the ticks. Defaults to "#323232".
 #' @param pal_background A two colour vector. The first colour if for the panel (and legend key). The second colour is for the rest of the background.
 #' @param pal_grid The colour palette for the vertical major gridlines. Defaults to "#D3D3D3". 
-#' @param x_grid TRUE or FALSE of whether to show hotizontal gridlines.
-#' @param y_grid TRUE or FALSE of whether to show vertical gridlines.
+#' @param y_grid TRUE or FALSE of whether to show hotizontal gridlines.
+#' @param x_grid TRUE or FALSE of whether to show vertical gridlines.
 #' @param void TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.  
 #'
 #' @return A ggplot theme.
@@ -49,16 +49,16 @@ gg_theme <-
            pal_ticks = "#323232",
            pal_background = c("#ffffff", "#ffffff"),
            pal_grid = "#D3D3D3",
-           x_grid = FALSE, 
-           y_grid = FALSE,
+           y_grid = FALSE, 
+           x_grid = FALSE,
            void = FALSE) {
     
     if (is.null(font_title)) font_title <- font
     if (is.null(font_subtitle)) font_subtitle <- font
     if (is.null(font_body)) font_body <- font
     
-    if (x_grid == TRUE) {
-      if (y_grid == FALSE) { #horizontal
+    if (y_grid == TRUE) {
+      if (x_grid == FALSE) { #horizontal
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
           plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, margin = margin(b = size_body / 2)),
@@ -97,7 +97,7 @@ gg_theme <-
           complete = TRUE
         )
       }
-      else if (y_grid == TRUE) { #both
+      else if (x_grid == TRUE) { #both
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
           plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, vjust = 0.5, margin = margin(b = size_body / 2)),
@@ -137,8 +137,8 @@ gg_theme <-
         )
       }
     }
-    else if (x_grid == FALSE) {
-      if (y_grid == FALSE) { #none
+    else if (y_grid == FALSE) {
+      if (x_grid == FALSE) { #none
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
           plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, margin = margin(b = size_body / 2)),
@@ -177,7 +177,7 @@ gg_theme <-
           complete = TRUE
         )
       }
-      else if (y_grid == TRUE) { #vertical
+      else if (x_grid == TRUE) { #vertical
         theme <- theme(
           text = element_text(family = font_body, size = size_body, colour = pal_body, face = style_body),
           plot.title = element_text(family = font_title, size = size_title, colour = pal_title, face = style_title, hjust = 0, margin = margin(b = size_body / 2)),

@@ -25,8 +25,8 @@ gg_theme(
   pal_ticks = "#323232",
   pal_background = c("#ffffff", "#ffffff"),
   pal_grid = "#D3D3D3",
-  x_grid = FALSE,
   y_grid = FALSE,
+  x_grid = FALSE,
   void = FALSE
 )
 }
@@ -71,9 +71,9 @@ gg_theme(
 
 \item{pal_grid}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
-\item{x_grid}{TRUE or FALSE of whether to show hotizontal gridlines.}
+\item{y_grid}{TRUE or FALSE of whether to show hotizontal gridlines.}
 
-\item{y_grid}{TRUE or FALSE of whether to show vertical gridlines.}
+\item{x_grid}{TRUE or FALSE of whether to show vertical gridlines.}
 
 \item{void}{TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.}
 }

@@ -24,7 +24,7 @@ set.seed(123456789)
 
 ### Working with quoted inputs
 
-In [shiny](https://shiny.rstudio.com/), it is often easier to work with quoted variables. For ggplot wrapper function, wrap the variables in `!!sym`, as shown below. 
+In [shiny](https://shiny.rstudio.com/), it is often easier to work with quoted variables. For {ggplot2} wrapper function, wrap the variables in `!!sym`, as shown below. 
 
 ```{r}
 gg_point_col(penguins, 
@@ -46,7 +46,7 @@ They often look unreadable (in portrait), as:
 * legends need to be on the bottom
 * font sizes need to be appropriate
 
-simplevis provides mobile support for  plots through a `mobile` argument, which makes the above changes. 
+{simplevis} provides mobile support for  plots through a `mobile` argument, which makes the above changes. 
 
 ```{r  fig.height = 5.5, fig.width = 2.5}
 plot_data <- storms %>%

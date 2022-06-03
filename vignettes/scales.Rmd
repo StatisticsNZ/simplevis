@@ -24,7 +24,7 @@ set.seed(123456789)
 
 ### Overview
 
-simplevis uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.
+{simplevis} uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.
 
 In general:
 
@@ -33,7 +33,7 @@ In general:
 * Arguments that relate to the colour scale start with `col_`
 * Arguments that relate to facetting start with `facet_`
 
-Therefore, if you know want to adjust the x scale but can't think how, you can start typing `x_` within the simplevis function, press tab, and then you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.
+Therefore, if you know want to adjust the x scale but can't think how, you can start typing `x_` within the {simplevis} function, press tab, and then you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.
 
 One deviation from this logic is that colour palette is selected using a `pal` argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.
 
@@ -68,7 +68,7 @@ All categorical variables are converted to sentence case by default using `snake
 
 Numeric variables are generally converted using the `scales::label_comma()` by default, but sometimes converted to `scales::label_number()`. 
 
-You can turn off any simplevis default transformations to labels using `function(x) x`. 
+You can turn off any {simplevis} default transformations to labels using `function(x) x`. 
 
 ```{r}
 gg_point_col_facet(penguins,
@@ -97,7 +97,7 @@ gg_point_col_facet(penguins,
 
 ### Numeric scales
 
-simplevis graphs numeric scales default to:
+{simplevis} graphs numeric scales default to:
 
 * starting from zero for numeric scales on bar graphs. 
 * <i>not</i> starting from zero for numeric scales on all other graphs. 
@@ -153,7 +153,7 @@ gg_point_col(penguins,
 
 ### Discrete scales
 
-simplevis automatically orders hbar graphs of character variables alphabetically.
+{simplevis} automatically orders hbar graphs of character variables alphabetically.
 
 ```{r}
 plot_data <- ggplot2::diamonds %>%
@@ -236,7 +236,7 @@ gg_hbar_col_facet(
 
 ### Colour scales
 
-Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using `function(x) x`.
+Customise the colour title. Note that because colour labels will be converted to sentence case by default in {simplevis}, but we can turn this off when we do not want this to occur using `function(x) x`.
 
 ```{r}
 plot_data <- ggplot2::diamonds %>%

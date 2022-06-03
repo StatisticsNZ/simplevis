@@ -1,11 +1,11 @@
 ---
-title: "Simplevis"
+title: "simplevis"
 author: "David Hodge"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Simplevis}
+  %\VignetteIndexEntry{simplevis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -32,11 +32,29 @@ set.seed(123456789)
 
 ### Purpose 
 
-simplevis is a package of [ggplot2](https://ggplot2.tidyverse.org/) and [leaflet](https://rstudio.github.io/leaflet/) wrapper functions that aims to make visualisation easier with less brainpower required. 
+{simplevis} is a package of [{ggplot2}](https://{ggplot2}.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/{leaflet}/) wrapper functions that aims to make visualisation easier with less brainpower required. 
+
+### A note on {ggblanket}
+
+[{ggblanket}](https://github.com/davidhodge931/ggblanket) is a package I made after {simplevis}, which was first released on CRAN in May 2022. 
+
+It's kind of a {simplevis2} for the {ggplot2} component of simplevis. I made this, because of a combination of a realisation of the design flaws of {simplevis} and an idea of how to technically create what I wanted in code.
+
+So, in general, {ggpblanket} is:
+
+* vastly more flexible covering the majority of what {ggplot2} does
+* much more aligned with {ggplot2}, so will cause less confusion in moving between the packages. This helps learning of {ggplot2}, rather than hindering  
+* more concise code (i.e. gg_point(data, x, y, col, facet), rather than gg_point_col_facet(data, x_var, y_var, col_var, facet_var)). This saves you typing, makes code more readable, and facilitates exploring different visualisations quicker and easier 
+* less dependencies, so less vulnerable to breaking in the future
+* other stuff: a redesign of how to colour numeric variables, additional arguments and flexibility to modify scale breaks, ensuring aesthetics are inherited, ensuring pals are inherited, support for tidy placement of legends on bottom or top, and more.
+
+However, it does not contain {leaflet} wrappers. There is currently a [bug](https://github.com/plotly/plotly.R/issues/2123) in `plotly::ggplotly` that prevents {ggblanket} outputs been made interactive. 
+
+If you need `plotly::ggplotly`, then use `simplevis` until the afore-mentioned bug is fixed. For `leaflet` wrappers, obviously use `simplevis`. Otherwise, I recommend using {ggblanket} instead of {simplevis}. 
 
 ### Visualisation families
 
-simplevis supports many visualisation family types.
+{simplevis} supports many visualisation family types.
 
 ```{r, echo=FALSE, fig.width=8, fig.height=3}
 plot_data <- penguins %>%
@@ -307,7 +325,7 @@ This is based on whether or not a visualisation is to be:
 * facetted, but _not_ coloured by a variable (`*_facet()`)
 * coloured by a variable and facetted (`*_col_facet()`)
 
-In simplevis, ggplot2 concepts of `col` and `fill` aesthetics have been unified into one for simplicity.
+In {simplevis}, {ggplot2} concepts of `col` and `fill` aesthetics have been unified into one for simplicity.
 
 The premise is that these 4 types of visualisation are most common for each visualisation family, and therefore it is useful to make functions that quickly enable these.
 
@@ -345,7 +363,7 @@ gg_point_col_facet(penguins,
 
 ### Minimal code and effort
 
-simplevis works with the pipe.
+{simplevis} works with the pipe.
 
 The order of variables in functions is always `x_var`, `y_var`, `col_var` and `facet_var` as appliable.
 
@@ -400,7 +418,7 @@ Some common arguments are:
 * `*_breaks_n` the number of numeric bins of breaks for numeric x, y or col scales to aim for 
 * `*_rev` to reverse the order of categorical x, y, col or facet scales 
 * `*_expand` to add padding to an x or y scale
-* `*_balance` to balance a numeric scale around zero, so that zero is in the centre 
+* `*_zero_mid` to place zero in the middle of a numeric scale 
 * `col_legend_none` to turn the legend off.
 
 Below illustrates how to customise titles and control labels through all possible ways.
@@ -439,7 +457,7 @@ The `size_` and `alpha_` prefixes are used to modify the size and opacity of var
 
 ### Themes
 
-You can adjust the theme of any simplevis plot by providing a ggplot2 theme object to the `theme` argument. You can also create your own quick themes with the simplevis `gg_theme()` function.
+You can adjust the theme of any {simplevis} plot by providing a {ggplot2} theme object to the `theme` argument. You can also create your own quick themes with the {simplevis} `gg_theme()` function.
 
 ```{r}
 custom_theme <- gg_theme(
@@ -462,7 +480,7 @@ Refer to the [themes](https://StatisticsNZ.github.io/simplevis/articles/themes.h
 
 ### Maps
 
-simplevis also supports `sf` and `stars` maps. sf refers to point, line or polygon features, whereas stars refers to arrays (i.e. grids).
+{simplevis} also supports `sf` and `stars` maps. sf refers to point, line or polygon features, whereas stars refers to arrays (i.e. grids).
 
 For `gg_sf*()` functions, data must be an `sf` object and of `POINT`/`MULTIPOINT`, `LINESTRING`/`MULTILINESTRING`, or `POLYGON`/`MULTIPOLYGON` geometry type.
 
@@ -491,18 +509,18 @@ gg_stars_col(example_stars,
              borders = example_borders)
 ```
 
-simplevis also provides leaflet wrapper functions for `sf` and `stars` objects. These functions work in a similar way, but have a `leaf_` prefix. Note there is no borders argument available in the `leaf_*()` functions.
+{simplevis} also provides {leaflet} wrapper functions for `sf` and `stars` objects. These functions work in a similar way, but have a `leaf_` prefix. Note there is no borders argument available in the `leaf_*()` functions.
 
 ```{r}
 leaf_sf_col(example_point, 
             col_var = trend_category)
 ```
 
-Refer to the [leaflet](https://StatisticsNZ.github.io/simplevis/articles/leaflet.html) article for further information.
+Refer to the [{leaflet}](https://StatisticsNZ.github.io/simplevis/articles/{leaflet}.html) article for further information.
 
-### Extending simplevis 
+### Extending {simplevis} 
 
-All `gg_*` and `leaf_*` wrapper functions produce ggplot or leaflet objects. This means layers can be added to the functions in the same way you would a ggplot2 or leaflet object. Note you need to add _all_ aesthetics to any additional `geom_*` layers.
+All `gg_*` and `leaf_*` wrapper functions produce ggplot or {leaflet} objects. This means layers can be added to the functions in the same way you would a {ggplot2} or {leaflet} object. Note you need to add _all_ aesthetics to any additional `geom_*` layers.
 
 The below example adds error bars, labels, and a new y scale. Note that 25 percentiles and 75 percentiles have been used to demonstrate the errorbars, rather than confidence intervals which would normally be used with error bars.
 
@@ -530,7 +548,7 @@ gg_bar_col(plot_data,
   )            
 ```
 
-The [patchwork](https://patchwork.data-imaginist.com/) package can be used to patch visualisations together.
+The [{patchwork}](https://patchwork.data-imaginist.com/) package can be used to patch visualisations together.
 
 ```{r}
 library(patchwork)
@@ -548,7 +566,7 @@ p2 <- gg_boxplot(penguins,
 p1 + p2
 ```
 
-All ggplot objects can be converted into interactive html objects using the `plotly::ggplotly` function from the [plotly](https://plotly.com/r/) library.
+All ggplot objects can be converted into interactive html objects using the `plotly::ggplotly` function from the [{plotly}](https://plotly.com/r/) library.
 
 ```{r, eval = FALSE}
 plot <- gg_point_col(penguins,
@@ -560,7 +578,7 @@ plotly::ggplotly(plot) %>%
   plotly_camera()
 ```
 
-simplevis also offers more customisability for making tooltips (i.e. hover values) in ggplotly. 
+{simplevis} also offers more customisability for making tooltips (i.e. hover values) in ggplotly. 
 
 Refer to the [ggplotly](https://StatisticsNZ.github.io/simplevis/articles/ggplotly.html) article for further information.
 
@@ -602,4 +620,4 @@ Where:
 
 ### Further information
 
-For further information, see the [articles](https://StatisticsNZ.github.io/simplevis/articles/) on the simplevis website.
+For further information, see the [articles](https://StatisticsNZ.github.io/simplevis/articles/) on the {simplevis} website.

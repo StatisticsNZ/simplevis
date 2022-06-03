@@ -90,7 +90,7 @@
                         <h4 data-toc-skip class="author">David
 Hodge</h4>
             
-            <h4 data-toc-skip class="date">2022-06-03</h4>
+            <h4 data-toc-skip class="date">2022-06-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StatisticsNZ/simplevis/blob/HEAD/vignettes/scales.Rmd" class="external-link"><code>vignettes/scales.Rmd</code></a></small>
       <div class="d-none name"><code>scales.Rmd</code></div>
@@ -106,7 +106,7 @@ Hodge</h4>
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
-<p>simplevis uses consistent prefixes in arguments to help users to
+<p>{simplevis} uses consistent prefixes in arguments to help users to
 enable users to narrow down what they are looking for and then enable
 the Rstudio auto-complete to provide options.</p>
 <p>In general:</p>
@@ -123,9 +123,10 @@ the Rstudio auto-complete to provide options.</p>
 </li>
 </ul>
 <p>Therefore, if you know want to adjust the x scale but can’t think
-how, you can start typing <code>x_</code> within the simplevis function,
-press tab, and then you will be presented with a lot of options. You can
-use the arrow keys to scroll through these, and the tab to select.</p>
+how, you can start typing <code>x_</code> within the {simplevis}
+function, press tab, and then you will be presented with a lot of
+options. You can use the arrow keys to scroll through these, and the tab
+to select.</p>
 <p>One deviation from this logic is that colour palette is selected
 using a <code>pal</code> argument consistently in all functions
 regardless of whether the colour palette relates to a colour scale or
@@ -167,7 +168,7 @@ using <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class
 <p>Numeric variables are generally converted using the
 <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code> by default, but sometimes converted
 to <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>.</p>
-<p>You can turn off any simplevis default transformations to labels
+<p>You can turn off any {simplevis} default transformations to labels
 using <code>function(x) x</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">penguins</span>,
@@ -198,7 +199,7 @@ using <code>function(x) x</code>.</p>
 <div class="section level3">
 <h3 id="numeric-scales">Numeric scales<a class="anchor" aria-label="anchor" href="#numeric-scales"></a>
 </h3>
-<p>simplevis graphs numeric scales default to:</p>
+<p>{simplevis} graphs numeric scales default to:</p>
 <ul>
 <li>starting from zero for numeric scales on bar graphs.</li>
 <li>
@@ -254,7 +255,7 @@ argument.</p>
 <div class="section level3">
 <h3 id="discrete-scales">Discrete scales<a class="anchor" aria-label="anchor" href="#discrete-scales"></a>
 </h3>
-<p>simplevis automatically orders hbar graphs of character variables
+<p>{simplevis} automatically orders hbar graphs of character variables
 alphabetically.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -337,8 +338,8 @@ within facets.</p>
 <h3 id="colour-scales">Colour scales<a class="anchor" aria-label="anchor" href="#colour-scales"></a>
 </h3>
 <p>Customise the colour title. Note that because colour labels will be
-converted to sentence case by default in simplevis, but we can turn this
-off when we do not want this to occur using
+converted to sentence case by default in {simplevis}, but we can turn
+this off when we do not want this to occur using
 <code>function(x) x</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>

@@ -131,7 +131,7 @@ gg_point_col(penguins,
              x_var = bill_length_mm, 
              y_var = body_mass_g, 
              col_var = species, 
-             y_balance = TRUE)
+             y_zero_mid = TRUE)
 ```
 
 Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.
@@ -341,7 +341,7 @@ gg_bar_col(plot_data,
            col_var = sex,
            stack = TRUE,
            col_na_rm = TRUE, 
-           size_width = 0.5)
+           width = 0.5)
 ```
 
 point allows you to jitter in an x or y direction.
@@ -387,6 +387,6 @@ gg_bar_col(plot_data,
        y_var = body_mass_g, 
        col_var = species, 
        col_legend_none = TRUE,
-       size_width = 0.5)
+       width = 0.5)
 ```
 

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simplevis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,14 +65,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sv_y_zero_adjust</span><span class="op">(</span><span class="va">y_var_vctr</span>, <span class="va">y_balance</span>, <span class="va">y_zero</span>, <span class="va">y_zero_line</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sv_y_zero_adjust</span><span class="op">(</span><span class="va">y_var_vctr</span>, <span class="va">y_zero_mid</span>, <span class="va">y_zero</span>, <span class="va">y_zero_line</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>y_var_vctr</dt>
 <dd><p>A vector of values for the y scale.</p></dd>
-<dt>y_balance</dt>
+<dt>y_zero_mid</dt>
 <dd><p>Add balance to the y axis so that zero is in the centre of the y scale. Only applicable where facet_scales equals "fixed" or "free_y".</p></dd>
 <dt>y_zero</dt>
 <dd><p>TRUE or FALSE whether the minimum of the y scale is zero. Defaults to TRUE.</p></dd>
@@ -95,7 +95,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

@@ -1,5 +1,10 @@
-# simplevis 6.2.9000
+# simplevis 6.3.0
 
+* Breaking: renamed theme v_gridlines/h_gridlines arguments to x_grid/y_grid. 
+* Breaking: renamed size_width argument to width.
+* Breaking: renamed *_balance argument to _zero_mid.
+* Renamed default pals.
+* Removed shiny_demo functions.
 * Changed col_intervals_right argument to col_intervals_left.
 * Changed pointrange/hpointrange ymiddle_var/x_middle_var to x_var/y_var.
 * Titles left aligned.
@@ -7,7 +12,6 @@
 * Fixed direction of numeric legends in all gg*() legends.
 * Fixed bug in gg_hpointrange y scale.
 * Add numeric colouring to gg_pointrange*().
-* Default col_intervals_right to FALSE.
 * Fixed hpointrange bug where legend was vertical. 
 * Fixed bug where legend appearing in mobile, despite col_legend_none = TRUE.
 * Minor tweaks to readme and vignette.

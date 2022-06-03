@@ -18,7 +18,7 @@ gg_density_col(
   title_wrap = 80,
   subtitle = NULL,
   subtitle_wrap = 80,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_breaks_n = 5,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
@@ -38,7 +38,7 @@ gg_density_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   model_bw = "nrd0",
   model_adjust = 1,
   model_kernel = "gaussian",
@@ -74,7 +74,7 @@ gg_density_col(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_breaks_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the}
 

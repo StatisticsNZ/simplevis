@@ -31,7 +31,7 @@ gg_stars <- function(data,
                      borders = NULL,
                      borders_on_top = TRUE,
                      downsample = 0,
-                     pal = pal_viridis_reorder(1),
+                     pal = pal_viridis_mix(1),
                      pal_borders = "#323232",
                      alpha_fill = 0.5,
                      alpha_borders = 0.5, 
@@ -323,7 +323,7 @@ gg_stars_col <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -332,7 +332,7 @@ gg_stars_col <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case

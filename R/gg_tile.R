@@ -16,7 +16,7 @@
 #' @param size_line The size of the outlines of bars. 
 #' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param size_height Height of tiles. Defaults to 1.
-#' @param size_width Width of tiles. Defaults to 1.
+#' @param width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -78,7 +78,7 @@ gg_tile_col <- function(data,
                         size_line = 0.5,
                         size_label = 3.5,
                         size_height = 1, 
-                        size_width = 1,
+                        width = 1,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
@@ -252,7 +252,7 @@ gg_tile_col <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -261,7 +261,7 @@ gg_tile_col <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
@@ -279,7 +279,7 @@ gg_tile_col <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-              size = size_line, width = size_width, height = size_height) 
+              size = size_line, width = width, height = size_height) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 
@@ -384,7 +384,7 @@ gg_tile_col <- function(data,
 #' @param size_line The size of the outlines of bars.
 #' @param size_label The size of the of labels. Defaults to 3.5.
 #' @param size_height Height of tiles. Defaults to 1.
-#' @param size_width Width of tiles. Defaults to 1.
+#' @param width Width of tiles. Defaults to 1.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
@@ -453,7 +453,7 @@ gg_tile_col_facet <- function(data,
                               size_line = 0.5,
                               size_label = 3.5,
                               size_height = 1,
-                              size_width = 1,
+                              width = 1,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
@@ -653,7 +653,7 @@ gg_tile_col_facet <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -662,7 +662,7 @@ gg_tile_col_facet <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
@@ -680,7 +680,7 @@ gg_tile_col_facet <- function(data,
   plot <- ggplot(data) +
     theme +
     geom_tile(aes(x = !!x_var, y = !!y_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
-              size = size_line, width = size_width, height = size_height) 
+              size = size_line, width = width, height = size_height) 
   
   if(!rlang::quo_is_null(label_var)) {
     plot <- plot + 

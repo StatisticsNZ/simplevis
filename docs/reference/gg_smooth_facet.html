@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simplevis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
   <span class="va">x_var</span>,
   <span class="va">y_var</span>,
   <span class="va">facet_var</span>,
-  pal <span class="op">=</span> <span class="fu"><a href="pal_viridis_reorder.html">pal_viridis_reorder</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
+  pal <span class="op">=</span> <span class="fu"><a href="pal_viridis_mix.html">pal_viridis_mix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
   alpha_fill <span class="op">=</span> <span class="fl">0.5</span>,
   alpha_line <span class="op">=</span> <span class="fl">1</span>,
   alpha_point <span class="op">=</span> <span class="fl">1</span>,
@@ -80,7 +80,7 @@
   title_wrap <span class="op">=</span> <span class="fl">80</span>,
   subtitle <span class="op">=</span> <span class="cn">NULL</span>,
   subtitle_wrap <span class="op">=</span> <span class="fl">80</span>,
-  x_balance <span class="op">=</span> <span class="cn">FALSE</span>,
+  x_zero_mid <span class="op">=</span> <span class="cn">FALSE</span>,
   x_breaks_n <span class="op">=</span> <span class="fl">2</span>,
   x_expand <span class="op">=</span> <span class="cn">NULL</span>,
   x_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span>,
@@ -88,7 +88,7 @@
   x_title_wrap <span class="op">=</span> <span class="fl">50</span>,
   x_zero <span class="op">=</span> <span class="cn">FALSE</span>,
   x_zero_line <span class="op">=</span> <span class="cn">NULL</span>,
-  y_balance <span class="op">=</span> <span class="cn">FALSE</span>,
+  y_zero_mid <span class="op">=</span> <span class="cn">FALSE</span>,
   y_breaks_n <span class="op">=</span> <span class="fl">3</span>,
   y_expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
   y_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span>,
@@ -104,7 +104,7 @@
   facet_scales <span class="op">=</span> <span class="st">"fixed"</span>,
   caption <span class="op">=</span> <span class="cn">NULL</span>,
   caption_wrap <span class="op">=</span> <span class="fl">80</span>,
-  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span>gridlines_h <span class="op">=</span> <span class="cn">TRUE</span>, gridlines_v <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span>y_grid <span class="op">=</span> <span class="cn">TRUE</span>, x_grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   model_method <span class="op">=</span> <span class="cn">NULL</span>,
   model_formula <span class="op">=</span> <span class="cn">NULL</span>,
   model_se <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -144,7 +144,7 @@
 <dd><p>Subtitle string.</p></dd>
 <dt>subtitle_wrap</dt>
 <dd><p>Number of characters to wrap the subtitle to. Defaults to 100.</p></dd>
-<dt>x_balance</dt>
+<dt>x_zero_mid</dt>
 <dd><p>For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.</p></dd>
 <dt>x_breaks_n</dt>
 <dd><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.</p></dd>
@@ -160,7 +160,7 @@
 <dd><p>For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.</p></dd>
 <dt>x_zero_line</dt>
 <dd><p>For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.</p></dd>
-<dt>y_balance</dt>
+<dt>y_zero_mid</dt>
 <dd><p>For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.</p></dd>
 <dt>y_breaks_n</dt>
 <dd><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.</p></dd>
@@ -235,7 +235,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

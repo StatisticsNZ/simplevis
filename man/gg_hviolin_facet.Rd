@@ -9,16 +9,16 @@ gg_hviolin_facet(
   x_var = NULL,
   y_var,
   facet_var,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
-  size_width = 0.75,
+  width = 0.75,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
   subtitle_wrap = 75,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_breaks_n = 2,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
@@ -40,7 +40,7 @@ gg_hviolin_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines_v = TRUE),
+  theme = gg_theme(x_grid = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,
@@ -65,7 +65,7 @@ gg_hviolin_facet(
 
 \item{size_line}{The size of the outlines of violins. Defaults to 0.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.75.}
+\item{width}{Width of boxes. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -75,7 +75,7 @@ gg_hviolin_facet(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 60.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
 \item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.}
 

@@ -18,7 +18,7 @@ gg_boxplot_col_facet(
   alpha_point = 1,
   size_line = 0.5,
   size_point = 1.5,
-  size_width = 0.5,
+  width = 0.5,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -29,7 +29,7 @@ gg_boxplot_col_facet(
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_breaks_n = 3,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
@@ -51,7 +51,7 @@ gg_boxplot_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   stat = "boxplot",
   ymin_var = NULL,
   ylower_var = NULL,
@@ -87,7 +87,7 @@ gg_boxplot_col_facet(
 
 \item{size_point}{The size of the outlier points. Defaults to 1.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.5.}
+\item{width}{Width of boxes. Defaults to 0.5.}
 
 \item{title}{Title string.}
 
@@ -109,7 +109,7 @@ gg_boxplot_col_facet(
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.}
 

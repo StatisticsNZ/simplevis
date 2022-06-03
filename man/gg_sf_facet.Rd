@@ -8,7 +8,7 @@ gg_sf_facet(
   data,
   facet_var,
   text_var = NULL,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   pal_borders = "#7F7F7F",
   borders = NULL,
   borders_on_top = NULL,

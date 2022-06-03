@@ -10,7 +10,7 @@
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -21,7 +21,7 @@
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
@@ -69,19 +69,19 @@
 #'             y_title = "Body mass g",
 #'             y_breaks_n = 4) +
 #'   ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g), 
-#'             size = 0.75, col = pal_viridis_reorder(1), 
+#'             size = 0.75, col = pal_viridis_mix(1), 
 #'             data = outliers)
 #' 
 gg_boxplot <- function(data,
                        x_var,
                        y_var = NULL,
-                       pal = pal_viridis_reorder(1),
+                       pal = pal_viridis_mix(1),
                        alpha_fill = 0.5,
                        alpha_line = 1,
                        alpha_point = 1,
                        size_line = 0.5,
                        size_point = 1.5,
-                       size_width = 0.5,
+                       width = 0.5,
                        title = NULL,
                        title_wrap = 80,
                        subtitle = NULL,
@@ -92,7 +92,7 @@ gg_boxplot <- function(data,
                        x_rev = FALSE,
                        x_title = NULL,
                        x_title_wrap = 50,
-                       y_balance = FALSE,
+                       y_zero_mid = FALSE,
                        y_breaks_n = 5,
                        y_expand = c(0, 0),
                        y_labels = scales::label_comma(),
@@ -108,7 +108,7 @@ gg_boxplot <- function(data,
                        ymiddle_var = NULL,
                        yupper_var = NULL,
                        ymax_var = NULL,
-                       theme = gg_theme(gridlines_h = TRUE),
+                       theme = gg_theme(y_grid = TRUE),
                        mobile = FALSE) {
   
   #ungroup
@@ -187,7 +187,7 @@ gg_boxplot <- function(data,
         fill = pal_fill,
         col = pal_line, 
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.colour = pal_point,
         outlier.fill = pal_point,
         outlier.size = size_point
@@ -208,7 +208,7 @@ gg_boxplot <- function(data,
         fill = pal_fill,
         col = pal_line, 
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.colour = pal_point,
         outlier.fill = pal_point,
         outlier.size = size_point
@@ -220,7 +220,7 @@ gg_boxplot <- function(data,
     scale_x_discrete(expand = x_expand, labels = x_labels)
 
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
@@ -229,7 +229,7 @@ gg_boxplot <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -282,7 +282,7 @@ gg_boxplot <- function(data,
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -293,7 +293,7 @@ gg_boxplot <- function(data,
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
@@ -342,7 +342,7 @@ gg_boxplot <- function(data,
 #'   group_by(species, sex) %>% 
 #'   summarise_boxplot_outliers(body_mass_g)
 #' 
-#' size_width <- 0.5
+#' width <- 0.5
 #' 
 #' gg_boxplot_col(plot_data,
 #'                x_var = species,
@@ -352,14 +352,14 @@ gg_boxplot <- function(data,
 #'                yupper_var = upper,
 #'                ymax_var = max,
 #'                col_var = sex,
-#'                size_width = size_width,
+#'                width = width,
 #'                stat = "identity",
 #'                y_title = "Body mass g",
 #'                y_breaks_n = 4, 
 #'                col_na_rm = TRUE) +
 #'                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, col = sex), 
 #'                      size = 0.75, 
-#'                      position = ggplot2::position_dodge(width = size_width),
+#'                      position = ggplot2::position_dodge(width = width),
 #'                      data = outliers)
 #' 
 gg_boxplot_col <- function(data,
@@ -374,7 +374,7 @@ gg_boxplot_col <- function(data,
                            alpha_point = 1,
                            size_line = 0.5,
                            size_point = 1.5,
-                           size_width = 0.5,
+                           width = 0.5,
                            title = NULL,
                            title_wrap = 80,
                            subtitle = NULL,
@@ -385,7 +385,7 @@ gg_boxplot_col <- function(data,
                            x_rev = FALSE,
                            x_title = NULL,
                            x_title_wrap = 50,
-                           y_balance = FALSE,
+                           y_zero_mid = FALSE,
                            y_expand = c(0, 0),
                            y_labels = scales::label_comma(),
                            y_breaks_n = 5,
@@ -401,7 +401,7 @@ gg_boxplot_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
-                           theme = gg_theme(gridlines_h = TRUE),
+                           theme = gg_theme(y_grid = TRUE),
                            stat = "boxplot",
                            ymin_var = NULL,
                            ylower_var = NULL,
@@ -495,7 +495,7 @@ gg_boxplot_col <- function(data,
   }
   else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  if (is.null(pal)) pal <- pal_d3_mix(col_n)
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -517,7 +517,7 @@ gg_boxplot_col <- function(data,
         position = position_dodge2(preserve = "single"),
         stat = stat,
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.alpha = alpha_point,
         outlier.size = size_point
       )
@@ -538,7 +538,7 @@ gg_boxplot_col <- function(data,
         position = position_dodge2(preserve = "single"),
         stat = stat,
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.alpha = alpha_point,
         outlier.size = size_point
       )
@@ -549,7 +549,7 @@ gg_boxplot_col <- function(data,
     scale_x_discrete(expand = x_expand, labels = x_labels)
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
   y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
@@ -558,7 +558,7 @@ gg_boxplot_col <- function(data,
       scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
   }
   else ({
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     
     plot <- plot +
@@ -633,7 +633,7 @@ gg_boxplot_col <- function(data,
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
 #' @param size_point The size of the outlier points. Defaults to 1.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -644,7 +644,7 @@ gg_boxplot_col <- function(data,
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
@@ -684,13 +684,13 @@ gg_boxplot_facet <- function(data,
                              x_var,
                              y_var = NULL,
                              facet_var,
-                             pal = pal_viridis_reorder(1),
+                             pal = pal_viridis_mix(1),
                              alpha_fill = 0.5,
                              alpha_line = 1,
                              alpha_point = 1,
                              size_line = 0.5,
                              size_point = 1.5,
-                             size_width = 0.5,
+                             width = 0.5,
                              title = NULL,
                              title_wrap = 80,
                              subtitle = NULL,
@@ -701,7 +701,7 @@ gg_boxplot_facet <- function(data,
                              x_rev = FALSE,
                              x_title = NULL,
                              x_title_wrap = 50,
-                             y_balance = FALSE,
+                             y_zero_mid = FALSE,
                              y_breaks_n = 3,
                              y_expand = c(0, 0),
                              y_labels = scales::label_comma(),
@@ -717,7 +717,7 @@ gg_boxplot_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme(gridlines_h = TRUE), 
+                             theme = gg_theme(y_grid = TRUE), 
                              stat = "boxplot",
                              ymin_var = NULL,
                              ylower_var = NULL,
@@ -822,7 +822,7 @@ gg_boxplot_facet <- function(data,
         fill = pal_fill,
         col = pal_line, 
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.colour = pal_point,
         outlier.fill = pal_point,
         outlier.size = size_point
@@ -843,7 +843,7 @@ gg_boxplot_facet <- function(data,
         fill = pal_fill,
         col = pal_line, 
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.colour = pal_point,
         outlier.fill = pal_point,
         outlier.size = size_point
@@ -855,7 +855,7 @@ gg_boxplot_facet <- function(data,
     scale_x_discrete(expand = x_expand, labels = x_labels)
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
@@ -865,7 +865,7 @@ gg_boxplot_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +
@@ -912,7 +912,7 @@ gg_boxplot_facet <- function(data,
 #' @param alpha_point The opacity of the outlier points. Defaults to 1.  
 #' @param size_point The size of the outlier points. Defaults to 1.5.
 #' @param size_line The size of the outlines of boxplots. Defaults to 0.5.
-#' @param size_width Width of boxes. Defaults to 0.5.
+#' @param width Width of boxes. Defaults to 0.5.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 75. 
 #' @param subtitle Subtitle string. 
@@ -923,7 +923,7 @@ gg_boxplot_facet <- function(data,
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. Use ggplot2::waiver() to keep y labels untransformed.
@@ -984,7 +984,7 @@ gg_boxplot_col_facet <- function(data,
                                  alpha_point = 1,
                                  size_line = 0.5,
                                  size_point = 1.5,
-                                 size_width = 0.5,
+                                 width = 0.5,
                                  title = NULL,
                                  title_wrap = 80,
                                  subtitle = NULL,
@@ -995,7 +995,7 @@ gg_boxplot_col_facet <- function(data,
                                  x_rev = FALSE,
                                  x_title = NULL,
                                  x_title_wrap = 50,
-                                 y_balance = FALSE,
+                                 y_zero_mid = FALSE,
                                  y_breaks_n = 3,
                                  y_expand = c(0, 0),
                                  y_labels = scales::label_comma(),
@@ -1017,7 +1017,7 @@ gg_boxplot_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80,
-                                 theme = gg_theme(gridlines_h = TRUE), 
+                                 theme = gg_theme(y_grid = TRUE), 
                                  stat = "boxplot",
                                  ymin_var = NULL,
                                  ylower_var = NULL,
@@ -1131,7 +1131,7 @@ gg_boxplot_col_facet <- function(data,
   }
   else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  if (is.null(pal)) pal <- pal_d3_mix(col_n)
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -1153,7 +1153,7 @@ gg_boxplot_col_facet <- function(data,
         position = position_dodge2(preserve = "single"),
         stat = stat,
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.alpha = alpha_point,
         outlier.size = size_point
       )
@@ -1174,7 +1174,7 @@ gg_boxplot_col_facet <- function(data,
         position = position_dodge2(preserve = "single"),
         stat = stat,
         size = size_line, 
-        width = size_width,
+        width = width,
         outlier.alpha = alpha_point,
         outlier.size = size_point
       )
@@ -1185,7 +1185,7 @@ gg_boxplot_col_facet <- function(data,
     scale_x_discrete(expand = x_expand, labels = x_labels)
   
   #y scale
-  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+  y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
   if (facet_scales %in% c("fixed", "free_x")) y_zero <- y_zero_list[[1]]
   y_zero_line <- y_zero_list[[2]]
   
@@ -1195,7 +1195,7 @@ gg_boxplot_col_facet <- function(data,
         scale_y_continuous(expand = y_expand, breaks = c(0, 1), labels = y_labels, limits = c(0, 1))
     }
     else ({
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       
       plot <- plot +

@@ -7,13 +7,13 @@
 #' @param pal Character vector of hex codes. 
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1.
-#' @param size_width Width of bars. Defaults to 0.75.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param size_line The size of the outlines of bars.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -22,7 +22,7 @@
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
@@ -57,16 +57,16 @@ gg_hbar <- function(data,
                     x_var,
                     y_var,
                     text_var = NULL,
-                    pal = pal_viridis_reorder(1),
+                    pal = pal_viridis_mix(1),
                     alpha_fill = 1,
                     alpha_line = 1,
                     size_line = 0.5,
-                    size_width = NULL,
+                    width = NULL,
                     title = NULL,
                     title_wrap = 75,
                     subtitle = NULL,
                     subtitle_wrap = 75,
-                    x_balance = FALSE,
+                    x_zero_mid = FALSE,
                     x_breaks_n = 5,
                     x_expand = c(0, 0),
                     x_labels = scales::label_comma(),
@@ -75,7 +75,7 @@ gg_hbar <- function(data,
                     x_title_wrap = 50,
                     x_zero = TRUE,
                     x_zero_line = NULL,
-                    y_balance = FALSE,
+                    y_zero_mid = FALSE,
                     y_breaks_n = 5,
                     y_expand = NULL,
                     y_labels = NULL,
@@ -88,7 +88,7 @@ gg_hbar <- function(data,
                     y_zero_line = NULL,
                     caption = NULL,
                     caption_wrap = 75,
-                    theme = gg_theme(gridlines_v = TRUE),
+                    theme = gg_theme(x_grid = TRUE),
                     mobile = FALSE) {
   
   #ungroup
@@ -153,11 +153,11 @@ gg_hbar <- function(data,
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha(pal, alpha = alpha_line)
   
-  #size_width
-  if (is.null(size_width)) {
+  #width
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.75
+      width <- NULL
+    } else width <- 0.75
   }
   
   #fundamentals
@@ -168,15 +168,15 @@ gg_hbar <- function(data,
              col = pal_line, 
              fill = pal_fill, 
              size = size_line, 
-             width = size_width) 
+             width = width) 
   
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
     
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -219,7 +219,7 @@ gg_hbar <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -228,7 +228,7 @@ gg_hbar <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
@@ -280,12 +280,12 @@ gg_hbar <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1.
 #' @param size_line The size of the outlines of bars.
-#' @param size_width Width of bars. Defaults to 0.75.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -294,7 +294,7 @@ gg_hbar <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
@@ -342,7 +342,7 @@ gg_hbar <- function(data,
 #'            col_var = sex,
 #'            col_na_rm = TRUE,
 #'            stack = TRUE,
-#'            size_width = 0.5)
+#'            width = 0.5)
 #'             
 gg_hbar_col <- function(data,
                         x_var,
@@ -356,12 +356,12 @@ gg_hbar_col <- function(data,
                         alpha_fill = 1,
                         alpha_line = 1,
                         size_line = 0.5,
-                        size_width = NULL,
+                        width = NULL,
                         title = NULL,
                         title_wrap = 75,
                         subtitle = NULL,
                         subtitle_wrap = 75,
-                        x_balance = FALSE,
+                        x_zero_mid = FALSE,
                         x_breaks_n = 5,
                         x_expand = c(0, 0),
                         x_labels = scales::label_comma(),
@@ -370,7 +370,7 @@ gg_hbar_col <- function(data,
                         x_title_wrap = 50,
                         x_zero = TRUE,
                         x_zero_line = NULL,
-                        y_balance = FALSE,
+                        y_zero_mid = FALSE,
                         y_breaks_n = 5,
                         y_expand = NULL,
                         y_labels = NULL,
@@ -392,7 +392,7 @@ gg_hbar_col <- function(data,
                         col_title_wrap = 25,
                         caption = NULL,
                         caption_wrap = 75,
-                        theme = gg_theme(gridlines_v = TRUE),
+                        theme = gg_theme(x_grid = TRUE),
                         mobile = FALSE) {
   
   #ungroup
@@ -468,11 +468,11 @@ gg_hbar_col <- function(data,
     }
   }
   
-  #size_width
-  if (is.null(size_width)) {
+  #width
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.75
+      width <- NULL
+    } else width <- 0.75
   }
   
   #colour
@@ -538,7 +538,7 @@ gg_hbar_col <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -547,7 +547,7 @@ gg_hbar_col <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
@@ -571,7 +571,7 @@ gg_hbar_col <- function(data,
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
-             width = size_width, 
+             width = width, 
              position = position) 
   
   if (stack == TRUE) {
@@ -586,10 +586,10 @@ gg_hbar_col <- function(data,
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
     
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -632,7 +632,7 @@ gg_hbar_col <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -641,7 +641,7 @@ gg_hbar_col <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
     
     plot <- plot +
@@ -738,12 +738,12 @@ gg_hbar_col <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1.
 #' @param size_line The size of the outlines of bars. 
-#' @param size_width Width of bars. Defaults to 0.75.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -752,7 +752,7 @@ gg_hbar_col <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
@@ -793,16 +793,16 @@ gg_hbar_facet <- function(data,
                           y_var,
                           facet_var,
                           text_var = NULL,
-                          pal = pal_viridis_reorder(1),
+                          pal = pal_viridis_mix(1),
                           alpha_fill = 1,
                           alpha_line = 1,
                           size_line = 0.5,
-                          size_width = NULL,
+                          width = NULL,
                           title = NULL,
                           title_wrap = 75,
                           subtitle = NULL,
                           subtitle_wrap = 75,
-                          x_balance = FALSE,
+                          x_zero_mid = FALSE,
                           x_breaks_n = 2,
                           x_expand = c(0, 0),
                           x_labels = scales::label_comma(),
@@ -811,7 +811,7 @@ gg_hbar_facet <- function(data,
                           x_title_wrap = 50,
                           x_zero = TRUE,
                           x_zero_line = NULL,
-                          y_balance = FALSE,
+                          y_zero_mid = FALSE,
                           y_breaks_n = 3,
                           y_expand = NULL,
                           y_labels = NULL,
@@ -829,7 +829,7 @@ gg_hbar_facet <- function(data,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
-                          theme = gg_theme(gridlines_v = TRUE)) {
+                          theme = gg_theme(x_grid = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -903,11 +903,11 @@ gg_hbar_facet <- function(data,
   pal_fill <- scales::alpha(pal, alpha = alpha_fill)
   pal_line <- scales::alpha(pal, alpha = alpha_line)
   
-  #size_width
-  if (is.null(size_width)) {
+  #width
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.75
+      width <- NULL
+    } else width <- 0.75
   }
   
   #fundamentals
@@ -918,7 +918,7 @@ gg_hbar_facet <- function(data,
              col = pal_line, 
              fill = pal_fill, 
              size = size_line, 
-             width = size_width) 
+             width = width) 
 
   #y scale
   if (is.character(y_var_vctr) | is.factor(y_var_vctr)){
@@ -930,10 +930,10 @@ gg_hbar_facet <- function(data,
   }
   else if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     if (facet_scales %in% c("fixed", "free_x")) {
-        y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+        y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
         y_zero <- y_zero_list[[1]]
         y_zero_line <- y_zero_list[[2]]
-        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+        y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
         y_limits <- c(min(y_var_vctr), max(y_var_vctr))
         if (is.null(y_expand)) y_expand <- c(0, 0)
         
@@ -964,7 +964,7 @@ gg_hbar_facet <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -974,7 +974,7 @@ gg_hbar_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +
@@ -1020,12 +1020,12 @@ gg_hbar_facet <- function(data,
 #' @param alpha_fill The opacity of the fill. Defaults to 1.  
 #' @param alpha_line The opacity of the outline. Defaults to 1.
 #' @param size_line The size of the outlines of bars. 
-#' @param size_width Width of bars. Defaults to 0.75.
+#' @param width Width of bars. Defaults to 0.75.
 #' @param title Title string. 
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
 #' @param x_na_rm TRUE or FALSE of whether to include x_var NA values. Defaults to FALSE.
@@ -1034,7 +1034,7 @@ gg_hbar_facet <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to TRUE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
 #' @param y_na_rm TRUE or FALSE of whether to include y_var NA values. Defaults to FALSE.
@@ -1094,13 +1094,13 @@ gg_hbar_col_facet <- function(data,
                               alpha_fill = 1,
                               alpha_line = 1,
                               size_line = 0.5,
-                              size_width = NULL,
+                              width = NULL,
                               title = NULL,
                               title_wrap = 75,
                               subtitle = NULL,
                               subtitle_wrap = 75,
                               x_breaks_n = 2,
-                              x_balance = FALSE,
+                              x_zero_mid = FALSE,
                               x_expand = c(0, 0),
                               x_labels = scales::label_comma(),
                               x_na_rm = FALSE,
@@ -1108,7 +1108,7 @@ gg_hbar_col_facet <- function(data,
                               x_title_wrap = 50,
                               x_zero = TRUE,
                               x_zero_line = NULL,
-                              y_balance = FALSE,
+                              y_zero_mid = FALSE,
                               y_breaks_n = 3,
                               y_expand = NULL,
                               y_labels = NULL,
@@ -1136,7 +1136,7 @@ gg_hbar_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              theme = gg_theme(gridlines_v = TRUE)) {
+                              theme = gg_theme(x_grid = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1232,11 +1232,11 @@ gg_hbar_col_facet <- function(data,
   }
   
   
-  #size_width
-  if (is.null(size_width)) {
+  #width
+  if (is.null(width)) {
     if(lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
-      size_width <- NULL
-    } else size_width <- 0.75
+      width <- NULL
+    } else width <- 0.75
   }
   
   #colour
@@ -1302,7 +1302,7 @@ gg_hbar_col_facet <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -1311,7 +1311,7 @@ gg_hbar_col_facet <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
@@ -1335,7 +1335,7 @@ gg_hbar_col_facet <- function(data,
     theme +
     geom_col(aes(x = !!y_var, y = !!x_var, col = !!col_var, fill = !!col_var, text = !!text_var), 
              size = size_line, 
-             width = size_width, 
+             width = width, 
              position = position) 
 
   #y scale
@@ -1348,10 +1348,10 @@ gg_hbar_col_facet <- function(data,
   }
   else if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_var_vctr), max(y_var_vctr))
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
@@ -1391,7 +1391,7 @@ gg_hbar_col_facet <- function(data,
     x_var_vctr <- dplyr::pull(data_sum, !!x_var)
   }
   
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -1401,7 +1401,7 @@ gg_hbar_col_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks, na.rm = TRUE), max(x_breaks, na.rm = TRUE))
       
       plot <- plot +

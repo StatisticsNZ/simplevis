@@ -6,7 +6,7 @@
 \usage{
 leaf_stars(
   data,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_fill = 0.5,
   basemap = "light",
   group_id = NULL,

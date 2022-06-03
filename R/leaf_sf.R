@@ -31,7 +31,7 @@ leaf_sf <- function(data,
                     popup_vars_vctr = NULL,
                     popup_numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE),
                     popup_vars_rename = snakecase::to_sentence_case,
-                    pal = pal_viridis_reorder(1),
+                    pal = pal_viridis_mix(1),
                     size_point = 2,
                     size_line = 2,
                     alpha_point = NULL,
@@ -395,7 +395,7 @@ leaf_sf_col <- function(data,
     }
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
-    if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pal_viridis_mix(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     
@@ -424,7 +424,7 @@ leaf_sf_col <- function(data,
       col_n <- length(col_labels2)
     }) 
     
-    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+    if (is.null(pal)) pal <- pal_d3_mix(col_n)
     else pal <- pal[1:col_n]
     
     if (is.function(col_labels)) col_labels <- col_labels(col_labels2)

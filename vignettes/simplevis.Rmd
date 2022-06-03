@@ -32,7 +32,7 @@ set.seed(123456789)
 
 ### Purpose 
 
-simplevis is a package of [ggplot2](https://ggplot2.tidyverse.org/) and [leaflet](https://rstudio.github.io/leaflet/) wrapper functions that aims to make visualisation easier with less brainpower required.
+simplevis is a package of [ggplot2](https://ggplot2.tidyverse.org/) and [leaflet](https://rstudio.github.io/leaflet/) wrapper functions that aims to make visualisation easier with less brainpower required. 
 
 ### Visualisation families
 
@@ -49,7 +49,7 @@ p1 <- gg_bar_col(
   x_var = species,
   col_var = sex,
   col_na_rm = TRUE,
-  size_width = 0.6,
+  width = 0.6,
   y_labels = function(x)
     x / 1000,
   y_title = "Body mass kg",
@@ -91,7 +91,7 @@ p4 <- gg_hbar_col(
   y_var = species,
   col_var = sex,
   col_na_rm = TRUE,
-  size_width = 0.6,
+  width = 0.6,
   x_breaks_n = 3,
   x_labels = function(x)
     x / 1000,
@@ -447,9 +447,9 @@ custom_theme <- gg_theme(
   pal_title = "white",
   pal_subtitle = "white",
   pal_background = c("#232323", "black"),
-  pal_gridlines = "black", 
-  gridlines_h = TRUE,
-  gridlines_v = TRUE)
+  pal_grid = "black", 
+  y_grid = TRUE,
+  x_grid = TRUE)
 
 gg_point_col(penguins,
              species,

@@ -16,13 +16,13 @@ gg_hviolin_col_facet(
   alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
-  size_width = 0.75,
+  width = 0.75,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
   subtitle_wrap = 75,
   x_breaks_n = 2,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_title = NULL,
@@ -49,7 +49,7 @@ gg_hviolin_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines_v = TRUE),
+  theme = gg_theme(x_grid = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,
@@ -80,7 +80,7 @@ gg_hviolin_col_facet(
 
 \item{size_line}{The size of the outlines of violins. Defaults to 0.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.75.}
+\item{width}{Width of boxes. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -92,7 +92,7 @@ gg_hviolin_col_facet(
 
 \item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 

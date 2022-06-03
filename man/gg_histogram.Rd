@@ -7,7 +7,7 @@
 gg_histogram(
   data,
   x_var,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_fill = 0.5,
   alpha_line = 1,
   size_line = 0.5,
@@ -28,7 +28,7 @@ gg_histogram(
   y_title_wrap = 50,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   mobile = FALSE
 )
 }

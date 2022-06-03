@@ -8,11 +8,11 @@ gg_violin(
   data,
   x_var,
   y_var = NULL,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
-  size_width = 0.75,
+  width = 0.75,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -23,7 +23,7 @@ gg_violin(
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_breaks_n = 5,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
@@ -33,7 +33,7 @@ gg_violin(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,
@@ -57,7 +57,7 @@ gg_violin(
 
 \item{size_line}{The size of the outlines of violins. Defaults to 0.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.75.}
+\item{width}{Width of boxes. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -79,7 +79,7 @@ gg_violin(
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 

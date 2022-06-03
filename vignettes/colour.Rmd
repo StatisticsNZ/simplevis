@@ -142,7 +142,7 @@ gg_point_col(penguins,
 
 ```{r}
 plot_data <- ggplot2::diamonds %>% 
-  slice_sample(prop = 0.01)
+  slice_sample(prop = 0.02)
 
 gg_point_col(plot_data, 
              x_var = carat, 

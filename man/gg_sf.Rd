@@ -9,7 +9,7 @@ gg_sf(
   text_var = NULL,
   borders = NULL,
   borders_on_top = NULL,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   pal_borders = "#7F7F7F",
   alpha_fill = NULL,
   alpha_line = 1,

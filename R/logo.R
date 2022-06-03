@@ -22,8 +22,8 @@
 # sticker(
 #   plot,
 #   package = "simplevis",
-#   p_color = simplevis:::pal_viridis_reorder(1),
-#   h_color = simplevis:::pal_viridis_reorder(1),
+#   p_color = simplevis:::pal_viridis_mix(1),
+#   h_color = simplevis:::pal_viridis_mix(1),
 #   h_fill = "#C1D1DD",
 #   p_size = 25,
 #   p_family = "Helvetica",

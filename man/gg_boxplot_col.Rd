@@ -17,7 +17,7 @@ gg_boxplot_col(
   alpha_point = 1,
   size_line = 0.5,
   size_point = 1.5,
-  size_width = 0.5,
+  width = 0.5,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -28,7 +28,7 @@ gg_boxplot_col(
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_breaks_n = 5,
@@ -44,7 +44,7 @@ gg_boxplot_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   stat = "boxplot",
   ymin_var = NULL,
   ylower_var = NULL,
@@ -79,7 +79,7 @@ gg_boxplot_col(
 
 \item{size_point}{The size of the outlier points. Defaults to 1.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.5.}
+\item{width}{Width of boxes. Defaults to 0.5.}
 
 \item{title}{Title string.}
 
@@ -101,7 +101,7 @@ gg_boxplot_col(
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -176,7 +176,7 @@ outliers <- penguins \%>\%
   group_by(species, sex) \%>\% 
   summarise_boxplot_outliers(body_mass_g)
 
-size_width <- 0.5
+width <- 0.5
 
 gg_boxplot_col(plot_data,
                x_var = species,
@@ -186,14 +186,14 @@ gg_boxplot_col(plot_data,
                yupper_var = upper,
                ymax_var = max,
                col_var = sex,
-               size_width = size_width,
+               width = width,
                stat = "identity",
                y_title = "Body mass g",
                y_breaks_n = 4, 
                col_na_rm = TRUE) +
                ggplot2::geom_point(ggplot2::aes(x = species, y = body_mass_g, col = sex), 
                      size = 0.75, 
-                     position = ggplot2::position_dodge(width = size_width),
+                     position = ggplot2::position_dodge(width = width),
                      data = outliers)
 
 }

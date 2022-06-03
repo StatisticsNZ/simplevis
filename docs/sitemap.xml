@@ -547,6 +547,9 @@
     <loc>https://statisticsnz.github.io/simplevis/reference/order_plotly_legend.html</loc>
   </url>
   <url>
+    <loc>https://statisticsnz.github.io/simplevis/reference/pal_d3_mix.html</loc>
+  </url>
+  <url>
     <loc>https://statisticsnz.github.io/simplevis/reference/pal_d3_reorder.html</loc>
   </url>
   <url>
@@ -652,6 +655,9 @@
     <loc>https://statisticsnz.github.io/simplevis/reference/pal_trend5.html</loc>
   </url>
   <url>
+    <loc>https://statisticsnz.github.io/simplevis/reference/pal_viridis_mix.html</loc>
+  </url>
+  <url>
     <loc>https://statisticsnz.github.io/simplevis/reference/pal_viridis_reorder.html</loc>
   </url>
   <url>
@@ -713,6 +719,9 @@
   </url>
   <url>
     <loc>https://statisticsnz.github.io/simplevis/reference/signed_sqrt_trans.html</loc>
+  </url>
+  <url>
+    <loc>https://statisticsnz.github.io/simplevis/reference/simplevis-package.html</loc>
   </url>
   <url>
     <loc>https://statisticsnz.github.io/simplevis/reference/spectrum.html</loc>

@@ -16,7 +16,7 @@
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -25,7 +25,7 @@
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
@@ -68,7 +68,7 @@ gg_hpointrange <- function(data,
                     xmax_var,
                     y_var,
                     text_var = NULL,
-                    pal = pal_viridis_reorder(1),
+                    pal = pal_viridis_mix(1),
                     alpha_line = 1,
                     alpha_point = 1,
                     size_point = 1.5,
@@ -77,7 +77,7 @@ gg_hpointrange <- function(data,
                     title_wrap = 75,
                     subtitle = NULL,
                     subtitle_wrap = 75,
-                    x_balance = FALSE,
+                    x_zero_mid = FALSE,
                     x_breaks_n = 5,
                     x_expand = c(0, 0),
                     x_labels = scales::label_comma(),
@@ -86,7 +86,7 @@ gg_hpointrange <- function(data,
                     x_title_wrap = 50,
                     x_zero = FALSE,
                     x_zero_line = NULL,
-                    y_balance = FALSE,
+                    y_zero_mid = FALSE,
                     y_breaks_n = 5,
                     y_expand = NULL,
                     y_labels = NULL,
@@ -98,7 +98,7 @@ gg_hpointrange <- function(data,
                     y_zero_line = NULL,
                     caption = NULL,
                     caption_wrap = 75,
-                    theme = gg_theme(gridlines_v = TRUE),
+                    theme = gg_theme(x_grid = TRUE),
                     mobile = FALSE) {
   
   #ungroup
@@ -166,10 +166,10 @@ gg_hpointrange <- function(data,
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -211,7 +211,7 @@ gg_hpointrange <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -220,7 +220,7 @@ gg_hpointrange <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
@@ -279,7 +279,7 @@ gg_hpointrange <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -288,7 +288,7 @@ gg_hpointrange <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_dodge The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
@@ -356,7 +356,7 @@ gg_hpointrange_col <- function(data,
                         title_wrap = 75,
                         subtitle = NULL,
                         subtitle_wrap = 75,
-                        x_balance = FALSE,
+                        x_zero_mid = FALSE,
                         x_breaks_n = 5,
                         x_expand = c(0, 0),
                         x_labels = scales::label_comma(),
@@ -365,7 +365,7 @@ gg_hpointrange_col <- function(data,
                         x_title_wrap = 50,
                         x_zero = FALSE,
                         x_zero_line = NULL,
-                        y_balance = FALSE,
+                        y_zero_mid = FALSE,
                         y_breaks_n = 5,
                         y_dodge = 0,
                         y_expand = NULL,
@@ -388,7 +388,7 @@ gg_hpointrange_col <- function(data,
                         col_title_wrap = 25,
                         caption = NULL,
                         caption_wrap = 75,
-                        theme = gg_theme(gridlines_v = TRUE),
+                        theme = gg_theme(x_grid = TRUE),
                         mobile = FALSE) {
   
   #ungroup
@@ -529,7 +529,7 @@ gg_hpointrange_col <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -538,7 +538,7 @@ gg_hpointrange_col <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
@@ -563,10 +563,10 @@ gg_hpointrange_col <- function(data,
   #y scale 
   if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     
-    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+    y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
     y_zero <- y_zero_list[[1]]
     y_zero_line <- y_zero_list[[2]]
-    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+    y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
     y_limits <- c(min(y_breaks), max(y_breaks))
     if (is.null(y_expand)) y_expand <- c(0, 0)
     
@@ -608,7 +608,7 @@ gg_hpointrange_col <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -617,7 +617,7 @@ gg_hpointrange_col <- function(data,
       scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
   }
   else ({
-    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
+    x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = mobile)
     x_limits <- c(min(x_breaks), max(x_breaks))
     
     plot <- plot +
@@ -707,7 +707,7 @@ gg_hpointrange_col <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2. 
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -716,7 +716,7 @@ gg_hpointrange_col <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4. 
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
@@ -766,7 +766,7 @@ gg_hpointrange_facet <- function(data,
                           y_var,
                           facet_var,
                           text_var = NULL,
-                          pal = pal_viridis_reorder(1),
+                          pal = pal_viridis_mix(1),
                           alpha_line = 1,
                           alpha_point = 1,
                           size_point = 1.5,
@@ -775,7 +775,7 @@ gg_hpointrange_facet <- function(data,
                           title_wrap = 75,
                           subtitle = NULL,
                           subtitle_wrap = 75,
-                          x_balance = FALSE,
+                          x_zero_mid = FALSE,
                           x_breaks_n = 2,
                           x_expand = c(0, 0),
                           x_labels = scales::label_comma(),
@@ -784,7 +784,7 @@ gg_hpointrange_facet <- function(data,
                           x_title_wrap = 50,
                           x_zero = FALSE,
                           x_zero_line = NULL,
-                          y_balance = FALSE,
+                          y_zero_mid = FALSE,
                           y_breaks_n = 3,
                           y_expand = NULL,
                           y_labels = NULL,
@@ -802,7 +802,7 @@ gg_hpointrange_facet <- function(data,
                           facet_scales = "fixed",
                           caption = NULL,
                           caption_wrap = 75,
-                          theme = gg_theme(gridlines_v = TRUE)) {
+                          theme = gg_theme(x_grid = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -896,10 +896,10 @@ gg_hpointrange_facet <- function(data,
   }
   else if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
@@ -930,7 +930,7 @@ gg_hpointrange_facet <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -940,7 +940,7 @@ gg_hpointrange_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +
@@ -993,7 +993,7 @@ gg_hpointrange_facet <- function(data,
 #' @param title_wrap Number of characters to wrap the title to. Defaults to 60. 
 #' @param subtitle Subtitle string. 
 #' @param subtitle_wrap Number of characters to wrap the subtitle to. Defaults to 60. 
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
+#' @param x_zero_mid For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.
 #' @param y_dodge The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -1003,7 +1003,7 @@ gg_hpointrange_facet <- function(data,
 #' @param x_title_wrap Number of characters to wrap the x title to. Defaults to 50. 
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero. Defaults to FALSE.
 #' @param x_zero_line For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.  
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
+#' @param y_zero_mid For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.
 #' @param y_dodge The amount to dodge pointranges by along the y axis. Defaults to 0 (i.e. identity).
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions. 
 #' @param y_labels A function or named vector to modify y scale labels. If NULL, categorical variable labels are converted to sentence case. Use function(x) x to keep labels untransformed.
@@ -1081,7 +1081,7 @@ gg_hpointrange_col_facet <- function(data,
                               subtitle = NULL,
                               subtitle_wrap = 75,
                               x_breaks_n = 2,
-                              x_balance = FALSE,
+                              x_zero_mid = FALSE,
                               x_expand = c(0, 0),
                               x_labels = scales::label_comma(),
                               x_na_rm = FALSE,
@@ -1089,7 +1089,7 @@ gg_hpointrange_col_facet <- function(data,
                               x_title_wrap = 50,
                               x_zero = FALSE,
                               x_zero_line = NULL,
-                              y_balance = FALSE,
+                              y_zero_mid = FALSE,
                               y_breaks_n = 3,
                               y_dodge = 0,
                               y_expand = NULL,
@@ -1118,7 +1118,7 @@ gg_hpointrange_col_facet <- function(data,
                               facet_scales = "fixed",
                               caption = NULL,
                               caption_wrap = 75,
-                              theme = gg_theme(gridlines_v = TRUE)) {
+                              theme = gg_theme(x_grid = TRUE)) {
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1278,7 +1278,7 @@ gg_hpointrange_col_facet <- function(data,
       }
       
       col_n <- length(col_cuts) - 1
-      if (is.null(pal)) pal <- pal_viridis_reorder(col_n)
+      if (is.null(pal)) pal <- pal_viridis_mix(col_n)
       else pal <- pal[1:col_n]
     }
     else if (col_method == "category") {
@@ -1287,7 +1287,7 @@ gg_hpointrange_col_facet <- function(data,
       }
       else col_n <- length(unique(col_var_vctr))
       
-      if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+      if (is.null(pal)) pal <- pal_d3_mix(col_n)
       pal <- pal[col_n:1] #different because horizontal!
       
       if (is.null(col_labels)) col_labels <- snakecase::to_sentence_case
@@ -1319,10 +1319,10 @@ gg_hpointrange_col_facet <- function(data,
   }
   else if (is.numeric(y_var_vctr) | lubridate::is.Date(y_var_vctr) | lubridate::is.POSIXt(y_var_vctr)) {
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_balance = y_balance, y_zero = y_zero, y_zero_line = y_zero_line)
+      y_zero_list <- sv_y_zero_adjust(y_var_vctr, y_zero_mid = y_zero_mid, y_zero = y_zero, y_zero_line = y_zero_line)
       y_zero <- y_zero_list[[1]]
       y_zero_line <- y_zero_list[[2]]
-      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_balance, breaks_n = y_breaks_n, zero = y_zero)
+      y_breaks <- sv_numeric_breaks_v(y_var_vctr, balance = y_zero_mid, breaks_n = y_breaks_n, zero = y_zero)
       y_limits <- c(min(y_breaks), max(y_breaks))
       if (is.null(y_expand)) y_expand <- c(0, 0)
       
@@ -1353,7 +1353,7 @@ gg_hpointrange_col_facet <- function(data,
   }
   
   #x scale
-  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_balance = x_balance, x_zero = x_zero, x_zero_line = x_zero_line)
+  x_zero_list <- sv_x_zero_adjust(x_var_vctr, x_zero_mid = x_zero_mid, x_zero = x_zero, x_zero_line = x_zero_line)
   if (facet_scales %in% c("fixed", "free_y")) x_zero <- x_zero_list[[1]]
   x_zero_line <- x_zero_list[[2]]
   
@@ -1363,7 +1363,7 @@ gg_hpointrange_col_facet <- function(data,
         scale_y_continuous(expand = x_expand, breaks = c(0, 1), labels = x_labels, limits = c(0, 1))
     }
     else ({
-      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_balance, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
+      x_breaks <- sv_numeric_breaks_h(x_var_vctr, balance = x_zero_mid, breaks_n = x_breaks_n, zero = x_zero, mobile = FALSE)
       x_limits <- c(min(x_breaks), max(x_breaks))
       
       plot <- plot +

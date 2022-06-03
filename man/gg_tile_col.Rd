@@ -20,7 +20,7 @@ gg_tile_col(
   size_line = 0.5,
   size_label = 3.5,
   size_height = 1,
-  size_width = 1,
+  width = 1,
   title = NULL,
   title_wrap = 75,
   subtitle = NULL,
@@ -83,7 +83,7 @@ gg_tile_col(
 
 \item{size_height}{Height of tiles. Defaults to 1.}
 
-\item{size_width}{Width of tiles. Defaults to 1.}
+\item{width}{Width of tiles. Defaults to 1.}
 
 \item{title}{Title string.}
 

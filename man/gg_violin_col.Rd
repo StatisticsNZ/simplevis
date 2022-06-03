@@ -15,7 +15,7 @@ gg_violin_col(
   alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
-  size_width = 0.75,
+  width = 0.75,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
@@ -26,7 +26,7 @@ gg_violin_col(
   x_rev = FALSE,
   x_title = NULL,
   x_title_wrap = 50,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
   y_breaks_n = 5,
@@ -42,7 +42,7 @@ gg_violin_col(
   col_title_wrap = 25,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   model_scale = "area",
   model_bw = "nrd0",
   model_adjust = 1,
@@ -72,7 +72,7 @@ gg_violin_col(
 
 \item{size_line}{The size of the outlines of violins. Defaults to 0.5.}
 
-\item{size_width}{Width of boxes. Defaults to 0.75.}
+\item{width}{Width of boxes. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -94,7 +94,7 @@ gg_violin_col(
 
 \item{x_title_wrap}{Number of characters to wrap the x title to. Defaults to 50.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 

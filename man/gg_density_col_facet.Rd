@@ -20,7 +20,7 @@ gg_density_col_facet(
   subtitle = NULL,
   subtitle_wrap = 80,
   x_breaks_n = 2,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_title = NULL,
@@ -45,7 +45,7 @@ gg_density_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   model_bw = "nrd0",
   model_adjust = 1,
   model_kernel = "gaussian",
@@ -84,7 +84,7 @@ gg_density_col_facet(
 
 \item{x_breaks_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 

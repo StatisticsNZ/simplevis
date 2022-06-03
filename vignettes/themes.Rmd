@@ -45,8 +45,8 @@ gg_point_col(penguins,
              theme = gg_theme(
                font = "comic sans ms",
                size_title = 20, 
-               gridlines_h = TRUE,
-               gridlines_v = TRUE)
+               y_grid = TRUE,
+               x_grid = TRUE)
              ) 
 ```
 
@@ -61,17 +61,17 @@ custom_theme <- gg_theme(
   size_subtitle = 16,
   size_body = 9,
   size_axis = 2,
-  size_gridlines = 0.2,
+  size_grid = 0.2,
   size_ticks = 1,
   pal_title = "darkgreen",
   pal_subtitle = "lightgreen",
   pal_body = "darkblue",
   pal_axis = "blue",
   pal_ticks = "orange",
-  pal_gridlines = "red",
+  pal_grid = "red",
   pal_background = c("white", "grey"), 
-  gridlines_h = TRUE,
-  gridlines_v = TRUE
+  y_grid = TRUE,
+  x_grid = TRUE
 )
 
 gg_point_col(penguins, 
@@ -91,9 +91,9 @@ custom_theme <- gg_theme(
   pal_title = "white",
   pal_subtitle = "white",
   pal_background = c("#232323", "black"),
-  pal_gridlines = "black", 
-  gridlines_h = TRUE,
-  gridlines_v = TRUE)
+  pal_grid = "black", 
+  y_grid = TRUE,
+  x_grid = TRUE)
 
 gg_point_col(penguins,
              species,

@@ -11,7 +11,7 @@ gg_hpointrange(
   xmax_var,
   y_var,
   text_var = NULL,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_line = 1,
   alpha_point = 1,
   size_point = 1.5,
@@ -20,7 +20,7 @@ gg_hpointrange(
   title_wrap = 75,
   subtitle = NULL,
   subtitle_wrap = 75,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_breaks_n = 5,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
@@ -29,7 +29,7 @@ gg_hpointrange(
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_breaks_n = 5,
   y_expand = NULL,
   y_labels = NULL,
@@ -41,7 +41,7 @@ gg_hpointrange(
   y_zero_line = NULL,
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines_v = TRUE),
+  theme = gg_theme(x_grid = TRUE),
   mobile = FALSE
 )
 }
@@ -76,7 +76,7 @@ gg_hpointrange(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 60.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
 \item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
@@ -94,7 +94,7 @@ gg_hpointrange(
 
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 

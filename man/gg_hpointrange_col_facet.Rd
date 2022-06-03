@@ -25,7 +25,7 @@ gg_hpointrange_col_facet(
   subtitle = NULL,
   subtitle_wrap = 75,
   x_breaks_n = 2,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
   x_na_rm = FALSE,
@@ -33,7 +33,7 @@ gg_hpointrange_col_facet(
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_breaks_n = 3,
   y_dodge = 0,
   y_expand = NULL,
@@ -62,7 +62,7 @@ gg_hpointrange_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 75,
-  theme = gg_theme(gridlines_v = TRUE)
+  theme = gg_theme(x_grid = TRUE)
 )
 }
 \arguments{
@@ -106,7 +106,7 @@ gg_hpointrange_col_facet(
 
 \item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.}
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
@@ -122,7 +122,7 @@ gg_hpointrange_col_facet(
 
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 5.}
 

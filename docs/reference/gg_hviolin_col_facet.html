@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simplevis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,13 +77,13 @@
   alpha_fill <span class="op">=</span> <span class="fl">1</span>,
   alpha_line <span class="op">=</span> <span class="fl">1</span>,
   size_line <span class="op">=</span> <span class="fl">0.5</span>,
-  size_width <span class="op">=</span> <span class="fl">0.75</span>,
+  width <span class="op">=</span> <span class="fl">0.75</span>,
   title <span class="op">=</span> <span class="cn">NULL</span>,
   title_wrap <span class="op">=</span> <span class="fl">75</span>,
   subtitle <span class="op">=</span> <span class="cn">NULL</span>,
   subtitle_wrap <span class="op">=</span> <span class="fl">75</span>,
   x_breaks_n <span class="op">=</span> <span class="fl">2</span>,
-  x_balance <span class="op">=</span> <span class="cn">FALSE</span>,
+  x_zero_mid <span class="op">=</span> <span class="cn">FALSE</span>,
   x_expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
   x_labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span>,
   x_title <span class="op">=</span> <span class="cn">NULL</span>,
@@ -110,7 +110,7 @@
   facet_scales <span class="op">=</span> <span class="st">"fixed"</span>,
   caption <span class="op">=</span> <span class="cn">NULL</span>,
   caption_wrap <span class="op">=</span> <span class="fl">75</span>,
-  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span>gridlines_v <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span>x_grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   model_scale <span class="op">=</span> <span class="st">"area"</span>,
   model_bw <span class="op">=</span> <span class="st">"nrd0"</span>,
   model_adjust <span class="op">=</span> <span class="fl">1</span>,
@@ -143,7 +143,7 @@
 <dd><p>The opacity of the outline. Defaults to 1.</p></dd>
 <dt>size_line</dt>
 <dd><p>The size of the outlines of violins. Defaults to 0.5.</p></dd>
-<dt>size_width</dt>
+<dt>width</dt>
 <dd><p>Width of boxes. Defaults to 0.75.</p></dd>
 <dt>title</dt>
 <dd><p>Title string.</p></dd>
@@ -155,7 +155,7 @@
 <dd><p>Number of characters to wrap the subtitle to. Defaults to 60.</p></dd>
 <dt>x_breaks_n</dt>
 <dd><p>For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 5.</p></dd>
-<dt>x_balance</dt>
+<dt>x_zero_mid</dt>
 <dd><p>For a numeric x variable, add balance to the x scale so that zero is in the centre of the x scale.</p></dd>
 <dt>x_expand</dt>
 <dd><p>A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.</p></dd>
@@ -252,7 +252,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

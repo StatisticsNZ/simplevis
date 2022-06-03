@@ -4,12 +4,12 @@
 \alias{sv_x_zero_adjust}
 \title{Automatically adjust x_zero and x_zero_line if necessary}
 \usage{
-sv_x_zero_adjust(x_var_vctr, x_balance, x_zero, x_zero_line)
+sv_x_zero_adjust(x_var_vctr, x_zero_mid, x_zero, x_zero_line)
 }
 \arguments{
 \item{x_var_vctr}{A vector of values for the x scale.}
 
-\item{x_balance}{Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".}
+\item{x_zero_mid}{Add balance to the x axis so that zero is in the centre of the x scale. Only applicable where facet_scales equals "fixed" or "free_y".}
 
 \item{x_zero}{TRUE or FALSE whether the minimum of the x scale is zero. Defaults to TRUE.}
 

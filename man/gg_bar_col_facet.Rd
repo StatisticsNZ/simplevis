@@ -18,12 +18,12 @@ gg_bar_col_facet(
   alpha_fill = 1,
   alpha_line = 1,
   size_line = 0.5,
-  size_width = NULL,
+  width = NULL,
   title = NULL,
   title_wrap = 80,
   subtitle = NULL,
   subtitle_wrap = 80,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_breaks_n = 2,
   x_expand = NULL,
   x_labels = NULL,
@@ -33,7 +33,7 @@ gg_bar_col_facet(
   x_title_wrap = 50,
   x_zero = FALSE,
   x_zero_line = NULL,
-  y_balance = FALSE,
+  y_zero_mid = FALSE,
   y_breaks_n = 3,
   y_expand = c(0, 0),
   y_labels = scales::label_comma(),
@@ -60,7 +60,7 @@ gg_bar_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE)
+  theme = gg_theme(y_grid = TRUE)
 )
 }
 \arguments{
@@ -90,7 +90,7 @@ gg_bar_col_facet(
 
 \item{size_line}{The size of the outlines of bars.}
 
-\item{size_width}{Width of bars. Defaults to 0.75.}
+\item{width}{Width of bars. Defaults to 0.75.}
 
 \item{title}{Title string.}
 
@@ -100,7 +100,7 @@ gg_bar_col_facet(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 100.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.}
 
@@ -120,7 +120,7 @@ gg_bar_col_facet(
 
 \item{x_zero_line}{For a numeric x variable, TRUE or FALSE of whether to add a zero reference line to the x scale. Defaults to TRUE if there are positive and negative values in x_var. Otherwise defaults to FALSE.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
+\item{y_zero_mid}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
 \item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm. Defaults to 4.}
 

@@ -43,7 +43,7 @@ gg_histogram_col_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE)
+  theme = gg_theme(y_grid = TRUE)
 )
 }
 \arguments{

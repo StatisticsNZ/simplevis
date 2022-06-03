@@ -8,7 +8,7 @@ gg_histogram_facet(
   data,
   x_var,
   facet_var,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_fill = 0.5,
   alpha_line = 1,
   size_line = 0.5,
@@ -35,7 +35,7 @@ gg_histogram_facet(
   facet_scales = "fixed",
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE)
+  theme = gg_theme(y_grid = TRUE)
 )
 }
 \arguments{

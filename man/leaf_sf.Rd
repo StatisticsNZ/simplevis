@@ -10,7 +10,7 @@ leaf_sf(
   popup_vars_vctr = NULL,
   popup_numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE),
   popup_vars_rename = snakecase::to_sentence_case,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   size_point = 2,
   size_line = 2,
   alpha_point = NULL,

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simplevis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,9 +87,10 @@
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Scales</h1>
-                        <h4 data-toc-skip class="author">David Hodge</h4>
+                        <h4 data-toc-skip class="author">David
+Hodge</h4>
             
-            <h4 data-toc-skip class="date">2022-03-29</h4>
+            <h4 data-toc-skip class="date">2022-06-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StatisticsNZ/simplevis/blob/HEAD/vignettes/scales.Rmd" class="external-link"><code>vignettes/scales.Rmd</code></a></small>
       <div class="d-none name"><code>scales.Rmd</code></div>
@@ -105,20 +106,30 @@
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
-<p>simplevis uses consistent prefixes in arguments to help users to enable users to narrow down what they are looking for and then enable the Rstudio auto-complete to provide options.</p>
+<p>simplevis uses consistent prefixes in arguments to help users to
+enable users to narrow down what they are looking for and then enable
+the Rstudio auto-complete to provide options.</p>
 <p>In general:</p>
 <ul>
 <li>Arguments that relate to the x scale start with <code>x_</code>
 </li>
 <li>Agruments that relate to the y scale start with <code>y_</code>
 </li>
-<li>Arguments that relate to the colour scale start with <code>col_</code>
+<li>Arguments that relate to the colour scale start with
+<code>col_</code>
 </li>
-<li>Arguments that relate to facetting start with <code>facet_</code>
+<li>Arguments that relate to facetting start with
+<code>facet_</code>
 </li>
 </ul>
-<p>Therefore, if you know want to adjust the x scale but can’t think how, you can start typing <code>x_</code> within the simplevis function, press tab, and then you will be presented with a lot of options. You can use the arrow keys to scroll through these, and the tab to select.</p>
-<p>One deviation from this logic is that colour palette is selected using a <code>pal</code> argument consistently in all functions regardless of whether the colour palette relates to a colour scale or just to everything.</p>
+<p>Therefore, if you know want to adjust the x scale but can’t think
+how, you can start typing <code>x_</code> within the simplevis function,
+press tab, and then you will be presented with a lot of options. You can
+use the arrow keys to scroll through these, and the tab to select.</p>
+<p>One deviation from this logic is that colour palette is selected
+using a <code>pal</code> argument consistently in all functions
+regardless of whether the colour palette relates to a colour scale or
+just to everything.</p>
 </div>
 <div class="section level3">
 <h3 id="titles">Titles<a class="anchor" aria-label="anchor" href="#titles"></a>
@@ -126,9 +137,12 @@
 <p>Defaults titles are:</p>
 <ul>
 <li>no title, subtitle or caption</li>
-<li>x, y and colour titles are converted to sentence case using the <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code> function.</li>
+<li>x, y and colour titles are converted to sentence case using the
+<code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code> function.</li>
 </ul>
-<p>You can customise titles with <code>title</code>, <code>subtitle</code>, <code>x_title</code>, <code>y_title</code> and <code>caption</code> arguments.</p>
+<p>You can customise titles with <code>title</code>,
+<code>subtitle</code>, <code>x_title</code>, <code>y_title</code> and
+<code>caption</code> arguments.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -140,15 +154,21 @@
              y_title <span class="op">=</span> <span class="st">"Body mass (g)"</span>,
              col_title <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
-<p>You can also request no x_title using <code>x_title = ""</code> or likewise for <code>y_title</code> and <code>col_title</code>.</p>
+<p>You can also request no x_title using <code>x_title = ""</code> or
+likewise for <code>y_title</code> and <code>col_title</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
 </h3>
-<p>You can adjust labels by provinding a function or named vector to the <code>*_labels</code>argument.</p>
-<p>All categorical variables are converted to sentence case by default using <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>.</p>
-<p>Numeric variables are generally converted using the <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code> by default, but sometimes converted to <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>.</p>
-<p>You can turn off any simplevis default transformations to labels using <code>function(x) x</code>.</p>
+<p>You can adjust labels by provinding a function or named vector to the
+<code>*_labels</code>argument.</p>
+<p>All categorical variables are converted to sentence case by default
+using <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>.</p>
+<p>Numeric variables are generally converted using the
+<code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code> by default, but sometimes converted
+to <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>.</p>
+<p>You can turn off any simplevis default transformations to labels
+using <code>function(x) x</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">penguins</span>,
                    x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
@@ -182,9 +202,11 @@
 <ul>
 <li>starting from zero for numeric scales on bar graphs.</li>
 <li>
-<i>not</i> starting from zero for numeric scales on all other graphs.</li>
+<i>not</i> starting from zero for numeric scales on all other
+graphs.</li>
 </ul>
-<p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments to change the defaults.</p>
+<p>You can use the <code>x_zero</code> and <code>y_zero</code> arguments
+to change the defaults.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -202,16 +224,20 @@
              x_breaks_n <span class="op">=</span> <span class="fl">6</span>, 
              y_breaks_n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
-<p>Balance a numeric scale so that it has equivalence between positive and negative values.</p>
+<p>Balance a numeric scale so that it has equivalence between positive
+and negative values.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
              y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
              col_var <span class="op">=</span> <span class="va">species</span>, 
-             y_balance <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+             y_zero_mid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
-<p>Zero lines default on if a numeric scale includes positive and negative values, but can be turned off if desired using the *_zero_line argument.</p>
-<p>Transform numeric x and y scales by adding a ggplot2 <code>scale_*_continuous</code> layer.</p>
+<p>Zero lines default on if a numeric scale includes positive and
+negative values, but can be turned off if desired using the *_zero_line
+argument.</p>
+<p>Transform numeric x and y scales by adding a ggplot2
+<code>scale_*_continuous</code> layer.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>,
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>,
@@ -228,7 +254,8 @@
 <div class="section level3">
 <h3 id="discrete-scales">Discrete scales<a class="anchor" aria-label="anchor" href="#discrete-scales"></a>
 </h3>
-<p>simplevis automatically orders hbar graphs of character variables alphabetically.</p>
+<p>simplevis automatically orders hbar graphs of character variables
+alphabetically.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -239,7 +266,9 @@
         x_var <span class="op">=</span> <span class="va">price</span>, 
         y_var <span class="op">=</span> <span class="va">cut</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
-<p>If there is an inherent order to the character variable that you want it to plot in, then you should convert the variable to a factor, and give it the appropriate levels.</p>
+<p>If there is an inherent order to the character variable that you want
+it to plot in, then you should convert the variable to a factor, and
+give it the appropriate levels.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cut_levels</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ideal"</span>, <span class="st">"Premium"</span>, <span class="st">"Very Good"</span>, <span class="st">"Good"</span>, <span class="st">"Fair"</span><span class="op">)</span>
 
@@ -253,7 +282,8 @@
         x_var <span class="op">=</span> <span class="va">price</span>, 
         y_var <span class="op">=</span> <span class="va">cut</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
-<p>Discrete scales can be reversed easily using the relevant <code>y_rev</code> or <code>x_rev</code> argument.</p>
+<p>Discrete scales can be reversed easily using the relevant
+<code>y_rev</code> or <code>x_rev</code> argument.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -265,7 +295,10 @@
         y_var <span class="op">=</span> <span class="va">cut</span>,
         y_rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
-<p>Simple hbar and vbar plots made with <code><a href="../reference/gg_bar.html">gg_bar()</a></code> or <code>gg_hbar</code> can be ordered by size using y_reorder or x_reorder. For other functions, you will need to reorder variables in the data as you wish them to be ordered.</p>
+<p>Simple hbar and vbar plots made with <code><a href="../reference/gg_bar.html">gg_bar()</a></code> or
+<code>gg_hbar</code> can be ordered by size using y_reorder or
+x_reorder. For other functions, you will need to reorder variables in
+the data as you wish them to be ordered.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -277,8 +310,10 @@
         y_var <span class="op">=</span> <span class="va">cut</span>, 
         y_reorder <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
-<p>For other functions, you will need to reorder the relevant variables as you want.</p>
-<p>The <code>tidytext</code> package provides a method for reordering within facets.</p>
+<p>For other functions, you will need to reorder the relevant variables
+as you want.</p>
+<p>The <code>tidytext</code> package provides a method for reordering
+within facets.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -301,7 +336,10 @@
 <div class="section level3">
 <h3 id="colour-scales">Colour scales<a class="anchor" aria-label="anchor" href="#colour-scales"></a>
 </h3>
-<p>Customise the colour title. Note that because colour labels will be converted to sentence case by default in simplevis, but we can turn this off when we do not want this to occur using <code>function(x) x</code>.</p>
+<p>Customise the colour title. Note that because colour labels will be
+converted to sentence case by default in simplevis, but we can turn this
+off when we do not want this to occur using
+<code>function(x) x</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -344,7 +382,9 @@
 <div class="section level3">
 <h3 id="na-values">NA values<a class="anchor" aria-label="anchor" href="#na-values"></a>
 </h3>
-<p>You can quickly remove NA values by setting <code>x_na_rm</code>, <code>y_na_rm</code>, <code>col_na_rm</code> or <code>facet_na_rm</code> arguments to TRUE.</p>
+<p>You can quickly remove NA values by setting <code>x_na_rm</code>,
+<code>y_na_rm</code>, <code>col_na_rm</code> or <code>facet_na_rm</code>
+arguments to TRUE.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col_facet.html">gg_point_col_facet</a></span><span class="op">(</span><span class="va">penguins</span>, 
                    x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -357,7 +397,10 @@
 <div class="section level3">
 <h3 id="expanding-the-scale">Expanding the scale<a class="anchor" aria-label="anchor" href="#expanding-the-scale"></a>
 </h3>
-<p>To expand the scale use <code>x_expand</code> and <code>y_expand</code> arguments with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion</a></code> function, which allows to expand in either or both directions of both x and y in an additive or multiplative way.</p>
+<p>To expand the scale use <code>x_expand</code> and
+<code>y_expand</code> arguments with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion</a></code>
+function, which allows to expand in either or both directions of both x
+and y in an additive or multiplative way.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">storms</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -374,7 +417,8 @@
 <h3 id="position-adjustments">Position adjustments<a class="anchor" aria-label="anchor" href="#position-adjustments"></a>
 </h3>
 <p>In general plots are positioned exactly as the data provided.</p>
-<p>Exceptions are <code>bar*()</code> and <code>hbar*()</code>, which positions bars side-by-side by default (i.e. dodged).</p>
+<p>Exceptions are <code>bar*()</code> and <code>hbar*()</code>, which
+positions bars side-by-side by default (i.e. dodged).</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -397,7 +441,7 @@
            col_var <span class="op">=</span> <span class="va">sex</span>,
            stack <span class="op">=</span> <span class="cn">TRUE</span>,
            col_na_rm <span class="op">=</span> <span class="cn">TRUE</span>, 
-           size_width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+           width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 <p>point allows you to jitter in an x or y direction.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -407,7 +451,8 @@
                x_jitter <span class="op">=</span> <span class="fl">0.2</span>, 
                alpha_point <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> </code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
-<p>pointrange and hpointrange allow you to specify an amount to dodge by, if desired.</p>
+<p>pointrange and hpointrange allow you to specify an amount to dodge
+by, if desired.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -440,7 +485,7 @@
        y_var <span class="op">=</span> <span class="va">body_mass_g</span>, 
        col_var <span class="op">=</span> <span class="va">species</span>, 
        col_legend_none <span class="op">=</span> <span class="cn">TRUE</span>,
-       size_width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+       width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="scales_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 </div>
   </main>
@@ -455,7 +500,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>

@@ -9,7 +9,7 @@ gg_stars(
   borders = NULL,
   borders_on_top = TRUE,
   downsample = 0,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   pal_borders = "#323232",
   alpha_fill = 0.5,
   alpha_borders = 0.5,

@@ -62,23 +62,4 @@ gg_point_col(penguins,
 
 ```
 
-From the simplevis templates, the `mobileDetect` function in the `ui.R` and associated javascript in the `www/js/mobile.js` returns a TRUE or FALSE `input$isMobile` value if the user is on a mobile device. 
-
-This `input$isMobile` TRUE or FALSE value can then be added to the `mobile` argument in the simplevis `gg_*` function in the `server.R`.
-
-One reliable way to ensure the plot viewed by mobile users is in the `ui.R` to use conditional panels to provide a plotly object to non-mobile users and a plot object to mobile users.
-
-This method is demonstrated in the simplevis templates.
-
-### App demos
-
-Users can view how simplevis functions work within shinyapps by using the `shiny_demo` functions, and then clicking on the `download_code` button to access a zip file of the code. 
-
-```{r, eval=F}
-shiny_demo("template1") # a graph and table
-shiny_demo("template2") # a leaflet map, as well as graph and table
-```
-
-### Thanks!
-
-Thanks to Gervasio Marchand for creating the code to identify whether users are on a mobile device as described [here](https://g3rv4.com/2017/08/shiny-detect-mobile-browsers)
+Gervasio Marchand describes a method [here]((https://g3rv4.com/2017/08/shiny-detect-mobile-browsers)) to identify whether users are on a mobile device. This method can be used in combination with the method described above to provide a mobile friendly plot to mobile users and a normal plot to non-mobile users. 

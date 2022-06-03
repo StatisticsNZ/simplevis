@@ -38,7 +38,7 @@
 #' 
 gg_histogram <- function(data,
                        x_var,
-                       pal = pal_viridis_reorder(1),
+                       pal = pal_viridis_mix(1),
                        alpha_fill = 0.5,
                        alpha_line = 1,
                        size_line = 0.5,
@@ -59,7 +59,7 @@ gg_histogram <- function(data,
                        y_title_wrap = 50,
                        caption = NULL,
                        caption_wrap = 80,
-                       theme = gg_theme(gridlines_h = TRUE),
+                       theme = gg_theme(y_grid = TRUE),
                        mobile = FALSE) {
   
   #ungroup
@@ -228,7 +228,7 @@ gg_histogram_col <- function(data,
                            col_title_wrap = 25,
                            caption = NULL,
                            caption_wrap = 80,
-                           theme = gg_theme(gridlines_h = TRUE),
+                           theme = gg_theme(y_grid = TRUE),
                            mobile = FALSE) {
   
   #ungroup
@@ -271,7 +271,7 @@ gg_histogram_col <- function(data,
   }
   else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  if (is.null(pal)) pal <- pal_d3_mix(col_n)
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)
@@ -418,7 +418,7 @@ gg_histogram_col <- function(data,
 gg_histogram_facet <- function(data,
                              x_var,
                              facet_var,
-                             pal = pal_viridis_reorder(1),
+                             pal = pal_viridis_mix(1),
                              alpha_fill = 0.5,
                              alpha_line = 1,
                              size_line = 0.5,
@@ -445,7 +445,7 @@ gg_histogram_facet <- function(data,
                              facet_scales = "fixed",
                              caption = NULL,
                              caption_wrap = 80,
-                             theme = gg_theme(gridlines_h = TRUE)
+                             theme = gg_theme(y_grid = TRUE)
                              ) {
   
   #ungroup
@@ -638,7 +638,7 @@ gg_histogram_col_facet <- function(data,
                                  facet_scales = "fixed",
                                  caption = NULL,
                                  caption_wrap = 80, 
-                                 theme = gg_theme(gridlines_h = TRUE)
+                                 theme = gg_theme(y_grid = TRUE)
                                  ) {
   
   #ungroup
@@ -695,7 +695,7 @@ gg_histogram_col_facet <- function(data,
   }
   else col_n <- length(unique(col_var_vctr))
   
-  if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+  if (is.null(pal)) pal <- pal_d3_mix(col_n)
   else pal <- pal[1:col_n]
   
   if (pal_rev == TRUE) pal <- rev(pal)

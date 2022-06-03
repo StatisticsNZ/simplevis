@@ -18,7 +18,7 @@
 #' }
 #'   
 leaf_stars <- function(data,
-                       pal = pal_viridis_reorder(1),
+                       pal = pal_viridis_mix(1),
                        alpha_fill = 0.5,
                        basemap = "light",
                        group_id = NULL,
@@ -194,7 +194,7 @@ leaf_stars_col <- function(data,
     }
     if (anyDuplicated(col_cuts) > 0) stop("col_cuts do not provide unique breaks")
     
-    if (is.null(pal)) pal <- pal_viridis_reorder(length(col_cuts) - 1)
+    if (is.null(pal)) pal <- pal_viridis_mix(length(col_cuts) - 1)
     else if (!is.null(pal)) pal <- pal[1:(length(col_cuts) - 1)]
     if (pal_rev == TRUE) pal <- rev(pal)
     
@@ -223,7 +223,7 @@ leaf_stars_col <- function(data,
       col_n <- length(col_labels2)
     }) 
     
-    if (is.null(pal)) pal <- pal_d3_reorder(col_n)
+    if (is.null(pal)) pal <- pal_d3_mix(col_n)
     else pal <- pal[1:col_n]
     
     if (is.function(col_labels)) col_labels <- col_labels(col_labels2)

@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Simple 'ggplot2' and 'leaflet' Visualisation with Less Brainpower
-Version: 6.2.9000
+Version: 6.3.0
 Authors@R: 
     c(person(given = "David",
              family = "Hodge",
@@ -18,7 +18,7 @@ Authors@R:
              comment = c(ORCID = "0000-0002-1727-5110")),
       person(given = "Statistics New Zealand",
              role = c("cph")))
-Description: Wrapper functions to make 'ggplot2' and 'leaflet' visualisation easier with less brainpower required.
+Description: Simple 'ggplot2' and 'leaflet' Visualisation with Less Brainpower. 
 License: MIT + file LICENSE
 URL: https://StatisticsNZ.github.io/simplevis/, https://github.com/StatisticsNZ/simplevis/
 BugReports: https://github.com/StatisticsNZ/simplevis/issues/
@@ -26,9 +26,9 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: dplyr, forcats, ggplot2, htmlwidgets, leaflet, leafem, leafpop, 
-         lubridate, magrittr, plotly, purrr, rlang, santoku, scales, sf, shiny, 
-         snakecase, stars, stringr, tidyr, tidyselect, viridis
+         lubridate, magrittr, plotly, purrr, rlang, santoku, scales, sf,  
+         shiny, snakecase, stars, stringr, tidyr, tidyselect, viridis
 Suggests: DT, glue, gt, knitr, pals, palmerpenguins, patchwork, rgdal, rgeos, 
-         rmarkdown, s2, shinycssloaders, tibble, tidytext
+         rmarkdown, s2, tibble, tidytext
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0

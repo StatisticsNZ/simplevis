@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simplevis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,9 +87,10 @@
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Colour</h1>
-                        <h4 data-toc-skip class="author">David Hodge</h4>
+                        <h4 data-toc-skip class="author">David
+Hodge</h4>
             
-            <h4 data-toc-skip class="date">2022-03-29</h4>
+            <h4 data-toc-skip class="date">2022-06-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StatisticsNZ/simplevis/blob/HEAD/vignettes/colour.Rmd" class="external-link"><code>vignettes/colour.Rmd</code></a></small>
       <div class="d-none name"><code>colour.Rmd</code></div>
@@ -105,20 +106,31 @@
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
-<p>In simplevis, users adhere to the following rules for adjusting colour:</p>
+<p>In simplevis, users adhere to the following rules for adjusting
+colour:</p>
 <ul>
 <li>You can customise colours via the <code>pal</code> argument</li>
-<li>If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code>
+<li>If colouring by a variable, use a <code>*_col()</code> or
+<code>*_col_facet()</code> function, and define the
+<code>col_var</code>
 </li>
-<li>If the <code>col_var</code> is numeric, there are <code>continuous</code>, <code>bin</code> or <code>quantile</code> colouring methods available</li>
-<li>For <code>bin</code> and <code>quantile</code>, you can modify the colour breaks using the <code>col_breaks_n</code> or <code>col_cuts</code> arguments.</li>
+<li>If the <code>col_var</code> is numeric, there are
+<code>continuous</code>, <code>bin</code> or <code>quantile</code>
+colouring methods available</li>
+<li>For <code>bin</code> and <code>quantile</code>, you can modify the
+colour breaks using the <code>col_breaks_n</code> or
+<code>col_cuts</code> arguments.</li>
 </ul>
-<p>In simplevis, there is one colour concept, which generally includes all aspects of features that is relevant to the visualisation family type. This is a consistent method across all functions, which is intended to simplify colouring.</p>
+<p>In simplevis, there is one colour concept, which generally includes
+all aspects of features that is relevant to the visualisation family
+type. This is a consistent method across all functions, which is
+intended to simplify colouring.</p>
 </div>
 <div class="section level3">
 <h3 id="customise-colours-via-the-pal-argument">Customise colours via the <code>pal</code> argument<a class="anchor" aria-label="anchor" href="#customise-colours-via-the-pal-argument"></a>
 </h3>
-<p>Default palettes can be changed by providing a character vector of hex codes to the <code>pal</code> argument.</p>
+<p>Default palettes can be changed by providing a character vector of
+hex codes to the <code>pal</code> argument.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span><span class="va">penguins</span>, 
          x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -132,7 +144,8 @@
              col_var <span class="op">=</span> <span class="va">species</span>, 
              pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#da3490"</span>, <span class="st">"#9089fa"</span>, <span class="st">"#47e26f"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="colour_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-<p>Users can get access to a large amount of colour palettes through the <a href="https://kwstat.github.io/pals/" class="external-link">pals</a> package.</p>
+<p>Users can get access to a large amount of colour palettes through the
+<a href="https://kwstat.github.io/pals/" class="external-link">pals</a> package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -142,9 +155,13 @@
 <p><img src="colour_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 </div>
 <div class="section level3">
-<h3 id="if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var">If colouring by a variable, use a <code>*_col()</code> or <code>*_col_facet()</code> function, and define the <code>col_var</code><a class="anchor" aria-label="anchor" href="#if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var"></a>
+<h3 id="if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var">If colouring by a variable, use a <code>*_col()</code> or
+<code>*_col_facet()</code> function, and define the
+<code>col_var</code><a class="anchor" aria-label="anchor" href="#if-colouring-by-a-variable-use-a-_col-or-_col_facet-function-and-define-the-col_var"></a>
 </h3>
-<p>To colour by a variable, use a <code>*_col()</code> function and then define that variable to be coloured using the <code>col_var</code> argument.</p>
+<p>To colour by a variable, use a <code>*_col()</code> function and then
+define that variable to be coloured using the <code>col_var</code>
+argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -161,11 +178,18 @@
 <p><img src="colour_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
 <div class="section level3">
-<h3 id="if-colouring-by-a-numeric-variable-continuous-bin-and-quantile-methods-are-available">If colouring by a numeric variable, continuous, bin and quantile methods are available<a class="anchor" aria-label="anchor" href="#if-colouring-by-a-numeric-variable-continuous-bin-and-quantile-methods-are-available"></a>
+<h3 id="if-colouring-by-a-numeric-variable-continuous-bin-and-quantile-methods-are-available">If colouring by a numeric variable, continuous, bin and quantile
+methods are available<a class="anchor" aria-label="anchor" href="#if-colouring-by-a-numeric-variable-continuous-bin-and-quantile-methods-are-available"></a>
 </h3>
-<p>All simplevis <code>*_col()</code> and <code>*_col_facet()</code> functions support colouring by a categorical variable.</p>
-<p>In addition, <code>point</code>, <code>bar</code>, <code>hbar</code>, <code>tile</code>, <code>sf</code> and <code>stars</code> <code>*_col()</code> and <code>*_col_facet()</code> functions support colouring by a numeric variable.</p>
-<p>You do this by specifying whether you want to do this by defining whether the col_method is to be by <code>continuous</code> (the default), <code>bin</code> or <code>quantile</code>.</p>
+<p>All simplevis <code>*_col()</code> and <code>*_col_facet()</code>
+functions support colouring by a categorical variable.</p>
+<p>In addition, <code>point</code>, <code>bar</code>, <code>hbar</code>,
+<code>tile</code>, <code>sf</code> and <code>stars</code>
+<code>*_col()</code> and <code>*_col_facet()</code> functions support
+colouring by a numeric variable.</p>
+<p>You do this by specifying whether you want to do this by defining
+whether the col_method is to be by <code>continuous</code> (the
+default), <code>bin</code> or <code>quantile</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>
@@ -198,10 +222,19 @@
 <p><img src="colour_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 </div>
 <div class="section level3">
-<h3 id="for-bin-and-quantile-modify-colour-breaks-using-the-col_breaks_n-or-col_cuts-arguments">For <code>bin</code> and <code>quantile</code>, modify colour breaks using the <code>col_breaks_n</code> or <code>col_cuts</code> arguments<a class="anchor" aria-label="anchor" href="#for-bin-and-quantile-modify-colour-breaks-using-the-col_breaks_n-or-col_cuts-arguments"></a>
+<h3 id="for-bin-and-quantile-modify-colour-breaks-using-the-col_breaks_n-or-col_cuts-arguments">For <code>bin</code> and <code>quantile</code>, modify colour breaks
+using the <code>col_breaks_n</code> or <code>col_cuts</code>
+arguments<a class="anchor" aria-label="anchor" href="#for-bin-and-quantile-modify-colour-breaks-using-the-col_breaks_n-or-col_cuts-arguments"></a>
 </h3>
-<p>For <code>bin</code>, the <code>col_breaks_n</code> argument uses the pretty algorithm to aim for roughly the specified number of pretty breaks. For <code>quantile</code>, it selects that number of bins of equal percentiles.</p>
-<p>Alternatively, you can specify the exact breaks you would like by specifying a vector to the <code>col_cuts</code> argument. For <code>bin</code>, this is a vector of values that should start at either -Inf or 0 and finish at Inf. For <code>quantile</code>, this is a vector of probabilities between 0 and 1.</p>
+<p>For <code>bin</code>, the <code>col_breaks_n</code> argument uses the
+pretty algorithm to aim for roughly the specified number of pretty
+breaks. For <code>quantile</code>, it selects that number of bins of
+equal percentiles.</p>
+<p>Alternatively, you can specify the exact breaks you would like by
+specifying a vector to the <code>col_cuts</code> argument. For
+<code>bin</code>, this is a vector of values that should start at either
+-Inf or 0 and finish at Inf. For <code>quantile</code>, this is a vector
+of probabilities between 0 and 1.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="va">bill_length_mm</span>, 
@@ -212,7 +245,7 @@
 <p><img src="colour_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.02</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">plot_data</span>, 
              x_var <span class="op">=</span> <span class="va">carat</span>, 
@@ -253,7 +286,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>

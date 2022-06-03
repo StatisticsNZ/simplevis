@@ -7,7 +7,7 @@
 gg_density(
   data,
   x_var,
-  pal = pal_viridis_reorder(1),
+  pal = pal_viridis_mix(1),
   alpha_fill = 0.5,
   alpha_line = 1,
   size_line = 0.5,
@@ -15,7 +15,7 @@ gg_density(
   title_wrap = 80,
   subtitle = NULL,
   subtitle_wrap = 80,
-  x_balance = FALSE,
+  x_zero_mid = FALSE,
   x_breaks_n = 5,
   x_expand = c(0, 0),
   x_labels = scales::label_comma(),
@@ -30,7 +30,7 @@ gg_density(
   y_title_wrap = 50,
   caption = NULL,
   caption_wrap = 80,
-  theme = gg_theme(gridlines_h = TRUE),
+  theme = gg_theme(y_grid = TRUE),
   model_bw = "nrd0",
   model_adjust = 1,
   model_kernel = "gaussian",
@@ -60,7 +60,7 @@ gg_density(
 
 \item{subtitle_wrap}{Number of characters to wrap the subtitle to. Defaults to 75.}
 
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
+\item{x_zero_mid}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_breaks_n}{For a numeric x variable, the desired number of intervals on the x scale, as calculated by the}
 

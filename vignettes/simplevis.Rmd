@@ -32,25 +32,27 @@ set.seed(123456789)
 
 ### Purpose 
 
-{simplevis} is a package of [{ggplot2}](https://{ggplot2}.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/{leaflet}/) wrapper functions that aims to make visualisation easier with less brainpower required. 
+{simplevis} is a package of [{ggplot2}](https://ggplot2.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/leaflet/) wrapper functions that aims to to simplify beautiful {ggplot2} and {leaflet} visualisation. This is the precursor package to the [{ggblanket}](https://github.com/davidhodge931/ggblanket) package.
 
 ### A note on {ggblanket}
 
-[{ggblanket}](https://github.com/davidhodge931/ggblanket) is a package I made after {simplevis}, which was first released on CRAN in May 2022. 
+[{ggblanket}](https://github.com/davidhodge931/ggblanket) is a package I made after {simplevis}. I released version 1.0.0 of {ggblanket} on CRAN in May 2022. 
 
-It's kind of a {simplevis2} for the {ggplot2} component of simplevis. I made this, because of a combination of a realisation of the design flaws of {simplevis} and an idea of how to technically create what I wanted in code.
+It's kind of a {simplevis2} for the {ggplot2} component of simplevis. I made this, because of a realisation of the design flaws of {simplevis} combined with an idea of how to technically create what I wanted in code.
 
 So, in general, {ggpblanket} is:
 
 * vastly more flexible covering the majority of what {ggplot2} does
 * much more aligned with {ggplot2}, so will cause less confusion in moving between the packages. This helps learning of {ggplot2}, rather than hindering  
-* more concise code (i.e. gg_point(data, x, y, col, facet), rather than gg_point_col_facet(data, x_var, y_var, col_var, facet_var)). This saves you typing, makes code more readable, and facilitates exploring different visualisations quicker and easier 
+* more concise code (i.e. `gg_point(data, x, y, col, facet)`, rather than `gg_point_col_facet(data, x_var, y_var, col_var, facet_var)`). This saves you typing, makes code more readable, and facilitates exploring different visualisations quicker and easier 
 * less dependencies, so less vulnerable to breaking in the future
 * other stuff: a redesign of how to colour numeric variables, additional arguments and flexibility to modify scale breaks, ensuring aesthetics are inherited, ensuring pals are inherited, support for tidy placement of legends on bottom or top, and more.
 
 However, it does not contain {leaflet} wrappers. There is currently a [bug](https://github.com/plotly/plotly.R/issues/2123) in `plotly::ggplotly` that prevents {ggblanket} outputs been made interactive. 
 
-If you need `plotly::ggplotly`, then use `simplevis` until the afore-mentioned bug is fixed. For `leaflet` wrappers, obviously use `simplevis`. Otherwise, I recommend using {ggblanket} instead of {simplevis}. 
+If you need `plotly::ggplotly`, then use `simplevis` until the afore-mentioned bug is fixed. For `leaflet` wrappers, obviously use `simplevis`. 
+
+Otherwise, I recommend using {ggblanket} instead of {simplevis}. 
 
 ### Visualisation families
 

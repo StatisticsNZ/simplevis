@@ -27,6 +27,8 @@ gg_theme(
   pal_grid = "#D3D3D3",
   y_grid = FALSE,
   x_grid = FALSE,
+  gridlines_v = NULL,
+  gridlines_h = NULL,
   void = FALSE
 )
 }
@@ -74,6 +76,10 @@ gg_theme(
 \item{y_grid}{TRUE or FALSE of whether to show hotizontal gridlines.}
 
 \item{x_grid}{TRUE or FALSE of whether to show vertical gridlines.}
+
+\item{gridlines_v}{DEPRECATED. Use x_grid.}
+
+\item{gridlines_h}{DEPRECATED. Use y_grid.}
 
 \item{void}{TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.}
 }

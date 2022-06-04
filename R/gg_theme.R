@@ -23,6 +23,8 @@
 #' @param pal_grid The colour palette for the vertical major gridlines. Defaults to "#D3D3D3". 
 #' @param y_grid TRUE or FALSE of whether to show hotizontal gridlines.
 #' @param x_grid TRUE or FALSE of whether to show vertical gridlines.
+#' @param gridlines_h DEPRECATED. Use y_grid.
+#' @param gridlines_v DEPRECATED. Use x_grid.
 #' @param void TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.  
 #'
 #' @return A ggplot theme.
@@ -51,7 +53,19 @@ gg_theme <-
            pal_grid = "#D3D3D3",
            y_grid = FALSE, 
            x_grid = FALSE,
+           gridlines_v = NULL, 
+           gridlines_h = NULL,
            void = FALSE) {
+    
+    if (!rlang::is_null(gridlines_v)) {
+      x_grid <- gridlines_v
+      warning( "The `gridlines_v` argument of `gg_theme()` is deprecated as of {simplevis} 6.3.0. Please use the `x_grid` argument instead.")
+    }
+    
+    if (!rlang::is_null(gridlines_h)) {
+      y_grid <- gridlines_h
+      warning( "The `gridlines_h` argument of `gg_theme()` is deprecated as of {simplevis} 6.3.0. Please use the `y_grid` argument instead.")
+    }
     
     if (is.null(font_title)) font_title <- font
     if (is.null(font_subtitle)) font_subtitle <- font

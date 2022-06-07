@@ -23,7 +23,7 @@ set.seed(123456789)
 
 ### Overview
 
-[leaflet](https://rstudio.github.io/leaflet/) is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. simplevis provides wrapper functions to map `sf` and `stars` objects. Arguments in these have been aligned to ggplot terminology to make things simple for the user.
+[{leaflet}](https://rstudio.github.io/leaflet/) is a library that provides beautiful html widget maps. This allow use of basemaps, and therefore the ability to zoom in on features with the context that these provide. {simplevis} provides wrapper functions to map `sf` and `stars` objects. Arguments in these have been aligned to {ggplot2} terminology to make things simple for the user.
 
 For the sf functions:
 

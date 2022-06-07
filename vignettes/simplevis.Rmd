@@ -518,7 +518,7 @@ leaf_sf_col(example_point,
             col_var = trend_category)
 ```
 
-Refer to the [{leaflet}](https://StatisticsNZ.github.io/simplevis/articles/{leaflet}.html) article for further information.
+Refer to the [{leaflet}](https://StatisticsNZ.github.io/simplevis/articles/leaflet.html) article for further information.
 
 ### Extending {simplevis} 
 

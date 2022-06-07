@@ -90,7 +90,7 @@
                         <h4 data-toc-skip class="author">David
 Hodge</h4>
             
-            <h4 data-toc-skip class="date">2022-06-04</h4>
+            <h4 data-toc-skip class="date">2022-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StatisticsNZ/simplevis/blob/HEAD/vignettes/scales.Rmd" class="external-link"><code>vignettes/scales.Rmd</code></a></small>
       <div class="d-none name"><code>scales.Rmd</code></div>
@@ -313,8 +313,8 @@ the data as you wish them to be ordered.</p>
 <p><img src="scales_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
 <p>For other functions, you will need to reorder the relevant variables
 as you want.</p>
-<p>The <code>tidytext</code> package provides a method for reordering
-within facets.</p>
+<p>The {tidytext} package provides a method for reordering within
+facets.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>

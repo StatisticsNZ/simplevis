@@ -90,7 +90,7 @@
                         <h4 data-toc-skip class="author">David
 Hodge</h4>
             
-            <h4 data-toc-skip class="date">2022-06-04</h4>
+            <h4 data-toc-skip class="date">2022-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StatisticsNZ/simplevis/blob/HEAD/vignettes/shiny.Rmd" class="external-link"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="d-none name"><code>shiny.Rmd</code></div>
@@ -106,9 +106,9 @@ Hodge</h4>
 <div class="section level3">
 <h3 id="working-with-quoted-inputs">Working with quoted inputs<a class="anchor" aria-label="anchor" href="#working-with-quoted-inputs"></a>
 </h3>
-<p>In <a href="https://shiny.rstudio.com/" class="external-link">shiny</a>, it is often easier
-to work with quoted variables. For {ggplot2} wrapper function, wrap the
-variables in <code>!!sym</code>, as shown below.</p>
+<p>In <a href="https://shiny.rstudio.com/" class="external-link">{shiny}</a>, it is often
+easier to work with quoted variables. For {ggplot2} wrapper function,
+wrap the variables in <code>!!sym</code>, as shown below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gg_point_col.html">gg_point_col</a></span><span class="op">(</span><span class="va">penguins</span>, 
              x_var <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html" class="external-link">sym</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span><span class="op">)</span>, 

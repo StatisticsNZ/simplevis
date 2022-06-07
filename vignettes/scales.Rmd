@@ -212,7 +212,7 @@ gg_hbar(plot_data,
 
 For other functions, you will need to reorder the relevant variables as you want.
 
-The `tidytext` package provides a method for reordering within facets.
+The {tidytext} package provides a method for reordering within facets.
 
 ```{r}
 plot_data <- penguins %>%

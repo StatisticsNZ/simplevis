@@ -60,7 +60,7 @@ leaf_sf <- function(data,
   
   #colour
   pal <- pal[1]
-
+  
   #basemap
   if (shiny == FALSE) {
     if(basemap == "light") basemap_name <- "CartoDB.PositronNoLabels"
@@ -86,7 +86,7 @@ leaf_sf <- function(data,
     }
     
     popup_data <- popup_data %>%
-        dplyr::mutate_if(.predicate = is.numeric, .funs = popup_numeric_format)
+      dplyr::mutate_if(.predicate = is.numeric, .funs = popup_numeric_format)
     
     popup <- leafpop::popupTable(popup_data, zcol = 1:ncol(popup_data) - 1, row.numbers = FALSE, feature.id = FALSE)
   }
@@ -336,7 +336,7 @@ leaf_sf_col <- function(data,
   col_var <- rlang::enquo(col_var)
   label_var <- rlang::enquo(label_var)
   if (is.null(rlang::get_expr(label_var))) label_var <- col_var
-
+  
   #na's
   if (col_na_rm == TRUE) {
     data <- data %>% 
@@ -350,7 +350,7 @@ leaf_sf_col <- function(data,
     dplyr::select(!!label_var) %>% 
     dplyr::mutate_if(.predicate = is.numeric, .funs = label_numeric_format) %>% 
     dplyr::pull(!!label_var)
-
+  
   #logical to factor
   if (is.logical(col_var_vctr)) {
     data <- data %>% 

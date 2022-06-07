@@ -22,7 +22,7 @@ library(palmerpenguins)
 set.seed(123456789)
 ```
 
-All plots have the same default undelying `{simplevis}` themes.
+All plots have the same default undelying {simplevis} themes.
 
 ```{r}
 gg_point_col(penguins, 

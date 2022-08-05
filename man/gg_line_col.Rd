@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_line.R
 \name{gg_line_col}
 \alias{gg_line_col}
-\title{Line ggplot that is coloured.}
+\title{DEPRECATED. Line ggplot that is coloured.}
 \usage{
 gg_line_col(
   data,
@@ -144,7 +144,7 @@ gg_line_col(
 A ggplot object.
 }
 \description{
-Line ggplot that is coloured, but not facetted.
+DEPRECATED. Line ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

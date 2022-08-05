@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_point.R
 \name{gg_point_facet}
 \alias{gg_point_facet}
-\title{Point ggplot that is facetted.}
+\title{DEPRECATED. Point ggplot that is facetted.}
 \usage{
 gg_point_facet(
   data,
@@ -132,7 +132,7 @@ gg_point_facet(
 A ggplot object.
 }
 \description{
-Point ggplot that is facetted, but not coloured.
+DEPRECATED. Point ggplot that is facetted, but not coloured.
 }
 \examples{
 library(simplevis)

@@ -1,6 +1,6 @@
-#' @title Tile ggplot that is coloured.
+#' @title DEPRECATED. Tile ggplot that is coloured.
 #' 
-#' @description Tile ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Tile ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -109,6 +109,8 @@ gg_tile_col <- function(data,
                         theme = gg_theme(),
                         mobile = FALSE) {
   
+  warning( "The `simplevis::gg_tile` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_tile` function instead.")
+
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -365,9 +367,9 @@ gg_tile_col <- function(data,
   return(plot)
 }
 
-#' @title Tile ggplot that is coloured and facetted.
+#' @title DEPRECATED. Tile ggplot that is coloured and facetted.
 #' 
-#' @description Tile ggplot that is coloured and facetted.
+#' @description DEPRECATED. Tile ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -489,6 +491,8 @@ gg_tile_col_facet <- function(data,
                               caption_wrap = 75,
                               theme = gg_theme())
 {
+  
+  warning( "The `simplevis::gg_tile_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_tile` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

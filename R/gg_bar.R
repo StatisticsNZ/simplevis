@@ -1,6 +1,6 @@
-#' @title Bar ggplot.
+#' @title DEPRECATED. Bar ggplot. 
 #' 
-#' @description Bar ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Bar ggplot that is not coloured and not facetted. 
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -90,6 +90,8 @@ gg_bar <- function(data,
                    caption_wrap = 80,
                    theme = gg_theme(y_grid = TRUE),
                    mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_bar` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -265,9 +267,9 @@ gg_bar <- function(data,
   return(plot)
 }
 
-#' @title Bar ggplot that is coloured.
+#' @title DEPRECATED. Bar ggplot that is coloured. 
 #' 
-#' @description Bar ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Bar ggplot that is coloured, but not facetted. 
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -394,6 +396,8 @@ gg_bar_col <- function(data,
                        caption_wrap = 80,
                        theme = gg_theme(y_grid = TRUE),
                        mobile = FALSE){
+  
+  warning( "The `simplevis::gg_bar_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -725,9 +729,9 @@ gg_bar_col <- function(data,
   return(plot)
 }
 
-#' @title Bar ggplot that is facetted.
+#' @title DEPRECATED. Bar ggplot that is facetted. 
 #' 
-#' @description Bar ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Bar ggplot that is facetted, but not coloured. 
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -828,6 +832,8 @@ gg_bar_facet <- function(data,
                          caption = NULL,
                          caption_wrap = 80,
                          theme = gg_theme(y_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_bar_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1002,9 +1008,9 @@ gg_bar_facet <- function(data,
   return(plot)
 }
 
-#' @title Bar ggplot that is coloured and facetted.
+#' @title DEPRECATED. Bar ggplot that is coloured and facetted. 
 #' 
-#' @description Bar ggplot that is coloured and facetted.
+#' @description DEPRECATED. Bar ggplot that is coloured and facetted. 
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -1134,6 +1140,8 @@ gg_bar_col_facet <- function(data,
                              caption = NULL,
                              caption_wrap = 80,
                              theme = gg_theme(y_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_bar_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

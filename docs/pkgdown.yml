@@ -1,15 +1,10 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.3
+pandoc: '2.18'
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  colour: colour.html
-  ggplotly: ggplotly.html
   leaflet: leaflet.html
-  scales: scales.html
-  shiny: shiny.html
   simplevis: simplevis.html
-  themes: themes.html
-last_built: 2022-06-07T08:57Z
+last_built: 2022-08-05T12:43Z
 urls:
   reference: https://statisticsnz.github.io/simplevis/reference
   article: https://statisticsnz.github.io/simplevis/articles

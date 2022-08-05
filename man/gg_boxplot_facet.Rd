@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_boxplot.R
 \name{gg_boxplot_facet}
 \alias{gg_boxplot_facet}
-\title{Boxplot ggplot that is facetted.}
+\title{DEPRECATED. Boxplot ggplot that is facetted.}
 \usage{
 gg_boxplot_facet(
   data,
@@ -144,7 +144,7 @@ gg_boxplot_facet(
 A ggplot object.
 }
 \description{
-Boxplot ggplot that is facetted, but not coloured.
+DEPRECATED. Boxplot ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)

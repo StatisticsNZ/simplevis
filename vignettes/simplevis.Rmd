@@ -30,29 +30,13 @@ library(patchwork)
 set.seed(123456789)
 ```
 
+### {simplevis} ggplot2 functions are soft-deprecated!
+
+As of {simplevis} 6.4, essentially all ggplot2 wrapper functions in {simplevis} soft deprecated. Users should not rely on these, and use the  [{ggblanket}](https://github.com/davidhodge931/ggblanket) package instead.
+
 ### Purpose 
 
-{simplevis} is a package of [{ggplot2}](https://ggplot2.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/leaflet/) wrapper functions that aims to to simplify beautiful {ggplot2} and {leaflet} visualisation. This is the precursor package to the [{ggblanket}](https://github.com/davidhodge931/ggblanket) package.
-
-### A note on {ggblanket}
-
-[{ggblanket}](https://github.com/davidhodge931/ggblanket) is a package I made after {simplevis}. I released version 1.0.0 of {ggblanket} on CRAN in May 2022. 
-
-It's kind of a {simplevis2} for the {ggplot2} component of simplevis. I made this, because of a realisation of the design flaws of {simplevis} combined with an idea of how to technically create what I wanted in code.
-
-So, in general, {ggpblanket} is:
-
-* vastly more flexible covering the majority of what {ggplot2} does
-* much more aligned with {ggplot2}, so will cause less confusion in moving between the packages. This helps learning of {ggplot2}, rather than hindering  
-* more concise code (i.e. `gg_point(data, x, y, col, facet)`, rather than `gg_point_col_facet(data, x_var, y_var, col_var, facet_var)`). This saves you typing, makes code more readable, and facilitates exploring different visualisations quicker and easier 
-* less dependencies, so less vulnerable to breaking in the future
-* other stuff: a redesign of how to colour numeric variables, additional arguments and flexibility to modify scale breaks, ensuring aesthetics are inherited, ensuring pals are inherited, support for tidy placement of legends on bottom or top, and more.
-
-However, it does not contain {leaflet} wrappers. There is currently a [bug](https://github.com/plotly/plotly.R/issues/2123) in `plotly::ggplotly` that prevents {ggblanket} outputs been made interactive. 
-
-If you need `plotly::ggplotly`, then use `simplevis` until the afore-mentioned bug is fixed. For `leaflet` wrappers, obviously use `simplevis`. 
-
-Otherwise, I recommend using {ggblanket} instead of {simplevis}. 
+{simplevis} is a package of [{ggplot2}](https://ggplot2.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/leaflet/) wrapper functions that aims to to simplify beautiful {ggplot2} and {leaflet} visualisation. 
 
 ### Visualisation families
 
@@ -401,7 +385,6 @@ gg_point_col(penguins,
              pal = c("#da3490", "#9089fa", "#47e26f"))
 ```
 
-Refer to the [colour](https://StatisticsNZ.github.io/simplevis/articles/colour.html) article for further information.
 
 ### Customising with consistent prefixes & autocomplete
 
@@ -453,8 +436,6 @@ gg_line_col_facet(plot_data,
                   size_point = 1)
 ```
 
-Refer to the [scales](https://StatisticsNZ.github.io/simplevis/articles/scales.html) article for further information.
-
 The `size_` and `alpha_` prefixes are used to modify the size and opacity of various aspects of the visualisation.
 
 ### Themes
@@ -477,8 +458,6 @@ gg_point_col(penguins,
              y_var = body_mass_g, 
              theme = custom_theme)
 ```
-
-Refer to the [themes](https://StatisticsNZ.github.io/simplevis/articles/themes.html) article for further information.
 
 ### Maps
 
@@ -581,8 +560,6 @@ plotly::ggplotly(plot) %>%
 ```
 
 {simplevis} also offers more customisability for making tooltips (i.e. hover values) in ggplotly. 
-
-Refer to the [ggplotly](https://StatisticsNZ.github.io/simplevis/articles/ggplotly.html) article for further information.
 
 ### Supported variable classes
 

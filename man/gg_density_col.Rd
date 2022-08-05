@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_density.R
 \name{gg_density_col}
 \alias{gg_density_col}
-\title{Density ggplot that is coloured.}
+\title{DEPRECATED. Density ggplot that is coloured.}
 \usage{
 gg_density_col(
   data,
@@ -132,7 +132,7 @@ gg_density_col(
 A ggplot object.
 }
 \description{
-Density ggplot that is coloured, but not facetted.
+DEPRECATED. Density ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

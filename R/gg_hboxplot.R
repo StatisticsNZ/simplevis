@@ -1,5 +1,5 @@
-#' @title Horizontal boxplot ggplot.
-#' @description Horizontal boxplot ggplot that is not coloured and not facetted.
+#' @title DEPRECATED. Horizontal boxplot ggplot.
+#' @description DEPRECATED. Horizontal boxplot ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -111,6 +111,8 @@ gg_hboxplot <- function(data,
                     xmax_var = NULL,
                     mobile = FALSE) {
   
+  warning( "The `simplevis::gg_hboxplot` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -140,8 +142,8 @@ gg_hboxplot <- function(data,
   }
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
-  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a DEPRECATED. Horizontal boxplot")
+  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a DEPRECATED. Horizontal boxplot when stat = 'boxplot'")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -265,8 +267,8 @@ gg_hboxplot <- function(data,
   return(plot)
 }
 
-#' @title Horizontal boxplot ggplot that is coloured.
-#' @description Horizontal boxplot ggplot that is coloured, but not facetted.
+#' @title DEPRECATED. Horizontal boxplot ggplot that is coloured.
+#' @description DEPRECATED. Horizontal boxplot ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -406,6 +408,8 @@ gg_hboxplot_col <- function(data,
                         xmax_var = NULL,
                         mobile = FALSE) {
   
+  warning( "The `simplevis::gg_hboxplot_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -442,9 +446,9 @@ gg_hboxplot_col <- function(data,
   }
 
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
-  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a DEPRECATED. Horizontal boxplot")
+  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a DEPRECATED. Horizontal boxplot when stat = 'boxplot'")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a DEPRECATED. Horizontal boxplot")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -624,8 +628,8 @@ gg_hboxplot_col <- function(data,
   return(plot)
 }
 
-#' @title Horizontal boxplot ggplot that is facetted.
-#' @description Horizontal boxplot ggplot that is facetted, but not coloured.
+#' @title DEPRECATED. Horizontal boxplot ggplot that is facetted.
+#' @description DEPRECATED. Horizontal boxplot ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -728,6 +732,8 @@ gg_hboxplot_facet <- function(data,
                           xupper_var = NULL,
                           xmax_var = NULL) {
   
+  warning( "The `simplevis::gg_hboxplot_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -764,9 +770,9 @@ gg_hboxplot_facet <- function(data,
   }
 
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
-  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a DEPRECATED. Horizontal boxplot")
+  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a DEPRECATED. Horizontal boxplot when stat = 'boxplot'")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a DEPRECATED. Horizontal boxplot")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -897,8 +903,8 @@ gg_hboxplot_facet <- function(data,
   return(plot)
 }
 
-#' @title Horizontal boxplot ggplot that is coloured and facetted.
-#' @description Horizontal boxplot ggplot that is coloured and facetted.
+#' @title DEPRECATED. Horizontal boxplot ggplot that is coloured and facetted.
+#' @description DEPRECATED. Horizontal boxplot ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale for when stat = "boxplot" is selected. 
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -1023,6 +1029,8 @@ gg_hboxplot_col_facet <- function(data,
                               xupper_var = NULL,
                               xmax_var = NULL) {
   
+  warning( "The `simplevis::gg_hboxplot_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -1066,10 +1074,10 @@ gg_hboxplot_col_facet <- function(data,
   }
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal boxplot")
-  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal boxplot when stat = 'boxplot'")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal boxplot")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal boxplot")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a DEPRECATED. Horizontal boxplot")
+  if (stat == "boxplot" & !is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a DEPRECATED. Horizontal boxplot when stat = 'boxplot'")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a DEPRECATED. Horizontal boxplot")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a DEPRECATED. Horizontal boxplot")
 
   #logical to factor
   if (is.logical(y_var_vctr)) {

@@ -1,6 +1,6 @@
-#' @title Violin ggplot.
+#' @title DEPREVATED. Violin ggplot.
 #' 
-#' @description Violin ggplot that is not coloured and not facetted.
+#' @description DEPREVATED. Violin ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
@@ -81,6 +81,8 @@ gg_violin <- function(data,
                       model_kernel = "gaussian",
                       model_trim = TRUE,
                       mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_violin` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -197,9 +199,9 @@ gg_violin <- function(data,
   return(plot)
 }
 
-#' @title Violin ggplot that is coloured.
+#' @title DEPREVATED. Violin ggplot that is coloured.
 #' 
-#' @description Violin ggplot that is coloured, but not facetted.
+#' @description DEPREVATED. Violin ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
@@ -302,6 +304,8 @@ gg_violin_col <- function(data,
                           model_kernel = "gaussian",
                           model_trim = TRUE, 
                           mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_violin_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -470,9 +474,9 @@ gg_violin_col <- function(data,
   return(plot)
 }
 
-#' @title Violin ggplot that is facetted.
+#' @title DEPREVATED. Violin ggplot that is facetted.
 #' 
-#' @description Violin ggplot that is facetted, but not coloured.
+#' @description DEPREVATED. Violin ggplot that is facetted, but not coloured.
 #' @param data An tibble or data frame. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
@@ -569,6 +573,8 @@ gg_violin_facet <- function(data,
                             model_adjust = 1,
                             model_kernel = "gaussian",
                             model_trim = TRUE) {
+  
+  warning( "The `simplevis::gg_violin_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -697,9 +703,9 @@ gg_violin_facet <- function(data,
   return(plot)
 }
 
-#' @title Violin ggplot that is coloured and facetted.
+#' @title DEPREVATED. Violin ggplot that is coloured and facetted.
 #' 
-#' @description Violin ggplot that is coloured and facetted.
+#' @description DEPREVATED. Violin ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Generally an unquoted numeric variable to be on the y scale. 
@@ -817,6 +823,8 @@ gg_violin_col_facet <- function(data,
                                 model_adjust = 1,
                                 model_kernel = "gaussian",
                                 model_trim = TRUE) {
+  
+  warning( "The `simplevis::gg_violin_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

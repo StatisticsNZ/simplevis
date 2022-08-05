@@ -1,6 +1,6 @@
-#' @title Point ggplot.
+#' @title DEPRECATED. Point ggplot.
 #' 
-#' @description Point ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Point ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -79,6 +79,8 @@ gg_point <- function(data,
                      caption_wrap = 80,
                      theme = gg_theme(y_grid = TRUE, x_grid = TRUE),
                      mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_point` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_point` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -229,9 +231,9 @@ gg_point <- function(data,
   return(plot)
 }
 
-#' @title Point ggplot that is coloured.
+#' @title DEPRECATED. Point ggplot that is coloured.
 #' 
-#' @description Point ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Point ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -337,6 +339,8 @@ gg_point_col <- function(data,
                          caption_wrap = 80,
                          theme = gg_theme(y_grid = TRUE, x_grid = TRUE),
                          mobile = FALSE){
+  
+  warning( "The `simplevis::gg_point_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_point` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -625,9 +629,9 @@ gg_point_col <- function(data,
   return(plot)
 }
 
-#' @title Point ggplot that is facetted.
+#' @title DEPRECATED. Point ggplot that is facetted.
 #' 
-#' @description Point ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Point ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -719,6 +723,8 @@ gg_point_facet <- function(data,
                            caption = NULL,
                            caption_wrap = 80,
                            theme = gg_theme(y_grid = TRUE, x_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_point_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_point` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -880,9 +886,9 @@ gg_point_facet <- function(data,
   return(plot)
 }
 
-#' @title Point ggplot that is coloured and facetted.
+#' @title DEPRECATED. Point ggplot that is coloured and facetted.
 #' 
-#' @description Point ggplot that is coloured and facetted.
+#' @description DEPRECATED. Point ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -1001,6 +1007,8 @@ gg_point_col_facet <- function(data,
                                caption = NULL,
                                caption_wrap = 80,
                                theme = gg_theme(y_grid = TRUE, x_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_point_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_point` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

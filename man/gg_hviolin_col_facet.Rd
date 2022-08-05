@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hviolin.R
 \name{gg_hviolin_col_facet}
 \alias{gg_hviolin_col_facet}
-\title{Horizontal violin ggplot that is coloured and facetted.}
+\title{DEPRECATED. Horizontal violin ggplot that is coloured and facetted.}
 \usage{
 gg_hviolin_col_facet(
   data,
@@ -162,7 +162,7 @@ gg_hviolin_col_facet(
 A ggplot object.
 }
 \description{
-Horizontal violin ggplot that is coloured and facetted.
+DEPRECATED. Horizontal violin ggplot that is coloured and facetted.
 }
 \examples{
 library(simplevis)

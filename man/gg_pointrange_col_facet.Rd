@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_pointrange.R
 \name{gg_pointrange_col_facet}
 \alias{gg_pointrange_col_facet}
-\title{Pointrange ggplot that is coloured and facetted.}
+\title{DEPRECATED. Pointrange ggplot that is coloured and facetted.}
 \usage{
 gg_pointrange_col_facet(
   data,
@@ -186,7 +186,7 @@ gg_pointrange_col_facet(
 A ggplot object.
 }
 \description{
-Pointrange ggplot that is coloured and facetted.
+DEPRECATED. Pointrange ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)

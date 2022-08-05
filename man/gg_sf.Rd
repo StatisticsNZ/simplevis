@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_sf.R
 \name{gg_sf}
 \alias{gg_sf}
-\title{Simple feature ggplot map.}
+\title{DEPRECATED. Simple feature ggplot map.}
 \usage{
 gg_sf(
   data,

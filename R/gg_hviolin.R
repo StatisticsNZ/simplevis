@@ -1,6 +1,6 @@
-#' @title Horizontal violin ggplot.
+#' @title DEPRECATED. Horizontal violin ggplot.
 #' 
-#' @description Horizontal violin ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Horizontal violin ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -83,6 +83,8 @@ gg_hviolin <- function(data,
                        model_trim = TRUE, 
                        mobile = FALSE) {
   
+  warning( "The `simplevis::gg_hviolin` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -101,8 +103,8 @@ gg_hviolin <- function(data,
   x_var_vctr <- dplyr::pull(data, !!x_var)
 
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
-  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a  horizontal violin")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a  horizontal violin")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -196,9 +198,9 @@ gg_hviolin <- function(data,
   return(plot)
 }
 
-#' @title Horizontal violin ggplot that is coloured.
+#' @title DEPRECATED. Horizontal violin ggplot that is coloured.
 #' 
-#' @description Horizontal violin ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Horizontal violin ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -301,6 +303,8 @@ gg_hviolin_col <- function(data,
                            model_trim = TRUE, 
                            mobile = FALSE) {
   
+  warning( "The `simplevis::gg_hviolin_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -325,9 +329,9 @@ gg_hviolin_col <- function(data,
   col_var_vctr <- dplyr::pull(data, !!col_var)
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
-  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a  horizontal violin")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a  horizontal violin")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a  horizontal violin")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -476,9 +480,9 @@ gg_hviolin_col <- function(data,
   return(plot)
 }
 
-#' @title Horizontal violin ggplot that is facetted.
+#' @title DEPRECATED. Horizontal violin ggplot that is facetted.
 #' 
-#' @description Horizontal violin ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Horizontal violin ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -575,6 +579,8 @@ gg_hviolin_facet <- function(data,
                              model_kernel = "gaussian",
                              model_trim = TRUE) {
   
+  warning( "The `simplevis::gg_hviolin_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -599,9 +605,9 @@ gg_hviolin_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
-  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a  horizontal violin")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a  horizontal violin")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a  horizontal violin")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {
@@ -702,9 +708,9 @@ gg_hviolin_facet <- function(data,
   return(plot)
 }
 
-#' @title Horizontal violin ggplot that is coloured and facetted.
+#' @title DEPRECATED. Horizontal violin ggplot that is coloured and facetted.
 #' 
-#' @description Horizontal violin ggplot that is coloured and facetted.
+#' @description DEPRECATED. Horizontal violin ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Generally an unquoted numeric variable to be on the x scale. However if stat = "identity" is selected, a list-column with min, lower, middle, upper, and max variable names.
 #' @param y_var Unquoted categorical variable to be on the y scale (i.e. character, factor, or logical). Required input.
@@ -821,6 +827,8 @@ gg_hviolin_col_facet <- function(data,
                                  model_kernel = "gaussian",
                                  model_trim = TRUE) {
   
+  warning( "The `simplevis::gg_hviolin_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_violin` function instead.")
+  
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -851,10 +859,10 @@ gg_hviolin_col_facet <- function(data,
   facet_var_vctr <- dplyr::pull(data, !!facet_var)
   
   #warnings
-  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a horizontal violin")
-  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a horizontal violin")
-  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a horizontal violin")
-  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a horizontal violin")
+  if (is.numeric(y_var_vctr)) stop("Please use a categorical y variable for a  horizontal violin")
+  if (!is.numeric(x_var_vctr)) stop("Please use a numeric x variable for a  horizontal violin")
+  if (is.numeric(col_var_vctr)) stop("Please use a categorical colour variable for a  horizontal violin")
+  if (is.numeric(facet_var_vctr)) stop("Please use a categorical facet variable for a  horizontal violin")
   
   #logical to factor
   if (is.logical(y_var_vctr)) {

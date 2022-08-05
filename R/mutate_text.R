@@ -30,6 +30,8 @@ mutate_text <- function(data,
                         numeric_format = function(x) prettyNum(x, big.mark = "", scientific = FALSE), 
                         name = "text") {
   
+  warning( "The `simplevis::mutate_text` function is deprecated as of {simplevis} 6.4.0. Please use the ggblanket::add_tooltip_text function instead.")
+  
   data <- data %>% 
     dplyr::ungroup() 
   

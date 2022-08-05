@@ -1,5 +1,5 @@
-#' @title Density ggplot.
-#' @description Density ggplot that is not coloured and not facetted.
+#' @title DEPRECATED. Density ggplot.
+#' @description DEPRECATED. Density ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
@@ -74,6 +74,8 @@ gg_density <- function(data,
                        model_n = 512,
                        model_trim = FALSE,
                        mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_density` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_density` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -165,9 +167,9 @@ gg_density <- function(data,
   return(plot)
 }
 
-#' @title Density ggplot that is coloured.
+#' @title DEPRECATED. Density ggplot that is coloured.
 #' 
-#' @description Density ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Density ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
@@ -260,6 +262,8 @@ gg_density_col <- function(data,
                            model_n = 512,
                            model_trim = FALSE,
                            mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_density_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_density` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -404,9 +408,9 @@ gg_density_col <- function(data,
   return(plot)
 }
 
-#' @title Density ggplot that is facetted.
+#' @title DEPRECATED. Density ggplot that is facetted.
 #' 
-#' @description Density ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Density ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -494,6 +498,8 @@ gg_density_facet <- function(data,
                              model_kernel = "gaussian",
                              model_n = 512,
                              model_trim = FALSE) {
+  
+  warning( "The `simplevis::gg_density_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_density` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -596,9 +602,9 @@ gg_density_facet <- function(data,
   return(plot)
 }
 
-#' @title Density ggplot that is coloured and facetted.
+#' @title DEPRECATED. Density ggplot that is coloured and facetted.
 #' 
-#' @description Density ggplot that is coloured and facetted.
+#' @description DEPRECATED. Density ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be transformed to density statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour density areas. Required input.
@@ -704,6 +710,8 @@ gg_density_col_facet <- function(data,
                                  model_kernel = "gaussian",
                                  model_n = 512,
                                  model_trim = FALSE) {
+  
+  warning( "The `simplevis::gg_density_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_density` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

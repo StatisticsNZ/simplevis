@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_histogram.R
 \name{gg_histogram_col_facet}
 \alias{gg_histogram_col_facet}
-\title{Histogram ggplot that is coloured and facetted.}
+\title{DEPRECATED. Histogram ggplot that is coloured and facetted.}
 \usage{
 gg_histogram_col_facet(
   data,
@@ -129,7 +129,7 @@ gg_histogram_col_facet(
 A ggplot object.
 }
 \description{
-Histogram ggplot that is coloured and facetted.
+DEPRECATED. Histogram ggplot that is coloured and facetted.
 }
 \examples{
 library(simplevis)

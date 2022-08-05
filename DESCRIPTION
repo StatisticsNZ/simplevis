@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Wrappers to Simplify Beautiful 'ggplot2' and 'leaflet' Visualisation
-Version: 6.3.0
+Version: 6.4.0
 Authors@R: 
     c(person(given = "David",
              family = "Hodge",
@@ -65,4 +65,4 @@ Suggests:
     tibble,
     tidytext
 VignetteBuilder: knitr
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1

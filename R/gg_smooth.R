@@ -1,6 +1,6 @@
-#' @title Smoothed ggplot.
+#' @title DEPRECATED. Smoothed ggplot.
 #' 
-#' @description Smoothed ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Smoothed ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -90,6 +90,8 @@ gg_smooth <- function(data,
                       model_span = 0.75, 
                       model_n = 80,
                       mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_smooth` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_smooth` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -202,9 +204,9 @@ gg_smooth <- function(data,
   return(plot)
 }
 
-#' @title Smoothed ggplot that is coloured.
+#' @title DEPRECATED. Smoothed ggplot that is coloured.
 #' 
-#' @description Smoothed ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Smoothed ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -310,6 +312,8 @@ gg_smooth_col <- function(data,
                           model_span = 0.75, 
                           model_n = 80,
                           mobile = FALSE){
+  
+  warning( "The `simplevis::gg_smooth_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_smooth` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -471,9 +475,9 @@ gg_smooth_col <- function(data,
   return(plot)
 }
 
-#' @title Smoothed ggplot that is facetted.
+#' @title DEPRECATED. Smoothed ggplot that is facetted.
 #' 
-#' @description Smoothed ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Smoothed ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -576,6 +580,8 @@ gg_smooth_facet <- function(data,
                             model_level = 0.95,
                             model_span = 0.75, 
                             model_n = 80) {
+  
+  warning( "The `simplevis::gg_smooth_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_smooth` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -703,9 +709,9 @@ gg_smooth_facet <- function(data,
   return(plot)
 }
 
-#' @title Smoothed ggplot that is coloured and facetted.
+#' @title DEPRECATED. Smoothed ggplot that is coloured and facetted.
 #' 
-#' @description Smoothed ggplot that is coloured and facetted.
+#' @description DEPRECATED. Smoothed ggplot that is coloured and facetted.
 #' @param data A data frame in a structure for points to be plotted untransformed, and a modelled line and ribbon to plotted based on this data. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -827,6 +833,8 @@ gg_smooth_col_facet <- function(data,
                                 model_level = 0.95,
                                 model_span = 0.75, 
                                 model_n = 80) {
+  
+  warning( "The `simplevis::gg_smooth_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_smooth` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

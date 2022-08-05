@@ -1,6 +1,6 @@
-#' @title Line ggplot.
+#' @title DEPRECATED. Line ggplot.
 #' 
-#' @description Line ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Line ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -88,6 +88,8 @@ gg_line <- function(data,
                     caption_wrap = 80,
                     theme = gg_theme(y_grid = TRUE),
                     mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_line` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_line` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -243,9 +245,9 @@ gg_line <- function(data,
   return(plot)
 }
 
-#' @title Line ggplot that is coloured.
+#' @title DEPRECATED. Line ggplot that is coloured.
 #' 
-#' @description Line ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Line ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -350,6 +352,8 @@ gg_line_col <- function(data,
                         caption_wrap = 80,
                         theme = gg_theme(y_grid = TRUE),
                         mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_line_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_line` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -554,9 +558,9 @@ gg_line_col <- function(data,
   return(plot)
 }
 
-#' @title Line ggplot that is facetted.
+#' @title DEPRECATED. Line ggplot that is facetted.
 #' 
-#' @description Line ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Line ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -656,6 +660,8 @@ gg_line_facet <- function(data,
                           caption = NULL,
                           caption_wrap = 80,
                           theme = gg_theme(y_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_line_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_line` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -821,9 +827,9 @@ gg_line_facet <- function(data,
   return(plot)
 }
 
-#' @title Line ggplot that is coloured and facetted.
+#' @title DEPRECATED. Line ggplot that is coloured and facetted.
 #' 
-#' @description Line ggplot that is coloured and facetted.
+#' @description DEPRECATED. Line ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale. Required input.
@@ -941,6 +947,8 @@ gg_line_col_facet <- function(data,
                               caption = NULL,
                               caption_wrap = 80,
                               theme = gg_theme(y_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_line_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_line` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

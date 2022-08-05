@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_point.R
 \name{gg_point_col}
 \alias{gg_point_col}
-\title{Point ggplot that is coloured.}
+\title{DEPRECATED. Point ggplot that is coloured.}
 \usage{
 gg_point_col(
   data,
@@ -153,7 +153,7 @@ gg_point_col(
 A ggplot object.
 }
 \description{
-Point ggplot that is coloured, but not facetted.
+DEPRECATED. Point ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

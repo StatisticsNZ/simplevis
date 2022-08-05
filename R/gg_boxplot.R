@@ -1,6 +1,6 @@
-#' @title Boxplot ggplot.
+#' @title DEPRECATED. Boxplot ggplot.
 #' 
-#' @description Boxplot ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Boxplot ggplot that is not coloured and not facetted.
 #' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
@@ -110,6 +110,8 @@ gg_boxplot <- function(data,
                        ymax_var = NULL,
                        theme = gg_theme(y_grid = TRUE),
                        mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_boxplot` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -267,9 +269,9 @@ gg_boxplot <- function(data,
   return(plot)
 }
 
-#' @title Boxplot ggplot that is coloured.
+#' @title DEPRECATED. Boxplot ggplot that is coloured.
 #' 
-#' @description Boxplot ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Boxplot ggplot that is coloured, but not facetted.
 #' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
@@ -409,6 +411,8 @@ gg_boxplot_col <- function(data,
                            yupper_var = NULL,
                            ymax_var = NULL,
                            mobile = FALSE) {
+
+  warning( "The `simplevis::gg_boxplot_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -620,9 +624,9 @@ gg_boxplot_col <- function(data,
   return(plot)
 }
 
-#' @title Boxplot ggplot that is facetted.
+#' @title DEPRECATED. Boxplot ggplot that is facetted.
 #' 
-#' @description Boxplot ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Boxplot ggplot that is facetted, but not coloured.
 #' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
@@ -724,6 +728,8 @@ gg_boxplot_facet <- function(data,
                              ymiddle_var = NULL,
                              yupper_var = NULL,
                              ymax_var = NULL) {
+  
+  warning( "The `simplevis::gg_boxplot_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -896,9 +902,9 @@ gg_boxplot_facet <- function(data,
   return(plot)
 }
 
-#' @title Boxplot ggplot that is coloured and facetted.
+#' @title DEPRECATED. Boxplot ggplot that is coloured and facetted.
 #' 
-#' @description Boxplot ggplot that is coloured and facetted.
+#' @description DEPRECATED. Boxplot ggplot that is coloured and facetted.
 #' @param data A data frame generally in a structure to be transformed to boxplot statistics (or alternatively in a structure of summary boxplot statistics). Required input.
 #' @param x_var Unquoted categorical variable to be on the x scale (i.e. character, factor, logical). Required input.
 #' @param y_var Unquoted numeric variable to be on the y scale for when stat = "boxplot" is selected. 
@@ -1024,6 +1030,8 @@ gg_boxplot_col_facet <- function(data,
                                  ymiddle_var = NULL,
                                  yupper_var = NULL,
                                  ymax_var = NULL) {
+  
+  warning( "The `simplevis::gg_boxplot_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_boxplot` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

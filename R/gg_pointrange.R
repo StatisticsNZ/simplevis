@@ -1,6 +1,6 @@
-#' @title Pointrange ggplot.
+#' @title DEPRECATED. Pointrange ggplot.
 #' 
-#' @description Pointrange ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Pointrange ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable for the point on the y scale. Required input.
@@ -99,6 +99,8 @@ gg_pointrange <- function(data,
                     caption_wrap = 80,
                     theme = gg_theme(y_grid = TRUE),
                     mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_pointrange` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -257,9 +259,9 @@ gg_pointrange <- function(data,
   return(plot)
 }
 
-#' @title Pointrange ggplot that is coloured.
+#' @title DEPRECATED. Pointrange ggplot that is coloured.
 #' 
-#' @description Pointrange ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Pointrange ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable for the point on the y scale. Required input.
@@ -390,6 +392,8 @@ gg_pointrange_col <- function(data,
                         theme = gg_theme(y_grid = TRUE),
                         mobile = FALSE) {
   
+  warning( "The `simplevis::gg_pointrange_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
+
   #ungroup
   data <- dplyr::ungroup(data)
   
@@ -697,9 +701,9 @@ gg_pointrange_col <- function(data,
   return(plot)
 }
 
-#' @title Pointrange ggplot that is facetted.
+#' @title DEPRECATED. Pointrange ggplot that is facetted.
 #' 
-#' @description Pointrange ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Pointrange ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable for the point on the y scale. Required input.
@@ -811,6 +815,8 @@ gg_pointrange_facet <- function(data,
                           caption = NULL,
                           caption_wrap = 80,
                           theme = gg_theme(y_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_pointrange_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -979,9 +985,9 @@ gg_pointrange_facet <- function(data,
   return(plot)
 }
 
-#' @title Pointrange ggplot that is coloured and facetted.
+#' @title DEPRECATED. Pointrange ggplot that is coloured and facetted.
 #' 
-#' @description Pointrange ggplot that is coloured and facetted.
+#' @description DEPRECATED. Pointrange ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or datetime). Required input.
 #' @param y_var Unquoted numeric variable for the point on the y scale. Required input.
@@ -1126,6 +1132,8 @@ gg_pointrange_col_facet <- function(data,
                               caption = NULL,
                               caption_wrap = 80,
                               theme = gg_theme(y_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_pointrange_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

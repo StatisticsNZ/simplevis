@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_boxplot.R
 \name{gg_boxplot}
 \alias{gg_boxplot}
-\title{Boxplot ggplot.}
+\title{DEPRECATED. Boxplot ggplot.}
 \usage{
 gg_boxplot(
   data,
@@ -126,7 +126,7 @@ gg_boxplot(
 A ggplot object.
 }
 \description{
-Boxplot ggplot that is not coloured and not facetted.
+DEPRECATED. Boxplot ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

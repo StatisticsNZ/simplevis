@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hpointrange.R
 \name{gg_hpointrange_col_facet}
 \alias{gg_hpointrange_col_facet}
-\title{Horizontal pointrange ggplot that is coloured and facetted.}
+\title{DEPRECATED. Horizontal pointrange ggplot that is coloured and facetted.}
 \usage{
 gg_hpointrange_col_facet(
   data,
@@ -186,7 +186,7 @@ gg_hpointrange_col_facet(
 A ggplot object.
 }
 \description{
-Horizontal pointrange ggplot that is coloured and facetted.
+DEPRECATED. Horizontal pointrange ggplot that is coloured and facetted.
 }
 \examples{
 library(dplyr)

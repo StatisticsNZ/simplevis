@@ -1,3 +1,7 @@
+# simplevis 6.4.0
+
+* Deprecated essentially all ggplot2 wrapper functions. Users should use {ggblanket} instead.
+
 # simplevis 6.3.0
 
 * Deprecated: renamed theme v_gridlines/h_gridlines arguments to x_grid/y_grid. 

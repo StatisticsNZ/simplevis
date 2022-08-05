@@ -1,6 +1,6 @@
-#' @title Quick theme for a ggplot. 
+#' @title DEPRECATED Quick theme for a ggplot. 
 #'
-#' @description Quick theme for a ggplot visualisation.
+#' @description DEPRECATED Quick theme for a ggplot visualisation. 
 #' @param font The font for all text to use. Defaults to "".
 #' @param font_title The font for the title. If NULL, inherits from font argument.
 #' @param font_subtitle The font for the subtitle. If NULL, inherits from font argument.
@@ -56,6 +56,8 @@ gg_theme <-
            gridlines_v = NULL, 
            gridlines_h = NULL,
            void = FALSE) {
+    
+    warning( "The `simplevis::gg_theme` function is deprecated as of {simplevis} 6.4.0. Please use the ggblanket::gg_theme function instead.")
     
     if (!rlang::is_null(gridlines_v)) {
       x_grid <- gridlines_v

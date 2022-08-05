@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_smooth.R
 \name{gg_smooth_facet}
 \alias{gg_smooth_facet}
-\title{Smoothed ggplot that is facetted.}
+\title{DEPRECATED. Smoothed ggplot that is facetted.}
 \usage{
 gg_smooth_facet(
   data,
@@ -147,7 +147,7 @@ gg_smooth_facet(
 A ggplot object.
 }
 \description{
-Smoothed ggplot that is facetted, but not coloured.
+DEPRECATED. Smoothed ggplot that is facetted, but not coloured.
 }
 \examples{
 library(simplevis)

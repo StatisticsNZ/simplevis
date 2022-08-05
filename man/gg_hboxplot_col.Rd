@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hboxplot.R
 \name{gg_hboxplot_col}
 \alias{gg_hboxplot_col}
-\title{Horizontal boxplot ggplot that is coloured.}
+\title{DEPRECATED. Horizontal boxplot ggplot that is coloured.}
 \usage{
 gg_hboxplot_col(
   data,
@@ -153,7 +153,7 @@ gg_hboxplot_col(
 A ggplot object.
 }
 \description{
-Horizontal boxplot ggplot that is coloured, but not facetted.
+DEPRECATED. Horizontal boxplot ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

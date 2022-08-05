@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hbar.R
 \name{gg_hbar_facet}
 \alias{gg_hbar_facet}
-\title{Horizontal bar ggplot that is facetted.}
+\title{DEPRECATED. Horizontal bar ggplot that is facetted.}
 \usage{
 gg_hbar_facet(
   data,
@@ -138,7 +138,7 @@ gg_hbar_facet(
 A ggplot object.
 }
 \description{
-Horizontal bar ggplot that is facetted, but not coloured.
+DEPRECATED. Horizontal bar ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)

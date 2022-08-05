@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_line.R
 \name{gg_line}
 \alias{gg_line}
-\title{Line ggplot.}
+\title{DEPRECATED. Line ggplot.}
 \usage{
 gg_line(
   data,
@@ -120,7 +120,7 @@ gg_line(
 A ggplot object.
 }
 \description{
-Line ggplot that is not coloured and not facetted.
+DEPRECATED. Line ggplot that is not coloured and not facetted.
 }
 \examples{
 library(simplevis)

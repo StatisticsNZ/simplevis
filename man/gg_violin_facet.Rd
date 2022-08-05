@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_violin.R
 \name{gg_violin_facet}
 \alias{gg_violin_facet}
-\title{Violin ggplot that is facetted.}
+\title{DEPREVATED. Violin ggplot that is facetted.}
 \usage{
 gg_violin_facet(
   data,
@@ -135,7 +135,7 @@ gg_violin_facet(
 A ggplot object.
 }
 \description{
-Violin ggplot that is facetted, but not coloured.
+DEPREVATED. Violin ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)

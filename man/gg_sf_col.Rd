@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_sf.R
 \name{gg_sf_col}
 \alias{gg_sf_col}
-\title{Simple feature ggplot map that is coloured.}
+\title{DEPRECATED. Simple feature ggplot map that is coloured.}
 \usage{
 gg_sf_col(
   data,

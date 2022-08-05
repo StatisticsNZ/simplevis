@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_theme.R
 \name{gg_theme}
 \alias{gg_theme}
-\title{Quick theme for a ggplot.}
+\title{DEPRECATED Quick theme for a ggplot.}
 \usage{
 gg_theme(
   font = "",
@@ -87,5 +87,5 @@ gg_theme(
 A ggplot theme.
 }
 \description{
-Quick theme for a ggplot visualisation.
+DEPRECATED Quick theme for a ggplot visualisation.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_bar.R
 \name{gg_bar_facet}
 \alias{gg_bar_facet}
-\title{Bar ggplot that is facetted.}
+\title{DEPRECATED. Bar ggplot that is facetted.}
 \usage{
 gg_bar_facet(
   data,
@@ -138,7 +138,7 @@ gg_bar_facet(
 A ggplot object.
 }
 \description{
-Bar ggplot that is facetted, but not coloured.
+DEPRECATED. Bar ggplot that is facetted, but not coloured.
 }
 \examples{
 library(dplyr)

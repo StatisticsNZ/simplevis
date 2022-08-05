@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_tile.R
 \name{gg_tile_col}
 \alias{gg_tile_col}
-\title{Tile ggplot that is coloured.}
+\title{DEPRECATED. Tile ggplot that is coloured.}
 \usage{
 gg_tile_col(
   data,
@@ -147,7 +147,7 @@ gg_tile_col(
 A ggplot object.
 }
 \description{
-Tile ggplot that is coloured, but not facetted.
+DEPRECATED. Tile ggplot that is coloured, but not facetted.
 }
 \examples{
 library(simplevis)

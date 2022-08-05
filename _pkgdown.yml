@@ -32,18 +32,8 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: Colour
-        href: articles/colour.html
-      - text: Ggplotly
-        href: articles/ggplotly.html
       - text: Leaflet
         href: articles/leaflet.html
-      - text: Scales
-        href: articles/scales.html
-      - text: Shiny
-        href: articles/shiny.html
-      - text: Themes
-        href: articles/themes.html
 
 reference:
 - title: All functions
@@ -132,11 +122,6 @@ articles:
 - title: All vignettes
   desc: ~
   contents:
-  - '`colour`'
-  - '`ggplotly`'
   - '`leaflet`'
-  - '`scales`'
-  - '`shiny`'
   - '`simplevis`'
-  - '`themes`'
 

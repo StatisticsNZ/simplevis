@@ -1,6 +1,6 @@
-#' @title Horizontal pointrange ggplot.
+#' @title DEPRECATED. Horizontal pointrange ggplot.
 #' 
-#' @description Horizontal pointrange ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Horizontal pointrange ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
@@ -100,6 +100,8 @@ gg_hpointrange <- function(data,
                     caption_wrap = 75,
                     theme = gg_theme(x_grid = TRUE),
                     mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_pointrange` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -258,9 +260,9 @@ gg_hpointrange <- function(data,
   return(plot)
 }
 
-#' @title Horizontal pointrange ggplot that is coloured.
+#' @title DEPRECATED. Horizontal pointrange ggplot that is coloured.
 #' 
-#' @description Horizontal pointrange ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Horizontal pointrange ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
@@ -390,6 +392,8 @@ gg_hpointrange_col <- function(data,
                         caption_wrap = 75,
                         theme = gg_theme(x_grid = TRUE),
                         mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_pointrange_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -688,9 +692,9 @@ gg_hpointrange_col <- function(data,
   return(plot)
 }
 
-#' @title Horizontal pointrange ggplot that is facetted.
+#' @title DEPRECATED. Horizontal pointrange ggplot that is facetted.
 #' 
-#' @description Horizontal pointrange ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Horizontal pointrange ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
@@ -803,6 +807,8 @@ gg_hpointrange_facet <- function(data,
                           caption = NULL,
                           caption_wrap = 75,
                           theme = gg_theme(x_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_pointrange_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -971,9 +977,9 @@ gg_hpointrange_facet <- function(data,
   return(plot)
 }
 
-#' @title Horizontal pointrange ggplot that is coloured and facetted.
+#' @title DEPRECATED. Horizontal pointrange ggplot that is coloured and facetted.
 #' 
-#' @description Horizontal pointrange ggplot that is coloured and facetted.
+#' @description DEPRECATED. Horizontal pointrange ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable for the point on the x scale. Required input.
 #' @param xmin_var Unquoted numeric variable to be the minimum of the x vertical line. Required input.
@@ -1119,6 +1125,8 @@ gg_hpointrange_col_facet <- function(data,
                               caption = NULL,
                               caption_wrap = 75,
                               theme = gg_theme(x_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_pointrange_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_pointrange` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

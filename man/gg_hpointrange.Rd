@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hpointrange.R
 \name{gg_hpointrange}
 \alias{gg_hpointrange}
-\title{Horizontal pointrange ggplot.}
+\title{DEPRECATED. Horizontal pointrange ggplot.}
 \usage{
 gg_hpointrange(
   data,
@@ -126,7 +126,7 @@ gg_hpointrange(
 A ggplot object.
 }
 \description{
-Horizontal pointrange ggplot that is not coloured and not facetted.
+DEPRECATED. Horizontal pointrange ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hbar.R
 \name{gg_hbar}
 \alias{gg_hbar}
-\title{Horizontal bar ggplot.}
+\title{DEPRECATED. Horizontal bar ggplot.}
 \usage{
 gg_hbar(
   data,
@@ -123,7 +123,7 @@ gg_hbar(
 A ggplot object.
 }
 \description{
-Horizontal bar ggplot that is not coloured and not facetted.
+DEPRECATED. Horizontal bar ggplot that is not coloured and not facetted.
 }
 \examples{
 library(dplyr)

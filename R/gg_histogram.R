@@ -1,6 +1,6 @@
-#' @title Histogram ggplot.
+#' @title DEPRECATED. Histogram ggplot.
 #' 
-#' @description Histogram ggplot that is not coloured and not facetted.
+#' @description DEPRECATED. Histogram ggplot that is not coloured and not facetted.
 #' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param pal Character vector of hex codes. 
@@ -61,6 +61,8 @@ gg_histogram <- function(data,
                        caption_wrap = 80,
                        theme = gg_theme(y_grid = TRUE),
                        mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_histogram` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_histogram` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -149,9 +151,9 @@ gg_histogram <- function(data,
   return(plot)
 }
 
-#' @title Histogram ggplot that is coloured.
+#' @title DEPRECATED. Histogram ggplot that is coloured.
 #' 
-#' @description Histogram ggplot that is coloured, but not facetted.
+#' @description DEPRECATED. Histogram ggplot that is coloured, but not facetted.
 #' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour histogram areas. Required input.
@@ -230,6 +232,8 @@ gg_histogram_col <- function(data,
                            caption_wrap = 80,
                            theme = gg_theme(y_grid = TRUE),
                            mobile = FALSE) {
+
+  warning( "The `simplevis::gg_histogram_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_histogram` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -370,9 +374,9 @@ gg_histogram_col <- function(data,
   return(plot)
 }
 
-#' @title Histogram ggplot that is facetted.
+#' @title DEPRECATED. Histogram ggplot that is facetted.
 #' 
-#' @description Histogram ggplot that is facetted, but not coloured.
+#' @description DEPRECATED. Histogram ggplot that is facetted, but not coloured.
 #' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param facet_var Unquoted categorical variable to facet the data by. Required input.
@@ -447,6 +451,8 @@ gg_histogram_facet <- function(data,
                              caption_wrap = 80,
                              theme = gg_theme(y_grid = TRUE)
                              ) {
+  
+  warning( "The `simplevis::gg_histogram_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_histogram` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -545,9 +551,9 @@ gg_histogram_facet <- function(data,
   return(plot)
 }
 
-#' @title Histogram ggplot that is coloured and facetted.
+#' @title DEPRECATED. Histogram ggplot that is coloured and facetted.
 #' 
-#' @description Histogram ggplot that is coloured and facetted.
+#' @description DEPRECATED. Histogram ggplot that is coloured and facetted.
 #' @param data A data frame in a structure to be transformed to histogram statistics. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param col_var Unquoted categorical variable to colour histogram areas. Required input.
@@ -640,6 +646,8 @@ gg_histogram_col_facet <- function(data,
                                  caption_wrap = 80, 
                                  theme = gg_theme(y_grid = TRUE)
                                  ) {
+  
+  warning( "The `simplevis::gg_histogram_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_histogram` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

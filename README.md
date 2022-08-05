@@ -8,9 +8,13 @@
 
 # simplevis
 
+### {simplevis} ggplot2 functions are soft-deprecated!
+
+As of {simplevis} 6.4, essentially all ggplot2 wrapper functions in {simplevis} soft deprecated. Users should not rely on these, and use the  [{ggblanket}](https://github.com/davidhodge931/ggblanket) package instead.
+
 ### Purpose
 
-{simplevis} is a package of [{ggplot2}](https://ggplot2.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/leaflet/) wrapper functions that aims to to simplify beautiful {ggplot2} and {leaflet} visualisation. This is the precursor package to the [{ggblanket}](https://github.com/davidhodge931/ggblanket) package.
+{simplevis} is a package of [{ggplot2}](https://ggplot2.tidyverse.org/) and [{leaflet}](https://rstudio.github.io/leaflet/) wrapper functions that aims to to simplify beautiful {ggplot2} and {leaflet} visualisation. 
 
 ### Installation
 

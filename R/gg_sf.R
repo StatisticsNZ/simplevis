@@ -1,4 +1,4 @@
-#' @title Simple feature ggplot map.
+#' @title DEPRECATED. Simple feature ggplot map.
 #' 
 #' @description Map of simple features in ggplot that is not coloured and not facetted. 
 #' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
@@ -50,6 +50,8 @@ gg_sf <- function(data,
                   theme = gg_theme(void = TRUE),
                   mobile = FALSE
 ) {
+  
+  warning( "The `simplevis::gg_sf` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_sf` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -171,7 +173,7 @@ gg_sf <- function(data,
   return(plot)
 }
 
-#' @title Simple feature ggplot map that is coloured.
+#' @title DEPRECATED. Simple feature ggplot map that is coloured.
 #' 
 #' @description Map of simple features in ggplot that is coloured, but not facetted. 
 #' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
@@ -277,6 +279,8 @@ gg_sf_col <- function(data,
                       theme = gg_theme(void = TRUE),
                       mobile = FALSE
 ) {
+  
+  warning( "The `simplevis::gg_sf_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_sf` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -603,7 +607,7 @@ gg_sf_col <- function(data,
   return(plot)
 }
 
-#' @title Simple feature ggplot map that is facetted.
+#' @title DEPRECATED. Simple feature ggplot map that is facetted.
 #' 
 #' @description Map of simple features in ggplot that is facetted, but not coloured. 
 #' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
@@ -667,6 +671,8 @@ gg_sf_facet <- function(data,
                         caption = NULL,
                         caption_wrap = 80,
                         theme = gg_theme(void = TRUE)) {
+  
+  warning( "The `simplevis::gg_sf_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_sf` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -805,7 +811,7 @@ gg_sf_facet <- function(data,
   return(plot)
 }
 
-#' @title Simple feature ggplot map that is coloured and facetted.
+#' @title DEPRECATED. Simple feature ggplot map that is coloured and facetted.
 #' 
 #' @description Map of simple features in ggplot that is coloured and facetted. 
 #' @param data A sf object with defined coordinate reference system in a structure to be plotted untransformed. Required input.
@@ -894,6 +900,8 @@ gg_sf_col_facet <- function(data,
                             caption_wrap = 80,
                             theme = gg_theme(void = TRUE))
 {
+  
+  warning( "The `simplevis::gg_sf_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_sf` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_violin.R
 \name{gg_violin}
 \alias{gg_violin}
-\title{Violin ggplot.}
+\title{DEPREVATED. Violin ggplot.}
 \usage{
 gg_violin(
   data,
@@ -117,7 +117,7 @@ gg_violin(
 A ggplot object.
 }
 \description{
-Violin ggplot that is not coloured and not facetted.
+DEPREVATED. Violin ggplot that is not coloured and not facetted.
 }
 \examples{
 library(simplevis)

@@ -1,5 +1,5 @@
-#' @title Horizontal bar ggplot.
-#' @description Horizontal bar ggplot that is not coloured and not facetted.
+#' @title DEPRECATED. Horizontal bar ggplot.
+#' @description DEPRECATED. Horizontal bar ggplot that is not coloured and not facetted.
 #' @param data An ungrouped summarised tibble or data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -90,6 +90,8 @@ gg_hbar <- function(data,
                     caption_wrap = 75,
                     theme = gg_theme(x_grid = TRUE),
                     mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_hbar` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -266,8 +268,8 @@ gg_hbar <- function(data,
   return(plot)
 }
 
-#' @title Horizontal bar ggplot that is coloured.
-#' @description Horizontal bar ggplot that is coloured, but not facetted.
+#' @title DEPRECATED. Horizontal bar ggplot that is coloured.
+#' @description DEPRECATED. Horizontal bar ggplot that is coloured, but not facetted.
 #' @param data An ungrouped summarised tibble or data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -394,6 +396,8 @@ gg_hbar_col <- function(data,
                         caption_wrap = 75,
                         theme = gg_theme(x_grid = TRUE),
                         mobile = FALSE) {
+  
+  warning( "The `simplevis::gg_hbar_col` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -727,8 +731,8 @@ gg_hbar_col <- function(data,
   return(plot)
 }
 
-#' @title Horizontal bar ggplot that is facetted.
-#' @description Horizontal bar ggplot that is facetted, but not coloured.
+#' @title DEPRECATED. Horizontal bar ggplot that is facetted.
+#' @description DEPRECATED. Horizontal bar ggplot that is facetted, but not coloured.
 #' @param data An ungrouped summarised tibble or data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -830,6 +834,8 @@ gg_hbar_facet <- function(data,
                           caption = NULL,
                           caption_wrap = 75,
                           theme = gg_theme(x_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_hbar_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)
@@ -1005,8 +1011,8 @@ gg_hbar_facet <- function(data,
   return(plot)
 }
 
-#' @title Horizontal bar ggplot that is coloured and facetted.
-#' @description Horizontal bar ggplot that is coloured and facetted.
+#' @title DEPRECATED. Horizontal bar ggplot that is coloured and facetted.
+#' @description DEPRECATED. Horizontal bar ggplot that is coloured and facetted.
 #' @param data An ungrouped summarised tibble or data frame in a structure to be plotted untransformed. Required input.
 #' @param x_var Unquoted numeric variable to be on the x scale. Required input.
 #' @param y_var Unquoted variable to be on the y scale (i.e. character, factor, logical, numeric, date or datetime). If numeric, date or datetime, variable values are bins that are mutually exclusive and equidistant. Required input.
@@ -1137,6 +1143,8 @@ gg_hbar_col_facet <- function(data,
                               caption = NULL,
                               caption_wrap = 75,
                               theme = gg_theme(x_grid = TRUE)) {
+  
+  warning( "The `simplevis::gg_hbar_col_facet` function is deprecated as of {simplevis} 6.4.0. Please use the `ggblanket::gg_col` function instead.")
   
   #ungroup
   data <- dplyr::ungroup(data)

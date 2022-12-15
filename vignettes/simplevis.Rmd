@@ -410,6 +410,8 @@ Below illustrates how to customise titles and control labels through all possibl
 
 ```{r}
 plot_data <- storms %>%
+  filter(status %in% c("hurricane", "tropical depression", "tropical storm")) %>%
+  mutate(status = forcats::fct_drop(status)) %>%
   group_by(year, status) %>%
   summarise(wind = mean(wind))
 

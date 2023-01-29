@@ -13,7 +13,4 @@ example_borders
 \description{
 Example sf object of the New Zealand coastline used to demonstrate adding borders to maps.
 }
-\examples{
-gg_sf_col(example_point, col_var = trend_category, borders = example_borders)
-}
 \keyword{datasets}

@@ -1,3 +1,7 @@
+# simplevis 7.0.0
+
+* Removed all ggplot2 wrapper functions. Users should use {ggblanket} instead.
+
 # simplevis 6.4.0
 
 * Deprecated essentially all ggplot2 wrapper functions. Users should use {ggblanket} instead.

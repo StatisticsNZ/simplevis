@@ -13,8 +13,4 @@ example_stars
 \description{
 Example stars object.
 }
-\examples{
-library(stars)
-gg_stars_col(example_stars, col_var = nitrate, borders = example_borders)
-}
 \keyword{datasets}

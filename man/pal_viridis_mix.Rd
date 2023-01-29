@@ -15,6 +15,4 @@ A character vector of hex codes.
 \description{
 A function to retreive a vector of hex codes for a numeric (or ordererd) variable.
 }
-\examples{
-scales::show_col(pal_viridis_mix(9)) 
-}
+\keyword{internal}

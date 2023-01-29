@@ -15,6 +15,4 @@ A character vector.
 \description{
 A function to retreive a hex code for a colour to use for NA values.
 }
-\examples{
-scales::show_col(pal_na()) 
-}
+\keyword{internal}

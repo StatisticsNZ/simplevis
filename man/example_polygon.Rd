@@ -13,7 +13,4 @@ example_polygon
 \description{
 Example sf polygon object.
 }
-\examples{
-gg_sf_col(example_polygon, col_var = density, borders = example_borders)
-}
 \keyword{datasets}

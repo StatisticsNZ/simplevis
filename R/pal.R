@@ -5,14 +5,12 @@
 #' @param n The number of colours (excluding an NA colour).
 #' 
 #' @return A character vector of hex codes.
-#' @export
-#' @examples 
-#' scales::show_col(pal_d3_mix(9)) 
+#' @keywords internal
+#' 
 pal_d3_mix <- function(n) {
   
   c("#17BECF", "#BCBD22", "#8C564B", "#E377C2", "#1F77B4", "#FF7F0E", "#2CA02C", "#9467BD", "#D62728")[1:n]
 }
-
 
 #' Viridis palette reordered.
 #' 
@@ -21,9 +19,8 @@ pal_d3_mix <- function(n) {
 #' @param n The number of colours (excluding an NA colour).
 #' 
 #' @return A character vector of hex codes.
-#' @export 
-#' @examples 
-#' scales::show_col(pal_viridis_mix(9)) 
+#' @keywords internal 
+#' 
 pal_viridis_mix <- function(n) {
   
   if(n == 1) viridis::viridis(4)[2]
@@ -38,9 +35,8 @@ pal_viridis_mix <- function(n) {
 #' @param pal The hex code or name of the NA colour. Defaults to "#7F7F7FFF".
 #'
 #' @return A character vector.
-#' @export 
-#' @examples 
-#' scales::show_col(pal_na()) 
+#' @keywords internal
+#' 
 pal_na <- function(pal = "#7F7F7F") {
   return(pal)  
 }

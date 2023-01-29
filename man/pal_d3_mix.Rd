@@ -15,6 +15,4 @@ A character vector of hex codes.
 \description{
 A function to retreive a vector of hex codes for a non-numeric (or non-ordererd) variable.
 }
-\examples{
-scales::show_col(pal_d3_mix(9)) 
-}
+\keyword{internal}

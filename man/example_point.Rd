@@ -13,7 +13,4 @@ example_point
 \description{
 Example sf point object.
 }
-\examples{
-gg_sf_col(example_point, col_var = trend_category, borders = example_borders)
-}
 \keyword{datasets}

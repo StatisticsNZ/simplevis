@@ -4,11 +4,11 @@
 \name{simplevis-package}
 \alias{simplevis}
 \alias{simplevis-package}
-\title{simplevis: Wrappers to Simplify Beautiful 'ggplot2' and 'leaflet' Visualisation}
+\title{simplevis: Wrappers to Simplify 'leaflet' Visualisation}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Wrapper functions around the amazing 'ggplot2' and 'leaflet' packages that aims to simplify beautiful 'ggplot2' and 'leaflet' visualisation. Precursor package to the 'ggblanket' package.
+Wrapper functions around the amazing 'leaflet' package that aims to simplify 'leaflet' visualisation. See the 'ggblanket' package for 'ggplot2' wrappers.
 }
 \seealso{
 Useful links:

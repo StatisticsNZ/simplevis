@@ -1,3 +1,7 @@
+# simplevis 7.1.0
+
+* Added add_tooltip function.
+
 # simplevis 7.0.0
 
 * Removed all ggplot2 wrapper functions. Users should use {ggblanket} instead.

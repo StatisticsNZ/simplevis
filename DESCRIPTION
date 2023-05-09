@@ -1,7 +1,7 @@
 Package: simplevis
 Type: Package
 Title: Wrappers to Simplify 'leaflet' Visualisation
-Version: 7.0.0
+Version: 7.1.0
 Authors@R: 
     c(person(given = "David",
              family = "Hodge",
@@ -57,6 +57,7 @@ Suggests:
     rmarkdown,
     s2,
     tibble,
-    tidytext
+    tidytext,
+    plotly
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
